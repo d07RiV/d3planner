@@ -1,0 +1,37 @@
+Simulator
+
+  e = after(frames, func, data)
+    -> func($.extend({
+         time: frames,
+         event: e,
+         // data
+       }, data);
+
+  e = on(type, func, data)
+    "damage": {
+      targets: n,
+      skill: ..,
+
+    }
+    "cast": {
+      skill: ..,
+    },
+
+  removeEvent(e)
+
+
+Buffs
+
+  (stats)
+
+  stacks
+  duration
+  maxstacks
+  multiply
+  refresh [T]
+
+  ticks
+    delay
+    func
+    data
+    combined [T]
