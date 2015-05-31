@@ -1032,9 +1032,9 @@ Simulator.initClass["wizard"] = function() {
         } else if (bufflist.indexOf(id) >= 0) {
           if (Sim.getBuff("arcanedynamo") >= 5) {
             Sim.removeBuff("arcanedynamo");
-            var result = {dmgmul: 60};
+            var result = {percent: 60};
             if (data.skill === "meteor" && data.rune === "d") {
-              result.dmgmul = 156;
+              result.percent = 156;
             }
             return result;
           }

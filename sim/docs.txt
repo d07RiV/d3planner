@@ -16,6 +16,34 @@ The current files are:
   wizard.js: defines wizard skills
   input.js: initializes the simulator with some stats for testing
 
+Important note: since normal simulations involve a lot of randomness,
+multiple runs might be required to get reliable results to compare different
+setups. Normally it takes hundreds, or even thousands, of runs to get a good
+average, which is probably going to take way too long with a Javascript
+implementation. For this reason, the simulator seeks to eliminate all random
+elements.
+
+The target (basically, the monster pack) is modeled as a circular area
+(with radius of Sim.target.radius) with several same-sized monsters distributed
+uniformly inside the circle. The caster is located at a certain distance from
+the center of the target, and all ground targeted spells are aimed at the center.
+
+For every offensive ability, the number of hits is defined as the expected number
+of targets in the impact area, which is found by solving equations and, in some
+cases, numeric integration (see damage.js for details).
+
+Effects that depend on random events, i.e. abilities that trigger on crits, can
+take the number of targets hit and multiply it by the trigger chance (i.e. crit chance,
+or proc coefficient) to calculate the number of procs.
+
+Effects that can only have binary outcomes can either use thresholding (i.e. Nilfurs
+Boast triggers if number of hits is less than or equal to 3), or use Sim.random
+function (i.e. various chances to stun or freeze).
+
+For target debuffs, the simulator does not track the buffs on individual monsters, instead
+all effects are considered to affect all monsters at the same time, which should be good
+enough most of the time. As a result, everything uses the same Buff system.
+
 --[[ sim.js ]]--
 
 Sim.extend(...)
@@ -165,6 +193,13 @@ Sim.damage(options)
 
 --[[ buffs.js ]]--
 All kinds of dots/channeling skills are implemented via buffs.
+Status effects on enemies (i.e. chilled or frozen) use special handling.
+Buffs with ID equal to the status type will ignore the `stats' argument,
+so calling Sim.addBuff("frozen",null,60) means applying a freeze effect for
+1 second. Crowd control reduction is applied automatically for effects subject
+to it. If you need to apply stat-boosting buffs that are subject to CC reduction
+(i.e. Frost Nova: Bone Chill), use a different ID and specify the status field
+in params: Sim.addBuff("frostnova", {dmgtaken: 33}, {duration: 120, status: "frozen"}).
 
 Sim.addBuff(id, stats, params)
   Generic function for adding buffs.
@@ -185,6 +220,7 @@ Sim.addBuff(id, stats, params)
       individual event handlers/tick rates etc.
     multiply: default=true, meaing that stats are multiplied by the number of
       stacks.
+    status: status effect (i.e. chilled, frozen) to apply. See explanation above.
     tickrate: number of frames between ticks. Can be modified in the ontick handler
       (accessed via data.buff.params.tickrate). The last tick will not occur
       on the same frame when the buff expires.
@@ -232,6 +268,18 @@ Sim.spendResource(amount, type)
   Spend resource, factoring in RCR.
   type defaults to primary resource.
 
+Sim.buffNextCast(data)
+  Applies an effect to the next spell cast (optionally filtered by element type).
+  Possible fields of the data object:
+    elem: element to filter by
+    dibs: additional additive buffs
+    factor: multiplicative factor
+    percent: same as factor, but expressed as percentage
+    chc: extra crit chance (percent)
+    chd: extra crit damage (percent)
+  For more advanced filtering, register an oncast event handler and return the data
+  object for applicable skills.
+
 Sim.canCast(id[, rune])
   Check if we can cast the specified skill. Checks cooldown/resources, and additional
   conditions (such as Archon buff for Archon abilities).
@@ -239,4 +287,6 @@ Sim.canCast(id[, rune])
 
 Sim.cast(id[, rune])
   Cast a skill!
+  Checks conditions before actually casting the skill, then considers one-time buffs
+  specified with Sim.buffNextCast or oncast handlers.
   Rune defaults to whatever is set in Sim.stats.skills.
