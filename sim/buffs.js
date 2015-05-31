@@ -66,7 +66,7 @@
   var dr_start, dr_end;
   function drUpdate() {
     if (dr_start !== undefined) {
-      dr_accum = Math.min(6 * (Sim.target.dr_max || 0), dr_accum + Sim.time - dr_start);
+      dr_accum = Math.min(6 * (Sim.target.maxdr || 0), dr_accum + Sim.time - dr_start);
       dr_start = undefined;
     }
     if (dr_end !== undefined) {
@@ -174,7 +174,7 @@
       stats[params.status] = 1;
       if (this.statusBuffs[params.status].dr) {
         params.duration = Math.floor((params.duration || 60) * drUpdate());
-        if (Sim.target.mincc && params.duration < Sim.target.mincc) {
+        if (Sim.target.mincc && params.duration < Sim.target.mincc * 60) {
           return;
         }
         dr_start = this.time;
@@ -305,7 +305,7 @@
       return (buff.time ? buff.time - this.time : true);
     } else {
       if (!buff.stacks) return false;
-      var stack = buff.stacklist[(buff.stackstart + buff.stacks - 1) % buff.params.maxstacks];
+      var stack = buff.stacklist[buff.stackstart];
       return (stack.time ? stack.time - this.time : true);
     }
   };

@@ -143,12 +143,14 @@
     chc = Math.min(1, 0.01 * chc);
     chd *= 0.01;
 
+    var skilldmg = 0;
     if (data.skill) {
-      dibs += (stats["skill_" + Sim.stats.charClass + "_" + data.skill] || 0);
+      skilldmg = (stats["skill_" + Sim.stats.charClass + "_" + data.skill] || 0);
     }
     if (data.pet) {
-      factor *= 1 + 0.01 * dibs;
-      dibs = 0;
+      factor *= 1 + 0.01 * skilldmg;
+    } else {
+      dibs += skilldmg;
     }
 
     var elem = (data.elem === "max" ? stats.info.maxelem : data.elem);

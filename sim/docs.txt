@@ -1,37 +1,242 @@
-Simulator
+Most functions are located in the global Simulator object,
+internally referenced as Sim.
 
-  e = after(frames, func, data)
-    -> func($.extend({
-         time: frames,
-         event: e,
-         // data
-       }, data);
+test.html is intended for testing the simulator, and includes all
+scripts necessary to run it. Ultimately, the simulator will be
+minified/concatenated as a single script, loaded as a webworker
+(thus it must have no dependencies on the outside code).
 
-  e = on(type, func, data)
-    "damage": {
-      targets: n,
-      skill: ..,
+The current files are:
+  sim.js: core functionality
+  heap.js: priority queue implementation (internal use in sim.js)
+  stats.js: stats object (handles stat calculations)
+  damage.js: handles damage calculations
+  buffs.js: handles dynamic buffs
+  cast.js: handles spell casting, cooldown/resource management
+  wizard.js: defines wizard skills
+  input.js: initializes the simulator with some stats for testing
 
-    }
-    "cast": {
-      skill: ..,
-    },
+--[[ sim.js ]]--
 
-  removeEvent(e)
+Sim.extend(...)
+  Clone/extend an object, similar to jQuery.extend
 
+Sim.record(source, amount)
+  Record damage done (raw implementation)
 
-Buffs
+Sim.after(frames, func, data)
+  Call `func' after `frames' frames.
+  Returns the new event object.
+  `func' will be called with `data' object as the only argument, which
+  will have the following fields in addition to the initial ones:
+    time: current simulation frame
+    event: the event object
 
-  (stats)
+Sim.removeEvent(event)
+  Cancels the event created by Sim.after()
 
-  stacks
-  duration
-  maxstacks
-  multiply
-  refresh [T]
+Sim.register(event, func, data)
+  Register a global event handler. The callback function will
+  be called with an event object as the only argument, which
+  will depend on the event type (as defined in Sim.trigger).
+  In addition, it will have the following fields:
+    time: current simulation time
+    data: the `data' argument passed to Sim.register
 
-  ticks
-    delay
-    func
-    data
-    combined [T]
+Sim.unregister(event, func)
+  Remove a global event handler
+
+Sim.trigger(event, data)
+  Trigger all global handlers for a given event type.
+  All handlers will be called with `data' as the argument, with
+  some additional fields added to it (see Sim.register).
+  Returns an array of values returned by the handlers.
+
+Sim.init(stats, target, params)
+  Initializes the simulator with data from D3Planner core.
+  stats: base stats object
+  target: target information, an object with the following fields:
+    elite: true/false
+    distance: player distance from the center of the monster group
+    radius: monster spread radius (max mob distance from the center)
+    size: monster size
+    count: number of monsters
+    maxdr: maximum diminishing returns on CC (i.e. 70 for bosses)
+    mincc: minimum duration of CC effects in seconds (i.e. 0.85
+      for bosses)
+
+Sim.run(iter)
+  Runs the simulation for `iter' iterations.
+
+Sim.random(id, chance)
+  Pseudo random number generator. Returns true once the
+  accumulated chance is high enough. Use when a binary outcome
+  is required.
+
+Sim.pushCastInfo(info)
+Sim.popCastInfo()
+Sim.castInfo()
+  Internal functions used to track the current spell instance
+
+--[[ stats.js ]]--
+
+Sim.stats
+  Holds the current stats. Do not modify these directly - use
+  buffs instead.
+
+  Most stats are in the object root.
+  Legendary effects are stored as leg_lowercaseitemname, i.e.
+  leg_nilfursboast (value 150..200).
+  Set bonuses are stored as set_setname_#pc, i.e. set_talrasha_6pc.
+
+triggers: event="updatestats", data = {stats: ...}
+  Triggers when new stats are being calculated, after applying all buffs,
+  just before the final calculations. Register handlers for buffs
+  that depend on other stats (i.e. Cold Blooded)
+
+--[[ damage.js ]]--
+
+Sim.damage(options)
+  Anything damage-related should use this function. Options is an object
+  with the following fields:
+
+  coeff: weapon damage coefficient
+  factor: multiplicative factor (same function as coeff)
+  dibs: extra additive buffs
+  pet: true for pet mechanics (i.e. skill damage% separate from dibs)
+    (also includes pet damage buffs from MoJ/Enforcer)
+  chc: bonus crit chance
+  chd: bonus crit damage
+  nocrit: do not use crit factor
+  weapon: which weapon to use (default - alternates)
+    "mainhand", "offhand", "current"
+
+  onhit: callback, called with the following arguments (passed as a single object):
+    targets: total number of hits
+    skill: skill id
+    proc: proc coefficient
+    damage: total damage per hit
+    elem: element
+    pet: true/false
+    castInfo: spell cast instance
+
+  elem: skill element - should be automatically set by castInfo
+  skill: original skill id - should be automatically set by castInfo
+  proc: proc coefficient - should be automatically set by castInfo for all
+    outer Sim.damage calls. This means that when Sim.damage is called from
+    inside the oncast/oninit handlers, or by using delayed events/buff events,
+    the default skill proc table will be used, but it will not carry through
+    to the onhit handler. Explicitly set this to 0 to override.
+  delay: frames before the event is actually triggered
+  count: number of casts/hits/whatever
+  targets: same as count, but automatically limited by total # of targets
+  distance: average distance from caster to the target (for Zei's)
+    the default value should be good enough
+  type: targeting type, determines additional targeting-related fields
+        sets count/targets/delay/distance before firing the default handler
+    "area": circular area
+      self: true cast at the player instead of the target center
+      origin: distance from the target center (default 0, or
+        Sim.target.distance if self is true)
+      range: aoe radius
+      spread: random spread radius (think Meteor Shower)
+      inner: minimum spread radius (used in AT: Death Blossom)
+    "cone": cone in front of the caster
+      range: cone range. Actually implemented as a circular area
+        centered range/2 units in front of the cater, with radius range/2.
+    "line": projectile/ray
+      origin: distance from target center (default Sim.target.distance)
+      radius: projectile/ray width
+      angle: angle (in degrees) from target center (think Mirrorball)
+      fan: spreads projectiles in a fan (sets `angle' attribute)
+      range: maximum range
+      pierce: true for piercing projectile/ray, false (default) to stop at
+        the first target
+      area: impact aoe (only if pierce=false)
+      speed: projectile speed (yards/frame)
+      cmod: target count modifier (i.e. -1 for secondary effects that do not
+        hit the original target)
+    "ball": slowball
+      origin: distance from target center (default Sim.target.distance)
+      radius: ball size
+      range: maximum range
+      speed: projectile speed (yards/frame)
+      rate: frames per tick
+
+--[[ buffs.js ]]--
+All kinds of dots/channeling skills are implemented via buffs.
+
+Sim.addBuff(id, stats, params)
+  Generic function for adding buffs.
+  Returns the buff id
+  id: buff id (refreshes the previous buff, see params for more detauls)
+    pass undefined/null to get a new unique id (in return value)
+  stats: object containing stats to add, pass undefined/null for stat-less
+    buffs (the majority of them).
+  params: the buff options object
+    duration: duration in frames (default - infinite)
+    stacks: stacks to add (default - 1)
+    maxstacks: max number of stacks (default - 1)
+      Do not set this to very high if you have refresh=false
+    refresh: default=true, indicating that new applications will refresh all
+      stacks. In this mode, all stacks are tracked together and do not have
+      any individual values.
+      If set to false, all stacks will have individual expiration timers, and
+      individual event handlers/tick rates etc.
+    multiply: default=true, meaing that stats are multiplied by the number of
+      stacks.
+    tickrate: number of frames between ticks. Can be modified in the ontick handler
+      (accessed via data.buff.params.tickrate). The last tick will not occur
+      on the same frame when the buff expires.
+    tickinitial: delay before the first tick (default=tickrate)
+    data: object to be passed to handlers (if refresh=false, this is separate for
+      every stack)
+    ontick: called on every tick. If refresh=false, called for every tick of every
+        stack. Arguments are the data object, with the following additional members:
+      stacks: current # of stacks
+      time: current simulation frame
+      buff: the buff object (buff.params contains the params object)
+      stack: the stack object (only if refresh=false)
+    onapply: when the buff is applied for the first time (refresh=true), or when a new
+      stack is added (refresh=false)
+    onexpire: when the buff expires (refresh=true), or when a stack expires/is overwritten
+      (refresh=false)
+    onrefresh: when the buff is re-applied (refresh=true), or when a stack is overwritten
+      (refresh=false, called before onexpire)
+
+Sim.removeBuff(id[, stacks])
+  Remove the entire buff, or some stacks
+
+Sim.getBuff(id)
+  Returns the number of stacks
+
+Sim.getBuffDuration(id)
+  Returns remaining buff duration (in frames), or duration of the first stack.
+
+Sim.refreshBuff(id, duration)
+  Refreshes buff duration (only if refresh=true)
+
+--[[ cast.js ]]--
+
+Sim.resources
+  Contains current resource amounes (key = resource name, i.e. "ap" or "hatred")
+
+Sim.addResource(amount, type)
+  Add resource. type defaults to primary resource.
+
+Sim.hasResource(amount, type)
+  Check if we have sufficient resource (after factoring in RCR).
+  type defaults to primary resource.
+
+Sim.spendResource(amount, type)
+  Spend resource, factoring in RCR.
+  type defaults to primary resource.
+
+Sim.canCast(id[, rune])
+  Check if we can cast the specified skill. Checks cooldown/resources, and additional
+  conditions (such as Archon buff for Archon abilities).
+  Rune defaults to whatever is set in Sim.stats.skills.
+
+Sim.cast(id[, rune])
+  Cast a skill!
+  Rune defaults to whatever is set in Sim.stats.skills.
