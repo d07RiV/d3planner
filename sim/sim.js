@@ -122,11 +122,14 @@
     this.trigger("init");
   };
 
-  Sim.run = function(iter) {
+  Sim.verbose = false;
+  Sim.run = function(duration, verbose) {
+    duration = (duration || 36000);
+    Sim.verbose = verbose;
     console.time("run");
     var start = this.time;
     var count = 0;
-    while (!this.eventQueue.empty() && (iter === undefined || count < iter) && this.time < start + 3600) {
+    while (!this.eventQueue.empty() && this.time < start + duration) {
       var e = this.eventQueue.pop();
       this.time = e.time;
       this.trigger("update");
@@ -139,6 +142,7 @@
       ++count;
     }
     console.timeEnd("run");
+    console.log("DPS: " + this.totalDamage / duration * 60);
   };
 
   var rngBuffer = {};
@@ -179,6 +183,8 @@
     }
     this.buckets[bucket] += amount;
     this.totalDamage += amount;
-    console.log(this.extend(true, {}, data));
+    if (this.verbose) {
+      console.log(this.extend(true, {}, data));
+    }
   });
 })();

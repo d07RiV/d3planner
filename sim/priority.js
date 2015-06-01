@@ -51,7 +51,9 @@
   function RotationStep(data) {
     var skill = RotationChoose(data);
     if (skill) {
-      console.log("[" + Sim.time + "] Casting " + skill);
+      if (Sim.verbose) {
+        console.log("[" + Sim.time + "] Casting " + skill);
+      }
       Sim.cast(skill);
       var delay = Sim.castDelay(skill);
       Sim.after(delay, RotationStep, data);
