@@ -100,7 +100,7 @@
       if (typeof amount !== "number") {
         amount = amount[0];
       }
-      if (dst[stat] !== undefined && !info.nostack) {
+      if (dst[stat] !== undefined && (!info || !info.nostack)) {
         if (info && info.dr) {
           dst[stat] = 100 - 0.01 * (100 - dst[stat]) * Math.max(0, 100 - amount * factor);
         } else {

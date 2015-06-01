@@ -116,6 +116,7 @@
 
   function _target(data) {
     var stats = Sim.stats;
+    var triggered = (data.castInfo && data.castInfo.triggered);
 
     var base = stats.info[data.weapon].wpnbase;
     var avg = (base.min + base.max) * 0.5;
@@ -124,13 +125,13 @@
     if (data.fix) {
       data.fix.call(data);
     }
-    factor *= (data.coeff || 1);
+    factor *= (data.coeff === undefined ? 1 : data.coeff);
     factor *= (data.factor || 1);
 
     var dibs = (data.dibs || 0);
     var chc = stats.final.chc + (data.chc || 0);
     var chd = stats.chd + (data.chd || 0);
-    if (data.castInfo) {
+    if (data.castInfo && data.castInfo.buffs) {
       for (var i = 0; i < data.castInfo.buffs.length; ++i) {
         var ex = data.castInfo.buffs[i];
         if (ex.dibs) dibs += ex.dibs;
@@ -143,24 +144,25 @@
     chc = Math.min(1, 0.01 * chc);
     chd *= 0.01;
 
-    var skilldmg = 0;
-    if (data.skill) {
-      skilldmg = (stats["skill_" + Sim.stats.charClass + "_" + data.skill] || 0);
-    }
-    if (data.pet) {
-      factor *= 1 + 0.01 * skilldmg;
+    var ispet = data.pet || (data.castInfo && data.castInfo.pet);
+    var prefix = "skill_" + Sim.stats.charClass + "_";
+    if (ispet) {
+      factor *= 1 + 0.01 * (stats[prefix + data.skill] || 0);
+      if (triggered && triggered !== data.skill) {
+        factor *= 1 + 0.01 * (stats[prefix + triggered] || 0);
+      }
     } else {
-      dibs += skilldmg;
+      dibs += (stats[prefix + triggered] || stats[prefix + data.skill] || 0);
     }
 
     var elem = (data.elem === "max" ? stats.info.maxelem : data.elem);
-    dibs += stats.getSpecial("damage", elem, data.pet, data.skill, data.exclude);
-    dibs += stats.getSpecial("dmgtaken", elem, data.pet, data.skill, data.exclude);
+    dibs += stats.getSpecial("damage", elem, ispet, data.skill, data.exclude);
+    dibs += stats.getSpecial("dmgtaken", elem, ispet, data.skill, data.exclude);
 
     factor *= 1 + 0.01 * dibs;
 
     var elemental = (elem && stats["dmg" + elem] || 0);
-    if (data.pet) elemental += (stats.info.petdamage || 0);
+    if (ispet) elemental += (stats.info.petdamage || 0);
     factor *= 1 + 0.01 * elemental;
 
     if (Sim.target.elite) {
@@ -170,7 +172,7 @@
       factor *= 1 + 0.01 * (stats["damage_" + Sim.target.type] || 0);
     }
 
-    var dmgmul = stats.getSpecial("dmgmul", elem, data.pet, data.skill, data.exclude);
+    var dmgmul = stats.getSpecial("dmgmul", elem, ispet, data.skill, data.exclude);
     factor *= dmgmul;
 
     if (stats.gems.zei) {
@@ -194,8 +196,9 @@
       proc: data.proc,
       damage: value,
       elem: data.elem,
-      pet: data.pet,
+      pet: ispet,
       castInfo: data.castInfo,
+      triggered: triggered,
     };
 
     if (event.proc && !event.pet) {
@@ -206,17 +209,14 @@
       data.onhit(event);
     }
 
-    value *= count;
-    Sim.record(data.source || data.skill, value);
-
-    if (!data.pet) {
+    if (!ispet) {
       if (Sim.target.area_coeff === undefined) {
         var area = Math.PI * Math.pow(Sim.target.size + 10, 2);
         Sim.target.area_coeff = (Sim.target.count - 1) * area / Sim.target.area;
       }
       if (Sim.target.area_coeff && stats.area) {
         // area dmg unaffected by multiplicative buffs?
-        Sim.record("area", value * 0.01 * stats.area * 0.2 * Sim.target.area_coeff / dmgmul);
+        Sim.record("area", value * count * 0.01 * stats.area * 0.2 * Sim.target.area_coeff / dmgmul);
       }
     }
   }

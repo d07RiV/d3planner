@@ -499,7 +499,7 @@ Simulator.initClass["wizard"] = function() {
     if (Sim.params.hydra) {
       origin = Sim.params.hydra[0][1] || origin;
     }
-    Sim.damage({type: "line", origin: origin, pierce: true, range: range, radius: 5, coeff: 0.99, pet: true});
+    Sim.damage({type: "line", origin: origin, pierce: true, range: range, radius: 5, coeff: 0.99});
   }
   function hydra_ontick(data) {
     var origin = 30;
@@ -508,19 +508,19 @@ Simulator.initClass["wizard"] = function() {
     }
     switch (data.rune) {
     case "x":
-      Sim.damage({type: "line", origin: origin, speed: 0.45, range: 50, coeff: 1.65, pet: true, count: 3});
+      Sim.damage({type: "line", origin: origin, speed: 0.45, range: 50, coeff: 1.65, count: 3});
       break;
     case "e":
-      Sim.damage({type: "line", origin: origin, speed: 1, range: 50, coeff: 2.05, area: 7.5, pet: true, count: 3});
+      Sim.damage({type: "line", origin: origin, speed: 1, range: 50, coeff: 2.05, area: 7.5, count: 3});
       break;
     case "b":
-      Sim.damage({coeff: 2.55, pet: true, count: 3});
+      Sim.damage({coeff: 2.55, count: 3});
       break;
     case "c":
-      Sim.damage({type: "line", origin: origin, speed: 1, range: 50, coeff: 1.55, area: 8, pet: true, count: 3});
+      Sim.damage({type: "line", origin: origin, speed: 1, range: 50, coeff: 1.55, area: 8, count: 3});
       break;
     case "a":
-      Sim.damage({type: "cone", origin: origin, range: 35, coeff: 2.55, pet: true, count: 3});
+      Sim.damage({type: "cone", origin: origin, range: 35, coeff: 2.55, count: 3});
       //TODO: frost nova?
       break;
     case "d":
@@ -544,6 +544,7 @@ Simulator.initClass["wizard"] = function() {
   skills.hydra = {
     speed: 56.249996,
     cost: 15,
+    pet: true,
     oncast: function(rune) {
       var speed = 
       Sim.addBuff("hydra", undefined, {
@@ -567,7 +568,7 @@ Simulator.initClass["wizard"] = function() {
     }
   }
   function meteor_ontick(data) {
-    var dmg = {type: "area", proc: skills.meteor.proctable[data.rune]};
+    var dmg = {type: "area", proc: data.proc};
     dmg.range = (data.rune === "a" ? 18 : 12);
     dmg.coeff = (data.rune === "a" ? 6.25/3 : (data.rune === "b" ? 0.7 / 2 : 2.35 / 3));
     if (data.rune === "b") {
@@ -584,7 +585,7 @@ Simulator.initClass["wizard"] = function() {
       tickrate: 60,
       tickinitial: 1,
       ontick: meteor_ontick,
-      data: {rune: rune},
+      data: {rune: rune, proc: data.proc},
     });
     if (rune === "c") {
       if (Sim.stats.chilled) Sim.addBuff("frozen", undefined, 60);
@@ -604,7 +605,9 @@ Simulator.initClass["wizard"] = function() {
       case "e": dmg = {type: "area", range: 12, coeff: 7.4}; break;
       case "d":
         dmg = {delay: 75, type: "area", range: 12, coeff: 7.4 + 0.2 * Sim.resources.ap};
-        Sim.resources.ap = 0;
+        if (!Sim.castInfo().triggered) {
+          Sim.resources.ap = 0;
+        }
         break;
       case "c": dmg = {delay: 75, type: "area", range: 12, coeff: 7.4}; break;
       case "b": dmg = {delay: 75, type: "area", range: 12, coeff: 2.77, count: 7, spread: 25}; break;
@@ -714,7 +717,7 @@ Simulator.initClass["wizard"] = function() {
     Sim.damage({targets: 3, count: data.count * data.proc, coeff: 0.61});
   }
   function mw_conduit_onhit(data) {
-    if (data.castInfo && data.castInfo.user) {
+    if (data.castInfo && data.castInfo.user && !data.castInfo.triggered) {
       var user = data.castInfo.user;
       user.conduit = (user.conduit || 0);
       if (data.targets > user.conduit) {
@@ -824,9 +827,9 @@ Simulator.initClass["wizard"] = function() {
     speed: 56.249996,
     cost: 20,
     cooldown: {x: 6, d: 6, c: 3, a: 6, b: 6, e: 6},
-    docast: function(data) {
+    oncast: function(rune) {
       var dmg = {delay: 90, type: "area", range: 12, coeff: 9.45};
-      switch (data.rune) {
+      switch (rune) {
       case "d": dmg.coeff = 14.85; break;
       case "a": dmg.delay = 6; dmg.coeff = 9.09; break;
       case "b": dmg.range = 18; dmg.coeff = 9.9; break;
@@ -836,14 +839,6 @@ Simulator.initClass["wizard"] = function() {
         Sim.damage(Sim.extend({}, dmg, {delay: 90 + 2 * delay}));
       }
       Sim.damage(dmg);
-    },
-    oncast: function(rune) {
-      this.docast({rune: rune});
-      if (Sim.stats.leg_wandofwoh) {
-        Sim.after(30, this.docast, {rune: rune});
-        Sim.after(60, this.docast, {rune: rune});
-        Sim.after(90, this.docast, {rune: rune});
-      }
     },
     elem: {x: "arc", d: "arc", c: "lit", a: "fir", b: "col", e: "fir"},
     proctable: {x: 0.04, d: 0.04, c: 0.04, a: 0.04, b: 0.025, e: 0.04 / 3},
@@ -1029,7 +1024,7 @@ Simulator.initClass["wizard"] = function() {
       Sim.register("oncast", function(data) {
         if (skills[data.skill] && skills[data.skill].signature) {
           Sim.addBuff("arcanedynamo", undefined, {maxstacks: 5});
-        } else if (bufflist.indexOf(id) >= 0) {
+        } else if (bufflist.indexOf(data.skill) >= 0) {
           if (Sim.getBuff("arcanedynamo") >= 5) {
             Sim.removeBuff("arcanedynamo");
             var result = {percent: 60};
@@ -1062,6 +1057,7 @@ Simulator.initClass["wizard"] = function() {
         if (data.elem) trigger(data.elem);
         if (Sim.stats.info.mhelement) trigger(Sim.stats.info.mhelement);
       });
+      Sim.metaBuff("elementalexposure", ["ee_fire", "ee_cold", "ee_arcane", "ee_lightning"]);
     },
   };
 

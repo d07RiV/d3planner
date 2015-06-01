@@ -21,6 +21,7 @@
   });
 
   Sim.buffs = {};
+  Sim.metaBuffs = {};
 
   function deepEquals(a, b) {
     if (a === b) return true;
@@ -144,12 +145,16 @@
 
   Sim.refreshBuff = function(id, duration) {
     var buff = this.buffs[id];
-    if (buff && buff.params.refresh) {
-      buff.time = this.time + duration;
+    if (buff && buff.params.refresh && (duration === "infinite" || (buff.time !== undefined && this.time + duration > buff.time))) {
       if (buff.events.expire) {
         this.removeEvent(buff.events.expire);
       }
-      buff.events.expire = this.after(duration, onBuffExpired, {id: id});
+      if (duration !== "infinite") {
+        buff.time = this.time + duration;
+        buff.events.expire = this.after(duration, onBuffExpired, {id: id});
+      } else {
+        delete buff.time;
+      }
     }
   };
   var uniqId = 0;
@@ -190,6 +195,7 @@
     if (!buff && !params.stacks) {
       return;
     }
+    var existed = !!buff;
     if (!buff) {
       this.buffs[id] = buff = {
         params: params,
@@ -204,16 +210,10 @@
       }
 
       buff.data = this.extend({buff: buff}, params.data);
-      if (params.onapply) {
-        params.onapply(buff.data);
-      }
     } else {
       var castInfo = this.castInfo();
       if (castInfo) {
         buff.castInfo.user = castInfo.user;
-      }
-      if (params.onrefresh) {
-        params.onrefresh(buff.data);
       }
     }
 
@@ -231,7 +231,17 @@
       if (params.tickrate && !buff.events.tick) {
         buff.events.tick = this.after(params.tickinitial || params.tickrate, onBuffTick, {buff: buff});
       }
-      this.extend(buff.data, params.data);
+      if (existed) {
+        if (params.onrefresh) {
+          params.onrefresh(buff.data, params.data);
+        } else {
+          this.extend(buff.data, params.data);
+        }
+      } else {
+        if (params.onapply) {
+          params.onapply(buff.data);
+        }
+      }
     } else {
       while (buff.stacks < oldstacks + params.stacks) {
         if (params.onrefresh) {
@@ -293,14 +303,53 @@
       }
     }
   };
+  Sim.metaBuff = function(id, list) {
+    Sim.metaBuffs[id] = list;
+  };
   Sim.getBuff = function(id) {
     var buff = this.buffs[id];
-    if (!buff) return 0;
+    if (!buff) {
+      var meta = this.metaBuffs[id];
+      if (!meta) return 0;
+      var count = 0;
+      for (var i = 0; i < meta.length; ++i) {
+        count += Sim.getBuff(meta[i]);
+      }
+      return count;
+    }
     return buff.stacks;
   };
   Sim.getBuffDuration = function(id) {
     var buff = this.buffs[id];
-    if (!buff) return false;
+    if (!buff) {
+      var meta = this.metaBuffs[id];
+      if (!meta) return 0;
+      var dura = Sim.getBuffDuration(meta[0]);;
+      for (var i = 1; i < meta.length; ++i) {
+        dura = Math.max(dura, Sim.getBuffDuration(meta[i]));
+      }
+      return dura;
+    }
+    if (buff.params.refresh) {
+      return (buff.time ? buff.time - this.time : true);
+    } else {
+      if (!buff.stacks) return false;
+      var stack = buff.stacklist[(buff.stackstart + buff.stacks - 1) % buff.params.maxstacks];
+      return (stack.time ? stack.time - this.time : true);
+    }
+  };
+  Sim.getBuffDurationLast = function(id) {
+    var buff = this.buffs[id];
+    if (!buff) {
+      var meta = this.metaBuffs[id];
+      if (!meta) return 0;
+      var dura = Sim.getBuffDuration(meta[0]);;
+      for (var i = 1; i < meta.length; ++i) {
+        dura = Math.min(dura, Sim.getBuffDuration(meta[i]));
+      }
+      return dura;
+    }
+    if (buff.stacks < buff.params.maxstacks) return 0;
     if (buff.params.refresh) {
       return (buff.time ? buff.time - this.time : true);
     } else {

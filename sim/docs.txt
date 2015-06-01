@@ -49,9 +49,6 @@ enough most of the time. As a result, everything uses the same Buff system.
 Sim.extend(...)
   Clone/extend an object, similar to jQuery.extend
 
-Sim.record(source, amount)
-  Record damage done (raw implementation)
-
 Sim.after(frames, func, data)
   Call `func' after `frames' frames.
   Returns the new event object.
@@ -92,6 +89,7 @@ Sim.init(stats, target, params)
     maxdr: maximum diminishing returns on CC (i.e. 70 for bosses)
     mincc: minimum duration of CC effects in seconds (i.e. 0.85
       for bosses)
+  params: various check box and slider values from D3Planner.
 
 Sim.run(iter)
   Runs the simulation for `iter' iterations.
@@ -238,7 +236,7 @@ Sim.addBuff(id, stats, params)
     onexpire: when the buff expires (refresh=true), or when a stack expires/is overwritten
       (refresh=false)
     onrefresh: when the buff is re-applied (refresh=true), or when a stack is overwritten
-      (refresh=false, called before onexpire)
+      (refresh=false, called before onexpire). Second argument is equal to new params.data.
 
 Sim.removeBuff(id[, stacks])
   Remove the entire buff, or some stacks

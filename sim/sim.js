@@ -2,6 +2,7 @@
   var Sim = Simulator;
 
   Sim.initClass = {};
+  Sim.affixes = {};
 
 /*  Sim.run = function() {
     var baseStats = new DC.Stats();
@@ -54,20 +55,6 @@
     return e.time;
   });
   Sim.handlers = {};
-
-  Sim.counters = {};
-  Sim.buckets = [];
-  Sim.bucket_size = 300;
-  Sim.record = function(source, amount) {
-    source = source || "unknown";
-    Sim.counters[source] = (Sim.counters[source] || 0) + amount;
-    var bucket = Math.floor(this.time / this.bucket_size);
-    while (this.buckets.length <= bucket) {
-      this.buckets.push(0);
-    }
-    this.buckets[bucket] += amount;
-    console.log("Time: " + this.time + ", source: " + source + ", damage: " + amount);
-  };
 
   Sim.after = function(frames, func, data) {
     frames = Math.ceil(frames);
@@ -136,8 +123,10 @@
   };
 
   Sim.run = function(iter) {
+    console.time("run");
+    var start = this.time;
     var count = 0;
-    while (!this.eventQueue.empty() && (iter === undefined || count < iter)) {
+    while (!this.eventQueue.empty() && (iter === undefined || count < iter) && this.time < start + 36000) {
       var e = this.eventQueue.pop();
       this.time = e.time;
       this.trigger("update");
@@ -149,6 +138,7 @@
       this.popCastInfo();
       ++count;
     }
+    console.timeEnd("run");
   };
 
   var rngBuffer = {};
@@ -173,4 +163,22 @@
       return this.castInfoStack[this.castInfoStack.length - 1];
     }
   };
+
+
+  Sim.counters = {};
+  Sim.buckets = [];
+  Sim.bucket_size = 300;
+  Sim.totalDamage = 0;
+  Sim.register("onhit", function(data) {
+    var source = (data.triggered || data.skill || "unknown");
+    var amount = data.damage * data.targets;
+    Sim.counters[source] = (Sim.counters[source] || 0) + amount;
+    var bucket = Math.floor(this.time / this.bucket_size);
+    while (this.buckets.length <= bucket) {
+      this.buckets.push(0);
+    }
+    this.buckets[bucket] += amount;
+    this.totalDamage += amount;
+    //console.log(this.extend(true, {}, data));
+  });
 })();
