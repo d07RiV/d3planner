@@ -16,7 +16,7 @@
       check: function() {
         if (Sim.getBuff("arcanedynamo") < 5) return false;
         if (Sim.getBuff("tal_6pc") < 3) return false;
-        if (Sim.getBuffDuration("restraint") < 80) return false;
+        //if (Sim.getBuffDuration("restraint") < 80) return false;
         if (Sim.getBuffDuration("tal_6pc") > 150 && Sim.resources.ap < Sim.stats.maxap * 0.95) return false;
         if (Sim.resources.ap < Sim.stats.maxap * 0.8) return false;
         return true;
@@ -32,7 +32,7 @@
     {
       skill: "blizzard",
       check: function() {
-        if (Sim.getBuff("tal_6pc_cold") && Sim.getBuffDuration("restraint") >= 80) return false;
+        if (Sim.getBuff("tal_6pc_cold")) return false;// && Sim.getBuffDuration("restraint") >= 80) return false;
         return true;
       },
     },
@@ -51,7 +51,7 @@
   function RotationStep(data) {
     var skill = RotationChoose(data);
     if (skill) {
-      //console.log("[" + Sim.time + "] Casting " + skill);
+      console.log("[" + Sim.time + "] Casting " + skill);
       Sim.cast(skill);
       var delay = Sim.castDelay(skill);
       Sim.after(delay, RotationStep, data);

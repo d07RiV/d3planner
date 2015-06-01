@@ -126,7 +126,7 @@
     console.time("run");
     var start = this.time;
     var count = 0;
-    while (!this.eventQueue.empty() && (iter === undefined || count < iter) && this.time < start + 36000) {
+    while (!this.eventQueue.empty() && (iter === undefined || count < iter) && this.time < start + 3600) {
       var e = this.eventQueue.pop();
       this.time = e.time;
       this.trigger("update");
@@ -179,6 +179,6 @@
     }
     this.buckets[bucket] += amount;
     this.totalDamage += amount;
-    //console.log(this.extend(true, {}, data));
+    console.log(this.extend(true, {}, data));
   });
 })();
