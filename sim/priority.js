@@ -34,7 +34,7 @@
     //health: makeNumeric(getResource), //TODO: fix
     //charges: makeNumeric(getResource), //TODO: fix
 
-    any: function(code) {return countConditions(code.sub) >= code.sub.length;},
+    any: function(code) {return countConditions(code.sub) >= 1;},
     all: function(code) {return countConditions(code.sub) >= code.sub.length;},
     count: function(code) {return compare[code.op](countConditions(code.sub), code.rhs);},
   };
@@ -63,7 +63,7 @@
       {type: "buff", lhs: "arcanedynamo", op: "ge", rhs: 5},
       {type: "any",
       sub: [
-        {type: "buffmin", lhs: "hydra", op: "lt", rhs: 180},
+//        {type: "buffmin", lhs: "hydra", op: "lt", rhs: 1},
         {type: "buff", lhs: "tal_6pc_fire", op: "eq", rhs: 0},
       ]},
     ]},
@@ -73,10 +73,15 @@
       {type: "buff", lhs: "tal_6pc", op: "ge", rhs: 3},
       {type: "any",
       sub: [
-        {type: "buffmax", lhs: "tal_6pc", op: "lt", rhs: 150},
+        {type: "buff", lhs: "tal_6pc_arcane", op: "eq", rhs: 0},
         {type: "resourcepct", lhs: "ap", op: "ge", rhs: 95},
+        {type: "all",
+        sub: [
+          {type: "buffmax", lhs: "tal_6pc", op: "lt", rhs: 1.5},
+          {type: "buffmax", lhs: "tal_6pc", op: "gt", rhs: 1.25},
+          {type: "resourcepct", lhs: "ap", op: "ge", rhs: 50},
+        ]},
       ]},
-      {type: "resourcepct", lhs: "ap", op: "ge", rhs: 80},
     ]},
     {skill: "slowtime",
     conditions: [
@@ -116,12 +121,29 @@
     }
   }
 
+  function* rotGenerator() {
+    yield "slowtime";
+    while (true) {
+      while (Sim.getBuff("arcanedynamo") < 5) yield "electrocute";
+      yield "hydra";
+      yield "blizzard";
+      while (Sim.getBuff("arcanedynamo") < 5) yield "electrocute";
+      yield "meteor";
+      while (Sim.resources.ap < Sim.stats.maxap * 0.9 && Sim.getBuffDuration("tal_6pc") > 90) yield "electrocute";
+      yield "meteor";
+      if (Sim.getBuffDuration("slowtime") < 300) yield "slowtime";
+      while (Sim.getBuff("tal_6pc_arcane")) yield "electrocute";
+    }
+  }
+  var rg = rotGenerator();
+  function rotationTest(data) {
+    return rg.next().value;
+  }
+
   function rotationStep(data) {
+    //var skill = rotationTest(data);
     var skill = rotationChoosePriority(data);
     if (skill) {
-      if (Sim.verbose >= 1) {
-        console.log("[" + Sim.time + "] Casting " + skill + " " + JSON.stringify(Sim.resources));
-      }
       Sim.cast(skill);
       var delay = Sim.castDelay(skill);
       Sim.after(delay, rotationStep, data);
@@ -130,11 +152,11 @@
     }
   }
 
-  Sim.start = function() {
+  Sim.register("init", function() {
     var parts = splitPriority(priority);
     for (var i = 0; i < parts.length; ++i) {
       this.after(0, rotationStep, {priority: parts[i]});
     }
-  };
+  });
 
 })();

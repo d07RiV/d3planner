@@ -22,6 +22,25 @@
 
   Sim.buffs = {};
   Sim.metaBuffs = {};
+  Sim.uptimes = {};
+  var lastUpdate = {};
+  function updateUptime(id) {
+    var stacks = (Sim.buffs[id] && Sim.buffs[id].stacks || 0);
+    var delta = Sim.time - (lastUpdate[id] || 0);
+    Sim.uptimes[id] = (Sim.uptimes[id] || 0) + delta * stacks;
+    lastUpdate[id] = Sim.time;
+  }
+  Sim.register("finish", function() {
+    for (var id in this.buffs) {
+      updateUptime(id);
+    }
+    var tmp = {};
+    for (var id in this.uptimes) {
+      if (id.indexOf("uniq_") === 0) continue;
+      tmp[id] = this.uptimes[id] / this.time;
+    }
+    this.uptimes = tmp;
+  });
 
   function deepEquals(a, b) {
     if (a === b) return true;
@@ -78,6 +97,7 @@
   }
 
   function onBuffExpired(e) {
+    updateUptime(e.id);
     var buff = Sim.buffs[e.id];
     if (buff) {
       if (buff.stats && !deepEquals(buff.stats, {})) {
@@ -112,6 +132,7 @@
     buff.stackstart = (buff.stackstart + 1) % buff.params.maxstacks;
   }
   function onStackExpired(e) {
+    updateUptime(e.id);
     var buff = Sim.buffs[e.id];
     if (buff) {
       while (buff.stacks && buff.stacklist[buff.stackstart].time <= e.time) {
@@ -162,6 +183,7 @@
     if (!id) {
       id = "uniq_" + (uniqId++);
     }
+    updateUptime(id);
     if (typeof params === "number") {
       params = {duration: params};
     }
@@ -216,7 +238,7 @@
     } else {
       var castInfo = this.castInfo();
       if (castInfo) {
-        var castRefresh = 0.9 / this.stats.info.aps;
+        var castRefresh = 54 / this.stats.info.aps;
         if (this.time >= buff.userStart + castRefresh) {
           buff.castInfo.user = castInfo.user;
           buff.userStart = this.time;

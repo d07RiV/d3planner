@@ -13,7 +13,7 @@
     if (level >= 25 && Sim.target.distance - Sim.target.size < 15) {
       Sim.addBuff("slowed");
     }
-    Sim.register("statschanged", function(data) {
+    Sim.register("updatestats", function(data) {
       if (data.stats.chilled || data.stats.frozen ||
           data.stats.blinded || data.stats.stunned ||
           data.stats.slowed || data.stats.knockback ||
@@ -123,7 +123,7 @@
       }
     });
     if (level >= 25) {
-      Sim.register("statschanged", function(data) {
+      Sim.register("updatestats", function(data) {
         if (data.stats.chilled) {
           data.stats.add("chctaken", 10);
         }

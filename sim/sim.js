@@ -126,6 +126,20 @@
     }
     this.trigger("update");
     this.trigger("init");
+    for (var id in this.affixes) {
+      if (this.stats[id]) {
+        this.pushCastInfo({triggered: id});
+        this.affixes[id].call(id, this.stats[id]);
+        this.popCastInfo();
+      }
+    }
+    for (var id in this.stats.gems) {
+      if (this.gems[id]) {
+        this.pushCastInfo({triggered: id});
+        this.gems[id].call(id, this.stats.gems[id]);
+        this.popCastInfo();
+      }
+    }
   };
 
   Sim.verbose = false;
@@ -147,8 +161,11 @@
       this.popCastInfo();
       ++count;
     }
+    this.trigger("finish");
     console.timeEnd("run");
     console.log("DPS: " + this.totalDamage / duration * 60);
+    console.log(this.uptimes);
+    console.log(this.counters);
   };
 
   var rngBuffer = {};
@@ -177,10 +194,16 @@
   Sim.buckets = [];
   Sim.bucket_size = 300;
   Sim.totalDamage = 0;
+  function _counter(id) {
+    if (!Sim.counters[id]) {
+      Sim.counters[id] = {count: 0, damage: 0};
+    }
+    return Sim.counters[id];
+  }
   Sim.register("onhit", function(data) {
     var source = (data.triggered || data.skill || "unknown");
     var amount = data.damage * data.targets;
-    Sim.counters[source] = (Sim.counters[source] || 0) + amount;
+    _counter(data.skill).damage += amount;
     var bucket = Math.floor(this.time / this.bucket_size);
     while (this.buckets.length <= bucket) {
       this.buckets.push(0);
@@ -190,5 +213,11 @@
     if (this.verbose >= 2) {
       console.log(this.extend(true, {}, data));
     }
+  });
+  Sim.register("oncast", function(data) {
+    if (this.verbose >= 1) {
+      console.log("[" + this.time + "] Casting " + data.skill + " " + JSON.stringify(this.resources));
+    }
+    _counter(data.skill).count += 1;
   });
 })();

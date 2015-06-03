@@ -1,7 +1,7 @@
 Sim = Simulator;
 Simulator.init(
 // Jaetch
-{"info":{"level":70,"gems":10,"mainhand":{"speed":1.498,"ias":7,"wpnphy":{"min":1655,"max":2156},"damage":10,"type":"wand","slot":"onehand"},"sets":{"talrasha":6,"bastionsofwill":2},"itemregen":10728.42,"mhelement":"lit"},"charClass":"wizard","primary":"int","str":77,"dex":77,"int":11749,"vit":2615,"chc":61,"chd":555,"ias":78,"gems":{"enforcer":72,"trapped":74,"zei":73},"special":{"dmgmul":[{"percent":37.2}],"dmgtaken":[{"percent":30},{"percent":30},{"percent":10},{"percent":10},{"percent":15},{"percent":15},{"percent":20},{"percent":20}],"damage":[{"percent":30},{"percent":30}]},"skills":{"electrocute":"d","meteor":"d","hydra":"d","blizzard":"e","slowtime":"e","magicweapon":"c"},"passives":{"conflagration":true,"elementalexposure":true,"arcanedynamo":true,"prodigy":true},"maxap":127,"apregen":10,"skill_wizard_meteor":30,"rescol":503,"expadd":475,"basearmor":4727,"sockets":10,"cdr":21.25,"armor":1213,"skill_wizard_hydra":45,"resphy":186,"leg_pauldronsoftheskeletonking":1,"respsn":395,"hitblind":5.5,"gem_enforcer":36.599999999999994,"gem_enforcer_25":1,"resall":502,"life":40,"laek":12441,"gf":118,"leg_taskerandtheo":49,"dmgfir":19,"resfir":177,"reslit":176,"ms":25,"healbonus":35285,"leg_nilfursboast":192,"thorns":1825,"dmgmul":1.8967900000000002,"gem_trapped_25":1,"ccr":36,"leg_serpentssparker":1,"wpnphy":{"min":358,"max":425},"apoc":4,"set_talrasha_2pc":1,"set_talrasha_4pc":1,"set_talrasha_6pc":1,"set_bastionsofwill_2pc":1,"armor_percent":25,"regen":10728.42,"area":50,"rcr":10,"lph":8046.299999999999,"dmgtaken":150,"petias":20,"extrams":20,"damage":60,"chctaken":20}
+{"info":{"level":70,"gems":10,"mainhand":{"speed":1.498,"ias":7,"wpnphy":{"min":1655,"max":2156},"damage":10,"type":"wand","slot":"onehand"},"sets":{"talrasha":6,"bastionsofwill":2},"itemregen":10728.42,"mhelement":"lit"},"charClass":"wizard","primary":"int","str":77,"dex":77,"int":11749,"vit":2615,"chc":61,"chd":555,"ias":78,"gems":{"enforcer":72,"trapped":74,"zei":73},"special":{"dmgtaken":[{"percent":30},{"percent":30},{"percent":10},{"percent":10},{"percent":15},{"percent":15},{"percent":20},{"percent":20}],"damage":[{"percent":30},{"percent":30}]},"skills":{"electrocute":"d","meteor":"d","hydra":"d","blizzard":"d","slowtime":"e","magicweapon":"c"},"passives":{"conflagration":true,"elementalexposure":true,"arcanedynamo":true,"prodigy":true},"maxap":127,"apregen":10,"skill_wizard_meteor":30,"rescol":503,"expadd":475,"basearmor":4727,"sockets":10,"cdr":21.25,"armor":1213,"skill_wizard_hydra":45,"resphy":186,"leg_pauldronsoftheskeletonking":1,"respsn":395,"hitblind":5.5,"gem_enforcer":36.599999999999994,"gem_enforcer_25":1,"resall":502,"life":40,"laek":12441,"gf":118,"leg_taskerandtheo":49,"dmgfir":19,"resfir":177,"reslit":176,"ms":25,"healbonus":35285,"leg_nilfursboast":192,"thorns":1825,"dmgmul":1.8967900000000002,"gem_trapped_25":1,"ccr":36,"leg_serpentssparker":1,"wpnphy":{"min":358,"max":425},"apoc":4,"set_talrasha_2pc":1,"set_talrasha_4pc":1,"set_talrasha_6pc":1,"set_bastionsofwill_2pc":1,"armor_percent":25,"regen":10728.42,"area":50,"rcr":10,"lph":8046.299999999999,"dmgtaken":150,"petias":20,"extrams":20,"damage":60,"chctaken":20}
 /*{
   "info": {
     "level": 70,
@@ -144,6 +144,6 @@ Simulator.init(
   elite: true,
   distance: 20,
   radius: 0,
-  size: 2,
+  size: 5,
   count: 1,
 });

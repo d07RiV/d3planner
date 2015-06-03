@@ -92,13 +92,6 @@
         this.popCastInfo();
       }
     }
-    for (var id in this.affixes) {
-      if (this.stats[id]) {
-        this.pushCastInfo({triggered: id});
-        this.affixes[id].call(id, this.stats[id]);
-        this.popCastInfo();
-      }
-    }
   });
 
   Sim.cooldowns = {};
@@ -116,7 +109,7 @@
     if (skill.requires === "archon") {
       if (!this.stats.archon) return false;
     } else {
-      if (this.stats.archon) return true;
+      if (this.stats.archon) return false;
     }
     var cost = this.getProp(skill, "cost", rune);
     var rctype = this.getProp(skill, "resource", rune);

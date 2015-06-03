@@ -589,7 +589,6 @@ Simulator.initClass["wizard"] = function() {
     cost: 15,
     pet: true,
     oncast: function(rune) {
-      var speed = 
       Sim.addBuff("hydra", undefined, {
         maxstacks: (Sim.stats.leg_serpentssparker ? 2 : 1),
         refresh: false,
@@ -1032,7 +1031,7 @@ Simulator.initClass["wizard"] = function() {
       var cache = {};
       Sim.register("oncast", function(data) {
         if (skills[data.skill] && skills[data.skill].signature) {
-          var delay = 0.9 / Sim.stats.info.aps;
+          var delay = 54 / Sim.stats.info.aps;
           if (cache[data.skill] === undefined || Sim.time >= cache[data.skill] + delay) {
             cache[data.skill] = Sim.time;
             Sim.addResource(5);
@@ -1046,7 +1045,7 @@ Simulator.initClass["wizard"] = function() {
     illusionist: function() {
     },
     coldblooded: function() {
-      Sim.register("statschanged", function(data) {
+      Sim.register("updatestats", function(data) {
         if (data.stats.chilled || data.stats.frozen) {
           data.stats.add("dmgtaken", 10);
         }

@@ -216,8 +216,14 @@
         Sim.target.area_coeff = (Sim.target.count - 1) * area / Sim.target.area;
       }
       if (Sim.target.area_coeff && stats.area) {
-        // area dmg unaffected by multiplicative buffs?
-        Sim.record("area", value * count * 0.01 * stats.area * 0.2 * Sim.target.area_coeff / dmgmul);
+        Sim.trigger("onhit", {
+          targets: count * 0.2 * Sim.target.area_coeff,
+          skill: data.skill,
+          damage: value * 0.01 * stats.area / dmgmul,
+          elem: data.elem,
+          triggered: "area",
+          chc: 0,
+        });
       }
     }
   }
