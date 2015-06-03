@@ -317,5 +317,11 @@
     }
   };
 
+  Sim.addBaseStats = function(stats) {
+    for (var s in stats) {
+      addStat(this.baseStats, s, stats[s]);
+    }
+  };
+
   Sim.Stats = Stats;
 })();

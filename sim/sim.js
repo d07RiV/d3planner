@@ -3,6 +3,7 @@
 
   Sim.initClass = {};
   Sim.affixes = {};
+  Sim.gems = {};
 
 /*  Sim.run = function() {
     var baseStats = new DC.Stats();
@@ -72,7 +73,12 @@
     if (!this.handlers[event]) {
       this.handlers[event] = [];
     }
-    this.handlers[event].push({func: func, castInfo: this.castInfo(), data: data});
+    var castInfo = this.castInfo();
+    if (castInfo) {
+      castInfo = this.extend(true, {}, castInfo);
+      delete castInfo.user;
+    }
+    this.handlers[event].push({func: func, castInfo: castInfo, data: data});
   };
   Sim.unregister = function(event, func) {
     var handlers = this.handlers[event];
@@ -125,7 +131,7 @@
   Sim.verbose = false;
   Sim.run = function(duration, verbose) {
     duration = (duration || 36000);
-    Sim.verbose = verbose;
+    Sim.verbose = (verbose || 0);
     console.time("run");
     var start = this.time;
     var count = 0;
@@ -147,12 +153,10 @@
 
   var rngBuffer = {};
   Sim.random = function(id, chance) {
-    rngBuffer[id] = (rngBuffer[id] || 0) + Math.min(1, chance);
-    if (rngBuffer[id] > 0.5) {
-      rngBuffer[id] -= 1;
-      return true;
-    }
-    return false;
+    rngBuffer[id] = (rngBuffer[id] === undefined ? 0.5 : rngBuffer[id]) + Math.min(1, chance);
+    var result = Math.floor(rngBuffer[id]);
+    rngBuffer[id] -= result;
+    return result;
   };
 
   Sim.castInfoStack = [];
@@ -183,7 +187,7 @@
     }
     this.buckets[bucket] += amount;
     this.totalDamage += amount;
-    if (this.verbose) {
+    if (this.verbose >= 2) {
       console.log(this.extend(true, {}, data));
     }
   });

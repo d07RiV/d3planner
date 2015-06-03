@@ -167,10 +167,12 @@
     }
     params = this.extend({
       stacks: 1,
-      maxstacks: 1,
       refresh: true,
       multiply: true,
     }, params);
+    if (!params.maxstacks) {
+      params.maxstacks = params.stacks;
+    }
     if (this.statusBuffs[id]) {
       params.status = id;
     }
@@ -202,6 +204,7 @@
         stacks: 0,
         events: {},
         start: this.time,
+        userStart: this.time,
         castInfo: this.castInfo(),
       };
       if (!params.refresh) {
@@ -213,7 +216,11 @@
     } else {
       var castInfo = this.castInfo();
       if (castInfo) {
-        buff.castInfo.user = castInfo.user;
+        var castRefresh = 0.9 / this.stats.info.aps;
+        if (this.time >= buff.userStart + castRefresh) {
+          buff.castInfo.user = castInfo.user;
+          buff.userStart = this.time;
+        }
       }
     }
 
@@ -243,7 +250,7 @@
         }
       }
     } else {
-      while (buff.stacks < oldstacks + params.stacks) {
+      /*while (buff.stacks < oldstacks + params.stacks) {
         if (params.onrefresh) {
           var stack = buff.stacklist[buff.stackstart];
           Sim.pushCastInfo(stack.castInfo);
@@ -252,9 +259,22 @@
         }
         removeStack(buff);
         --oldstacks;
-      }
+      }*/
       var pos = (buff.stackstart + oldstacks) % buff.params.maxstacks;
-      for (var i = oldstacks; i < buff.stacks; ++i) {
+      for (var i = 0; i < params.stacks; ++i) {
+        var tickinitial = undefined;
+        if (buff.stacklist[pos]) {
+          var stack = buff.stacklist[pos];
+          if (params.tickrate && params.tickkeep && stack.events.tick) {
+            tickinitial = stack.events.tick.time - this.time;
+          }
+          if (params.onrefresh) {
+            Sim.pushCastInfo(stack.castInfo);
+            params.onrefresh(stack.data);
+            Sim.popCastInfo();
+          }
+          removeStack(buff);
+        }
         var stack = {
           events: {},
           castInfo: this.castInfo(),
@@ -269,7 +289,8 @@
           params.onapply(stack.data);
         }
         if (params.tickrate) {
-          stack.events.tick = this.after(params.tickinitial || params.tickrate, onBuffTick, {buff: buff, stack: stack});
+          stack.events.tick = this.after(tickinitial || params.tickinitial || params.tickrate,
+            onBuffTick, {buff: buff, stack: stack});
         }
         buff.stacklist[pos] = stack;
         pos = (pos + 1) % buff.params.maxstacks;
@@ -307,6 +328,9 @@
     Sim.metaBuffs[id] = list;
   };
   Sim.getBuff = function(id) {
+    if (this.statusBuffs[id]) {
+      return this.stats[id];
+    }
     var buff = this.buffs[id];
     if (!buff) {
       var meta = this.metaBuffs[id];

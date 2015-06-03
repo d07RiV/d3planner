@@ -62,6 +62,7 @@ Simulator.initClass["wizard"] = function() {
   }
   skills.magicmissile = {
     signature: true,
+    offensive: true,
     speed: 57.599991,
     oncast: function(rune) {
       var count = 1 + (Sim.stats.leg_mirrorball || 0);
@@ -80,6 +81,7 @@ Simulator.initClass["wizard"] = function() {
 
   skills.shockpulse = {
     signature: true,
+    offensive: true,
     speed: 57.142834,
     oncast: {
       x: {type: "line", coeff: 1.94, speed: 0.65, fan: 45, count: 3, range: 40},
@@ -97,6 +99,7 @@ Simulator.initClass["wizard"] = function() {
 
   skills.spectralblade = {
     signature: true,
+    offensive: true,
     speed: 56.249996,
     oncast: function(rune) {
       switch (rune) {
@@ -133,6 +136,7 @@ Simulator.initClass["wizard"] = function() {
   skills.electrocute = {
     signature: true,
     channeling: true,
+    offensive: true,
     speed: 30,
     oncast: function(rune) {
       var dmg;
@@ -178,6 +182,7 @@ Simulator.initClass["wizard"] = function() {
   }
   skills.rayoffrost = {
     channeling: true,
+    offensive: true,
     speed: 30,
     cost: {x: 16, d: 11, c: 16, e: 16, b: 16, a: 16},
     oncast: function(rune) {
@@ -204,6 +209,7 @@ Simulator.initClass["wizard"] = function() {
   }
   skills.arcaneorb = {
     speed: 57.857109,
+    offensive: true,
     cost: 30,
     oncast: function(rune) {
       switch (rune) {
@@ -211,7 +217,8 @@ Simulator.initClass["wizard"] = function() {
       case "a": return {type: "line", coeff: 7, area: 8, speed: 1.5};
       case "c": return {delay: 60, type: "area", self: true, range: 8, coeff: 2.65, count: 4};
       case "b": return {type: "line", coeff: 1.745, count: 2, range: 45, radius: 15, pierce: true, speed: 0.5, onhit: function(event) {
-        Sim.buffNextCast({elem: "lit", percent: event.targets});
+        var stacks = Math.ceil(event.targets);
+        Sim.addBuff("spark", undefined, {stacks: stacks, maxstacks: stacks});
       }};
       case "d":
         Sim.addBuff("scorch", undefined, {duration: 300, tickrate: 6, ontick: ao_scorch_ontick});
@@ -220,6 +227,19 @@ Simulator.initClass["wizard"] = function() {
         Sim.damage({type: "area", origin: Sim.target.distance - 30, coeff: 3.93, range: 15, delay: 30 / 0.6});
         Sim.damage({type: "line", coeff: 2.62, pierce: true, range: 30, speed: 0.6, radius: 15});
         Sim.damage({type: "line", coeff: 1.28, pierce: true, range: 30, radius: 15, delay: 30 / 0.6 + 0.6, proc: 0.013});
+      }
+    },
+    oninit: function(rune) {
+      if (rune === "b") {
+        Sim.register("oncast", function(data) {
+          if (data.elem === "lit" && data.offensive) {
+            var stacks = Sim.getBuff("spark");
+            if (stacks) {
+              Sim.removeBuff("spark");
+              return {percent: stacks};
+            }
+          }
+        });
       }
     },
     proctable: {x: 0.31, a: 0.655, c: 0.00925, b: 0.1, d: 0.067, e: 0.067},
@@ -235,7 +255,7 @@ Simulator.initClass["wizard"] = function() {
     Sim.damage({delay: 30, type: "area", range: 8, coeff: 8.25, onhit: apply_effect("slow", 180)});
   }
   function at_mines_ontick(data) {
-    Sim.addBuff("arcanetorrent_mines", undefined, {
+    Sim.addBuff("arcanemines", undefined, {
       maxstacks: 6,
       refresh: false,
       duration: 121,
@@ -255,6 +275,7 @@ Simulator.initClass["wizard"] = function() {
   }
   skills.arcanetorrent = {
     channeling: true,
+    offensive: true,
     speed: {x: 20, a: 20, e: 30, c: 40, d: 20, b: 20},
     cost: 16,
     oncast: function(rune) {
@@ -295,6 +316,7 @@ Simulator.initClass["wizard"] = function() {
   }
   skills.disintegrate = {
     channeling: true,
+    offensive: true,
     speed: 20,
     cost: 18,
     oncast: function(rune) {
@@ -319,6 +341,7 @@ Simulator.initClass["wizard"] = function() {
   }
   skills.frostnova = {
     secondary: true,
+    offensive: {c: true},
     speed: 57.142834,
     cooldown: {x: 11, b: 11, d: 7.5, c: 11, e: 11, a: 11},
     oncast: function(rune) {
@@ -327,7 +350,7 @@ Simulator.initClass["wizard"] = function() {
       case "b": return {type: "area", coeff: 0, range: 19, self: true, onhit: apply_effect("frozen", 120)};
       case "d": return {type: "area", coeff: 0, range: 19, self: true, onhit: apply_effect("frozen", 180)};
       case "c":
-        Sim.addBuff("frostnova", undefined, {
+        Sim.addBuff("frozenmist", undefined, {
           status: "chilled",
           duration: 480,
           tickrate: 18,
@@ -338,11 +361,11 @@ Simulator.initClass["wizard"] = function() {
       case "e": return {type: "area", coeff: 0, range: 19, self: true, onhit: function(event) {
         Sim.addBuff("frozen", undefined, {duration: 120});
         if (event.targets >= 5) {
-          Sim.addBuff("frostnova", {chc: 10}, {duration: 660});
+          Sim.addBuff("deepfreeze", {chc: 10}, {duration: 660});
         }
       }};
       case "a": return {type: "area", coeff: 0, range: 19, self: true, onhit: function(event) {
-        Sim.addBuff("frostnova", {dmgtaken: 33}, {duration: 120, status: "frozen"});
+        Sim.addBuff("bonechill", {dmgtaken: 33}, {duration: 120, status: "frozen"});
       }};
       }
     },
@@ -355,6 +378,7 @@ Simulator.initClass["wizard"] = function() {
   }
   skills.diamondskin = {
     secondary: true,
+    offensive: {e: true},
     speed: 56.249996,
     cooldown: 15,
     oncast: function(rune) {
@@ -376,6 +400,7 @@ Simulator.initClass["wizard"] = function() {
   }
   skills.slowtime = {
     speed: 56.249996,
+    offensive: function(rune) {return !!Sim.stats.set_magnumopus_4pc;},
     cooldown: {x: 15, c: 12, d: 15, a: 15, b: 15, e: 15},
     oncast: function(rune) {
       var params = {duration: 900, status: "slowed"};
@@ -400,6 +425,7 @@ Simulator.initClass["wizard"] = function() {
 
   skills.teleport = {
     speed: 51.428570,
+    offensive: {a: true},
     cost: function(rune) {
       if (Sim.stats.leg_aetherwalker) return 25;
     },
@@ -408,7 +434,7 @@ Simulator.initClass["wizard"] = function() {
     },
     oncast: function(rune) {
       switch (rune) {
-      case "c": Sim.addBuff("teleport", {dmgred: 25}, {duration: 300}); break;
+      case "c": Sim.addBuff("safepassage", {dmgred: 25}, {duration: 300}); break;
       case "a": Sim.damage({type: "area", self: true, range: 20, coeff: 1.75, onhit: apply_effect("stunned", 60)}); break;
       }
     },
@@ -418,6 +444,7 @@ Simulator.initClass["wizard"] = function() {
 
   skills.waveofforce = {
     speed: 58.181816,
+    offensive: true,
     cooldown: {a: 5},
     cost: 25,
     oncast: {
@@ -425,12 +452,26 @@ Simulator.initClass["wizard"] = function() {
       a: {type: "area", self: true, range: 30, coeff: 3.9, onhit: apply_effect("slowed", 180)},
       e: {type: "area", self: true, range: 30, coeff: 3.9},
       d: {type: "area", self: true, range: 30, coeff: 3.9, onhit: function(event) {
-        Sim.buffNextCast({elem: "arc", percent: event.targets * 4});
+        var stacks = Math.ceil(event.targets);
+        Sim.addBuff("arcaneattunement", undefined, {stacks: stacks, maxstacks: stacks});
       }},
       b: {type: "area", self: true, range: 30, coeff: 3.9, onhit: function(event) {
         Sim.addResource(event.targets);
       }},
       c: {type: "area", self: true, range: 30, coeff: 4.75},
+    },
+    oninit: function(rune) {
+      if (rune === "d") {
+        Sim.register("oncast", function(data) {
+          if (data.elem === "arc" && data.offensive) {
+            var stacks = Sim.getBuff("arcaneattunement");
+            if (stacks) {
+              Sim.removeBuff("arcaneattunement");
+              return {percent: stacks * 4};
+            }
+          }
+        });
+      }
     },
     proctable: {x: 0.2, a: 0.25, e: 0.2, d: 0.2, b: 0.2, c: 0.2},
     elem: {x: "arc", a: "arc", e: "arc", d: "arc", b: "lit", c: "fir"},
@@ -451,6 +492,7 @@ Simulator.initClass["wizard"] = function() {
   }
   skills.energytwister = {
     speed: 57.599991,
+    offensive: true,
     cost: {x: 35, d: 25, a: 35, b: 35, e: 35, c: 35},
     oncast: function(rune) {
       var base = 15.25;
@@ -459,11 +501,11 @@ Simulator.initClass["wizard"] = function() {
       }
       var id = undefined;
       if (rune === "b") {
-        if (Sim.getBuff("energytwister")) {
-          Sim.removeBuff("energytwister");
+        if (Sim.getBuff("ragingstorm")) {
+          Sim.removeBuff("ragingstorm");
           base = 32;
         } else {
-          id = "energytwister";
+          id = "ragingstorm";
         }
       }
       Sim.addBuff(id, undefined, {duration: 360, tickrate: 30, tickinitial: 1,
@@ -479,7 +521,7 @@ Simulator.initClass["wizard"] = function() {
             var stacks = Sim.getBuff("stormchaser");
             if (stacks) {
               Sim.removeBuff("stormchaser");
-              Sim.damage({type: "line", elem: "lit", coeff: 1.96 * stacks, speed: 0.25 + 0.05 * stacks, skill: "energytwister"});
+              Sim.damage({type: "line", coeff: 1.96 * stacks, speed: 0.25 + 0.05 * stacks});
             }
           }
         });
@@ -542,6 +584,7 @@ Simulator.initClass["wizard"] = function() {
     }
   }
   skills.hydra = {
+    offensive: true,
     speed: 56.249996,
     cost: 15,
     pet: true,
@@ -593,6 +636,7 @@ Simulator.initClass["wizard"] = function() {
     }
   }
   skills.meteor = {
+    offensive: true,
     speed: 57.142834,
     cost: function(rune) {
       return 40 * (1 - 0.01 * (Sim.stats.leg_thegrandvizier || 0));
@@ -634,6 +678,7 @@ Simulator.initClass["wizard"] = function() {
     Sim.damage(dmg);
   }
   skills.blizzard = {
+    offensive: true,
     speed: 57.692265,
     cost: {x: 40, c: 40, e: 40, d: 10, b: 40, a: 40},
     oncast: function(rune) {
@@ -727,7 +772,7 @@ Simulator.initClass["wizard"] = function() {
     }
   }
   function mw_ignite_onhit(data) {
-    Sim.damage({skill: "magicweapon", elem: "fir", count: data.count * data.proc, coeff: 3});
+    Sim.damage({count: data.count * data.proc, coeff: 3});
   }
   skills.magicweapon = {
     speed: 56.249996,
@@ -823,6 +868,7 @@ Simulator.initClass["wizard"] = function() {
   };
 
   skills.explosiveblast = {
+    offensive: true,
     secondary: true,
     speed: 56.249996,
     cost: 20,
@@ -848,6 +894,7 @@ Simulator.initClass["wizard"] = function() {
     speed: 57.692265,
     cooldown: 15,
     oncast: function(rune) {
+      Sim.addBuff("mirrorimage", undefined, {duration: (rune === "d" ? 10 : 7)});
     },
     elem: "arc",
   };
@@ -873,8 +920,9 @@ Simulator.initClass["wizard"] = function() {
   };
 
   skills.archon_arcanestrike = {
+    offensive: true,
     speed: 57.599954,
-    requires: ["archon"],
+    requires: "archon",
     oncast: function(rune) {
       var improved = (Sim.stats.skills.archon === "a" || Sim.stats.set_vyr_4pc);
       return {type: "area", range: 9, coeff: 7.9, dibs: (improved ? 22 : 0)};
@@ -885,10 +933,11 @@ Simulator.initClass["wizard"] = function() {
     proctable: 0.5,
   };
   skills.archon_arcaneblast = {
+    offensive: true,
     speed: 100,
     secondary: true,
     cooldown: 2,
-    requires: ["archon"],
+    requires: "archon",
     oncast: function(rune) {
       var improved = (Sim.stats.skills.archon === "a" || Sim.stats.set_vyr_4pc);
       return {type: "area", range: 15, coeff: 6.04, dibs: (improved ? 22 : 0)};
@@ -902,8 +951,9 @@ Simulator.initClass["wizard"] = function() {
     Sim.damage(data.dmg);
   }
   skills.archon_disintegrationwave = {
+    offensive: true,
     speed: 20,
-    requires: ["archon"],
+    requires: "archon",
     oncast: function(rune) {
       var improved = (Sim.stats.skills.archon === "a" || Sim.stats.set_vyr_4pc);
       var dmg = {type: "line", pierce: true, coeff: 7.79, dibs: (improved ? 22 : 0), radius: 2};
@@ -915,10 +965,10 @@ Simulator.initClass["wizard"] = function() {
   };
 
   function bh_zero_onhit(data) {
-    Sim.addBuff("blackhole", {damage: {elems: ["col"], percent: 3 * data.targets}}, {duration: 600});
+    Sim.addBuff("absolutezero", {damage: {elems: ["col"], percent: 3}}, {duration: 600, stacks: Sim.random("spellsteal", data.targets)});
   }
   function bh_spellsteal_onhit(data) {
-    Sim.addBuff("blackhole", {damage: 3 * data.targets}, {duration: 300});
+    Sim.addBuff("spellsteal", {damage: 3}, {duration: 300, stacks: Sim.random("spellsteal", data.targets)});
   }
   function bh_ontick(data) {
     var dmg = {type: "area", range: 15, coeff: 7 / 15};
@@ -946,13 +996,19 @@ Simulator.initClass["wizard"] = function() {
     Sim.damage({type: "area", range: 15, coeff: 7.25, proc: 0});
   }
   skills.blackhole = {
+    offensive: true,
     speed: 56.842068,
     cost: 20,
     cooldown: 12,
     oncast: function(rune) {
+      Sim.removeBuff("absolutezero");
+      Sim.removeBuff("spellsteal");
       var params = {duration: 120, tickrate: 8, tickinitial: 1, ontick: bh_ontick, data: {rune: rune}};
       if (rune === "c") {
         params.onexpire = bh_blazar_onexpire;
+      }
+      if (!Sim.target.boss) {
+        params.status = "knockback";
       }
       Sim.addBuff(undefined, undefined, params);
     },
@@ -964,25 +1020,28 @@ Simulator.initClass["wizard"] = function() {
     powerhungry: function() {
     },
     blur: function() {
-      Sim.addBuff("blur", {dmgred: 17});
+      Sim.addBaseStats({dmgred: 17});
     },
     evocation: function() {
-      Sim.addBuff("evocation", {cdr: 20});
+      Sim.addBaseStats({cdr: 20});
     },
     glasscannon: function() {
-      Sim.addBuff("glasscannon", {damage: 15, armor_percent: -10, resist_percent: -10});
+      Sim.addBaseStats({damage: 15, armor_percent: -10, resist_percent: -10});
     },
     prodigy: function() {
+      var cache = {};
       Sim.register("oncast", function(data) {
         if (skills[data.skill] && skills[data.skill].signature) {
-          if (data.skill !== "electrocute" || Sim.random("prodigy", 0.5)) {
+          var delay = 0.9 / Sim.stats.info.aps;
+          if (cache[data.skill] === undefined || Sim.time >= cache[data.skill] + delay) {
+            cache[data.skill] = Sim.time;
             Sim.addResource(5);
           }
         }
       });
     },
     astralpresence: function() {
-      Sim.addBuff("astralpresence", {maxap: 20, apregen: 2.5});
+      Sim.addBaseStats({maxap: 20, apregen: 2.5});
     },
     illusionist: function() {
     },

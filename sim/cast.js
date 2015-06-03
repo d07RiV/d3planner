@@ -25,6 +25,9 @@
   Sim.addResource = function(amount, type) {
     if (!type) type = rcTypes[this.stats.charClass][0];
     this.resources[type] = Math.min(this.stats["max" + type], (this.resources[type] || 0) + amount);
+    if (this.verbose >= 3) {
+      console.log("Add " + amount + " " + type + " (" + (this.castInfo().triggered || this.castInfo().skill) + ")");
+    }
   };
   Sim.hasResource = function(amount, type) {
     if (!amount) return true;
@@ -100,22 +103,20 @@
 
   Sim.cooldowns = {};
   Sim.getCooldown = function(id) {
-    return (Sim.cooldowns[id] && Sim.cooldowns[id] > this.time && Sim.cooldowns[id] - this.time);
+    return (Sim.cooldowns[id] && Sim.cooldowns[id] > this.time ? Sim.cooldowns[id] - this.time : 0);
   };
   
   Sim.canCast = function(id, rune) {
     var rune = rune || this.stats.skills[id];
     var skill = this.skills[id];
     if (!rune || !skill) return false;
-    if (Sim.cooldowns[id] && Sim.cooldowns[id] > this.time) {
+    if (this.cooldowns[id] && this.cooldowns[id] > this.time) {
       return false;
     }
-    if (skill.requires) {
-      for (var i = 0; i < skill.requires; ++i) {
-        if (!this.stats[skill.requires[i]]) {
-          return false;
-        }
-      }
+    if (skill.requires === "archon") {
+      if (!this.stats.archon) return false;
+    } else {
+      if (this.stats.archon) return true;
     }
     var cost = this.getProp(skill, "cost", rune);
     var rctype = this.getProp(skill, "resource", rune);
@@ -163,6 +164,7 @@
       castInfo.cooldown = cooldown;
       castInfo.resource = (rctype ? rctype : rcTypes[this.stats.charClass][0]);
       castInfo.proc = this.getProp(skill, "proctable", rune);
+      castInfo.offensive = this.getProp(skill, "offensive", rune);
       var remainBuffs = [];
       for (var i = 0; i < this.nextBuffs.length; ++i) {
         var buff = this.nextBuffs[i];

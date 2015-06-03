@@ -199,6 +199,7 @@
       pet: ispet,
       castInfo: data.castInfo,
       triggered: triggered,
+      chc: chc,
     };
 
     if (event.proc && !event.pet) {
