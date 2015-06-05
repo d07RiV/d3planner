@@ -34,18 +34,18 @@ DiabloCalc.skills.monk = {
       case "d": res = {"Damage": {elem: "phy", coeff: 2}, "Third Hit Damage": {elem: "phy", coeff: 4}}; break;
       case "b": res = {"Damage": {elem: "hol", coeff: 2}, "Third Hit Damage": {elem: "hol", coeff: 4}, "Arc Damage": {elem: "hol", coeff: 2.4}}; break;
       }
-      var speed = 1 / (1/1.64 + 1/1.64 + 1);
-      var ias = (stats.passives.alacrity ? 15 : 0) + (stats.set_storms_2pc ? 25 : 0);
-      res["DPS"] = {sum: true, "Damage": {speed: speed, ias: ias, count: 2}, "Third Hit Damage": {speed: speed, ias: ias}};
-//      res["DPS"] = {sum: true, "Damage": {speed: 1, fpa: [37, 38, 59], ias: ias, count: 2}, "Third Hit Damage": {speed: speed, fpa: [37, 38, 59], ias: ias, nobp: true}};
-      if (res["Shockwave Damage"]) res["DPS"]["Shockwave Damage"] = {speed: speed, ias: ias, count: 3};
-      if (res["Arc Damage"]) res["DPS"]["Arc Damage"] = {speed: speed, ias: ias};
+      var ias = (stats.passives.alacrity ? 1.15 : 1) * (stats.set_storms_2pc ? 1.25 : 1);
+      res["DPS"] = {sum: "sequence", "First Hit": {src: "Damage", speed: 1.55 * ias, fpa: 57},
+                                     "Second Hit": {src: "Damage", speed: 1.55 * ias, fpa: 57.391289},
+                                     "Third Hit": {src: "Third Hit Damage", speed: ias, fpa: 58.064510}};
+      if (res["Shockwave Damage"]) res["DPS"]["Shockwave Damage"] = {count: 3};
+      if (res["Arc Damage"]) res["DPS"]["Arc Damage"] = {};
       var spirit = (rune === "d" ? 20 : 14);
       if (stats.skills.breathofheaven === "d" && DiabloCalc.isSkillActive("breathofheaven")) {
         spirit += 14;
       }
       spirit *= (1 + 0.01 * (stats.leg_bandofruechambers || 0)) * (1 + 0.01 * (stats.resourcegen || 0));
-      res["Spirit/sec"] = DiabloCalc.formatNumber(stats.info.aps * 3 * speed * (1 + 0.01 * ias) * spirit, 1, 10000);
+      res["Spirit/sec"] = {sum: true, "Spirit per Hit": {value: spirit, refspeed: "DPS", count: 3}};
       return res;
     },
   },
@@ -72,15 +72,16 @@ DiabloCalc.skills.monk = {
       case "d": res = {"Damage": {elem: "col", coeff: 1.5}}; break;
       case "a": res = {"Damage": {elem: "phy", coeff: 1.5}}; break;
       }
-      var speed = 1 / (1/1.59 + 1/1.59 + 1);
-      var ias = (stats.passives.alacrity ? 15 : 0) + (stats.set_storms_2pc ? 25 : 0);
-      res["DPS"] = {sum: true, "Damage": {speed: speed, ias: ias, count: 3}};
+      var ias = (stats.passives.alacrity ? 1.15 : 1) * (stats.set_storms_2pc ? 1.25 : 1);
+      res["DPS"] = {sum: "sequence", "First Hit": {src: "Damage", speed: 1.5 * ias, fpa: 55.384609},
+                                     "Second Hit": {src: "Damage", speed: 1.5 * ias, fpa: 57.391300},
+                                     "Third Hit": {src: "Damage", speed: ias, fpa: (rune === "c" ? 57.857132 : 58.064510)}};
       var spirit = 12;
       if (stats.skills.breathofheaven === "d" && DiabloCalc.isSkillActive("breathofheaven")) {
         spirit += 14;
       }
       spirit *= (1 + 0.01 * (stats.leg_bandofruechambers || 0)) * (1 + 0.01 * (stats.resourcegen || 0));
-      res["Spirit/sec"] = DiabloCalc.formatNumber(stats.info.aps * 3 * speed * (1 + 0.01 * ias) * spirit, 1, 10000);
+      res["Spirit/sec"] = {sum: true, "Spirit per Hit": {value: spirit, refspeed: "DPS", count: 3}};
       return res;
     },
     active: false,
@@ -101,6 +102,7 @@ DiabloCalc.skills.monk = {
       b: "Tsunami",
       e: "Breaking Wave",
     },
+    params: [{rune: "d", min: 0, max: 10, val: 1, name: "Enemies Hit", buffs: false}],
     info: function(rune, stats) {
       var res;
       switch (rune) {
@@ -111,15 +113,16 @@ DiabloCalc.skills.monk = {
       case "b": res = {"Damage": {elem: "col", coeff: 1.55}}; break;
       case "e": res = {"Damage": {elem: "phy", coeff: 1.55}}; break;
       }
-      var speed = 1 / (1/1.53 + 1/1.53 + 1);
-      var ias = (stats.passives.alacrity ? 15 : 0) + (stats.set_storms_2pc ? 25 : 0);
-      res["DPS"] = {sum: true, "Damage": {speed: speed, ias: ias, count: 3}};
-      var spirit = (rune === "d" ? 12 + 2.5 : 12);
+      var ias = (stats.passives.alacrity ? 1.15 : 1) * (stats.set_storms_2pc ? 1.25 : 1);
+      res["DPS"] = {sum: "sequence", "First Hit": {src: "Damage", speed: 1.45 * ias, fpa: 56.842102},
+                                     "Second Hit": {src: "Damage", speed: 1.45 * ias, fpa: 56.842102},
+                                     "Third Hit": {src: "Damage", speed: ias, fpa: 58}};
+      var spirit = (rune === "d" ? 12 + this.params[0].val * 2.5 : 12);
       if (stats.skills.breathofheaven === "d" && DiabloCalc.isSkillActive("breathofheaven")) {
         spirit += 14;
       }
       spirit *= (1 + 0.01 * (stats.leg_bandofruechambers || 0)) * (1 + 0.01 * (stats.resourcegen || 0));
-      res["Spirit/sec"] = DiabloCalc.formatNumber(stats.info.aps * 3 * speed * (1 + 0.01 * ias) * spirit, 1, 10000);
+      res["Spirit/sec"] = {sum: true, "Spirit per Hit": {value: spirit, refspeed: "DPS", count: 3}};
       return res;
     },
     active: true,
@@ -150,18 +153,18 @@ DiabloCalc.skills.monk = {
       case "d": res = {"Damage": {elem: "phy", coeff: 1.9}}; break;
       case "e": res = {"Damage": {elem: "col", coeff: 1.9}, "Wave Damage": {elem: "col", coeff: 5}}; break;
       }
-      var speed = 1 / (1/1.53 + 1/1.53 + 1);
-      var ias = (stats.passives.alacrity ? 15 : 0) + (stats.set_storms_2pc ? 25 : 0);
-      res["DPS"] = {sum: true, "Damage": {speed: speed, ias: ias, count: (rune == "b" ? 2 : 3)}};
-      if (res["Second Hit Damage"]) res["DPS"]["Second Hit Damage"] = {speed: speed, ias: ias};
-      if (res["Dash Damage"]) res["DPS"]["Dash Damage"] = {speed: speed, ias: ias};
-      if (res["Wave Damage"]) res["DPS"]["Wave Damage"] = {speed: speed, ias: ias};
+      var ias = (stats.passives.alacrity ? 1.15 : 1) * (stats.set_storms_2pc ? 1.25 : 1);
+      res["DPS"] = {sum: "sequence", "First Hit": {src: "Damage", speed: 1.275 * ias, fpa: 57},
+                                     "Second Hit": {src: (rune === "b" ? "Second Hit Damage" : "Damage"), speed: 1.175 * ias, fpa: 42},
+                                     "Third Hit": {src: "Damage", speed: ias, fpa: 57.599998}};
+      if (res["Dash Damage"]) res["DPS"]["Dash Damage"] = {};
+      if (res["Wave Damage"]) res["DPS"]["Wave Damage"] = {};
       var spirit = 12;
       if (stats.skills.breathofheaven === "d" && DiabloCalc.isSkillActive("breathofheaven")) {
         spirit += 14;
       }
       spirit *= (1 + 0.01 * (stats.leg_bandofruechambers || 0)) * (1 + 0.01 * (stats.resourcegen || 0));
-      res["Spirit/sec"] = DiabloCalc.formatNumber(stats.info.aps * 3 * speed * (1 + 0.01 * ias) * spirit, 1, 10000);
+      res["Spirit/sec"] = {sum: true, "Spirit per Hit": {value: spirit, refspeed: "DPS", count: 3}};
       return res;
     },
     active: true,
@@ -207,7 +210,7 @@ DiabloCalc.skills.monk = {
         }
         res["Total Damage"] = total;
       }
-      return res;
+      return $.extend({"Cost": {cost: 50}}, res);
     },
   },
   tempestrush: {
@@ -227,14 +230,15 @@ DiabloCalc.skills.monk = {
     info: function(rune, stats) {
       var res;
       switch (rune) {
-      case "x": res = {"DPS": {elem: "phy", aps: true, coeff: 3.9, total: true}}; break;
-      case "d": res = {"DPS": {elem: "hol", aps: true, coeff: 5, total: true}}; break;
-      case "b": res = {"DPS": {elem: "phy", aps: true, coeff: 3.9, total: true}}; break;
-      case "e": res = {"DPS": {elem: "col", aps: true, coeff: 3.9, total: true}, "Flurry Damage": {elem: "col", coeff: 1.5 * this.params[0].val + 1.35}}; break;
-      case "c": res = {"DPS": {elem: "lit", aps: true, coeff: 3.9, total: true}, "Field DPS": {elem: "lit", aps: true, coeff: 1.35, total: true}}; break;
-      case "a": res = {"DPS": {elem: "fir", aps: true, coeff: 3.9, total: true}}; break;
+      case "x": res = {"Tick Damage": {elem: "phy", coeff: 3.9}}; break;
+      case "d": res = {"Tick Damage": {elem: "hol", coeff: 5}}; break;
+      case "b": res = {"Tick Damage": {elem: "phy", coeff: 3.9}}; break;
+      case "e": res = {"Tick Damage": {elem: "col", coeff: 3.9}, "Flurry Damage": {elem: "col", coeff: 1.5, addcoeff: [[1.35, this.params[0].val]]}}; break;
+      case "c": res = {"Tick Damage": {elem: "lit", coeff: 3.9}, "Field DPS": {elem: "lit", coeff: 1.35, total: true}}; break;
+      case "a": res = {"Tick Damage": {elem: "fir", coeff: 3.9}}; break;
       }
-      return res;
+      res["Tick Damage"].divide = {"Speed Factor": 3};
+      return $.extend({"Cost": {cost: (rune === "d" ? 25 : 30), fpa: 20}, "DPS": {sum: true, "Tick Damage": {fpa: 20, speed: 1}}}, res);
     },
   },
   waveoflight: {
@@ -277,7 +281,7 @@ DiabloCalc.skills.monk = {
         }
         res["Total Damage"] = total;
       }
-      return res;
+      return $.extend({"Cost": {cost: 75, rcr: "leg_incensetorchofthegrandtemple"}}, res);
     },
   },
   blindingflash: {
@@ -323,8 +327,12 @@ DiabloCalc.skills.monk = {
       e: "Zephyr",
     },
     info: {
-      a: {"Damage": {elem: "hol", coeff: 5.05}},
+      x: {"Cooldown": {cooldown: 15}},
+      a: {"Cooldown": {cooldown: 15}, "Damage": {elem: "hol", coeff: 5.05}},
+      b: {"Cooldown": {cooldown: 15}},
       c: {"Uptime": {duration: 9, cooldown: 15}},
+      d: {"Cooldown": {cooldown: 15}},
+      e: {"Cooldown": {cooldown: 15}},
     },
     active: true,
     buffs: {
@@ -410,10 +418,13 @@ DiabloCalc.skills.monk = {
       case "e": res = {"Damage": {elem: "fir", coeff: 3.7}}; break;
       case "a": res = {"Damage": {elem: "phy", coeff: 3.7}, "Barrage Damage": {elem: "phy", coeff: 9.75, total: true}}; break;
       }
+      if (stats.set_storms_4pc) {
+        res["Cost"] = {cost: 75};
+      }
       if (stats.set_storms_6pc && DiabloCalc.itemaffixes.set_storms_6pc.active) {
         res["Damage"].coeff = 125;
       }
-      return res;
+      return $.extend({"Cooldown": {cooldown: 8}}, res);
     },
   },
   explodingpalm: {
@@ -449,7 +460,7 @@ DiabloCalc.skills.monk = {
         res["Ally Explosion Damage"] = $.extend({}, res["Explosion Damage"], ext);
         res["Total Explosion Damage"] = {sum: true, "Explosion Damage": {}, "Ally Explosion Damage": {count: (stats.leg_thecrudestboots ? 2 : 1)}};
       }
-      return res;
+      return $.extend({"Cost": {cost: 40}}, res);
     },
     active: false,
     buffs: {
@@ -472,6 +483,7 @@ DiabloCalc.skills.monk = {
     },
     params: [{min: 1, max: "leg_vengefulwind?6:3", name: "Stacks", buffs: false}],
     info: {
+      "*": {"Cost": {cost: 75}},
       x: {"DPS": {elem: "phy", aps: true, coeff: 1.05, factors: {"Stacks": "$1"}, total: true}},
       e: {"DPS": {elem: "col", aps: true, coeff: 1.05, factors: {"Stacks": "$1"}, total: true}},
       a: {"DPS": {elem: "phy", aps: true, coeff: 1.45, factors: {"Stacks": "$1"}, total: true}},
@@ -511,7 +523,7 @@ DiabloCalc.skills.monk = {
         res["Ally Damage"] = $.extend({}, res["Damage"], ext);
         res["Total Damage"] = {sum: true, "Damage": {}, "Ally Damage": {count: (stats.leg_thecrudestboots ? 2 : 1)}};
       }
-      return res;
+      return $.extend({"Cost": {cost: 50}}, res);
     },
   },
   sevensidedstrike: {
@@ -547,7 +559,9 @@ DiabloCalc.skills.monk = {
         }
         res["Total Damage"]["Ally Damage"] = {count: (stats.leg_thecrudestboots ? 2 : 1)};
       }
-      return res;
+      var base = {"Cooldown": {cooldown: (rune === "d" ? 14 : 30), cdr: "leg_theflowofeternity"}};
+      if (rune !== "c") base["Cost"] = {cost: 50};
+      return $.extend(base, res);
     },
   },
   mystically: {
@@ -565,6 +579,7 @@ DiabloCalc.skills.monk = {
       c: "Earth Ally",
     },
     info: {
+      "*": {"Cooldown": {cooldown: 30}},
       x: {"Damage": {elem: "phy", pet: true, coeff: 1.3, percent: {"Inna's Mantra": "set_inna_2pc?100:0"}}, "DPS": {sum: true, "Damage": {pet: 42, speed: 1, count: "leg_thecrudestboots?2:1"}}, "Activated Damage": {elem: "phy", pet: true, aps: true, coeff: 1.3, percent: {"Activation": 50, "Inna's Mantra": "set_inna_2pc?100:0"}}, "Activated DPS": {sum: true, "Activated Damage": {pet: 42, count: "leg_thecrudestboots?2:1"}}},
       b: {"Damage": {elem: "col", pet: true, coeff: 1.3, percent: {"Inna's Mantra": "set_inna_2pc?100:0"}}, "DPS": {sum: true, "Damage": {pet: 42, speed: 1, count: "leg_thecrudestboots?2:1"}}, "Activation Damage": {elem: "col", pet: true, coeff: 6.25}, "Total Activation Damage": {sum: true, "Activation Damage": {count: "7*(leg_thecrudestboots?2:1)"}}},
       a: {"Damage": {elem: "fir", pet: true, coeff: 1.3, percent: {"Inna's Mantra": "set_inna_2pc?100:0"}}, "DPS": {sum: true, "Damage": {pet: 42, speed: 1, count: "leg_thecrudestboots?2:1"}}, "Explosion Damage": {elem: "fir", pet: true, coeff: 2.9}},
@@ -628,6 +643,9 @@ DiabloCalc.skills.monk = {
       b: "Perseverance",
       a: "Agility",
     },
+    info: {
+      "*": {"Cost": {cost: 50}},
+    },
     active: false,
     buffs: {
       x: {resist_percent: 20},
@@ -663,16 +681,14 @@ DiabloCalc.skills.monk = {
       d: "Against All Odds",
       e: "Collateral Damage",
     },
-    info: function(rune, stats) {
-      var base = 1.01 * (stats.set_inna_2pc ? 2 : 1);
-      switch (rune) {
-      case "x": return {"Damage": {elem: "hol", coeff: base}, "Activated Damage": {elem: "hol", coeff: base * 2}};
-      case "a": return {"Damage": {elem: "fir", coeff: base + 1.01}, "Activated Damage": {elem: "fir", coeff: (base + 1.01) * 2}};
-      case "b": return {"Damage": {elem: "hol", coeff: base}, "Activated Damage": {elem: "hol", coeff: base * 2}};
-      case "c": return {"Damage": {elem: "hol", coeff: base}, "Activated Damage": {elem: "hol", coeff: base * 2}};
-      case "d": return {"Damage": {elem: "hol", coeff: base}, "Activated Damage": {elem: "hol", coeff: base * 2}};
-      case "e": return {"Damage": {elem: "hol", coeff: base}, "Activated Damage": {elem: "hol", coeff: base * 2}};
-      }
+    info: {
+      "*": {"Cost": {cost: 50}},
+      x: {"Damage": {elem: "hol", coeff: "1.01*(set_inna_2pc?2:1)"}, "Activated Damage": {elem: "hol", coeff: "1.01*(set_inna_2pc?2:1)*2"}},
+      a: {"Damage": {elem: "fir", coeff: "1.01*(set_inna_2pc?2:1)+1.01"}, "Activated Damage": {elem: "fir", coeff: "1.01*(set_inna_2pc?2:1)*2+2.02"}},
+      b: {"Damage": {elem: "hol", coeff: "1.01*(set_inna_2pc?2:1)"}, "Activated Damage": {elem: "hol", coeff: "1.01*(set_inna_2pc?2:1)*2"}},
+      c: {"Damage": {elem: "hol", coeff: "1.01*(set_inna_2pc?2:1)"}, "Activated Damage": {elem: "hol", coeff: "1.01*(set_inna_2pc?2:1)*2"}},
+      d: {"Damage": {elem: "hol", coeff: "1.01*(set_inna_2pc?2:1)"}, "Activated Damage": {elem: "hol", coeff: "1.01*(set_inna_2pc?2:1)*2"}},
+      e: {"Damage": {elem: "hol", coeff: "1.01*(set_inna_2pc?2:1)"}, "Activated Damage": {elem: "hol", coeff: "1.01*(set_inna_2pc?2:1)*2"}},
     },
     passive: {
       b: {ias: 10},
@@ -693,12 +709,7 @@ DiabloCalc.skills.monk = {
       e: "Time of Need",
     },
     info: {
-      x: {"Shield": "@62064+healbonus*0.15"},
-      a: {"Shield": "@62064+healbonus*0.15"},
-      d: {"Shield": "@62064+healbonus*0.15"},
-      b: {"Shield": "@62064+healbonus*0.15"},
-      c: {"Shield": "@62064+healbonus*0.15"},
-      e: {"Shield": "@62064+healbonus*0.15"},
+      "*": {"Cost": {cost: 50}, "Shield": "@62064+healbonus*0.15"},
     },
     passive: function(rune, stats) {
       var regen = 10728.42;
@@ -729,7 +740,8 @@ DiabloCalc.skills.monk = {
       b: "Submission",
     },
     info: {
-      b: {"DPS": {elem: "hol", aps: true, coeff: 0.38, total: true}},
+      "*": {"Cost": {cost: 50}},
+      b: {"DPS": {elem: "hol", coeff: 0.38, total: true}},
     },
     active: false,
     buffs: {

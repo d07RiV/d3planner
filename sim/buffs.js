@@ -12,8 +12,37 @@
     feared: {dr: true},
   };
 
+  var buffQueue = new Sim.Heap(function(e) {
+    return e.time;
+  });
+  function _after(frames, func, data) {
+    frames = Math.ceil(frames);
+    var e = {
+      time: Sim.time + frames,
+      func: func,
+      data: data,
+      castInfo: Sim.castInfo(),
+    };
+    buffQueue.push(e);
+    return e;
+  };
+  function _removeEvent(e) {
+    buffQueue.remove(e);
+  };
+
   Sim.buffsModified = true;
-  Sim.register("update", function() {
+  Sim.register("update", function(evt) {
+    var time = evt.time;
+    while (!buffQueue.empty() && buffQueue.top().time <= time) {
+      var e = buffQueue.pop();
+      this.time = e.time;
+      this.pushCastInfo(e.castInfo);
+      e.data = (e.data || {});
+      e.data.time = e.time;
+      e.func(e.data);
+      this.popCastInfo();
+    }
+    this.time = time;
     if (this.buffsModified) {
       this.stats = new this.Stats(this.baseStats, this.buffs);
       this.buffsModified = false;
@@ -109,7 +138,11 @@
         Sim.popCastInfo();
       }
       for (var evt in buff.events) {
-        Sim.removeEvent(buff.events[evt]);
+        if (evt === "expire") {
+          _removeEvent(buff.events[evt]);
+        } else {
+          Sim.removeEvent(buff.events[evt]);
+        }
       }
       delete Sim.buffs[e.id];
     }
@@ -126,7 +159,11 @@
       Sim.popCastInfo();
     }
     for (var evt in stack.events) {
-      Sim.removeEvent(stack.events[evt]);
+      if (evt === "expire") {
+        _removeEvent(stack.events[evt]);
+      } else {
+        Sim.removeEvent(stack.events[evt]);
+      }
     }
     buff.stacklist[buff.stackstart] = undefined;
     buff.stackstart = (buff.stackstart + 1) % buff.params.maxstacks;
@@ -168,11 +205,11 @@
     var buff = this.buffs[id];
     if (buff && buff.params.refresh && (duration === "infinite" || (buff.time !== undefined && this.time + duration > buff.time))) {
       if (buff.events.expire) {
-        this.removeEvent(buff.events.expire);
+        _removeEvent(buff.events.expire);
       }
       if (duration !== "infinite") {
         buff.time = this.time + duration;
-        buff.events.expire = this.after(duration, onBuffExpired, {id: id});
+        buff.events.expire = _after(duration, onBuffExpired, {id: id});
       } else {
         delete buff.time;
       }
@@ -253,9 +290,9 @@
       if (params.duration && (!buff.time || buff.time < this.time + params.duration)) {
         buff.time = this.time + params.duration;
         if (buff.events.expire) {
-          this.removeEvent(buff.events.expire);
+          _removeEvent(buff.events.expire);
         }
-        buff.events.expire = this.after(params.duration, onBuffExpired, {id: id});
+        buff.events.expire = _after(params.duration, onBuffExpired, {id: id});
       }
       if (params.tickrate && !buff.events.tick) {
         buff.events.tick = this.after(params.tickinitial || params.tickrate, onBuffTick, {buff: buff});
@@ -304,7 +341,7 @@
         };
         if (params.duration) {
           stack.time = this.time + params.duration;
-          stack.events.expire = this.after(params.duration, onStackExpired, {id: id});
+          stack.events.expire = _after(params.duration, onStackExpired, {id: id});
         }
         stack.data = this.extend({buff: buff, stack: stack}, params.data);
         if (params.onapply) {

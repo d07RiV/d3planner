@@ -61,7 +61,7 @@
       });
     }
   };
-  gems.painenhancer = function(level) {
+  gems.pain = function(level) {
     var coeff = (12 + 0.3 * level) / 12;
     var buffs = undefined;
     if (level >= 25 && Sim.target.distance - Sim.target.size < 20) {

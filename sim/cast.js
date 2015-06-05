@@ -24,9 +24,11 @@
   Sim.resources = {};
   Sim.addResource = function(amount, type) {
     if (!type) type = rcTypes[this.stats.charClass][0];
-    this.resources[type] = Math.min(this.stats["max" + type], (this.resources[type] || 0) + amount);
-    if (this.verbose >= 3) {
-      console.log("Add " + amount + " " + type + " (" + (this.castInfo().triggered || this.castInfo().skill) + ")");
+    this.resources[type] = (this.resources[type] || 0);
+    var gain = Math.min(this.stats["max" + type] - this.resources[type], amount);
+    if (gain) {
+      this.resources[type] += gain;
+      Sim.trigger("resourcegain", {type: type, amount: gain, castInfo: Sim.castInfo()});
     }
   };
   Sim.hasResource = function(amount, type) {

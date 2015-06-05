@@ -3,6 +3,7 @@ DiabloCalc.itemSets = {
   chantodo: {
     name: "Chantodo's Resolve",
     order: ["source", "wand"],
+    tclass: "wizard",
     bonuses: {
       "2": [
         {stat: "int", value: [250]},
@@ -14,6 +15,7 @@ DiabloCalc.itemSets = {
 
   danetta: {
     name: "Danetta's Hatred",
+    tclass: "demonhunter",
     bonuses: {
       "2": [
         {format: "Vault now costs 8 Hatred instead of Discipline."},
@@ -41,6 +43,7 @@ DiabloCalc.itemSets = {
 
   bulkathos: {
     name: "Bul-Kathos's Oath",
+    tclass: "barbarian",
     bonuses: {
       "2": [
         {stat: "furyregen", value: [10]},
@@ -74,6 +77,7 @@ DiabloCalc.itemSets = {
   manajuma: {
     name: "Manajuma's Way",
     order: ["ceremonialknife", "mojo"],
+    tclass: "witchdoctor",
     bonuses: {
       "2": [
         {stat: "int", value: [250]},
@@ -85,6 +89,7 @@ DiabloCalc.itemSets = {
 
   shenlong: {
     name: "Shenlong's Spirit",
+    tclass: "monk",
     bonuses: {
       "2": [
         {stat: "dex", value: [250]},

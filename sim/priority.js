@@ -101,7 +101,7 @@
     var result = [main];
     for (var i = 0; i < list.length; ++i) {
       var id = list[i].skill;
-      if (!Sim.skills[id]) continue;
+      if (!id || !Sim.skills[id]) continue;
       if (Sim.skills[id].secondary) {
         result.push([list[i]]);
       } else {
@@ -121,17 +121,23 @@
     }
   }
 
+/*
   function* rotGenerator() {
     yield "slowtime";
     while (true) {
+      if (Sim.getBuffDuration("slowtime") < 60) yield "slowtime";
       while (Sim.getBuff("arcanedynamo") < 5) yield "electrocute";
       yield "hydra";
       yield "blizzard";
       while (Sim.getBuff("arcanedynamo") < 5) yield "electrocute";
+      yield "hydra";
+      while (Sim.resources.ap < Sim.stats.maxap * 0.9 || Sim.getBuff("arcanedynamo") < 5) yield "electrocute";
       yield "meteor";
-      while (Sim.resources.ap < Sim.stats.maxap * 0.9 && Sim.getBuffDuration("tal_6pc") > 90) yield "electrocute";
+      if (Sim.getBuffDuration("slowtime") < 60) yield "slowtime";
+      while (Sim.resources.ap < Sim.stats.maxap * 0.9) yield "electrocute";
       yield "meteor";
-      if (Sim.getBuffDuration("slowtime") < 300) yield "slowtime";
+      while (Sim.getBuff("tal_6pc") > 35) yield "electrocute";
+      yield "meteor";
       while (Sim.getBuff("tal_6pc_arcane")) yield "electrocute";
     }
   }
@@ -139,6 +145,7 @@
   function rotationTest(data) {
     return rg.next().value;
   }
+//*/
 
   function rotationStep(data) {
     //var skill = rotationTest(data);

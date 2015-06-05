@@ -537,14 +537,14 @@ Simulator.initClass["wizard"] = function() {
   }
   function hydra_mammoth_ontick(data) {
     var range = Math.min(50, (Sim.time - data.stack.start) * 50 / 108);
-    var origin = 30;
+    var origin = 5;
     if (Sim.params.hydra) {
       origin = Sim.params.hydra[0][1] || origin;
     }
     Sim.damage({type: "line", origin: origin, pierce: true, range: range, radius: 5, coeff: 0.99});
   }
   function hydra_ontick(data) {
-    var origin = 30;
+    var origin = 5;
     if (Sim.params.hydra) {
       origin = Sim.params.hydra[0][1] || origin;
     }
@@ -1118,5 +1118,15 @@ Simulator.initClass["wizard"] = function() {
       Sim.metaBuff("elementalexposure", ["ee_fire", "ee_cold", "ee_arcane", "ee_lightning"]);
     },
   };
+
+  Sim.register("init", function() {
+    if (Sim.stats.apoc) {
+      Sim.pushCastInfo({triggered: "apoc"});
+      Sim.register("onhit_proc", function(data) {
+        Sim.addResource(data.targets * data.proc * data.chc * Sim.stats.apoc);
+      });
+      Sim.popCastInfo();
+    }
+  });
 
 };

@@ -148,7 +148,6 @@
     Sim.verbose = (verbose || 0);
     console.time("run");
     var start = this.time;
-    var count = 0;
     while (!this.eventQueue.empty() && this.time < start + duration) {
       var e = this.eventQueue.pop();
       this.time = e.time;
@@ -159,13 +158,13 @@
       e.data.event = e;
       e.func(e.data);
       this.popCastInfo();
-      ++count;
     }
     this.trigger("finish");
     console.timeEnd("run");
     console.log("DPS: " + this.totalDamage / duration * 60);
-    console.log(this.uptimes);
-    console.log(this.counters);
+    console.log("Uptimes:", this.uptimes);
+    console.log("Skill breakdown:", this.counters);
+    console.log("Resource gains:", this.rcgains);
   };
 
   var rngBuffer = {};
@@ -191,6 +190,7 @@
 
 
   Sim.counters = {};
+  Sim.rcgains = {};
   Sim.buckets = [];
   Sim.bucket_size = 300;
   Sim.totalDamage = 0;
@@ -203,21 +203,37 @@
   Sim.register("onhit", function(data) {
     var source = (data.triggered || data.skill || "unknown");
     var amount = data.damage * data.targets;
-    _counter(data.skill).damage += amount;
+    _counter(source).damage += amount;
     var bucket = Math.floor(this.time / this.bucket_size);
     while (this.buckets.length <= bucket) {
       this.buckets.push(0);
     }
     this.buckets[bucket] += amount;
     this.totalDamage += amount;
-    if (this.verbose >= 2) {
+    if (this.verbose >= 3) {
       console.log(this.extend(true, {}, data));
     }
   });
   Sim.register("oncast", function(data) {
     if (this.verbose >= 1) {
       console.log("[" + this.time + "] Casting " + data.skill + " " + JSON.stringify(this.resources));
+/*      var buffs = {};
+      for (var x in this.buffs) {
+        buffs[x] = [this.buffs[x].stacks, this.buffs[x].time];
+      }
+      console.log(buffs);*/
     }
     _counter(data.skill).count += 1;
+  });
+  Sim.register("resourcegain", function(data) {
+    if (!data.castInfo) return;
+    var id = (data.castInfo.triggered || data.castInfo.skill);
+    if (id) {
+      if (!Sim.rcgains[id]) Sim.rcgains[id] = {};
+      Sim.rcgains[id][data.type] = (Sim.rcgains[id][data.type] || 0) + data.amount;
+      if (this.verbose >= 2) {
+        console.log("Add " + data.amount + " " + data.type + " (" + id + ")");
+      }
+    }
   });
 })();

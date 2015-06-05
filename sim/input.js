@@ -142,7 +142,7 @@ Simulator.init(
   "chctaken": 20
 }*/, {
   elite: true,
-  distance: 20,
+  distance: 50,
   radius: 0,
   size: 5,
   count: 1,
