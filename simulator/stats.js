@@ -45,7 +45,7 @@
     colddef: {dr: true},
     nonphys: {dr: true},
 
-    bleed: {args: 2, argnames: ["chance", "amount"]},
+    bleed: {args: 2, argnames: ["chance", "amount"], dr: true},
 
     resphy: {resist: true},
     resfir: {resist: true},
@@ -53,6 +53,15 @@
     respsn: {resist: true},
     resarc: {resist: true},
     reslit: {resist: true},
+
+    hitfear: {dr: true},
+    hitstun: {dr: true},
+    hitblind: {dr: true},
+    hitfreeze: {dr: true},
+    hitchill: {dr: true},
+    hitslow: {dr: true},
+    hitimmobilize: {dr: true},
+    hitknockback: {dr: true},
 
     rangedef: {dr: true},
     meleedef: {dr: true},
@@ -76,7 +85,7 @@
       } else if (typeof amount === "number") {
         dst.special[stat].push({percent: amount * factor});
       } else {
-        var obj = this.extend({}, amount);
+        var obj = Sim.extend({}, amount);
         obj.percent *= factor;
         dst.special[stat].push(obj);
         if (amount.elems === undefined && amount.pet === undefined && amount.skills === undefined) {
@@ -96,7 +105,7 @@
     }
     if (info && info.args == 0) {
       dst[stat] = 1;
-    } else if (!info || info.args == 1) {
+    } else if (!info || info.args === undefined || info.args == 1) {
       if (typeof amount !== "number") {
         amount = amount[0];
       }
@@ -116,8 +125,15 @@
         dst[stat] = {};
       }
       var argnames = (info.argnames || ["min", "max"]);
-      for (var i = 0; i < info.args; ++i) {
-        dst[stat][argnames[i]] = (!info.nostack && dst[stat][argnames[i]] || 0) + (amount[i] !== undefined ? amount[i] : amount[argnames[i]]) * factor;
+      if (info && info.dr) {
+        dst[stat][argnames[0]] = 100 - 0.01 * (100 - (dst[stat][argnames[0]] || 0)) * Math.max(0, 100 - (amount[0] !== undefined ? amount[0] : amount[argnames[0]]) * factor);
+        for (var i = 1; i < info.args; ++i) {
+          dst[stat][argnames[i]] = Math.max(dst[stat][argnames[i]] || 0, (amount[i] !== undefined ? amount[i] : amount[argnames[i]]) * factor);
+        }
+      } else {
+        for (var i = 0; i < info.args; ++i) {
+          dst[stat][argnames[i]] = (!info.nostack && dst[stat][argnames[i]] || 0) + (amount[i] !== undefined ? amount[i] : amount[argnames[i]]) * factor;
+        }
       }
     }
   }

@@ -103,7 +103,7 @@
 
     ms: {name: "Movement Speed", format: "+%d%% Movement Speed", utility: true},
     extrams: {name: "Movement Speed"},
-    bleed: {name: "Bleed", format: "%.1f%% chance to inflict Bleed for %d%% weapon damage over 5 seconds.", args: 2, argnames: ["chance", "amount"], utility: true},
+    bleed: {name: "Bleed", format: "%.1f%% chance to inflict Bleed for %d%% weapon damage over 5 seconds.", args: 2, argnames: ["chance", "amount"], utility: true, dr: true},
 
     skill_wizard_disintegrate: SkillStat("Disintegrate", "wizard"),
     skill_wizard_arcanetorrent: SkillStat("Arcane Torrent", "wizard"),
@@ -265,14 +265,14 @@
     lvlreq: {name: "Level Reduction", format: "Level Requirement Reduced by %d", secondary: true, utility: true},
     dura: {name: "Ignores Durability Loss", format: "Ignores Durability Loss", args: 0, secondary: true, utility: true},
 
-    hitfear: {name: "Fear on Hit", format: "%.1f%% Chance to Fear on Hit", secondary: true, utility: true},
-    hitstun: {name: "Stun on Hit", format: "%.1f%% Chance to Stun on Hit", secondary: true, utility: true},
-    hitblind: {name: "Blind on Hit", format: "%.1f%% Chance to Blind on Hit", secondary: true, utility: true},
-    hitfreeze: {name: "Freeze on Hit", format: "%.1f%% Chance to Freeze on Hit", secondary: true, utility: true},
-    hitchill: {name: "Chill on Hit", format: "%.1f%% Chance to Chill on Hit", secondary: true, utility: true},
-    hitslow: {name: "Slow on Hit", format: "%.1f%% Chance to Slow on Hit", secondary: true, utility: true},
-    hitimmobilize: {name: "Immobilize on Hit", format: "%.1f%% Chance to Immobilize on Hit", secondary: true, utility: true},
-    hitknockback: {name: "Knockback on Hit", format: "%.1f%% Chance to Knockback on Hit", secondary: true, utility: true},
+    hitfear: {name: "Fear on Hit", format: "%.1f%% Chance to Fear on Hit", secondary: true, utility: true, dr: true},
+    hitstun: {name: "Stun on Hit", format: "%.1f%% Chance to Stun on Hit", secondary: true, utility: true, dr: true},
+    hitblind: {name: "Blind on Hit", format: "%.1f%% Chance to Blind on Hit", secondary: true, utility: true, dr: true},
+    hitfreeze: {name: "Freeze on Hit", format: "%.1f%% Chance to Freeze on Hit", secondary: true, utility: true, dr: true},
+    hitchill: {name: "Chill on Hit", format: "%.1f%% Chance to Chill on Hit", secondary: true, utility: true, dr: true},
+    hitslow: {name: "Slow on Hit", format: "%.1f%% Chance to Slow on Hit", secondary: true, utility: true, dr: true},
+    hitimmobilize: {name: "Immobilize on Hit", format: "%.1f%% Chance to Immobilize on Hit", secondary: true, utility: true, dr: true},
+    hitknockback: {name: "Knockback on Hit", format: "%.1f%% Chance to Knockback on Hit", secondary: true, utility: true, dr: true},
 
     petias: {name: "Pet Attack Speed"},
     rcrint: {name: "Resource Cost Reduction"},

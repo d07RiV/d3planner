@@ -1,0 +1,92 @@
+Not for a while:
+leg_brokenpromises Unique_Ring_006_p2
+leg_bootsofdisregard ~
+leg_deathsbargain Unique_Pants_102_x1
+leg_theessofjohan Unique_Amulet_104_x1
+leg_sunder Unique_Mace_2H_006_x1
+leg_bloodmagicedge Unique_Dagger_006_x1
+
+Not yet:
+leg_skywarden Unique_Mace_2H_010_x1
+leg_bovinebardiche Unique_Polearm_101_x1
+leg_hauntofvaxo Unique_Amulet_101_x1
+leg_corruptedashbringer Unique_Sword_2H_104_x1
+leg_maximus Unique_Sword_2H_010_x1
+leg_genzaniku Unique_Axe_1H_003_x1
+leg_skycutter Unique_Sword_1H_004_x1
+
+DH:
+
+Crus:
+leg_jaceshammerofvigilance Unique_Mace_1H_103_x1
+leg_denial
+leg_eberlicharo
+leg_hellskull
+leg_jekangbord
+leg_thefinalwitness
+leg_frydehrswrath
+leg_unrelentingphalanx
+leg_piromarella
+leg_eternalunion
+leg_darklight Unique_Flail_1H_106_x1
+leg_gyrfalconsfoote
+leg_inviolablefaith
+leg_justiniansmercy
+leg_swiftmount
+leg_goldenscourge
+leg_armorofthekindregent
+leg_bladeofprophecy Unique_Sword_2H_007_x1
+leg_camsrebuttal Unique_Sword_2H_102_x1
+leg_fateofthefell
+leg_goldenflense
+leg_goldenflense_p2
+leg_themortaldrama
+
+WD:
+leg_deadlyrebirth Unique_CeremonialDagger_003_x1
+leg_rhenhoflayer Unique_CeremonialDagger_102_x1
+leg_sacredharvester P1_CeremonialDagger_norm_unique_01
+leg_thedaggerofdarts
+leg_thespiderqueensgrasp
+leg_starmetalkukri
+leg_anessaziedge
+leg_thegidbinn Unique_CeremonialDagger_002_x1
+leg_homunculus
+leg_homunculus_p2
+leg_thetallmansfinger
+leg_theshortmansfinger P2_Unique_Ring_02
+leg_quetzalcoatl
+leg_carnevil
+leg_maskofjeram
+leg_thegrinreaper Unique_VoodooMask_002_x1
+leg_tiklandianvisage
+leg_wormwood P2_Unique_Staff_003
+
+Monk:
+leg_tzokrinsgaze
+leg_thecrudestboots
+leg_bandofruechambers
+leg_gyananakashu Unique_SpiritStone_004_x1
+leg_themindseye
+leg_eyeofpeshkov
+leg_kekegisunbreakablespirit Unique_SpiritStone_102_x1
+leg_thelawsofseph
+leg_madstone
+leg_jawbreaker Unique_Fist_101_x1
+leg_thefistofazturrasq
+leg_vengefulwind
+leg_theflowofeternity
+leg_warstaffofgeneralquang
+leg_incensetorchofthegrandtemple
+leg_flyingdragon Unique_CombatStaff_2H_009_x1
+
+Barb:
+leg_lutsocks
+leg_skullgrasp
+leg_skullofresonance Unique_Helm_004_x1
+leg_fjordcutter Unique_Mighty_1H_006_x1
+leg_remorseless Unique_Mighty_1H_102_x1
+leg_vileward Unique_Shoulder_003_p1
+leg_bastionsrevered
+leg_furyofthevanishedpeak
+leg_gavelofjudgment

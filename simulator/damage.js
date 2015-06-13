@@ -115,13 +115,15 @@
   Sim.curweapon = "mainhand";
 
   function _target(data) {
+    if (data.count === 0 || data.targets === 0) return;
+
     var stats = Sim.stats;
     var triggered = (data.castInfo && data.castInfo.triggered);
 
     var base = stats.info[data.weapon].wpnbase;
-    var avg = (base.min + base.max) * 0.5;
+    var avg = (data.thorns ? Sim.stats.thorns : (base.min + base.max) * 0.5);
 
-    var factor = 1 + 0.01 * stats.info.primary;
+    var factor = 1 + 0.01 * stats.info.primary * (data.thorns ? 0.25 : 1);
     if (data.fix) {
       data.fix.call(data);
     }
@@ -131,6 +133,7 @@
     var dibs = (data.dibs || 0);
     var chc = stats.final.chc + (data.chc || 0);
     var chd = stats.chd + (data.chd || 0);
+    var orphan = (data.orphan || data.thorns);
     if (data.castInfo && data.castInfo.buffs) {
       for (var i = 0; i < data.castInfo.buffs.length; ++i) {
         var ex = data.castInfo.buffs[i];
@@ -140,6 +143,9 @@
         if (ex.chc) chc += ex.chc;
         if (ex.chd) chd += ex.chd;
       }
+    }
+    if (data.castInfo && data.castInfo.orphan) {
+      orphan = true;
     }
     chc = Math.min(1, 0.01 * chc);
     chd *= 0.01;
@@ -156,7 +162,7 @@
     }
 
     var elem = (data.elem === "max" ? stats.info.maxelem : data.elem);
-    dibs += stats.getSpecial("damage", elem, ispet, data.skill, data.exclude);
+    if (!orphan) dibs += stats.getSpecial("damage", elem, ispet, data.skill, data.exclude);
     dibs += stats.getSpecial("dmgtaken", elem, ispet, data.skill, data.exclude);
 
     factor *= 1 + 0.01 * dibs;
@@ -172,16 +178,15 @@
       factor *= 1 + 0.01 * (stats["damage_" + Sim.target.type] || 0);
     }
 
-    var dmgmul = stats.getSpecial("dmgmul", elem, ispet, data.skill, data.exclude);
+    var dmgmul = (orphan ? 1 : stats.getSpecial("dmgmul", elem, ispet, data.skill, data.exclude));
+    if (stats.gems.zei && !orphan) {
+      var dist = ((data.castInfo && data.castInfo.distance) || data.distance || data.origin || Sim.target.distance);
+      dmgmul *= 1 + 0.01 * dist * (4 + 0.05 * stats.gems.zei) / 10;
+    }
     factor *= dmgmul;
 
-    if (stats.gems.zei) {
-      var dist = (data.distance || data.origin || Sim.target.distance);
-      factor *= 1 + 0.01 * dist * (4 + 0.05 * stats.gems.zei) / 10;
-    }
-
     var value = avg * factor;
-    if (!data.nocrit) {
+    if (!data.nocrit && !orphan) {
       value *= 1 + chc * chd;
     }
 
@@ -193,13 +198,14 @@
     var event = {
       targets: count,
       skill: data.skill,
-      proc: data.proc,
+      proc: (ispet ? 0 : data.proc),
       damage: value,
       elem: data.elem,
       pet: ispet,
       castInfo: data.castInfo,
       triggered: triggered,
       chc: chc,
+      distance: data.distance,
     };
 
     if (event.proc && !event.pet) {
@@ -269,22 +275,44 @@
     var first = t0 + Sim.target.area / ewidth * (
       tcount / (tcount + 1) * (prob * fail - 1) - prob + 1
     );
+    var secondary;
     if (data.pierce) {
-      data.count = (data.count || 1) * tcount * area / Sim.target.area;
+      var hits = tcount * area / Sim.target.area;
+      if (data.pierce !== true) {
+        hits = Math.min(hits, data.pierce + 1);
+      }
+      data.count = (data.count || 1) * hits;
       data.distance = (t0 + t1) / 2;
     } else {
       data.count = (data.count || 1) * (1 - prob);
       if (data.area) {
         var ta = Math.PI * Math.pow(data.area + Sim.target.size, 2);
-        data.count *= 1 + (tcount - 1) * Math.min(ta, Sim.target.area) / Sim.target.area;
+        var targets = (tcount - 1) * Math.min(ta, Sim.target.area) / Sim.target.area;
+        if (data.areamax) {
+          targets = Math.min(targets, data.areamax);
+        }
+        if (data.areacoeff || data.areadelay) {
+          secondary = Sim.extend({}, data);
+          secondary.count *= targets;
+          secondary.coeff = (data.areacoeff || data.coeff);
+          secondary.delay = data.areadelay;
+        } else {
+          data.count *= 1 + targets;
+        }
       }
       data.distance = first;
     }
     if (data.speed) {
       var delay = (first - width) / data.speed;
       Sim.after(delay, _target, data);
+      if (secondary) {
+        Sim.after(delay + (secondary.delay || 0), _target, secondary);
+      }
     } else {
       _target(data);
+      if (secondary) {
+        _target(secondary);
+      }
     }
   }
 
@@ -316,8 +344,16 @@
     }
   }
 
+  Sim.getTargets = function(range, origin) {
+    var area = _circle_intersection(origin || 0, Sim.target.size + range, Sim.target.radius);
+    return Math.min(area, Sim.target.area) * Sim.target.density;
+  };
+
   function _area(data) {
     var area;
+    if (data.self) {
+      data.distance = data.range / 2;
+    }
     if (data.self || data.origin || data.inner) {
       if (data.spread) {
         area = _calc_area_d(Sim.target.radius, Sim.target.size, data.spread, data.range,
@@ -331,13 +367,18 @@
     } else {
       area = Math.PI * Math.pow(Math.min(Sim.target.radius, Sim.target.size + data.range), 2);
     }
-    data.targets = Math.min(area, Sim.target.area) * Sim.target.density;
-    _target(data);
+    var tcount = Sim.target.count + (data.cmod || 0);
+    data.targets = Math.min(area, Sim.target.area) * tcount / Sim.target.area;
+    if (data.cap) data.targets = Math.min(data.targets, data.cap);
+    if (data.targets) {
+      _target(data);
+    }
   }
 
   function _cone(data) {
     data.range /= 2;
     data.origin = Math.abs((data.origin || Sim.target.distance) - data.range);
+    data.distance = data.range;
     _area(data);
   };
 
@@ -374,23 +415,7 @@
       data.elem = data.castInfo.elem;
     }
 
-    switch (data.weapon) {
-    case "mainhand":
-    case "offhand":
-      if (!this.stats.info[data.weapon]) {
-        return;
-      }
-      this.curweapon = data.weapon;
-      break;
-    case "current":
-      data.weapon = this.curweapon;
-      break;
-    default:
-      data.weapon = this.curweapon;
-      if (this.stats.info.offhand) {
-        this.curweapon = (this.curweapon === "mainhand" ? "offhand" : "mainhand");
-      }
-    }
+    data.weapon = (data.castInfo && data.castInfo.weapon || this.curweapon);
 
     this.pushCastInfo(data.castInfo);
 

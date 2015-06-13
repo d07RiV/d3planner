@@ -1,0 +1,24 @@
+Agnidox 4 1
+Tethrys 6 1.2
+The Choker 4 1.25
+The Binder 4 1.25
+Raiziel 4.6 1.3
+Bone Warlock 6 1.8
+Sand Shaper 7.5 1.8
+Blighter 6.3 2
+Saxtris 7 2
+Eskandiel 8.5 2
+Rime 8.5 2
+Crusader King 8 2
+Infernal Maiden 4 2.3
+Hamelin 4 2.5
+Ember 4 2.5
+Erethon 10 2.5
+Cold Snap 8 2.5
+Stonesinger 4 2.5
+Orlash 4 2.5
+Perdition 11.6 3
+Voracity 8 3.25
+Bloodmaw 4 3.25
+Man Carver 15 5
+Perendi 9 5

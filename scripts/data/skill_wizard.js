@@ -287,7 +287,7 @@ DiabloCalc.skills.wizard = {
       e: "Stretch Time",
     },
     info: function(rune, stats) {
-      var res = {"Cooldown": {cooldown: (rune === "c" ? 12 : 15), rcr: (stats.leg_gestureoforpheus || 0)}};
+      var res = {"Cooldown": {cooldown: (rune === "c" ? 12 : 15), rcr: (stats.leg_gestureoforpheus || stats.leg_gestureoforpheus_p2 || 0)}};
       if (stats.set_magnumopus_4pc) {
         res["DPS"] = {elem: "max", coeff: 20, total: true};
       }

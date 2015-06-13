@@ -65,7 +65,7 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       dmgcol: {min: 10, max: 15},
-      custom: {id: "leg_frostburn", name: "Chance to Freeze on Chill", format: "Your Chill effects have up to a %d%% chance to Freeze instead of Slow.", min: 34, max: 45},
+      custom: {id: "leg_frostburn", name: "Chance to Freeze", format: "Your Cold damage has up to a %d%% chance to Freeze enemies.", min: 34, max: 45},
     },
     preset: ["mainstat"],
   },

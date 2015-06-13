@@ -1,6 +1,8 @@
 (function() {
   var Sim = Simulator;
 
+  //importScripts("seedrandom.js");
+
   Sim.initClass = {};
   Sim.affixes = {};
   Sim.gems = {};
@@ -96,6 +98,7 @@
     if (this.handlers[event]) {
       data = data || {};
       data.time = this.time;
+      data.event = event;
       for (var i = 0; i < this.handlers[event].length; ++i) {
         var handler = this.handlers[event][i];
         this.pushCastInfo(handler.castInfo);
@@ -105,6 +108,7 @@
       }
       delete data.data;
       delete data.time;
+      delete data.event;
     }
     return results;
   };
@@ -113,19 +117,47 @@
     Sim.eventQueue.remove(e);
   };
 
-  Sim.init = function(stats, target, params) {
-    this.baseStats = stats;
-    this.target = target;
+  Sim.init = function(data) {
+    this.baseStats = data.stats;
+    this.target = {};
+    this.params = data.params || {};
     this.time = 0;
-    this.target.radius = Math.max(this.target.radius, 1);
+    this.target.radius = Math.max(data.params.targetRadius || 0, 1);
     this.target.area = Math.PI * Math.pow(this.target.radius, 2);
+    this.target.size = (data.params.targetSize || 0);
+    this.target.count = (data.params.targetCount || 1);
+    this.target.distance = (data.params.targetDistance || 0);
+    this.target.elite = data.params.showElites;
+    this.target.boss = data.params.targetBoss;
+    this.target.type = (data.params.targetType || "");
     this.target.density = this.target.count / this.target.area;
-    this.params = params || {};
-    if (this.initClass[stats.charClass]) {
-      this.initClass[stats.charClass]();
+    this.target.maxdr = 0;
+    if (!this.target.elite) {
+      this.target.boss = false;
     }
-    this.trigger("update");
+    if (this.target.elite) {
+      this.target.maxdr = 65;
+      this.target.mincc = 0.65;
+    }
+    if (this.target.boss) {
+      this.target.maxdr = 70;
+      this.target.mincc = 0.85;
+    }
+    this.priority = data.priority;
+    try {
+      var scripts = {
+        wizard: "/sim/wizard",
+        demonhunter: "/sim/demonhunter",
+        witchdoctor: "/sim/witchdoctor",
+        monk: "/sim/monk",
+        barbarian: "/sim/barbarian",
+        crusader: "/sim/crusader",
+      };
+      importScripts(scripts[data.stats.charClass]);
+    } catch(e) {}
+    this.stats = new this.Stats(this.baseStats, this.buffs);
     this.trigger("init");
+    this.trigger("update");
     for (var id in this.affixes) {
       if (this.stats[id]) {
         this.pushCastInfo({triggered: id});
@@ -143,12 +175,10 @@
   };
 
   Sim.verbose = false;
-  Sim.run = function(duration, verbose) {
+  Sim.run = function(duration) {
     duration = (duration || 36000);
-    Sim.verbose = (verbose || 0);
-    console.time("run");
     var start = this.time;
-    while (!this.eventQueue.empty() && this.time < start + duration) {
+    while (!this.eventQueue.empty() && this.time < start + duration * 1.5 && Sim.targetHealth > 0) {
       var e = this.eventQueue.pop();
       this.time = e.time;
       this.trigger("update");
@@ -160,11 +190,6 @@
       this.popCastInfo();
     }
     this.trigger("finish");
-    console.timeEnd("run");
-    console.log("DPS: " + this.totalDamage / duration * 60);
-    console.log("Uptimes:", this.uptimes);
-    console.log("Skill breakdown:", this.counters);
-    console.log("Resource gains:", this.rcgains);
   };
 
   var rngBuffer = {};
@@ -188,52 +213,24 @@
     }
   };
 
+  Sim.postMessage = function(data) {
+    postMessage(data);
+  };
+  onmessage = function(e) {
+    if (e.data.type === "start") {
+      Sim.init(e.data);
+      Sim.run();
+      Sim.postResults();
+    }
+  };
 
-  Sim.counters = {};
-  Sim.rcgains = {};
-  Sim.buckets = [];
-  Sim.bucket_size = 300;
-  Sim.totalDamage = 0;
-  function _counter(id) {
-    if (!Sim.counters[id]) {
-      Sim.counters[id] = {count: 0, damage: 0};
-    }
-    return Sim.counters[id];
+  Sim.testrun = function(data) {
+    Sim.postMessage = function(data) {
+      console.log(Sim.extend(true, {}, data));
+    };
+    Sim.init(data);
+    Sim.run();
+    Sim.postResults();
   }
-  Sim.register("onhit", function(data) {
-    var source = (data.triggered || data.skill || "unknown");
-    var amount = data.damage * data.targets;
-    _counter(source).damage += amount;
-    var bucket = Math.floor(this.time / this.bucket_size);
-    while (this.buckets.length <= bucket) {
-      this.buckets.push(0);
-    }
-    this.buckets[bucket] += amount;
-    this.totalDamage += amount;
-    if (this.verbose >= 3) {
-      console.log(this.extend(true, {}, data));
-    }
-  });
-  Sim.register("oncast", function(data) {
-    if (this.verbose >= 1) {
-      console.log("[" + this.time + "] Casting " + data.skill + " " + JSON.stringify(this.resources));
-/*      var buffs = {};
-      for (var x in this.buffs) {
-        buffs[x] = [this.buffs[x].stacks, this.buffs[x].time];
-      }
-      console.log(buffs);*/
-    }
-    _counter(data.skill).count += 1;
-  });
-  Sim.register("resourcegain", function(data) {
-    if (!data.castInfo) return;
-    var id = (data.castInfo.triggered || data.castInfo.skill);
-    if (id) {
-      if (!Sim.rcgains[id]) Sim.rcgains[id] = {};
-      Sim.rcgains[id][data.type] = (Sim.rcgains[id][data.type] || 0) + data.amount;
-      if (this.verbose >= 2) {
-        console.log("Add " + data.amount + " " + data.type + " (" + id + ")");
-      }
-    }
-  });
+
 })();

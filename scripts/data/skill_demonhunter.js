@@ -32,16 +32,17 @@ DiabloCalc.skills.demonhunter = {
       case "handcrossbow": fpa = 56.842075; break;
       default: fpa = 57.692299;
       }
+      var pierce = 35 + (stats.leg_theninthcirrisatchel || 0);
       var res;
       switch (rune) {
       case "x": res = {"Damage": {elem: "phy", coeff: 1.55}}; break;
-      case "d": res = {"Damage": {elem: "phy", coeff: 1.55}, "Pierce Chance": "%50+leg_theninthcirrisatchel"}; break;
+      case "d": res = {"Damage": {elem: "phy", coeff: 1.55}, "Pierce Chance": (pierce + 15) + "%"}; break;
       case "a": res = {"Damage": {elem: "fir", coeff: 1.55}}; break;
       case "b": res = {"Damage": {elem: "lit", coeff: 1.55}}; break;
       case "c": res = {"Damage": {elem: "col", coeff: 1.55}, "Damage Increase per Pierce": {sum: true, "Damage": {factor: 0.7}}}; break;
       case "e": res = {"Damage": {elem: "phy", coeff: 1.55}}; break;
       }
-      return $.extend({"DPS": {sum: true, "Damage": {speed: 1, fpa: fpa, round: "up"}}, "Damage": {}, "Pierce Chance": "%35+leg_theninthcirrisatchel"}, res);
+      return $.extend({"DPS": {sum: true, "Damage": {speed: 1, fpa: fpa, round: "up"}}, "Damage": {}, "Pierce Chance": pierce + "%"}, res);
     },
   },
   entanglingshot: {
@@ -184,6 +185,7 @@ DiabloCalc.skills.demonhunter = {
       if (stats.set_marauder_4pc && sentries) {
         var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
         res["Sentry Damage"] = $.extend({}, res["Damage"], ext);
+        DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Damage"], stats);
         if (res["Burn Damage"]) res["Sentry Burn Damage"] = $.extend({}, res["Burn Damage"], ext);
       }
       var total = {};
@@ -260,6 +262,7 @@ DiabloCalc.skills.demonhunter = {
         if (stats.set_marauder_4pc && sentries) {
           var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
           res["Sentry Damage"] = $.extend({}, res["Damage"], ext);
+          DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Damage"], stats);
         }
         var total = {};
         if (res["Sentry Damage"]) total["Sentry Damage"] = {count: sentries};
@@ -307,7 +310,11 @@ DiabloCalc.skills.demonhunter = {
       if (stats.set_marauder_4pc && sentries) {
         var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
         res["Sentry Damage"] = $.extend({}, res["Damage"], ext);
-        if (res["Explosion Damage"]) res["Sentry Explosion Damage"] = $.extend({}, res["Explosion Damage"], ext);
+        DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Damage"], stats);
+        if (res["Explosion Damage"]) {
+          res["Sentry Explosion Damage"] = $.extend({}, res["Explosion Damage"], ext);
+          DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Explosion Damage"], stats);
+        }
         if (rune === "b") res["Average Sentry Damage"] = {sum: true, "Sentry Damage": {factor: res["Average Damage"]["Damage"].factor}};
       }
       var total = {};
@@ -509,7 +516,7 @@ DiabloCalc.skills.demonhunter = {
         switch (rune) {
         case "d": return {hatredregen: 1};
         case "b": return {regen: 5364, resist_percent: 20};
-        case "e": return {gf: 10, extrams: 10};
+        case "e": return {gf: 10, ms: 10};
         }
       }
     },
@@ -603,7 +610,16 @@ DiabloCalc.skills.demonhunter = {
       d: "Polar Station",
       e: "Guardian Turret",
     },
-    params: [{min: 0, max: "2+(passives.customengineering?1:0)+(leg_bombadiersrucksack?2:0)", name: "Count", buffs: false}],
+    params: [{min: 0, max: "2+(passives.customengineering?1:0)+(leg_bombadiersrucksack?2:0)", name: "Count", buffs: false},
+             {min: 0, max: 50, val: 30, name: "Distance", buffs: false, show: function(rune, stats) {
+               return rune === "a" || stats.gems.zei;
+             }}],
+    fixdmg: function(dmg, stats) {
+      if (stats.gems.zei) {
+        dmg.exclude = ["zei"];
+        dmg.percent = {"Zei's Stone of Vengeance": this.params[1].val * (4 + 0.05 * stats.gems.zei) / 10};
+      }
+    },
     info: function(rune, stats) {
       var res;
       switch (rune) {
@@ -613,6 +629,9 @@ DiabloCalc.skills.demonhunter = {
       case "a": res = {"Damage": {elem: "phy", weapon: "mainhand", pet: true, coeff: 2.8}}; break;
       case "d": res = {"Damage": {elem: "col", weapon: "mainhand", pet: true, coeff: 2.8}}; break;
       case "e": res = {"Damage": {elem: "phy", weapon: "mainhand", pet: true, coeff: 2.8}}; break;
+      }
+      for (var key in res) {
+        this.fixdmg(res[key], stats);
       }
       res = $.extend({"Cost": {cost: 20}}, res);
       var count = this.params[0].val;
@@ -715,8 +734,15 @@ DiabloCalc.skills.demonhunter = {
       if (stats.set_marauder_4pc && sentries) {
         var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
         res["Sentry Damage"] = $.extend({}, res["Damage"], ext);
-        if (res["Burst Damage"]) res["Sentry Burst Damage"] = $.extend({}, res["Burst Damage"], ext);
-        if (res["Rocket Damage"]) res["Sentry Rocket Damage"] = $.extend({}, res["Rocket Damage"], ext);
+        DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Damage"], stats);
+        if (res["Burst Damage"]) {
+          res["Sentry Burst Damage"] = $.extend({}, res["Burst Damage"], ext);
+          DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Burst Damage"], stats);
+        }
+        if (res["Rocket Damage"]) {
+          res["Sentry Rocket Damage"] = $.extend({}, res["Rocket Damage"], ext);
+          DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Rocket Damage"], stats);
+        }
       }
       var total = {};
       if (res["Sentry Damage"]) total["Sentry Damage"] = {count: sentries};
@@ -816,8 +842,15 @@ DiabloCalc.skills.demonhunter = {
       if (stats.set_marauder_4pc && sentries) {
         var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
         res["Sentry Damage"] = $.extend({}, res["Damage"], ext);
-        if (res["Grenade Damage"]) res["Sentry Grenade Damage"] = $.extend({}, res["Grenade Damage"], ext);
-        if (res["Rocket Damage"]) res["Sentry Rocket Damage"] = $.extend({}, res["Rocket Damage"], ext);
+        DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Damage"], stats);
+        if (res["Grenade Damage"]) {
+          res["Sentry Grenade Damage"] = $.extend({}, res["Grenade Damage"], ext);
+          DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Grenade Damage"], stats);
+        }
+        if (res["Rocket Damage"]) {
+          res["Sentry Rocket Damage"] = $.extend({}, res["Rocket Damage"], ext);
+          DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Rocket Damage"], stats);
+        }
       }
       var total = {
         sum: true,

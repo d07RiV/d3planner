@@ -417,7 +417,7 @@ DiabloCalc.addItems([
     type: "sword2h",
     quality: "legendary",
     required: {
-      custom: {id: "leg_bladeofprophecy", name: "Condemn Explosions Chain", format: "Condemned enemies also trigger Condemn's explosion.", args: 0},
+      custom: {id: "leg_bladeofprophecy", name: "Condemn Explosions Chain", format: "Two Condemned enemies also trigger Condemn's explosion.", args: 0},
     },
     preset: ["cdr"],
   },

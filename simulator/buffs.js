@@ -8,8 +8,9 @@
     stunned: {dr: true},
     slowed: {},
     knockback: {},
-    charmed: {dr: true},
+    charmed: {},//{dr: true},
     feared: {dr: true},
+    rooted: {dr: true},
   };
 
   var buffQueue = new Sim.Heap(function(e) {
@@ -88,7 +89,7 @@
         return false;
       }
       if (a[key] instanceof Object) {
-        if (!deepEquals(a[key], b[key], factor)) {
+        if (!deepEquals(a[key], b[key])) {
           return false;
         }
       } else if (a[key] !== b[key]) {
@@ -187,6 +188,7 @@
   }
   function onBuffTick(e) {
     var obj = (e.stack || e.buff);
+    ++e.buff.ticks;
     if (obj.time !== undefined && obj.time <= e.time) {
       delete obj.events.tick;
       return;
@@ -195,11 +197,40 @@
       obj.data.stacks = e.buff.stacks;
       obj.data.time = e.time;
       Sim.pushCastInfo(obj.castInfo);
-      e.buff.params.ontick(obj.data);
+      if (typeof e.buff.params.ontick === "function") {
+        e.buff.params.ontick(obj.data);
+      } else {
+        Sim.damage(Sim.extend({}, e.buff.params.ontick));
+      }
       Sim.popCastInfo();
     }
     obj.events.tick = Sim.after(e.buff.params.tickrate, onBuffTick, e);
   }
+  Sim.delayBuff = function(id, delay) {
+    var buff = this.buffs[id];
+    if (!buff) {
+      var meta = this.metaBuffs[id];
+      if (!meta) return;
+      for (var i = 0; i < meta.length; ++i) {
+        Sim.delayBuff(meta[i], delay);
+      }
+      return;
+    }
+    if (buff.params.refresh) {
+      if (buff.events.tick) {
+        this.removeEvent(buff.events.tick);
+        buff.events.tick = this.after(delay, onBuffTick, {buff: buff});
+      }
+    } else {
+      for (var i = 0; i < buff.stacklist.length; ++i) {
+        var stack = buff.stacklist[i];
+        if (stack && stack.events.tick) {
+          this.removeEvent(stack.events.tick);
+          stack.events.tick = this.after(delay, onBuffTick, {buff: buff, stack: stack});
+        }
+      }
+    }
+  };
 
   Sim.refreshBuff = function(id, duration) {
     var buff = this.buffs[id];
@@ -238,6 +269,9 @@
     if (params.status) {
       stats = (stats || {});
       stats[params.status] = 1;
+      if (params.status === "stunned" && this.stats.leg_dovuenergytrap && params.duration) {
+        params.duration *= 1 + 0.01 * this.stats.leg_dovuenergytrap;
+      }
       if (this.statusBuffs[params.status].dr) {
         params.duration = Math.floor((params.duration || 60) * drUpdate());
         if (Sim.target.mincc && params.duration < Sim.target.mincc * 60) {
@@ -261,6 +295,7 @@
       this.buffs[id] = buff = {
         params: params,
         stacks: 0,
+        ticks: 0,
         events: {},
         start: this.time,
         userStart: this.time,
@@ -275,11 +310,12 @@
     } else {
       var castInfo = this.castInfo();
       if (castInfo) {
-        var castRefresh = 54 / this.stats.info.aps;
+        var castRefresh = 48 / this.stats.info.aps;
         if (this.time >= buff.userStart + castRefresh) {
           buff.castInfo.user = castInfo.user;
           buff.userStart = this.time;
         }
+        buff.castInfo.weapon = castInfo.weapon;
       }
     }
 
@@ -440,5 +476,13 @@
       var stack = buff.stacklist[buff.stackstart];
       return (stack.time ? stack.time - this.time : true);
     }
+  };
+  Sim.getBuffTicks = function(id) {
+    var buff = this.buffs[id];
+    return (buff ? buff.ticks : 0);
+  };
+  Sim.getBuffData = function(id) {
+    var buff = this.buffs[id];
+    return buff && buff.data;
   };
 })();

@@ -23,6 +23,9 @@
   function getResourcePct(type) {
     return 100 * Sim.resources[type] / Sim.stats["max" + type];
   }
+  function getHealth(type) {
+    return 100 * Sim.targetHealth;
+  }
 
   var conditionTypes = {
     buff: makeNumeric(Sim.getBuff),
@@ -31,8 +34,9 @@
     resource: makeNumeric(getResource),
     resourcepct: makeNumeric(getResourcePct),
     cooldown: makeNumeric(Sim.getCooldown),
-    //health: makeNumeric(getResource), //TODO: fix
-    //charges: makeNumeric(getResource), //TODO: fix
+    health: makeNumeric(getHealth),
+    charges: makeNumeric(Sim.getCharges),
+    ticks: makeNumeric(Sim.getBuffTicks),
 
     any: function(code) {return countConditions(code.sub) >= 1;},
     all: function(code) {return countConditions(code.sub) >= code.sub.length;},
@@ -57,45 +61,6 @@
     return count;
   }
 
-  var priority = [
-    {skill: "hydra",
-    conditions: [
-      {type: "buff", lhs: "arcanedynamo", op: "ge", rhs: 5},
-      {type: "any",
-      sub: [
-//        {type: "buffmin", lhs: "hydra", op: "lt", rhs: 1},
-        {type: "buff", lhs: "tal_6pc_fire", op: "eq", rhs: 0},
-      ]},
-    ]},
-    {skill: "meteor",
-    conditions: [
-      {type: "buff", lhs: "arcanedynamo", op: "ge", rhs: 5},
-      {type: "buff", lhs: "tal_6pc", op: "ge", rhs: 3},
-      {type: "any",
-      sub: [
-        {type: "buff", lhs: "tal_6pc_arcane", op: "eq", rhs: 0},
-        {type: "resourcepct", lhs: "ap", op: "ge", rhs: 95},
-        {type: "all",
-        sub: [
-          {type: "buffmax", lhs: "tal_6pc", op: "lt", rhs: 1.5},
-          {type: "buffmax", lhs: "tal_6pc", op: "gt", rhs: 1.25},
-          {type: "resourcepct", lhs: "ap", op: "ge", rhs: 50},
-        ]},
-      ]},
-    ]},
-    {skill: "slowtime",
-    conditions: [
-      {type: "buff", lhs: "slowtime", op: "eq", rhs: 0},
-    ]},
-    {skill: "blizzard",
-    conditions: [
-      {type: "buff", lhs: "tal_6pc_cold", op: "eq", rhs: 0},
-    ]},
-    {skill: "electrocute",
-    conditions: [
-    ]},
-  ];
-
   function splitPriority(list) {
     var main = [];
     var result = [main];
@@ -111,9 +76,10 @@
     return result;
   }
 
-  function rotationChoosePriority(data) {
+  function rotationChoosePriority(data, only) {
     for (var i = 0; i < data.priority.length; ++i) {
       var item = data.priority[i];
+      if (only && item.skill !== only) continue;
       if (!Sim.canCast(item.skill)) continue;
       if (!item.conditions || countConditions(item.conditions) >= item.conditions.length) {
         return item.skill;
@@ -147,20 +113,55 @@
   }
 //*/
 
+  var channelingLock = 0;
+  var channelingNextTick;
+  var channelingId;
   function rotationStep(data) {
     //var skill = rotationTest(data);
-    var skill = rotationChoosePriority(data);
-    if (skill) {
-      Sim.cast(skill);
-      var delay = Sim.castDelay(skill);
-      Sim.after(delay, rotationStep, data);
+    if (data.channelingLock && Sim.time < data.channelingLock) {
+      var skill = rotationChoosePriority(data, data.channelingId);
+      if (skill === data.channelingId) {
+        var info = Sim.cast(data.channelingId);
+        var delay = Sim.channelDelay(info);
+        data.channelingNextTick = Sim.time + delay;
+        var next = Math.min(data.channelingLock, data.channelingNextTick);
+        Sim.after(next - Sim.time, rotationStep, data);
+      } else {
+        delete data.channelingId;
+        Sim.after(data.channelingLock - Sim.time, rotationStep, data);
+      }
     } else {
-      Sim.after(5, rotationStep, data);
+      var skill = rotationChoosePriority(data);
+      if (!skill) {
+        Sim.after(5, rotationStep, data);
+        return;
+      }
+      if (skill === data.channelingId) {
+        if (Sim.time >= data.channelingNextTick) {
+          var info = Sim.cast(skill);
+          var delay = Sim.channelDelay(info);
+          data.channelingNextTick = Sim.time + delay;
+        }
+        Sim.after(Math.min(5, data.channelingNextTick - Sim.time), rotationStep, data);
+      } else {
+        var info = Sim.cast(skill);
+        var delay = Sim.castDelay(info);
+        var channeling = Sim.channelDelay(info);
+        if (channeling) {
+          data.channelingLock = Sim.time + delay;
+          data.channelingId = skill;
+          data.channelingNextTick = Sim.time + channeling;
+          Sim.after(Math.min(delay, channeling), rotationStep, data);
+        } else {
+          delete data.channelingId;
+          Sim.after(delay, rotationStep, data);
+        }
+      }
     }
   }
 
   Sim.register("init", function() {
-    var parts = splitPriority(priority);
+    var parts = splitPriority(Sim.priority);
     for (var i = 0; i < parts.length; ++i) {
       this.after(0, rotationStep, {priority: parts[i]});
     }

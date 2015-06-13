@@ -60,7 +60,7 @@ roland
     var elems = {"fir": "tal_2pc_fire", "col": "tal_2pc_cold", "arc": "tal_2pc_arcane", "lit": "tal_2pc_lightning"};
     var runes = {"fir": "a", "col": "c", "arc": "d", "lit": "e"};
     Sim.register("onhit", function(data) {
-      if (data.elem && elems[data.elem]) {
+      if (data.elem && elems[data.elem] && data.castInfo && data.castInfo.skill && !data.castInfo.triggered) {
         if (!Sim.getBuff(elems[data.elem])) {
           Sim.addBuff(elems[data.elem], undefined, {duration: 480});
           Sim.cast("meteor", runes[data.elem]);
@@ -127,9 +127,7 @@ roland
     var skills = ["arcaneorb", "energytwiser", "magicmissile", "shockpulse"];
     Sim.register("oncast", function(data) {
       if (skills.indexOf(data.skill) >= 0) {
-        if (Sim.getCooldown("slowtime")) {
-          Sim.cooldowns.slowtime -= 120;
-        }
+        Sim.reduceCooldown("slowtime", 120);
       }
     });
   };
@@ -141,6 +139,77 @@ roland
         if (Sim.getBuff("slowtime")) {
           return {percent: 750};
         }
+      }
+    });
+  };
+
+  affixes.set_natalya_2pc = function() {
+    //var cache = {};
+    Sim.register("onhit_proc", function(data) {
+      if (data.castInfo && data.castInfo.user && (data.castInfo.generate || data.castInfo.cost) && data.castInfo.resource === "hatred") {
+        if (!data.castInfo.user.natalya_2pc) {// && cache[data.skill] === undefined || Sim.time >= cache[data.skill]) {
+          Sim.reduceCooldown("rainofvengeance", 120);
+          //cache[data.skill] = Sim.time + Math.floor(42 / Sim.stats.info.aps);
+          data.castInfo.user.natalya_2pc = true;
+        }
+      }
+    });
+  };
+  affixes.set_natalya_4pc = function() {
+    Sim.addBaseStats({dmgmul: {skills: ["rainofvengeance"], percent: 100}});
+  };
+  affixes.set_natalya_6pc = function() {
+    Sim.register("oncast", function(data) {
+      if (data.skill === "rainofvengeance") {
+        Sim.addBuff("natalya_6pc", {dmgmul: 400, dmgred: 30}, {duration: 300});
+      }
+    });
+  };
+
+  affixes.set_marauder_4pc = function() {
+    var list = ["chakram", "clusterarrow", "elementalarrow", "impale", "multishot"];
+    Sim.register("oncast", function(data) {
+      if (list.indexOf(data.skill) >= 0) {
+        var stacks = Sim.getBuff("sentry");
+        for (var i = 0; i < stacks; ++i) {
+          Sim.cast(data.skill, data.rune, "sentry");
+        }
+        Sim.petdelay("sentry");
+      }
+    });
+  };
+
+  affixes.set_marauder_6pc = function() {
+    var list = ["chakram", "clusterarrow", "elementalarrow", "impale", "multishot"];
+    Sim.register("oncast", function(data) {
+      if (data.generate || list.indexOf(data.skill) >= 0) {
+        var stacks = Sim.getBuff("sentry");
+        if (stacks) return {percent: stacks * 100};
+      }
+    });
+  };
+
+  affixes.set_unhallowed_2pc = function() {
+    Sim.register("oncast", function(data) {
+      if (Sim.skills[data.skill] && Sim.skills[data.skill].signature) {
+        Sim.addResource(1, "disc");
+      }
+    });
+  };
+
+  affixes.set_unhallowed_4pc = function() {
+    Sim.after(6, function check() {
+      if (Sim.getTargets(10, Sim.target.distance) < 0.1) {
+        Sim.addBuff("unhallowed_4pc", {damage: 20, dmgred: 20}, {duration: 240});
+      }
+      Sim.after(6, check);
+    });
+  };
+
+  affixes.set_unhallowed_2pc = function() {
+    Sim.register("oncast", function(data) {
+      if (data.generate || data.skill === "multishot") {
+        return {percent: 15 * (Sim.resources.disc || 0)};
       }
     });
   };
