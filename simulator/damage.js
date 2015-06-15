@@ -204,6 +204,7 @@
       triggered: triggered,
       chc: chc,
       distance: data.distance,
+      dmgmul: dmgmul,
     };
   };
   Sim.dealDamage = function(event) {
@@ -217,12 +218,12 @@
         var area = Math.PI * Math.pow(Sim.target.size + 10, 2);
         Sim.target.area_coeff = (Sim.target.count - 1) * area / Sim.target.area;
       }
-      if (Sim.target.area_coeff && stats.area) {
+      if (Sim.target.area_coeff && Sim.stats.area) {
         Sim.trigger("onhit", {
           targets: event.targets * 0.2 * Sim.target.area_coeff,
-          skill: data.skill,
-          damage: event.damage * 0.01 * stats.area / dmgmul,
-          elem: data.elem,
+          skill: event.skill,
+          damage: event.damage * 0.01 * Sim.stats.area / (event.dmgmul || 1),
+          elem: event.elem,
           triggered: "area",
           chc: 0,
         });

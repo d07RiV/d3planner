@@ -676,7 +676,8 @@
           var count = Sim.getBuff(sources[i]);
           if (count) {
             Sim.pushCastInfo({triggered: sources[i]});
-            Sim.damage({type: "line", speed: 1.5, skill: "poisondart", pet: true, elem: "psn", coeff: 1.3 * Sim.stats.info.aps, count: count});
+            var pierce = !!Sim.stats.leg_thedaggerofdarts;
+            Sim.damage({type: "line", pierce: pierce, speed: 1.5, skill: "poisondart", pet: true, elem: "psn", coeff: 1.3 * Sim.stats.info.aps, count: count});
             Sim.popCastInfo();
             Sim.petdelay(sources[i]);
           }
