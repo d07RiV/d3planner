@@ -1,3 +1,7 @@
+* The docs are pretty outdated at this point
+* To test, you need to run a server on localhost and make /sim serve all non-class scripts,
+* and /sim/xxx serve the class script. See .htaccess and php/sim_local.php for details.
+
 Most functions are located in the global Simulator object,
 internally referenced as Sim.
 
