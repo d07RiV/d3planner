@@ -37,7 +37,7 @@
     return SkillCounters[id];
   }
   Sim.register("onhit", function(data) {
-    var source = (data.triggered || data.skill || "unknown");
+    var source = ((!data.pet && data.triggered) || data.skill || "unknown");
     var amount = data.damage * data.targets;
     var cnt = _counter(source);
     cnt.damage = (cnt.damage || 0) + amount;

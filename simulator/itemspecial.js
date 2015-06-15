@@ -111,8 +111,8 @@
       Sim.damage({elem: "phy", coeff: coeff});
     }
     Sim.register("onhit", function(data) {
-      var stacks = Sim.random("painenhancer", data.targets * data.chc);
-      Sim.addBuff("painenhancer", buffs, {
+      var stacks = Sim.random("pain", data.targets * data.chc);
+      Sim.addBuff("pain", buffs, {
         duration: 180,
         refresh: false,
         maxstacks: Sim.target.count,
@@ -123,7 +123,6 @@
       });
     });
   };
-  /* already included in stats
   gems.simplicity = function(level) {
     var stats = {};
     for (var id in Sim.skills) {
@@ -133,7 +132,7 @@
       }
     }
     Sim.addBaseStats(stats);
-  };*/
+  };
   gems.taeguk = function(level) {
     var buffs = (level >= 25 ? {damage: 0.5, armor_percent: 0.5} : {damage: 0.5});
     Sim.register("oncast", function(data) {
@@ -631,6 +630,82 @@
         Sim.addBuff("strongarmbracers", {dmgtaken: amount}, {duration: 300});
       }
       prevKnockback = !!data.stats.knockback;
+    });
+  };
+  affixes.leg_rechelsringoflarceny = function(amount) {
+    Sim.register("updatestats", function(data) {
+      if (data.stats.feared) {
+        Sim.addBuff("rechelsringoflarceny", {extrams: amount}, {duration: 240});
+      }
+    });
+  };
+
+  affixes.leg_starmetalkukri = function(amount) {
+    var sources = ["fetisharmy", "fetishsycophants", "thegidbinn"];
+    Sim.register("onhit", function(data) {
+      if (sources.indexOf(data.skill) >= 0 || (data.castInfo && data.castInfo.triggered && sources.indexOf(data.triggered) >= 0)) {
+        Sim.reduceCooldown("fetisharmy", 60);
+        Sim.reduceCooldown("bigbadvoodoo", 60);
+      }
+    });
+  };
+  affixes.leg_homunculus = affixes.leg_homunculus_p2 = function(amount) {
+    if (this == "leg_homunculus_p2") amount = 2;
+    Sim.after(amount * 60, function spawn() {
+      Sim.cast("summonzombiedogs");
+      Sim.after(amount * 60, spawn);
+    });
+  };
+  affixes.leg_theshortmansfinger = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["gargantuan"], percent: 50}});
+  };
+  affixes.leg_wormwood = function(amount) {
+    Sim.after(30, function apply() {
+      if (Sim.getTargets(16, Sim.target.distance)) {
+        Sim.cast("locustswarm");
+      }
+      Sim.after(30, apply);
+    });
+  };
+  affixes.leg_carnevil = function(amount) {
+    Sim.register("oncast", function(data) {
+      if (data.skill === "poisondart") {
+        var pierce = (Sim.stats.leg_thedaggerofdarts ? true : undefined);
+        var sources = ["fetisharmy", "fetishsycophants", "thegidbinn"];
+        for (var i = 0; i < sources.length; ++i) {
+          var count = Sim.getBuff(sources[i]);
+          if (count) {
+            Sim.pushCastInfo({triggered: sources[i]});
+            Sim.damage({type: "line", speed: 1.5, skill: "poisondart", pet: true, elem: "psn", coeff: 1.3 * Sim.stats.info.aps, count: count});
+            Sim.popCastInfo();
+            Sim.petdelay(sources[i]);
+          }
+        }
+      }
+    });
+  };
+  affixes.leg_beltoftranscendence = function(amount) {
+    Sim.register("onhit_proc", function(data) {
+      if (data.castInfo && data.castInfo.cost && Sim.summon_sycophant) {
+        Sim.summon_sycophant();
+      }
+    });
+  };
+  affixes.leg_thegidbinn = function(amount) {
+    var next = 0;
+    Sim.register("onhit_proc", function(data) {
+      if (Sim.time >= next && Sim.random("thegidbinn", 0.25 * data.proc * data.targets)) {
+        Sim.petattack("thegidbinn", undefined, {
+          duration: 1200,
+          tickrate: 48,
+          refresh: false,
+          maxstacks: 5,
+          ontick: function() {
+            Sim.damage({pet: true, distance: 5, coeff: 1.8 * Sim.stats.info.aps});
+          },
+        });
+        next = Sim.time + 300;
+      }
     });
   };
 

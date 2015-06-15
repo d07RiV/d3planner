@@ -214,4 +214,19 @@ roland
     });
   };
 
+  affixes.set_manajuma_2pc = function() {
+    Sim.after(30, function tick() {
+      Sim.damage({type: "area", range: 10, self: true, coeff: 0.75});
+      Sim.after(30, tick);
+    });
+  };
+
+  affixes.set_zunimassa_6pc = function() {
+    Sim.register("onhit", function(data) {
+      if (data.castInfo && data.castInfo.cost) {
+        Sim.addBuff("zunimassa_6pc", {dmgmul: {pet: true, percent: 275}}, {duration: 240});
+      }
+    });
+  };
+
 })();

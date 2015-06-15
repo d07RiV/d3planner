@@ -894,7 +894,7 @@
       if (rune === "e" || Sim.stats.set_vyr_4pc) {
         Sim.damage({delay: 1, type: "area", range: 15, coeff: 36.8, elem: this.default_elem[rune]});
       }
-      Sim.addBuff("archon", {archon: 1, damage: 20, armor_percent: 20, resist_percent: 20}, {
+      Sim.addBuff("archon", {shift: "archon", damage: 20, armor_percent: 20, resist_percent: 20}, {
         duration: 20,
       });
     },
@@ -908,7 +908,7 @@
   skills.archon_arcanestrike = {
     offensive: true,
     speed: 57.599954,
-    requires: "archon",
+    shift: "archon",
     oncast: function(rune) {
       var improved = (Sim.stats.skills.archon === "a" || Sim.stats.set_vyr_4pc);
       return {type: "area", range: 9, coeff: 7.9, dibs: (improved ? 22 : 0)};
@@ -923,7 +923,7 @@
     speed: 100,
     secondary: true,
     cooldown: 2,
-    requires: "archon",
+    shift: "archon",
     oncast: function(rune) {
       var improved = (Sim.stats.skills.archon === "a" || Sim.stats.set_vyr_4pc);
       return {type: "area", range: 15, coeff: 6.04, dibs: (improved ? 22 : 0)};
@@ -940,7 +940,7 @@
     offensive: true,
     channeling: 20,
     speed: 58.064510,
-    requires: "archon",
+    shift: "archon",
     oncast: function(rune) {
       var improved = (Sim.stats.skills.archon === "a" || Sim.stats.set_vyr_4pc);
       var dmg = {type: "line", pierce: true, coeff: 7.79, dibs: (improved ? 22 : 0), radius: 2};
@@ -1015,15 +1015,9 @@
         }
       });
     },
-    blur: function() {
-      Sim.addBaseStats({dmgred: 17});
-    },
-    evocation: function() {
-      Sim.addBaseStats({cdr: 20});
-    },
-    glasscannon: function() {
-      Sim.addBaseStats({damage: 15, armor_percent: -10, resist_percent: -10});
-    },
+    blur: {dmgred: 17},
+    evocation: {cdr: 20},
+    glasscannon: {damage: 15, armor_percent: -10, resist_percent: -10},
     prodigy: function() {
       var cache = {};
       Sim.register("oncast", function(data) {
@@ -1036,9 +1030,7 @@
         }
       });
     },
-    astralpresence: function() {
-      Sim.addBaseStats({maxap: 20, apregen: 2.5});
-    },
+    astralpresence: {maxap: 20, apregen: 2.5},
     illusionist: function() {
     },
     coldblooded: function() {

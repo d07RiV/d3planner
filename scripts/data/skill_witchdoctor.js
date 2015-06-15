@@ -49,11 +49,11 @@ DiabloCalc.skills.witchdoctor = {
           case "e": count = 7; break;
           default: count = 5;
           }
-          dps["Fetish Army Damage"] = {speed: 1, fpa: 60, nobp: true, count: count};
+          dps["Fetish Army Damage"] = {speed: 1, fpa: 58, round: "up", nobp: true, count: count};
         }
         if (stats.passives.fetishsycophants || stats.leg_beltoftranscendence) {
           res["Sycophants Damage"] = $.extend({}, damage);
-          dps["Sycophants Damage"] = {speed: 1, fpa: 60, nobp: true, count: DiabloCalc.passives.witchdoctor.fetishsycophants.params[0].val};
+          dps["Sycophants Damage"] = {speed: 1, fpa: 58, round: "up", nobp: true, count: DiabloCalc.passives.witchdoctor.fetishsycophants.params[0].val};
         }
         res["Total DPS"] = dps;
       } else {
@@ -102,7 +102,7 @@ DiabloCalc.skills.witchdoctor = {
       x: {"Damage": {elem: "psn", coeff: 1.9}},
       a: {"Damage": {elem: "fir", coeff: 2.45}},
       c: {"Damage": {elem: "psn", coeff: 1.3}},
-      b: {"Damage": {elem: "psn", coeff: 1.82, total: true}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 55.384609, round: "up"}}},
+      b: {"Damage": {elem: "psn", coeff: 1.3, total: true}, "DPS": {sum: true, "Damage": {speed: 1.4, fpa: 55.384609, round: "up"}}},
       e: {"Damage": {elem: "psn", coeff: 1.9}},
       d: {"Damage": {elem: "psn", coeff: 1.9}},
     },
@@ -583,11 +583,11 @@ DiabloCalc.skills.witchdoctor = {
       c: "Offensive Line",
     },
     info: function(rune, stats) {
-      var res = {"Cooldown": {cooldown: 8}, "Damage": {elem: (rune == "d" ? "phy" : "col"), coeff: 2, total: true}};
+      var res = {"Cooldown": {cooldown: 8 - (stats.set_helltooth_4pc ? 2 : 0)}, "Damage": {elem: (rune == "d" ? "phy" : "col"), coeff: 2, total: true}};
       if (rune == "a") {
         res["Zombie Damage"] = {elem: "phy", coeff: 0.25};
       }
-      if (stats.set_helltooth_4pc) {
+      if (stats.set_helltooth_6pc) {
         res["Helltooth Damage"] = {elem: "psn", coeff: 3, factors: {"Duration": 4}};
       }
       return res;

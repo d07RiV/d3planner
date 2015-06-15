@@ -114,13 +114,11 @@
 
   Sim.curweapon = "mainhand";
 
-  function _target(data) {
-    if (data.count === 0 || data.targets === 0) return;
-
+  Sim.calcDamage = function(data) {
     var stats = Sim.stats;
     var triggered = (data.castInfo && data.castInfo.triggered);
 
-    var base = stats.info[data.weapon].wpnbase;
+    var base = stats.info[data.weapon || "mainhand"].wpnbase;
     var avg = (data.thorns ? Sim.stats.thorns : (base.min + base.max) * 0.5);
 
     var factor = 1 + 0.01 * stats.info.primary * (data.thorns ? 0.25 : 1);
@@ -195,7 +193,7 @@
       count *= Math.min(data.targets, Sim.target.count);
     }
 
-    var event = {
+    return {
       targets: count,
       skill: data.skill,
       proc: (ispet ? 0 : data.proc),
@@ -207,31 +205,38 @@
       chc: chc,
       distance: data.distance,
     };
-
+  };
+  Sim.dealDamage = function(event) {
     if (event.proc && !event.pet) {
       Sim.trigger("onhit_proc", event);
     }
     Sim.trigger("onhit", event);
-    if (data.onhit) {
-      data.onhit(event);
-    }
 
-    if (!ispet) {
+    if (!event.pet) {
       if (Sim.target.area_coeff === undefined) {
         var area = Math.PI * Math.pow(Sim.target.size + 10, 2);
         Sim.target.area_coeff = (Sim.target.count - 1) * area / Sim.target.area;
       }
       if (Sim.target.area_coeff && stats.area) {
         Sim.trigger("onhit", {
-          targets: count * 0.2 * Sim.target.area_coeff,
+          targets: event.targets * 0.2 * Sim.target.area_coeff,
           skill: data.skill,
-          damage: value * 0.01 * stats.area / dmgmul,
+          damage: event.damage * 0.01 * stats.area / dmgmul,
           elem: data.elem,
           triggered: "area",
           chc: 0,
         });
       }
     }
+  };
+
+  function _target(data) {
+    if (data.count === 0 || data.targets === 0) return;
+    var event = Sim.calcDamage(data);
+    if (data.onhit) {
+      data.onhit(event);
+    }
+    Sim.dealDamage(event);
   }
 
   function _line(data) {

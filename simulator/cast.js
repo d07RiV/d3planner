@@ -83,10 +83,12 @@
     }
     for (var id in this.stats.passives) {
       var passive = this.passives[id];
-      if (passive) {
+      if (typeof passive === "function") {
         this.pushCastInfo({triggered: id});
         passive.call(id);
         this.popCastInfo();
+      } else if (passive) {
+        Sim.addBaseStats(passive);
       }
     }
   });
@@ -282,12 +284,12 @@
     var skill = this.skills[id];
     if (!rune || !skill) return false;
     if (skill.precast) {
-      return skill.precast.call(skill, rune, true);
+      var res = skill.precast.call(skill, rune, true);
+      if (res === false) return false;
+      return res || {};
     }
-    if (skill.requires === "archon") {
-      if (!this.stats.archon) return false;
-    } else {
-      if (this.stats.archon) return false;
+    if (skill.shift != this.stats.shift) {
+      return false;
     }
     usedGrace = false;
     var res = {};
@@ -305,7 +307,7 @@
     var skill = this.skills[id];
     if (!skill || !rune) return false;
     var prevInfo = this.castInfo();
-    triggered = (triggered || (prevInfo && prevInfo.triggered));
+    if (prevInfo && !triggered) triggered = (prevInfo.triggered || prevInfo.skill);
     var rc = {};
     if (!triggered) {
       rc = this.canCast(id, rune);
@@ -343,7 +345,10 @@
       castInfo.triggered = triggered;
       var tsk = this.skills[triggered];
       if (tsk) {
-        if (tsk.pet) castInfo.weapon = "mainhand";
+        if (tsk.pet) {
+          castInfo.weapon = "mainhand";
+          castInfo.pet = true;
+        }
         var dist = this.getProp(tsk, "distance", this.stats.skills[triggered]);
         if (dist) castInfo.distance = dist;
       }
@@ -441,28 +446,47 @@
     }, base));
   };
   function pet_ontick(data) {
+    var rate = data.tickrate;
+    if (rate instanceof Array) {
+      rate = rate[data.anim];
+      data.anim = (data.anim + 1) % data.tickrate.length;
+    }
     if (typeof data.ontick === "function") {
-      data.ontick(data);
+      var res = data.ontick(data);
+      if (res) rate = res;
     } else {
       Sim.damage(data.ontick);
     }
-    var rate = data.tickrate / (1 + 0.01 * (Sim.stats.petias || 0));
-    if (data.ias) rate /= Sim.stats.info.mainhand.speed;
+    rate /= (1 + 0.01 * ((data.ias || 0) + (Sim.stats.petias || 0)));
+    if (data.speed) rate /= Sim.stats.info.mainhand.speed;
     data.buff.params.tickrate = Math.ceil(Math.floor(rate) / 6) * 6;
   }
   Sim.petattack = function(name, buffs, params) {
-    params.data = this.extend({tickrate: params.tickrate, ontick: params.ontick, ias: params.ias}, params.data);
-    var rate = params.data.tickrate / (1 + 0.01 * (Sim.stats.petias || 0));
-    if (params.data.ias) rate /= Sim.stats.info.mainhand.speed;
+    params.data = this.extend({tickrate: params.tickrate, ontick: params.ontick, ias: params.ias, speed: params.speed}, params.data);
+    var rate = params.data.tickrate;
+    if (rate instanceof Array) {
+      rate = rate[0];
+      params.data.anim = 1 % params.data.tickrate.length;
+    }
+    rate /= (1 + 0.01 * ((params.data.ias || 0) + (Sim.stats.petias || 0)));
+    if (params.data.speed) rate /= Sim.stats.info.mainhand.speed;
     params.tickrate = Math.ceil(Math.floor(rate) / 6) * 6;
     params.ontick = pet_ontick;
     Sim.addBuff(name, buffs, params);
   };
   Sim.petdelay = function(name) {
+    if (this.metaBuffs[name]) {
+      for (var i = 0; i < this.metaBuffs[name].length; ++i) {
+        this.petdelay(this.metaBuffs[name][i]);
+      }
+      return;
+    }
     var data = Sim.getBuffData(name);
     if (data && data.tickrate) {
-      var rate = data.tickrate / (1 + 0.01 * (Sim.stats.petias || 0));
-      if (data.ias) rate /= Sim.stats.info.mainhand.speed;
+      var rate = data.tickrate;
+      if (rate instanceof Array) rate = rate[0];
+      rate /= (1 + 0.01 * ((data.ias || 0) + (Sim.stats.petias || 0)));
+      if (data.speed) rate /= Sim.stats.info.mainhand.speed;
       this.delayBuff(name, Math.ceil(Math.floor(rate) / 6) * 6);
     }
   };

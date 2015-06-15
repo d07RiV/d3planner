@@ -17,6 +17,8 @@
     };
   }
 
+  var lastCast = {};
+
   function getResource(type) {
     return Sim.resources[type];
   }
@@ -25,6 +27,9 @@
   }
   function getHealth(type) {
     return 100 * Sim.targetHealth;
+  }
+  function getCastInterval(type) {
+    return (lastCast[type] === undefined ? 1e+10 : Sim.time - lastCast[type]);
   }
 
   var conditionTypes = {
@@ -37,6 +42,7 @@
     health: makeNumeric(getHealth),
     charges: makeNumeric(Sim.getCharges),
     ticks: makeNumeric(Sim.getBuffTicks),
+    interval: makeNumeric(getCastInterval, 60),
 
     any: function(code) {return countConditions(code.sub) >= 1;},
     all: function(code) {return countConditions(code.sub) >= code.sub.length;},
@@ -113,15 +119,13 @@
   }
 //*/
 
-  var channelingLock = 0;
-  var channelingNextTick;
-  var channelingId;
   function rotationStep(data) {
     //var skill = rotationTest(data);
     if (data.channelingLock && Sim.time < data.channelingLock) {
       var skill = rotationChoosePriority(data, data.channelingId);
       if (skill === data.channelingId) {
         var info = Sim.cast(data.channelingId);
+        lastCast[skill] = Sim.time;
         var delay = Sim.channelDelay(info);
         data.channelingNextTick = Sim.time + delay;
         var next = Math.min(data.channelingLock, data.channelingNextTick);
@@ -139,12 +143,14 @@
       if (skill === data.channelingId) {
         if (Sim.time >= data.channelingNextTick) {
           var info = Sim.cast(skill);
+          lastCast[skill] = Sim.time;
           var delay = Sim.channelDelay(info);
           data.channelingNextTick = Sim.time + delay;
         }
         Sim.after(Math.min(5, data.channelingNextTick - Sim.time), rotationStep, data);
       } else {
         var info = Sim.cast(skill);
+        lastCast[skill] = Sim.time;
         var delay = Sim.castDelay(info);
         var channeling = Sim.channelDelay(info);
         if (channeling) {

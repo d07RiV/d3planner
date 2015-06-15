@@ -69,6 +69,7 @@
     dura: {args: 0},
 
     custom: {args: 0},
+    shift: {args: -1},
   };
 
   function addStat(dst, stat, amount, factor) {
@@ -119,7 +120,7 @@
         dst[stat] = amount * factor;
       }
     } else if (info.args == -1) {
-      dst[stat] = (amount.length > 0 ? amount[0] : "");
+      dst[stat] = amount;
     } else {
       if (dst[stat] === undefined) {
         dst[stat] = {};

@@ -14,8 +14,7 @@ leg_corruptedashbringer Unique_Sword_2H_104_x1
 leg_maximus Unique_Sword_2H_010_x1
 leg_genzaniku Unique_Axe_1H_003_x1
 leg_skycutter Unique_Sword_1H_004_x1
-
-DH:
+leg_thegrinreaper Unique_VoodooMask_002_x1
 
 Crus:
 leg_jaceshammerofvigilance Unique_Mace_1H_103_x1
@@ -41,26 +40,6 @@ leg_fateofthefell
 leg_goldenflense
 leg_goldenflense_p2
 leg_themortaldrama
-
-WD:
-leg_deadlyrebirth Unique_CeremonialDagger_003_x1
-leg_rhenhoflayer Unique_CeremonialDagger_102_x1
-leg_sacredharvester P1_CeremonialDagger_norm_unique_01
-leg_thedaggerofdarts
-leg_thespiderqueensgrasp
-leg_starmetalkukri
-leg_anessaziedge
-leg_thegidbinn Unique_CeremonialDagger_002_x1
-leg_homunculus
-leg_homunculus_p2
-leg_thetallmansfinger
-leg_theshortmansfinger P2_Unique_Ring_02
-leg_quetzalcoatl
-leg_carnevil
-leg_maskofjeram
-leg_thegrinreaper Unique_VoodooMask_002_x1
-leg_tiklandianvisage
-leg_wormwood P2_Unique_Staff_003
 
 Monk:
 leg_tzokrinsgaze

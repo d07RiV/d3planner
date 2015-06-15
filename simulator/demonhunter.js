@@ -788,7 +788,7 @@
         duration: 1800 * (Sim.stats.passives.customengineering ? 2 : 1),
         refresh: false,
         tickrate: 54,
-        ias: true,
+        speed: true,
         ontick: {type: "line", speed: 1, coeff: 2.8, pet: true},
       };
       switch (rune) {
@@ -958,7 +958,6 @@
         Sim.damage({delay: 48, targets: 5, coeff: 4.5 * rk_dmg});
         break;
       case "c":
-        //debugger;
         Sim.damage({delay: 10, type: "area", origin: Sim.target.distance - 15, range: 5 * gr_aoe, coeff: 5.25 * gr_dmg});
         Sim.damage({delay: 20, type: "area", origin: Sim.target.distance - 20, range: 5 * gr_aoe, coeff: 5.25 * gr_dmg});
         Sim.damage({delay: 30, type: "area", origin: Sim.target.distance - 24, range: 5 * gr_aoe, coeff: 5.25 * gr_dmg});
@@ -1099,9 +1098,7 @@
     },
     numbingtraps: function() {
     },
-    perfectionist: function() {
-      Sim.addBaseStats({rcr_disc: 10, armor_percent: 10, resist_percent: 10});
-    },
+    perfectionist: {rcr_disc: 10, armor_percent: 10, resist_percent: 10},
     customengineering: function() {
     },
     grenadier: function() {

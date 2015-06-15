@@ -8,7 +8,7 @@
     stunned: {dr: true},
     slowed: {},
     knockback: {},
-    charmed: {},//{dr: true},
+    charmed: {dr: true},
     feared: {dr: true},
     rooted: {dr: true},
   };
@@ -169,6 +169,28 @@
     buff.stacklist[buff.stackstart] = undefined;
     buff.stackstart = (buff.stackstart + 1) % buff.params.maxstacks;
   }
+  Sim.reduceStackDuration = function(id, stack, amount) {
+    var buff = this.buffs[id];
+    if (!buff) return 0;
+    if (stack.time - this.time <= amount) {
+      var remains = stack.time - this.time;
+      removeStack(buff);
+      --buff.stacks;
+      if (buff.stacks) {
+        if (buff.params.multiply) {
+          Sim.buffsModified = true;
+        }
+      } else {
+        onBuffExpired({id: id});
+      }
+      return remains;
+    } else {
+      stack.time -= amount;
+      if (stack.events.expire) _removeEvent(stack.events.expire);
+      stack.events.expire = _after(stack.time - this.time, onStackExpired, {id: id});
+      return amount;
+    }
+  };
   function onStackExpired(e) {
     updateUptime(e.id);
     var buff = Sim.buffs[e.id];
@@ -273,17 +295,21 @@
         params.duration *= 1 + 0.01 * this.stats.leg_dovuenergytrap;
       }
       if (this.statusBuffs[params.status].dr) {
-        params.duration = Math.floor((params.duration || 60) * drUpdate());
-        if (Sim.target.mincc && params.duration < Sim.target.mincc * 60) {
-          return;
+        if (params.nodr) {
+          drUpdate();
+        } else {
+          params.duration = Math.floor((params.duration || 60) * drUpdate());
+          if (Sim.target.mincc && params.duration < Sim.target.mincc * 60) {
+            return;
+          }
         }
         dr_start = this.time;
       }
     }
 
-    if (params.maxstacks === 1) {
-      params.refresh = true;
-    }
+    //if (params.maxstacks === 1) {
+    //  params.refresh = true;
+    //}
     params.stacks = Math.min(params.stacks, params.maxstacks);
 
     var buff = this.buffs[id];
@@ -443,18 +469,18 @@
     if (!buff) {
       var meta = this.metaBuffs[id];
       if (!meta) return 0;
-      var dura = Sim.getBuffDuration(meta[0]);;
+      var dura = Sim.getBuffDuration(meta[0]);
       for (var i = 1; i < meta.length; ++i) {
         dura = Math.max(dura, Sim.getBuffDuration(meta[i]));
       }
       return dura;
     }
     if (buff.params.refresh) {
-      return (buff.time ? buff.time - this.time : true);
+      return (buff.time ? buff.time - this.time : 1e+10);
     } else {
-      if (!buff.stacks) return false;
+      if (!buff.stacks) return 0;
       var stack = buff.stacklist[(buff.stackstart + buff.stacks - 1) % buff.params.maxstacks];
-      return (stack.time ? stack.time - this.time : true);
+      return (stack.time ? stack.time - this.time : 1e+10);
     }
   };
   Sim.getBuffDurationLast = function(id) {
@@ -470,11 +496,11 @@
     }
     if (buff.stacks < buff.params.maxstacks) return 0;
     if (buff.params.refresh) {
-      return (buff.time ? buff.time - this.time : true);
+      return (buff.time ? buff.time - this.time : 1e+10);
     } else {
-      if (!buff.stacks) return false;
+      if (!buff.stacks) return 0;
       var stack = buff.stacklist[buff.stackstart];
-      return (stack.time ? stack.time - this.time : true);
+      return (stack.time ? stack.time - this.time : 1e+10);
     }
   };
   Sim.getBuffTicks = function(id) {
