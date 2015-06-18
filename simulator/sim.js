@@ -146,12 +146,12 @@
     this.priority = data.priority;
     try {
       var scripts = {
-        wizard: "/sim/wizard",
-        demonhunter: "/sim/demonhunter",
-        witchdoctor: "/sim/witchdoctor",
-        monk: "/sim/monk",
-        barbarian: "/sim/barbarian",
-        crusader: "/sim/crusader",
+        wizard: "sim/wizard",
+        demonhunter: "sim/demonhunter",
+        witchdoctor: "sim/witchdoctor",
+        monk: "sim/monk",
+        barbarian: "sim/barbarian",
+        crusader: "sim/crusader",
       };
       importScripts(scripts[data.stats.charClass]);
     } catch(e) {}
