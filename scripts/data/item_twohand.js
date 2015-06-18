@@ -84,7 +84,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Mace_2H_012_x1",
     name: "Wrath of the Bone King",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "mace2h",
     quality: "legendary",
     preset: ["wpnphy", "onhit", "laek"],
@@ -115,7 +115,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Mace_2H_009_x1",
     name: "Schaefer's Hammer",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "mace2h",
     quality: "legendary",
     affixes: {
@@ -197,7 +197,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Polearm_003_x1",
     name: "Heart Slaughter",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "polearm",
     quality: "legendary",
     preset: ["wpnphy", "mainstat", "laek"],
@@ -290,7 +290,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Staff_003_x1",
     name: "Wormwood",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "staff",
     quality: "legendary",
     affixes: {
@@ -316,7 +316,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Staff_009_x1",
     name: "The Grand Vizier",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "staff",
     quality: "legendary",
     affixes: {
@@ -613,7 +613,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Flail_2H_104_x1",
     name: "Golden Flense",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "flail2h",
     quality: "legendary",
     required: {
@@ -650,7 +650,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Mighty_2H_004_x1",
     name: "Bastion's Revered",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "mightyweapon2h",
     quality: "legendary",
     preset: ["wpncol", "mainstat", "maxfury"],
@@ -694,7 +694,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Mighty_2H_001_x1",
     name: "The Gavel of Judgment",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "mightyweapon2h",
     quality: "legendary",
     preset: ["wpnhol", "mainstat"],

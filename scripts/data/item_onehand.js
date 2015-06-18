@@ -965,7 +965,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Axe_1H_005_104",
     name: "Sky Splitter",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "axe",
     quality: "legendary",
     affixes: {

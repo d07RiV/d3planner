@@ -3,7 +3,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Pants_007_x1",
     name: "Pox Faulds",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "pants",
     quality: "legendary",
     required: {
@@ -62,7 +62,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Pants_006_x1",
     name: "Depth Diggers",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "pants",
     quality: "legendary",
     preset: ["mainstat", "resall", "gf"],

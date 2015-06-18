@@ -5,7 +5,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Shield_007_x1",
     name: "Denial",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "shield",
     quality: "legendary",
     preset: ["mainstat", "resall", "ccr"],
@@ -26,7 +26,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Shield_101_x1",
     name: "Defender of Westmarch",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "shield",
     quality: "legendary",
     required: {
@@ -101,7 +101,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Shield_002_x1",
     name: "Ivory Tower",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "shield",
     quality: "legendary",
     affixes: {
@@ -276,7 +276,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Mojo_004_x1",
     name: "Homunculus",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "mojo",
     quality: "legendary",
     required: {
@@ -426,7 +426,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Orb_003_x1",
     name: "Triumvirate",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "source",
     quality: "legendary",
     required: {
@@ -527,7 +527,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Quiver_005_x1",
     name: "Silver Star Piercers",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "quiver",
     quality: "legendary",
     preset: ["mainstat", "bleed"],
@@ -591,7 +591,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Quiver_007_x1",
     name: "Dead Man's Legacy",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "quiver",
     quality: "legendary",
     preset: ["mainstat", "chc"],

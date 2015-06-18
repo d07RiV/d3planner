@@ -14,7 +14,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Shoulder_002_x1",
     name: "Death Watch Mantle",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "shoulders",
     quality: "legendary",
     required: {
@@ -59,7 +59,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Shoulder_003_x1",
     name: "Vile Ward",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "shoulders",
     quality: "legendary",
     preset: ["mainstat", "resall"],

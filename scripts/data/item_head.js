@@ -3,7 +3,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Helm_001_x1",
     name: "Broken Crown",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "helm",
     quality: "legendary",
     preset: ["mainstat", "chc", "expadd"],
@@ -23,7 +23,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Helm_002_x1",
     name: "Leoric's Crown",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "helm",
     quality: "legendary",
     preset: ["mainstat", "chc"],
@@ -76,7 +76,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Helm_003_x1",
     name: "Andariel's Visage",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "helm",
     quality: "legendary",
     affixes: {

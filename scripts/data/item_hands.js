@@ -27,7 +27,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Gloves_101_x1",
     name: "St. Archew's Gage",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "gloves",
     quality: "legendary",
     required: {

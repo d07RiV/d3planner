@@ -48,7 +48,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Belt_104_x1",
     name: "Cord of the Sherma",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "belt",
     quality: "legendary",
     required: {
@@ -104,7 +104,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Belt_102_p1",
     name: "Sash of Knives",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "belt",
     quality: "legendary",
     required: {
@@ -127,7 +127,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Belt_108_x1",
     name: "Sebor's Nightmare",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "belt",
     quality: "legendary",
     required: {
@@ -150,7 +150,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Belt_003_x1",
     name: "Angel Hair Braid",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "belt",
     quality: "legendary",
     preset: ["mainstat", "life", "resall", "dura"],
@@ -310,7 +310,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_BarbBelt_006_x1",
     name: "The Undisputed Champion",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "mightybelt",
     quality: "legendary",
     preset: ["mainstat", "resall", "lifefury"],
@@ -363,7 +363,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_BarbBelt_001_x1",
     name: "Dread Iron",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "mightybelt",
     quality: "legendary",
     affixes: {
@@ -390,7 +390,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_BarbBelt_005_x1",
     name: "Lamentation",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "mightybelt",
     quality: "legendary",
     affixes: {

@@ -132,7 +132,7 @@ DiabloCalc.itemSets = {
   },
 
   krelm: {
-    name: "Krelm's Buff Bulwark",
+    name: "Krelm\u2019s Buff Bulwark",
     order: ["belt", "bracers"],
     bonuses: {
       "2": [
@@ -339,7 +339,7 @@ DiabloCalc.itemSets = {
   },
 
   shadow: {
-    name: "The Shadow's Mantle",
+    name: "The Shadow\u2019s Mantle",
     order: ["chestarmor", "pants", "gloves", "boots"],
     tclass: "demonhunter",
     bonuses: {
@@ -542,8 +542,7 @@ DiabloCalc.itemSets = {
         {format: "Every use of Shield Bash and Sweep Attack reduces the cooldown of your Laws and Defensive Skills by 1 second."},
       ],
       "4": [
-        {format: "Increases Sweep Attack Damage by 500%%"},
-        {format: "Increases Shield Bash Damage by 500%%"},
+        {format: "Increase the damage of Shield Bash and Sweep Attack by 500%%."},
       ],
       "6": [
         {format: "Every use of Shield Bash or Sweep Attack that hits an enemy grants 30%% increased Attack Speed for 3 seconds. This effect stacks up to 5 times."},

@@ -30,7 +30,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Ring_018_x1",
     name: "Nagelring",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "ring",
     quality: "legendary",
     required: {
@@ -90,7 +90,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Ring_006_x1",
     name: "Broken Promises",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "ring",
     quality: "legendary",
     preset: ["mainstat", "rcr"],
@@ -169,7 +169,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Ring_102_x1",
     name: "Wyrdward",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "ring",
     quality: "legendary",
     required: {
@@ -203,7 +203,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Ring_007_x1",
     name: "Eternal Union",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "ring",
     quality: "legendary",
     affixes: {
@@ -238,7 +238,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Ring_023_x1",
     name: "Obsidian Ring of the Zodiac",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "ring",
     quality: "legendary",
     affixes: {
@@ -288,7 +288,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Ring_017_x1",
     name: "Oculus Ring",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "ring",
     quality: "legendary",
     required: {
@@ -315,7 +315,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Ring_022_x1",
     name: "Skull Grasp",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "ring",
     quality: "legendary",
     preset: ["mainstat", "chc"],

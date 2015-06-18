@@ -14,7 +14,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Boots_010_x1",
     name: "The Crudest Boots",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "boots",
     quality: "legendary",
     preset: ["mainstat", "vit"],
@@ -54,7 +54,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Boots_007_x1",
     name: "Fire Walkers",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "boots",
     quality: "legendary",
     required: {

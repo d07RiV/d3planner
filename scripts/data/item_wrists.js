@@ -3,7 +3,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Bracer_006_x1",
     name: "Gungdo Gear",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "bracers",
     quality: "legendary",
     affixes: {

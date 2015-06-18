@@ -5,7 +5,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Bow_005_x1",
     name: "Uskang",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "bow",
     quality: "legendary",
     preset: ["wpnlit", "mainstat", "expadd"],
@@ -25,7 +25,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Bow_001_x1",
     name: "Etrayu",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "bow",
     quality: "legendary",
     preset: ["wpnphy", "mainstat", "dura"],
@@ -223,7 +223,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_HandXBow_004_x1",
     name: "Balefire Caster",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "handcrossbow",
     quality: "legendary",
     preset: ["wpnfir", "mainstat"],
@@ -382,7 +382,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Wand_002_x1",
     name: "Gesture of Orpheus",
-    suffix: "Legacy",
+    suffix: _L("Legacy"),
     type: "wand",
     quality: "legendary",
     affixes: {
