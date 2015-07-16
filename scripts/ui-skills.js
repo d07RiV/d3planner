@@ -1,18 +1,29 @@
 (function() {
+  var _L = DiabloCalc.locale("ui-skills.js");
+
   var tab = $("#tab-skills");
   tab = DiabloCalc.addScroll(tab, "y");
 
   var showElites = $("<input></input>").attr("type", "checkbox").change(function() {
+    bossLabel.toggle(!!this.checked);
+    DiabloCalc.trigger("updateStats");
+  });
+  var targetBoss = $("<input></input>").attr("type", "checkbox").change(function() {
     DiabloCalc.trigger("updateStats");
   });
   var targetType = $("<select></select>");
-  targetType.append("<option value=\"\">Generic</option>");
-  targetType.append("<option value=\"demons\">Demon</option>");
-  targetType.append("<option value=\"beasts\">Beast</option>");
-  targetType.append("<option value=\"humans\">Human</option>");
-  targetType.append("<option value=\"undead\">Undead</option>");
+  targetType.append("<option value=\"\">" + _L("Generic") + "</option>");
+  targetType.append("<option value=\"demons\">" + _L("Demon") + "</option>");
+  targetType.append("<option value=\"beasts\">" + _L("Beast") + "</option>");
+  targetType.append("<option value=\"humans\">" + _L("Human") + "</option>");
+  targetType.append("<option value=\"undead\">" + _L("Undead") + "</option>");
+  var bossLabel = $("<label style=\"margin-left: 8px\">" + _L("Boss") + "</label>").prepend(targetBoss).hide();
   DiabloCalc.addOption("showElites", function() {return showElites.prop("checked");}, function(x) {
     showElites.prop("checked", x);
+    bossLabel.toggle(!!x);
+  });
+  DiabloCalc.addOption("targetBoss", function() {return targetBoss.prop("checked");}, function(x) {
+    targetBoss.prop("checked", x);
     DiabloCalc.trigger("updateStats");
   });
   DiabloCalc.addOption("targetType", function() {return targetType.val();}, function(x) {
@@ -20,7 +31,11 @@
     targetType.trigger("chosen:updated");
     DiabloCalc.trigger("updateStats");
   });
-  tab.append($("<span class=\"option-box\">Target: </span>").append(targetType, $("<label style=\"margin-left: 8px\">Elite</label>").prepend(showElites)));
+  tab.append($("<span class=\"option-box\">" + _L("Target: ") + "</span>").append(
+    targetType,
+    $("<label style=\"margin-left: 8px\">" + _L("Elite") + "</label>").prepend(showElites),
+    bossLabel
+  ));
   targetType.change(function() {
     DiabloCalc.trigger("updateStats");
   });
@@ -34,6 +49,7 @@
   var skills = [];
   var passives = [];
   var buffTabs = [];
+  var kanai = {};
   var extraPassive;
   var gemSection;
   var itemSection;
@@ -79,7 +95,7 @@
       if (!skill) return;
       var self = this;
       var info = DiabloCalc.skills[DiabloCalc.charClass][skill];
-      this.runes.x = $("<span class=\"skill-popup-rune-line\"><span class=\"skill-popup-rune-x\"></span>No Rune</span>");
+      this.runes.x = $("<span class=\"skill-popup-rune-line\"><span class=\"skill-popup-rune-x\"></span>" + _L("No Rune") + "</span>");
       this.runes.x.hover(function() {
         DiabloCalc.tooltip.showSkill(this, DiabloCalc.charClass, skill);
       }, function() {
@@ -330,6 +346,11 @@
     extraPassive.setPassive(extra_passive);
     extraPassive.section.toggle(!!extra_passive);
     extraPassive.update();
+    var kanaiFx = [];
+    for (var type in kanai) {
+      kanai[type].update();
+      kanaiFx.push(kanai[type].getItemAffix());
+    }
 
     for (var gem in DiabloCalc.legendaryGems) {
       if (DiabloCalc.legendaryGems[gem].line && !stats.gems.hasOwnProperty(gem)) {
@@ -347,6 +368,7 @@
     gemSection.toggle(!$.isEmptyObject(stats.gems));
 
     function isAffixShown(affix) {
+      if (kanaiFx.indexOf(affix) >= 0) return false;
       if (!stats.affixes.hasOwnProperty(affix)) return false;
       var data = DiabloCalc.itemaffixes[affix];
       if (!data.info && data.active === undefined && !data.params) return false;
@@ -438,7 +460,7 @@
       };})(skills[i]));
     }
 
-    skillSection.append("<h3 class=\"skill-category\">Passives</h3>");
+    skillSection.append("<h3 class=\"skill-category\">" + _L("Passives") + "</h3>");
 
     for (var i = 0; i < 4; ++i) {
       passives.push(new DiabloCalc.SkillBox("passive", {index: i, level: [10, 20, 30, 70][i], parent: skillSection}));
@@ -451,16 +473,24 @@
       };})(passives[i]));
     }
 
-    var extraSection = $("<div><h3 class=\"skill-category\" style=\"margin-top: 10px\">Granted by Hellfire Amulet</h3></div>").hide();
+    var extraSection = $("<div><h3 class=\"skill-category\" style=\"margin-top: 10px\">" + _L("Granted by Hellfire Amulet") + "</h3></div>").hide();
     skillSection.append(extraSection);
     extraPassive = new DiabloCalc.SkillBox("passive", {index: -1, parent: extraSection, readonly: true});
     extraPassive.section = extraSection;
 
-    gemSection = $("<div><h3 class=\"skill-category\">Legendary Gems</h3></div>").hide();
+    gemSection = $("<div><h3 class=\"skill-category\">" + _L("Legendary Gems") + "</h3></div>").hide();
     skillSection.append(gemSection);
 
-    itemSection = $("<div><h3 class=\"skill-category\">Item Effects</h3></div>").hide();
+    itemSection = $("<div><h3 class=\"skill-category\">" + _L("Item Effects") + "</h3></div>").hide();
     skillSection.append(itemSection);
+
+    skillSection.append("<h3 class=\"skill-category\">" + _L("Kanai's Cube") + "</h3>");
+
+    kanai = {
+      weapon: new DiabloCalc.SkillBox("kanai", {kanai: "weapon", parent: skillSection}),
+      armor: new DiabloCalc.SkillBox("kanai", {kanai: "armor", parent: skillSection}),
+      jewelry: new DiabloCalc.SkillBox("kanai", {kanai: "jewelry", parent: skillSection}),
+    };
 
     skillPopup.setClass(charClass);
     passivePopup.setClass(charClass);
@@ -512,6 +542,13 @@
     for (var slot = 0; slot < passives.length; ++slot) {
       res.passives.push(passives[slot].passive);
     }
+    res.kanai = {};
+    for (var type in kanai) {
+      var id = kanai[type].getItemPair();
+      if (id) {
+        res.kanai[type] = id;
+      }
+    }
     return res;
   };
   DiabloCalc.setSkills = function(data) {
@@ -529,6 +566,13 @@
       }
       for (var slot = data.passives.length; slot < passives.length; ++slot) {
         passives[slot].setPassive();
+      }
+    }
+    if (data.kanai) {
+      for (var type in data.kanai) {
+        if (kanai[type]) {
+          kanai[type].setItemPair(data.kanai[type]);
+        }
       }
     }
   };
@@ -568,6 +612,14 @@
     }
     if (stats.extra_passive && DiabloCalc.passives[DiabloCalc.charClass][stats.extra_passive]) {
       stats.passives[stats.extra_passive] = true;
+    }
+  };
+  DiabloCalc.addExtraAffixes = function(stats) {
+    for (var type in kanai) {
+      var affix = kanai[type].getItemAffix();
+      if (affix) {
+        stats[affix] = kanai[type].getItemAffixValue();
+      }
     }
   };
   DiabloCalc.addSkillBonuses = function(stats) {
@@ -623,6 +675,28 @@
         applySkill(list, stats, stats.affixes[affix].set || DiabloCalc.getSlotId(stats.affixes[affix].slot));
       }
     }
+    for (var type in kanai) {
+      var affix = kanai[type].getItemAffix();
+      if (!affix) continue;
+      var info = kanai[type].getInfo();
+      if (!info) continue;
+      var func = "buffs";
+      if (!info[func] || info.active === false) {
+        func = "inactive";
+      }
+      if (func) {
+        var list;
+        if (typeof info[func] == "function") {
+          var value = kanai[type].getItemAffixValue();
+          var values = [];
+          if (value !== undefined) values.push(value);
+          list = info[func](values, stats);
+        } else {
+          list = info[func];
+        }
+        applySkill(list, stats, kanai[type].getItemPair());
+      }
+    }    
 
     DiabloCalc.addPartyBuffs(stats);
   };
@@ -651,8 +725,8 @@
   skillSection = $("<div></div>");
   tab.append(skillSection);
 
-  tab.append("<h3 class=\"skill-category\" style=\"margin-bottom: 5px\">Group Buffs</h3>");
-  tab.append("<p class=\"change-note\"><i>The calculator does not check for correct buff stacking.</i></p>");
+  tab.append("<h3 class=\"skill-category\" style=\"margin-bottom: 5px\">" + _L("Group Buffs") + "</h3>");
+  tab.append("<p class=\"change-note\"><i>" + _L("The calculator does not check for correct buff stacking.") + "</i></p>");
   var buffSection = $("<div class=\"buff-tabs ui-helper-clearfix\"></div>");
   tab.append(buffSection);
   var buffHeader = $("<ul></ul>");
@@ -684,7 +758,7 @@
 
     tab.tab.children().detach();
     if (!tab.class) {
-      tab.class = $("<select class=\"buff-class\"><option value=\"\">" + (DiabloCalc.noChosen ? "Select Class" : "") + "</option></select>");
+      tab.class = $("<select class=\"buff-class\"><option value=\"\">" + (DiabloCalc.noChosen ? _L("Select Class") : "") + "</option></select>");
       for (var oc in DiabloCalc.classes) {
         if (!DiabloCalc.classes[oc].follower) {
           tab.class.append("<option value=\"" + oc + "\" class=\"class-icon class-" + oc + "\">" + DiabloCalc.classes[oc].name + "</option>");
@@ -695,7 +769,7 @@
         allow_single_deselect: true,
         disable_search: true,
         inherit_select_classes: true,
-        placeholder_text_single: "Select Class",
+        placeholder_text_single: _L("Select Class"),
       }).change(function() {
         var oc = tab.class.val();
         if (!DiabloCalc.noChosen) {

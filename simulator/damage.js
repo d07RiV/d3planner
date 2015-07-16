@@ -1,117 +1,6 @@
 (function() {
   var Sim = Simulator;
 
-  // SERIOUS MATH SECTION //
-
-  function _wrap(func) {
-    var storage = {};
-    return function() {
-      var obj = JSON.stringify(Array.prototype.slice.apply(arguments));
-      if (storage[obj] === undefined) {
-        storage[obj] = func.apply(this, arguments);
-      }
-      return storage[obj];
-    }
-  }
-
-  function _integrate(func, x0, x1) {
-    var area = 0;
-    var sign = 1;
-    if (x1 < x0) {
-      var tmp = x0;
-      x0 = x1;
-      x1 = tmp;
-      sign = -1;
-    }
-    var step = (x1 - x0) * 0.001;
-    var prev = func(x0);
-    for (var x = x0; x < x1; x += step) {
-      var nx = Math.min(x + step, x1);
-      var next = func(nx);
-      area += 0.5 * (next + prev) * (nx - x);
-      prev = next;
-    }
-    return sign * area;
-  }
-
-  function _circle_intersection_sub(d, r, R) {
-    return r * r * Math.acos((d * d + r * r - R * R) / (2 * d * r)) +
-           R * R * Math.acos((d * d + R * R - r * r) / (2 * d * R)) -
-           0.5 * Math.sqrt((-d + r + R) * (d - r + R) * (d + r - R) * (d + r + R));
-  }
-  function _circle_intersection(d, r, R) {
-    if (r > R) {
-      var tmp = r;
-      r = R;
-      R = tmp;
-    }
-    d = Math.abs(d);
-    if (d < R - r) {
-      return r * r * Math.PI;
-    }
-    if (d > R + r) {
-      return 0;
-    }
-    return _circle_intersection_sub(d, r, R);
-  }
-
-  var _calc_area = _wrap(function(r0, s0, r1, s1) {
-    var r = r0, R = s0 + s1;
-    if (r > R) {
-      var tmp = r;
-      r = R;
-      R = tmp;
-    }
-    var t = R - r;
-    if (r1 < t) {
-      return r * r * Math.PI;
-    }
-    var area = r * r * Math.PI * t * t;
-    area += _integrate(function(x) {
-      return 2 * x * _circle_intersection_sub(x, r, R);
-    }, t, Math.min(r1, R + r));
-    return area / (r1 * r1);
-  });
-
-  var _calc_area_d = _wrap(function(r0, s0, r1, s1, dist) {
-    var r = r0, R = s0 + s1;
-    if (r > R) {
-      var tmp = r;
-      r = R;
-      R = tmp;
-    }
-    var area = 0;
-    area += _integrate(function(x) {
-      return Math.acos((dist * dist + x * x - r1 * r1) / (2 * dist * x)) * _circle_intersection(x, r, R);
-    }, Math.max(0, dist - r1), Math.min(dist + r1, R + r));
-    return area / (Math.PI * r1 * r1);
-  });
-  var _calc_area_di = _wrap(function(r0, s0, r1, s1, dist, inner) {
-    var r = r0, R = s0 + s1;
-    if (r > R) {
-      var tmp = r;
-      r = R;
-      R = tmp;
-    }
-    var area = 0;
-    area += _integrate(function(x) {
-      var len = Math.acos((dist * dist + x * x - r1 * r1) / (2 * dist * x));
-      if (x > dist - inner && x < dist + inner) {
-        len -= Math.acos((dist * dist + x * x - inner * inner) / (2 * dist * x));
-      }
-      return len * _circle_intersection(x, r, R);
-    }, Math.max(0, dist - r1), Math.min(dist + r1, R + r));
-    return area / (Math.PI * (r1 * r1 - inner * inner));
-  });
-
-  var _calc_slowball = _wrap(function(radius, size, t0, t1) {
-    return _integrate(function(x) {
-      return _circle_intersection(x, radius, size);
-    }, t0, t1);
-  });
-
-  //////////////////////////
-
   Sim.curweapon = "mainhand";
 
   Sim.calcDamage = function(data) {
@@ -171,6 +60,9 @@
 
     if (Sim.target.elite) {
       factor *= 1 + 0.01 * (stats.edmg || 0);
+    }
+    if (Sim.target.boss) {
+      factor *= 1 + 0.01 * (stats.bossdmg || 0);
     }
     if (Sim.target.type) {
       factor *= 1 + 0.01 * (stats["damage_" + Sim.target.type] || 0);
@@ -244,10 +136,8 @@
     var tcount = Sim.target.count + (data.cmod || 0);
     if (!tcount) return;
     var origin = (data.origin || Sim.target.distance);
-    var ldist = 0;
-    var edist = origin;
-    var width = Sim.target.size + (data.radius || 0);
-    if (data.fan && data.count && data.count > 1) {
+    var size = Sim.target.size + (data.radius || 0);
+    if (data.fan && data.count && data.count > 1 && !data.merged) {
       var tmp = Sim.extend({}, data);
       tmp.count -= 1;
       tmp.angle = data.fan * 0.5;
@@ -255,47 +145,32 @@
       _line(tmp);
       data.count = 1;
     }
-    if (data.angle) {
-      var angle = Math.PI * data.angle / 180;
-      ldist = Math.abs(origin * Math.sin(angle));
-      edist = origin * Math.cos(angle);
+    var fanCount = (data.fan ? (data.count || 1) : 1);
+    var hitCount = (data.fan ? 1 : (data.count || 1));
+    var area = Sim.math.lineArea(Sim.target.radius, size, origin, data.range, data.angle, data.fan, fanCount);
+    if (area < 1e-9) return;
+    area = Math.min(area, Sim.target.area) / Sim.target.area;
+    var distance;
+    if (!data.pierce || data.speed) {
+      distance = Sim.math.lineDistance(tcount, Sim.target.radius, size, origin, data.range, data.angle, data.fan, fanCount);
+      if (distance === undefined) return;
     }
-    var mdist = Math.max(Math.min(ldist, ldist - width), 0);
-    var ewidth = Math.min(Sim.target.radius, ldist + width) - Math.max(-Sim.target.radius, ldist - width);
-    if (ewidth < 1e-4 || mdist > Sim.target.radius - 1e-4) {
-      return;
-    }
-    var mlen = Math.sqrt(Sim.target.radius * Sim.target.radius - mdist * mdist);
-    var t0 = Math.max(0, edist - mlen);
-    var t1 = edist + mlen;
-    if (data.range) {
-      t1 = Math.min(data.range, t1);
-    }
-    var elength = t1 - t0;
-    if (elength < 0) {
-      return;
-    }
-    var area = Math.min(elength * ewidth, Sim.target.area);
-    var fail = 1 - area / Sim.target.area;
-    var prob = Math.pow(fail, Sim.target.count + tcount);
-    var first = t0 + Sim.target.area / ewidth * (
-      tcount / (tcount + 1) * (prob * fail - 1) - prob + 1
-    );
     var secondary;
     if (data.pierce) {
-      var hits = tcount * area / Sim.target.area;
+      var hits = tcount * area;
       if (data.pierce !== true) {
-        hits = Math.min(hits, data.pierce + 1);
+        hits = Sim.math.limitedAverage(area, tcount, data.pierce);
       }
-      data.count = (data.count || 1) * hits;
-      data.distance = (t0 + t1) / 2;
+      data.count = hitCount * hits;
+      data.distance = origin;
     } else {
-      data.count = (data.count || 1) * (1 - prob);
-      if (data.area) {
+      data.count = hitCount * (1 - Math.pow(1 - area, tcount));
+      if (data.area && tcount > 1) {
         var ta = Math.PI * Math.pow(data.area + Sim.target.size, 2);
-        var targets = (tcount - 1) * Math.min(ta, Sim.target.area) / Sim.target.area;
+        ta = Math.min(ta, Sim.target.area) / Sim.target.area;
+        var targets = (tcount - 1) * ta;
         if (data.areamax) {
-          targets = Math.min(targets, data.areamax);
+          targets = Sim.math.limitedAverage(ta, tcount - 1, data.areamax);
         }
         if (data.areacoeff || data.areadelay) {
           secondary = Sim.extend({}, data);
@@ -306,10 +181,10 @@
           data.count *= 1 + targets;
         }
       }
-      data.distance = first;
+      data.distance = distance + size;
     }
     if (data.speed) {
-      var delay = (first - width) / data.speed;
+      var delay = distance / data.speed;
       Sim.after(delay, _target, data);
       if (secondary) {
         Sim.after(delay + (secondary.delay || 0), _target, secondary);
@@ -324,23 +199,15 @@
 
   function _ball(data) {
     var size = (data.radius || 0) + Sim.target.size;
-    var origin = -(data.origin || Sim.target.distance);
-    var range = (data.range || Sim.target.radius - origin + size);
+    var origin = (data.origin || Sim.target.distance);
+    var range = (data.range || Sim.target.radius + origin + size);
 
-    var t0 = Math.max(origin - size, -Sim.target.radius);
-    var t1 = Math.min(origin + range + size, Sim.target.radius);
-    var length = t1 - t0;
-    var width = 2 * Math.min(size, Sim.target.radius);
-    var area = Math.min(length * width, Sim.target.area);
-    var fail = 1 - area / Sim.target.area;
-    var prob = Math.pow(fail, Sim.target.count);
-    var first = t0 + Sim.target.area / width * (
-      Sim.target.count / (Sim.target.count + 1) * (prob * fail - 1) - prob + 1
-    );
-    var delay = Math.max(0, first - origin - size) / data.speed;
-    data.distance = Math.max(0, (t0 + t1) / 2 - origin);
+    var distance = Sim.math.lineDistance(Sim.target.count, Sim.target.radius, size, origin, range);
+    if (distance === undefined) return;
+    var delay = distance / data.speed;
+    data.distance = origin;
 
-    var total = _calc_slowball(Sim.target.radius, size, origin, origin + range) / data.speed;
+    var total = Sim.math.slowball(Sim.target.radius, size, -origin, -origin + range) / data.speed;
     data.count = (data.count || 1) * Sim.target.density * total / data.rate;
 
     if (delay) {
@@ -351,7 +218,7 @@
   }
 
   Sim.getTargets = function(range, origin) {
-    var area = _circle_intersection(origin || 0, Sim.target.size + range, Sim.target.radius);
+    var area = Sim.math.circleIntersection(origin || 0, Sim.target.size + range, Sim.target.radius);
     return Math.min(area, Sim.target.area) * Sim.target.density;
   };
 
@@ -360,33 +227,55 @@
     if (data.self) {
       data.distance = data.range / 2;
     }
-    if (data.self || data.origin || data.inner) {
-      if (data.spread) {
-        area = _calc_area_d(Sim.target.radius, Sim.target.size, data.spread, data.range,
-          data.origin || (data.self && Sim.target.distance) || 0, data.inner);
-      } else {
-        area = _circle_intersection(data.origin || Sim.target.distance,
-          Sim.target.size + data.range, Sim.target.radius);
-      }
-    } else if (data.spread) {
-      area = _calc_area(Sim.target.radius, Sim.target.size, data.spread, data.range);
+    if (data.front) {
+      data.origin = Math.abs((data.origin || Sim.target.distance) - data.range);
+      data.distance = data.range;
+    }
+    if (data.spread) {
+      area = Sim.math.circleArea(Sim.target.radius, Sim.target.size + data.range, data.spread,
+        data.origin || (data.self && Sim.target.distance) || 0, data.inner);
+    } else if (data.self || data.origin) {
+      area = Sim.math.circleIntersection(data.origin || Sim.target.distance,
+        Sim.target.size + data.range, Sim.target.radius);
     } else {
       area = Math.PI * Math.pow(Math.min(Sim.target.radius, Sim.target.size + data.range), 2);
     }
     var tcount = Sim.target.count + (data.cmod || 0);
-    data.targets = Math.min(area, Sim.target.area) * tcount / Sim.target.area;
-    if (data.cap) data.targets = Math.min(data.targets, data.cap);
+    var prob = Math.min(area, Sim.target.area) / Sim.target.area;
+    if (data.cap) {
+      data.targets = Sim.math.limitedAverage(prob, tcount, data.cap);
+    } else {
+      data.targets = tcount * prob;
+    }
     if (data.targets) {
       _target(data);
     }
   }
 
   function _cone(data) {
-    data.range /= 2;
-    data.origin = Math.abs((data.origin || Sim.target.distance) - data.range);
-    data.distance = data.range;
-    _area(data);
-  };
+    data.distance = data.range / 2;
+    var area = Sim.math.coneArea(Sim.target.radius, Sim.target.size,
+      data.origin || Sim.target.distance, data.width || 90, data.range, data.angle);
+    var tcount = Sim.target.count + (data.cmod || 0);
+    var prob = Math.min(area, Sim.target.area) / Sim.target.area;
+    if (data.cap) {
+      data.targets = Sim.math.limitedAverage(prob, tcount, data.cap);
+    } else {
+      data.targets = tcount * prob;
+    }
+    if (data.targets) {
+      _target(data);
+    }
+  }
+
+  function _waveoflight(data) {
+    var res = Sim.math.waveOfLight(Sim.target.count, Sim.target.radius,
+      (data.radius || 0) + Sim.target.size, Sim.target.distance, data.range,
+      data.expos, data.exrange);
+    data.targets = Math.min(res.area, Sim.target.area) / Sim.target.area * Sim.target.count;
+    data.distance = res.distance;
+    Sim.after(res.distance / data.speed, _target, data);
+  }
 
   function _damage(data) {
     switch (data.type) {
@@ -402,6 +291,8 @@
     case "cone":
       _cone(data);
       break;
+    case "waveoflight":
+      _waveoflight(data);
     default:
       _target(data);
     }

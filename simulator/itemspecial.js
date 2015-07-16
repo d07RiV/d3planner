@@ -19,7 +19,7 @@
         Sim.pushCastInfo({triggered: id});
         this.register("onhit_proc", (function(id, fx) {
           return function(data) {
-            if (Sim.random(id, 0.01 * Sim.stats[id] * (data.targets / Sim.target.count) * data.proc)) {
+            if (Sim.random(id, 0.01 * Sim.stats[id] * data.proc, data.targets / Sim.target.count)) {
               Sim.addBuff(fx.status, undefined, fx.duration);
             }
           };
@@ -30,7 +30,7 @@
     if (this.stats.bleed) {
       Sim.pushCastInfo({triggered: "bleed"});
       this.register("onhit_proc", function(data) {
-        if (Sim.random("bleed", 0.01 * Sim.stats.bleed.chance * (data.targets / Sim.target.count) * data.proc)) {
+        if (Sim.random("bleed", 0.01 * Sim.stats.bleed.chance * data.proc, data.targets / Sim.target.count)) {
           Sim.addBuff("bleed", undefined, {duration: 300, tickrate: 15, data: {amount: Sim.stats.bleed.amount}, ontick: function(data) {
             Sim.damage({elem: "phy", targets: Sim.target.count, coeff: data.amount * 0.01 / 20, orphan: true});
           }});
@@ -83,7 +83,7 @@
   gems.gogok = function(level) {
     var buffs = (level >= 25 ? {ias: 1, cdr: 1} : {ias: 1});
     Sim.register("onhit_proc", function(data) {
-      var stacks = Sim.random("gogok", data.targets * data.proc * (0.5 + 0.01 * level));
+      var stacks = Sim.random("gogok", data.proc * (0.5 + 0.01 * level), data.targets, true);
       if (stacks) {
         Sim.addBuff("gogok", buffs, {duration: 240, maxstacks: 15, stacks: stacks});
       }
@@ -111,7 +111,7 @@
       Sim.damage({elem: "phy", coeff: coeff});
     }
     Sim.register("onhit", function(data) {
-      var stacks = Sim.random("pain", data.targets * data.chc);
+      var stacks = Sim.random("pain", data.chc, data.targets, true);
       Sim.addBuff("pain", buffs, {
         duration: 180,
         refresh: false,
@@ -147,7 +147,7 @@
       Sim.damage({targets: 2, elem: "lit", coeff: coeff});
     }
     Sim.register("onhit_proc", function(data) {
-      if (Sim.random("wreath", data.targets * data.proc * 0.15)) {
+      if (Sim.random("wreath", data.proc * 0.15, data.targets)) {
         Sim.addBuff("wreath", undefined, {
           duration: 180,
           tickrate: 12,
@@ -187,9 +187,6 @@
   affixes.leg_thefurnace = function(amount) {
     Sim.addBaseStats({edmg: amount});
   };
-  affixes.leg_gestureoforpheus = affixes.leg_gestureoforpheus_p2 = function(amount) {
-    Sim.addBaseStats({skill_wizard_slowtime_cooldown: amount});
-  };
   affixes.leg_triumvirate = function(amount) {
     Sim.register("oncast", function(data) {
       if (Sim.skills[data.skill] && Sim.skills[data.skill].signature) {
@@ -200,7 +197,7 @@
   affixes.leg_stormcrow = function(amount) {
     var prev;
     Sim.register("onhit_proc", function(data) {
-      if ((prev === undefined || Sim.time - prev > 240) && Sim.random("stormcrow", 0.01 * amount * data.targets)) {
+      if ((prev === undefined || Sim.time - prev > 240) && Sim.random("stormcrow", 0.01 * amount, data.targets)) {
         Sim.damage({type: "line", elem: "fir", coeff: 1.15, speed: 0.75, area: 10});
         prev = Sim.time;
       }
@@ -226,7 +223,7 @@
   };
   affixes.leg_frostburn = function(amount) {
     Sim.register("onhit_proc", function(data) {
-      if (data.elem === "col" && Sim.random("frostburn", 0.01 * amount * data.proc * (data.targets / Sim.target.count))) {
+      if (data.elem === "col" && Sim.random("frostburn", 0.01 * amount * data.proc, data.targets / Sim.target.count)) {
         Sim.addBuff("frozen", undefined, 36);
       }
     });
@@ -268,14 +265,14 @@
   };
   affixes.leg_wyrdward = affixes.leg_wyrdward_p2 = function(amount) {
     Sim.register("onhit_proc", function(data) {
-      if (data.elem === "lit" && Sim.random("wyrdward", 0.01 * amount * data.proc * (data.targets / Sim.target.count))) {
+      if (data.elem === "lit" && Sim.random("wyrdward", 0.01 * amount * data.proc, data.targets / Sim.target.count)) {
         Sim.addBuff("stunned", undefined, 90);
       }
     });
   };
   affixes.leg_overwhelmingdesire = function(amount) {
     Sim.register("onhit_proc", function(data) {
-      if (Sim.random("overwhelmingdesire", 0.05 * data.proc * (data.targets / Sim.target.count))) {
+      if (Sim.random("overwhelmingdesire", 0.05 * data.proc, data.targets / Sim.target.count)) {
         Sim.addBuff("overwhelmingdesire", {dmgtaken: 35}, {duration: 180, status: "charmed"});
       }
     });
@@ -323,7 +320,7 @@
   affixes.leg_hellfirering = function(amount) {
     var next = 0;
     Sim.register("onhit_proc", function(data) {
-      if (next <= Sim.time && Sim.random("hellfirering", 0.5 * data.proc * data.targets)) {
+      if (next <= Sim.time && Sim.random("hellfirering", 0.5 * data.proc, data.targets)) {
         Sim.addBuff("hellfirering", undefined, {
           duration: 360,
           tickrate: 30,
@@ -370,7 +367,7 @@
   };
   affixes.leg_moonlightward = function(amount) {
     Sim.register("onhit_proc", function(data) {
-      if (Sim.random("moonlightward", data.targets * data.proc)) {
+      if (Sim.random("moonlightward", data.proc, data.targets)) {
         Sim.addBuff("moonlightward", undefined, {
           duration: 7200,
           maxstacks: 4,
@@ -430,7 +427,7 @@
     var coeff = (this == "leg_skysplitter" ? 1.65 : 6.75);
     var cooldown = (this == "leg_skysplitter" ? 210 : 12);
     Sim.register("onhit_proc", function(data) {
-      if (Sim.time >= next && Sim.random("skysplitter", amount * 0.01 * data.targets * data.proc)) {
+      if (Sim.time >= next && Sim.random("skysplitter", amount * 0.01 * data.proc, data.targets)) {
         Sim.damage({elem: "lit", coeff: coeff});
         Sim.addBuff("stunned", undefined, 30);
         next = Sim.time + cooldown;
@@ -459,7 +456,7 @@
   affixes.leg_odynson = function(amount) {
     var next = 0;
     Sim.register("onhit_proc", function(data) {
-      if (Sim.time >= next && Sim.random("odynson", amount * 0.01 * data.targets * data.proc)) {
+      if (Sim.time >= next && Sim.random("odynson", amount * 0.01 * data.proc, data.targets)) {
         Sim.damage({elem: "lit", coeff: 1.1, count: 3});
         next = Sim.time + 60;
       }
@@ -467,7 +464,7 @@
   };
   affixes.leg_fulminator = function(amount) {
     Sim.register("onhit_proc", function(data) {
-      var targets = Sim.random("fulminator", data.targets * data.proc);
+      var targets = Sim.random("fulminator", data.proc, data.targets, true);
       if (targets) {
         Sim.addBuff("fulminator", undefined, {
           duration: 360,
@@ -487,7 +484,7 @@
   affixes.leg_rimeheart = function(amount) {
     var next = 0;
     Sim.register("onhit_proc", function(data) {
-      if (Sim.time >= next && Sim.stats.frozen && Sim.random("rimeheart", 0.1 * data.targets * data.proc)) {
+      if (Sim.time >= next && Sim.stats.frozen && Sim.random("rimeheart", 0.1 * data.proc, data.targets)) {
         Sim.damage({elem: "col", coeff: 100});
         next = Sim.time + 6;
       }
@@ -496,7 +493,7 @@
   affixes.leg_thunderfury = function(amount) {
     var next = 0;
     Sim.register("onhit_proc", function(data) {
-      if (Sim.time >= next && Sim.random("thunderfury", 0.6 * data.targets * data.proc)) {
+      if (Sim.time >= next && Sim.random("thunderfury", 0.6 * data.proc, data.targets)) {
         Sim.damage({elem: "lit", coeff: amount * 0.01, targets: 6});
         Sim.addBuff("slowed", undefined, 180);
         next = Sim.time + Math.floor(54 / Sim.stats.info.aps);
@@ -554,7 +551,7 @@
     var type = 0;
     var next = 0;
     Sim.register("onhit_proc", function(data) {
-      if (Sim.time >= next && Sim.random("helltrapper", 0.01 * amount * data.proc * data.targets)) {
+      if (Sim.time >= next && Sim.random("helltrapper", 0.01 * amount * data.proc, data.targets)) {
         Sim.cast(skills[type]);
         type = (type + 1) % skills.length;
         next = Sim.time + 6;
@@ -563,7 +560,7 @@
   };
   affixes.leg_solanium = function(amount) {
     Sim.register("onhit_proc", function(data) {
-      for (var i = Sim.random("solanium", 0.01 * amount * data.proc * data.targets * data.chc); i; --i) {
+      for (var i = Sim.random("solanium", 0.01 * amount * data.proc * data.chc, data.targets, true); i > 0; --i) {
         Sim.trigger("onglobe");
       }
     });
@@ -616,7 +613,7 @@
   affixes.leg_hellrack = function(amount) {
     var next = 0;
     Sim.register("onhit_proc", function(data) {
-      if (Sim.time >= next && Sim.random("hellrack", data.proc * data.targets / Sim.target.count)) {
+      if (Sim.time >= next && Sim.random("hellrack", data.proc, data.targets / Sim.target.count)) {
         Sim.addBuff("rooted", undefined, 120);
         next = Sim.time + 6;
       }
@@ -695,7 +692,7 @@
   affixes.leg_thegidbinn = function(amount) {
     var next = 0;
     Sim.register("onhit_proc", function(data) {
-      if (Sim.time >= next && Sim.random("thegidbinn", 0.25 * data.proc * data.targets)) {
+      if (Sim.time >= next && Sim.random("thegidbinn", 0.25 * data.proc, data.targets)) {
         Sim.petattack("thegidbinn", undefined, {
           duration: 1200,
           tickrate: 48,
@@ -706,6 +703,51 @@
           },
         });
         next = Sim.time + 300;
+      }
+    });
+  };
+
+  affixes.leg_gyananakashu = function(amount) {
+    Sim.register("oncast", function(data) {
+      if (data.skill === "lashingtailkick") {
+        Sim.damage({type: "line", speed: 1, pierce: true, radius: 10, coeff: amount * 0.01});
+      }
+    });
+  };
+
+  affixes.leg_kekegisunbreakablespirit = function(amount) {
+    var next = 0;
+    Sim.register("onhit_proc", function(data) {
+      if (Sim.time >= next && Sim.random("kekegisunbreakablespirit", 0.2 * data.proc, data.targets)) {
+        Sim.addBuff("kekegisunbreakablespirit", {rcr_spirit: 100}, {duration: amount * 60});
+        next = Sim.time + 1800;
+      }
+    });
+  };
+
+  affixes.leg_thelawsofseph = function(amount) {
+    Sim.register("oncast", function(data) {
+      if (data.skill === "blindingflash") {
+        Sim.addResource(amount);
+      }
+    });
+  };
+
+  affixes.leg_flyingdragon = function(amount) {
+    if (Sim.stats.charClass !== "monk") return;
+    var next = 0;
+    Sim.register("oncast", function(data) {
+      if (Sim.time >= next && data.offensive && Sim.random("flyingdragon", 0.05)) {
+        Sim.addBuff("flyingdragon", {weaponias: 100}, {duration: 420});
+      }
+    });
+  };
+
+  affixes.leg_spiritguards = function(amount) {
+    if (Sim.stats.charClass !== "monk") return;
+    Sim.register("oncast", function(data) {
+      if (data.generate) {
+        Sim.addBuff("spiritguards", {dmgred: amount}, {duration: 180});
       }
     });
   };

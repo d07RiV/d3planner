@@ -150,18 +150,21 @@
     }
   }     
 
+  function VarSpeed(rune) {
+    switch (Sim.stats.info.weaponClass) {
+    case "bow": return 57.777767;
+    case "crossbow": return 57.391285;
+    case "handcrossbow": return 56.842083;
+    case "dualwield": return 56.842075;
+    default: return 57.692299;
+    }
+  }
+
   skills.hungeringarrow = {
     signature: true,
     offensive: true,
     generate: {x: 3, d: 3, a: 6, b: 3, c: 3, e: 3},
-    speed: function(rune) {
-      switch (Sim.stats.info.mainhand.type) {
-      case "bow": return 57.777767; break;
-      case "crossbow": return 57.391285; break;
-      case "handcrossbow": return 56.842075; break;
-      default: return 57.692299;
-      }
-    },
+    speed: VarSpeed,
     oncast: function(rune) {
       var data = ha_compute(rune);
       if (data.count) {
@@ -199,14 +202,7 @@
     signature: true,
     offensive: true,
     generate: {x: 3, b: 3, c: 3, a: 3, d: 6, e: 3},
-    speed: function(rune) {
-      switch (Sim.stats.info.mainhand.type) {
-      case "bow": return 57.777767; break;
-      case "crossbow": return 57.391285; break;
-      case "handcrossbow": return 56.842075; break;
-      default: return 57.692299;
-      }
-    },
+    speed: VarSpeed,
     oncast: function(rune) {
       var pierce = _buriza();
       switch (rune) {
@@ -252,14 +248,7 @@
     signature: true,
     offensive: true,
     generate: {x: 4, a: 4, c: 4, b: 4, e: 7, d: 4},
-    speed: function(rune) {
-      switch (Sim.stats.info.mainhand.type) {
-      case "bow": return 57.777767; break;
-      case "crossbow": return 57.391285; break;
-      case "handcrossbow": return 56.842075; break;
-      default: return 57.692299;
-      }
-    },
+    speed: VarSpeed,
     oncast: function(rune) {
       switch (rune) {
       case "x": Sim.damage({coeff: 2}); Sim.damage({coeff: 1, targets: Math.min(2, Sim.target.count - 1)}); break;
@@ -420,7 +409,7 @@
   };
 
   function ea_fa_onhit(data) {
-    Sim.damage({delay: 10, type: "cone", origin: Sim.target.distance - data.distance, range: 35, cmod: -1, cap: 10 * data.targets, coeff: 3.3, proc: 0.5});
+    Sim.damage({delay: 10, type: "cone", origin: Sim.target.distance - data.distance, range: 35, cmod: -1, cap: 10 * data.targets, coeff: 3.3, proc: 0.5, width: 120});
     Sim.addBuff("chilled", undefined, 60);
   }
   function ea_ia_onhit(data) {
@@ -630,7 +619,7 @@
         Sim.petattack("companion_spider", undefined, {
           tickrate: 58,
           ontick: function(data) {
-            Sim.damage({pet: true, type: "cone", range: 10, origin: 5, coeff: Sim.stats.info.aps * 1.4});
+            Sim.damage({pet: true, type: "area", front: true, range: 5, origin: 5, coeff: Sim.stats.info.aps * 1.4});
             Sim.addBuff("slowed", undefined, 180);
           },
         });
@@ -665,7 +654,7 @@
           stacks: (Sim.stats.leg_thecloakofgarwulf ? 3 : 1),
           tickrate: 58.378376,
           ontick: function(data) {
-            Sim.damage({pet: true, type: "cone", range: 10, origin: 5, count: data.stacks, coeff: Sim.stats.info.aps * 1.5});
+            Sim.damage({pet: true, type: "cone", range: 10, width: 120, origin: 5, count: data.stacks, coeff: Sim.stats.info.aps * 1.5});
           },
         });
       }
@@ -907,7 +896,7 @@
     cost: {x: 25, d: 18, b: 25, e: 25, a: 25, c: 25},
     speed: 56.666664,
     oncast: function(rune) {
-      var dmg = {delay: Math.floor(Sim.target.distance / 2), type: "cone", range: 75, coeff: 3.6};
+      var dmg = {delay: Math.floor(Sim.target.distance / 2), type: "cone", width: 80, range: 75, coeff: 3.6};
       switch (rune) {
       case "b":
         Sim.damage({type: "area", range: 15, self: true, coeff: 2});

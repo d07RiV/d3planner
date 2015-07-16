@@ -1,4 +1,6 @@
 (function() {
+  var _L = DiabloCalc.locale("ui-equipment.js");
+
   var tab = $("#tab-equipment");
   tab = DiabloCalc.addScroll(tab, "y");
   
@@ -16,10 +18,10 @@
     limitStats.prop("checked", x);
   });
 
-  tab.append($("<label></label>").addClass("option-box").append(moreWarnings).append("Show all warnings"));
-  tab.append($("<label></label>").addClass("option-box").append(limitStats).append("Only list class-specific stats"));
-  DiabloCalc.addTip(moreWarnings, "Show warnings for incomplete items and missing secondary stats.");
-  DiabloCalc.addTip(limitStats, "Only list stats useful to your class.");
+  tab.append($("<label></label>").addClass("option-box").append(moreWarnings).append(_L("Show all warnings")));
+  tab.append($("<label></label>").addClass("option-box").append(limitStats).append(_L("Only list class-specific stats")));
+  DiabloCalc.addTip(moreWarnings, _L("Show warnings for incomplete items and missing secondary stats."));
+  DiabloCalc.addTip(limitStats, _L("Only list stats useful to your class."));
 
   //tab.append("<p class=\"change-note\">This is an experimental replacement for the old equipment editor. It should also be significantly faster when loading or switching between profiles. " +
   //  "If you prefer the old editor, please leave feedback in the <a href=\"/mantisbt/bug_report_page.php\">issue tracker</a>.</p>");
@@ -175,7 +177,7 @@
         if (!valid) {
           if (!window.event) return true;
           self.reverting = true;
-          DiabloCalc.popupMenu(window.event, {
+          DiabloCalc.popupMenu(window.event, _L.fixkey({
             "Delete": function() {
               var obj = self.slotData.dollImage.draggable("instance");
               self.reverting = false;
@@ -184,7 +186,7 @@
               }
               self.setItem();
             },
-          }, function() {
+          }), function() {
             var obj = self.slotData.dollImage.draggable("instance");
             self.reverting = false;
             if (!obj) return;
@@ -237,12 +239,12 @@
         var selfid = self.getId();
         if (event.shiftKey) {
           if (selfid) {
-            DiabloCalc.popupMenu(event, {
+            DiabloCalc.popupMenu(event, _L.fixkey({
               "Replace": function() {
                 self.setItem(data, "stash");
               },
               "Cancel": function() {},
-            });
+            }));
           } else {
             self.setItem(data, "stash");
           }
@@ -270,7 +272,7 @@
         if (self.slotData.item) {
           var options = {};
           if (getEmptySlot()) {
-            options["Unequip"] = function() {
+            options[_L("Unequip")] = function() {
               var to = getEmptySlot();
               if (self.slotData.item && to) {
                 to.setItem(self.slotData.item);
@@ -278,7 +280,7 @@
               }
             };
           }
-          options["Delete"] = function() {
+          options[_L("Delete")] = function() {
             self.setItem();
           };
           DiabloCalc.tooltip.hide();
@@ -367,12 +369,12 @@
         if (!data || !self.accept(data.id)) return;
         if (event.shiftKey) {
           if (self.item) {
-            DiabloCalc.popupMenu(event, {
+            DiabloCalc.popupMenu(event, _L.fixkey({
               "Replace": function() {
                 self.setItem(data, "stash");
               },
               "Cancel": function() {},
-            });
+            }));
           } else {
             self.setItem(data, "stash");
           }
@@ -397,7 +399,7 @@
         if (DiabloCalc.itemById[self.item.id]) {
           DiabloCalc.tooltip.showItem(this, self.item);
         } else {
-          var tip = "<div xmlns=\"http://www.w3.org/1999/xhtml\" class=\"profile-tooltip\"><p><span class=\"d3-color-gold\">Unknown Item</span><br/>" +
+          var tip = "<div xmlns=\"http://www.w3.org/1999/xhtml\" class=\"profile-tooltip\"><p><span class=\"d3-color-gold\">" + _L("Unknown Item") + "</span><br/>" +
             "<span class=\"d3-color-gray\">" + self.item.id + "</span></p></div>";
           DiabloCalc.tooltip.showHtml(this, tip);
         }
@@ -412,12 +414,12 @@
       DiabloCalc.tooltip.hide();
       var options = {};
       if (!self.dollSlot && edit.slot !== self && (!self.item || DiabloCalc.itemById[self.item])) {
-        options["Edit"] = function() {edit.setSlot(self);};
+        options[_L("Edit")] = function() {edit.setSlot(self);};
       }
       if (self.item) {
         if (self.dollSlot) {
           if (getEmptySlot()) {
-            options["Unequip"] = function() {
+            options[_L("Unequip")] = function() {
               var to = getEmptySlot();
               if (self.item && to) {
                 to.setItem(self.item);
@@ -428,7 +430,7 @@
         } else {
           $.each(DiabloCalc.itemSlots, function(slot, slotData) {
             if (slotData.drop.accept(self.item.id)) {
-              options["Equip " + slotData.name] = function() {
+              options[_L("Equip {0}").format(slotData.name)] = function() {
                 if (!slotData.drop.accept(self.item.id)) return;
                 var temp = slotData.drop.getData();
                 slotData.drop.setItem(self.item, "stash");
@@ -437,7 +439,7 @@
             }
           });
         }
-        options["Delete"] = function() {self.setItem();};
+        options[_L("Delete")] = function() {self.setItem();};
       }
       DiabloCalc.popupMenu(evt, options);
       return false;
@@ -478,7 +480,7 @@
         if (!valid) {
           if (!window.event) return true;
           self.reverting = true;
-          DiabloCalc.popupMenu(window.event, {
+          DiabloCalc.popupMenu(window.event, _L.fixkey({
             "Delete": function() {
               var obj = self.icon.draggable("instance");
               self.reverting = false;
@@ -487,7 +489,7 @@
               }
               self.setItem();
             },
-          }, function() {
+          }), function() {
             var obj = self.icon.draggable("instance");
             self.reverting = false;
             if (!obj) return;
@@ -530,7 +532,8 @@
     this.nextSlot = $("<span class=\"right\"></span>");
     this.slotName = $("<h3></h3>");
     this.slotItem = $("<span></span>");
-    this.div.append($("<div class=\"current-header\"><span class=\"current-tip\">Click on a paperdoll slot to edit items.</span></div>").append(this.slotName).append(this.slotItem));
+    this.div.append($("<div class=\"current-header\"><span class=\"current-tip\">" + _L("Click on a paperdoll slot to edit items.") +
+      "</span></div>").append(this.slotName).append(this.slotItem));
 
     var self = this;
 
@@ -538,7 +541,7 @@
     this.slotBox.oldSetItem = function(data, mode) {
       self.slotItem.removeClass();
       if (!data || !DiabloCalc.itemById[data.id]) {
-        self.slotItem.addClass("empty-slot").text("Empty Slot");
+        self.slotItem.addClass("empty-slot").text(_L("Empty Slot"));
       } else {
         var item = DiabloCalc.itemById[data.id];
         self.slotItem.addClass("quality-" + item.quality).text(item.name);
@@ -649,7 +652,7 @@
     clearTimeout(saveTimeout);
     saveTimeout = undefined;
     if (!DiabloCalc.account.userName()) return;
-    saveTip.addClass("loading").text("Saving...").show();
+    saveTip.addClass("loading").text(_L("Saving...")).show();
     var data = [];
     for (var i = 0; i < slots.length; ++i) {
       data.push(slots[i].item || null);
@@ -664,15 +667,15 @@
       dataType: "json",
       success: function(response) {
         if (response.code === "OK") {
-          saveTip.removeClass("loading").text("Saved.");
+          saveTip.removeClass("loading").text(_L("Saved."));
         } else if (response.errors && response.errors.length) {
           saveTip.removeClass("loading").text(response.errors[0]);
         } else {
-          saveTip.removeClass("loading").text("Failed to save!");
+          saveTip.removeClass("loading").text(_L("Failed to save!"));
         }
       },
       error: function(e) {
-        saveTip.removeClass("loading").text("Failed to save!");
+        saveTip.removeClass("loading").text(_L("Failed to save!"));
       },
     });
   }
@@ -688,7 +691,7 @@
     }
   }
   function loadStash() {
-    saveTip.addClass("loading").text("Loading...").show();
+    saveTip.addClass("loading").text(_L("Loading...")).show();
     $.ajax({
       url: "loadstash",
       data: {},
@@ -708,15 +711,15 @@
         }
       },
       error: function(e) {
-        saveTip.removeClass("loading").text("Failed to load!");
+        saveTip.removeClass("loading").text(_L("Failed to load!"));
       },
     });
   }
 
   var saveTip = $("<span class=\"status\"></span>").hide();
-  var header = $("<div class=\"stash-header\">Drag items between paperdoll and stash.<br/>Hold shift to clone items.</div>");
+  var header = $("<div class=\"stash-header\">" + _L("Drag items between paperdoll and stash.<br/>Hold shift to clone items.") + "</div>");
   tab.append(header.prepend(saveTip));
-  header.append(DiabloCalc.account.makeLine(" to access your personal stash", function(okay) {
+  header.append(DiabloCalc.account.makeLine(_L(" to access your personal stash"), function(okay) {
     if (okay) {
       loadStash();
       this.hide();
@@ -728,8 +731,8 @@
   var edit = {};
   edit.line = $("<div class=\"stash-edit\"><div class=\"top-left\"></div><div class=\"top-right\"></div><div class=\"bottom\"></div></div>").hide();
   edit.line.append("<div class=\"left\"></div><div class=\"right\"></div>");
-  edit.save = $("<button>Save</button>").button({icons: {primary: "ui-icon-check"}});
-  edit.del = $("<button>Delete</button>").button({icons: {primary: "ui-icon-trash"}});
+  edit.save = $("<button>" + _L("Save") + "</button>").button({icons: {primary: "ui-icon-check"}});
+  edit.del = $("<button>" + _L("Delete") + "</button>").button({icons: {primary: "ui-icon-trash"}});
   edit.line.append(edit.save).append(edit.del);
   tab.append(edit.line);
   edit.updateItem = function(itemChanged, reason) {
@@ -788,10 +791,10 @@
     doSaveStash();
   });
   edit.del.click(function(evt) {
-    DiabloCalc.popupMenu(evt, {"Confirm delete?": function() {
+    DiabloCalc.popupMenu(evt, _L.fixkey({"Confirm delete?": function() {
       if (edit.slot) edit.slot.setItem(undefined, "editing");
       edit.setSlot();
-    }});
+    }}));
   });
 
   var slots = [];

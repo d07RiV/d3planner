@@ -686,7 +686,7 @@ DiabloCalc.addItems([
     type: "fistweapon",
     quality: "legendary",
     required: {
-      custom: {id: "leg_jawbreaker", name: "Dashing Strike Reset Distance", format: "When Dashing Strike hits an enemy more than %d yards away, its Charge cost is refunded.", min: 31, max: 35},
+      custom: {id: "leg_jawbreaker", name: "Dashing Strike Reset Distance", format: "When Dashing Strike hits an enemy more than %d yards away, its Charge cost is refunded.", min: 31, max: 35, best: "min"},
     },
     preset: ["mainstat"],
   },

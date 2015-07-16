@@ -15,6 +15,8 @@ leg_maximus Unique_Sword_2H_010_x1
 leg_genzaniku Unique_Axe_1H_003_x1
 leg_skycutter Unique_Sword_1H_004_x1
 leg_thegrinreaper Unique_VoodooMask_002_x1
+leg_jawbreaker Unique_Fist_101_x1
+leg_thefistofazturrasq
 
 Crus:
 leg_jaceshammerofvigilance Unique_Mace_1H_103_x1
@@ -40,24 +42,6 @@ leg_fateofthefell
 leg_goldenflense
 leg_goldenflense_p2
 leg_themortaldrama
-
-Monk:
-leg_tzokrinsgaze
-leg_thecrudestboots
-leg_bandofruechambers
-leg_gyananakashu Unique_SpiritStone_004_x1
-leg_themindseye
-leg_eyeofpeshkov
-leg_kekegisunbreakablespirit Unique_SpiritStone_102_x1
-leg_thelawsofseph
-leg_madstone
-leg_jawbreaker Unique_Fist_101_x1
-leg_thefistofazturrasq
-leg_vengefulwind
-leg_theflowofeternity
-leg_warstaffofgeneralquang
-leg_incensetorchofthegrandtemple
-leg_flyingdragon Unique_CombatStaff_2H_009_x1
 
 Barb:
 leg_lutsocks

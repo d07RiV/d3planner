@@ -316,7 +316,8 @@ DiabloCalc.addItems([
   // WIZARD HAT
 
   {
-    id: "p1_Unique_WizardHat_003",
+    id: "P1_Unique_WizardHat_003",
+    ids: ["p1_Unique_WizardHat_003"],
     name: "The Swami",
     type: "wizardhat",
     quality: "legendary",

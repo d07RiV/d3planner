@@ -85,7 +85,7 @@
         if (stat.args < 0) {
           var passives = DiabloCalc.allPassives;
           for (var id in passives) {
-            if (result[1] == passives[id].name) {
+            if (result[1] == passives[id].origname) {
               out.push(id);
               break;
             }

@@ -1,0 +1,153 @@
+body {
+  margin: 0;
+  overflow: auto;
+  font-family: 'Verdana';
+  font-size: 12px;
+}
+body.theme-light {
+  background-color: #aaa;
+  color: #000;
+}
+body.theme-dark {
+  background-color: #000;
+  color: #eee;
+}
+.theme-light input:not([type="image"]),
+.theme-light select {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #eee;
+  padding: 1px;
+}
+.theme-dark input:not([type="image"]),
+.theme-dark select {
+  background-color: #000;
+  color: #ccc;
+  border: 1px solid #333;
+  padding: 1px;
+}
+.page {
+  max-width: 1200px;
+  min-width: 1120px;
+  width: 100%;
+  margin: 0 auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  min-height: 870px;
+}
+.theme-light .page {
+  background-color: #FFF;
+  box-shadow: 0px 0px 16px #444;
+}
+.theme-dark .page {
+  background-color: #121212;
+  box-shadow: 0px 0px 24px #111;
+}
+.row, .col, .page {
+  overflow: hidden;
+  position: absolute;
+}
+.scroll-x {
+  overflow-x: auto;
+}
+.scroll-y {
+  overflow-y: auto;
+}
+.row {
+  left: 0;
+  right: 0;
+}
+.col {
+  top: 0;
+  bottom: 0;
+}
+.main-tab {
+  font-size: 15px;
+}
+li a, .ui-state-focus {
+  outline-color: transparent; /* tab selection fix */
+}
+
+.body {
+  top: 0;
+  bottom: 50px;
+}
+
+.body, .page {
+  overflow: visible !important;
+}
+
+.footer {
+  bottom: 0;
+  height: 50px;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 15px;
+  opacity: 0.5;
+}
+.theme-dark .footer {
+  opacity: 0.3;
+}
+.footer:hover {
+  opacity: 1;
+}
+.footer form {
+  display: inline-block;
+  margin: -30px 0 0 8px;
+  position: relative;
+  top: 7px;
+}
+
+.dollframe {
+  left: 0;
+  width: 32%;
+  padding: 10px 0 20px 0;
+
+  text-align: center;
+  box-sizing: border-box;
+}
+.dollframe span {
+  text-align: left;
+}
+
+.editframe {
+  left: 32%;
+  right: 20%;
+}
+
+.col.statsframe {
+  right: 0;
+  width: 20%;
+}
+
+.ui-tabs-panel {
+  position: relative;
+}
+.main-tab a {
+  padding: .5em .5em !important;
+}
+.ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header,
+.ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header {
+  border-left-width: 0 !important;
+}
+.ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header,
+.ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header {
+  border-right-width: 0 !important;
+}
+.ui-tabs .ui-tabs-nav li {
+  border-bottom-width: 0 !important;
+}
+.ui-tabs .ui-tabs-panel {
+  border-width: 0 !important;
+}
+.ui-helper-hidden-accessible,
+.ui-helper-reset,
+.ui-datepicker th,
+.ui-datepicker td,
+.ui-dialog .ui-dialog-content,
+.ui-selectmenu-menu .ui-menu .ui-selectmenu-optgroup,
+.ui-slider .ui-slider-range {
+  border: 0 !important;
+}

@@ -1,4 +1,5 @@
 (function() {
+  var _L = DiabloCalc.locale("ui-import.js");
 
   var Sections;
   var Import = {};
@@ -76,11 +77,11 @@
   }
   function loadCharacter(evt, region, battletag, id, dead) {
     if (DiabloCalc.isModified && DiabloCalc.isModified()) {
-      DiabloCalc.popupMenu(evt, {
+      DiabloCalc.popupMenu(evt, _L.fixkey({
         "Discard current profile?": function() {
           doLoadCharacter(region, battletag, id, dead);
         },
-      });
+      }));
     } else {
       doLoadCharacter(region, battletag, id, dead);
     }
@@ -95,13 +96,21 @@
       type: "POST",
       dataType: "json",
       success: function(data) {
+        Import.results.empty();
+        if (!data.heroes && !data.fallenHeroes) {
+          if (data.reason) {
+            Import.results.text(data.reason);
+          } else {
+            Import.results.text(_L("Profile not found."));
+          }
+        }
         for (var keytype = 0; keytype < 2; ++keytype) {
           var heroes = (keytype ? data.fallenHeroes : data.heroes);
           if (!heroes) {
             continue;
           }
           if (keytype) {
-            Import.results.append("<p>Fallen Heroes</p>");
+            Import.results.append("<p>" + _L("Fallen Heroes") + "</p>");
           }
           for (var i = 0; i < heroes.length; ++i) {
             var hero = heroes[i];
@@ -129,22 +138,22 @@
               hc = " hero-hardcore";
             }
             if (hero.seasonal) {
-              season = " <span class=\"hero-seasonal\" title=\"Seasonal\">&nbsp;</span>";
+              season = " <span class=\"hero-seasonal\" title=\"" + _L("Seasonal") + "\">&nbsp;</span>";
             }
             if (hero.dead || keytype) {
-              dead = " <span class=\"hero-dead\">(Died " + date + ")</span>";
+              dead = " <span class=\"hero-dead\">" + _L("(Died {0})").format(date) + "</span>";
               li.addClass("hero-dead");
             }
             li.append("<span class=\"hero-name\">" + hero.name + "</span>");
-            li.append(" <span class=\"hero-desc" + hc + "\">Level " + hero.level + " " + DiabloCalc.classes[cls].name + "</span>" + season + dead);
+            li.append(" <span class=\"hero-desc" + hc + "\">" + _L("Level {0} {1}").format(hero.level, DiabloCalc.classes[cls].name) + "</span>" + season + dead);
             if (!hero.dead) {
-              li.append("  <span class=\"hero-updated\">(updated " + date + ")</span>");
+              li.append("  <span class=\"hero-updated\">" + _L("(updated {0})").format(date) + "</span>");
             }
           }
         }
       },
       error: function() {
-        Import.results.text("Profile not found.");
+        Import.results.text(_L("Profile not found."));
       },
     });
   }
@@ -172,7 +181,7 @@
       dataType: "json",
       success: function(response) {
         if (response.id) {
-          var url = location.protocol + "//" + location.hostname + "/" + response.id;
+          var url = location.protocol + "//" + location.hostname + DiabloCalc.relPath + response.id;
           if (window.history && window.history.replaceState) {
             window.history.replaceState({}, "", url);
           }
@@ -181,12 +190,12 @@
         } else if (response.errors && response.errors.length) {
           box.val(response.errors[0]);
         } else {
-          box.val("Failed to save profile.");
+          box.val(_L("Failed to save profile."));
         }
         box.slideDown();
       },
       error: function(e) {
-        box.val("Failed to save profile.");
+        box.val(_L("Failed to save profile."));
         box.slideDown();
       },
     });
@@ -202,7 +211,7 @@
       dataType: "json",
       success: function(data) {
         if (window.history && window.history.replaceState) {
-          window.history.replaceState({}, "", location.protocol + "//" + location.hostname + "/" + (errors ? "e" : "") + id);
+          window.history.replaceState({}, "", location.protocol + "//" + location.hostname + DiabloCalc.relPath + (errors ? "e" : "") + id);
         }
         DiabloCalc.setAllProfiles(data, "load");
         $(".editframe").tabs("option", "active", 0);
@@ -213,11 +222,11 @@
   }
   function loadProfile(evt, id, errors) {
     if (evt && DiabloCalc.isModified && DiabloCalc.isModified()) {
-      DiabloCalc.popupMenu(evt, {
+      DiabloCalc.popupMenu(evt, _L.fixkey({
         "Discard current profile?": function() {
           doLoadProfile(id, errors);
         },
-      });
+      }));
     } else {
       doLoadProfile(id, errors);
     }
@@ -230,22 +239,22 @@
     li.click(function(evt) {
       loadProfile(evt, id);
     });
-    li.append("<span class=\"profile-name" + (hero.value ? "" : " unnamed") + "\">" + (hero.value || "Unnamed profile") + "</span>");
+    li.append("<span class=\"profile-name" + (hero.value ? "" : " unnamed") + "\">" + (hero.value || _L("Unnamed profile")) + "</span>");
     if (data.user) {
-      li.append($("<span class=\"profile-overwrite\" title=\"Update profile\"></span>").click(function(evt) {
+      li.append($("<span class=\"profile-overwrite\" title=\"" + _L("Update profile") + "\"></span>").click(function(evt) {
         evt.stopPropagation();
-        DiabloCalc.popupMenu(evt, {
+        DiabloCalc.popupMenu(evt, _L.fixkey({
           "Save current set": function() {
             saveProfile(id, false);
           },
           "Save all sets and settings": function() {
             saveProfile(id, true);
           },
-        });
+        }));
       }));
-      li.append($("<span class=\"profile-delete\" title=\"Delete profile\"></span>").click(function(evt) {
+      li.append($("<span class=\"profile-delete\" title=\"" + _L("Delete profile") + "\"></span>").click(function(evt) {
         evt.stopPropagation();
-        DiabloCalc.popupMenu(evt, {
+        DiabloCalc.popupMenu(evt, _L.fixkey({
           "Confirm delete?": function() {
             $.ajax({
               url: "delete",
@@ -254,22 +263,22 @@
               dataType: "json",
               success: function(response) {
                 if (response.code === "OK") {
-                  MyProf.response.val("Deleted.");
+                  MyProf.response.val(_L("Deleted."));
                   UpdateProfiles();
                 } else if (response.errors && response.errors.length) {
                   MyProf.response.val(response.errors[0]);
                 } else {
-                  MyProf.response.val("Failed to delete profile.");
+                  MyProf.response.val(_L("Failed to delete profile."));
                 }
                 MyProf.response.slideDown();
               },
               error: function(e) {
-                MyProf.response.val("Failed to delete profile.");
+                MyProf.response.val(_L("Failed to delete profile."));
                 MyProf.response.slideDown();
               },
             });
           },
-        });
+        }));
       }));
     }
     li.append("<span class=\"date-saved\">" + (new Date(1000 * hero.date)).toLocaleString() + "</span>");
@@ -280,19 +289,20 @@
   Sections = tab;//$("<div></div>");
   //tab.append(Sections);
 
-  Sections.append("<h3>Import</h3>");
+  Sections.append("<h3>" + _L("Import") + "</h3>");
   var ImportDiv = $("<div></div>");
   Sections.append(ImportDiv);
 
-  ImportDiv.append("<p>Imported data does not contain Paragon point distribution.</p>");
+  ImportDiv.append("<p>" + _L("Imported data does not contain Paragon point distribution.") + "</p>");
 
   Import.region = $("<select></select>").addClass("import-region");
   Import.region.append("<option value=\"eu\">EU</option>");
   Import.region.append("<option value=\"us\">US</option>");
   Import.region.append("<option value=\"tw\">TW</option>");
   Import.region.append("<option value=\"kr\">KR</option>");
+  Import.region.append("<option value=\"cn\">CN</option>");
   Import.battletag = $("<input></input>").addClass("import-battletag").addClass("tooltip-active").val("Tag#1234").attr("name", "battletag");
-  Import.button = $("<input></input>").attr("type", "submit").val("Search").click(function() {
+  Import.button = $("<input></input>").attr("type", "submit").val(_L("Search")).click(function() {
     var region = Import.region.val();
     var tag = Import.battletag.val();
     if (Import.battletag.hasClass("tooltip-active")) {
@@ -344,23 +354,23 @@
   Import.results = $("<ul class=\"import-results\"></ul>");
   ImportDiv.append(Import.results);
 
-  Sections.append("<h3>Save</h3>");
+  Sections.append("<h3>" + _L("Save") + "</h3>");
   var SaveDiv = $("<div></div>");
   Sections.append(SaveDiv);
 
-  SaveDiv.append("<p>Enter a name or a short description for your profile. Unnamed profiles do not come up in search results.</p>");
+  SaveDiv.append("<p>" + _L("Enter a name or a short description for your profile. Unnamed profiles do not come up in search results.") + "</p>");
   Save.private = $("<input type=\"checkbox\"></input>");
   Save.allsets = $("<input type=\"checkbox\"></input>");
-  var privlabel = $("<label title=\"This profile will not come up in search results, but can be accessed using the link provided.\">Private profile</label>")
+  var privlabel = $("<label title=\"" + _L("This profile will not come up in search results, but can be accessed using the link provided.") + "\">" + _L("Private profile") + "</label>")
     .prepend(Save.private).css("margin-bottom", -6);
   SaveDiv.append(privlabel);
-  SaveDiv.append(DiabloCalc.account.makeLine(" to save private profiles", function(okay) {
+  SaveDiv.append(DiabloCalc.account.makeLine(_L(" to save private profiles"), function(okay) {
     this.toggle(!okay);
     privlabel.toggle(okay);
   }));
-  SaveDiv.append($("<label>Save all sets and settings</label>").prepend(Save.allsets));
+  SaveDiv.append($("<label>" + _L("Save all sets and settings") + "</label>").prepend(Save.allsets));
   Save.name = $("<input class=\"import-savename\"></input>");
-  Save.button = $("<input type=\"button\" value=\"Save\"></input>").click(function() {
+  Save.button = $("<input type=\"button\" value=\"" + _L("Save") + "\"></input>").click(function() {
     saveProfile();
   });
   Save.response = $("<input class=\"import-saveresult\" readonly=\"readonly\"></input>").focus(function() {
@@ -370,12 +380,12 @@
   }).hide();
   SaveDiv.append(Save.name, "<br/>", Save.button, Save.response);
 
-  Sections.append("<h3>Load</h3>");
+  Sections.append("<h3>" + _L("Load") + "</h3>");
   var LoadDiv = $("<div></div>");
   Sections.append(LoadDiv);
 
   Load.name = $("<input class=\"import-loadname\"></input>");
-  Load.button = $("<input type=\"button\" value=\"Search\"></input>").click(function() {
+  Load.button = $("<input type=\"button\" value=\"" + _L("Search") + "\"></input>").click(function() {
     Load.results.search({term: Load.name.val()});
   });
   Load.results = new DiabloCalc.SearchResults("search", MakeProfile);
@@ -413,7 +423,7 @@
     },
   });
 
-  Sections.append("<h3>My Profiles</h3>");
+  Sections.append("<h3>" + _L("My Profiles") + "</h3>");
   var MyDiv = $("<div></div>");
   Sections.append(MyDiv);
   MyProf.results = new DiabloCalc.SearchResults("search", MakeProfile);
@@ -423,7 +433,7 @@
     e.preventDefault();
   }).hide();
   MyDiv.append(MyProf.results.div, MyProf.response);
-  MyDiv.prepend(DiabloCalc.account.makeLine(" to track your saved profiles", function(okay) {
+  MyDiv.prepend(DiabloCalc.account.makeLine(_L(" to track your saved profiles"), function(okay) {
     UpdateProfiles();
     this.toggle(!okay);
   }));

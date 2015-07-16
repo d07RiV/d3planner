@@ -1,5 +1,6 @@
 if (!DiabloCalc.skillcat) DiabloCalc.skillcat = {};
 if (!DiabloCalc.skills) DiabloCalc.skills = {};
+if (!DiabloCalc.extraskills) DiabloCalc.extraskills = {};
 if (!DiabloCalc.passives) DiabloCalc.passives = {};
 if (!DiabloCalc.partybuffs) DiabloCalc.partybuffs = {};
 DiabloCalc.skillcat.wizard = {
@@ -402,7 +403,7 @@ DiabloCalc.skills.wizard = {
       d: "Mammoth Hydra",
     },
     params: [{min: 1, max: "leg_serpentssparker?2:1", name: "Hydras", buffs: false},
-             {min: 0, max: 50, val: 30, name: "Distance", buffs: false, show: function(rune, stats) {
+             {min: 0, max: 50, val: 5, name: "Distance", buffs: false, show: function(rune, stats) {
                return rune === "d" || stats.gems.zei;
              }}],
     info: function(rune, stats) {
@@ -448,19 +449,28 @@ DiabloCalc.skills.wizard = {
       b: "Meteor Shower",
       a: "Molten Impact",
     },
+    params: [{rune: "d", min: "40*(1-0.01*rcr_ap)*(1-0.01*leg_thegrandvizier)-rcrint", max: "maxap", name: "Arcane Power", buffs: false}],
+    active: true,
+    activetip: "3 or fewer targets",
+    activeshow: function(rune, stats) {
+      return !!stats.leg_nilfursboast;
+    },
     info: function(rune, stats) {
       var res = {
         x: {"Damage": {elem: "fir", coeff: 7.4, addcoeff: [2.35], total: 0}},
         e: {"Damage": {elem: "lit", coeff: 7.4, addcoeff: [2.35], total: 0}},
-        d: {"Damage": {elem: "arc", coeff: 7.4, addcoeff: [2.35], total: 0}, "Max Damage": {elem: "arc", coeff: 7.4, addcoeff: [[0.2, "maxap-40*(1-0.01*rcr)*(1-0.01*leg_thegrandvizier)"], 2.35], total: 1}},
+        d: {"Damage": {elem: "arc", coeff: 7.4, addcoeff: [[0.2, "$1-40*(1-0.01*rcr_ap)*(1-0.01*leg_thegrandvizier)+rcrint"], 2.35], total: 1}},
         c: {"Damage": {elem: "col", coeff: 7.4, addcoeff: [2.35], total: 0}},
         b: {"Damage": {elem: "fir", coeff: 2.77, addcoeff: [0.70], total: 0}, "Total Damage": {sum: true, "Damage": {count: 7}}, "Average Damage": {sum: true, tip: "Small target gets hit by 2.5 meteors, on average", "Damage": {count: 2.5}}},
         a: {"Cooldown": {cooldown: 15}, "Damage": {elem: "fir", coeff: 16.48, addcoeff: [6.25], total: 0}},
       }[rune];
+      if (stats.leg_nilfursboast) {
+        res["Damage"].percent = {};
+        res["Damage"].percent[DiabloCalc.itemById.P2_Unique_Boots_01.name] = (this.active ? stats.leg_nilfursboast : 100);
+      }
       res = $.extend({"Cost": {cost: 40, rcr: "leg_thegrandvizier"}}, res);
       if (rune === "d" && DiabloCalc.isSkillActive("arcanedynamo")) {
-        res["Damage"].percent = {"Arcane Dynamo (bug)": 60};
-        res["Max Damage"].percent = {"Arcane Dynamo (bug)": 60};
+        res["Damage"].percent = $.extend(res["Damage"].percent || {}, {"Arcane Dynamo (bug)": 60});
       }
       return res;
     },
@@ -717,7 +727,7 @@ DiabloCalc.skills.wizard = {
       }
     },
     active: false,
-    params: [{min: 0, max: 50, val: 0, name: "Damage Stacks", inf: true}],
+    params: (DiabloCalc.itemaffixes&&DiabloCalc.itemaffixes.leg_theswami.params||[{min: 0, max: 50, val: 0, name: "Stacks", inf: true}]),
     buffs: function(rune, stats) {
       return {damage: 20 + 6 * this.params[0].val, armor_percent: 20, resist_percent: 20};
     },
@@ -979,5 +989,47 @@ DiabloCalc.partybuffs.wizard = {
   elementalexposure: {
     params: [{min: 0, max: 4, val: 0, name: "Stacks"}],
     buffs: function(stats) {return {dmgtaken: this.params[0].val * 5};},
+  },
+};
+DiabloCalc.extraskills.wizard = {
+  archon_arcanestrike: {
+    skill: "archon",
+    required: function(stats) { return !!stats.skills.archon; },
+    name: "Arcane Strike",
+    row: 6,
+    col: 0,
+    tip: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/wizard_archon_arcanestrike.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p>Strike the ground in front of you, causing <span class=\"d3-color-green\">790%</span> weapon damage as Arcane to enemies in the area.</p> </div> </div>",
+  },
+  archon_disintegrationwave: {
+    skill: "archon",
+    required: function(stats) { return !!stats.skills.archon; },
+    name: "Disintegration Wave",
+    row: 6,
+    col: 1,
+    tip: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/wizard_archon_disintegrationwave.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p>Thrust a beam of pure energy forward dealing <span class=\"d3-color-green\">779%</span> weapon damage as Arcane.</p> </div> </div>",
+  },
+  archon_arcaneblast: {
+    skill: "archon",
+    required: function(stats) { return !!stats.skills.archon; },
+    name: "Arcane Blast",
+    row: 6,
+    col: 2,
+    tip: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/wizard_archon_arcaneblast.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p>Release a wave of pure energy dealing <span class=\"d3-color-green\">604%</span> weapon damage as Arcane to all nearby enemies.</p> </div> </div>",
+  },
+  archon_slowtime: {
+    skill: "archon",
+    required: function(stats) { return stats.skills.archon && (stats.skills.archon === "b" || stats.set_vyr_4pc); },
+    name: "Slow Time",
+    row: 6,
+    col: 4,
+    tip: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/wizard_archon_slowtime.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p>Project a bubble of warped space and time that moves with you, slowing the movement and attack speed of enemies by <span class=\"d3-color-green\">60%</span> and the speed of projectiles by <span class=\"d3-color-green\">90%</span>.</p> </div> </div>",
+  },
+  archon_teleport: {
+    skill: "archon",
+    required: function(stats) { return stats.skills.archon && (stats.skills.archon === "c" || stats.set_vyr_4pc); },
+    name: "Teleport",
+    row: 6,
+    col: 3,
+    tip: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/wizard_archon_teleport.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">3</span> seconds</p><p>Teleport through the ether to the selected location up to <span class=\"d3-color-green\">50</span> yards away.</p> </div> </div>",
   },
 };

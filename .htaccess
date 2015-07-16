@@ -11,17 +11,19 @@ mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
 
 RewriteEngine On
 
+RewriteBase /
+
 RewriteCond %{HTTP_HOST} ^d3local\.com$
 RewriteRule ^.*$ http://www.d3local.com/$0 [L,R=301]
+RewriteRule ^(items|itemsets|powers)_diff.html$ http://www.d3local.com/diff/$1 [L,R=301]
 
-RewriteCond %{HTTP_HOST} ^ptr\.d3local\.com$
-RewriteRule ^.*$ http://www.d3local.com/$0 [L,R=302]
+#RewriteCond %{HTTP_HOST} ^ptr\.d3local\.com$
+#RewriteRule ^.*$ http://www.d3local.com/$0 [L,R=302]
 
-RewriteRule ^(css|external|php|scripts|mantisbt|simulator)/ - [L]
+RewriteRule ^(external|css|external/bnet/css)/all\.css$ php/style.php [L]
+RewriteRule ^(css|external|php|scripts|mantisbt|simulator|chinese|ziptest)/ - [L]
 RewriteRule ^e?[0-9]*$ index.php [L]
 RewriteRule ^reset=[0-9a-f]{32}$ index.php [L]
-RewriteRule ^data$ php/data_local.php [L]
-RewriteRule ^locale$ php/locale_local.php [L]
-RewriteRule ^sim(/[a-z]+)?$ php/sim_local.php [L]
+RewriteRule ^sim(/[a-z]+)?$ php/sim.php [L]
 RewriteRule ^skills(/(wizard|demonhunter|monk|crusader|witchdoctor|barbarian))?$ skills.php [L]
-RewriteRule ^(proxy|save|load|search|data|report|savestash|loadstash|account|delete|changes|errors|writer|priority|locale_missing)$ php/$1.php [L]
+RewriteRule ^(timestamp|core|locale|proxy|save|load|search|data|report|savestash|loadstash|account|delete|changes|errors|priority|script|style)$ php/$1.php [L]

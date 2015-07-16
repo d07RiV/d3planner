@@ -63,7 +63,7 @@ DiabloCalc.addItems([
     type: "shield",
     quality: "legendary",
     required: {
-      custom: {id: "leg_freezeofdeflection", name: "Chance to Freeze on Block", format: "Blocking an attack has a chance to Freeze the attacker for %.1f seconds.", min: 1.5, max: 2.5, step: 0.5},
+      custom: {id: "leg_freezeofdeflection", name: "Chance to Freeze on Block", format: "Blocking an attack has a chance to Freeze the attacker for %.1f seconds.", min: 0.5, max: 1.5, step: 0.1},
     },
     preset: ["mainstat"],
   },
@@ -280,7 +280,7 @@ DiabloCalc.addItems([
     type: "mojo",
     quality: "legendary",
     required: {
-      custom: {id: "leg_homunculus", name: "Zombie Dog Spawn Interval", format: "A Zombie Dog is automatically summoned to your side every %d seconds.", min: 4, max: 6},
+      custom: {id: "leg_homunculus", name: "Zombie Dog Spawn Interval", format: "A Zombie Dog is automatically summoned to your side every %d seconds.", min: 4, max: 6, best: "min"},
     },
     preset: ["mainstat", "maxmana"],
   },
@@ -291,7 +291,7 @@ DiabloCalc.addItems([
     type: "mojo",
     quality: "legendary",
     required: {
-      custom: {id: "leg_homunculus_p2", name: "Zombie Dog Spawn Interval", format: "A Zombie Dog is automatically summoned to your side every 2 seconds.", args: 0},
+      custom: {id: "leg_homunculus_p2", name: "Spawn Zombie Dogs", format: "A Zombie Dog is automatically summoned to your side every 2 seconds.", args: 0},
       skill_witchdoctor_sacrifice: {min: 20, max: 25, noblock: true},
     },
     preset: ["mainstat", "chc", "maxmana"],
@@ -583,7 +583,7 @@ DiabloCalc.addItems([
     type: "quiver",
     quality: "legendary",
     required: {
-      custom: {id: "leg_meticulousbolts", name: "Ball Lightning Speed", format: "Elemental Arrow - Ball Lightning now travels at %d%% speed.", min: 30, max: 40},
+      custom: {id: "leg_meticulousbolts", name: "Ball Lightning Speed", format: "Elemental Arrow - Ball Lightning now travels at %d%% speed.", min: 30, max: 40, best: "min"},
     },
     preset: ["mainstat"],
   },

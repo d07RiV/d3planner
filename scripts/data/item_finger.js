@@ -46,7 +46,7 @@ DiabloCalc.addItems([
     type: "ring",
     quality: "legendary",
     required: {
-      custom: {id: "leg_nagelring", name: "Summon Fallen Lunatic", format: "Summons a Fallen Lunatic to your side every %d seconds.", min: 10, max: 12},
+      custom: {id: "leg_nagelring", name: "Summon Fallen Lunatic", format: "Summons a Fallen Lunatic to your side every %d seconds.", min: 10, max: 12, best: "min"},
       mf: {min: 25, max: 50},
     },
     preset: ["mainstat"],
@@ -114,7 +114,7 @@ DiabloCalc.addItems([
     type: "ring",
     quality: "legendary",
     required: {
-      custom: {id: "leg_puzzlering", name: "Goblin Item Drop Rate", format: "Summon a treasure goblin who picks up normal-quality items for you. After picking up %d items, he drops a rare item with a chance for a legendary.", min: 12, max: 16},
+      custom: {id: "leg_puzzlering", name: "Goblin Item Drop Rate", format: "Summon a treasure goblin who picks up normal-quality items for you. After picking up %d items, he drops a rare item with a chance for a legendary.", min: 12, max: 16, best: "min"},
     },
     preset: ["mainstat", "gf", "ias"],
   },

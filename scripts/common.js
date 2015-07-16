@@ -180,7 +180,7 @@
 
   DC.SearchResults = function(action, makeResults, emptytip) {
     this.action = action;
-    this.emptytip = (emptytip || "No results.");
+    this.emptytip = (emptytip || _L("No results."));
     this.div = $("<div></div>");
     this.message = $("<span></span>").hide();
     this.results = $("<ul class=\"search-results\"></ul>").hide();
@@ -245,7 +245,7 @@
 
         this.query.start = (data.start || 0);
         this.query.count = (data.count || data.results.length);
-        this.navtip.text("Showing " + (this.query.start + 1) + " to " + (this.query.start + data.results.length) + " of " + this.query.count);
+        this.navtip.text(_L("Showing {0} to {1} of {2}").format(this.query.start + 1, this.query.start + data.results.length, this.query.count));
         this.navfirst.toggleClass("disabled", this.query.start <= 0);
         this.navprev.toggleClass("disabled", this.query.start <= 0);
         this.navnext.toggleClass("disabled", this.query.start + data.results.length >= this.query.count);
@@ -264,11 +264,11 @@
       } else if (data.count === 0) {
         this.setError(this.emptytip);
       } else {
-        this.setError("Query failed.");
+        this.setError(_L("Query failed."));
       }
     };
     this.onError = function(e) {
-      this.setError("Query failed.");
+      this.setError(_L("Query failed."));
     };
 
     this.search = function(query, start) {

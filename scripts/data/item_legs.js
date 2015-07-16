@@ -42,7 +42,7 @@ DiabloCalc.addItems([
     type: "pants",
     quality: "legendary",
     required: {
-      custom: {id: "leg_hexingpantsofmryan", name: "Damage Decrease While Standing Still", format: "Your resource generation and damage is increased by 25%% while moving and decreased by %d%% while standing still.", min: 20, max: 25},
+      custom: {id: "leg_hexingpantsofmryan", name: "Damage Decrease While Standing Still", format: "Your resource generation and damage is increased by 25%% while moving and decreased by %d%% while standing still.", min: 20, max: 25, best: "min"},
     },
     preset: ["mainstat"],
   },

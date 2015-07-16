@@ -42,7 +42,7 @@ DiabloCalc.addItems([
     type: "gloves",
     quality: "legendary",
     required: {
-      custom: {id: "leg_starchewsgage_p2", name: "Absorb Shield", format: "The first time an elite pack damages you, gain an absorb shield for %d%% of your maximum Life for 15 seconds.", min: 120, max: 150},
+      custom: {id: "leg_starchewsgage_p2", name: "Absorb Shield", format: "The first time an elite pack damages you, gain an absorb shield for %d%% of your maximum Life for 10 seconds.", min: 120, max: 150},
     },
     preset: ["mainstat"],
   },

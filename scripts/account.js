@@ -16,7 +16,7 @@
     this.form = $("<form></form>").append(this.fieldset);
     this.div.append(this.form);
 
-    var modes = DiabloCalc.patch.account;
+    var modes = DiabloCalc.localeTable.account;
 
     var self = this;
 

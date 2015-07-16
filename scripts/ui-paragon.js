@@ -1,10 +1,11 @@
 (function() {
+  var _L = DiabloCalc.locale("ui-paragon.js");
 
   var level;
   var resetAll;
   var data = [
     {
-      name: "Core",
+      name: _L("Core"),
       stats: [
         {
           stats: ["int", "str", "dex"],
@@ -34,7 +35,7 @@
       ],
     },
     {
-      name: "Offense",
+      name: _L("Offense"),
       stats: [
         {
           stat: "ias",
@@ -71,7 +72,7 @@
       ],
     },
     {
-      name: "Defense",
+      name: _L("Defense"),
       stats: [
         {
           stat: "life",
@@ -105,7 +106,7 @@
       ],
     },
     {
-      name: "Utility",
+      name: _L("Utility"),
       stats: [
         {
           stat: "area",
@@ -211,7 +212,7 @@
     }
   }
   function updateCategory(i, unspent, spent) {
-    data[i].unspent.text(unspent + " unspent points");
+    data[i].unspent.text(_L("{0} unspent points").format(unspent));
     if (unspent) {
       data[i].header.removeClass("paragon-spent");
     } else {
@@ -361,12 +362,12 @@
 
   var tab = $("#tab-paragon");
   tab = DiabloCalc.addScroll(tab, "y");
-  resetAll = $("<span class=\"reset-link reset-all\">Reset all</span>").hide();
+  resetAll = $("<span class=\"reset-link reset-all\">" + _L("Reset all") + "</span>").hide();
   resetAll.click(function() {
     resetLevels();
   });
   var header = $("<div class=\"paragon-header\"></div>");
-  var title = $("<span class=\"paragon-level\"></span>").text("Paragon level");
+  var title = $("<span class=\"paragon-level\"></span>").text(_L("Paragon level"));
   level = $("<input></input>").attr("type", "number").attr("min", "0").val(0);
   level.blur(DiabloCalc.validateNumber).change(onChangeLevel);
   title.append(level);
@@ -374,8 +375,8 @@
   tab.append(header);
   for (var i = 0; i < data.length; ++i) {
     data[i].header = $("<h3></h3>").text(data[i].name + " ").addClass("paragon-spent");
-    data[i].unspent = $("<span class=\"paragon-unspent\"></span>").text("0 unspent points");
-    data[i].reset = $("<span class=\"reset-link reset-tab\">(reset)</span>").hide();
+    data[i].unspent = $("<span class=\"paragon-unspent\"></span>").text(_L("{0} unspent points").format(0));
+    data[i].reset = $("<span class=\"reset-link reset-tab\">" + _L("(reset)") + "</span>").hide();
     tab.append(data[i].header.append(data[i].reset).append(data[i].unspent));
     data[i].category = $("<ul></ul>");
     tab.append(data[i].category);

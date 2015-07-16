@@ -10,6 +10,17 @@ DiabloCalc.skillcat.demonhunter = {
   devices: "Devices",
   archery: "Archery",
 };
+DiabloCalc.demonhunter = {
+  varSpeed: function(stats) {
+    switch (stats.info.weaponClass) {
+    case "bow": return 57.777767;
+    case "crossbow": return 57.391285;
+    case "handcrossbow": return 56.842083;
+    case "dualwield": return 56.842075;
+    default: return 57.692299;
+    }
+  },
+};
 DiabloCalc.skills.demonhunter = {
   hungeringarrow: {
     id: "hungering-arrow",
@@ -25,13 +36,7 @@ DiabloCalc.skills.demonhunter = {
       e: "Spray of Teeth",
     },
     info: function(rune, stats) {
-      var fpa;
-      switch (stats.info.mainhand.type) {
-      case "bow": fpa = 57.777767; break;
-      case "crossbow": fpa = 57.391285; break;
-      case "handcrossbow": fpa = 56.842075; break;
-      default: fpa = 57.692299;
-      }
+      var fpa = DiabloCalc.demonhunter.varSpeed(stats);
       var pierce = 35 + (stats.leg_theninthcirrisatchel || 0);
       var res;
       switch (rune) {
@@ -59,13 +64,7 @@ DiabloCalc.skills.demonhunter = {
       e: "Bounty Hunter",
     },
     info: function(rune, stats) {
-      var fpa;
-      switch (stats.info.mainhand.type) {
-      case "bow": fpa = 57.777767; break;
-      case "crossbow": fpa = 57.391285; break;
-      case "handcrossbow": fpa = 56.842075; break;
-      default: fpa = 57.692299;
-      }
+      var fpa = DiabloCalc.demonhunter.varSpeed(stats);
       var res;
       switch (rune) {
       case "x": res = {"Damage": {elem: "phy", coeff: 2}}; break;
@@ -115,13 +114,7 @@ DiabloCalc.skills.demonhunter = {
       d: "Surge",
     },
     info: function(rune, stats) {
-      var fpa;
-      switch (stats.info.mainhand.type) {
-      case "bow": fpa = 57.777767; break;
-      case "crossbow": fpa = 57.391285; break;
-      case "handcrossbow": fpa = 56.842075; break;
-      default: fpa = 57.692299;
-      }
+      var fpa = DiabloCalc.demonhunter.varSpeed(stats);
       var res;
       switch (rune) {
       case "x": res = {"Damage": {elem: "phy", coeff: 2}, "Secondary Damage": {elem: "phy", coeff: 1}}; break;
@@ -434,7 +427,7 @@ DiabloCalc.skills.demonhunter = {
     },
     info: function(rune, stats) {
       var res = {"Cost": {cost: 8, resource: (stats.set_danetta_2pc ? "hatred" : "disc")}};
-      if (rune === "d") res["Tumble Cost"] = {cost: 8, resource: res["Cost"].resource};
+      if (rune === "d") res["Tumble Cost"] = {cost: 4, resource: res["Cost"].resource};
       if (rune === "c") {
         res["Damage"] = {elem: "phy", weapon: "mainhand", coeff: 0.75, chc: 100, tip: ["Uses currently active weapon", "@Does not switch weapons"]};
         res["Offhand Damage"] = {elem: "phy", weapon: "offhand", coeff: 0.75, chc: 100};
@@ -730,6 +723,7 @@ DiabloCalc.skills.demonhunter = {
       case "a": res = {"Damage": {elem: "phy", coeff: 4.6}}; break;
       case "c": res = {"Damage": {elem: "fir", coeff: 3.6}, "Rocket Damage": {elem: "fir", coeff: 3, passives: {ballistics: 100}}}; break;
       }
+      res = $.extend({"Cost": {cost: (rune === "d" ? 18 : 25)}}, res);
       var sentries = (stats.skills.sentry || stats.leg_helltrapper ? DiabloCalc.skills.demonhunter.sentry.params[0].val : 0);
       if (stats.set_marauder_4pc && sentries) {
         var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
@@ -754,8 +748,11 @@ DiabloCalc.skills.demonhunter = {
         total.sum = true;
         total["Damage"] = {};
         res["Total Damage"] = total;
+        res["DPS"] = {sum: true, "Total Damage": {speed: 1, fpa: 56.666664, round: "up"}};
+      } else {
+        res["DPS"] = {sum: true, "Damage": {speed: 1, fpa: 56.666664, round: "up"}};
       }
-
+/*
       var regen = (stats.hatredregen || 5);
       var gen_table = {hungeringarrow: "a", entanglingshot: "d", bolas: "c", evasivefire: "e", grenade: "d"};
       var gen = 0, genid;
@@ -810,7 +807,7 @@ DiabloCalc.skills.demonhunter = {
       res["Uses per Minute"].tip.push("Hatred cost: <span class=\"d3-color-white\">" + parseFloat(cost.toFixed(2)) + "</span>");
 
       res["Estimated DPS"] = {sum: true, tip: ["Estimated damage from Multishot (with Sentries)", "@based on hatred generation"]};
-      res["Estimated DPS"][res["Total Damage"] ? "Total Damage" : "Damage"] = {aps: freq};
+      res["Estimated DPS"][res["Total Damage"] ? "Total Damage" : "Damage"] = {aps: freq};*/
 
       return res;
     },
@@ -838,6 +835,7 @@ DiabloCalc.skills.demonhunter = {
       case "c": res = {"Damage": {elem: "fir", coeff: 5.25}, "Grenade Damage": {elem: "fir", coeff: 5.25, passives: {grenadier:10}}}; break;
       case "a": res = {"Damage": {elem: "fir", coeff: 7.7}, "Grenade Damage": {elem: "fir", coeff: 2.2, passives: {grenadier:10}}}; break;
       }
+      res = $.extend({"Cost": {cost: 40}}, res);
       var sentries = (stats.skills.sentry || stats.leg_helltrapper ? DiabloCalc.skills.demonhunter.sentry.params[0].val : 0);
       if (stats.set_marauder_4pc && sentries) {
         var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
@@ -863,7 +861,7 @@ DiabloCalc.skills.demonhunter = {
       if (res["Sentry Rocket Damage"]) total["Sentry Rocket Damage"] = {count: sentries};
       res["Total Damage"] = total;
 
-      var regen = (stats.hatredregen || 5);
+      /*var regen = (stats.hatredregen || 5);
       var gen_table = {hungeringarrow: "a", entanglingshot: "d", bolas: "c", evasivefire: "e", grenade: "d"};
       var gen = 0, genid;
       if (stats.leg_kridershot && stats.skills.elementalarrow) {
@@ -916,7 +914,7 @@ DiabloCalc.skills.demonhunter = {
       }
       res["Uses per Minute"].tip.push("Hatred cost: <span class=\"d3-color-white\">" + parseFloat(cost.toFixed(2)) + "</span>");
 
-      res["Estimated DPS"] = {sum: true, "Total Damage": {aps: freq}, tip: ["Estimated damage from Cluster Arrow (with Sentries)", "@based on hatred generation"]};
+      res["Estimated DPS"] = {sum: true, "Total Damage": {aps: freq}, tip: ["Estimated damage from Cluster Arrow (with Sentries)", "@based on hatred generation"]};*/
 
       return res;
     },
@@ -955,13 +953,7 @@ DiabloCalc.skills.demonhunter = {
           var frames = DiabloCalc.calcFrames(fpa, undefined, true);
           var reduction = 2 * fpa / frames;
           if (stats.skills.evasivefire) {
-            var ef_fpa;
-            switch (stats.info.mainhand.type) {
-            case "bow": ef_fpa = 57.777767; break;
-            case "crossbow": ef_fpa = 57.391285; break;
-            case "handcrossbow": ef_fpa = 56.842075; break;
-            default: ef_fpa = 57.692299;
-            }
+            var ef_fpa = DiabloCalc.demonhunter.varSpeed(stats);
             reduction += 2 * 60 / DiabloCalc.calcFrames(ef_fpa, undefined, undefined, "up");
           }
           var cooldown = 30 * (1 - 0.01 * (stats.cdr || 0)) / (reduction + 1);

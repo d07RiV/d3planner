@@ -145,11 +145,12 @@
           Sim.removeEvent(buff.events[evt]);
         }
       }
+      if (buff.params.status && Sim.statusBuffs[buff.params.status].dr) {
+        drUpdate();
+        dr_end = e.time;
+      }
+      buff.expired = true;
       delete Sim.buffs[e.id];
-    }
-    if (buff.params.status && Sim.statusBuffs[buff.params.status].dr) {
-      drUpdate();
-      dr_end = e.time;
     }
   }
   function removeStack(buff) {
@@ -166,8 +167,10 @@
         Sim.removeEvent(stack.events[evt]);
       }
     }
+    stack.expired = true;
     buff.stacklist[buff.stackstart] = undefined;
     buff.stackstart = (buff.stackstart + 1) % buff.params.maxstacks;
+    return stack;
   }
   Sim.reduceStackDuration = function(id, stack, amount) {
     var buff = this.buffs[id];
@@ -211,8 +214,8 @@
   function onBuffTick(e) {
     var obj = (e.stack || e.buff);
     ++e.buff.ticks;
+    delete obj.events.tick;
     if (obj.time !== undefined && obj.time <= e.time) {
-      delete obj.events.tick;
       return;
     }
     if (e.buff.params.ontick) {
@@ -226,7 +229,9 @@
       }
       Sim.popCastInfo();
     }
-    obj.events.tick = Sim.after(e.buff.params.tickrate, onBuffTick, e);
+    if (!obj.expired && !obj.events.tick) {
+      obj.events.tick = Sim.after(e.buff.params.tickrate, onBuffTick, e);
+    }
   }
   Sim.delayBuff = function(id, delay) {
     var buff = this.buffs[id];
@@ -239,14 +244,14 @@
       return;
     }
     if (buff.params.refresh) {
-      if (buff.events.tick) {
+      if (buff.events.tick && buff.events.tick.time < this.time + delay) {
         this.removeEvent(buff.events.tick);
         buff.events.tick = this.after(delay, onBuffTick, {buff: buff});
       }
     } else {
       for (var i = 0; i < buff.stacklist.length; ++i) {
         var stack = buff.stacklist[i];
-        if (stack && stack.events.tick) {
+        if (stack && stack.events.tick && stack.events.tick.time < this.time + delay) {
           this.removeEvent(stack.events.tick);
           stack.events.tick = this.after(delay, onBuffTick, {buff: buff, stack: stack});
         }
@@ -423,14 +428,15 @@
     var buff = this.buffs[id];
     if (buff) {
       if (stacks === undefined || stacks >= buff.stacks) {
+        var stack;
         if (buff.stacklist) {
           while (buff.stacks) {
-            removeStack(buff);
+            stack = removeStack(buff);
             --buff.stacks;
           }
         }
         onBuffExpired({id: id});
-        return;
+        return stack;
       }
       var oldstacks = buff.stacks;
       if (buff.params.multiply) {
@@ -439,9 +445,11 @@
         this.buff.stacks -= stacks;
       }
       if (buff.stacklist) {
+        var stack;
         for (var i = 0; i < stacks; ++i) {
-          removeStack(buff);
+          stack = removeStack(buff);
         }
+        return stack;
       }
     }
   };

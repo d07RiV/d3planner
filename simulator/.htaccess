@@ -1,3 +1,4 @@
 RewriteEngine On
 
+RewriteRule ^sim.js$ sim.php [L]
 RewriteRule ^$ test.html [L]

@@ -1,4 +1,5 @@
 (function() {
+  var _L = DiabloCalc.locale("ui-timeline.js");
 
   var tlLeft;
   var tlRight;
@@ -7,43 +8,7 @@
   var selSet;
   var selStat;
 
-  var statList = {
-    damage: {
-      name: "Sheet Damage",
-      stat: "info.dps",
-      shortName: "Damage",
-    },
-    toughness: {
-      name: "Sheet Toughness",
-      stat: "info.toughness",
-      shortName: "Toughness",
-    },
-    recovery: {
-      name: "Sheet Recovery",
-      stat: "info.recovery",
-      shortName: "Recovery",
-    },
-    effdps: {
-      name: "Elemental DPS",
-      stat: "final.elemdps",
-    },
-    effdph: {
-      name: "Elemental Damage/Hit",
-      stat: "final.elemdph",
-    },
-    effedps: {
-      name: "Elemental Elite DPS",
-      stat: "final.elemedps",  
-    },
-    effedph: {
-      name: "Elemental Elite Damage/Hit",
-      stat: "final.elemedph",
-    },
-    simdps: {
-      name: "Simulated DPS",
-      func: "formatDamage",
-    },
-  };
+  var statList = DiabloCalc.localeTable.statList;
 
   function getValue(stats, prev) {
     var res = {};
@@ -68,7 +33,7 @@
   function newItemState(slot, prev, oh, last) {
     return {
       slot: slot,
-      label: "Change " + DiabloCalc.itemSlots[slot].name,
+      label: _L("Change {0}").format(DiabloCalc.itemSlots[slot].name),
       pre: prev,
       offhand: oh,
       undo: function() {
@@ -95,7 +60,7 @@
   function newSkillsState(prev, last) {
     return {
       skills: true,
-      label: "Change Skills",
+      label: _L("Change Skills"),
       pre: prev,
       undo: function() {
         this.post = DiabloCalc.getSkills();
@@ -111,7 +76,7 @@
   function newParagonState(prev, last) {
     return {
       paragon: true,
-      label: "Change Paragon",
+      label: _L("Change Paragon"),
       pre: prev,
       undo: function() {
         this.post = DiabloCalc.getParagonLevels();
@@ -128,12 +93,12 @@
   function createSet(index, evt, from) {
     var set = {
       index: index,
-      name: "Set " + (index + 1),
+      name: _L("Set {0}").format(index + 1),
       line: $("<li></li>").addClass("timeline-set"),
       label: $("<span></span>").addClass("label"),
       value: $("<span></span>").addClass("value"),
-      edit: $("<span></span>").addClass("edit").attr("title", "Rename"),
-      del: $("<span></span>").addClass("delete").attr("title", "Delete"),
+      edit: $("<span></span>").addClass("edit").attr("title", _L("Rename")),
+      del: $("<span></span>").addClass("delete").attr("title", _L("Delete")),
       pos: 0,
       points: [newBlankState(evt, from)],
     };
@@ -180,11 +145,11 @@
     });
     set.del.click(function(evt) {
       if (!$(this).hasClass("disabled")) {
-        DiabloCalc.popupMenu(evt, {
+        DiabloCalc.popupMenu(evt, _L.fixkey({
           "Confirm delete?": function() {
             chart.delset(set.index);
           },
-        });
+        }));
       }
       return false;
     });
@@ -256,9 +221,9 @@
             }
             var fmt = "<div xmlns=\"http://www.w3.org/1999/xhtml\" class=\"profile-tooltip\"><p><span class=\"d3-color-gold\">" + label + "</span><br/>" + value;
             if (index < chart.curset.pos) {
-              fmt += "<br/><span class=\"d3-color-gray\">Click to undo</span>";
+              fmt += "<br/><span class=\"d3-color-gray\">" + _L("Click to undo") + "</span>";
             } else if (index > chart.curset.pos) {
-              fmt += "<br/><span class=\"d3-color-gray\">Click to redo</span>";
+              fmt += "<br/><span class=\"d3-color-gray\">" + _L("Click to redo") + "</span>";
             }
             fmt += "</p></div>";
             DiabloCalc.tooltip.showHtml(chart.parent[0], fmt, data.x, data.y);
@@ -302,7 +267,7 @@
       this.canvas = $("<canvas></canvas>");
       parent.append(this.canvas);
 
-      this.datasets = [createSet(0, "New Profile")];
+      this.datasets = [createSet(0, _L("New Profile"))];
       tlNewSet.before(this.datasets[0].line.addClass("selected"));
       this.datasets[0].del.addClass("disabled");
       this.curset = this.datasets[0];
@@ -382,7 +347,7 @@
       this.curset.del.addClass("disabled");
     },
     addprofile: function(data) {
-      var newset = createSet(this.datasets.length, "Load Profile", data);
+      var newset = createSet(this.datasets.length, _L("Load Profile"), data);
       tlNewSet.before(newset.line);
       newset.profile = data;
       newset.values = data.values;
@@ -538,9 +503,9 @@
     cacheSkills = DiabloCalc.getSkills();
     cacheParagon = DiabloCalc.getParagonLevels();
     switch (mode) {
-    case "import": chart.reset("Import Profile", values); break;
-    case "class": chart.reset("Change Class"); break;
-    case "load": chart.reset("Load Profile", values); break;
+    case "import": chart.reset(_L("Import Profile"), values); break;
+    case "class": chart.reset(_L("Change Class")); break;
+    case "load": chart.reset(_L("Load Profile"), values); break;
     }
   }
   function onUpdateSlot(slot, reason) {
@@ -603,16 +568,16 @@
   });
   //tlLeft = DiabloCalc.addScroll(tlLeft, "y");
 
-  tlNewSet = $("<li class=\"timeline-set newset\"><b>New set</b></li>");
+  tlNewSet = $("<li class=\"timeline-set newset\"><b>" + _L("New set") + "</b></li>");
   tlNewSet.click(function(evt) {
-    DiabloCalc.popupMenu(evt, {
+    DiabloCalc.popupMenu(evt, _L.fixkey({
       "Blank set": function() {
-        chart.addset("New Set", true);
+        chart.addset(_L("New Set"), true);
       },
       "Clone current set": function() {
-        chart.addset("New Set");
+        chart.addset(_L("New Set"));
       },
-    });
+    }));
   });
   tlLeft.append(tlNewSet);
   tlLeft.sortable({

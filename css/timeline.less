@@ -1,0 +1,198 @@
+.timeline-frame {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 160px;
+  .theme-light & {
+    background-color: #fff;
+  }
+  .theme-dark & {
+    background-color: #121212;
+  }
+  text-align: left;
+  margin: 0 15px;
+  font-size: 16px;
+  font-family: Verdana, Arial, sans-serif;
+
+  .timeline-left-box {
+    position: absolute;
+    display: block;
+    width: 140px;
+    left: 0;
+    top: 0;
+    bottom: 0;
+  }
+  .timeline-left {
+    position: absolute;
+    display: block;
+    margin: 0;
+    padding: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    .theme-light & {
+      border: 1px solid #aaa;
+    }
+    .theme-dark & {
+      border: 1px solid #333;
+    }
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  .timeline-right {
+    position: absolute;
+    left: 144px;
+    top: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  .timeline-set {
+    margin-top: -1px;
+    .theme-light & {
+      border-top: 1px solid #aaa;
+      border-bottom: 1px solid #aaa;
+    }
+    .theme-dark & {
+      border-top: 1px solid #333;
+      border-bottom: 1px solid #333;
+    }
+    display: block;
+    list-style-type: none;
+    cursor: pointer;
+    padding: 2px 6px;
+    &:focus {
+      outline: none;
+    }
+    &:last-of-type {
+      margin-bottom: -1px;
+    }
+    &.newset {
+    }
+    &.selected {
+      .theme-light & {
+        background: url(images/ui-bg_glass_75_c5c5c5_1x400.png) 50% 50% repeat-x;
+        &:hover {
+          background: url(images/ui-bg_glass_75_c5c5c5_1x400.png) 50% 50% repeat-x;
+        }
+        border-top: 1px solid #999;
+        border-bottom: 1px solid #999;
+      }
+      .theme-dark & {
+        background: url(images/ui-bg_glass_75_3a3a3a_1x400.png) 50% 50% repeat-x;
+        &:hover {
+          background: url(images/ui-bg_glass_75_3a3a3a_1x400.png) 50% 50% repeat-x;
+        }
+        border-top: 1px solid #444;
+        border-bottom: 1px solid #444;
+      }
+      margin-top: -1px;
+      cursor: -webkit-grab;
+    }
+    &:active {
+      cursor: -webkit-grabbing;
+    }
+    &:hover {
+      .theme-light & {
+        background: url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+        border-top: 1px solid #999;
+        border-bottom: 1px solid #999;
+      }
+      .theme-dark & {
+        background: url(images/ui-bg_glass_75_262626_1x400.png) 50% 50% repeat-x;
+        border-top: 1px solid #444;
+        border-bottom: 1px solid #444;
+      }
+      margin-top: -1px;
+    }
+
+    .label {
+      font-weight: bold;
+    }
+    .value {
+      display: block;
+    }
+    input {
+      width: 88px;
+//      padding: 0;
+      margin: -2px;
+      font-size: 16px;
+      font-weight: bold;
+      font-family: Verdana, Arial, sans-serif;
+    }
+    .edit {
+      float: right;
+      width: 16px;
+      height: 16px;
+      .theme-light & {
+        background-image: url(../external/images/ui-icons_454545_256x240.png);
+        &:hover {
+          background-image: url(../external/images/ui-icons_222222_256x240.png);
+        }
+      }
+      .theme-dark & {
+        background-image: url(../external/images/ui-icons_aaaaaa_256x240.png);
+        &:hover {
+          background-image: url(../external/images/ui-icons_cccccc_256x240.png);
+        }
+      }
+      background-position: -64px -112px;
+      background-repeat: no-repeat;
+      cursor: pointer;
+    }
+    .delete {
+      float: right;
+      width: 16px;
+      height: 16px;
+      .theme-light & {
+        background-image: url(../external/images/ui-icons_454545_256x240.png);
+        &:hover {
+          background-image: url(../external/images/ui-icons_222222_256x240.png);
+        }
+      }
+      .theme-dark & {
+        background-image: url(../external/images/ui-icons_aaaaaa_256x240.png);
+        &:hover {
+          background-image: url(../external/images/ui-icons_cccccc_256x240.png);
+        }
+      }
+      background-position: -176px -96px;
+      background-repeat: no-repeat;
+      cursor: pointer;
+      &.disabled {
+        .theme-light & {
+          background-image: url(../external/images/ui-icons_888888_256x240.png) !important;
+        }
+        .theme-dark & {
+          background-image: url(../external/images/ui-icons_666666_256x240.png) !important;
+        }
+        cursor: default;
+      }
+    }
+  }
+
+  .timeline-stat {
+    width: 100% !important;
+  }
+
+  .canvas-frame {
+    position: absolute;
+    top: 27px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-x: scroll;
+  }
+  
+  .canvas-container {
+    position: relative;
+    top: 5%;
+    height: 90%;
+    display: block;
+    margin-left: auto;
+  }
+}

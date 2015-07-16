@@ -6,7 +6,6 @@
 danetta: built in vault
 bulkathos: built in WW
 nightmares: todo
-manajuma: todo
 shenlong: todo
 asheara's: todo
 
@@ -206,7 +205,7 @@ roland
     });
   };
 
-  affixes.set_unhallowed_2pc = function() {
+  affixes.set_unhallowed_6pc = function() {
     Sim.register("oncast", function(data) {
       if (data.generate || data.skill === "multishot") {
         return {percent: 15 * (Sim.resources.disc || 0)};
@@ -222,9 +221,83 @@ roland
   };
 
   affixes.set_zunimassa_6pc = function() {
+    if (Sim.stats.charClass !== "witchdoctor") return;
     Sim.register("onhit", function(data) {
       if (data.castInfo && data.castInfo.cost) {
         Sim.addBuff("zunimassa_6pc", {dmgmul: {pet: true, percent: 275}}, {duration: 240});
+      }
+    });
+  };
+
+  affixes.set_shenlong_2pc = function() {
+    var next = 0;
+    Sim.register("onhit_proc", function(data) {
+      if (Sim.time >= next && Sim.random("shenlong", data.proc, data.targets)) {
+        Sim.damage({type: "line", speed: 1, pierce: true, radius: 5, coeff: 12});
+        next = Sim.time + Math.floor(180 / Sim.stats.info.aps);
+      }
+    });
+  };
+
+  affixes.set_inna_4pc = function() {
+    var list = ["mantraofsalvation", "mantraofretribution", "mantraofhealing", "mantraofconviction"];
+    for (var i = 0; i < list.length; ++i) {
+      var id = list[i];
+      if (!Sim.stats.skills[id] && Sim.skills[id]) {
+        Sim.pushCastInfo({
+          skill: id,
+          rune: "x",
+          elem: Sim.getProp(Sim.skills[id], "elem", "x"),
+        });
+        Sim.skills[id].oninit("x");
+        Sim.popCastInfo();
+      }
+    }
+  };
+  affixes.set_inna_6pc = function() {
+    var list = ["cyclonestrike", "explodingpalm", "lashingtailkick", "sevensidedstrike", "waveoflight"];
+    Sim.register("oncast", function(data) {
+      if (list.indexOf(data.skill) >= 0) {
+        var stacks = Sim.getBuff("mystically");
+        for (var i = 0; i < stacks; ++i) {
+          Sim.cast(data.skill, data.rune, "mystically");
+        }
+        Sim.petdelay("mystically");
+      }
+    });
+  };
+
+  affixes.set_sunwuko_2pc = function() {
+    var list = ["cyclonestrike", "explodingpalm", "lashingtailkick", "tempestrush", "waveoflight"];
+    var next = 0;
+    Sim.register("oncast", function(data) {
+      if (list.indexOf(data.skill) >= 0) {
+        if (data.skill === "tempestrush") {
+          if (Sim.time < next) return;
+          next = Sim.time + Math.floor(100 / Sim.stats.info.aps);
+        }
+        Sim.after(30, function() {
+          Sim.damage({type: "area", range: 15, coeff: 10, elem: "max"});
+          if (Sim.stats.set_sunwuko_4pc) {
+            Sim.addBuff("sunwuko_4pc", {dmgmul: {
+              pet: false,
+              skills: ["cyclonestrike", "explodingpalm", "lashingtailkick", "tempestrush", "waveoflight"],
+              percent: 500,
+            }}, {duration: 180});
+          }
+        });
+      }
+    });
+  };
+
+  affixes.set_storms_2pc = function() {
+    Sim.addBaseStats({dmgmul: {skills: ["fistsofthunder", "deadlyreach", "cripplingwave", "wayofthehundredfists"], percent: 300}});
+  };
+  affixes.set_storms_6pc = function() {
+    if (Sim.stats.charClass !== "monk") return;
+    Sim.register("oncast", function(data) {
+      if (data.generate) {
+        Sim.addBuff("storms_6pc", undefined, {duration: 360});
       }
     });
   };

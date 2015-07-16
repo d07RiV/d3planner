@@ -1,45 +1,3 @@
-// Replace the normal jQuery getScript function with one that supports
-// debugging and which references the script files as external resources
-// rather than inline.
-jQuery.extend({
-  getScript: function(url, callback) {
-    var head = document.getElementsByTagName("head")[0];
-    var script = document.createElement("script");
-    script.src = url;
-
-    // Handle Script loading
-    {
-      var done = false;
-
-      // Attach handlers for all browsers
-      script.onload = script.onreadystatechange = function(){
-        if (!done && (!this.readyState || this.readyState == "loaded" || this.readyState == "complete")) {
-          done = true;
-          if (callback) callback();
-
-          // Handle memory leak in IE
-          script.onload = script.onreadystatechange = null;
-        }
-      };
-    }
-
-    head.appendChild(script);
-
-    // We handle everything using the script element injection
-    return undefined;
-  },
-  getScripts: function(urls, callback) {
-    var count = urls.length;
-    function proxy() {
-      if (--count == 0) {
-        callback();
-      }
-    }
-    for (var i = 0; i < urls.length; ++i) {
-      $.getScript(urls[i], proxy);
-    }
-  },
-});
 if (!String.prototype.format) {
   String.prototype.format = function() {
     var args = arguments;
@@ -54,6 +12,7 @@ if (!String.prototype.format) {
 }
 
 DiabloCalc = {
+  relPath: "/",
   options: {},
   optionPerProfile: {},
   addOption: function(name, get, set, profile) {
@@ -61,40 +20,62 @@ DiabloCalc = {
     if (profile) this.optionPerProfile[name] = true;
   },
   localeTable: {},
-  locale: function(name) {
-    var tbl1 = DiabloCalc.localeTable[name];
-    var tbl2 = DiabloCalc.localeTable;
-    return function(str) {
-      if (tbl1 && tbl1[str]) return tbl1[str];
-      if (tbl2[str]) return tbl2[str];
+  locale: function() {
+    var tables = [];
+    for (var i = 0; i < arguments.length; ++i) {
+      var tbl = DiabloCalc.localeTable[arguments[i]];
+      if (tbl) tables.push(tbl);
+    }
+    tables.push(DiabloCalc.localeTable);
+    var res = function(str) {
+      for (var i = 0; i < tables.length; ++i) {
+        if (tables[i][str]) return tables[i][str];
+      }
       return str;
     };
+    res.fixkey = _L.fixkey;
+    res.fixval = _L.fixval;
+    return res;
   },
   patch: {},
 };
+(function() {
+  var m = location.pathname.match(/^(\/.*\/)[^/]*$/);
+  if (m) {
+    DiabloCalc.relPath = m[1];
+  }
+})();
 
 _L = function(str) {
   if (!DiabloCalc.localeTable[str]) {
-    DiabloCalc.localeTable[str] = str;
+    return str;
   }
   return DiabloCalc.localeTable[str];
 };
-_L.fix = function(data) {
+_L.fixkey = function(data) {
   var list = Object.keys(data);
   for (var i = 0; i < list.length; ++i) {
-    var tr = _L(list[i]);
+    var tr = this(list[i]);
     if (tr !== list[i]) {
       data[tr] = data[list[i]];
       delete data[list[i]];
     }
   }
+  return data;
+};
+_L.fixval = function(data) {
+  var list = Object.keys(data);
+  for (var i = 0; i < list.length; ++i) {
+    data[list[i]] = this(data[list[i]]);
+  }
+  return data;
 };
 _L.add = function(data) {
-  $.extend(DiabloCalc.localeTable, data);
+  $.extend(true, DiabloCalc.localeTable, data);
 };
 _L.patch = DiabloCalc.patch;
 _L.patch.add = function(data) {
-  $.extend(_L.patch, data);
+  $.extend(true, _L.patch, data);
 };
 _L.patch.apply = function(to) {
   function _myExtend(dst, src) {
@@ -110,7 +91,8 @@ _L.patch.apply = function(to) {
   }
   _myExtend(to, this);
 };
-Object.defineProperty(_L, "fix", {enumerable: false});
+Object.defineProperty(_L, "fixkey", {enumerable: false});
+Object.defineProperty(_L, "fixval", {enumerable: false});
 Object.defineProperty(_L, "add", {enumerable: false});
 Object.defineProperty(_L, "patch", {enumerable: false});
 Object.defineProperty(_L.patch, "add", {enumerable: false});
@@ -177,7 +159,7 @@ $(function() {
   });
 
 
-  var themeSelect = $("<select class=\"theme-select\"><option value=\"light\">Light Theme</option><option value=\"dark\">Dark Theme</option></select>");
+  var themeSelect = $(".theme-select");
   var themeBox;
   var theme = ($.cookie("theme") || "dark");
   ajaxSpinner.opts.color = (theme === "light" ? "#000" : "#ccc");
@@ -198,16 +180,22 @@ $(function() {
 
   DiabloCalc.spinStart();
 
-  //if (location.hostname.toLowerCase().indexOf("ptr") >= 0) {
-  //  $("#ptr-link").append("<a href=\"http://" + location.hostname.replace(/^[^.]*/, "www") + "\">Switch to live version</a>");
-  //} else {
-  //  $("#ptr-link").append("<a href=\"http://" + location.hostname.replace(/^[^.]*/, "ptr") + "\">PTR version is available!</a>");
-  //}
+  if (location.hostname.toLowerCase().indexOf("ptr") >= 0) {
+    $("#ptr-link").append("<a href=\"http://" + location.hostname.replace(/^[^.]*/, "www") + "\">" + _L("Switch to live version") + "</a>");
+    $("#ptr-link").find("a").click(function() {
+      $(this).attr("href", "http://" + location.hostname.replace(/^[^.]*/, "www") + location.pathname);
+    });
+  } else {
+    $("#ptr-link").append("<a href=\"http://" + location.hostname.replace(/^[^.]*/, "ptr") + "\">" + _L("PTR version is available!") + "</a>");
+    $("#ptr-link").find("a").click(function() {
+      $(this).attr("href", "http://" + location.hostname.replace(/^[^.]*/, "ptr") + location.pathname);
+    });
+  }
 
-  $.getScript("scripts/data.js", function() {
+  DC_getScript("scripts/data.js", function() {
     DiabloCalc.loadData(function() {
-      var optgroupMain = $("<optgroup></optgroup>").attr("label", "Characters");
-      var optgroupFollower = $("<optgroup></optgroup>").attr("label", "Followers");
+      var optgroupMain = $("<optgroup></optgroup>").attr("label", _L("Characters"));
+      var optgroupFollower = $("<optgroup></optgroup>").attr("label", _L("Followers"));
       $(".char-class").append(optgroupMain);//.append(optgroupFollower);
       for (var cls in DiabloCalc.classes) {
         var option = $("<option></option>").val(cls).text(DiabloCalc.classes[cls].name).addClass("class-" + cls).addClass("class-icon");
@@ -243,7 +231,7 @@ $(function() {
       function onLoaded() {
         DiabloCalc.spinStop();
         DiabloCalc.importEnd("init");
-        var m = location.pathname.match(/^\/e?([0-9]+)$/);
+        var m = location.pathname.match(/\/e?([0-9]+)$/);
         if (m) {
           DiabloCalc.loadProfile(undefined, m[1], location.pathname[1] === "e");
         } else if (window.localStorage) {
@@ -255,15 +243,15 @@ $(function() {
             profile = undefined;
           }
           if (profile) {
-            var restore = $("<div class=\"restore-profile signin-line\">Restore last session? </div>");
-            restore.append($("<span>Yes</span>").click(function() {
+            var restore = $("<div class=\"restore-profile signin-line\">" + _L("Restore last session?") + " </div>");
+            restore.append($("<span>" + _L("Yes") + "</span>").click(function() {
               try {
                 localStorage.removeItem("profile", "");
               } catch (e) {
               }
               DiabloCalc.setAllProfiles(profile, "load");
               setTimeout(function() {restore.remove();}, 0);
-            }), " / ", $("<span>No</span>").click(function() {
+            }), " / ", $("<span>" + _L("No") + "</span>").click(function() {
               try {
                 localStorage.removeItem("profile", "");
               } catch (e) {
@@ -273,17 +261,17 @@ $(function() {
             $(".dollframe").prepend(restore);
           }
         }
-        m = location.pathname.match(/^\/reset=([0-9a-f]{32})$/);
+        m = location.pathname.match(/\/reset=([0-9a-f]{32})$/);
         if (m && DiabloCalc.account) {
           DiabloCalc.account.reset(m[1]);
-          var url = location.protocol + "//" + location.hostname + "/";
+          var url = location.protocol + "//" + location.hostname + DiabloCalc.relPath;
           if (window.history && window.history.replaceState) {
             window.history.replaceState({}, "", url);
           }
         }
 
         if (!$.cookie("theme")) {
-          themeBox = $("<div class=\"themetip\"><p>Select your theme:</p><p class=\"small\">(Click to dismiss)</p></div>").css("visibility", "hidden");
+          themeBox = $("<div class=\"themetip\"><p>" + _L("Select your theme:") + "</p><p class=\"small\">(" + _L("Click to dismiss") + ")</p></div>").css("visibility", "hidden");
           $("body").append(themeBox);
           var pos = themeSelect.offset();
           themeBox.css("left", pos.left + themeSelect.outerWidth() / 2 - themeBox.outerWidth() / 2).css("top", pos.top - themeBox.outerHeight() - 20);
@@ -299,7 +287,7 @@ $(function() {
             dataType: "json",
             success: function(data) {
               if (data instanceof Array && data.length) {
-                var newBox = $("<div class=\"changelog\"><h3>What's new?</h3><p class=\"small\"><i>Click to dismiss.</i></p></div>").css("visibility", "hidden");
+                var newBox = $("<div class=\"changelog\"><h3>" + _L("What's new?") + "</h3><p class=\"small\"><i>" + _L("Click to dismiss") + "</i></p></div>").css("visibility", "hidden");
                 for (var i = 0; i < data.length; ++i) {
                   newBox.append("<p><i>" + (new Date(1000 * data[i].date)).toLocaleString() + "</i>:<br/>" + data[i].text + "</p>");
                 }
@@ -322,31 +310,8 @@ $(function() {
         } 
       }
 
-      $.getScripts([
-            "scripts/common.js",
-          ], function() {
-        $.getScripts([
-              "scripts/bnet-parser.js",
-              "scripts/bnet-tooltips.js",
-              "scripts/stats.js",
-              "scripts/itembox.js",
-              "scripts/skillbox.js",
-              "scripts/account.js",
-              "scripts/ui-paperdoll.js",
-            ], function() {
-          $.getScripts([
-                "scripts/ui-equipment.js",
-                "scripts/ui-import.js",
-                "scripts/ui-paragon.js",
-                "scripts/ui-stats.js",
-                "scripts/ui-skills.js",
-                "scripts/ui-timeline.js",
-                "scripts/ui-simulator.js",
-              ], function() {
-            onLoaded();
-          });
-        });
-      });
+      DiabloCalc.onLoaded = onLoaded;
+      DC_getScript("core");
     });
   });
 });

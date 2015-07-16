@@ -3,75 +3,18 @@
   var lastEvent;
   var ignoreOnError = 0;
 
-  var errdlg;
-  function showDialog(obj, callback) {
-    if (!errdlg) {
-      errdlg = {
-        frame: $("<div class=\"error-dialog\" title=\"Oops...\"></div>"),
-        text: $("<textarea></textarea>"),
-        info: $("<p></p>"),
-        report: $("<div class=\"error-report\"></div>").hide(),
-        reporttext: $("<div></div>"),
-      };
-      errdlg.frame.append($("<div class=\"dlgwrapper\"></div>")
-        .append("<div class=\"dlgrow\"><p>An error has occured. You can report the issue so I can fix it ASAP. The current profile will be included in the report." +
-          "Please share any details on what you were doing when the problem occured.</p></div>")
-        .append($("<div class=\"dlgrow mid\"></div>").append(errdlg.text))
-        .append($("<div class=\"dlgrow\"></div>").append(errdlg.info))
-      );
-      errdlg.report.append(errdlg.reporttext);
-      $("body").append(errdlg.report);
-      errdlg.notify = function(text) {
-        this.frame.dialog("close");
-        this.reporttext.html("<span>" + text + "</span>");
-        this.report.show();
-        setTimeout(function() {errdlg.report.fadeOut(1000);}, 1000);
-      };
-      errdlg.frame.dialog({
-        autoOpen: false,
-        height: 430,
-        width: 450,
-        minWidth: 350,
-        minHeight: 400,
-        modal: true,
-        buttons: {
-          "Send report": function() {
-            errdlg.obj.info = errdlg.text.val();
-            errdlg.callback(errdlg.obj);
-          },
-          "No, thanks": function() {errdlg.frame.dialog("close");},
-        },
-      });
-    }
-    errdlg.obj = obj;
-    errdlg.callback = callback;
-    errdlg.text.val("");
-    errdlg.info.empty()
-      .append("<b>Error message:</b> ").append($("<span></span>").text(obj.message))
-      .append("<br/><b>Error location:</b> ").append($("<span></span>").text(obj.file + " (line " + obj.lineNumber + (obj.columnNumber ? ", col " + obj.columnNumber : "") + ")"));
-    errdlg.frame.dialog("open");
-  }
-
-  var showDialog = false;
-
   function errorHandler(obj) {
     $.ajax({
       url: "report",
       data: JSON.stringify(obj),
       type: "POST",
-      global: showDialog,
+      global: false,
       processData: false,
       contentType: "application/json",
       dataType: "json",
       success: function(response) {
-        if (errdlg) {
-          errdlg.notify("Thank you for the report!");
-        }
       },
       error: function(e) {
-        if (errdlg) {
-          errdlg.notify("Failed to send report!");
-        }
       },
     });
   }
@@ -106,11 +49,7 @@
       obj.userName = $.cookie("user_name");
     } catch (e) {}
     obj.userAgent = navigator.userAgent;
-    if (showDialog) {
-      showDialog(obj, errorHandler);
-    } else {
-      errorHandler(obj);
-    }
+    errorHandler(obj);
   }
 
   function handleException(event) {
@@ -277,39 +216,3 @@
   }
 
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

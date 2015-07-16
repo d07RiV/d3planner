@@ -1,4 +1,6 @@
-var wrk = new Worker("/sim");
+var Sim = {};
+var Simulator = Sim;
+/*var wrk = new Worker("/sim");
 var result = [];
 wrk.onmessage = function(e) {
   if (e.data.type != "chart") {
@@ -11,7 +13,7 @@ wrk.onmessage = function(e) {
     result.push(e.data);
     //console.log(e.data);
   }
-}
+}*/
 function _run() {
 // Jaetch
   var stats = {

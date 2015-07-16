@@ -441,7 +441,10 @@ DiabloCalc.skills.monk = {
       e: "Essence Burn",
     },
     info: function(rune, stats) {
-      var expl = {"The Fist of Az'Turrasq": stats.leg_thefistofazturrasq};
+      var expl = {};
+      if (stats.leg_thefistofazturrasq) {
+        expl[DiabloCalc.itemById.Unique_Fist_009_x1.name] = stats.leg_thefistofazturrasq;
+      }
       var res;
       switch (rune) {
       case "x": res = {"Damage": {elem: "phy", coeff: 12, total: true}, "Explosion Damage": {elem: "phy", coeff: 27.7, percent: expl}}; break;
@@ -922,7 +925,7 @@ DiabloCalc.partybuffs.monk = {
 
   mantraofsalvation: {
     runelist: "*",
-    boxnames: ["Activated", "Inna's Mantra 2p"],
+    boxnames: ["Activated", "Inna's Mantra"],
     buffs: function(rune, stats) {
       var base = 20 * (this.boxvals[1] ? 2 : 1);
       var res = {resist_percent: base + (this.boxvals[0] ? 20 : 0)};
@@ -938,7 +941,7 @@ DiabloCalc.partybuffs.monk = {
   },
   mantraofhealing: {
     runelist: "*",
-    boxnames: ["Inna's Mantra 2p"],
+    boxnames: ["Inna's Mantra"],
     buffs: function(rune, stats) {
       var base = 10728.42 * (this.boxvals[0] ? 2 : 1);
       switch (rune) {
@@ -953,7 +956,7 @@ DiabloCalc.partybuffs.monk = {
   },
   mantraofconviction: {
     runelist: "*",
-    boxnames: ["Activated", "Inna's Mantra 2p"],
+    boxnames: ["Activated", "Inna's Mantra"],
     buffs: function(rune, stats) {
       var base = 10 * (this.boxvals[1] ? 2 : 1);
       var res = {dmgtaken: base};

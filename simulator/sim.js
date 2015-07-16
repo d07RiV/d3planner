@@ -193,8 +193,14 @@
   };
 
   var rngBuffer = {};
-  Sim.random = function(id, chance) {
-    rngBuffer[id] = (rngBuffer[id] === undefined ? 0.5 : rngBuffer[id]) + Math.min(1, chance);
+  Sim.random = function(id, chance, count, sum) {
+    if (count === undefined) count = 1;
+    if (sum) {
+      chance *= count;
+    } else {
+      chance = 1 - Math.pow(1 - chance, count);
+    }
+    rngBuffer[id] = (rngBuffer[id] === undefined ? 0.5 : rngBuffer[id]) + chance;
     var result = Math.floor(rngBuffer[id]);
     rngBuffer[id] -= result;
     return result;

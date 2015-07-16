@@ -25,16 +25,8 @@ DiabloCalc.skills.crusader = {
       e: "Fury",
     },
     info: function(rune, stats) {
-      var elem;
-      switch (rune) {
-      case "x": elem = "phy"; break;
-      case "d": elem = "fir"; break;
-      case "b": elem = "phy"; break;
-      case "c": elem = "phy"; break;
-      case "a": elem = "hol"; break;
-      case "e": elem = "lit"; break;
-      }
-      var res = {"DPS": {sum: true, "Damage": {speed: 1, ias: (stats.passives.fanaticism ? 15 : 0)}}, "Damage": {elem: elem, coeff: 3.35}};
+      var elem = DiabloCalc.skilltips.crusader.punish.elements[rune];
+      var res = {"DPS": {sum: true, "Damage": {speed: 1, ias: (stats.passives.fanaticism ? 15 : 0), fpa: 57.777767, round: "up"}}, "Damage": {elem: elem, coeff: 3.35}};
       if (stats.leg_angelhairbraid || rune == "d") {
         res["Roar Damage"] = {elem: elem, coeff: 0.75};
       }
@@ -73,12 +65,13 @@ DiabloCalc.skills.crusader = {
       e: "Guard",
     },
     info: {
-      x: {"DPS": {sum: true, "Damage": {speed: 1, ias: "passives.fanaticism?15:0"}}, "Damage": {elem: "fir", coeff: 2.3}},
-      b: {"DPS": {sum: true, "Damage": {speed: 1, ias: "passives.fanaticism?15:0"}}, "Damage": {elem: "lit", coeff: 2.3}},
-      d: {"DPS": {sum: true, "Damage": {speed: 1, ias: "passives.fanaticism?15:0"}}, "Damage": {elem: "fir", coeff: 2.3}},
-      c: {"DPS": {sum: true, "Damage": {speed: 1, ias: "passives.fanaticism?15:0"}}, "Damage": {elem: "fir", coeff: 2.3, chc: 20}},
-      a: {"DPS": {sum: true, "Damage": {speed: 1, ias: "passives.fanaticism?15:0"}}, "Damage": {elem: "hol", coeff: 2.3}},
-      e: {"DPS": {sum: true, "Damage": {speed: 1, ias: "passives.fanaticism?15:0"}}, "Damage": {elem: "fir", coeff: 2.3}},
+      "*": {"DPS": {sum: true, "Damage": {speed: 1, ias: "passives.fanaticism?15:0", fpa: 57.777767, round: "up"}}},
+      x: {"Damage": {elem: "fir", coeff: 2.3}},
+      b: {"Damage": {elem: "lit", coeff: 2.3}},
+      d: {"Damage": {elem: "fir", coeff: 2.3}},
+      c: {"Damage": {elem: "fir", coeff: 2.3, chc: 20}},
+      a: {"Damage": {elem: "hol", coeff: 2.3}},
+      e: {"Damage": {elem: "fir", coeff: 2.3}},
     },
     active: true,
     params: [{rune: "a", min: 0, max: 10, name: "Stacks"},
@@ -102,12 +95,13 @@ DiabloCalc.skills.crusader = {
       a: "Shared Fate",
     },
     info: {
-      x: {"DPS": {sum: true, "Damage": {speed: 1, ias: "passives.fanaticism?15:0"}}, "Damage": {elem: "hol", coeff: 1.75}, "Secondary Damage": {elem: "hol", coeff: 1.5}},
-      c: {"DPS": {sum: true, "Damage": {speed: 1, ias: "passives.fanaticism?15:0"}}, "Damage": {elem: "hol", coeff: 1.75}, "Secondary Damage": {elem: "hol", coeff: 1.5}},
-      b: {"DPS": {sum: true, "Damage": {speed: 1, ias: "passives.fanaticism?15:0"}}, "Damage": {elem: "hol", coeff: 1.75}, "Secondary Damage": {elem: "hol", coeff: 1.5}},
-      e: {"DPS": {sum: true, "Damage": {speed: 1, ias: "passives.fanaticism?15:0"}}, "Damage": {elem: "hol", coeff: 1.75}, "Secondary Damage": {elem: "hol", coeff: 1.5}},
-      d: {"DPS": {sum: true, "Damage": {speed: 1, ias: "passives.fanaticism?15:0"}}, "Damage": {elem: "hol", coeff: 1.75}, "Secondary Damage": {elem: "hol", coeff: 1.5}},
-      a: {"DPS": {sum: true, "Damage": {speed: 1, ias: "passives.fanaticism?15:0"}}, "Damage": {elem: "lit", coeff: 1.75}, "Secondary Damage": {elem: "lit", coeff: 1.5}},
+      "*": {"DPS": {sum: true, "Damage": {speed: 1, ias: "passives.fanaticism?15:0", fpa: 57.777767, round: "up"}}},
+      x: {"Damage": {elem: "hol", coeff: 1.75}, "Secondary Damage": {elem: "hol", coeff: 1.5}},
+      c: {"Damage": {elem: "hol", coeff: 1.75}, "Secondary Damage": {elem: "hol", coeff: 1.5}},
+      b: {"Damage": {elem: "hol", coeff: 1.75}, "Secondary Damage": {elem: "hol", coeff: 1.5}},
+      e: {"Damage": {elem: "hol", coeff: 1.75}, "Secondary Damage": {elem: "hol", coeff: 1.5}},
+      d: {"Damage": {elem: "hol", coeff: 1.75}, "Secondary Damage": {elem: "hol", coeff: 1.5}},
+      a: {"Damage": {elem: "lit", coeff: 1.75}, "Secondary Damage": {elem: "lit", coeff: 1.5}},
     },
     active: true,
     params: [{rune: "d", min: 0, max: 4, name: "Stacks"}],
@@ -129,12 +123,15 @@ DiabloCalc.skills.crusader = {
       e: "Holy Bolt",
     },
     info: {
-      x: {"DPS": {sum: true, "Damage": {speed: 1, ias: "passives.fanaticism?15:0"}}, "Damage": {elem: "hol", coeff: 2.45}},
-      d: {"DPS": {sum: true, "Damage": {speed: 1, ias: "passives.fanaticism?15:0"}, "Impact Damage": {speed: 1, ias: "passives.fanaticism?15:0"}}, "Damage": {elem: "lit", coeff: 2.45}, "Impact Damage": {elem: "lit", coeff: 0.6}},
-      b: {"DPS": {sum: true, "Damage": {speed: 1, ias: "passives.fanaticism?15:0"}}, "Damage": {elem: "hol", coeff: 2.45}},
-      c: {"DPS": {sum: true, "Damage": {speed: 1, ias: "passives.fanaticism?15:0"}}, "Damage": {elem: "phy", coeff: 3.34}},
-      a: {"DPS": {sum: true, "Damage": {speed: 1, ias: "passives.fanaticism?15:0"}}, "Damage": {elem: "phy", coeff: 2.45}},
-      e: {"DPS": {sum: true, "Damage": {speed: 1, ias: "passives.fanaticism?15:0"}}, "Damage": {elem: "hol", coeff: 2.45}},
+      "*": {"DPS": {sum: true, "Damage": {speed: 1, ias: "10+(passives.fanaticism?15:0)", fpa: 57.777767, round: "up"}}},
+      x: {"Damage": {elem: "hol", coeff: 2.45}},
+      d: {"DPS": {sum: true, "Damage": {speed: 1, ias: "10+(passives.fanaticism?15:0)", fpa: 57.777767, round: "up"},
+                             "Impact Damage": {speed: 1, ias: "10+(passives.fanaticism?15:0)", fpa: 57.777767, round: "up", nobp: true}},
+          "Damage": {elem: "lit", coeff: 2.45}, "Impact Damage": {elem: "lit", coeff: 0.6}},
+      b: {"Damage": {elem: "hol", coeff: 2.45}},
+      c: {"Damage": {elem: "phy", coeff: 3.34}},
+      a: {"Damage": {elem: "phy", coeff: 2.45}},
+      e: {"Damage": {elem: "hol", coeff: 2.45}},
     },
   },
   shieldbash: {
@@ -150,13 +147,29 @@ DiabloCalc.skills.crusader = {
       a: "Crumble",
       d: "Pound",
     },
-    info: {
-      x: {"Damage": {elem: "hol", coeff: 7, addcoeff: [[3, "block/100"]]}},
-      b: {"Damage": {elem: "hol", coeff: 7.4, addcoeff: [[3.35, "block/100"]]}},
-      e: {"Damage": {elem: "lit", coeff: 7, addcoeff: [[3, "block/100"]]}},
-      c: {"Damage": {elem: "phy", coeff: 7, addcoeff: [[3, "block/100"]]}, "Additional Damage": {elem: "phy", coeff: 1.55, addcoeff: [[1, "block/100"]]}},
-      a: {"Damage": {elem: "fir", coeff: 7, addcoeff: [[3, "block/100"]]}, "Explosion Damage": {elem: "fir", coeff: 6.6}},
-      d: {"Damage": {elem: "phy", coeff: 13.2, addcoeff: [[5, "block/100"]]}},
+    active: true,
+    activetip: "3 or fewer targets",
+    activeshow: function(rune, stats) {
+      return !!stats.leg_drakonslesson;
+    },
+    info: function(rune, stats) {
+      var res;
+      var block = (stats.block || 0) / 100;
+      switch (rune) {
+      case "x": res = {"Damage": {elem: "hol", coeff: 7, addcoeff: [[3, block]]}}; break;
+      case "b": res = {"Damage": {elem: "hol", coeff: 7.4, addcoeff: [[3.35, block]]}}; break;
+      case "e": res = {"Damage": {elem: "lit", coeff: 7, addcoeff: [[3, block]]}}; break;
+      case "c": res = {"Damage": {elem: "phy", coeff: 7, addcoeff: [[3, block]]}, "Additional Damage": {elem: "phy", coeff: 1.55, addcoeff: [[1, block]]}}; break;
+      case "a": res = {"Damage": {elem: "fir", coeff: 7, addcoeff: [[3, block]]}, "Explosion Damage": {elem: "fir", coeff: 6.6}}; break;
+      case "d": res = {"Damage": {elem: "phy", coeff: 13.2, addcoeff: [[5, block]]}}; break;
+      }
+      if (this.active && stats.leg_drakonslesson) {
+        for (var k in res) {
+          res[k].percent = {};
+          res[k].percent[DiabloCalc.itemById.P2_Unique_Bracer_110.name] = stats.leg_drakonslesson;
+        }
+      }
+      return $.extend({"DPS": {sum: true, "Damage": {speed: 1, fpa: 37.714279, round: "up"}}, "Cost": {cost: 30, rcr: (stats.leg_piromarella || 0)}}, res);
     },
   },
   sweepattack: {
@@ -173,6 +186,7 @@ DiabloCalc.skills.crusader = {
       e: "Frozen Sweep",
     },
     info: {
+      "*": {"DPS": {sum: true, "Damage": {speed: 1, fpa: 57.777767, round: "up"}}, "Cost": {cost: 20}},
       x: {"Damage": {elem: "phy", coeff: 4.8}},
       b: {"Damage": {elem: "fir", coeff: 6}},
       d: {"Damage": {elem: "lit", coeff: 4.8}},
@@ -195,6 +209,7 @@ DiabloCalc.skills.crusader = {
       e: "Dominion",
     },
     info: {
+      "*": {"Cost": {cost: 10}},
       x: {"Damage": {elem: "hol", coeff: 3.2}},
       a: {"Damage": {elem: "fir", coeff: 3.2}, "Scorch Damage": {elem: "fir", coeff: 3.3, total: true}},
       b: {"Damage": {elem: "lit", coeff: 3.2}, "Arc Damage": {elem: "lit", coeff: 0.6}},
@@ -217,6 +232,7 @@ DiabloCalc.skills.crusader = {
       e: "Piercing Shield",
     },
     info: {
+      "*": {"Cost": {cost: "leg_gyrfalconsfoote?0:20"}},
       x: {"Damage": {elem: "hol", coeff: 4.3, addcoeff: [[2.5, "block/100"]]}},
       a: {"Damage": {elem: "lit", coeff: 4.3, addcoeff: [[2.5, "block/100"]]}},
       b: {"Damage": {elem: "fir", coeff: 4.3, addcoeff: [[2.5, "block/100"]]}, "Explosion Damage": {elem: "fir", coeff: 3.1}},
@@ -244,6 +260,7 @@ DiabloCalc.skills.crusader = {
       e: "Retribution",
     },
     info: {
+      "*": {"Cost": {cost: 30}},
       x: {"Damage": {elem: "lit", coeff: 5.45}, "Bolt Damage": {elem: "lit", coeff: 2.25}},
       d: {"Damage": {elem: "hol", coeff: 5.45}, "Bolt Damage": {elem: "hol", coeff: 2.25}, "Zap Damage": {elem: "hol", coeff: 0.4}},
       a: {"Damage": {elem: "fir", coeff: 5.45}, "Bolt Damage": {elem: "fir", coeff: 2.25}, "Storm Damage": {elem: "fir", coeff: 1, total: true}},
@@ -325,7 +342,9 @@ DiabloCalc.skills.crusader = {
       e: "Fearful",
     },
     info: {
-      d: {"DPS": {elem: "fir", aps: true, coeff: 1.55, total: true}},
+      "*": {"Uptime": {duration: 10, cooldown: 30}},
+      d: {"DPS": {elem: "fir", coeff: 1.55, total: true}},
+      a: {"Uptime": {duration: 5, cooldown: 30}},
     },
   },
   judgment: {
@@ -360,6 +379,7 @@ DiabloCalc.skills.crusader = {
     category: "utility",
     row: 3,
     col: 0,
+    nolmb: true,
     runes: {
       a: "Cleanse",
       b: "Flee Fool",
@@ -417,6 +437,7 @@ DiabloCalc.skills.crusader = {
       a: "Reciprocate",
     },
     info: {
+      "*": {"Cooldown": {cooldown: "leg_frydehrswrath?0:15"}, "Cost": {cooldown: "leg_frydehrswrath?40:0"}},
       x: {"Damage": {elem: "hol", coeff: 11.6}},
       b: {"Damage": {elem: "hol", coeff: 11.6}},
       e: {"Damage": {elem: "hol", coeff: 11.6}},
@@ -439,16 +460,17 @@ DiabloCalc.skills.crusader = {
       e: "Bodyguard",
     },
     info: function(rune, stats) {
-      var dbl = {"Unrelenting Phalanx": stats.leg_unrelentingphalanx ? 100 : 0};
       var count = (stats.leg_unrelentingphalanx ? 2 : 1);
+      var res;
       switch (rune) {
-      case "x": return {"Damage": {elem: "phy", coeff: 4.9}, "Total Damage": (stats.leg_unrelentingphalanx ? {sum: true, "Damage": {count: 2}} : undefined)};
-      case "a": return {"Damage": {elem: "phy", pet: true, coeff: 1.85}, "DPS": {sum: true, "Damage": {pet: 60, speed: 1, count: count * 4}}};
-      case "b": return {"Damage": {elem: "phy", coeff: 1.8}, "Total Damage": {sum: true, "Damage": {count: 3 * count}}};
-      case "c": return {"Damage": {elem: "phy", coeff: 4.9}, "Total Damage": (stats.leg_unrelentingphalanx ? {sum: true, "Damage": {count: 2}} : undefined)};
-      case "d": return {"Damage": {elem: "phy", coeff: 4.9}, "Total Damage": (stats.leg_unrelentingphalanx ? {sum: true, "Damage": {count: 2}} : undefined)};
-      case "e": return {"Damage": {elem: "phy", pet: true, coeff: 5.6}, "DPS": {sum: true, "Damage": {pet: 60, speed: 1, count: count * 2}}};
+      case "x": res = {"Damage": {elem: "phy", coeff: 4.9}, "Total Damage": (stats.leg_unrelentingphalanx ? {sum: true, "Damage": {count: 2}} : undefined)}; break;
+      case "a": res = {"Cooldown": {cooldown: 15}, "Damage": {elem: "phy", pet: true, coeff: 1.85}, "DPS": {sum: true, "Damage": {pet: 50, speed: 1, count: count * 4}}}; break;
+      case "b": res = {"Damage": {elem: "phy", coeff: 1.8}, "Total Damage": {sum: true, "Damage": {count: 3 * count}}}; break;
+      case "c": res = {"Damage": {elem: "phy", coeff: 4.9}, "Total Damage": (stats.leg_unrelentingphalanx ? {sum: true, "Damage": {count: 2}} : undefined)}; break;
+      case "d": res = {"Cooldown": {cooldown: 15}, "Damage": {elem: "phy", coeff: 4.9}, "Total Damage": (stats.leg_unrelentingphalanx ? {sum: true, "Damage": {count: 2}} : undefined)}; break;
+      case "e": res = {"Cooldown": {cooldown: 30}, "Damage": {elem: "phy", pet: true, coeff: 5.6}, "DPS": {sum: true, "Damage": {pet: 58.064510, speed: 1, count: count * 2}}}; break;
       }
+      return $.extend({"Cost": {cost: 30}}, res);
     },
   },
   lawsofvalor: {
@@ -582,6 +604,7 @@ DiabloCalc.skills.crusader = {
       e: "Flurry",
     },
     info: {
+      "*": {"Cost": {cost: 25}, "Cooldown": {cooldown: 30}},
       x: {"Damage": {elem: "phy", coeff: 17}},
       a: {"Damage": {elem: "fir", coeff: 17}, "Residual DPS": {elem: "fir", aps: true, coeff: 3.1, total: true}},
       b: {"Damage": {elem: "lit", coeff: 17}, "Bolt Damage": {elem: "lit", coeff: 6.05}},
@@ -644,15 +667,15 @@ DiabloCalc.skills.crusader = {
     },
     info: function(rune, stats) {
       if (rune == "e" && stats.leg_fateofthefell) {
-        return {"Damage": {elem: "hol", coeff: 9.6}, "Total Damage": {sum: true, "Damage": {count: 3}}};
+        return {"Cost": {cost: 40}, "Damage": {elem: "hol", coeff: 9.6}, "Total Damage": {sum: true, "Damage": {count: 3}}};
       } else {
         switch (rune) {
-        case "x": return {"Damage": {elem: "hol", coeff: 17.1, total: true}};
-        case "b": return {"Damage": {elem: "hol", coeff: 17.1, total: true}, "Residual Damage": {elem: "hol", coeff: 15.5, total: true}};
-        case "a": return {"Damage": {elem: "hol", coeff: 27.66, total: true}};
-        case "c": return {"Damage": {elem: "hol", coeff: 19.8, total: true}};
-        case "d": return {"Damage": {elem: "lit", coeff: 17.1, total: true}};
-        case "e": return {"Damage": {elem: "hol", coeff: 9.6}};
+        case "x": return {"Cooldown": {cooldown: 20}, "Damage": {elem: "hol", coeff: 17.1, total: true}};
+        case "b": return {"Cooldown": {cooldown: 20}, "Damage": {elem: "hol", coeff: 17.1, total: true}, "Residual Damage": {elem: "hol", coeff: 15.5, total: true}};
+        case "a": return {"Cooldown": {cooldown: 20}, "Damage": {elem: "hol", coeff: 27.66, total: true}};
+        case "c": return {"Cooldown": {cooldown: 20}, "Damage": {elem: "hol", coeff: 19.8, total: true}};
+        case "d": return {"Cooldown": {cooldown: 20}, "Damage": {elem: "lit", coeff: 17.1, total: true}};
+        case "e": return {"Cost": {cost: 40}, "Damage": {elem: "hol", coeff: 9.6}};
         }
       }
     },
@@ -671,18 +694,20 @@ DiabloCalc.skills.crusader = {
       e: "Targeted",
     },
     info: function(rune, stats) {
+      var res;
       if (rune == "d" && stats.leg_themortaldrama) {
-        return {"Damage": {elem: "phy", coeff: 33.2}, "Total Damage": {sum: true, "Damage": {count: 2}}};
+        res = {"Damage": {elem: "phy", coeff: 33.2}, "Total Damage": {sum: true, "Damage": {count: 2}}};
       } else {
         switch (rune) {
-        case "x": return {"Damage": {elem: "phy", coeff: 5.7}, "Total Damage": {sum: true, "Damage": {count: (stats.leg_themortaldrama ? 10 : 5)}}};
-        case "a": return {"Damage": {elem: "phy", coeff: 5.7}, "Total Damage": {sum: true, "Damage": {count: (stats.leg_themortaldrama ? 10 : 5)}}};
-        case "b": return {"Damage": {elem: "fir", coeff: 5.7, chc: 100}, "Total Damage": {sum: true, "Damage": {count: (stats.leg_themortaldrama ? 10 : 5)}}};
-        case "c": return {"Damage": {elem: "fir", coeff: 5.7}, "Mine Damage": {elem: "fir", coeff: 1.6}, "Total Damage": {sum: true, "Damage": {count: (stats.leg_themortaldrama ? 10 : 5)}, "Mine Damage": {count: (stats.leg_themortaldrama ? 20 : 10)}}};
-        case "d": return {"Damage": {elem: "phy", coeff: 33.2}};
-        case "e": return {"Damage": {elem: "hol", coeff: 5.7}, "Total Damage": {sum: true, "Damage": {count: (stats.leg_themortaldrama ? 10 : 5)}}};
+        case "x": res = {"Damage": {elem: "phy", coeff: 5.7}, "Total Damage": {sum: true, "Damage": {count: (stats.leg_themortaldrama ? 10 : 5)}}}; break;
+        case "a": res = {"Damage": {elem: "phy", coeff: 5.7}, "Total Damage": {sum: true, "Damage": {count: (stats.leg_themortaldrama ? 10 : 5)}}}; break;
+        case "b": res = {"Damage": {elem: "fir", coeff: 5.7, chc: 100}, "Total Damage": {sum: true, "Damage": {count: (stats.leg_themortaldrama ? 10 : 5)}}}; break;
+        case "c": res = {"Damage": {elem: "fir", coeff: 5.7}, "Mine Damage": {elem: "fir", coeff: 1.6}, "Total Damage": {sum: true, "Damage": {count: (stats.leg_themortaldrama ? 10 : 5)}, "Mine Damage": {count: (stats.leg_themortaldrama ? 20 : 10)}}}; break;
+        case "d": res = {"Damage": {elem: "phy", coeff: 33.2}}; break;
+        case "e": res = {"Damage": {elem: "hol", coeff: 5.7}, "Total Damage": {sum: true, "Damage": {count: (stats.leg_themortaldrama ? 10 : 5)}}}; break;
         }
       }
+      return $.extend({"Cooldown": {cooldown: 60}}, res);
     },
   },
 };

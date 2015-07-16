@@ -377,7 +377,10 @@
   skills.slowtime = {
     speed: 56.249996,
     offensive: function(rune) {return !!Sim.stats.set_magnumopus_4pc;},
-    cooldown: {x: 15, c: 12, d: 15, a: 15, b: 15, e: 15},
+    cooldown: function(rune) {
+      var cd = (rune === "c" ? 12 : 15);
+      return cd * (1 - 0.01 * (Sim.stats.leg_gestureoforpheus || Sim.stats.leg_gestureoforpheus_p2 || 0));
+    },
     oncast: function(rune) {
       var params = {duration: 900, status: "slowed"};
       if (Sim.stats.set_magnumopus_4pc) {
@@ -400,7 +403,8 @@
   };
 
   skills.teleport = {
-    speed: 51.428570,
+    speed: 51.428570 / 2.5,
+    noias: true,
     offensive: {a: true},
     cost: function(rune) {
       if (Sim.stats.leg_aetherwalker) return 25;
@@ -543,7 +547,7 @@
       Sim.damage({type: "line", origin: origin, speed: 1, range: 50, coeff: 1.55, area: 8, count: 3});
       break;
     case "a":
-      Sim.damage({type: "cone", origin: origin, range: 35, coeff: 2.55, count: 3});
+      Sim.damage({type: "cone", origin: origin, range: 35, coeff: 2.55, count: 3, width: 30});
       if (Sim.stats.leg_themagistrate) {
         if (Sim.time - (data.nova || data.stack.start) >= 270) {
           Sim.damage({type: "area", coeff: 0.01, range: 19, origin: origin, onhit: Sim.apply_effect("frozen", 120)});
@@ -895,7 +899,7 @@
         Sim.damage({delay: 1, type: "area", range: 15, coeff: 36.8, elem: this.default_elem[rune]});
       }
       Sim.addBuff("archon", {shift: "archon", damage: 20, armor_percent: 20, resist_percent: 20}, {
-        duration: 20,
+        duration: 1200,
       });
     },
     default_elem: {x: "arc", e: "fir", c: "arc", d: "lit", b: "col", a: "arc"},
@@ -950,12 +954,38 @@
       return skills.archon.elem(Sim.stats.skills.archon);
     },
   };
+  skills.archon_slowtime = {
+    precast: function(rune) {
+      return !!(Sim.stats.skills.archon === "b" || Sim.stats.set_vyr_4pc);
+    },
+    speed: 57.391296,
+    secondary: true,
+    shift: "archon",
+    oncast: function(rune) {
+      Sim.addBuff("slowtime", undefined, {duration: 900, status: "slowed"});
+    },
+    elem: function(rune) {
+      return skills.archon.elem(Sim.stats.skills.archon);
+    },
+  };
+  skills.archon_teleport = {
+    precast: function(rune) {
+      return !!(Sim.stats.skills.archon === "c" || Sim.stats.set_vyr_4pc);
+    },
+    speed: 57.391296 / 1.5,
+    shift: "archon",
+    oncast: function(rune) {
+    },
+    elem: function(rune) {
+      return skills.archon.elem(Sim.stats.skills.archon);
+    },
+  };
 
   function bh_zero_onhit(data) {
-    Sim.addBuff("absolutezero", {damage: {elems: ["col"], percent: 3}}, {duration: 600, stacks: Sim.random("spellsteal", data.targets)});
+    Sim.addBuff("absolutezero", {damage: {elems: ["col"], percent: 3}}, {duration: 600, stacks: Sim.random("absolutezero", 1, data.targets, true)});
   }
   function bh_spellsteal_onhit(data) {
-    Sim.addBuff("spellsteal", {damage: 3}, {duration: 300, stacks: Sim.random("spellsteal", data.targets)});
+    Sim.addBuff("spellsteal", {damage: 3}, {duration: 300, stacks: Sim.random("spellsteal", 1, data.targets, true)});
   }
   function bh_ontick(data) {
     var dmg = {type: "area", range: 15, coeff: 7 / 15};
@@ -1010,7 +1040,9 @@
       });
       Sim.register("clearcast", function(data) {
         if (Sim.getBuff("powerhungry")) {
-          Sim.removeBuff("powerhungry", 1);
+          if (!data.dry) {
+            Sim.removeBuff("powerhungry", 1);
+          }
           return true;
         }
       });
@@ -1049,7 +1081,7 @@
     },
     paralysis: function() {
       Sim.register("onhit_proc", function(data) {
-        if (data.elem === "lit" && Sim.random("paralysis", data.targets * data.proc * 0.15)) {
+        if (data.elem === "lit" && Sim.random("paralysis", data.proc * 0.15, data.targets / Sim.target.count)) {
           Sim.addBuff("stunned", undefined, 90);
         }
       });

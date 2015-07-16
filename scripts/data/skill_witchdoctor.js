@@ -1,5 +1,6 @@
 if (!DiabloCalc.skillcat) DiabloCalc.skillcat = {};
 if (!DiabloCalc.skills) DiabloCalc.skills = {};
+if (!DiabloCalc.extraskills) DiabloCalc.extraskills = {};
 if (!DiabloCalc.passives) DiabloCalc.passives = {};
 if (!DiabloCalc.partybuffs) DiabloCalc.partybuffs = {};
 DiabloCalc.skillcat.witchdoctor = {
@@ -269,7 +270,8 @@ DiabloCalc.skills.witchdoctor = {
       var base = {pet: true, aps: true};
       var lphm = 1;
       if (stats.leg_thetallmansfinger) {
-        base.factors = {"Tall Man's Finger": 4 * count + 1};
+        base.factors = {};
+        base.factors[DiabloCalc.itemById.Unique_Ring_101_x1.name] = 4 * count + 1;
         lphm = 4 * count + 1;
         count = 1;
       }
@@ -460,12 +462,12 @@ DiabloCalc.skills.witchdoctor = {
       a: "Provoke the Pack",
     },
     info: {
-      x: {"Damage": {elem: "phy", coeff: 10.9, percent: {"Tall Man's Finger": "leg_thetallmansfinger?200:0"}}},
-      c: {"Damage": {elem: "phy", coeff: 10.9, percent: {"Tall Man's Finger": "leg_thetallmansfinger?200:0"}}},
-      e: {"Damage": {elem: "phy", coeff: 10.9, percent: {"Tall Man's Finger": "leg_thetallmansfinger?200:0"}}},
-      d: {"Damage": {elem: "phy", coeff: 10.9, percent: {"Tall Man's Finger": "leg_thetallmansfinger?200:0"}}},
-      b: {"Damage": {elem: "phy", coeff: 13, percent: {"Tall Man's Finger": "leg_thetallmansfinger?200:0"}}},
-      a: {"Damage": {elem: "phy", coeff: 10.9, percent: {"Tall Man's Finger": "leg_thetallmansfinger?200:0"}}},
+      x: {"Damage": {elem: "phy", coeff: 10.9, percent: {"The Tall Man's Finger": "leg_thetallmansfinger?200:0"}}},
+      c: {"Damage": {elem: "phy", coeff: 10.9, percent: {"The Tall Man's Finger": "leg_thetallmansfinger?200:0"}}},
+      e: {"Damage": {elem: "phy", coeff: 10.9, percent: {"The Tall Man's Finger": "leg_thetallmansfinger?200:0"}}},
+      d: {"Damage": {elem: "phy", coeff: 10.9, percent: {"The Tall Man's Finger": "leg_thetallmansfinger?200:0"}}},
+      b: {"Damage": {elem: "phy", coeff: 13, percent: {"The Tall Man's Finger": "leg_thetallmansfinger?200:0"}}},
+      a: {"Damage": {elem: "phy", coeff: 10.9, percent: {"The Tall Man's Finger": "leg_thetallmansfinger?200:0"}}},
     },
     active: false,
     params: [{rune: "a", min: 0, max: 10, val: 0, name: "Stacks", inf: true}],
@@ -583,7 +585,7 @@ DiabloCalc.skills.witchdoctor = {
       c: "Offensive Line",
     },
     info: function(rune, stats) {
-      var res = {"Cooldown": {cooldown: 8 - (stats.set_helltooth_4pc ? 2 : 0)}, "Damage": {elem: (rune == "d" ? "phy" : "col"), coeff: 2, total: true}};
+      var res = {"Cooldown": {cooldown: 8}, "Damage": {elem: (rune == "d" ? "col" : "phy"), coeff: 2, total: true}};
       if (rune == "a") {
         res["Zombie Damage"] = {elem: "phy", coeff: 0.25};
       }
@@ -643,7 +645,8 @@ DiabloCalc.skills.witchdoctor = {
       var base = {pet: true, aps: true};
       if (stats.leg_theshortmansfinger) {
         count = 3;
-        base.percent = {"Short Man's Finger": 50};
+        base.percent = {};
+        base.percent[DiabloCalc.itemById.P2_Unique_Ring_02.name] = 50;
       }
       var res;
       switch (rune) {
@@ -772,7 +775,8 @@ DiabloCalc.passives.witchdoctor = {
     id: "fetish-sycophants",
     name: "Fetish Sycophants",
     index: 9,
-    params: (DiabloCalc.itemaffixes&&DiabloCalc.itemaffixes.leg_beltoftranscendence.params||[{min: 0, max: 15, name: "Count", buffs: false}]),
+    params: (DiabloCalc.itemaffixes&&DiabloCalc.itemaffixes.leg_beltoftranscendence.params||[{min: 0, max: 15, name: "Count", buffs: false,
+      show: function(stats) {return !!this.id || !stats.passives.fetishsycophants;}}]),
     //params: [{min: 0, max: 15, name: "Count", buffs: false}],
     info: function(stats) {
       return {"Fetish Damage": {elem: "max", pet: true, aps: true, coeff: 1.8},
@@ -845,5 +849,15 @@ DiabloCalc.partybuffs.witchdoctor = {
   },
   bigbadvoodoo: {
     runelist: "*",
+  },
+};
+DiabloCalc.extraskills.witchdoctor = {
+  hex_explode: {
+    category: "hex",
+    required: function(stats) { return stats.skills.hex === "b"; },
+    name: "Hex Explode",
+    row: 6,
+    col: 0,
+    tip: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/witchdoctor_hex_explode.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p>Explode for <span class=\"d3-color-green\">1350%</span> weapon damage as Physical to all nearby enemies.</p> </div> </div>",
   },
 };

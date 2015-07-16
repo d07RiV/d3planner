@@ -2,7 +2,23 @@
   var Sim = Simulator;
 
   var BucketSize = 180;
-  var BucketDamage = 0;
+  var BucketBase = BucketSize / 2;
+  var KernelSize = 1.5;
+  var KernelFactor = 240;
+  function Kernel(x) {
+    x = Math.abs(x);
+    if (x < 0.5) {
+      return 0.75 - x * x;
+    } else if (x < 1.5) {
+      return 0.5 * (1.5 - x) * (1.5 - x);
+    } else {
+      return 0;
+    }
+  }
+  var Buckets = [];
+  while (Buckets.length < Math.ceil((2 * KernelFactor * KernelSize - 1) / BucketSize) + 1) {
+    Buckets.push(0);
+  }
   var TotalDamage = 0;
   var SkillCounters = {};
   var Sample = [];
@@ -12,9 +28,10 @@
   var MaxHealth = undefined;
 
   Sim.register("init", function() {
-    this.after(BucketSize, function SendReport() {
-      Sim.postMessage({type: "chart", time: Sim.time, damage: BucketDamage, health: Math.max(0, Sim.targetHealth)});
-      BucketDamage = 0;
+    this.after(BucketBase + KernelFactor * KernelSize, function SendReport() {
+      Sim.postMessage({type: "chart", time: BucketBase, damage: Buckets.shift(), health: Math.max(0, Sim.targetHealth)});
+      Buckets.push(0);
+      BucketBase += BucketSize;
       Sim.after(BucketSize, SendReport);
     });
     this.after(3600, function() {
@@ -37,11 +54,19 @@
     return SkillCounters[id];
   }
   Sim.register("onhit", function(data) {
-    var source = ((!data.pet && data.triggered) || data.skill || "unknown");
+    var source = ((data.skill ? (!data.pet && data.triggered) || data.skill : data.triggered) || "unknown");
     var amount = data.damage * data.targets;
     var cnt = _counter(source);
     cnt.damage = (cnt.damage || 0) + amount;
-    BucketDamage += amount;
+    var contrib = 0;
+    for (var i = 0; i < Buckets.length; ++i) {
+      contrib += Kernel((BucketBase + BucketSize * i - Sim.time) / KernelFactor);
+    }
+    if (contrib) {
+      for (var i = 0; i < Buckets.length; ++i) {
+        Buckets[i] += amount * Kernel((BucketBase + BucketSize * i - Sim.time) / KernelFactor) / contrib;
+      }
+    }
     TotalDamage += amount;
     if (MaxHealth) {
       Sim.targetHealth = (MaxHealth - TotalDamage) / MaxHealth;

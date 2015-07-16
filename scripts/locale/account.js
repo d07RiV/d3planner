@@ -1,4 +1,4 @@
-_L.patch.add({
+_L.add({
   account: {
     register: {
       fields: {

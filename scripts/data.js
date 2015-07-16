@@ -203,7 +203,7 @@
   };
   DiabloCalc.skills = {};
 
-  DiabloCalc.sourceNames = {gems: "Gems", paragon: "Paragon", dualwield: "Dual Wielding"};
+  DiabloCalc.sourceNames = {};
 
   DiabloCalc.getProfile = function() {
     var data = DiabloCalc.getSkills();
@@ -273,20 +273,20 @@
     }
     if (DiabloCalc.itemById[id] && DiabloCalc.itemById[id].local) {
       if (DiabloCalc.itemById[id].local === true) {
-        return location.protocol + "//" + location.hostname + "/external/bnet/items/" + id.toLowerCase() + ".png";
+        return location.protocol + "//" + location.hostname + DiabloCalc.relPath + "external/bnet/items/" + id.toLowerCase() + ".png";
       } else {
         id = DiabloCalc.itemById[id].local;
       }
     }
     if (DiabloCalc.legendaryGems[id]) {
       if (DiabloCalc.legendaryGems[id].local === true) {
-        return location.protocol + "//" + location.hostname + "/external/bnet/items/" + DiabloCalc.legendaryGems[id].id.toLowerCase() + ".png";
+        return location.protocol + "//" + location.hostname + DiabloCalc.relPath + "external/bnet/items/" + DiabloCalc.legendaryGems[id].id.toLowerCase() + ".png";
       } else {
         id = DiabloCalc.legendaryGems[id].id;
       }
     }
-    if (location.hostname.indexOf("d3local") >= 0) {
-      return location.protocol + "//" + location.hostname + "/external/bnet/local/" + id.toLowerCase() + ".png";
+    if (location.hostname.indexOf("d3planner.com") < 0) {
+      return location.protocol + "//" + location.hostname + DiabloCalc.relPath + "external/bnet/local/" + id.toLowerCase() + ".png";
     } else {
       var external = "http://media.blizzard.com/d3/icons/items/" + (size || "large") + "/";
       return external + id.toLowerCase() + "_" + DiabloCalc.classes[DiabloCalc.charClass].imageSuffix + ".png";
@@ -411,30 +411,61 @@
   function addActive(type, id, info) {
     if (info.params) {
       $.each(info.params, function(i, param) {
+        if (param._done) return;
+        param._done = true;
+        if (typeof param.min === "string" || typeof param.max === "string") {
+          if (param.val === undefined) param.val = "max";
+          param._val = param.val;
+          Object.defineProperty(param, "val", {
+            get: function() {
+              if (param._val === null || param._val === "max") return param.max;
+              if (param._val === "min") return param.min;
+              return param._val;
+            },
+            set: function(v) {
+              if (v <= param.min) param._val = "min";
+              else if (v >= param.max && !param.inf) param._val = "max";
+              else param._val = v;
+            },
+          });
+        } else if (param.val === undefined || typeof param.val === "string") {
+          if (param.val === undefined || param.val === "max") param.val = param.max;
+          else param.val = param.min;
+        }
         if (typeof param.min === "string") {
           var min = param.min;
           Object.defineProperty(param, "min", {
-            get: function() {return DiabloCalc.getStats().execString(min);},
+            get: function() {
+              var val = (DiabloCalc.getStats ? DiabloCalc.getStats().execString(min) : 0);
+              var step = (param.step || 1);
+              return Math.ceil(val / step) * step;
+            },
           });
         }
         if (typeof param.max === "string") {
           var max = param.max;
           Object.defineProperty(param, "max", {
-            get: function() {return DiabloCalc.getStats().execString(max);},
-          });
-
-          if (param.val === undefined) param.val = null;
-          param._val = param.val;
-          Object.defineProperty(param, "val", {
-            get: function() {return (param._val === null ? param.max : param._val);},
-            set: function(v) {param._val = (v >= param.max ? null : v);},
+            get: function() {
+              var val = (DiabloCalc.getStats ? DiabloCalc.getStats().execString(max) : 0);
+              var step = (param.step || 1);
+              val = Math.floor(val / step) * step;
+              if (param.inf) {
+                var min = param.min;
+                var cval = (param._val === undefined ? param.val : param._val);
+                if (cval === "max" || cval === null) cval = val;
+                if (cval === "min") cval = min;
+                var lim = (cval - min) * 1.33 + min;
+                return Math.max(val, Math.floor(lim / step) * step);
+              } else {
+                return val;
+              }
+            },
           });
         } else {
-          if (param.val === undefined) param.val = param.max;
           if (param.inf) {
             var max = param.max;
             Object.defineProperty(param, "max", {
-              get: function() {return Math.max(max, param.val * 1.33);},
+              get: function() {return Math.max(max, Math.floor(param.val * 1.33 / (param.step || 1)) * (param.step || 1));},
             });
           }
         }
@@ -563,39 +594,98 @@
     return exportData(this, name.split('.'), 0);
   };
 
+  function getStatFormat(stat) {
+    if (stat.format) return stat.format;
+    var args = [];
+    for (var i = 0; i < (stat.args === undefined ? 1 : stat.args); ++i) {
+      args.push("%d");
+    }
+    return "+" + args.join("-") + " " + stat.name;
+  }
+  function getStatRegex(stat) {
+    var format = getStatFormat(stat);
+    if (stat.class) {
+      format += " (" + DiabloCalc.classes[stat.class].name + " Only)";
+    }
+    format = format.replace(/(%d|%.[0-9]f)/g, "@");
+    format = format.replace(/%p/g, "#");
+    format = format.replace(/%%/g, "%");
+    format = format.replace(/[$-.]|[[-^]|[?|{}]/g, "\\$&");
+    format = format.replace(/@/g, "([0-9]+(?:\\.[0-9]+)?)");
+    format = format.replace(/#/g, "(.+)");
+    return new RegExp("^" + format + "$", "i");
+  }
   function onDataLoaded() {
     DiabloCalc.itemById = {};
     for (var i = 0; i < DiabloCalc.items.length; ++i) {
       DiabloCalc.itemById[DiabloCalc.items[i].id] = DiabloCalc.items[i];
     }
-    if (0) {
-      var exportRes = {};
-      var exportList = [
-        "skills.*.*.name",
-        "skills.*.*.tip",
-        "skills.*.*.runes.*",
-        "passives.*.*.name",
-      ];
-      for (var i = 0; i < exportList.length; ++i) {
-        $.extend(true, exportRes, DiabloCalc.exportData(exportList[i]));
-      }
-      console.log(exportRes.toSource());
-    }
-    _L.patch.apply(DiabloCalc);
 
-    var statId = 0;
+    /*
+    var exportRes = {};
+    var exportList = [
+      "itemById.*.type",
+      "itemTypes.*.generic",
+      "legendaryGems.*.id",
+    ];
+//    for (var i = 0; i < exportList.length; ++i) {
+//      $.extend(true, exportRes, DiabloCalc.exportData(exportList[i]));
+//    }
+    for (var id in DiabloCalc.itemById) {
+      if (DiabloCalc.itemById[id].suffix === "PTR") {
+        $.extend(true, exportRes, DiabloCalc.exportData("itemById." + id + ".name"));
+        $.extend(true, exportRes, DiabloCalc.exportData("itemById." + id + ".required.custom.name"));
+        $.extend(true, exportRes, DiabloCalc.exportData("itemById." + id + ".required.custom.format"));
+      }
+    }
+    console.log(exportRes.toSource());
+    //*/
+
     for (var cls in DiabloCalc.skills) {
       if (!DiabloCalc.classes[cls]) continue;
       for (var id in DiabloCalc.skills[cls]) {
         var skill = DiabloCalc.skills[cls][id].name;
-        DiabloCalc.stats["skill_" + cls + "_" + id] = {
-          name: _L("%s Damage").replace("%s", skill),
-          format: _L("Increases %s Damage by %d%%").replace("%s", skill),
-          cls: cls,
+        var statid = "skill_" + cls + "_" + id;
+        DiabloCalc.stats[statid] = {
+          name: "{0} Damage".format(skill),
+          format: "Increases {0} Damage by %d%%".format(skill),
+          class: cls,
           skill: skill,
         };
       }
     }
+    for (var cls in DiabloCalc.passives) {
+      for (var id in DiabloCalc.passives[cls]) {
+        DiabloCalc.passives[cls][id].origname = DiabloCalc.passives[cls][id].name;
+      }
+    }
+    for (var id in DiabloCalc.stats) {
+      var stat = DiabloCalc.stats[id];
+      if (stat.base) continue;
+      stat.regex = getStatRegex(stat);
+    }
+    for (var i = 0; i < DiabloCalc.items.length; ++i) {
+      var item = DiabloCalc.items[i];
+      if (item.required && item.required.custom) {
+        item.required.custom.regex = getStatRegex(item.required.custom);
+      }
+    }
+    _L.patch.apply(DiabloCalc);
+    for (var cls in DiabloCalc.skills) {
+      if (!DiabloCalc.classes[cls]) continue;
+      for (var id in DiabloCalc.skills[cls]) {
+        var skill = DiabloCalc.skills[cls][id].name;
+        var statid = "skill_" + cls + "_" + id;
+        var stat = DiabloCalc.stats[statid];
+        stat.name = _L("{0} Damage").format(skill);
+        stat.format = _L("Increases {0} Damage by %d%%").format(skill);
+        stat.skill = skill;
+      }
+    }
+
+    DiabloCalc.sourceNames = {gems: _L("Gems"), paragon: _L("Paragon"), dualwield: _L("Dual Wielding")};
+
+    var statId = 0;
     for (var stat in DiabloCalc.stats) {
       if (!DiabloCalc.stats[stat].skill) {
         statId += 10;
@@ -609,11 +699,7 @@
         DiabloCalc.stats[stat].args = 1;
       }
       if (!DiabloCalc.stats[stat].format) {
-        var args = [];
-        for (var i = 0; i < DiabloCalc.stats[stat].args; ++i) {
-          args.push("%d");
-        }
-        DiabloCalc.stats[stat].format = "+" + args.join("-") + " " + DiabloCalc.stats[stat].name;
+        DiabloCalc.stats[stat].format = getStatFormat(DiabloCalc.stats[stat]);
       }
     }
     for (var stat in DiabloCalc.stats) {
@@ -659,25 +745,29 @@
       return an.localeCompare(bn);
     });
     for (var i = 0; i < DiabloCalc.items.length; ++i) {
-      if (DiabloCalc.items[i].ids) {
-        for (var j = 0; j < DiabloCalc.items[i].ids.length; ++j) {
-          DiabloCalc.itemById[DiabloCalc.items[i].ids[j]] = DiabloCalc.items[i];
+      var item = DiabloCalc.items[i];
+      if (item.ids) {
+        for (var j = 0; j < item.ids.length; ++j) {
+          DiabloCalc.itemById[item.ids[j]] = item;
         }
       }
-      DiabloCalc.itemTypes[DiabloCalc.items[i].type].items.push(DiabloCalc.items[i]);
-      DiabloCalc.sourceNames[DiabloCalc.items[i].id] = DiabloCalc.items[i].name;
-      if (DiabloCalc.items[i].set) {
-        var set = DiabloCalc.itemSets[DiabloCalc.items[i].set];
-        set.items.push(DiabloCalc.items[i]);
+      DiabloCalc.itemTypes[item.type].items.push(item);
+      DiabloCalc.sourceNames[item.id] = item.name;
+      if (item.set) {
+        var set = DiabloCalc.itemSets[item.set];
+        set.items.push(item);
         if (set.class) {
-          DiabloCalc.items[i].class = set.class;
+          item.class = set.class;
         }
         if (set.classes) {
-          DiabloCalc.items[i].classes = set.classes;
+          item.classes = set.classes;
         }
       }
-      if (DiabloCalc.items[i].class) {
-        DiabloCalc.items[i].classes = [DiabloCalc.items[i].class];
+      if (item.class) {
+        item.classes = [item.class];
+      }
+      if (item.required && item.required.custom) {
+        item.required.custom.nostack = true;
       }
     }
     for (var set in DiabloCalc.itemSets) {
@@ -692,7 +782,7 @@
     for (var type in DiabloCalc.itemTypes) {
       var newit = {
         id: DiabloCalc.itemTypes[type].generic,
-        name: "Rare " + DiabloCalc.itemTypes[type].name,
+        name: DiabloCalc.qualities.rare.prefix + DiabloCalc.itemTypes[type].name,
         type: type,
         quality: "rare",
       };
@@ -747,7 +837,11 @@
       addActive("global", id, DiabloCalc.legendaryGems[id]);
     }
     for (var id in DiabloCalc.itemaffixes) {
-      addActive("global", id, DiabloCalc.itemaffixes[id]);
+      if (DiabloCalc.itemaffixes[id].clone) {
+        DiabloCalc.itemaffixes[id] = $.extend({}, DiabloCalc.itemaffixes[DiabloCalc.itemaffixes[id].clone]);
+      } else {
+        addActive("global", id, DiabloCalc.itemaffixes[id]);
+      }
     }
     DiabloCalc.allSkills = {};
     for (var cls in DiabloCalc.skills) {
@@ -776,6 +870,7 @@
         }
       }
     }
+    var _L_skills = DiabloCalc.locale("ui-skills.js");
     for (var cls in DiabloCalc.classes) {
       if (!DiabloCalc.partybuffs[cls]) continue;
 
@@ -791,10 +886,10 @@
           info.type = "skill";
           info.runes = {};
           if (info.runelist === "*") {
-            info.runes = $.extend({x: "No Rune"}, src.runes);
+            info.runes = $.extend({x: _L_skills("No Rune")}, src.runes);
           } else {
             for (var i = 0; i < info.runelist.length; ++i) {
-              info.runes[info.runelist[i]] = (info.runelist[i] === "x" ? "No Rune" : src.runes[info.runelist[i]]);
+              info.runes[info.runelist[i]] = (info.runelist[i] === "x" ? _L_skills("No Rune") : src.runes[info.runelist[i]]);
             }
           }
 
@@ -868,9 +963,11 @@
         }
       });
     }
+    DiabloCalc.itemFromAffix = {};
     for (var id in DiabloCalc.itemById) {
       if (DiabloCalc.itemById[id].required && DiabloCalc.itemById[id].required.custom) {
         var custom = DiabloCalc.itemById[id].required.custom;
+        DiabloCalc.itemFromAffix[custom.id] = DiabloCalc.itemById[id];
         if (DiabloCalc.partybuffs.items[custom.id]) {
           DiabloCalc.partybuffs.items[custom.id].item = id;
           if (custom.args !== 0) {
@@ -936,47 +1033,14 @@
       addActive("party", id, info);
     });
 
-/*    var mega = {};
-    for (var lvl = 0; lvl < DiabloCalc.gemQualities.length; ++lvl) {
-      var type = "gem" + lvl;
-      var suffix = (lvl < 9 ? "0" : "") + (lvl + 1);
-      mega[type] = [];
-      for (var id in DiabloCalc.gemColors) {
-        mega[type].push(DiabloCalc.gemColors[id].id + suffix);
-      }
-    }
-    mega.gemleg = [];
-    for (var id in DiabloCalc.legendaryGems) {
-      mega.gemleg.push(DiabloCalc.legendaryGems[id].id);
-    }
-    for (var type in DiabloCalc.itemTypes) {
-      mega[type] = [];
-      for (var i = 0; i < DiabloCalc.itemTypes[type].items.length; ++i) {
-        var item = DiabloCalc.itemTypes[type].items[i];
-        var cls = (item.class || (item.set && DiabloCalc.itemSets[item.set].tclass));
-        if (cls) {
-          cls += (item.id == "Unique_Chest_Set_02_p2" ? "_female" : "_male");
-          mega[type].push([item.id, item.id + "_" + cls]);
-        } else {
-          mega[type].push(item.id);
-        }
-      }
-    }
-    $.ajax({
-      url: "writer",
-      data: JSON.stringify(mega, null, 2),
-      type: "POST",
-      processData: false,
-      contentType: "application/json",
-      dataType: "json",
-    });*/
-
     afterLoad();
   }
   DiabloCalc.loadData = function(handler) {
     afterLoad = handler;
-    $.getScripts(["locale"], function() {
-      $.getScripts(["data"], onDataLoaded);
-    });
+    DiabloCalc.onLocaleLoaded = function() {
+      DiabloCalc.onDataLoaded = onDataLoaded;
+      DC_getScript("data");
+    };
+    DC_getScript("locale");
   };
 })();

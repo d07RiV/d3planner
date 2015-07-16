@@ -180,7 +180,7 @@
     initialcost: {x: 150, a: 150, d: 225, c: 150, b: 150, e: 150},
     cost: {x: 75, a: 75, c: 75, b: 75, e: 75},
     oncast: function(rune) {
-      var dmg = {type: "cone", range: 28, coeff: 4.25 / 2};
+      var dmg = {type: "cone", width: 40, range: 28, coeff: 4.25 / 2};
       switch (rune) {
       case "a": dmg.coeff = 4.95; break;
       case "c":
@@ -190,7 +190,7 @@
           Sim.addBuff(undefined, undefined, {
             duration: rate * 5 + 1,
             tickrate: rate,
-            ontick: {type: "cone", range: 28, coeff: coeff},
+            ontick: {type: "cone", width: 40, range: 28, coeff: coeff},
           });
         };
         break;
@@ -551,7 +551,7 @@
       switch (rune) {
       case "c": dmg.onhit = Sim.apply_effect("stunned", 180); break;
       case "e":
-        for (var i = Sim.random("nextofkin", 0.35 * count); i > 0; --i) {
+        for (var i = Sim.random("nextofkin", 0.35, count, true); i > 0; --i) {
           Sim.cast("summonzombiedogs");
         }
         break;
@@ -676,6 +676,7 @@
       case "e":
         dmg.type = "cone";
         dmg.range = 30;
+        dmg.width = 55;
         dmg.coeff *= 1.1;
         params.ontick.coeff *= 1.1;
         break;
@@ -872,7 +873,7 @@
     Sim.damage({pet: true, distance: 5, coeff: 1.8 * Sim.stats.info.aps});
   }
   function fetish_shaman_ontick(data) {
-    Sim.damage({pet: true, type: "cone", range: 20, origin: 10, coeff: 0.85 * Sim.stats.info.aps});
+    Sim.damage({pet: true, type: "cone", width: 45, range: 20, origin: 10, coeff: 0.85 * Sim.stats.info.aps});
   }
   function fetish_hunter_ontick(data) {
     Sim.damage({pet: true, type: "line", speed: 1.5, coeff: 1.3 * Sim.stats.info.aps});
@@ -955,7 +956,7 @@
     },
     fetishsycophants: function() {
       Sim.register("onhit_proc", function(data) {
-        for (var i = Sim.random("fetishsycophants", 0.15 * data.proc * data.targets); i > 0; --i) {
+        for (var i = Sim.random("fetishsycophants", 0.15 * data.proc, data.targets, true); i > 0; --i) {
           Sim.summon_sycophant();
         }
       });

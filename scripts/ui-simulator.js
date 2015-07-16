@@ -1,4 +1,6 @@
 (function() {
+  var _L = DiabloCalc.locale("ui-simulator.js");
+
   var DC = DiabloCalc;
   var tab = $("#tab-simulator");
   //var Sections = $("<div></div>");
@@ -54,7 +56,7 @@
           ++total;
           if (stats[opts.stat]) ++good;
         }
-        if (total && !good) return;
+        if (total && good < (opts.min || 1)) return;
       }
       if (opts.set) {
         if (setCache[opts.set[0]] === undefined) {
@@ -112,7 +114,7 @@
         disable_search_threshold: 10,
         inherit_select_classes: true,
         search_contains: true,
-        placeholder_text_single: "Choose Buff",
+        placeholder_text_single: _L("Choose Buff"),
         populate_func: function() {fillBoxBuffs(box);},
       });
       DC.chosenTips(box, buffTips);
@@ -152,18 +154,28 @@
     }
   }
   function skillList() {
+    var list = {};
     if (DC.options.filterBuffs) {
-      var list = {};
       var skills = DC.getSkills().skills;
       for (var i = 0; i < skills.length; ++i) {
         if (skills[i] && DC.skills[DC.charClass][skills[i][0]]) {
           list[skills[i][0]] = DC.skills[DC.charClass][skills[i][0]];
         }
       }
-      return list;
     } else {
-      return DC.skills[DC.charClass];
+      $.extend(list, DC.skills[DC.charClass]);
     }
+    if (DC.extraskills && DC.extraskills[DC.charClass]) {
+      var stats = DC.getStats();
+      $.each(DC.extraskills[DC.charClass], function(id, skill) {
+        if (DC.options.filterBuffs) {
+          if (skill.required && !skill.required.call(skill, stats)) return;
+        }
+        skill.category = DC.skills[DC.charClass][skill.skill].name;
+        list[id] = skill;
+      });
+    }
+    return list;
   }
   function fillBoxSkills(box, dummy) {
     var value = box.val();
@@ -176,7 +188,7 @@
     $.each(skills, function(id, skill) {
       if (!DC.options.filterBuffs && skill.category !== catName) {
         catName = skill.category;
-        cat = $("<optgroup label=\"" + DC.skillcat[DC.charClass][catName] + "\"></optgroup>");
+        cat = $("<optgroup label=\"" + (DC.skillcat[DC.charClass][catName] || catName) + "\"></optgroup>");
         box.append(cat);
       }
       if (!value) value = id;
@@ -188,21 +200,24 @@
   function makeSkillIcon(id, cls) {
     cls = (cls || DC.charClass);
     var skill = DC.skills[cls][id];
+    if (!skill) skill = (DC.extraskills && DC.extraskills[cls] && DC.extraskills[cls][id]);
     if (!skill) return;
     return "<span style=\"background: url(css/images/class-" + cls + ".png) " +
       (-24 * skill.col) + "px " + (-48 * skill.row) + "px / 120px no-repeat\"></span>";
   }
   function skillTips(id) {
     var skill = DC.skills[DC.charClass][id];
+    if (!skill) skill = (DC.extraskills && DC.extraskills[DC.charClass] && DC.extraskills[DC.charClass][id]);
     if (!skill) return;
     DiabloCalc.tooltip.showSkill(this, DC.charClass, id);
   }
   function createSkillBox(parent, value) {
     var box = $("<select class=\"arg-skill\"></select>");
-    if (!value || !DC.skills[DC.charClass][value]) value = fillBoxSkills(box, true);
-    if (value && !DC.skills[DC.charClass][value]) value = undefined;
-    if (value && DC.skills[DC.charClass][value]) {
-      box.append("<option value=\"" + value + "\" selected=\"selected\">" + DC.skills[DC.charClass][value].name + "</option>");
+    var extras = (DC.extraskills && DC.extraskills[DC.charClass]) || {};
+    if (!value || (!DC.skills[DC.charClass][value] && !extras[value])) value = fillBoxSkills(box, true);
+    if (value && (!DC.skills[DC.charClass][value] && !extras[value])) value = undefined;
+    if (value && (DC.skills[DC.charClass][value] || extras[value])) {
+      box.append("<option value=\"" + value + "\" selected=\"selected\">" + (DC.skills[DC.charClass][value] || extras[value]).name + "</option>");
     } else {
       box.prop("disabled", true);
     }
@@ -215,7 +230,7 @@
         disable_search_threshold: 10,
         inherit_select_classes: true,
         search_contains: true,
-        placeholder_text_single: "Choose Skill",
+        placeholder_text_single: _L("Choose Skill"),
         populate_func: function() {fillBoxSkills(box);},
       });
       DC.chosenTips(box, skillTips);
@@ -236,9 +251,10 @@
         box.val(value);
       } else {
         box.empty();
-        if (value && DC.skills[DC.charClass][value]) {
+        var extras = (DC.extraskills && DC.extraskills[DC.charClass]) || {};
+        if (value && (DC.skills[DC.charClass][value] || extras[value])) {
           box.removeAttr("disabled");
-          box.append("<option value=\"" + value + "\" selected=\"selected\">" + DC.skills[DC.charClass][value].name + "</option>");
+          box.append("<option value=\"" + value + "\" selected=\"selected\">" + (DC.skills[DC.charClass][value] || extras[value]).name + "</option>");
         }
         box.trigger("chosen:updated");
       }
@@ -248,12 +264,13 @@
   }
   function updateSkillBox(box) {
     var value = box.val();
-    if (!value || !DC.skills[DC.charClass][value]) value = fillBoxSkills(box, true);
-    if (value && !DC.skills[DC.charClass][value]) value = undefined;
+    var extras = (DC.extraskills && DC.extraskills[DC.charClass]) || {};
+    if (!value || (!DC.skills[DC.charClass][value] && !extras[value])) value = fillBoxSkills(box, true);
+    if (value && !DC.skills[DC.charClass][value] && !extras[value]) value = undefined;
     box.empty();
-    if (value && DC.skills[DC.charClass][value]) {
+    if (value && (DC.skills[DC.charClass][value] || extras[value])) {
       box.removeAttr("disabled");
-      box.append("<option value=\"" + value + "\" selected=\"selected\">" + DC.skills[DC.charClass][value].name + "</option>");
+      box.append("<option value=\"" + value + "\" selected=\"selected\">" + (DC.skills[DC.charClass][value] || extras[value]).name + "</option>");
     } else {
       box.prop("disabled", true);
     }
@@ -288,7 +305,7 @@
         disable_search_threshold: 10,
         inherit_select_classes: true,
         search_contains: true,
-        placeholder_text_single: "Choose Resource",
+        placeholder_text_single: _L("Choose Resource"),
         populate_func: function() {fillBoxRes(box);},
       });
     }
@@ -312,21 +329,7 @@
     class: "arg-op",
   };
   var boxType = {
-    opts: {
-      buff: "Buff stacks",
-      buffmin: "Buff duration (min)",
-      buffmax: "Buff duration",
-      ticks: "Buff ticks",
-      resource: "Resource",
-      resourcepct: "Resource (percent)",
-      cooldown: "Cooldown",
-      charges: "Charges",
-      interval: "Time since cast",
-      health: "Target HP (percent)",
-      any: "Any condition",
-      all: "All conditions",
-      count: "Number of conditions",
-    },
+    opts: DC.simMapping.opts,
     width: "150px",
     class: "arg-type",
   };
@@ -442,7 +445,7 @@
 
   function ConditionList(parent) {
     this.list = $("<ul class=\"sim-condition-list\"></ul>");
-    this.add = $("<div class=\"btn-add\">Add condition</div>");
+    this.add = $("<div class=\"btn-add\">" + _L("Add condition") + "</div>");
     parent.append(this.list, this.add);
     var self = this;
     this.add.click(function() {
@@ -480,6 +483,7 @@
       this.skill.change(function() {
         var id = $(this).val();
         var skill = DC.skills[DC.charClass][id];
+        if (!skill) skill = (DC.extraskills && DC.extraskills[DC.charClass] && DC.extraskills[DC.charClass][id]);
         if (skill) {
           self.icon.css("background", "url(css/images/class-" + DC.charClass + ".png) " +
             (-24 * skill.col) + "px " + (-48 * skill.row) + "px / 120px no-repeat");
@@ -498,7 +502,7 @@
   function PriorityList(parent) {
     this.box = $("<div class=\"sim-priority\"></div>");
     this.list = $("<ul class=\"sim-priority-list\"></ul>");
-    this.add = $("<div class=\"btn-add\">Add skill</div>");
+    this.add = $("<div class=\"btn-add\">" + _L("Add skill") + "</div>");
     this.box.append(this.list, this.add);
     parent.append(this.box);
     var self = this;
@@ -593,8 +597,9 @@
     this.list.empty();
     this.items = [];
     if (data) {
+      var extras = (DC.extraskills && DC.extraskills[DC.charClass]) || {};
       for (var i = 0; i < data.length; ++i) {
-        if (!DC.skills[DC.charClass][data[i].skill]) continue;
+        if (!DC.skills[DC.charClass][data[i].skill] && !extras[data[i].skill]) continue;
         var pri = new PriorityLine(this);
         pri.setData(data[i]);
         this.items.push(pri);
@@ -603,10 +608,10 @@
   };
 
   var Section = $("<div></div>");
-  Sections.append("<h3>Skill Priority</h3>", Section);
+  Sections.append("<h3>" + _L("Skill Priority") + "</h3>", Section);
   
-  Section.append("<p><i>The priority list is evaluated from top to bottom to determine the next skill to use. " +
-    "Skill availability checks (cooldown and resources) are implicit.</i></p>");
+  Section.append("<p><i>" + _L("The priority list is evaluated from top to bottom to determine the next skill to use. " +
+    "Skill availability checks (cooldown and resources) are implicit.") + "</i></p>");
 
   var filterBuffs = $("<input></input>").attr("type", "checkbox").prop("checked", true).click(function() {
     DC.trigger("updateSkills");
@@ -615,8 +620,8 @@
     filterBuffs.prop("checked", x);
     DC.trigger("updateSkills");
   });
-  Section.append($("<label></label>").addClass("option-box").append(filterBuffs).append("Only show applicable buffs/skills."));
-  DC.addTip(filterBuffs, "Only show buffs that can be activated with current skills and equipment.");
+  Section.append($("<label></label>").addClass("option-box").append(filterBuffs).append(_L("Only show applicable buffs/skills.")));
+  DC.addTip(filterBuffs, _L("Only show buffs that can be activated with current skills and equipment."));
 
   DC.priority = new PriorityList(Section);
 
@@ -642,12 +647,12 @@
           ErrorBox.val(response.errors[0]);
           ErrorBox.slideDown();
         } else {
-          ErrorBox.val("Failed to save priority list.");
+          ErrorBox.val(_L("Failed to save priority list."));
           ErrorBox.slideDown();
         }
       },
       error: function(e) {
-        ErrorBox.text("Failed to save priority list.");
+        ErrorBox.text(_L("Failed to save priority list."));
         ErrorBox.slideDown();
       },
     });
@@ -670,11 +675,11 @@
   }
   function LoadPrio(evt, id) {
     if (evt && DC.priority.getData().length) {
-      DiabloCalc.popupMenu(evt, {
+      DiabloCalc.popupMenu(evt, _L.fixkey({
         "Discard current list?": function() {
           DoLoadPrio(id);
         },
-      });
+      }));
     } else {
       DoLoadPrio(id);
     }
@@ -687,19 +692,19 @@
     li.click(function(evt) {
       LoadPrio(evt, id);
     });
-    li.append("<span class=\"profile-name" + (item.value ? "" : " unnamed") + "\">" + (item.value || "Unnamed list") + "</span>");
+    li.append("<span class=\"profile-name" + (item.value ? "" : " unnamed") + "\">" + (item.value || _L("Unnamed list")) + "</span>");
     if (parseInt(item.user)) {
-      li.append($("<span class=\"profile-overwrite\" title=\"Update list\"></span>").click(function(evt) {
+      li.append($("<span class=\"profile-overwrite\" title=\"" + _L("Update list") + "\"></span>").click(function(evt) {
         evt.stopPropagation();
-        DC.popupMenu(evt, {
+        DC.popupMenu(evt, _L.fixkey({
           "Confirm overwrite": function() {
             SavePrio("", id);
           },
-        });
+        }));
       }));
-      li.append($("<span class=\"profile-delete\" title=\"Delete list\"></span>").click(function(evt) {
+      li.append($("<span class=\"profile-delete\" title=\"" + _L("Delete list") + "\"></span>").click(function(evt) {
         evt.stopPropagation();
-        DiabloCalc.popupMenu(evt, {
+        DiabloCalc.popupMenu(evt, _L.fixkey({
           "Confirm delete?": function() {
             $.ajax({
               url: "priority",
@@ -714,24 +719,24 @@
                   ErrorBox.val(response.errors[0]);
                   ErrorBox.slideDown();
                 } else {
-                  ErrorBox.val("Failed to delete profile.");
+                  ErrorBox.val(_L("Failed to delete list."));
                   ErrorBox.slideDown();
                 }
               },
               error: function(e) {
-                ErrorBox.val("Failed to delete profile.");
+                ErrorBox.val(_L("Failed to delete list."));
                 ErrorBox.slideDown();
               },
             });
           },
-        });
+        }));
       }));
       li.append("<span class=\"date-saved\">" + (new Date(1000 * item.date)).toLocaleString() + "</span>");
     }
     return li;
-  }, "No preset lists found.");
+  }, _L("No preset lists found."));
   var PrioSave = $("<div class=\"prio-save\"><div><input></input></div></div>");
-  var PrioBtn = $("<input type=\"button\" value=\"Save\" disabled=\"disabled\"></input>").click(function() {
+  var PrioBtn = $("<input type=\"button\" value=\"" + _L("Save") + "\" disabled=\"disabled\"></input>").click(function() {
     var name = PrioSave.find("div input").val();
     if (!name) return;
     SavePrio(name);
@@ -746,7 +751,7 @@
     MyPrio.search({class: DC.charClass});
   }
 
-  Section.append(DC.account.makeLine(" to save skill priorities", function(okay) {
+  Section.append(DC.account.makeLine(_L(" to save skill priorities"), function(okay) {
     UpdatePriorities();
     this.toggle(!okay);
   }));
@@ -755,9 +760,10 @@
 
   ///////////////////////////////////////////////////
 
-  Sections.append("<h3>Simulate ( <span class=\"status-icon class-wizard class-icon\"></span> " +
+  Sections.append("<h3>" + _L("Simulate") + " ( <span class=\"status-icon class-wizard class-icon\"></span> " +
                                 "<span class=\"status-icon class-demonhunter class-icon\"></span> " +
-                                "<span class=\"status-icon class-witchdoctor class-icon\"></span>)</h3>");
+                                "<span class=\"status-icon class-witchdoctor class-icon\"></span> " +
+                                "<span class=\"status-icon class-monk class-icon\"></span>)</h3>");
   Section = $("<div></div>");
   Sections.append(Section);
 
@@ -765,27 +771,27 @@
     DC.options.showElites = this.checked;
   });
   var targetType = $("<select></select>");
-  targetType.append("<option value=\"\">Generic</option>");
-  targetType.append("<option value=\"demons\">Demon</option>");
-  targetType.append("<option value=\"beasts\">Beast</option>");
-  targetType.append("<option value=\"humans\">Human</option>");
-  targetType.append("<option value=\"undead\">Undead</option>");
+  targetType.append("<option value=\"\">" + _L("Generic") + "</option>");
+  targetType.append("<option value=\"demons\">" + _L("Demon") + "</option>");
+  targetType.append("<option value=\"beasts\">" + _L("Beast") + "</option>");
+  targetType.append("<option value=\"humans\">" + _L("Human") + "</option>");
+  targetType.append("<option value=\"undead\">" + _L("Undead") + "</option>");
   targetType.change(function() {
     DC.options.targetType = $(this).val();
   });
-  var targetBoss = $("<input type=\"checkbox\"></input>");
-  var bossLabel = $("<label style=\"margin-left: 8px\">Boss</label>").prepend(targetBoss);
+  var targetBoss = $("<input type=\"checkbox\"></input>").change(function() {
+    DC.options.targetBoss = this.checked;
+  });
+  var bossLabel = $("<label style=\"margin-left: 8px\">" + _L("Boss") + "</label>").prepend(targetBoss);
   DC.register("updateStats", function() {
     showElites.prop("checked", DC.options.showElites);
+    targetBoss.prop("checked", DC.options.targetBoss);
     bossLabel.toggle(!!DC.options.showElites);
     targetType.val(DC.options.targetType);
     targetType.trigger("chosen:updated");
   });
-  DC.addOption("targetBoss", function() {return targetBoss.prop("checked");}, function(x) {
-    targetBoss.prop("checked", !!x);
-  });
-  Section.append($("<span class=\"option-box\">Target: </span>").append(targetType,
-    $("<label style=\"margin-left: 8px\">Elite</label>").prepend(showElites), bossLabel));
+  Section.append($("<span class=\"option-box\">" + _L("Target: ") + "</span>").append(targetType,
+    $("<label style=\"margin-left: 8px\">" + _L("Elite") + "</label>").prepend(showElites), bossLabel));
 
   var statusBox = $("<select class=\"target-status\" multiple=\"multiple\"></select>");
   for (var id in DC.simMapping.status) {
@@ -794,20 +800,14 @@
   Section.append(statusBox);
   statusBox.chosen({
     inherit_select_classes: true,
-    placeholder_text_multiple: "Target status debuffs (from group)",
+    placeholder_text_multiple: _L("Target status debuffs (from group)"),
   });
   DC.addOption("targetStatus", function() {return statusBox.val();}, function(x) {
     statusBox.val(x);
     statusBox.trigger("chosen:updated");
   });
 
-  var targetOptions = {
-    distance: {var: "targetDistance", name: "Distance", tip: "Player distance from the center of the monster cluster.", min: 0, max: 50, val: 40, profile: true},
-    radius: {var: "targetRadius", name: "Spread", tip: "Maximum monster distance from the cluster center.", min: 0, max: 50, val: 0},
-    size: {var: "targetSize", name: "Size", tip: "Monster hitbox radius.", min: 0, max: 10, val: 2.5, step: 0.1},
-    count: {var: "targetCount", name: "Count", tip: "Number of monsters in the cluster.", min: 1, max: 50, val: 1},
-    globes: {var: "globeRate", name: "Globes/min", tip: "Number of globes per minute generated by the party.", min: 0, max: 100, val: 0},
-  };
+  var targetOptions = DC.simMapping.targetOptions;
 
   var optDiv = $("<div class=\"target-options\"></div>");
   Section.append(optDiv);
@@ -836,7 +836,7 @@
     }, info.profile);
   });
 
-  var SimButton = $("<button class=\"button-start\">Start</button>").button({
+  var SimButton = $("<button class=\"button-start\">" + _L("Start") + "</button>").button({
     icons: {primary: "ui-icon-play"},
   });;
   Section.append(SimButton);
@@ -849,7 +849,7 @@
   }
 
   var Results = new function() {
-    this.dps = $("<span class=\"dps-meter\">DPS: <span></span></span>").hide();
+    this.dps = $("<span class=\"dps-meter\">" + _L("DPS: ") + "<span></span></span>").hide();
     this.graph = $("<div class=\"sim-graph\"></div>").hide();
     this.section = $("<div class=\"sim-results statsframe\"></div>").hide();
     this.chartData = [];
@@ -900,11 +900,11 @@
     this.sectUptimes = $("<ul class=\"flex\"></ul>");
     this.sectSample = $("<ul class=\"flex2 flex\"></ul>");
     var col = $("<div class=\"column\"></div>");
-    col.append($("<div></div>").append("<h3>Breakdown</h3>", this.sectCounters));
-    col.append($("<div></div>").append("<h3>Uptimes</h3>", this.sectUptimes));
+    col.append($("<div></div>").append("<h3>" + _L("Breakdown") + "</h3>", this.sectCounters));
+    col.append($("<div></div>").append("<h3>" + _L("Uptimes") + "</h3>", this.sectUptimes));
     this.section.append(col);
     col = $("<div class=\"column\"></div>");
-    col.append($("<div></div>").append("<h3>Sample</h3>", this.sectSample));
+    col.append($("<div></div>").append("<h3>" + _L("Sample") + "</h3>", this.sectSample));
     this.section.append(col);
     this.section.find(".column").sortable({
       //containment: this.section,
@@ -924,7 +924,7 @@
     this.finish = function(data) {
       SimButton.button({
         icons: {primary: "ui-icon-play"},
-        label: "Start",
+        label: _L("Start"),
       });
       this.worker.terminate();
       delete this.worker;
@@ -941,6 +941,8 @@
         var name;
         if (DC.skills[charClass][id]) {
           name = DC.skills[charClass][id].name;
+        } else if (DC.extraskills && DC.extraskills[charClass] && DC.extraskills[charClass][id]) {
+          name = DC.extraskills[charClass][id].name;
         } else if (DC.passives[charClass][id]) {
           name = DC.passives[charClass][id].name;
         } else if (DC.legendaryGems[id]) {
@@ -957,6 +959,8 @@
           }
         } else if (DC.stats[id] && DC.stats[id].name) {
           name = DC.stats[id].name;
+        } else if (DC.itemFromAffix[id]) {
+          name = DC.itemFromAffix[id].name;
         } else {
           name = id;
         }
@@ -970,17 +974,18 @@
           if (!DC.itemById[id]) return "";
           type = DC.itemById[id].type;
         }
-        var index = DC.itemIcons[type][id];
+        var index = DC.itemIcons[id];
         return "<div style=\"background: url(css/items/" + type + ".png) 0 " + (-24 * (index || 0)) + "px no-repeat\"></div>";
       }
       this.sectCounters.empty();
+      var extras = (DC.extraskills && DC.extraskills[charClass]) || {};
       $.each(lines, function(_index, _item) {
         var name = _item[0];
         var id = _item[1];
         var value = _item[2];
 
         var line = $("<li class=\"bigger\"><span>" + name + "</span></li>");
-        if (DC.skills[charClass][id]) {
+        if (DC.skills[charClass][id] || extras[id]) {
           var icon = makeSkillIcon(id, charClass).replace(/span/g, "div");
           line.prepend(icon);
           line.hover(function() {
@@ -1024,20 +1029,32 @@
           }, function() {
             DC.tooltip.hide();
           });
+        } else if (DC.itemFromAffix[id]) {
+          line.prepend(itemIcon(DC.itemFromAffix[id].id));
+          line.hover(function() {
+            var values = [];
+            var affix = DC.itemFromAffix[id].required.custom;
+            if (affix.args === 1 || affix.args === undefined) {
+              values.push((affix.best === "min" ? affix.min : affix.max) || 0);
+            }
+            DC.tooltip.showItem(this, DC.itemFromAffix[id].id, values);
+          }, function() {
+            DC.tooltip.hide();
+          });
         }
         self.sectCounters.append(line);
 
         if (value.count) {
-          self.sectCounters.append("<li><span>Uses</span><span>" + value.count + "</span></li>");
+          self.sectCounters.append("<li><span>" + _L("Uses") + "</span><span>" + value.count + "</span></li>");
         }
         if (value.damage) {
-          self.sectCounters.append("<li><span>Damage</span><span>" + FmtNumber(value.damage) + "</span></li>");
-          self.sectCounters.append("<li><span>% Damage</span><span>" + DC.formatNumber(100 * value.damage / self.results.damage, 2) + "%</span></li>");
+          self.sectCounters.append("<li><span>" + _L("Damage") + "</span><span>" + FmtNumber(value.damage) + "</span></li>");
+          self.sectCounters.append("<li><span>" + _L("% Damage") + "</span><span>" + DC.formatNumber(100 * value.damage / self.results.damage, 2) + "%</span></li>");
         }
         if (value.rc) {
           for (var type in value.rc) {
             if (!DC.resources[type]) continue;
-            self.sectCounters.append("<li><span>Gained " + DC.resources[type] + "</span><span>" + DC.formatNumber(value.rc[type], 0, 10000) + "</span></li>");
+            self.sectCounters.append("<li><span>" + _L("Gained {0}").format(DC.resources[type]) + "</span><span>" + DC.formatNumber(value.rc[type], 0, 10000) + "</span></li>");
           }
         }
       });
@@ -1059,6 +1076,7 @@
       this.sectSample.empty();
       $.each(data.sample, function(index, value) {
         var skill = DC.skills[charClass][value[1]];
+        if (!skill) skill = (DC.extraskills && DC.extraskills[charClass] && DC.extraskills[charClass][value[1]]);
         if (skill) {
           var time = DC.formatNumber(value[0] / 60, 2);
           var icon = makeSkillIcon(value[1], charClass);
@@ -1113,7 +1131,7 @@
       this.worker.postMessage(data);
       SimButton.button({
         icons: {primary: "ui-icon-stop"},
-        label: "Stop",
+        label: _L("Stop"),
       });
     };
 
@@ -1126,7 +1144,7 @@
       delete this.results;
       SimButton.button({
         icons: {primary: "ui-icon-play"},
-        label: "Start",
+        label: _L("Start"),
       });
     };
 

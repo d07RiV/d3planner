@@ -24,6 +24,12 @@
       } else if (typeof amount === "number") {
         dst.special[stat][source].push({percent: amount * factor});
       } else {
+        if (amount.list) {
+          for (var i = 0; i < amount.list.length; ++i) {
+            addStat(dst, stat, amount.list[i], factor, source);
+          }
+          return;
+        }
         var obj = $.extend({}, amount);
         obj.percent *= factor;
         dst.special[stat][source].push(obj);
@@ -275,12 +281,19 @@
       getSlot = DC.getSlot;
     }
 
+    var extraFx = {};
+    if (DiabloCalc.addExtraAffixes) {
+      DiabloCalc.addExtraAffixes(extraFx);
+    }
     var setSlots = {};
     for (var slot in DC.itemSlots) {
       var data = getSlot(slot);
       if (data && DC.itemById[data.id]) {
         var item = DC.itemById[data.id];
         var itemType = DC.itemTypes[item.type];
+        if (slot === "offhand") {
+          this.info.ohtype = item.type;
+        }
         if (itemType.weapon) {
           this.info[slot] = {
             speed: itemType.weapon.speed * (1 + 0.01 * (data.stats.weaponias || [0])[0]),
@@ -289,6 +302,7 @@
             damage: (data.stats.damage || [0])[0],
             type: item.type,
             slot: itemType.slot,
+            weaponClass: itemType.weapon.type,
           };
         }
         if (item.set) {
@@ -327,6 +341,9 @@
           var factor = 1;
           if (data.stats.custom && item.required.custom.id == "leg_leoricscrown") {
             factor = 1 + 0.01 * data.stats.custom[0];
+          }
+          if (slot === "head" && extraFx.leg_leoricscrown) {
+            factor = 1 + 0.01 * extraFx.leg_leoricscrown;
           }
           var slotInfo = (DC.metaSlots[itemType.slot] || DC.itemSlots[itemType.slot]);
           var slotType = slotInfo.socketType;
@@ -400,6 +417,9 @@
         }
       }
     }
+    for (var id in extraFx) {
+      this.add(id, extraFx[id]);
+    }
     for (var set in this.info.sets) {
       var setInfo = DC.itemSets[set];
       var count = this.info.sets[set];
@@ -448,6 +468,15 @@
           }
         }
       }
+    }
+    if (this.info.offhand) {
+      if (this.info.offhand.weaponClass === "hth") {
+        this.info.weaponClass = "dualwield" + (this.info.mainhand.weaponClass === "hth" ? "_ff" : "_sf");        
+      } else {
+        this.info.weaponClass = "dualwield";
+      }
+    } else {
+      this.info.weaponClass = this.info.mainhand.weaponClass;
     }
   };
 

@@ -251,4 +251,14 @@ DiabloCalc.addItems([
     preset: ["mainstat", "chc"],
   },
 
+/*  {
+    id: "FakeDmoBracer",
+    local: "Unique_Bracer_010_x1",
+    name: "Sparkling Wraps of Imbalance",
+    suffix: "Fake",
+    type: "bracers",
+    quality: "set",
+    set: "magnumopus",
+  },*/
+
 ]);

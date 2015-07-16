@@ -324,7 +324,9 @@
       this.addAbsolute("rcr_fury", "rcr");
       break;
     case "monk":
-      this.addPercent("spiritregen", "resourcegen");
+      if (this.spiritregen > 0) {
+        this.addPercent("spiritregen", "resourcegen");
+      }
       this.addAbsolute("rcr_spirit", "rcr");
       break;
     case "crusader":
@@ -338,6 +340,7 @@
     for (var s in stats) {
       addStat(this.baseStats, s, stats[s]);
     }
+    Sim.buffsModified = true;
   };
 
   Sim.Stats = Stats;

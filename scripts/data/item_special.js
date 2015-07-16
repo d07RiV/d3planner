@@ -1,4 +1,8 @@
 DiabloCalc.itemaffixes = {
+  leg_goldwrap: {
+    params: [{min: 0, max: 1000000, val: 0, name: "Gold", inf: true}],
+    buffs: function(value, stats) {return {armor: this.params[0].val};},
+  },
   leg_madmonarchsscepter: {
     info: {"Damage": {elem: "psn", coeff: "$1/100"}},
   },
@@ -115,6 +119,7 @@ DiabloCalc.itemaffixes = {
     info: {"DPS": {elem: "psn", aps: true, coeff: 1, total: true}},
   },
   leg_odysseysend: {
+    check: true,
     active: true,
     buffs: function(value, stats) {
       if (stats.skills.entanglingshot) {
@@ -145,7 +150,15 @@ DiabloCalc.itemaffixes = {
     info: {"DPS": {elem: "lit", coeff: "$1/100", total: true}},
   },
   leg_wormwood: {
-    info: {"DPS": {elem: "psn", coeff: 10.4, divide: {"Duration": 8}, percent: {"Quetzalcoatl": "leg_quetzalcoatl?100:0"}, skill: "locustswarm"}},
+    info: function(value, stats) {
+      var res = {"DPS": {elem: "psn", coeff: 10.4, divide: {"Duration": 8}, skill: "locustswarm"}};
+      if (stats.leg_quetzalcoatl) {
+        var pct = {};
+        pct[DiabloCalc.itemById.Unique_VoodooMask_005_x1.name] = 100;
+        res["DPS"].percent = pct;
+      }
+      return res;
+    },
   },
   leg_scourge: {
     info: {"Damage": {coeff: 20}},
@@ -398,7 +411,7 @@ DiabloCalc.itemaffixes = {
         rot.push(elems[i]);
       }
       if (rot.length) {
-        return {dmgmul: {name: "Convention of the Elements", elems: rot, percent: value[0]}};
+        return {dmgmul: {name: DiabloCalc.itemById.P2_Unique_Ring_04.name, elems: rot, percent: value[0]}};
       }
     },
   },
@@ -495,7 +508,8 @@ DiabloCalc.itemaffixes = {
   },
   leg_beltoftranscendence: {
     check: true,
-    params: (DiabloCalc.passives&&DiabloCalc.passives.witchdoctor&&DiabloCalc.passives.witchdoctor.fetishsycophants.params||[{min: 0, max: 15, name: "Count", buffs: false}]),
+    params: (DiabloCalc.passives&&DiabloCalc.passives.witchdoctor&&DiabloCalc.passives.witchdoctor.fetishsycophants.params||[{min: 0, max: 15, name: "Count", buffs: false,
+      show: function(stats) {return !!this.id || !stats.passives.fetishsycophants;}}]),
     info: function(value, stats) {
       if (DiabloCalc.charClass === "witchdoctor" && !stats.passives.fetishsycophants) {
         return DiabloCalc.passives.witchdoctor.fetishsycophants.info.call(this, stats);
@@ -530,21 +544,6 @@ DiabloCalc.itemaffixes = {
     buffs: {dmgmul: {skills: ["rend"], percent: 500}},
   },
 
-  leg_nilfursboast: {
-    active: true,
-    activetip: "3 or less targets",
-    buffs: function(value, stats) {
-      return {dmgmul: {skills: ["meteor"], percent: value[0]}};
-    },
-    inactive: {dmgmul: {skills: ["meteor"], percent: 100}},
-  },
-  leg_drakonslesson: {
-    active: true,
-    activetip: "3 or less targets",
-    buffs: function(value, stats) {
-      return {dmgmul: {skills: ["shieldbash"], percent: value[0]}};
-    },
-  },
   set_storms_2pc: {
     buffs: {dmgmul: {skills: ["fistsofthunder", "deadlyreach", "cripplingwave", "wayofthehundredfists"], percent: 300}},
   },
@@ -559,7 +558,7 @@ DiabloCalc.itemaffixes = {
     },
   },
   leg_wojahnniassaulter: {
-    params: [{min: 0, max: 4, name: "Channeling for"}],
+    params: [{min: 0, max: 4, name: "Channeled for"}],
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["rapidfire"], percent: value[0] * this.params[0].val}};
     },
@@ -667,6 +666,16 @@ DiabloCalc.itemaffixes = {
     info: function(value, stats) {
       if (!stats.skills.fetisharmy) {
         return {"Dagger Damage": {elem: "phy", pet: true, aps: true, coeff: 1.8, skill: "fetisharmy"}, "Total DPS": {sum: true, "Dagger Damage": {pet: 48, count: 5}}};
+      }
+    },
+  },
+  leg_theswami: {
+    check: true,
+    active: true,
+    params: (DiabloCalc.skills&&DiabloCalc.skills.wizard&&DiabloCalc.skills.wizard.archon.params||[{min: 0, max: 50, val: 0, name: "Stacks", inf: true}]),
+    buffs: function(value, stats) {
+      if (stats.skills.archon && !DiabloCalc.skills.wizard.archon.active) {
+        return {damage: this.params[0].val * 6};
       }
     },
   },

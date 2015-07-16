@@ -287,7 +287,7 @@
       if (info) {
         if (!rune || rune == "x") onlyrune = false;
         var element = (info.elements ? info.elements[rune ? rune : "x"] : "phy");
-        var html = "<div class=\"d3-tooltip d3-tooltip-" + (onlyrune ? "rune" : "skill") + "\">";
+        html = "<div class=\"d3-tooltip d3-tooltip-" + (onlyrune ? "rune" : "skill") + "\">";
         html += "<div class=\"tooltip-skill-effect effect-" + element + "\"><div class=\"tooltip-head\"><h3>";
         if (onlyrune) {
           html += DiabloCalc.skills[cls][skill].runes[rune] + "</h3></div></div>";
@@ -315,6 +315,10 @@
         html = "<div class=\"d3-tooltip d3-tooltip-trait\"><div class=\"tooltip-head\"><h3>" + DiabloCalc.passives[cls][skill].name + "</h3></div>";
         html += DiabloCalc.passivetips[cls][skill];
         html += "</div>";
+      } else if (DiabloCalc.extraskills && DiabloCalc.extraskills[cls][skill]) {
+        var info = DiabloCalc.extraskills[cls][skill];
+        html = "<div class=\"d3-tooltip d3-tooltip-skill\">";
+        html += "<div class=\"tooltip-head\"><h3>" + info.name + "</h3></div>" + info.tip + "</div>";
       }
 
       tooltipContent.html(html);
@@ -337,7 +341,7 @@
         html += "<p>" + info.desc[i].replace(/\+?[0-9]+(?:\.[0-9]+)?%?/g, "<span class=\"d3-color-green\">$&</span>") + "</p>";
       }
       if (info.level) {
-        html += "<p class=\"subtle\">" + _L("Unlocked at level <em>{0}</em>").format(info.level) + "</p>";
+        html += "<p class=\"subtle\">" + _L("Unlocked at level {0}").format("<em>" + info.level + "</em>") + "</p>";
       }
       html += "</div></div></div>";
       tooltipContent.html(html);
@@ -426,16 +430,17 @@
       if (stat && DiabloCalc.stats[stat] && DiabloCalc.stats[stat].class) {
         var charClass = $(".char-class").val();
         if (charClass == DiabloCalc.stats[stat].class) {
-          format += " (" + _L("{0} Only").format(DiabloCalc.classes[DiabloCalc.stats[stat].class].name) + ")";
+          format += " " + _L("({0} Only)").format(DiabloCalc.classes[DiabloCalc.stats[stat].class].name);
         } else {
-          format += " <span class=\"d3-color-red\">(" + _L("{0} Only").format(DiabloCalc.classes[DiabloCalc.stats[stat].class].name) + ")</span>";
+          format += " <span class=\"d3-color-red\">" + _L("({0} Only)").format(DiabloCalc.classes[DiabloCalc.stats[stat].class].name) + "</span>";
         }
       }
       return format;
     }
     function haveRorg() {
-      return DiabloCalc.getSlotId("leftfinger") === "Unique_Ring_107_x1" ||
-             DiabloCalc.getSlotId("rightfinger") === "Unique_Ring_107_x1";
+      return !!DiabloCalc.getStats().leg_ringofroyalgrandeur;
+      //return DiabloCalc.getSlotId("leftfinger") === "Unique_Ring_107_x1" ||
+      //       DiabloCalc.getSlotId("rightfinger") === "Unique_Ring_107_x1";
     }
     function showItem(node, slot, _side) {
       var data;
@@ -703,8 +708,8 @@
           blockamount += "(" + (data.stats.blockamount.min2 || 0).toFixed(0) + "&#x2013;" + (data.stats.blockamount.max2 || 0).toFixed(0) + ")";
         }
         props.append("<ul class=\"item-armor-weapon item-armor-shield\"><li><p><span class=\"value\">+" + block +
-          "%</span> <span class=\"d3-color-FF888888\">Chance to Block</span></p></li><li><p><span class=\"value\">" + blockamount +
-          "</span> <span class=\"d3-color-FF888888\">Block Amount</span></p></li></ul>");
+          "%</span> <span class=\"d3-color-FF888888\">" + _L("Chance to Block") + "</span></p></li><li><p><span class=\"value\">" + blockamount +
+          "</span> <span class=\"d3-color-FF888888\">" + _L("Block Amount") + "</span></p></li></ul>");
       }
 
       props.append("<div class=\"item-before-effects\"></div>");
@@ -722,7 +727,7 @@
             continue;
           }
           if (!category) {
-            category = $("<p class=\"item-property-category\">" + (catType == 0 ? "Primary" : "Secondary") + "</p>");
+            category = $("<p class=\"item-property-category\">" + (catType == 0 ? _L("Primary") : _L("Secondary")) + "</p>");
             effects.append(category);
           }
 
@@ -766,7 +771,7 @@
           for (var i = 0; i < data.varies.length; ++i) {
             var list = data.varies[i];
             var choice_outer = $("<li class=\"item-effects-choice\"></li>");
-            choice_outer.append("<span class=\"d3-color-blue\">One of <span class=\"value\">" + list.length + "</span> Magic Properties (varies)</span>");
+            choice_outer.append("<span class=\"d3-color-blue\">" + _L("One of {0} Magic Properties (varies)").format("<span class=\"value\">" + list.length + "</span>") + "</span>");
             var choice = $("<ul></ul>");
             for (var j = 0; j < list.length; ++j) {
               var format = formatBonus(DiabloCalc.stats[list[j]].format, affixes[list[j]], 1, list[j]);
@@ -777,7 +782,7 @@
           }
         }
         if (data.random) {
-          effects.append("<li class=\"d3-color-blue\"><span class=\"value\">+" + data.random + "</span> Random Magic Properties</li>");
+          effects.append("<li class=\"d3-color-blue\"><span class=\"value\">+" + data.random + "</span> " + _L("Random Magic Properties") + "</li>");
         }
       }
 
@@ -805,13 +810,13 @@
               var effect1 = formatBonus(info.effects[0].format || DiabloCalc.stats[info.effects[0].stat].format, value, 2, info.effects[0].stat);
               var effect2 = formatBonus(info.effects[1].format || DiabloCalc.stats[info.effects[1].stat].format, info.effects[1].value || [], gem[1] < 25 ? 1 : 2, info.effects[1].stat);
               if (gem[1] < 25) {
-                effect2 += " <span class=\"d3-color-red\">(Requires Rank 25)</span>";
+                effect2 += " <span class=\"d3-color-red\">" + _L("(Requires Rank {0})").format(25) + "</span>";
               }
               var sock = $("<li class=\"full-socket\"></li>");
               sock.append("<img class=\"gem\" src=\"" + icon + "\" />");
               sock.append("<span class=\"d3-color-orange\">" + info.name + "</span>");
               if (gem[1]) {
-                sock.append(" <span class=\"item-jewel-rank\">&#x2013; Rank " + gem[1] + "</span>");
+                sock.append(" <span class=\"item-jewel-rank\">&#x2013; " + _L("Rank {0}").format(gem[1]) + "</span>");
               }
               var ul = $("<ul></ul>");
               ul.append("<li class=\"jewel-effect d3-color-" + /*(info.effects[0].stat ? "blue" : "orange")*/"orange" + "\"><p>" + effect1 + "</p></li>");
@@ -824,7 +829,7 @@
               effects.append("<li class=\"d3-color-white full-socket\"><img class=\"gem\" src=\"" + icon + "\" /><span class=\"socket-effect\">" + effect + "</span></li>");
             }
           } else {
-            effects.append("<li class=\"empty-socket d3-color-blue\">Empty Socket</li>");
+            effects.append("<li class=\"empty-socket d3-color-blue\">" + _L("Empty Socket") + "</li>");
           }
         }
       }
@@ -860,7 +865,7 @@
         }
         for (var amount in set.bonuses) {
           var bonusColor = (parseInt(amount) <= count ? "green" : "gray");
-          ul.append("<li class=\"d3-color-" + bonusColor + " item-itemset-bonus-amount\">(<span class=\"value\">" + amount + "</span>) Set:</li>");
+          ul.append("<li class=\"d3-color-" + bonusColor + " item-itemset-bonus-amount\">" + _L("({0}) Set:").format("<span class=\"value\">" + amount + "</span>") + "</li>");
           for (var i = 0; i < set.bonuses[amount].length; ++i) {
             var bonus = set.bonuses[amount][i];
             var effect = formatBonus(bonus.stat ? DiabloCalc.stats[bonus.stat].format : bonus.format, bonus.value || [], 1, bonus.stat);
@@ -869,8 +874,12 @@
         }
       }
 
-      props.append("<ul class=\"item-extras\"><li class=\"item-reqlevel\"><span class=\"d3-color-gold\">Required Level:</span> <span class=\"value\">70</span></li>" +
-        "<li>Account Bound</li></ul><span class=\"item-unique-equipped\">Unique Equipped</span><span class=\"clear\"><!--   --></span>");
+      props.append("<ul class=\"item-extras\"><li class=\"item-reqlevel\"><span class=\"d3-color-gold\">" + _L("Required Level: ") + "</span><span class=\"value\">70</span></li>" +
+        "<li>" + _L("Account Bound") + "</li></ul><span class=\"item-unique-equipped\">" + _L("Unique Equipped") + "</span><span class=\"clear\"><!--   --></span>");
+
+      if (item.flavor) {
+        outer.append("<div class=\"tooltip-extension\"><div class=\"flavor\">" + item.flavor + "</div></div>");
+      }
 
       var sideSlot;
       if (compare && DiabloCalc.tipStatList) {
@@ -919,6 +928,7 @@
           });
           var out = [];
           for (var x in DiabloCalc.tipStatList) {
+            if (!DiabloCalc.tipStatList[x].stat) continue;
             var value = stats.getValue(DiabloCalc.tipStatList[x].stat);
             var altValue = altStats.getValue(DiabloCalc.tipStatList[x].stat);
             if (1 || value !== altValue) {
@@ -930,7 +940,7 @@
             }
           }
           out.sort(function(a, b) {return b[0] - a[0] + a[1].localeCompare(b[1]) * 0.001;});
-          var outStr = "<div class=\"tooltip-extension\"><ul class=\"item-type\"><li><span class=\"d3-color-gold\">Equipping this item will grant you:</span></li>";
+          var outStr = "<div class=\"tooltip-extension\"><ul class=\"item-type\"><li><span class=\"d3-color-gold\">" + _L("Stat Changes if Equipped:") + "</span></li>";
           for (var i = 0; i < out.length; ++i) {
             outStr += out[i][1];
           }
@@ -989,12 +999,12 @@
 
       if (gem) {
         if (level) {
-          props.append("<ul class=\"item-type-right\"><li class=\"item-jewel-rank\">Rank " + level + "</li></ul>");
+          props.append("<ul class=\"item-type-right\"><li class=\"item-jewel-rank\">" + _L("Rank {0}").format(level) + "</li></ul>");
         }
-        props.append("<ul class=\"item-type\"><li><span class=\"d3-color-orange\">Legendary Gem</span></li></ul>");
+        props.append("<ul class=\"item-type\"><li><span class=\"d3-color-orange\">" + DiabloCalc.qualities.legendary.prefix + _L("Gem") + "</span></li></ul>");
         props.append("<div class=\"item-description d3-color-white\"><p></p></div>");
       } else {
-        props.append("<ul class=\"item-type\"><li><span class=\"d3-color-default\">Gem</span></li></ul>");
+        props.append("<ul class=\"item-type\"><li><span class=\"d3-color-default\">" + _L("Gem") + "</span></li></ul>");
       }
 
       props.append("<div class=\"item-before-effects\"></div>");
@@ -1009,22 +1019,23 @@
         var effect1 = formatBonus(gem.effects[0].format || DiabloCalc.stats[gem.effects[0].stat].format, value, 2, gem.effects[0].stat);
         var effect2 = formatBonus(gem.effects[1].format || DiabloCalc.stats[gem.effects[1].stat].format, gem.effects[1].value || [], level < 25 ? 1 : 2, gem.effects[1].stat);
         if (level < 25) {
-          effect2 += " <span class=\"d3-color-red\">(Requires Rank 25)</span>";
+          effect2 += " <span class=\"d3-color-red\">" + _L("(Requires Rank {0})").format(25) + "</span>";
         }
 
         effects.append("<li class=\"d3-color-orange d3-item-property-default\"><p>" + effect1 + "</p></li>");
         effects.append("<li class=\"d3-color-" + (level < 25 ? "gray" : "orange") + " d3-item-property-default\"><p>" + effect2 + "</p></li>");
 
-        props.append("<ul class=\"item-extras\"><li>Account Bound</li></ul><span class=\"item-unique-equipped\">Unique Equipped</span><span class=\"clear\"><!--   --></span>");
+        props.append("<ul class=\"item-extras\"><li>" + _L("Account Bound") + "</li></ul><span class=\"item-unique-equipped\">" +
+                     _L("Unique Equipped") + "</span><span class=\"clear\"><!--   --></span>");
       } else {
-        effects.append("<li class=\"d3-color-white\">Can be inserted into equipment with sockets.</li>");
-        effects.append("<li class=\"gem-effect\"><span class=\"d3-color-gray\">Helm:</span> " + formatBonus(
+        effects.append("<li class=\"d3-color-white\">" + _L("Can be inserted into equipment with sockets.") + "</li>");
+        effects.append("<li class=\"gem-effect\"><span class=\"d3-color-gray\">" + _L("Helm:") + "</span> " + formatBonus(
           DiabloCalc.stats[reg.head.stat].format, [reg.head.amount[id[0]]]) + "</li>");
-        effects.append("<li class=\"gem-effect\"><span class=\"d3-color-gray\">Weapon:</span> " + formatBonus(
+        effects.append("<li class=\"gem-effect\"><span class=\"d3-color-gray\">" + _L("Weapon:") + "</span> " + formatBonus(
           DiabloCalc.stats[reg.weapon.stat].format, [reg.weapon.amount[id[0]]]) + "</li>");
-        effects.append("<li class=\"gem-effect\"><span class=\"d3-color-gray\">Other:</span> " + formatBonus(
+        effects.append("<li class=\"gem-effect\"><span class=\"d3-color-gray\">" + _L("Other:") + "</span> " + formatBonus(
           DiabloCalc.stats[reg.other.stat].format, [reg.other.amount[id[0]]]) + "</li>");
-        props.append("<ul class=\"item-extras\"><li>Account Bound</li><li>Maximum Stack Amount: <span class=\"value\">5000</span></li></ul><span class=\"clear\"><!--   --></span>");
+        props.append("<ul class=\"item-extras\"><li>" + _L("Account Bound") + "</li></ul><span class=\"clear\"><!--   --></span>");
       }
 
       show(node);

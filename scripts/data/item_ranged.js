@@ -181,12 +181,13 @@ DiabloCalc.addItems([
   },
 
   {
-    id: "Unique_XBow_101_x1",
+    id: "Unique_Xbow_101_x1",
+    ids: ["Unique_XBow_101_x1"],
     name: "Chanon Bolter",
     type: "crossbow",
     quality: "legendary",
     required: {
-      custom: {id: "leg_chanonbolter", name: "Lure Cooldown on Spike Traps", format: "Your Spike Traps lure enemies to them. Enemies may be taunted once every %d seconds.", min: 12, max: 16},
+      custom: {id: "leg_chanonbolter", name: "Lure Cooldown on Spike Traps", format: "Your Spike Traps lure enemies to them. Enemies may be taunted once every %d seconds.", min: 12, max: 16, best: "min"},
     },
     preset: ["mainstat"],
   },

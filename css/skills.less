@@ -1,0 +1,756 @@
+@font-face {
+  font-family: "Exocet Blizzard";
+  src: url('../external/bnet/fonts/exocet/exocet-blizzard-medium.eot');
+  src: url('../external/bnet/fonts/exocet/exocet-blizzard-medium.iefix.eot') format('embedded-opentype'),
+       url('../external/bnet/fonts/exocet/exocet-blizzard-medium.woff') format('woff'),
+       url('../external/bnet/fonts/exocet/exocet-blizzard-medium.ttf')  format('truetype'),
+       url('../external/bnet/fonts/exocet/exocet-blizzard-medium.svg') format('svg');
+}
+@font-face {
+  font-family: "Exocet Blizzard Light";
+  src: url('../external/bnet/fonts/exocet/exocet-blizzard-light.eot');
+  src: url('../external/bnet/fonts/exocet/exocet-blizzard-light.iefix.eot') format('embedded-opentype'),
+       url('../external/bnet/fonts/exocet/exocet-blizzard-light.woff') format('woff'),
+       url('../external/bnet/fonts/exocet/exocet-blizzard-light.ttf')  format('truetype'),
+       url('../external/bnet/fonts/exocet/exocet-blizzard-light.svg') format('svg');
+}
+.tooltip-extension .header-3 {
+  font: normal 18px "Exocet Blizzard Light", "Palatino Linotype", "Times", serif;
+  text-transform: uppercase;
+  color: #F3E6D0;
+}
+
+.skill-category {
+  font-size: 18px;
+  .theme-light & {
+    color: #555;
+  }
+  .theme-dark & {
+    color: #aaa;
+  }
+  margin-top: 30px;
+  margin-bottom: 12px;
+}
+
+#tab-skills .option-box {
+  margin-bottom: 10px;
+}
+#tab-equipment .option-box {
+  margin-left: 20px;
+  font-size: 12px;
+}
+.option-box {
+  font-size: 14px;
+  display: block;
+  input {
+    position: relative;
+    top: 2px;
+  }
+}
+
+.skill-line {
+  .theme-light & {
+    border: 1px solid #aaa;
+    &.selected {
+      box-shadow: 0px 0px 8px 2px #88f;
+    }
+  }
+  .theme-dark & {
+    border: 1px solid #333;
+    &.selected {
+      box-shadow: 0px 0px 8px 2px #448;
+    }
+  }
+  border-radius: 3px;
+  position: relative;
+
+  &.expanded {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+
+  margin-bottom: 5px;
+  padding: 6px;
+  padding-left: 18px;
+}
+.skill-key {
+  background-image: url(images/skill-overlays.png);
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 16px;
+  left: -11px;
+  width: 21px;
+  height: 21px;
+}
+.skill-key-0 {
+  background-position: -1px 0px;
+}
+.skill-key-1 {
+  background-position: -23px 0px;
+}
+.skill-key-2 {
+  background-position: 0px -23px;
+}
+.skill-key-3 {
+  background-position: -23px -23px;
+}
+.skill-key-4 {
+  background-position: 0px -46px;
+}
+.skill-key-5 {
+  background-position: -23px -46px;
+}
+.skill-header {
+  display: block;
+  cursor: pointer;
+  position: relative;
+  padding-left: 42px;
+  height: 42px;
+  .skill-info {
+    cursor: default;
+    padding-left: 0;
+  }
+}
+.skill-icon {
+  width: 42px;
+  height: 42px;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  background-repeat: no-repeat;
+  background-color: #000000;
+  text-align: center !important;
+
+  &.empty {
+    background-image: none;
+    background-color: #170F00;
+    .skill-text {
+      display: inline-block;
+    }
+  }
+
+  .skill-frame {
+    background-image: url(images/skill-42.png);
+    width: 42px;
+    height: 42px;
+    display: block;
+    position: absolute;
+    background-repeat: no-repeat;
+  }
+  &.selected .skill-frame {
+    background-position: top right;
+  }
+
+  &.skill-icon-attack {
+    background-size: 42px;
+  }
+}
+.skill-icon-attack {
+  &.attack-hand {
+    background-image: url(images/attack_hand.png);
+  }
+  &.attack-melee {
+    background-image: url(images/attack_melee.png);
+  }
+  &.attack-bow {
+    background-image: url(images/attack_bow.png);
+  }
+  &.attack-wand {
+    background-image: url(images/attack_wand.png);
+  }
+}
+.d3-tooltip-skill .tooltip-body {
+  min-width: 255px;
+  min-height: 64px;
+}
+.skill-description {
+  display: inline-block;
+  padding-left: 6px;
+  vertical-align: top;
+}
+.skill-none {
+  display: block;
+  font-size: 16px;
+  .theme-light & {
+    color: #666;
+  }
+  .theme-dark & {
+    color: #999;
+  }
+}
+.skill-name {
+  display: block;
+  font-size: 16px;
+}
+.skill-separator {
+  display: block;
+  width: 200px;
+  height: 1px;
+  .theme-light & {
+    background: #d3d3d3;
+    box-shadow: inset 25px 0 25px -15px #fff, inset -25px 0 25px -15px #fff;
+  }
+  .theme-dark & {
+    background: #383838;
+    box-shadow: inset 25px 0 25px -15px #121212, inset -25px 0 25px -15px #121212;
+  }
+  margin-top: 2px;
+}
+.skill-rune {
+  display: block;
+  font-size: 14px;
+  .theme-light &.no-rune {
+    color: #666;
+  }
+  .theme-dark &.no-rune {
+    color: #999;
+  }
+  span {
+    background-image: url(images/runes_small.png);
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    position: relative;
+    top: 2px;
+  }
+}
+.skill-bonus {
+  position: relative;
+  display: block;
+  font-size: 14px;
+  padding-left: 48px;
+  margin-top: 4px;
+
+  input {
+    position: absolute;
+    left: 26px;
+  }
+}
+.skill-info {
+  .arrow-down {
+    background: url(../external/images/ui-icons_222222_256x240.png) no-repeat -66px -194px;
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    left: 30px;
+    top: 3px;
+  }
+  display: block;
+  position: relative;
+  padding: 0 0 0 48px;
+  margin: 4px 0 0 0;
+  font-size: 14px;
+  li {
+    list-style-type: none;
+  }
+}
+.skill-inactive li.buffs {
+  display: none;
+}
+.param-value {
+  display: table-cell;
+  white-space: nowrap;
+  min-width: 25px;
+  padding-left: 5px;
+}
+.param-name {
+  display: table-cell;
+  white-space: nowrap;
+}
+.param-slider {
+  display: table-cell;
+  width: 90%;
+  vertical-align: middle;
+  padding: 0 10px;
+  > div {
+    position: relative;
+    top: 1px;
+  }
+}
+.skill-rune-option {
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 3px;
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    background-image: url(images/runes_small.png);
+  }
+  &.rune-x:before {
+    background-position: -80px 0px;
+  }
+  &.rune-a:before {
+    background-position: 0px 0px;
+  }
+  &.rune-b:before {
+    background-position: -16px 0px;
+  }
+  &.rune-c:before {
+    background-position: -32px 0px;
+  }
+  &.rune-d:before {
+    background-position: -48px 0px;
+  }
+  &.rune-e:before {
+    background-position: -64px 0px;
+  }
+  text-indent: 16px;
+  position: relative;
+}
+span.skill-rune-option{
+  text-indent: 21px;
+  font-size: 14px;
+  .theme-light & {
+    color: #000;
+  }
+  .theme-dark & {
+    color: #eee;
+  }
+}
+.skill-runelist {
+  width: 205px !important;
+  position: relative;
+  top: -3px;
+  left: -5px;
+  font-size: 14px !important;
+  .theme-light & {
+    color: #000 !important;
+  }
+  .theme-dark & {
+    color: #eee !important;
+  }
+}
+.skill-namelist {
+  width: 255px !important;
+  position: relative;
+  top: 1px;
+  left: -5px;
+  margin: -4px 0 -2px 0;
+  //font-size: 14px !important;
+  .chosen-single {
+    font-size: 16px !important;
+  }
+  .theme-dark &:not(.empty) .chosen-single span {
+    color: #fff;
+  }
+  .theme-light &:not(.empty) .chosen-single span {
+    color: #000;
+  }
+  .theme-light & {
+    color: #000 !important;
+  }
+  .theme-dark & {
+    color: #eee !important;
+  }
+  li.active-result.item-info-icon {
+//    text-indent: 18px;
+    padding-left: 25px;
+    position: relative;
+  }
+}
+.skill-description .chosen-single {
+  padding: 0 0 0 4px !important;
+}
+.skill-rune-a {
+  background-position: 0px 0px;
+}
+.skill-rune-b {
+  background-position: -16px 0px;
+}
+.skill-rune-c {
+  background-position: -32px 0px;
+}
+.skill-rune-d {
+  background-position: -48px 0px;
+}
+.skill-rune-e {
+  background-position: -64px 0px;
+}
+.skill-rune-x {
+  background-position: -80px 0px;
+}
+
+.skill-popup {
+  width: 254px;
+  height: 302px;
+  z-index: 10;
+  .theme-light & {
+    background-color: #fff;
+    border: 1px solid #aaa;
+  }
+  .theme-dark & {
+    background-color: #121212;
+    border: 1px solid #333;
+  }
+  border-radius: 5px;
+  position: absolute;
+  &:focus {
+    outline: none;
+  }
+  .rune-list {
+    position: absolute;
+    left: 254px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    .theme-light & {
+      border-left: 1px solid #aaa;
+    }
+    .theme-dark & {
+      border-left: 1px solid #333;
+    }
+    display: none;
+  }
+  &.expanded {
+    width: 480px;
+    .rune-list {
+      display: block;
+    }
+  }
+}
+.skill-button {
+  position: absolute;
+  cursor: pointer;
+}
+.skill-popup-rune-line {
+  display: block;
+  padding-left: 58px;
+  padding-top: 14px;
+  font-size: 16px;
+  box-sizing: border-box;
+  height: 50px;
+  position: relative;
+  margin-top: -2px;
+  cursor: pointer;
+  &:first-child {
+    margin-top: 6px;
+  }
+  .theme-light &.selected {
+    background-color: #aaf;
+    box-shadow: inset 0 4px 4px -2px #fff, inset 0 -4px 4px -2px #fff;
+  }
+  .theme-dark &.selected {
+    background-color: #669;
+    box-shadow: inset 0 4px 4px -2px #121212, inset 0 -4px 4px -2px #121212;
+  }
+  span {
+    background-image: url(images/runes_medium.png);
+    background-repeat: no-repeat;
+    width: 42px;
+    height: 42px;
+    display: block;
+    position: absolute;
+    left: 10px;
+    top: 4px;
+  }
+}
+.skill-popup-rune-a {
+  background-position: 0px 0px;
+}
+.skill-popup-rune-b {
+  background-position: -42px 0px;
+}
+.skill-popup-rune-c {
+  background-position: -84px 0px;
+}
+.skill-popup-rune-d {
+  background-position: -126px 0px;
+}
+.skill-popup-rune-e {
+  background-position: -168px 0px;
+}
+.skill-popup-rune-x {
+  background-position: -210px 0px;
+}
+
+.passive-line {
+  margin-top: 50px;
+  text-align: center;
+}
+.passive-slot {
+  display: inline-block;
+  position: relative;
+  margin-left: 20px;
+  padding-top: 51px;
+  cursor: pointer;
+  &:first-child {
+    margin-left: 0;
+  }
+  width: 100px;
+  .passive-icon {
+    top: 0px;
+    left: 29px;
+  }
+
+  &.empty {
+    .passive-icon {
+      background-image: none;
+      background-color: #000;
+    }
+    .theme-light & .passive-name {
+      color: #666;
+    }
+    .theme-dark & .passive-name {
+      color: #999;
+    }
+  }
+}
+.passive-name {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 12px;
+  word-wrap: break-word;
+}
+.passive-icon {
+  width: 42px;
+  height: 42px;
+  display: block;
+  position: absolute;
+  left: -2px;
+  background-repeat: no-repeat;
+  text-align: center !important;
+
+  &.empty {
+    background-image: url(images/empty-passive.png);
+    background-position: 0 0 !important;
+    .skill-text {
+      display: inline-block;
+    }
+  }
+
+  .passive-frame {
+    &.fancy {
+      background-image: url(images/trait-42.png);
+    }
+    background-image: url(images/trait-42-simple.png);
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    width: 51px;
+    height: 51px;
+    display: block;
+    background-repeat: no-repeat;
+  }
+  &.highlight .passive-frame.fancy {
+    background-position: top right;
+  }
+  &.selected .passive-frame {
+    background-position: top right;
+  }
+}
+.item-icon {
+  width: 51px;
+  height: 51px;
+  display: block;
+  position: absolute;
+  left: -6px;
+  top: -4px;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  background-position: 50% 50%;
+}
+.gem-rank {
+  color: #909090;
+}
+.passive-button:not(.selected) {
+  cursor: pointer;
+}
+.passive-popup {
+  width: 189px;
+  height: 366px;
+  z-index: 10;
+  .theme-light & {
+    background-color: #fff;
+    border: 1px solid #aaa;
+  }
+  .theme-dark & {
+    background-color: #121212;
+    border: 1px solid #333;
+  }
+  border-radius: 5px;
+  position: absolute;
+  &:focus {
+    outline: none;
+  }
+}
+.passive-apply {
+  display: block;
+  font-size: 14px;
+  position: relative;
+  left: -3px;
+  input {
+    position: relative;
+    top: 2px;
+  }
+  &.always {
+    .theme-light & {
+      color: #666;
+    }
+    .theme-dark & {
+      color: #999;
+    }
+    cursor: pointer;
+  }
+}
+.passive-header {
+  display: block;
+  position: relative;
+  padding-left: 42px;
+  min-height: 42px;
+  .skill-info {
+    cursor: default;
+    padding-left: 0;
+  }
+  cursor: pointer;
+  &.readonly {
+    cursor: default;
+    .passive-apply.always {
+      cursor: default;
+    }
+  }
+}
+.skill-text {
+  color: #5C4923;
+  font-size: 18px;
+  line-height: 42px;
+  font-weight: normal;
+  font-family: "Palatino Linotype", "Times", serif !important;
+  text-align: center;
+  display: none;
+}
+.rune-box {
+  display: block;
+  position: relative;
+  input {
+    position: relative;
+    top: 1px;
+  }
+  .skill-rune {
+    display: inline-block;
+  }
+}
+.buff-tabs {
+  .theme-dark & {
+    background: #121212 !important;
+  }
+  height: 400px;
+  .ui-tabs-nav {
+    padding: .2em .1em .2em .2em;
+    width: 50px;
+    position: absolute;
+    top: 2px;
+    bottom: 2px;
+    .theme-light & {
+      background: #ccc !important;
+    }
+    .theme-dark & {
+      background: #333 !important;
+    }
+    li {
+      clear: left;
+      width: 100%;
+      border-bottom-width: 1px !important;
+      border-right-width: 0 !important;
+      margin: 0 -1px .2em 0 !important;
+      a {
+        display: block;
+        width: 42px;
+        height: 42px;
+        margin: 1px;
+        padding: 0 !important;
+        border-radius: 3px;
+        background-repeat: no-repeat;
+        &.icon-gear {
+          background-image: url(images/icon_gear.png);
+        }
+        &.icon-followers {
+          background-image: url(images/followers.png);
+        }
+        &.icon-shrines {
+          background-image: url(images/shrines.png);
+        }
+        &.icon-coop {
+          background-image: url(images/coop.png);
+        }
+      }
+      .theme-dark & {
+        border-color: #121212 !important;
+        background: #666 !important;
+        background-image: -webkit-linear-gradient(left, #666, #444) !important;
+        background-image:    -moz-linear-gradient(left, #666, #444) !important;
+        background-image:     -ms-linear-gradient(left, #666, #444) !important;
+        background-image:      -o-linear-gradient(left, #666, #444) !important;
+        background-image:         linear-gradient(left, #666, #444) !important;
+      }
+      &.ui-tabs-active {
+        padding-bottom: 0;
+        padding-right: .1em;
+        a {
+          cursor: default !important;
+        }
+        .theme-dark & {
+          background: #121212 !important;
+          background-image: -webkit-linear-gradient(left, #000, #121212) !important;
+          background-image:    -moz-linear-gradient(left, #000, #121212) !important;
+          background-image:     -ms-linear-gradient(left, #000, #121212) !important;
+          background-image:      -o-linear-gradient(left, #000, #121212) !important;
+          background-image:         linear-gradient(left, #000, #121212) !important;
+        }
+      }
+    }
+  }
+  .ui-tabs-panel {
+    padding: 1em;
+    position: absolute;
+    left: 60px; top: 0; right: 0; bottom: 0;
+    overflow: auto;
+    .theme-dark & {
+      background: #121212 !important;
+    }
+
+    h3 {
+      .theme-light & {
+        color: #555;
+      }
+      .theme-dark & {
+        color: #aaa;
+      }
+      font-size: 18px;
+      margin: 8px 0;
+      &:first-of-type {
+        margin-top: 0;
+      }
+    }
+  }
+}
+.buff-class {
+  width: 240px !important;
+  margin-bottom: 10px;
+  margin-top: -3px;
+  font-size: 13pt;
+  text-align: left;
+  li.active-result {
+    text-indent: 26px;
+    background-size: 24px 24px;
+    background-position: 2px center;
+    background-repeat: no-repeat;
+  }
+  .chosen-single span {
+    text-indent: 26px;
+    background-size: 21px 21px;
+    background-position: 0 1px;
+    background-repeat: no-repeat;
+  }
+}
+.class-miscbuffs .skill-icon {
+  background-image: url(images/miscbuffs.png);
+}
+.miscbuffs-icon {
+  background-image: url(images/miscbuffs_big.png) !important;
+}

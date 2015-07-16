@@ -93,10 +93,10 @@
     }
   });
 
-  Sim.trigCost = function(id, rune, dry) {
+  Sim.trigCost = function(id, rune, dry, override) {
     var skill = this.skills[id];
     var rune = rune || this.stats.skills[id];
-    var cost = this.getProp(skill, "cost", rune);
+    var cost = override || this.getProp(skill, "cost", rune);
     var rctype = this.getProp(skill, "resource", rune) || this.rcTypes[0];
     var initial = Sim.getProp(skill, "initialcost", rune);
     if (initial && !Sim.getBuff(id)) {
@@ -125,7 +125,7 @@
           cost *= res[i];
         }
       }
-      if (!cost) return true;
+      if (!cost) return cost;
 
       if (!this.hasResource(cost, rctype)) return false;
       if (!dry) {
@@ -280,13 +280,16 @@
   };
   
   Sim.canCast = function(id, rune) {
-    var rune = rune || this.stats.skills[id];
     var skill = this.skills[id];
-    if (!rune || !skill) return false;
+    if (!skill) return false;
+    var rune = rune || this.stats.skills[id] || (skill.shift && "x");
+    if (!rune) return false;
     if (skill.precast) {
       var res = skill.precast.call(skill, rune, true);
       if (res === false) return false;
-      return res || {};
+      if (res !== true) {
+        return res || {};
+      }
     }
     if (skill.shift != this.stats.shift) {
       return false;
@@ -303,9 +306,10 @@
   };
 
   Sim.cast = function(id, rune, triggered) {
-    var rune = rune || this.stats.skills[id];
     var skill = this.skills[id];
-    if (!skill || !rune) return false;
+    if (!skill) return false;
+    var rune = rune || this.stats.skills[id] || "x";
+    if (!rune) return false;
     var prevInfo = this.castInfo();
     if (prevInfo && !triggered) triggered = (prevInfo.triggered || prevInfo.skill);
     var rc = {};
@@ -366,6 +370,10 @@
       castInfo.proc = this.getProp(skill, "proctable", rune);
       castInfo.offensive = this.getProp(skill, "offensive", rune);
       castInfo.melee = this.getProp(skill, "melee", rune);
+      castInfo.speed = this.getProp(skill, "speed", rune);
+      castInfo.noaps = this.getProp(skill, "noaps", rune);
+      castInfo.pause = this.getProp(skill, "pause", rune);
+      castInfo.channeling = this.getProp(skill, "channeling", rune);
       var buffs = Sim.trigger("oncast", castInfo);
       for (var i = 0; i < buffs.length; ++i) {
         if (buffs[i]) {
@@ -373,9 +381,11 @@
         }
       }
 
+      var res = true;
       if (skill.precast) {
-        skill.precast.call(skill, rune, false);
-      } else {
+        res = skill.precast.call(skill, rune, false);
+      }
+      if (res === true) {
         usedGrace = false;
         this.trigCooldown(id, rune, false);
         if (!usedGrace) this.trigCost(id, rune, false);
@@ -403,25 +413,20 @@
   };
 
   Sim.castDelay = function(info) {
-    var skill = this.skills[info.skill];
-    var rune = info.rune;
-    if (!skill || !rune) return;
-    var speed = this.getProp(skill, "speed", rune);
+    if (info.noaps) {
+      return Math.ceil(info.speed) + (info.pause || 0);
+    }
     var aps = this.stats.info[info.weapon || "mainhand"].speed;
     if (aps === 1) {
-      return Math.ceil(speed);
+      return Math.ceil(info.speed) + (info.pause || 0);
     } else {
-      return Math.floor(speed / aps) + 1;
+      return Math.floor(info.speed / aps) + 1 + (info.pause || 0);
     }
   };
   Sim.channelDelay = function(info) {
-    var skill = this.skills[info.skill];
-    var rune = info.rune;
-    if (!skill || !rune) return;
-    var channeling = this.getProp(skill, "channeling", rune);
-    if (channeling) {
+    if (info.channeling) {
       var aps = this.stats.info[info.weapon || "mainhand"].speed;
-      return Math.floor(channeling / aps);
+      return Math.floor(info.channeling / aps);
     }
   };
 
@@ -437,7 +442,7 @@
   Sim.channeling = function(name, speed, dmg, data, base) {
     var info = this.castInfo();
     var rate = Math.floor(speed / Sim.stats.info[info && info.weapon || "mainhand"].speed);
-    Sim.addBuff(name, undefined, Sim.extend({
+    Sim.addBuff(name, base && base.buffs, Sim.extend({
       duration: rate + 1,
       tickrate: rate,
       tickinitial: 1,
@@ -494,10 +499,10 @@
   var fx_id = 0;
   Sim.apply_effect = function(effect, duration, chance) {
     if (effect === "knockback" && Sim.target.boss) return;
-    if (chance) {
-      var id = "ufx_" + (fx_id++);
-      return function() {
-        if (Sim.random(ufx, chance)) {
+    if (chance && chance < 1) {
+      return function(data) {
+        var id = "ufx_" + (Sim.castInfo() && Sim.castInfo().skill || "");
+        if (Sim.random(id, chance, data.count / Sim.target.count)) {
           Sim.addBuff(effect, null, duration);
         }
       };
