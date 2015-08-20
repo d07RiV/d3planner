@@ -16,7 +16,6 @@ leg_genzaniku Unique_Axe_1H_003_x1
 leg_skycutter Unique_Sword_1H_004_x1
 leg_thegrinreaper Unique_VoodooMask_002_x1
 leg_jawbreaker Unique_Fist_101_x1
-leg_thefistofazturrasq
 
 Crus:
 leg_jaceshammerofvigilance Unique_Mace_1H_103_x1
