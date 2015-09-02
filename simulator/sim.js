@@ -218,6 +218,13 @@
       return this.castInfoStack[this.castInfoStack.length - 1];
     }
   };
+  Sim.getCastId = function() {
+    for (var i = this.castInfoStack.length - 1; i >= 0; --i) {
+      if (this.castInfoStack[i] && this.castInfoStack[i].castId) {
+        return this.castInfoStack[i].castId;
+      }
+    }
+  };
 
   Sim.postMessage = function(data) {
     postMessage(data);

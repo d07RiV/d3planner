@@ -1,11 +1,12 @@
 (function() {
   var Sim = Simulator;
 
-  Sim.getProp = function(obj, name, param) {
+  Sim.getProp = function(obj, name, param, extend) {
     var res = obj[name];
     if (typeof res === "function") {
       return res.call(obj, param);
     } else if (typeof res === "object") {
+      if (extend) return this.extend({}, res[param]);
       return res[param];
     } else {
       return res;
@@ -305,6 +306,7 @@
     return res;
   };
 
+  Sim.lastCastId = 0;
   Sim.cast = function(id, rune, triggered) {
     var skill = this.skills[id];
     if (!skill) return false;
@@ -325,6 +327,11 @@
       elem: elem,
       pet: skill.pet,
     };
+    if (triggered) {
+      castInfo.castId = this.getCastId();
+    } else {
+      castInfo.castId = ++this.lastCastId;
+    }
     castInfo.weapon = this.getProp(skill, "weapon", rune);
     switch (castInfo.weapon) {
     case "mainhand":
@@ -371,7 +378,7 @@
       castInfo.offensive = this.getProp(skill, "offensive", rune);
       castInfo.melee = this.getProp(skill, "melee", rune);
       castInfo.speed = this.getProp(skill, "speed", rune);
-      castInfo.noaps = this.getProp(skill, "noaps", rune);
+      castInfo.noias = this.getProp(skill, "noias", rune);
       castInfo.pause = this.getProp(skill, "pause", rune);
       castInfo.channeling = this.getProp(skill, "channeling", rune);
       var buffs = Sim.trigger("oncast", castInfo);
@@ -397,7 +404,7 @@
     if (castInfo.generate) {
       Sim.addResource(castInfo.generate, rctype);
     }
-    var oncast = this.getProp(skill, "oncast", rune);
+    var oncast = this.getProp(skill, "oncast", rune, true);
     if (oncast instanceof Object) {
       var channeling = this.getProp(skill, "channeling", rune);
       if (channeling) {
@@ -413,7 +420,7 @@
   };
 
   Sim.castDelay = function(info) {
-    if (info.noaps) {
+    if (info.noias) {
       return Math.ceil(info.speed) + (info.pause || 0);
     }
     var aps = this.stats.info[info.weapon || "mainhand"].speed;
@@ -479,12 +486,14 @@
     params.ontick = pet_ontick;
     Sim.addBuff(name, buffs, params);
   };
-  Sim.petdelay = function(name) {
+  Sim.petdelay = function(name, stacks) {
+    if (stacks === undefined) stacks = 9999;
     if (this.metaBuffs[name]) {
-      for (var i = 0; i < this.metaBuffs[name].length; ++i) {
-        this.petdelay(this.metaBuffs[name][i]);
+      var reduced = 0;
+      for (var i = 0; i < this.metaBuffs[name].length && stacks > reduced; ++i) {
+        reduced += this.petdelay(this.metaBuffs[name][i], stacks - reduced);
       }
-      return;
+      return reduced;
     }
     var data = Sim.getBuffData(name);
     if (data && data.tickrate) {
@@ -492,8 +501,9 @@
       if (rate instanceof Array) rate = rate[0];
       rate /= (1 + 0.01 * ((data.ias || 0) + (Sim.stats.petias || 0)));
       if (data.speed) rate /= Sim.stats.info.mainhand.speed;
-      this.delayBuff(name, Math.ceil(Math.floor(rate) / 6) * 6);
+      return this.delayBuff(name, Math.ceil(Math.floor(rate) / 6) * 6, stacks);
     }
+    return 0;
   };
 
   var fx_id = 0;
@@ -502,7 +512,7 @@
     if (chance && chance < 1) {
       return function(data) {
         var id = "ufx_" + (Sim.castInfo() && Sim.castInfo().skill || "");
-        if (Sim.random(id, chance, data.count / Sim.target.count)) {
+        if (Sim.random(id, chance, data.targets / Sim.target.count)) {
           Sim.addBuff(effect, null, duration);
         }
       };

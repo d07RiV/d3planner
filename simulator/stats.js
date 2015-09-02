@@ -86,6 +86,12 @@
       } else if (typeof amount === "number") {
         dst.special[stat].push({percent: amount * factor});
       } else {
+        if (amount.list) {
+          for (var i = 0; i < amount.list.length; ++i) {
+            addStat(dst, stat, amount.list[i], factor);
+          }
+          return;
+        }
         var obj = Sim.extend({}, amount);
         obj.percent *= factor;
         dst.special[stat].push(obj);
@@ -231,12 +237,10 @@
     this.addPercent("int", "int_percent");
 
     this.info.thorns = ((this.thorns || 0) + (this.firethorns || 0)) * (1 + this[this.primary] / 400);
-    if (this.passives.toughasnails || this.passives.ironmaiden) {
-      this.info.thorns *= 1.5;
-    }
+    this.info.thorns *= 1 + 0.01 * (this.thorns_percent || 0);
 
     this.calcWeapon = function(info) {
-      info.speed = info.speed * (1 + 0.01 * (info.ias || 0) + 0.01 * (this.weaponias || 0)) / (1 + 0.01 * (info.ias || 0));
+      info.speed = info.speed + (this.weaponaps || 0);
       var factor = (1 + 0.01 * (info.damage || 0));
       info.wpnphy.min *= factor;
       info.wpnphy.max *= factor;
@@ -250,6 +254,7 @@
       info.wpnphy.max *= factor;
       info.damage = (info.wpnphy.min + info.wpnphy.max) * 0.5;
       info.speed *= 1 + 0.01 * this.ias;
+      info.speed = Math.min(info.speed, 5);
       info.dps = info.damage * this.info.critfactor * info.speed;
       info.dph = info.damage * this.info.critfactor;
     }

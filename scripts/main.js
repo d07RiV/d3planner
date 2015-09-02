@@ -180,17 +180,17 @@ $(function() {
 
   DiabloCalc.spinStart();
 
-  if (location.hostname.toLowerCase().indexOf("ptr") >= 0) {
-    $("#ptr-link").append("<a href=\"http://" + location.hostname.replace(/^[^.]*/, "www") + "\">" + _L("Switch to live version") + "</a>");
-    $("#ptr-link").find("a").click(function() {
-      $(this).attr("href", "http://" + location.hostname.replace(/^[^.]*/, "www") + location.pathname);
-    });
-  } else {
-    $("#ptr-link").append("<a href=\"http://" + location.hostname.replace(/^[^.]*/, "ptr") + "\">" + _L("PTR version is available!") + "</a>");
-    $("#ptr-link").find("a").click(function() {
-      $(this).attr("href", "http://" + location.hostname.replace(/^[^.]*/, "ptr") + location.pathname);
-    });
-  }
+//  if (location.hostname.toLowerCase().indexOf("ptr") >= 0) {
+//    $("#ptr-link").append("<a href=\"http://" + location.hostname.replace(/^[^.]*/, "www") + "\">" + _L("Switch to live version") + "</a>");
+//    $("#ptr-link").find("a").click(function() {
+//      $(this).attr("href", "http://" + location.hostname.replace(/^[^.]*/, "www") + location.pathname);
+//    });
+//  } else {
+//    $("#ptr-link").append("<a href=\"http://" + location.hostname.replace(/^[^.]*/, "ptr") + "\">" + _L("PTR version is available!") + "</a>");
+//    $("#ptr-link").find("a").click(function() {
+//      $(this).attr("href", "http://" + location.hostname.replace(/^[^.]*/, "ptr") + location.pathname);
+//    });
+//  }
 
   DC_getScript("scripts/data.js", function() {
     DiabloCalc.loadData(function() {
@@ -206,21 +206,24 @@ $(function() {
         }
       }
       var prevClass;
-      $(".char-class").chosen({
-        disable_search: true,
-        inherit_select_classes: true,
-      }).change(function() {
+      DiabloCalc.updateClassIcon = function() {
         var span = $(".char-class").next().find("span").first();
         if (prevClass) {
           span.removeClass(prevClass);
         }
-        prevClass = "class-" + $(".char-class").val();
+        prevClass = "class-" + $(".char-class").val() + " " + (DiabloCalc.gender || "female");
         span.addClass(prevClass);
-      }).change().change(function() {
+      };
+      $(".char-class").chosen({
+        disable_search: true,
+        inherit_select_classes: true,
+      }).change(function() {
+        DiabloCalc.updateClassIcon();
         DiabloCalc.importStart();
         DiabloCalc.triggerNow("changeClass");
         DiabloCalc.importEnd("class");
       });
+      DiabloCalc.updateClassIcon();
       if (!$(".char-class").data("chosen")) {
         DiabloCalc.noChosen = true;
       }

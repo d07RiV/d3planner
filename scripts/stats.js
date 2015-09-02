@@ -470,8 +470,8 @@
       }
     }
     if (this.info.offhand) {
-      if (this.info.offhand.weaponClass === "hth") {
-        this.info.weaponClass = "dualwield" + (this.info.mainhand.weaponClass === "hth" ? "_ff" : "_sf");        
+      if (this.info.offhand.weaponClass === "fist") {
+        this.info.weaponClass = "dualwield" + (this.info.mainhand.weaponClass === "fist" ? "_ff" : "_sf");        
       } else {
         this.info.weaponClass = "dualwield";
       }
@@ -557,13 +557,15 @@
       this.info.resarc_factor = 1 / (1 + this.resarc / (this.info.level * 5));
     }
 
-    this.info.thorns = ((this.thorns || 0) + (this.firethorns || 0)) * (1 + this[this.primary] / 400);
+    this.addAbsolute("thorns", "firethorns");
+    this.info.thorns = (this.thorns || 0) * (1 + this[this.primary] / 400);
+    //this.info.thorns = ((this.thorns || 0) + (this.firethorns || 0)) * (1 + this[this.primary] / 400);
     if (this.passives.toughasnails || this.passives.ironmaiden) {
       this.info.thorns *= 1.5;
     }
 
     this.calcWeapon = function(info) {
-      info.speed = info.speed * (1 + 0.01 * (info.ias || 0) + 0.01 * (this.weaponias || 0)) / (1 + 0.01 * (info.ias || 0));
+      info.speed = info.speed + (this.weaponaps || 0);
       var factor = (1 + 0.01 * (info.damage || 0));
       info.wpnphy.min *= factor;
       info.wpnphy.max *= factor;
@@ -577,6 +579,7 @@
       info.wpnphy.max *= factor;
       info.damage = (info.wpnphy.min + info.wpnphy.max) * 0.5;
       info.speed *= 1 + 0.01 * this.ias;
+      info.speed = Math.min(5, info.speed);
       info.dps = info.damage * this.info.critfactor * info.speed;
       info.dph = info.damage * this.info.critfactor;
     }

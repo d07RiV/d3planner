@@ -707,11 +707,12 @@ DiabloCalc.addItems([
     type: "mightyweapon2h",
     quality: "legendary",
     required: {
-      custom: {id: "leg_gavelofjudgment", name: "Fury Returned", format: "Hammer of the Ancients returns %d Fury if it hits 3 or less enemies.", min: 15, max: 20},
+      custom: {id: "leg_gavelofjudgment", name: "Fury Returned", format: "Hammer of the Ancients returns %d Fury if it hits 3 or fewer enemies.", min: 20, max: 25},
       skill_barbarian_hammeroftheancients: {min: 30, max: 40},
     },
     preset: ["wpnhol", "mainstat"],
     primary: 5,
+    secondary: 2,
   },
 
   {
@@ -759,6 +760,20 @@ DiabloCalc.addItems([
     },
     preset: ["mainstat", "wpnpsn", "laek"],
     secondary: 3,
+  },
+
+  {
+    id: "Unique_Staff_104_x1",
+    local: true,
+    name: "SuWong Diviner",
+    type: "staff",
+    quality: "legendary",
+    required: {
+      skill_witchdoctor_acidcloud: {min: 75, max: 100},
+      custom: {id: "leg_suwongdiviner", name: "Acid Cloud Gains Lob Blob Bomb", format: "Acid Cloud gains the effect of the Lob Blob Bomb rune.", args: 0},
+    },
+    preset: ["wpnfir", "mainstat", "damage"],
+    primary: 5,
   },
 
 ]);

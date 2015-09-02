@@ -321,7 +321,7 @@
     var storage = {};
     return function() {
       var obj = JSON.stringify(Array.prototype.slice.apply(arguments));
-      if (storage[obj] === undefined) {
+      if (!(obj in storage)) {
         storage[obj] = func.apply(this, arguments);
       }
       return storage[obj];
@@ -411,28 +411,31 @@
     }, t0, t1);
   });
 
-  Sim.math.lineArea = _wrap(function(spread, size, origin, range, angle, fan, count) {
+  Sim.math.lineArea = _wrap(function(spread, size, origin, range, angle, fan, count, skip) {
     var shape = new PolyShape();
     angle = (angle || 0) * Math.PI / 180;
     if (origin === undefined) origin = 0;
     if (range === undefined) range = origin + spread + size;
     if (!count || count <= 1) {
-      shape.capsule(-origin, 0, -origin + Math.cos(angle) * range, Math.sin(angle) * range, size);
+      var ca = Math.cos(angle), sa = Math.sin(angle);
+      skip = (skip || 0); range += skip;
+      shape.capsule(-origin + ca * skip, sa * skip, -origin + ca * range, sa * range, size);
     } else {
       shape.lines(-origin, 0, angle, fan * Math.PI / 180, range, size, count);
     }
     return shape.intersect(0, 0, spread).area;
   });
-  Sim.math.lineDistance = _wrap(function(targets, spread, size, origin, range, angle, fan, count) {
+  Sim.math.lineDistance = _wrap(function(targets, spread, size, origin, range, angle, fan, count, skip) {
     angle = (angle || 0) * Math.PI / 180;
     if (origin === undefined) origin = 0;
     if (range === undefined) range = origin + spread + size;
     range = Math.min(range, origin + spread + size);
     var cosa = Math.cos(angle), sina = Math.sin(angle);
+    skip = (skip || 0);
     function f(t) {
       var shape = new PolyShape();
       if (!count || count <= 1) {
-        shape.capsule(-origin, 0, -origin + cosa * t, sina * t, size);
+        shape.capsule(-origin + cosa * skip, sina * skip, -origin + cosa * (t + skip), sina * (t + skip), size);
       } else {
         shape.lines(-origin, 0, angle, fan * Math.PI / 180, t, size, count);
       }

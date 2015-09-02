@@ -21,6 +21,8 @@ DiabloCalc.addItems([
       maxfury: "maxfuryNormal",
       maxap: "maxapNormal",
       maxmana: "maxmanaNormal",
+      maxspirit: "maxspiritNormal",
+      maxwrath: "maxwrathNormal",
       spiritregen: "spiritregenNormal",
       wrathregen: "wrathregenNormal",
     },
@@ -350,7 +352,7 @@ DiabloCalc.addItems([
     required: {
       edmg: {min: 25, max: 30},
     },
-    preset: ["mainstat", "elemental"],
+    preset: ["mainstat", "elemental", "resource"],
   },
 
   {

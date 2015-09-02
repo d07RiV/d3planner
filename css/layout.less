@@ -64,6 +64,17 @@
     margin-bottom: 8px;
     font-size: 14pt;
   }
+  .item-mod {
+    display: block;
+    margin-top: 6px;
+    margin-left: 42px;
+    .item-info-item {
+      width: 220px !important;
+      &.item-info-dye {
+        width: 174px !important;
+      }
+    }
+  }
   .item-info-type {
     margin-left: 20px;
     margin-right: 10px;
@@ -87,6 +98,22 @@
     input {
       position: relative;
       top: 2px;
+    }
+  }
+  .item-info-equipset {
+    display: block;
+    cursor: pointer;
+    margin-left: 29px;
+    margin-top: 6px;
+    font-size: 12px;
+    .theme-light & {
+      color: #44f;
+    }
+    .theme-dark & {
+      color: #88f;
+    }
+    &:hover {
+      text-decoration: underline;
     }
   }
   .item-info-statlist {

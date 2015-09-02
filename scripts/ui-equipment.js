@@ -530,12 +530,30 @@
     this.slotBox = new StashSlot(this.div);
     this.prevSlot = $("<span class=\"left\"></span>");
     this.nextSlot = $("<span class=\"right\"></span>");
-    this.slotName = $("<h3></h3>");
+    this.slotName = $("<span class=\"current-slot chosen-noframe\"></span>");
+    this.slotDrop = $("<select class=\"current-slot-name\"></select>");
     this.slotItem = $("<span></span>");
     this.div.append($("<div class=\"current-header\"><span class=\"current-tip\">" + _L("Click on a paperdoll slot to edit items.") +
-      "</span></div>").append(this.slotName).append(this.slotItem));
+      "</span></div>").append(this.slotName, "<br/>", this.slotItem));
 
     var self = this;
+
+    this.slotName.append(this.prevSlot, this.slotDrop, this.nextSlot);
+    this.listSlots = function(curslot) {
+      this.slotDrop.empty();
+      for (var slot in DiabloCalc.itemSlots) {
+        var so = DiabloCalc.itemSlots[slot];
+        if (so.drop && so.drop.inactive) continue;
+        this.slotDrop.append("<option value=\"" + slot + (slot === curslot ? "\" selected=\"selected" : "") + "\">" + so.name + "</option>");
+      }
+    };
+    this.listSlots();
+    this.slotDrop.chosen({
+      disable_search: true,
+      inherit_select_classes: true,
+    }).change(function() {
+      self.doSetSlot($(this).val());
+    });
 
     this.slotBox.veryOldSetItem = this.slotBox.setItem;
     this.slotBox.oldSetItem = function(data, mode) {
@@ -599,8 +617,21 @@
         }
       }
     });
+    this.prevSlot.click(function() {
+      var slot = self.getPrevSlot();
+      if (slot) setCurSlot(slot);
+    });
+    this.nextSlot.click(function() {
+      var slot = self.getNextSlot();
+      if (slot) setCurSlot(slot);
+    });
 
     this.setSlot = function(slot) {
+      this.listSlots(slot);
+      this.slotDrop.trigger("chosen:updated");
+      this.doSetSlot(slot);
+    };
+    this.doSetSlot = function(slot) {
       if (this.slot) {
         DiabloCalc.itemSlots[this.slot].dollFrame.removeClass("editing");
       }
@@ -609,22 +640,13 @@
         DiabloCalc.itemSlots[this.slot].dollFrame.addClass("editing");
       }
       this.slotBox.dollSlot = slot;
-      this.slotName.text(DiabloCalc.itemSlots[slot].name).prepend(this.prevSlot).append(this.nextSlot);
       if (this.getPrevSlot()) {
         this.prevSlot.removeClass("disabled");
-        this.prevSlot.click(function() {
-          var slot = self.getPrevSlot();
-          if (slot) setCurSlot(slot);
-        });
       } else {
         this.prevSlot.addClass("disabled");
       }
       if (this.getNextSlot()) {
         this.nextSlot.removeClass("disabled");
-        this.nextSlot.click(function() {
-          var slot = self.getNextSlot();
-          if (slot) setCurSlot(slot);
-        });
       } else {
         this.nextSlot.addClass("disabled");
       }
@@ -637,6 +659,9 @@
       this.slotBox.oldSetItem(data, "editing");
       DiabloCalc.itemSlots[self.slot].item = data;
       DiabloCalc.trigger("updateSlotItem", self.slot);
+    };
+    this.updateIcon = function() {
+      this.slotBox.oldSetItem(this.itemBox.getData(), "editing");
     };
   };
 
@@ -890,5 +915,8 @@
   };
 
   DiabloCalc.register("changeClass", onChangeClass);
+  DiabloCalc.register("changeGender", function() {
+    currentSlot.updateIcon();
+  });
   onChangeClass();
 })();

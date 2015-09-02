@@ -13,7 +13,8 @@
   GenSequence.prototype.step = function() {
     var next = this.next();
     if (next < 2) {
-      Sim.addBuff(this.name, undefined, {maxstacks: 2, duration: 180});
+      var dur = Math.ceil(72 / Sim.stats.info.aps);
+      Sim.addBuff(this.name, undefined, {maxstacks: 2, duration: dur});
     } else {
       Sim.removeBuff(this.name);
     }
@@ -304,7 +305,7 @@
     var stacks = Sim.getBuff("flurry");
     if (stacks) {
       Sim.removeBuff("flurry");
-      Sim.damage({type: "area", range: 15, self: true, coeff: 1.5 * stacks});
+      Sim.damage({type: "area", range: 15, self: true, coeff: 0.9 * stacks});
     }
   }
   skills.tempestrush = {
@@ -542,7 +543,7 @@
       ontick: {coeff: 12 / 18},
     };
     var buffs;
-    switch (data.castInfo.rune) {
+    switch (Sim.stats.skills.explodingpalm) {
     case "c":
       buffs = {dmgtaken: 20};
       break;
@@ -558,11 +559,22 @@
     }
     Sim.addBuff("explodingpalm", buffs, params);
   }
+  Sim.apply_palm = function(count) {
+    Sim.pushCastInfo({
+      skill: "explodingpalm",
+      rune: Sim.stats.skills.explodingpalm || "x",
+      elem: skills.explodingpalm.elem[Sim.stats.skills.explodingpalm || "x"],
+      weapon: Sim.curweapon,
+      castId: Sim.getCastId(),
+    });
+    ep_onhit({targets: count || 1});
+    Sim.popCastInfo();
+  };
   skills.explodingpalm = {
     offensive: true,
     cost: 40,
     speed: function(rune) {
-      return (Sim.stats.info.weaponClass === "hth" ? 57.142849 : 57);
+      return (Sim.stats.info.weaponClass === "fist" ? 57.142849 : 57);
     },
     oncast: function(rune) {
       return {targets: (rune === "a" ? 2 : 1), coeff: 0, onhit: ep_onhit};
@@ -633,6 +645,8 @@
             Sim.addBuff("innerstorm", {spiritregen: 8});
           }
           nextStack = Sim.time + 30;
+        } else {
+          Sim.refreshBuff("sweepingwind", 360);
         }
         if (rune === "c" && stacks >= 3) {
           for (var i = Sim.random("cyclone", data.proc * data.chc, data.targets, true); i > 0; --i) {
@@ -685,21 +699,22 @@
       break;
     }
     if (Sim.stats.leg_madstone) {
-      ep_onhit(data);
+      Sim.apply_palm(data.targets);
     }
   }
   skills.sevensidedstrike = {
     offensive: true,
-    speed: 47.999996,
-    pause: 78,
+    speed: 78,
+    duration: 78,
+    noias: true,
     cost: {x: 50, a: 50, b: 50, d: 50, e: 50},
     cooldown: function(rune) {
       return (rune === "d" ? 14 : 30) * (1 - 0.01 * (Sim.stats.leg_theflowofeternity || 0));
     },
     oncast: function(rune) {
       var params = {
-        duration: 78,
-        tickrate: 10,
+        duration: (Sim.stats.leg_lionsclaw ? 72 : 61),
+        tickrate: (Sim.stats.leg_lionsclaw ? 5 : 9),
         tickinitial: 6,
         ontick: {coeff: 8.11, onhit: sss_onhit},
       };
@@ -707,7 +722,10 @@
       case "a": params.ontick.coeff = 82.85 / 7; break;
       case "e": params.ontick = {type: "area", range: 7, coeff: 8.77, onhit: sss_onhit}; break;
       }
-      Sim.addBuff("sevensidedstrike", undefined, params);
+      if (Sim.stats.set_uliana_4pc) {
+        params.ontick.coeff *= 7 + (Sim.stats.leg_lionsclaw ? 7 : 0);
+      }
+      Sim.addBuff(Sim.castInfo().triggered ? undefined : "sevensidedstrike", undefined, params);
     },
     proctable: {x: 0.57, a: 0.57, b: 0.087, c: 0.57, d: 0.34, e: 0.285},
     elem: {x: "phy", a: "lit", b: "fir", c: "col", d: "phy", e: "hol"},
@@ -948,7 +966,7 @@
       });
     },
     theguardianspath: function() {
-      if (Sim.stats.info.mainhand.slot == "onehand" && stats.info.offhand && stats.info.offhand.slot == "onehand") {
+      if (Sim.stats.info.mainhand.slot == "onehand" && Sim.stats.info.offhand && Sim.stats.info.offhand.slot == "onehand") {
         Sim.addBaseStats({dodge: 35});
       } else if (Sim.stats.info.mainhand.slot == "twohand") {
         Sim.addBaseStats({resourcegen: 15});

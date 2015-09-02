@@ -35,26 +35,19 @@ DiabloCalc.skills.witchdoctor = {
       case "a": res = {"Damage": {elem: "fir", coeff: 5.65, total: true}}; break;
       case "e": res = {"Damage": {elem: "psn", coeff: 1.85}, "Dot Damage": {elem: "psn", coeff: 0.4, total: true}}; break;
       }
-      var dps = {sum: true, "Damage": {speed: 1, fpa: 58, round: "up", count: (rune == "b" ? 1 : 3)}};
+      var dps = {sum: true, "Damage": {speed: 1, fpa: 58, round: "up", count: (rune == "b" ? 3 : 1)}};
       if (res["Dot Damage"]) dps["Dot Damage"] = 1;
 
       if (stats.leg_carnevil && (stats.skills.fetisharmy || stats.passives.fetishsycophants || stats.leg_beltoftranscendence)) {
-        var damage = {elem: "psn", pet: true, aps: true, coeff: 1.3};
+        var damage = {elem: "psn", pet: true, aps: true, coeff: 1.3, percent: {}};
+        damage.percent[DiabloCalc.itemById.Unique_VoodooMask_101_x1.name] = 250;
 
-        if (stats.skills.fetisharmy) {
-          res["Fetish Army Damage"] = $.extend(true, {percent: {"Army %": stats.skill_witchdoctor_fetisharmy}}, damage);
-          var count;
-          switch (stats.skills.fetisharmy) {
-          case "b": count = 8; break;
-          case "c": count = 6; break;
-          case "e": count = 7; break;
-          default: count = 5;
-          }
-          dps["Fetish Army Damage"] = {speed: 1, fpa: 58, round: "up", nobp: true, count: count};
-        }
-        if (stats.passives.fetishsycophants || stats.leg_beltoftranscendence) {
-          res["Sycophants Damage"] = $.extend({}, damage);
-          dps["Sycophants Damage"] = {speed: 1, fpa: 58, round: "up", nobp: true, count: DiabloCalc.passives.witchdoctor.fetishsycophants.params[0].val};
+        if (stats.skills.fetisharmy || stats.passives.fetishsycophants || stats.leg_beltoftranscendence) {
+          var count = 0;
+          if (stats.skills.fetisharmy) count = 5;
+          else count = Math.min(5, DiabloCalc.passives.witchdoctor.fetishsycophants.params[0].val);
+          res["Fetish Damage"] = $.extend(true, {percent: {"Army %": stats.skill_witchdoctor_fetisharmy}}, damage);
+          dps["Fetish Damage"] = {speed: 1, fpa: 58, round: "up", nobp: true, count: count};
         }
         res["Total DPS"] = dps;
       } else {
@@ -77,12 +70,12 @@ DiabloCalc.skills.witchdoctor = {
       a: "Blazing Spiders",
     },
     info: {
-      x: {"Damage": {elem: "phy", coeff: 5.76, total: true}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58, round: "up"}}},
-      c: {"Damage": {elem: "psn", coeff: 6.45, total: true}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58, round: "up"}}},
-      b: {"Damage": {elem: "psn", coeff: 26.25, total: true}, "DPS": {sum: true, "Damage": {factor: 1/15}}},
-      d: {"Damage": {elem: "phy", coeff: 5.76, total: true}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58, round: "up"}}},
-      e: {"Damage": {elem: "phy", coeff: 5.76, total: true}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58, round: "up"}}},
-      a: {"Damage": {elem: "fir", coeff: 7, total: true}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58, round: "up"}}},
+      x: {"Damage": {elem: "phy", coeff: 5.76, total: true, pet: true}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58, round: "up"}}},
+      c: {"Damage": {elem: "psn", coeff: 6.45, total: true, pet: true}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58, round: "up"}}},
+      b: {"Damage": {elem: "psn", coeff: 26.25, total: true, pet: true}, "DPS": {sum: true, "Damage": {factor: 1/15}}},
+      d: {"Damage": {elem: "phy", coeff: 7, total: true, pet: true}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58, round: "up"}}},
+      e: {"Damage": {elem: "phy", coeff: 5.76, total: true, pet: true}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58, round: "up"}}},
+      a: {"Damage": {elem: "fir", coeff: 5.76, total: true, pet: true}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58, round: "up"}}},
     },
   },
   plagueoftoads: {
@@ -102,10 +95,10 @@ DiabloCalc.skills.witchdoctor = {
       "*": {"DPS": {sum: true, "Damage": {speed: 1, count: 4, fpa: 57.5, round: "up"}}},
       x: {"Damage": {elem: "psn", coeff: 1.9}},
       a: {"Damage": {elem: "fir", coeff: 2.45}},
-      c: {"Damage": {elem: "psn", coeff: 1.3}},
+      c: {"Damage": {elem: "phy", coeff: 1.3}},
       b: {"Damage": {elem: "psn", coeff: 1.3, total: true}, "DPS": {sum: true, "Damage": {speed: 1.4, fpa: 55.384609, round: "up"}}},
       e: {"Damage": {elem: "psn", coeff: 1.9}},
-      d: {"Damage": {elem: "psn", coeff: 1.9}},
+      d: {"Damage": {elem: "col", coeff: 1.9}},
     },
   },
   firebomb: {
@@ -128,7 +121,7 @@ DiabloCalc.skills.witchdoctor = {
       b: {"Damage": {elem: "fir", coeff: 1.55}},
       c: {"Damage": {elem: "fir", coeff: 1.55}, "Pool Damage": {elem: "fir", coeff: 0.6, total: true}},
       d: {"Damage": {elem: "fir", coeff: 8.8, total: true}, "DPS": {sum: true, "Damage": {factor: 3, divide: 6}}},
-      a: {"Damage": {elem: "fir", coeff: 1.55}, "Blast Damage": {elem: "fir", coeff: 0.3}},
+      a: {"Damage": {elem: "fir", coeff: 1.55}, "Blast Damage": {elem: "col", coeff: 0.3}},
     },
   },
   graspofthedead: {
@@ -147,9 +140,9 @@ DiabloCalc.skills.witchdoctor = {
     info: function(rune, stats) {
       var res;
       switch (rune) {
-      case "x": res = {"Damage": {elem: "phy", coeff: 5.6, total: true}}; break;
+      case "x": res = {"Damage": {elem: "phy", coeff: 7.6, total: true}}; break;
       case "c": res = {"Damage": {elem: "col", coeff: 5.6, total: true}}; break;
-      case "a": res = {"Damage": {elem: "phy", coeff: 8.8, total: true}}; break;
+      case "a": res = {"Damage": {elem: "phy", coeff: 13.6, total: true}}; break;
       case "e": res = {"Damage": {elem: "psn", coeff: 5.6, total: true}}; break;
       case "d": res = {"Damage": {elem: "psn", coeff: 5.6, total: true}}; break;
       case "b": res = {"Damage": {elem: "phy", coeff: 5.6, total: true}, "Corpse Damage": {elem: "phy", coeff: 4.2, total: true}}; break;
@@ -157,7 +150,7 @@ DiabloCalc.skills.witchdoctor = {
       if (stats.leg_deadlyrebirth && rune !== "b") {
         res["Corpse Damage"] = {elem: res["Damage"].elem, coeff: 4.2, total: true};
       }
-      return $.extend({"Cost": {cost: 150}, "Cooldown": {cooldown: 8}}, res);
+      return $.extend({"Cost": {cost: (rune === "c" ? 0 : 150)}, "Cooldown": {cooldown: (rune === "d" ? 4 : 8)}}, res);
     },
   },
   firebats: {
@@ -174,15 +167,21 @@ DiabloCalc.skills.witchdoctor = {
       e: "Cloud of Bats",
     },
     params: [{rune: "e", min: 0, max: 5, val: 5, step: 0.5, name: "Channeled for", buffs: false},
-             {rune: "c", min: 0, max: 2, val: 2, step: 0.5, name: "Channeled for", buffs: false}],
+             {rune: "c", min: 0, max: 3, val: 3, step: 0.5, name: "Channeled for", buffs: false}],
     info: {
-      "*": {"Cost": {cost: 150}, "Channeling Cost": {cost: 75, fpa: 30}, "DPS": {sum: true, "Tick Damage": {speed: 1, fpa: 30}}},
-      x: {"Tick Damage": {elem: "fir", coeff: 4.25, divide: {"Base Speed": 2}}},
-      a: {"Channeling Cost": {cost: 75, fpa: 60}, "DPS": {sum: true, "Tick Damage": {speed: 1, fpa: 60}}, "Tick Damage": {elem: "fir", coeff: 4.95}},
-      d: {"Tick Damage": {elem: "fir", coeff: 4.25, divide: {"Base Speed": 2}}, "Cost": {cost: 225}, "Channeling Cost": null},
-      c: {"Tick Damage": {elem: "psn", coeff: 4.25, divide: {"Base Speed": 2}, percent: {"Channeling": "$2*25"}}},
-      b: {"Tick Damage": {elem: "fir", coeff: 6.35, divide: {"Base Speed": 2}}},
+      "*": {"Cost": null, "Channeling Cost": {cost: 125, fpa: 30}, "DPS": {sum: true, "Tick Damage": {speed: 1, fpa: 30}}},
+      x: {"Tick Damage": {elem: "fir", coeff: 4.75, divide: {"Base Speed": 2}}},
+      a: {"Channeling Cost": {cost: 125, fpa: 60}, "DPS": {sum: true, "Tick Damage": {speed: 1, fpa: 60}}, "Tick Damage": {elem: "fir", coeff: 5}},
+      d: {"Cost": {cost: 250}, "Channeling Cost": null, "Tick Damage": {elem: "phy", coeff: 4.75, divide: {"Base Speed": 2}}, "Cost": {cost: 225}, "Channeling Cost": null},
+      c: {"Tick Damage": {elem: "psn", coeff: 4.75, divide: {"Base Speed": 2}, percent: {"Channeling": "$2*51.5/3"}}},
+      b: {"Tick Damage": {elem: "fir", coeff: 7.5, divide: {"Base Speed": 2}}},
       e: {"Tick Damage": {elem: "fir", coeff: 4.25, divide: {"Base Speed": 2}, percent: {"Channeling": "$1*20"}}},
+    },
+    active: true,
+    buffs: function(rune, stats) {
+      if (stats.leg_coilsofthefirstspider) {
+        return {lph: stats.leg_coilsofthefirstspider, dmgred: 30};
+      }
     },
   },
   haunt: {
@@ -235,10 +234,9 @@ DiabloCalc.skills.witchdoctor = {
       var damage;
       switch (rune) {
       case "a": damage = {elem: "fir", coeff: 14.8, total: true}; break;
-      case "c": damage = {elem: "psn", coeff: 20.8, total: true}; break;
       default: damage = {elem: "psn", coeff: 10.4, total: true};
       }
-      var dur = (stats.leg_quetzalcoatl ? 0.5 : 1) * (rune == "c" ? 16 : 8);
+      var dur = (stats.leg_quetzalcoatl ? 0.5 : 1) * 8;
       var res;
       if (stats.passives.creepingdeath) {
         damage.divide = {"Base Duration": dur};
@@ -301,7 +299,6 @@ DiabloCalc.skills.witchdoctor = {
     category: "defensive",
     row: 2,
     col: 1,
-    nolmb: true,
     runes: {
       c: "Phobia",
       e: "Stalker",
@@ -357,7 +354,6 @@ DiabloCalc.skills.witchdoctor = {
     category: "defensive",
     row: 2,
     col: 3,
-    nolmb: true,
     runes: {
       d: "Hedge Magic",
       e: "Jinx",
@@ -367,16 +363,27 @@ DiabloCalc.skills.witchdoctor = {
     },
     info: {
       "*": {"Uptime": {cooldown: "15*(passives.tribalrites?0.75:1)", duration: 12}},
-      b: {"Cooldown": {cooldown: "15*(passives.tribalrites?0.75:1)"}, "Uptime": null, "Explosion Damage": {elem: "phy", coeff: 13.5}},
-      a: {"Cooldown": {cooldown: "15*(passives.tribalrites?0.75:1)"}, "Uptime": null, "Damage": {elem: "psn", coeff: 5.8, factors: {"Duration": 5}, total: true}},
-      c: {"Explosion Damage": {elem: "fir", coeff: 1.35}},
+      b: {"Cooldown": {cooldown: "15*(passives.tribalrites?0.75:1)"}, "Uptime": null,
+          "Explosion Damage": {elem: "psn", coeff: 13.5, percent: {"Manajuma's Way": "set_manajuma_2pc?200:0"}}},
+      a: {"Cooldown": {cooldown: "15*(passives.tribalrites?0.75:1)"}, "Uptime": null, "Damage": {elem: "psn", coeff: 7.5, total: true}},
+      c: {"Explosion Damage": {elem: "fir", coeff: 5}},
     },
     active: false,
-    buffs: {
-      x: {dmgtaken: 10},
-      d: {dmgtaken: 10},
-      e: {dmgtaken: 20},
-      c: {dmgtaken: 10},
+    buffs: function(rune, stats) {
+      var res;
+      switch (rune) {
+      case "x": res = {dmgtaken: 15}; break;
+      case "d": res = {dmgtaken: 15}; break;
+      case "e": res = {dmgtaken: 30}; break;
+      case "b": res = {extrams: 50 + (stats.set_manajuma_2pc ? 100 : 0)}; break;
+      case "a": res = {dmgtaken: 25}; break;
+      case "c": res = {dmgtaken: 15}; break;
+      }
+      if (stats.set_arachyr_4pc) {
+        res.dmgtaken = Math.max(res.dmgtaken || 0, 25);
+        res.dmgred = 40;
+      }
+      return res;
     },
   },
   soulharvest: {
@@ -385,7 +392,6 @@ DiabloCalc.skills.witchdoctor = {
     category: "terror",
     row: 3,
     col: 0,
-    nolmb: true,
     runes: {
       d: "Swallow Your Soul",
       a: "Siphon",
@@ -438,11 +444,13 @@ DiabloCalc.skills.witchdoctor = {
     buffs: function(rune, stats) {
       var stacks = this.params[0].val;
       if (stats.set_jadeharvester_4pc) {
-        return {int_percent: stacks * 3, maxmana_percent: stacks * 5, armor_percent: 30};
+        return {int_percent: stacks * 3, maxmana_percent: stacks * 5, armor_percent: 30, extrams: stacks * 5};
       } else if (rune == "d") {
         return {int_percent: stacks * 3, maxmana_percent: stacks * 5};
       } else if (rune == "c") {
         return {int_percent: stacks * 3, armor_percent: 30};
+      } else if (rune == "b") {
+        return {int_percent: stacks * 3, extrams: stacks * 5};
       } else {
         return {int_percent: stacks * 3};
       }
@@ -490,11 +498,11 @@ DiabloCalc.skills.witchdoctor = {
     },
     info: {
       x: {"Uptime": {duration: 12, cooldown: "60*(passives.tribalrites?0.75:1)"}},
-      d: {"Uptime": {duration: 12, cooldown: "45*(passives.tribalrites?0.75:1)"}},
+      d: {"Uptime": {duration: 12, cooldown: "30*(passives.tribalrites?0.75:1)"}},
       e: {"Uptime": {duration: 12, cooldown: "60*(passives.tribalrites?0.75:1)"}},
       b: {"Uptime": {duration: 12, cooldown: "60*(passives.tribalrites?0.75:1)"}},
       a: {"Uptime": {duration: 12, cooldown: "60*(passives.tribalrites?0.75:1)"}},
-      c: {"DPS": {elem: "phy", aps: true, coeff: 1.95, total: true}, "Uptime": {duration: 12, cooldown: "60*(passives.tribalrites?0.75:1)"}},
+      c: {"DPS": {elem: "phy", coeff: 4, total: true}, "Uptime": {duration: 12, cooldown: "60*(passives.tribalrites?0.75:1)"}},
     },
     active: false,
     buffs: {
@@ -515,13 +523,13 @@ DiabloCalc.skills.witchdoctor = {
       a: "Zombie Bears",
     },
     info: {
-      "*": {"Cost": {cost: 150}},
+      "*": {"Cost": {cost: 150, rcr: "leg_scrimshaw"}},
       x: {"Damage": {elem: "psn", coeff: 5.6}},
-      c: {"Damage": {elem: "phy", coeff: 8}},
-      d: {"Damage": {elem: "psn", coeff: 5.6}, "Reanimate Damage": {elem: "psn", coeff: 3.6}},
-      b: {"Damage": {elem: "col", coeff: 1.96, factors: {"Zombies": 7}}},
-      e: {"Damage": {elem: "fir", coeff: 5.32}},
-      a: {"Damage": {elem: "psn", coeff: 3.92, factors: {"Bears": 3}}},
+      c: {"Damage": {elem: "phy", coeff: 8.8}},
+      d: {"Damage": {elem: "psn", coeff: 5.6}, "Reanimate Damage": {elem: "psn", coeff: 4.8}},
+      b: {"Damage": {elem: "col", coeff: 2.8, factors: {"Zombies": 7}}},
+      e: {"Damage": {elem: "fir", coeff: 6.8}},
+      a: {"Damage": {elem: "psn", coeff: 5.2, factors: {"Bears": 3}}},
     },
   },
   spiritbarrage: {
@@ -561,38 +569,46 @@ DiabloCalc.skills.witchdoctor = {
       e: "Kiss of Death",
       a: "Corpse Bomb",
     },
-    info: {
-      "*": {"Cost": {cost: 175}},
-      x: {"Damage": {elem: "psn", coeff: 3, addcoeff: [3.6], total: 0}},
-      b: {"Damage": {elem: "psn", coeff: 3, addcoeff: [3.6], total: 0}},
-      c: {"Damage": {elem: "psn", coeff: 3, addcoeff: [6], total: 0}},
-      d: {"Damage": {elem: "col", coeff: 3, addcoeff: [7.2], total: 0}},
-      e: {"Damage": {elem: "psn", coeff: 3.3, addcoeff: [3.96], total: 0}},
-      a: {"Damage": {elem: "fir", coeff: 5.25}},
+    info: function(rune, stats) {
+      var res;
+      switch (rune) {
+      case "x": res = {"Damage": {elem: "psn", coeff: 3, addcoeff: [3.6], total: 0}}; break;
+      case "b": res = {"Damage": {elem: "psn", coeff: 3, addcoeff: [3.6], total: 0}}; break;
+      case "c": res = {"Damage": {elem: "psn", coeff: 3, addcoeff: [6], total: 0}}; break;
+      case "d": res = {"Damage": {elem: "col", coeff: 3, addcoeff: [7.2], total: 0}}; break;
+      case "e": res = {"Damage": {elem: "psn", coeff: 3.33, addcoeff: [4], total: 0}}; break;
+      case "a": res = {"Damage": {elem: "fir", coeff: 7}}; break;
+      }
+      if (rune !== "c" && stats.leg_suwongdiviner) {
+        res["Blob Damage"] = {elem: "psn", coeff: 6, total: true};
+      }
+      return $.extend({"Cost": {cost: 175}}, res);
     },
   },
   wallofzombies: {
-    id: "wall-of-zombies",
-    name: "Wall of Zombies",
+    id: "wall-of-death",
+    name: "Wall of Death",
     category: "decay",
     row: 4,
     col: 3,
     runes: {
-      b: "Barricade",
-      d: "Unrelenting Grip",
-      a: "Creepers",
-      e: "Wrecking Crew",
-      c: "Offensive Line",
+      b: "Ring of Poison",
+      d: "Wall of Zombies",
+      a: "Surrounded by Death",
+      e: "Fire Wall",
+      c: "Communicating with Spirits",
     },
     info: function(rune, stats) {
-      var res = {"Cooldown": {cooldown: 8}, "Damage": {elem: (rune == "d" ? "col" : "phy"), coeff: 2, total: true}};
-      if (rune == "a") {
-        res["Zombie Damage"] = {elem: "phy", coeff: 0.25};
+      var res;
+      switch (rune) {
+      case "x": res = {"Damage": {elem: "phy", coeff: 10, total: true}}; break;
+      case "b": res = {"Damage": {elem: "psn", coeff: 12, total: true}}; break;
+      case "d": res = {"Damage": {elem: "phy", coeff: 10, total: true}}; break;
+      case "a": res = {"Damage": {elem: "phy", coeff: 10, total: true}}; break;
+      case "e": res = {"Damage": {elem: "fir", coeff: 11, total: true}}; break;
+      case "c": res = {"Damage": {elem: "col", coeff: 12, total: true}}; break;
       }
-      if (stats.set_helltooth_6pc) {
-        res["Helltooth Damage"] = {elem: "psn", coeff: 3, factors: {"Duration": 4}};
-      }
-      return res;
+      return $.extend({"Cooldown": {cooldown: 8}}, res);
     },
   },
   piranhas: {
@@ -660,7 +676,7 @@ DiabloCalc.skills.witchdoctor = {
       res["DPS"] = {sum: true, "Damage": {pet: 84, count: count}};
       if (rune === "a") res["DPS"]["Damage"].ias = 35;
       if (rune === "c") res["DPS"]["Poison DPS"] = {count: count};
-      return $.extend({"Cooldown": {cooldown: 60}}, res);
+      return $.extend({"Cooldown": {cooldown: 60 * (stats.passives.tribalrites ? 0.75 : 1)}}, res);
     },
   },
   bigbadvoodoo: {
@@ -687,7 +703,7 @@ DiabloCalc.skills.witchdoctor = {
       b: {ias: 20, petias: 20, extrams: 20},
       d: {ias: 20, petias: 20, extrams: 20, manaregen: 250},
       a: {ias: 20, petias: 20, extrams: 20, damage: 30},
-      c: {ias: 20, petias: 20, extrams: 20},
+      c: {ias: 20, petias: 20, extrams: 20, dmgred: 20},
       e: {ias: 20, petias: 20, extrams: 20},
     },
   },
@@ -704,17 +720,27 @@ DiabloCalc.skills.witchdoctor = {
       c: "Tiki Torchers",
       e: "Head Hunters",
     },
-    info: {
-      "*": {"Cooldown": {cooldown: "120*(passives.tribalrites?0.75:1)"}},
-      x: {"Dagger Damage": {elem: "phy", pet: true, aps: true, coeff: 1.8}, "Total DPS": {sum: true, "Dagger Damage": {pet: 48, count: 5}}},
-      a: {"Dagger Damage": {elem: "col", pet: true, aps: true, coeff: 1.8}, "Total DPS": {sum: true, "Dagger Damage": {pet: 48, count: 5}},
-          "Explosion Damage": {elem: "col", coeff: 6.8}},
-      d: {"Dagger Damage": {elem: "phy", pet: true, aps: true, coeff: 1.8}, "Total DPS": {sum: true, "Dagger Damage": {pet: 48, count: 5}}},
-      b: {"Dagger Damage": {elem: "phy", pet: true, aps: true, coeff: 1.8}, "Total DPS": {sum: true, "Dagger Damage": {pet: 48, count: 8}}},
-      c: {"Dagger Damage": {elem: "fir", pet: true, aps: true, coeff: 1.8}, "Torcher Damage": {elem: "fir", pet: true, aps: true, coeff: 0.85},
-          "DPS": {sum: true, "Dagger Damage": {pet: 48, count: 5}, "Torcher Damage": {pet: 42, count: 2}}},
-      e: {"Dagger Damage": {elem: "psn", pet: true, aps: true, coeff: 1.8}, "Dart Damage": {elem: "psn", pet: true, aps: true, coeff: 1.3},
-         "DPS": {sum: true, "Dagger Damage": {pet: 48, count: 5}, "Dart Damage": {pet: 42, count: 2}}},
+    info: function(rune, stats) {
+      var elem = DiabloCalc.skilltips.witchdoctor.fetisharmy.elements[rune];
+      var data = {"Cooldown": {cooldown: (rune === "d" ? 90 : 120)}, "Dagger Damage": {elem: elem, pet: true, aps: true, coeff: 1.8}};
+      if (stats.passives.tribalrites) data["Cooldown"].cooldown *= 0.75;
+      if (stats.set_zunimassa_2pc) data["Cooldown"].cooldown *= 0.2;
+      var count = 5;
+      switch (rune) {
+      case "a": data["Explosion Damage"] = {elem: "col", coeff: 6.8}; break;
+      case "b": count = 8; break;
+      case "c": data["Torcher Damage"] = {elem: "fir", pet: true, aps: true, coeff: 0.85}; break;
+      case "e": data["Dart Damage"] = {elem: "psn", pet: true, aps: true, coeff: 1.3}; break;
+      }
+      data["Total DPS"] = {sum: true, "Dagger Damage": {pet: 48, count: count}};
+      if (rune === "c") data["Total DPS"]["Torcher Damage"] = {pet: 42, count: 2};
+      if (rune === "e") data["Total DPS"]["Dart Damage"] = {pet: 42, count: 2};
+      if (stats.leg_carnevil && stats.skills.poisondart) {
+        count -= (rune === "c" || rune === "e" ? 3 : 5);
+        data["Non-Carnevil DPS"] = {sum: true, tip: "DPS from fetishes not shooting Carnevil darts."};
+        if (count) data["Non-Carnevil DPS"]["Dagger Damage"] = {pet: 48, count: count};
+      }
+      return data;
     },
   },
 };
@@ -734,7 +760,7 @@ DiabloCalc.passives.witchdoctor = {
     id: "spiritual-attunement",
     name: "Spiritual Attunement",
     index: 2,
-    buffs: {maxmana_percent: 10, manaregen_percent: 1},
+    buffs: {maxmana_percent: 10, manaregen_percent: 2},
   },
   gruesomefeast: {
     id: "gruesome-feast",
@@ -747,7 +773,7 @@ DiabloCalc.passives.witchdoctor = {
     id: "blood-ritual",
     name: "Blood Ritual",
     index: 4,
-    buffs: {rcr_mana: 10, regen_percent: 1},
+    buffs: {rcr_mana: 20, regen_percent: 1},
   },
   badmedicine: {
     id: "bad-medicine",
@@ -779,7 +805,7 @@ DiabloCalc.passives.witchdoctor = {
       show: function(stats) {return !!this.id || !stats.passives.fetishsycophants;}}]),
     //params: [{min: 0, max: 15, name: "Count", buffs: false}],
     info: function(stats) {
-      return {"Fetish Damage": {elem: "max", pet: true, aps: true, coeff: 1.8},
+      return {"Fetish Damage": {elem: "max", pet: true, aps: true, coeff: 1.8, percent: {"Army %": stats.skill_witchdoctor_fetisharmy}},
               "Fetish DPS": {sum: true, "Fetish Damage": {pet: 48}},
               "Total DPS": {sum: true, "Fetish Damage": {pet: 48, count: this.params[0].val}},
       };
@@ -795,12 +821,13 @@ DiabloCalc.passives.witchdoctor = {
     name: "Vision Quest",
     index: 11,
     active: true,
-    buffs: {manaregen_percent: 30},
+    buffs: {resourcegen: 40},
   },
   fierceloyalty: {
     id: "fierce-loyalty",
     name: "Fierce Loyalty",
     index: 12,
+    buffs: {extrams: 15},
   },
   graveinjustice: {
     id: "grave-injustice",
@@ -812,17 +839,29 @@ DiabloCalc.passives.witchdoctor = {
     name: "Tribal Rites",
     index: 14,
   },
+  confidenceritual: {
+    id: "confidence-ritual",
+    name: "Confidence Ritual",
+    index: 18,
+    active: true,
+    buffs: {dmgmul: 25},
+  },
   creepingdeath: {
     id: "creeping-death",
     name: "Creeping Death",
     index: 15,
   },
   physicalattunement: {
-    id: "physical-attunement",
-    name: "Physical Attunement",
+    id: "swampland-attunement",
+    name: "Swampland Attunement",
     index: 16,
     params: [{min: 0, max: 25, val: 0, name: "Nearby Enemies"}],
-    buffs: function(stats) {return {resphy: 70 * this.params[0].val};},
+    buffs: function(stats) {return {
+      resphy: 120 * this.params[0].val,
+      respsn: 120 * this.params[0].val,
+      resfir: 120 * this.params[0].val,
+      rescol: 120 * this.params[0].val,
+    };},
   },
   midnightfeast: {
     id: "midnight-feast",
@@ -853,7 +892,7 @@ DiabloCalc.partybuffs.witchdoctor = {
 };
 DiabloCalc.extraskills.witchdoctor = {
   hex_explode: {
-    category: "hex",
+    skill: "hex",
     required: function(stats) { return stats.skills.hex === "b"; },
     name: "Hex Explode",
     row: 6,

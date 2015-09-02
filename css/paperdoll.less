@@ -1,5 +1,8 @@
+.dollframe {
+  overflow: visible !important;
+}
 .paperdoll-container {
-  margin-top: 20px;
+  margin-top: 10px;
   display: inline-block;
   position: relative;
 }
@@ -287,7 +290,10 @@
   }
 }
 .paperdoll-skills {
-  margin-top: 20px;
+  margin-top: 8px;
+  &:last-of-type {
+    margin-top: 12px;
+  }
   height: 42px;
   margin-bottom: -6;
   .skill-icon, .passive-icon {
@@ -303,7 +309,98 @@
 .d3-tooltip-showrange .d3-tooltip-range {
   display: inline;
 }
+.d3-perfection-value {
+  display: none;
+}
+.d3-perfection-section {
+  display: none;
+}
+.d3-tooltip-perfection {
+  .d3-perfection-tip {
+    display: none;
+  }
+  .d3-perfection-value {
+    display: inline;
+  }
+  .d3-perfection-section {
+    display: block;
+  }
+}
 //FTFY
 //.ancient {
 //  opacity: 0.5;
 //}
+.d3gl-toggle {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url(images/cube.png);
+  display: block;
+  cursor: pointer;
+  z-index: 2;
+}
+.d3gl-container {
+  background-image: url(paperdoll/blank.jpg);
+  width: 340px;
+  height: 450px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: -ms-grab;
+  cursor: -o-grab;
+  position: relative;
+  .theme-light & {
+    box-shadow: 0 0 18px 12px #fff inset;
+  }
+  .theme-dark & {
+    box-shadow: 0 0 18px 12px #121212 inset;
+  }
+  canvas {
+    pointer-events: none;
+    width: 520px;
+    height: 510px;
+    position: absolute;
+    left: -90px;
+    top: -30px;
+    z-index: 1;
+  }
+  .d3gl-error {
+    position: absolute;
+    width: 240px;
+    left: 50px;
+    top: 200px;
+    background-color: rgba(255,255,255,0.3);
+    padding: 10px 0;
+    border: 2px solid #fff;
+    a { color: #00f; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  }
+}
+.d3gl-button-male, .d3gl-button-female {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  display: block;
+  cursor: pointer;
+  top: 0;
+  z-index: 2;
+}
+.d3gl-button-male {
+  right: 32px;
+  background-image: url(paperdoll/d3gl-male-up.png);
+  &:hover { background-image: url(paperdoll/d3gl-male-over.png); }
+  &.selected { background-image: url(paperdoll/d3gl-male-selected.png); }
+}
+.d3gl-button-female {
+  right: 0;
+  background-image: url(paperdoll/d3gl-female-up.png);
+  &:hover { background-image: url(paperdoll/d3gl-female-over.png); }
+  &.selected { background-image: url(paperdoll/d3gl-female-selected.png); }
+}

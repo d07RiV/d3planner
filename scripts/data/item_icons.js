@@ -1,752 +1,7283 @@
+DiabloCalc.classToIcon = {
+  demonhunter: 0,
+  barbarian: 2,
+  wizard: 4,
+  witchdoctor: 6,
+  monk: 8,
+  crusader: 10,
+};
 DiabloCalc.itemIcons = {
-  Amulet16: 25,
-  Axe_1H_206: 8,
-  Axe_2H_302: 6,
-  BarbBelt_206: 9,
-  Belt_207: 36,
-  Boots_207: 35,
-  Bow_302: 11,
-  Bracers_207: 28,
-  CeremonialDagger_1H_302: 12,
-  ChestArmor_207: 32,
-  Cloak_206: 7,
-  CombatStaff_2H_302: 10,
-  Crossbow_302: 9,
-  CrusaderShield_206: 11,
-  Dagger_207: 7,
-  Enchantress_Special_206: 0,
-  FistWeapon_1H_206: 15,
-  Flail_1H_201: 8,
-  Flail_2H_205: 4,
-  Gloves_207: 35,
-  HandXbow_302: 12,
-  Helm_207: 34,
-  Mace_1H_207: 11,
-  Mace_2H_302: 9,
-  MightyWeapon1H_204: 9,
-  MightyWeapon2H_302: 6,
-  Mojo_206: 9,
-  Orb_206: 10,
-  P1_CeremonialDagger_norm_unique_01: 0,
-  P1_CeremonialDagger_norm_unique_02: 1,
-  P1_CruShield_norm_unique_01: 0,
-  P1_CruShield_norm_unique_02: 1,
-  P1_Unique_Boots_010: 0,
-  P1_Unique_WizardHat_003: 0,
-  P1_Wand_norm_unique_01: 0,
-  P1_fistWeapon_norm_unique_01: 0,
-  P1_fistWeapon_norm_unique_02: 1,
-  P1_flail1H_norm_unique_01: 0,
-  P2_Unique_BarbBelt_001: 0,
-  P2_Unique_BarbBelt_006: 0,
-  P2_Unique_Belt_008: 1,
-  P2_Unique_Belt_01: 2,
-  P2_Unique_Belt_02: 3,
-  P2_Unique_Belt_03: 4,
-  P2_Unique_Belt_04: 5,
-  P2_Unique_Belt_05: 6,
-  P2_Unique_Belt_06: 7,
-  P2_Unique_Boots_01: 1,
-  P2_Unique_Boots_02: 2,
-  P2_Unique_Bracer_006: 0,
-  P2_Unique_Bracer_109: 1,
-  P2_Unique_Bracer_110: 2,
-  P2_Unique_Flail_2H_104: 0,
-  P2_Unique_Gloves_01: 0,
-  P2_Unique_Gloves_02: 1,
-  P2_Unique_Gloves_03: 2,
-  P2_Unique_Gloves_04: 3,
-  P2_Unique_Helm_001: 0,
-  P2_Unique_Mighty_2H_001: 0,
-  P2_Unique_Orb_003: 0,
-  P2_Unique_Pants_01: 0,
-  P2_Unique_Pants_02: 1,
-  P2_Unique_Pants_03: 2,
-  P2_Unique_Pants_04: 3,
-  P2_Unique_Quiver_007: 0,
-  P2_Unique_Ring_01: 0,
-  P2_Unique_Ring_02: 1,
-  P2_Unique_Ring_03: 2,
-  P2_Unique_Ring_04: 3,
-  P2_Unique_Shield_002: 0,
-  P2_Unique_Shield_007: 1,
-  P2_Unique_Staff_003: 0,
-  P2_Unique_Wand_002: 1,
-  P2_handXbow_norm_unique_03: 0,
-  P2_mojo_norm_unique_02: 0,
-  P3_Unique_Belt_005: 8,
-  P3_Unique_Belt_01: 9,
-  P3_Unique_Belt_02: 10,
-  P3_Unique_Belt_03: 11,
-  P3_Unique_Bracer_101: 3,
-  P3_Unique_Bracer_103: 4,
-  P3_Unique_Bracer_104: 5,
-  P3_Unique_Bracer_105: 6,
-  P3_Unique_Bracer_106: 7,
-  P3_Unique_Bracer_107: 8,
-  P3_Unique_HandXBow_005: 1,
-  P3_Unique_Mighty_1H_006: 0,
-  P3_Unique_Shoulder_102: 0,
-  P3_Unique_Spear_001: 0,
-  P3_Unique_Sword_1H_012: 0,
-  P3_Unique_Sword_1H_104: 1,
-  P3_Unique_WizardHat_003: 0,
-  Pants_207: 34,
-  Polearm_302: 5,
-  Quiver_207: 10,
-  Ring_22: 34,
-  Scoundrel_Special_206: 0,
-  Shield_206: 11,
-  Shoulders_207: 30,
-  Spear_203: 5,
-  SpiritStone_206: 12,
-  Staff_302: 10,
-  Sword_1H_207: 20,
-  Sword_2H_302: 13,
-  Templar_Special_206: 0,
-  Unique_Amulet_001_x1: 0,
-  Unique_Amulet_002_x1: 1,
-  Unique_Amulet_003_x1: 2,
-  Unique_Amulet_004_x1: 3,
-  Unique_Amulet_005_x1: 4,
-  Unique_Amulet_006_x1: 5,
-  Unique_Amulet_007_x1: 6,
-  Unique_Amulet_008_x1: 7,
-  Unique_Amulet_009_x1: 8,
-  Unique_Amulet_010_x1: 9,
-  Unique_Amulet_012_x1: 10,
-  Unique_Amulet_013_x1: 11,
-  Unique_Amulet_014_x1: 12,
-  Unique_Amulet_015_x1: 7,
-  Unique_Amulet_016_x1: 13,
-  Unique_Amulet_101_x1: 14,
-  Unique_Amulet_102_x1: 15,
-  Unique_Amulet_103_x1: 16,
-  Unique_Amulet_104_x1: 17,
-  Unique_Amulet_105_x1: 18,
-  Unique_Amulet_106_x1: 19,
-  Unique_Amulet_107_x1: 20,
-  Unique_Amulet_108_x1: 21,
-  Unique_Amulet_109_x1_210: 22,
-  Unique_Amulet_Set_11_x1: 23,
-  Unique_Axe_1H_001_x1: 0,
-  Unique_Axe_1H_003_x1: 1,
-  Unique_Axe_1H_004_x1: 2,
-  Unique_Axe_1H_005_104: 3,
-  Unique_Axe_1H_005_p2: 3,
-  Unique_Axe_1H_006_x1: 4,
-  Unique_Axe_1H_007_x1: 5,
-  Unique_Axe_1H_013_x1: 6,
-  Unique_Axe_1H_103_x1: 7,
-  Unique_Axe_2H_001_x1: 0,
-  Unique_Axe_2H_003_x1: 1,
-  Unique_Axe_2H_009_x1: 2,
-  Unique_Axe_2H_010_x1: 3,
-  Unique_Axe_2H_011_x1: 4,
-  Unique_Axe_2H_103_x1: 5,
-  Unique_BarbBelt_001_x1: 1,
-  Unique_BarbBelt_002_x1: 2,
-  Unique_BarbBelt_003_x1: 12,
-  Unique_BarbBelt_004_x1: 3,
-  Unique_BarbBelt_005_p1: 4,
-  Unique_BarbBelt_005_x1: 4,
-  Unique_BarbBelt_006_x1: 0,
-  Unique_BarbBelt_007_x1: 5,
-  Unique_BarbBelt_008_x1: 6,
-  Unique_BarbBelt_009_x1: 7,
-  Unique_BarbBelt_101_x1: 8,
-  Unique_Belt_001_x1: 13,
-  Unique_Belt_002_x1: 14,
-  Unique_Belt_003_p1: 15,
-  Unique_Belt_003_x1: 15,
-  Unique_Belt_004_x1: 16,
-  Unique_Belt_005_x1: 17,
-  Unique_Belt_006_x1: 18,
-  Unique_Belt_007_x1: 19,
-  Unique_Belt_008_x1: 20,
-  Unique_Belt_009_x1: 21,
-  Unique_Belt_010_x1: 22,
-  Unique_Belt_012_x1: 23,
-  Unique_Belt_013_x1: 24,
-  Unique_Belt_014_x1: 25,
-  Unique_Belt_015_x1: 26,
-  Unique_Belt_101_x1: 27,
-  Unique_Belt_102_p1: 28,
-  Unique_Belt_102_p2: 28,
-  Unique_Belt_103_x1: 29,
-  Unique_Belt_104_p2: 30,
-  Unique_Belt_104_x1: 30,
-  Unique_Belt_105_x1: 31,
-  Unique_Belt_106_x1: 32,
-  Unique_Belt_107_x1: 33,
-  Unique_Belt_108_p2: 34,
-  Unique_Belt_108_x1: 34,
-  Unique_Belt_Set_02_x1: 35,
-  Unique_Boots_001_x1: 3,
-  Unique_Boots_005_x1: 4,
-  Unique_Boots_007_p2: 5,
-  Unique_Boots_007_x1: 5,
-  Unique_Boots_008_x1: 6,
-  Unique_Boots_009_x1: 7,
-  Unique_Boots_010_x1: 0,
-  Unique_Boots_011_x1: 8,
-  Unique_Boots_012_x1: 9,
-  Unique_Boots_013_x1: 10,
-  Unique_Boots_014_x1: 11,
-  Unique_Boots_015_x1: 12,
-  Unique_Boots_017_x1: 13,
-  Unique_Boots_018_x1: 14,
-  Unique_Boots_019_x1: 15,
-  Unique_Boots_102_x1: 16,
-  Unique_Boots_103_x1: 17,
-  Unique_Boots_104_x1: 18,
-  Unique_Boots_Set_01_p1: 19,
-  Unique_Boots_Set_01_p2: 20,
-  Unique_Boots_Set_01_p3: 21,
-  Unique_Boots_Set_02_p2: 22,
-  Unique_Boots_Set_02_p3: 23,
-  Unique_Boots_Set_03_p2: 24,
-  Unique_Boots_Set_03_p3: 25,
-  Unique_Boots_Set_05_x1: 26,
-  Unique_Boots_Set_06_x1: 27,
-  Unique_Boots_Set_07_x1: 28,
-  Unique_Boots_Set_08_x1: 29,
-  Unique_Boots_Set_09_x1: 30,
-  Unique_Boots_Set_10_x1: 31,
-  Unique_Boots_Set_13_x1: 32,
-  Unique_Boots_Set_14_x1: 33,
-  Unique_Boots_Set_16_x1: 34,
-  Unique_Bow_001_p1: 0,
-  Unique_Bow_001_x1: 0,
-  Unique_Bow_005_p1: 1,
-  Unique_Bow_005_x1: 1,
-  Unique_Bow_007_x1: 2,
-  Unique_Bow_008_x1: 3,
-  Unique_Bow_009_x1: 4,
-  Unique_Bow_010_x1: 5,
-  Unique_Bow_015_x1: 6,
-  Unique_Bow_101_x1: 7,
-  Unique_Bow_102_x1: 8,
-  Unique_Bow_103_x1: 9,
-  Unique_Bow_104_x1: 10,
-  Unique_Bracer_001_x1: 9,
-  Unique_Bracer_002_x1: 10,
-  Unique_Bracer_003_x1: 11,
-  Unique_Bracer_004_x1: 12,
-  Unique_Bracer_005_x1: 13,
-  Unique_Bracer_006_x1: 0,
-  Unique_Bracer_007_x1: 14,
-  Unique_Bracer_009_x1: 15,
-  Unique_Bracer_010_x1: 16,
-  Unique_Bracer_011_x1: 17,
-  Unique_Bracer_101_x1: 18,
-  Unique_Bracer_102_x1: 19,
-  Unique_Bracer_103_x1: 20,
-  Unique_Bracer_104_x1: 21,
-  Unique_Bracer_105_x1: 22,
-  Unique_Bracer_106_x1: 23,
-  Unique_Bracer_107_x1: 24,
-  Unique_Bracer_108_x1: 25,
-  Unique_Bracer_Set_02_x1: 26,
-  Unique_Bracer_Set_12_x1: 27,
-  Unique_CeremonialDagger_001_x1: 2,
-  Unique_CeremonialDagger_002_x1: 3,
-  Unique_CeremonialDagger_003_x1: 4,
-  Unique_CeremonialDagger_004_x1: 5,
-  Unique_CeremonialDagger_006_x1: 6,
-  Unique_CeremonialDagger_008_x1: 7,
-  Unique_CeremonialDagger_009_x1: 8,
-  Unique_CeremonialDagger_011_x1: 9,
-  Unique_CeremonialDagger_101_x1: 10,
-  Unique_CeremonialDagger_102_x1: 11,
-  Unique_ChestArmor_028_x1: 0,
-  Unique_Chest_001_x1: 1,
-  Unique_Chest_002_x1: 2,
-  Unique_Chest_006_x1: 3,
-  Unique_Chest_010_x1: 4,
-  Unique_Chest_012_x1: 5,
-  Unique_Chest_013_x1: 6,
-  Unique_Chest_014_x1: 7,
-  Unique_Chest_015_x1: 8,
-  Unique_Chest_016_x1: 9,
-  Unique_Chest_018_x1: 10,
-  Unique_Chest_019_x1: 11,
-  Unique_Chest_025_x1: 12,
-  Unique_Chest_026_x1: 13,
-  Unique_Chest_027_x1: 14,
-  Unique_Chest_101_x1: 15,
-  Unique_Chest_102_x1: 16,
-  Unique_Chest_Set_01_p1: 17,
-  Unique_Chest_Set_01_p2: 18,
-  Unique_Chest_Set_01_p3: 19,
-  Unique_Chest_Set_02_p2: 20,
-  Unique_Chest_Set_02_p3: 21,
-  Unique_Chest_Set_03_p2: 0,
-  Unique_Chest_Set_03_p3: 22,
-  Unique_Chest_Set_05_x1: 23,
-  Unique_Chest_Set_06_x1: 24,
-  Unique_Chest_Set_07_x1: 25,
-  Unique_Chest_Set_08_x1: 26,
-  Unique_Chest_Set_09_x1: 27,
-  Unique_Chest_Set_10_x1: 28,
-  Unique_Chest_Set_13_x1: 29,
-  Unique_Chest_Set_14_x1: 30,
-  Unique_Chest_Set_16_x1: 31,
-  Unique_Cloak_001_x1: 1,
-  Unique_Cloak_002_p1: 2,
-  Unique_Cloak_005_x1: 3,
-  Unique_Cloak_006_x1: 4,
-  Unique_Cloak_101_x1: 5,
-  Unique_Cloak_102_x1: 6,
-  Unique_CombatStaff_2H_001_x1: 0,
-  Unique_CombatStaff_2H_002_x1: 1,
-  Unique_CombatStaff_2H_003_x1: 2,
-  Unique_CombatStaff_2H_004_x1: 3,
-  Unique_CombatStaff_2H_005_x1: 4,
-  Unique_CombatStaff_2H_007_x1: 5,
-  Unique_CombatStaff_2H_008_x1: 6,
-  Unique_CombatStaff_2H_009_x1: 7,
-  Unique_CombatStaff_2H_101_x1: 8,
-  Unique_CombatStaff_2H_102_x1: 9,
-  Unique_CruShield_101_x1: 2,
-  Unique_CruShield_102_x1: 3,
-  Unique_CruShield_103_x1: 4,
-  Unique_CruShield_104_x1: 5,
-  Unique_CruShield_105_x1: 6,
-  Unique_CruShield_106_x1: 7,
-  Unique_CruShield_107_x1: 8,
-  Unique_CruShield_108_x1: 9,
-  Unique_Dagger_002_x1: 0,
-  Unique_Dagger_003_x1: 1,
-  Unique_Dagger_006_x1: 2,
-  Unique_Dagger_007_x1: 3,
-  Unique_Dagger_010_x1_210: 4,
-  Unique_Dagger_103_x1: 5,
-  Unique_Dagger_104_x1: 6,
-  Unique_Fist_003_x1: 2,
-  Unique_Fist_004_x1: 3,
-  Unique_Fist_005_x1: 4,
-  Unique_Fist_006_x1: 5,
-  Unique_Fist_007_x1: 6,
-  Unique_Fist_008_x1: 7,
-  Unique_Fist_009_x1: 8,
-  Unique_Fist_010_x1: 9,
-  Unique_Fist_011_x1: 10,
-  Unique_Fist_012_x1: 11,
-  Unique_Fist_013_x1: 12,
-  Unique_Fist_015_x1: 13,
-  Unique_Fist_101_x1: 14,
-  Unique_Flail_1H_101_x1: 1,
-  Unique_Flail_1H_102_x1: 2,
-  Unique_Flail_1H_103_x1: 3,
-  Unique_Flail_1H_104_x1: 4,
-  Unique_Flail_1H_105_x1: 5,
-  Unique_Flail_1H_106_x1: 6,
-  Unique_Flail_1H_107_x1: 7,
-  Unique_Flail_2H_101_x1: 1,
-  Unique_Flail_2H_102_x1: 2,
-  Unique_Flail_2H_103_x1: 3,
-  Unique_Flail_2H_104_x1: 0,
-  Unique_Gem_001_x1: 12,
-  Unique_Gem_002_x1: 17,
-  Unique_Gem_003_x1: 0,
-  Unique_Gem_004_x1: 18,
-  Unique_Gem_005_x1: 16,
-  Unique_Gem_006_x1: 11,
-  Unique_Gem_007_x1: 8,
-  Unique_Gem_008_x1: 4,
-  Unique_Gem_009_x1: 7,
-  Unique_Gem_010_x1: 1,
-  Unique_Gem_011_x1: 9,
-  Unique_Gem_012_x1: 19,
-  Unique_Gem_013_x1: 13,
-  Unique_Gem_014_x1: 5,
-  Unique_Gem_015_x1: 15,
-  Unique_Gem_016_x1: 2,
-  Unique_Gem_017_x1: 3,
-  Unique_Gem_018_x1: 14,
-  Unique_Gem_019_x1: 10,
-  Unique_Gem_021_x1: 6,
-  Unique_Gloves_001_x1: 4,
-  Unique_Gloves_002_x1: 5,
-  Unique_Gloves_003_x1: 6,
-  Unique_Gloves_007_x1: 7,
-  Unique_Gloves_008_x1: 8,
-  Unique_Gloves_009_x1: 9,
-  Unique_Gloves_011_x1: 10,
-  Unique_Gloves_014_x1: 11,
-  Unique_Gloves_015_x1: 12,
-  Unique_Gloves_017_x1: 13,
-  Unique_Gloves_101_p2: 14,
-  Unique_Gloves_101_x1: 14,
-  Unique_Gloves_103_x1: 15,
-  Unique_Gloves_Set_01_p1: 16,
-  Unique_Gloves_Set_01_p2: 17,
-  Unique_Gloves_Set_01_p3: 18,
-  Unique_Gloves_Set_02_p2: 19,
-  Unique_Gloves_Set_02_p3: 20,
-  Unique_Gloves_Set_03_p2: 21,
-  Unique_Gloves_Set_03_p3: 22,
-  Unique_Gloves_Set_05_x1: 23,
-  Unique_Gloves_Set_06_x1: 24,
-  Unique_Gloves_Set_07_x1: 25,
-  Unique_Gloves_Set_08_x1: 26,
-  Unique_Gloves_Set_09_x1: 27,
-  Unique_Gloves_Set_10_x1: 28,
-  Unique_Gloves_Set_11_x1: 29,
-  Unique_Gloves_Set_12_x1: 30,
-  Unique_Gloves_Set_13_x1: 31,
-  Unique_Gloves_Set_14_x1: 32,
-  Unique_Gloves_Set_15_x1: 33,
-  Unique_Gloves_Set_16_x1: 34,
-  Unique_HandXBow_001_x1: 2,
-  Unique_HandXBow_002_x1: 3,
-  Unique_HandXBow_003_x1: 4,
-  Unique_HandXBow_004_p1: 5,
-  Unique_HandXBow_004_x1: 5,
-  Unique_HandXBow_005_x1: 1,
-  Unique_HandXBow_006_x1: 6,
-  Unique_HandXBow_007_x1: 7,
-  Unique_HandXBow_012_x1: 8,
-  Unique_HandXBow_016_x1: 9,
-  Unique_HandXBow_101_x1: 10,
-  Unique_HandXBow_102_x1: 11,
-  Unique_Helm_001_x1: 0,
-  Unique_Helm_002_p1: 1,
-  Unique_Helm_002_x1: 1,
-  Unique_Helm_003_p2: 2,
-  Unique_Helm_003_x1: 2,
-  Unique_Helm_004_x1: 3,
-  Unique_Helm_006_x1: 4,
-  Unique_Helm_007_x1: 5,
-  Unique_Helm_008_x1: 6,
-  Unique_Helm_009_x1: 7,
-  Unique_Helm_010_x1: 8,
-  Unique_Helm_011_x1: 9,
-  Unique_Helm_012_x1: 10,
-  Unique_Helm_014_x1: 11,
-  Unique_Helm_015_x1: 12,
-  Unique_Helm_016_x1: 13,
-  Unique_Helm_102_x1: 14,
-  Unique_Helm_103_x1: 15,
-  Unique_Helm_Set_01_p1: 16,
-  Unique_Helm_Set_01_p2: 17,
-  Unique_Helm_Set_01_p3: 18,
-  Unique_Helm_Set_02_p2: 19,
-  Unique_Helm_Set_02_p3: 20,
-  Unique_Helm_Set_03_p2: 21,
-  Unique_Helm_Set_03_p3: 22,
-  Unique_Helm_Set_05_x1: 23,
-  Unique_Helm_Set_06_x1: 24,
-  Unique_Helm_Set_07_x1: 25,
-  Unique_Helm_Set_08_x1: 26,
-  Unique_Helm_Set_09_x1: 27,
-  Unique_Helm_Set_10_x1: 28,
-  Unique_Helm_Set_11_x1: 29,
-  Unique_Helm_Set_12_x1: 30,
-  Unique_Helm_Set_13_x1: 31,
-  Unique_Helm_Set_15_x1: 32,
-  Unique_Helm_Set_16_x1: 33,
-  Unique_Mace_1H_001_x1: 0,
-  Unique_Mace_1H_002_x1: 1,
-  Unique_Mace_1H_003_x1: 2,
-  Unique_Mace_1H_005_x1: 3,
-  Unique_Mace_1H_007_x1: 4,
-  Unique_Mace_1H_008_x1: 5,
-  Unique_Mace_1H_009_x1: 6,
-  Unique_Mace_1H_011_x1: 7,
-  Unique_Mace_1H_101_x1: 8,
-  Unique_Mace_1H_102_x1: 9,
-  Unique_Mace_1H_103_x1: 10,
-  Unique_Mace_2H_001_x1: 0,
-  Unique_Mace_2H_002_x1: 1,
-  Unique_Mace_2H_003_x1: 2,
-  Unique_Mace_2H_006_x1: 3,
-  Unique_Mace_2H_009_p2: 4,
-  Unique_Mace_2H_009_x1: 4,
-  Unique_Mace_2H_010_x1: 5,
-  Unique_Mace_2H_012_p1: 6,
-  Unique_Mace_2H_012_x1: 6,
-  Unique_Mace_2H_103_x1: 7,
-  Unique_Mace_2H_104_x1: 8,
-  Unique_Mighty_1H_001_x1: 1,
-  Unique_Mighty_1H_005_x1: 2,
-  Unique_Mighty_1H_006_x1: 0,
-  Unique_Mighty_1H_010_x1: 3,
-  Unique_Mighty_1H_011_x1: 4,
-  Unique_Mighty_1H_012_x1: 5,
-  Unique_Mighty_1H_015_x1: 6,
-  Unique_Mighty_1H_102_x1: 7,
-  Unique_Mighty_1H_103_x1: 8,
-  Unique_Mighty_2H_001_x1: 0,
-  Unique_Mighty_2H_004_p1: 1,
-  Unique_Mighty_2H_004_x1: 1,
-  Unique_Mighty_2H_006_x1: 2,
-  Unique_Mighty_2H_010_x1: 3,
-  Unique_Mighty_2H_012_x1: 4,
-  Unique_Mighty_2H_101_x1: 5,
-  Unique_Mojo_002_x1: 1,
-  Unique_Mojo_003_x1: 2,
-  Unique_Mojo_004_p2: 3,
-  Unique_Mojo_004_x1: 3,
-  Unique_Mojo_008_x1: 4,
-  Unique_Mojo_009_x1: 5,
-  Unique_Mojo_010_x1: 6,
-  Unique_Mojo_011_x1: 7,
-  Unique_Mojo_102_x1: 8,
-  Unique_Orb_001_x1: 1,
-  Unique_Orb_003_x1: 0,
-  Unique_Orb_004_x1: 2,
-  Unique_Orb_005_x1: 3,
-  Unique_Orb_011_x1: 4,
-  Unique_Orb_012_x1: 5,
-  Unique_Orb_101_x1: 6,
-  Unique_Orb_102_x1: 7,
-  Unique_Orb_103_x1: 8,
-  Unique_Orb_Set_06_x1: 9,
-  Unique_Pants_001_x1: 4,
-  Unique_Pants_002_x1: 5,
-  Unique_Pants_005_x1: 6,
-  Unique_Pants_006_p1: 7,
-  Unique_Pants_006_x1: 7,
-  Unique_Pants_007_p2: 8,
-  Unique_Pants_007_x1: 8,
-  Unique_Pants_008_x1: 9,
-  Unique_Pants_009_x1: 10,
-  Unique_Pants_010_x1: 11,
-  Unique_Pants_012_x1: 12,
-  Unique_Pants_013_x1: 13,
-  Unique_Pants_014_x1: 14,
-  Unique_Pants_101_x1: 15,
-  Unique_Pants_102_x1: 16,
-  Unique_Pants_Set_01_p1: 17,
-  Unique_Pants_Set_01_p2: 18,
-  Unique_Pants_Set_01_p3: 19,
-  Unique_Pants_Set_02_p2: 20,
-  Unique_Pants_Set_02_p3: 21,
-  Unique_Pants_Set_03_p2: 22,
-  Unique_Pants_Set_03_p3: 23,
-  Unique_Pants_Set_05_x1: 24,
-  Unique_Pants_Set_06_x1: 25,
-  Unique_Pants_Set_07_x1: 26,
-  Unique_Pants_Set_08_x1: 27,
-  Unique_Pants_Set_09_x1: 28,
-  Unique_Pants_Set_10_x1: 29,
-  Unique_Pants_Set_13_x1: 30,
-  Unique_Pants_Set_14_x1: 31,
-  Unique_Pants_Set_15_x1: 32,
-  Unique_Pants_Set_16_x1: 33,
-  Unique_Polearm_001_x1: 0,
-  Unique_Polearm_002_x1: 1,
-  Unique_Polearm_003_p1: 2,
-  Unique_Polearm_003_x1: 2,
-  Unique_Polearm_004_x1: 3,
-  Unique_Polearm_101_x1: 4,
-  Unique_Quiver_001_p1: 1,
-  Unique_Quiver_002_x1: 2,
-  Unique_Quiver_003_x1: 3,
-  Unique_Quiver_004_x1: 4,
-  Unique_Quiver_005_p1: 5,
-  Unique_Quiver_005_x1: 5,
-  Unique_Quiver_006_x1: 6,
-  Unique_Quiver_007_x1: 0,
-  Unique_Quiver_101_x1: 7,
-  Unique_Quiver_102_x1: 8,
-  Unique_Quiver_103_x1: 9,
-  Unique_Ring_001_x1: 4,
-  Unique_Ring_002_x1: 5,
-  Unique_Ring_003_x1: 6,
-  Unique_Ring_004_x1: 7,
-  Unique_Ring_005_x1: 8,
-  Unique_Ring_006_p2: 9,
-  Unique_Ring_006_x1: 9,
-  Unique_Ring_007_p1: 10,
-  Unique_Ring_007_x1: 10,
-  Unique_Ring_008_x1: 11,
-  Unique_Ring_009_x1: 12,
-  Unique_Ring_010_x1: 13,
-  Unique_Ring_011_x1: 14,
-  Unique_Ring_012_x1: 15,
-  Unique_Ring_013_x1: 15,
-  Unique_Ring_014_x1: 16,
-  Unique_Ring_015_x1: 16,
-  Unique_Ring_017_p2: 17,
-  Unique_Ring_017_x1: 17,
-  Unique_Ring_018_p2: 18,
-  Unique_Ring_018_x1: 18,
-  Unique_Ring_019_x1: 19,
-  Unique_Ring_020_x1: 20,
-  Unique_Ring_021_x1: 21,
-  Unique_Ring_022_x1: 0,
-  Unique_Ring_023_p2: 22,
-  Unique_Ring_023_x1: 22,
-  Unique_Ring_024_x1: 23,
-  Unique_Ring_101_x1: 24,
-  Unique_Ring_102_p2: 25,
-  Unique_Ring_102_x1: 25,
-  Unique_Ring_103_x1: 26,
-  Unique_Ring_104_x1: 27,
-  Unique_Ring_106_x1: 28,
-  Unique_Ring_107_x1: 29,
-  Unique_Ring_108_x1: 30,
-  Unique_Ring_109_x1: 31,
-  Unique_Ring_Set_001_x1: 32,
-  Unique_Ring_Set_002_x1: 33,
-  Unique_Shield_002_x1: 0,
-  Unique_Shield_004_x1: 2,
-  Unique_Shield_007_x1: 1,
-  Unique_Shield_008_x1: 3,
-  Unique_Shield_009_x1: 4,
-  Unique_Shield_011_x1: 5,
-  Unique_Shield_012_x1: 6,
-  Unique_Shield_101_p2: 7,
-  Unique_Shield_101_x1: 7,
-  Unique_Shield_102_x1: 8,
-  Unique_Shield_103_x1: 10,
-  Unique_Shield_104_x1: 9,
-  Unique_Shield_107_x1: 10,
-  Unique_Shoulder_001_x1: 1,
-  Unique_Shoulder_002_p2: 2,
-  Unique_Shoulder_002_x1: 2,
-  Unique_Shoulder_003_p1: 3,
-  Unique_Shoulder_003_x1: 3,
-  Unique_Shoulder_006_x1: 4,
-  Unique_Shoulder_007_x1: 5,
-  Unique_Shoulder_008_x1: 6,
-  Unique_Shoulder_009_x1: 7,
-  Unique_Shoulder_017_x1: 8,
-  Unique_Shoulder_101_x1: 9,
-  Unique_Shoulder_102_x1: 10,
-  Unique_Shoulder_103_x1: 11,
-  Unique_Shoulder_Set_01_p1: 12,
-  Unique_Shoulder_Set_01_p2: 13,
-  Unique_Shoulder_Set_01_p3: 14,
-  Unique_Shoulder_Set_02_p2: 15,
-  Unique_Shoulder_Set_02_p3: 16,
-  Unique_Shoulder_Set_03_p2: 17,
-  Unique_Shoulder_Set_03_p3: 18,
-  Unique_Shoulder_Set_05_x1: 19,
-  Unique_Shoulder_Set_06_x1: 20,
-  Unique_Shoulder_Set_07_x1: 21,
-  Unique_Shoulder_Set_08_x1: 22,
-  Unique_Shoulder_Set_09_x1: 23,
-  Unique_Shoulder_Set_10_x1: 24,
-  Unique_Shoulder_Set_11_x1: 25,
-  Unique_Shoulder_Set_12_x1: 26,
-  Unique_Shoulder_Set_13_x1: 27,
-  Unique_Shoulder_Set_15_x1: 28,
-  Unique_Shoulder_Set_16_x1: 29,
-  Unique_Spear_001_x1: 0,
-  Unique_Spear_002_x1: 1,
-  Unique_Spear_003_x1: 2,
-  Unique_Spear_004_x1: 3,
-  Unique_Spear_101_x1: 4,
-  Unique_SpiritStone_001_x1: 0,
-  Unique_SpiritStone_002_x1: 1,
-  Unique_SpiritStone_003_x1: 2,
-  Unique_SpiritStone_004_x1: 3,
-  Unique_SpiritStone_005_x1: 4,
-  Unique_SpiritStone_006_x1: 5,
-  Unique_SpiritStone_007_x1: 6,
-  Unique_SpiritStone_008_x1: 7,
-  Unique_SpiritStone_009_x1: 8,
-  Unique_SpiritStone_101_x1: 9,
-  Unique_SpiritStone_102_x1: 10,
-  Unique_SpiritStone_103_x1: 11,
-  Unique_Staff_001_x1: 1,
-  Unique_Staff_002_x1: 2,
-  Unique_Staff_003_x1: 0,
-  Unique_Staff_006_x1: 3,
-  Unique_Staff_007_x1: 4,
-  Unique_Staff_008_x1: 5,
-  Unique_Staff_009_p1: 6,
-  Unique_Staff_009_x1: 6,
-  Unique_Staff_101_x1: 7,
-  Unique_Staff_102_x1: 8,
-  Unique_Staff_103_x1: 9,
-  Unique_Sword_1H_002_x1: 2,
-  Unique_Sword_1H_003_x1: 3,
-  Unique_Sword_1H_004_x1: 4,
-  Unique_Sword_1H_007_x1: 5,
-  Unique_Sword_1H_011_x1: 6,
-  Unique_Sword_1H_012_x1: 0,
-  Unique_Sword_1H_014_x1: 7,
-  Unique_Sword_1H_017_x1: 8,
-  Unique_Sword_1H_018_x1: 9,
-  Unique_Sword_1H_019_x1: 10,
-  Unique_Sword_1H_021: 11,
-  Unique_Sword_1H_101_x1: 12,
-  Unique_Sword_1H_102_x1: 13,
-  Unique_Sword_1H_103_x1: 14,
-  Unique_Sword_1H_104_x1: 1,
-  Unique_Sword_1H_109_x1: 15,
-  Unique_Sword_1H_113_x1: 16,
-  Unique_Sword_1H_Promo_02_x1: 17,
-  Unique_Sword_1H_Set_02_x1: 18,
-  Unique_Sword_1H_Set_03_x1: 19,
-  Unique_Sword_2H_001_x1: 0,
-  Unique_Sword_2H_002_x1: 1,
-  Unique_Sword_2H_003_x1: 2,
-  Unique_Sword_2H_004_x1: 3,
-  Unique_Sword_2H_007_x1: 4,
-  Unique_Sword_2H_008_x1: 5,
-  Unique_Sword_2H_010_x1: 6,
-  Unique_Sword_2H_011_x1: 7,
-  Unique_Sword_2H_012_x1: 8,
-  Unique_Sword_2H_101_x1: 9,
-  Unique_Sword_2H_102_x1: 10,
-  Unique_Sword_2H_103_x1: 11,
-  Unique_Sword_2H_104_x1: 12,
-  Unique_VoodooMask_001_x1: 0,
-  Unique_VoodooMask_002_x1: 1,
-  Unique_VoodooMask_005_x1: 2,
-  Unique_VoodooMask_006_x1: 3,
-  Unique_VoodooMask_007_x1: 4,
-  Unique_VoodooMask_008_x1: 5,
-  Unique_VoodooMask_101_x1: 6,
-  Unique_VoodooMask_102_x1: 7,
-  Unique_Wand_002_x1: 1,
-  Unique_Wand_003_x1: 2,
-  Unique_Wand_006_x1: 3,
-  Unique_Wand_009_x1: 4,
-  Unique_Wand_010_x1: 5,
-  Unique_Wand_012_x1: 6,
-  Unique_Wand_013_x1: 7,
-  Unique_Wand_018_x1: 8,
-  Unique_Wand_101_x1: 9,
-  Unique_Wand_102_x1: 10,
-  Unique_WizardHat_001_x1: 1,
-  Unique_WizardHat_004_x1: 2,
-  Unique_WizardHat_101_x1: 3,
-  Unique_WizardHat_102_x1: 4,
-  Unique_WizardHat_103_x1: 5,
-  Unique_WizardHat_104_x1: 6,
-  Unique_XBow_001_x1: 0,
-  Unique_XBow_002_x1: 1,
-  Unique_XBow_003_x1: 2,
-  Unique_XBow_004_x1: 3,
-  Unique_XBow_006_x1: 4,
-  Unique_XBow_011_x1: 5,
-  Unique_XBow_012_x1: 6,
-  Unique_Xbow_101_x1: 7,
-  Unique_Xbow_102_x1: 8,
-  VoodooMask_206: 8,
-  Wand_302: 11,
-  WizardHat_206: 7,
-  p2_Unique_Ring_Wizard_001: 12,
-  x1_Amulet_norm_unique_25: 24,
-  x1_FollowerItem_Enchantress_Legendary_01: 0,
-  x1_FollowerItem_Enchantress_Legendary_02: 0,
-  x1_FollowerItem_Enchantress_Legendary_03: 0,
-  x1_FollowerItem_Scoundrel_Legendary_01: 0,
-  x1_FollowerItem_Scoundrel_Legendary_02: 0,
-  x1_FollowerItem_Scoundrel_Legendary_03: 0,
-  x1_FollowerItem_Templar_Legendary_01: 0,
-  x1_FollowerItem_Templar_Legendary_02: 0,
-  x1_FollowerItem_Templar_Legendary_03: 0,
-  Amethyst_: 0,
-  Diamond_: 1,
-  Emerald_: 2,
-  Ruby_: 3,
-  Topaz_: 4,
-}
+  Amethyst_: [0, 0],
+  Diamond_: [1, 0],
+  Emerald_: [2, 0],
+  Ruby_: [3, 0],
+  Topaz_: [4, 0],
+  Amethyst_01: [
+    0,
+    2536469672,
+  ],
+  Amethyst_02: [
+    0,
+    2536469673,
+  ],
+  Amethyst_03: [
+    0,
+    2536469674,
+  ],
+  Amethyst_04: [
+    0,
+    2536469675,
+  ],
+  Amethyst_05: [
+    0,
+    2536469676,
+  ],
+  Amethyst_06: [
+    0,
+    2536469677,
+  ],
+  Amethyst_07: [
+    0,
+    2536469678,
+  ],
+  Amethyst_08: [
+    0,
+    2536469679,
+  ],
+  Amethyst_09: [
+    0,
+    2536469680,
+  ],
+  Amethyst_10: [
+    0,
+    2536469704,
+  ],
+  Amethyst_11: [
+    0,
+    2536469705,
+  ],
+  Amethyst_12: [
+    0,
+    2536469706,
+  ],
+  Amethyst_13: [
+    0,
+    2536469707,
+  ],
+  Amethyst_14: [
+    0,
+    2536469708,
+  ],
+  Amethyst_15: [
+    0,
+    2536469709,
+  ],
+  Amethyst_16: [
+    0,
+    1021152726,
+  ],
+  Amethyst_17: [
+    0,
+    1021188663,
+  ],
+  Amethyst_18: [
+    0,
+    1021224600,
+  ],
+  Amethyst_19: [
+    0,
+    1021260537,
+  ],
+  Axe_1H_000: [
+    8,
+    3353505299,
+  ],
+  Axe_1H_001: [
+    8,
+    3353505299,
+  ],
+  Axe_1H_002: [
+    9,
+    3353505300,
+  ],
+  Axe_1H_003: [
+    10,
+    3353505301,
+  ],
+  Axe_1H_004: [
+    11,
+    3353505302,
+  ],
+  Axe_1H_005: [
+    12,
+    3353505305,
+  ],
+  Axe_1H_006: [
+    13,
+    3353505304,
+  ],
+  Axe_1H_007: [
+    14,
+    3353505303,
+  ],
+  Axe_1H_101: [
+    8,
+    3353505299,
+  ],
+  Axe_1H_102: [
+    9,
+    3353505300,
+  ],
+  Axe_1H_103: [
+    10,
+    3353505301,
+  ],
+  Axe_1H_104: [
+    11,
+    3353505302,
+  ],
+  Axe_1H_105: [
+    12,
+    3353505305,
+  ],
+  Axe_1H_106: [
+    13,
+    3353505304,
+  ],
+  Axe_1H_107: [
+    14,
+    3353505303,
+  ],
+  Axe_1H_201: [
+    8,
+    3353505299,
+  ],
+  Axe_1H_202: [
+    9,
+    3353505300,
+  ],
+  Axe_1H_203: [
+    10,
+    3353505301,
+  ],
+  Axe_1H_204: [
+    11,
+    3353505302,
+  ],
+  Axe_1H_205: [
+    12,
+    3353505305,
+  ],
+  Axe_1H_206: [
+    13,
+    3353505304,
+  ],
+  Axe_1H_207: [
+    14,
+    3353505303,
+  ],
+  Axe_1H_301: [
+    15,
+    3210330939,
+  ],
+  Axe_1H_302: [
+    16,
+    3210330940,
+  ],
+  Axe_2H_001: [
+    6,
+    3507202417,
+  ],
+  Axe_2H_002: [
+    7,
+    3507202418,
+  ],
+  Axe_2H_003: [
+    8,
+    3507202419,
+  ],
+  Axe_2H_004: [
+    9,
+    3507202420,
+  ],
+  Axe_2H_005: [
+    10,
+    3507202421,
+  ],
+  Axe_2H_101: [
+    6,
+    3507202417,
+  ],
+  Axe_2H_102: [
+    7,
+    3507202418,
+  ],
+  Axe_2H_103: [
+    8,
+    3507202419,
+  ],
+  Axe_2H_104: [
+    9,
+    3507202420,
+  ],
+  Axe_2H_105: [
+    10,
+    3507202421,
+  ],
+  Axe_2H_201: [
+    6,
+    3507202417,
+  ],
+  Axe_2H_202: [
+    7,
+    3507202418,
+  ],
+  Axe_2H_203: [
+    8,
+    3507202419,
+  ],
+  Axe_2H_204: [
+    9,
+    3507202420,
+  ],
+  Axe_2H_205: [
+    10,
+    3507202421,
+  ],
+  Axe_2H_301: [
+    11,
+    1111051161,
+  ],
+  Axe_2H_302: [
+    12,
+    1111051162,
+  ],
+  Boots_001: [
+    35,
+    {
+      "0": 2374110053,
+      "1": 3861334000,
+      "10": 2340168666,
+      "2": 3161291952,
+      "4": 4156616842,
+      "6": 985656116,
+      "8": 2322953902,
+    },
+  ],
+  Boots_002: [
+    36,
+    {
+      "0": 33455206,
+      "10": 784568731,
+      "2": 1103770097,
+      "4": 1193277963,
+      "6": 2939968565,
+      "8": 265432047,
+    },
+  ],
+  Boots_003: [
+    37,
+    {
+      "0": 1987767655,
+      "10": 3523936092,
+      "2": 3341215538,
+      "4": 2524906380,
+      "6": 599313718,
+      "8": 2502877488,
+    },
+  ],
+  Boots_004: [
+    38,
+    {
+      "0": 3942080104,
+      "10": 1968336157,
+      "2": 1283693683,
+      "4": 3856534797,
+      "6": 2553626167,
+      "8": 445355633,
+    },
+  ],
+  Boots_005: [
+    39,
+    {
+      "0": 1601425257,
+      "10": 412736222,
+      "2": 3521139124,
+      "4": 893195918,
+      "6": 212971320,
+      "8": 2682801074,
+    },
+  ],
+  Boots_006: [
+    40,
+    {
+      "0": 3555737706,
+      "1": 2163659317,
+      "10": 3152103583,
+      "2": 1463617269,
+      "4": 2224824335,
+      "6": 2167283769,
+      "8": 625279219,
+    },
+  ],
+  Boots_101: [
+    41,
+    {
+      "0": 106184040,
+      "10": 3193879773,
+      "2": 2996058995,
+      "4": 311585805,
+      "6": 3012697399,
+      "8": 2157720945,
+    },
+  ],
+  Boots_102: [
+    42,
+    {
+      "0": 2060496489,
+      "10": 1638279838,
+      "2": 938537140,
+      "4": 1643214222,
+      "6": 672042552,
+      "8": 100199090,
+    },
+  ],
+  Boots_103: [
+    43,
+    {
+      "0": 4014808938,
+      "10": 82679903,
+      "2": 3175982581,
+      "4": 2974842639,
+      "6": 2626355001,
+      "8": 2337644531,
+    },
+  ],
+  Boots_104: [
+    44,
+    {
+      "0": 1674154091,
+      "10": 82679903,
+      "2": 1118460726,
+      "4": 11503760,
+      "6": 285700154,
+      "8": 280122676,
+    },
+  ],
+  Boots_105: [
+    45,
+    {
+      "0": 3628466540,
+      "10": 1266447329,
+      "2": 3355906167,
+      "4": 1343132177,
+      "5": 2112891292,
+      "6": 2240012603,
+      "8": 2517568117,
+    },
+  ],
+  Boots_201: [
+    46,
+    {
+      "0": 3031451598,
+      "10": 269784771,
+      "2": 1746696025,
+      "4": 1259944307,
+      "6": 1642997661,
+      "8": 908357975,
+    },
+  ],
+  Boots_202: [
+    47,
+    {
+      "0": 690796751,
+      "10": 3009152132,
+      "2": 3984141466,
+      "4": 2591572724,
+      "6": 3597310110,
+      "8": 3145803416,
+    },
+  ],
+  Boots_203: [
+    48,
+    {
+      "0": 2645109200,
+      "10": 1453552197,
+      "2": 1926619611,
+      "4": 3923201141,
+      "6": 1256655263,
+      "8": 1088281561,
+    },
+  ],
+  Boots_204: [
+    49,
+    {
+      "0": 304454353,
+      "10": 4192919558,
+      "2": 4164065052,
+      "4": 959862262,
+      "6": 3210967712,
+      "8": 3325727002,
+    },
+  ],
+  Boots_205: [
+    50,
+    {
+      "0": 2258766802,
+      "10": 2637319623,
+      "2": 2106543197,
+      "4": 2291490679,
+      "6": 870312865,
+      "8": 1268205147,
+    },
+  ],
+  Boots_206: [
+    51,
+    {
+      "0": 4213079251,
+      "10": 1081719688,
+      "2": 49021342,
+      "4": 3623119096,
+      "6": 2824625314,
+      "8": 3505650588,
+    },
+  ],
+  Boots_207: [
+    52,
+    {
+      "0": 413749436,
+      "10": 3821087049,
+      "2": 2190622706,
+      "4": 2770930017,
+      "6": 1220583642,
+      "8": 202477029,
+    },
+  ],
+  Boots_208: [
+    53,
+    {
+      "0": 2368061885,
+      "10": 2265487114,
+      "2": 2395432403,
+      "4": 4102558434,
+      "6": 920044283,
+      "8": 2439922470,
+    },
+  ],
+  Bow_001: [
+    11,
+    1659050789,
+  ],
+  Bow_002: [
+    12,
+    1698186182,
+  ],
+  Bow_003: [
+    13,
+    1737321575,
+  ],
+  Bow_004: [
+    14,
+    1776456968,
+  ],
+  Bow_005: [
+    15,
+    1815592361,
+  ],
+  Bow_006: [
+    16,
+    1854727754,
+  ],
+  Bow_101: [
+    11,
+    1659050789,
+  ],
+  Bow_102: [
+    12,
+    1698186182,
+  ],
+  Bow_103: [
+    13,
+    1737321575,
+  ],
+  Bow_104: [
+    14,
+    1776456968,
+  ],
+  Bow_105: [
+    15,
+    1815592361,
+  ],
+  Bow_106: [
+    16,
+    1854727754,
+  ],
+  Bow_201: [
+    11,
+    1659050789,
+  ],
+  Bow_202: [
+    12,
+    1698186182,
+  ],
+  Bow_203: [
+    13,
+    1737321575,
+  ],
+  Bow_204: [
+    14,
+    1776456968,
+  ],
+  Bow_205: [
+    15,
+    1815592361,
+  ],
+  Bow_206: [
+    16,
+    1854727754,
+  ],
+  Bow_301: [
+    17,
+    1082517837,
+  ],
+  Bow_302: [
+    18,
+    1121653230,
+  ],
+  CeremonialDagger_1H_000: [
+    12,
+    3718098566,
+  ],
+  CeremonialDagger_1H_001: [
+    12,
+    3718098566,
+  ],
+  CeremonialDagger_1H_002: [
+    13,
+    3757233959,
+  ],
+  CeremonialDagger_1H_003: [
+    14,
+    3796369352,
+  ],
+  CeremonialDagger_1H_004: [
+    15,
+    3835504745,
+  ],
+  CeremonialDagger_1H_101: [
+    12,
+    3718098566,
+  ],
+  CeremonialDagger_1H_102: [
+    13,
+    3757233959,
+  ],
+  CeremonialDagger_1H_103: [
+    14,
+    3796369352,
+  ],
+  CeremonialDagger_1H_104: [
+    15,
+    3835504745,
+  ],
+  CeremonialDagger_1H_201: [
+    12,
+    3718098566,
+  ],
+  CeremonialDagger_1H_202: [
+    13,
+    3757233959,
+  ],
+  CeremonialDagger_1H_203: [
+    14,
+    3796369352,
+  ],
+  CeremonialDagger_1H_204: [
+    13,
+    3757233959,
+  ],
+  CeremonialDagger_1H_205: [
+    14,
+    3796369352,
+  ],
+  CeremonialDagger_1H_206: [
+    15,
+    3835504745,
+  ],
+  CeremonialDagger_1H_301: [
+    16,
+    1122516398,
+  ],
+  CeremonialDagger_1H_302: [
+    17,
+    1161651791,
+  ],
+  ChestArmor_001: [
+    32,
+    {
+      "0": 4152146966,
+      "1": 3113281761,
+      "10": 599543371,
+      "2": 2413239713,
+      "3": 3523860780,
+      "4": 1276547515,
+      "5": 2616638406,
+      "6": 2763693029,
+      "7": 2915432560,
+      "8": 1574901663,
+      "9": 1106791082,
+    },
+  ],
+  ChestArmor_002: [
+    33,
+    {
+      "0": 1811492119,
+      "1": 1055759906,
+      "10": 3338910732,
+      "11": 2262285911,
+      "2": 355717858,
+      "3": 560521901,
+      "4": 2608175932,
+      "5": 1061038471,
+      "6": 423038182,
+      "7": 857910705,
+      "8": 3812347104,
+      "9": 2438419499,
+    },
+  ],
+  ChestArmor_003: [
+    34,
+    {
+      "0": 3765804568,
+      "1": 3293205347,
+      "10": 1783310797,
+      "11": 431071320,
+      "2": 2593163299,
+      "3": 1892150318,
+      "4": 3939804349,
+      "5": 3800405832,
+      "6": 2377350631,
+      "7": 3095356146,
+      "8": 1754825249,
+      "9": 3770047916,
+    },
+  ],
+  ChestArmor_004: [
+    35,
+    {
+      "0": 1425149721,
+      "10": 227710862,
+      "2": 535641444,
+      "3": 3223778735,
+      "4": 976465470,
+      "5": 2244805897,
+      "6": 36695784,
+      "7": 1037834291,
+      "8": 3992270690,
+      "9": 806709037,
+    },
+  ],
+  ChestArmor_005: [
+    36,
+    {
+      "0": 3379462170,
+      "1": 3473128933,
+      "10": 2967078223,
+      "2": 2773086885,
+      "4": 2308093887,
+      "6": 1991008233,
+      "7": 3275279732,
+      "8": 1934748835,
+      "9": 2138337454,
+    },
+  ],
+  ChestArmor_006: [
+    37,
+    {
+      "0": 1038807323,
+      "10": 1411478288,
+      "11": 3527362139,
+      "2": 715565030,
+      "4": 3639722304,
+      "5": 3428573323,
+      "6": 3945320682,
+      "7": 1217757877,
+      "8": 4172194276,
+      "9": 3469965871,
+    },
+  ],
+  ChestArmor_101: [
+    38,
+    {
+      "0": 3848144057,
+      "1": 2766595652,
+      "10": 2128614894,
+      "2": 2066553604,
+      "3": 3939810127,
+      "4": 1692496862,
+      "5": 318943913,
+      "6": 2459690120,
+      "7": 2568746451,
+      "8": 1228215554,
+      "9": 1522740429,
+    },
+  ],
+  ChestArmor_102: [
+    39,
+    {
+      "0": 1507489210,
+      "1": 709073797,
+      "10": 573014959,
+      "11": 973863610,
+      "2": 9031749,
+      "3": 976471248,
+      "4": 3024125279,
+      "5": 3058311274,
+      "6": 119035273,
+      "7": 511224596,
+      "8": 3465660995,
+      "9": 2854368846,
+    },
+  ],
+  ChestArmor_103: [
+    40,
+    {
+      "0": 3461801659,
+      "1": 2946519238,
+      "10": 3312382320,
+      "2": 2246477190,
+      "3": 2308099665,
+      "4": 60786400,
+      "6": 2073347722,
+      "7": 2748670037,
+      "8": 1408139140,
+      "9": 4185997263,
+    },
+  ],
+  ChestArmor_104: [
+    41,
+    {
+      "0": 1121146812,
+      "10": 586131313,
+      "2": 188955335,
+      "4": 1392414817,
+      "6": 4027660171,
+      "8": 3645584581,
+      "9": 1222658384,
+    },
+  ],
+  ChestArmor_105: [
+    42,
+    {
+      "0": 3075459261,
+      "10": 3325498674,
+      "11": 3325498674,
+      "2": 2426400776,
+      "4": 2724043234,
+      "5": 2686478765,
+      "6": 1687005324,
+      "7": 2928593623,
+      "8": 1588062726,
+      "9": 2554286801,
+    },
+  ],
+  ChestArmor_201: [
+    43,
+    {
+      "0": 514521215,
+      "1": 1698685834,
+      "10": 2824126772,
+      "2": 998643786,
+      "3": 627188245,
+      "4": 2674842276,
+      "5": 646243055,
+      "6": 3421034574,
+      "7": 1500836633,
+      "8": 160305736,
+      "9": 2505085843,
+    },
+  ],
+  ChestArmor_202: [
+    44,
+    {
+      "0": 2468833664,
+      "1": 3936131275,
+      "10": 1268526837,
+      "2": 3236089227,
+      "3": 1958816662,
+      "4": 4006470693,
+      "5": 3385610416,
+      "6": 1080379727,
+      "8": 2397751177,
+      "9": 3836714260,
+    },
+  ],
+  ChestArmor_203: [
+    45,
+    {
+      "0": 128178817,
+      "1": 1878609420,
+      "10": 4007894198,
+      "2": 1178567372,
+      "4": 1043131814,
+      "5": 1830010481,
+      "6": 3034692176,
+      "7": 1680760219,
+      "8": 340229322,
+      "9": 873375381,
+    },
+  ],
+  ChestArmor_204: [
+    46,
+    {
+      "0": 2082491266,
+      "1": 4116054861,
+      "10": 2452294263,
+      "11": 3104592770,
+      "2": 3416012813,
+      "4": 2374760231,
+      "5": 274410546,
+      "6": 694037329,
+      "8": 2577674763,
+      "9": 2205003798,
+    },
+  ],
+  ChestArmor_205: [
+    47,
+    {
+      "0": 4036803715,
+      "1": 2058533006,
+      "10": 896694328,
+      "11": 1273378179,
+      "2": 1358490958,
+      "3": 1658734617,
+      "4": 3706388648,
+      "5": 3013777907,
+      "6": 2648349778,
+      "7": 1860683805,
+      "8": 520152908,
+      "9": 3536632215,
+    },
+  ],
+  ChestArmor_206: [
+    48,
+    {
+      "0": 1696148868,
+      "1": 1011151,
+      "10": 3636061689,
+      "11": 3737130884,
+      "2": 3595936399,
+      "3": 2990363034,
+      "4": 743049769,
+      "5": 1458177972,
+      "6": 307694931,
+      "7": 4098129246,
+      "8": 2757598349,
+      "9": 573293336,
+    },
+  ],
+  ChestArmor_207: [
+    49,
+    {
+      "0": 742046317,
+      "1": 365418744,
+      "10": 2080461754,
+      "2": 584562819,
+      "3": 664581262,
+      "4": 2445927314,
+      "5": 465952605,
+      "6": 273056171,
+      "7": 736257974,
+      "8": 1235494870,
+    },
+  ],
+  ChestArmor_208: [
+    50,
+    {
+      "0": 2696358766,
+      "10": 524861819,
+      "2": 789372516,
+      "3": 364041903,
+      "4": 3777555731,
+      "5": 3205319966,
+      "6": 4267484108,
+      "7": 4161377815,
+      "8": 3472940311,
+    },
+  ],
+  Cloak_001: [
+    7,
+    {
+      "0": 1110652428,
+      "1": 3875293045,
+      "2": 1110652428,
+      "3": 3875293045,
+      "4": 1110652428,
+      "5": 3875293045,
+      "6": 1110652428,
+      "7": 3875293045,
+      "8": 1110652428,
+      "9": 3875293045,
+    },
+  ],
+  Cloak_002: [
+    8,
+    {
+      "0": 1110652429,
+      "1": 3544063062,
+      "2": 1110652429,
+      "3": 3544063062,
+      "4": 1110652429,
+      "5": 3544063062,
+      "6": 1110652429,
+      "7": 3544063062,
+      "8": 1110652429,
+      "9": 3544063062,
+    },
+  ],
+  Cloak_003: [
+    9,
+    {
+      "0": 1110652430,
+      "1": 3212833079,
+      "2": 1110652430,
+      "3": 3212833079,
+      "4": 1110652430,
+      "5": 3212833079,
+      "6": 1110652430,
+      "7": 3212833079,
+      "8": 1110652430,
+      "9": 3212833079,
+    },
+  ],
+  Cloak_004: [
+    10,
+    1110652431,
+  ],
+  Cloak_101: [
+    7,
+    {
+      "0": 1110652428,
+      "1": 3875293045,
+      "2": 1110652428,
+      "3": 3875293045,
+      "4": 1110652428,
+      "5": 3875293045,
+      "6": 1110652428,
+      "7": 3875293045,
+      "8": 1110652428,
+      "9": 3875293045,
+    },
+  ],
+  Cloak_102: [
+    8,
+    {
+      "0": 1110652429,
+      "1": 3544063062,
+      "2": 1110652429,
+      "3": 3544063062,
+      "4": 1110652429,
+      "5": 3544063062,
+      "6": 1110652429,
+      "7": 3544063062,
+      "8": 1110652429,
+      "9": 3544063062,
+    },
+  ],
+  Cloak_103: [
+    9,
+    {
+      "0": 1110652430,
+      "1": 3212833079,
+      "2": 1110652430,
+      "3": 3212833079,
+      "4": 1110652430,
+      "5": 3212833079,
+      "6": 1110652430,
+      "7": 3212833079,
+      "8": 1110652430,
+      "9": 3212833079,
+    },
+  ],
+  Cloak_104: [
+    10,
+    1110652431,
+  ],
+  Cloak_201: [
+    7,
+    {
+      "0": 1110652428,
+      "1": 3875293045,
+      "2": 1110652428,
+      "3": 3875293045,
+      "4": 1110652428,
+      "5": 3875293045,
+      "6": 1110652428,
+      "7": 3875293045,
+      "8": 1110652428,
+      "9": 3875293045,
+    },
+  ],
+  Cloak_202: [
+    8,
+    {
+      "0": 1110652429,
+      "1": 3544063062,
+      "2": 1110652429,
+      "3": 3544063062,
+      "4": 1110652429,
+      "5": 3544063062,
+      "6": 1110652429,
+      "7": 3544063062,
+      "8": 1110652429,
+      "9": 3544063062,
+    },
+  ],
+  Cloak_203: [
+    9,
+    {
+      "0": 1110652430,
+      "1": 3212833079,
+      "2": 1110652430,
+      "3": 3212833079,
+      "4": 1110652430,
+      "5": 3212833079,
+      "6": 1110652430,
+      "7": 3212833079,
+      "8": 1110652430,
+      "9": 3212833079,
+    },
+  ],
+  Cloak_204: [
+    10,
+    1110652431,
+  ],
+  Cloak_205: [
+    11,
+    {
+      "0": 4085956018,
+      "1": 4045783421,
+      "10": 4085956018,
+      "11": 4045783421,
+      "2": 4085956018,
+      "3": 4045783421,
+      "4": 4085956018,
+      "5": 4045783421,
+      "6": 4085956018,
+      "7": 4045783421,
+      "8": 4085956018,
+      "9": 4045783421,
+    },
+  ],
+  Cloak_206: [
+    12,
+    {
+      "0": 4125091411,
+      "1": 3714553438,
+      "10": 4125091411,
+      "11": 3714553438,
+      "2": 4125091411,
+      "3": 3714553438,
+      "4": 4125091411,
+      "5": 3714553438,
+      "6": 4125091411,
+      "7": 3714553438,
+      "8": 4125091411,
+      "9": 3714553438,
+    },
+  ],
+  CombatStaff_2H_001: [
+    10,
+    1376171304,
+  ],
+  CombatStaff_2H_002: [
+    11,
+    1415306697,
+  ],
+  CombatStaff_2H_003: [
+    12,
+    1454442090,
+  ],
+  CombatStaff_2H_004: [
+    13,
+    1493577483,
+  ],
+  CombatStaff_2H_101: [
+    10,
+    1376171304,
+  ],
+  CombatStaff_2H_102: [
+    11,
+    1415306697,
+  ],
+  CombatStaff_2H_103: [
+    12,
+    1454442090,
+  ],
+  CombatStaff_2H_104: [
+    13,
+    1493577483,
+  ],
+  CombatStaff_2H_201: [
+    10,
+    1376171304,
+  ],
+  CombatStaff_2H_202: [
+    11,
+    1415306697,
+  ],
+  CombatStaff_2H_203: [
+    12,
+    1454442090,
+  ],
+  CombatStaff_2H_204: [
+    11,
+    1415306697,
+  ],
+  CombatStaff_2H_205: [
+    12,
+    1454442090,
+  ],
+  CombatStaff_2H_206: [
+    13,
+    1493577483,
+  ],
+  CombatStaff_2H_301: [
+    14,
+    2457818448,
+  ],
+  CombatStaff_2H_302: [
+    15,
+    2496953841,
+  ],
+  Crossbow_001: [
+    9,
+    3497126686,
+  ],
+  Crossbow_002: [
+    10,
+    3536262079,
+  ],
+  Crossbow_003: [
+    11,
+    3575397472,
+  ],
+  Crossbow_004: [
+    12,
+    3614532865,
+  ],
+  Crossbow_005: [
+    13,
+    3653668258,
+  ],
+  Crossbow_006: [
+    14,
+    3692803651,
+  ],
+  Crossbow_007: [
+    15,
+    3731939044,
+  ],
+  Crossbow_101: [
+    9,
+    3497126686,
+  ],
+  Crossbow_102: [
+    10,
+    3536262079,
+  ],
+  Crossbow_103: [
+    11,
+    3575397472,
+  ],
+  Crossbow_104: [
+    12,
+    3614532865,
+  ],
+  Crossbow_105: [
+    13,
+    3653668258,
+  ],
+  Crossbow_106: [
+    14,
+    3692803651,
+  ],
+  Crossbow_107: [
+    15,
+    3731939044,
+  ],
+  Crossbow_201: [
+    9,
+    3497126686,
+  ],
+  Crossbow_202: [
+    10,
+    3536262079,
+  ],
+  Crossbow_203: [
+    11,
+    3575397472,
+  ],
+  Crossbow_204: [
+    12,
+    3614532865,
+  ],
+  Crossbow_205: [
+    13,
+    3653668258,
+  ],
+  Crossbow_206: [
+    14,
+    3692803651,
+  ],
+  Crossbow_207: [
+    15,
+    3731939044,
+  ],
+  Crossbow_301: [
+    16,
+    1612273061,
+  ],
+  Crossbow_302: [
+    17,
+    1651408454,
+  ],
+  CrusaderShield_000: [
+    11,
+    111631528,
+  ],
+  CrusaderShield_001: [
+    11,
+    111631528,
+  ],
+  CrusaderShield_002: [
+    12,
+    150766921,
+  ],
+  CrusaderShield_003: [
+    13,
+    189902314,
+  ],
+  CrusaderShield_004: [
+    14,
+    229037707,
+  ],
+  CrusaderShield_005: [
+    15,
+    268173100,
+  ],
+  CrusaderShield_006: [
+    16,
+    307308493,
+  ],
+  CrusaderShield_007: [
+    17,
+    346443886,
+  ],
+  CrusaderShield_101: [
+    11,
+    111631528,
+  ],
+  CrusaderShield_102: [
+    12,
+    150766921,
+  ],
+  CrusaderShield_103: [
+    13,
+    189902314,
+  ],
+  CrusaderShield_104: [
+    14,
+    229037707,
+  ],
+  CrusaderShield_105: [
+    15,
+    268173100,
+  ],
+  CrusaderShield_106: [
+    16,
+    307308493,
+  ],
+  CrusaderShield_107: [
+    17,
+    346443886,
+  ],
+  CrusaderShield_201: [
+    12,
+    150766921,
+  ],
+  CrusaderShield_202: [
+    13,
+    189902314,
+  ],
+  CrusaderShield_203: [
+    14,
+    229037707,
+  ],
+  CrusaderShield_204: [
+    15,
+    268173100,
+  ],
+  CrusaderShield_205: [
+    16,
+    307308493,
+  ],
+  CrusaderShield_206: [
+    17,
+    346443886,
+  ],
+  CrusaderShield_207: [
+    18,
+    385579279,
+  ],
+  Dagger_001: [
+    8,
+    2710353479,
+  ],
+  Dagger_002: [
+    9,
+    2749488872,
+  ],
+  Dagger_003: [
+    10,
+    2788624265,
+  ],
+  Dagger_004: [
+    11,
+    2827759658,
+  ],
+  Dagger_005: [
+    12,
+    2866895051,
+  ],
+  Dagger_006: [
+    13,
+    2906030444,
+  ],
+  Dagger_007: [
+    14,
+    2945165837,
+  ],
+  Dagger_101: [
+    8,
+    2710353479,
+  ],
+  Dagger_102: [
+    9,
+    2749488872,
+  ],
+  Dagger_103: [
+    10,
+    2788624265,
+  ],
+  Dagger_104: [
+    11,
+    2827759658,
+  ],
+  Dagger_105: [
+    12,
+    2866895051,
+  ],
+  Dagger_106: [
+    13,
+    2906030444,
+  ],
+  Dagger_107: [
+    14,
+    2945165837,
+  ],
+  Dagger_201: [
+    8,
+    2710353479,
+  ],
+  Dagger_202: [
+    9,
+    2749488872,
+  ],
+  Dagger_203: [
+    10,
+    2788624265,
+  ],
+  Dagger_204: [
+    11,
+    2827759658,
+  ],
+  Dagger_205: [
+    12,
+    2866895051,
+  ],
+  Dagger_206: [
+    13,
+    2906030444,
+  ],
+  Dagger_207: [
+    14,
+    2945165837,
+  ],
+  Dagger_301: [
+    15,
+    2767893359,
+  ],
+  Dagger_302: [
+    16,
+    2807028752,
+  ],
+  Diamond_01: [
+    0,
+    1276815861,
+  ],
+  Diamond_02: [
+    0,
+    1276815862,
+  ],
+  Diamond_03: [
+    0,
+    1276815863,
+  ],
+  Diamond_04: [
+    0,
+    1276815864,
+  ],
+  Diamond_05: [
+    0,
+    1276815865,
+  ],
+  Diamond_06: [
+    0,
+    1276815866,
+  ],
+  Diamond_07: [
+    0,
+    1276815867,
+  ],
+  Diamond_08: [
+    0,
+    1276815868,
+  ],
+  Diamond_09: [
+    0,
+    1276815869,
+  ],
+  Diamond_10: [
+    0,
+    1276815893,
+  ],
+  Diamond_11: [
+    0,
+    1276815894,
+  ],
+  Diamond_12: [
+    0,
+    1276815895,
+  ],
+  Diamond_13: [
+    0,
+    1276815896,
+  ],
+  Diamond_14: [
+    0,
+    1276815897,
+  ],
+  Diamond_15: [
+    0,
+    1276815898,
+  ],
+  Diamond_16: [
+    0,
+    1797446659,
+  ],
+  Diamond_17: [
+    0,
+    1797518533,
+  ],
+  Diamond_18: [
+    0,
+    1797482596,
+  ],
+  Diamond_19: [
+    0,
+    1797554470,
+  ],
+  Dye_01: [
+    0,
+  ],
+  Dye_03: [
+    1,
+  ],
+  Dye_04: [
+    2,
+  ],
+  Dye_05: [
+    3,
+  ],
+  Dye_06: [
+    4,
+  ],
+  Dye_08: [
+    5,
+  ],
+  Dye_09: [
+    6,
+  ],
+  Dye_10: [
+    7,
+  ],
+  Dye_11: [
+    8,
+  ],
+  Dye_12: [
+    9,
+  ],
+  Dye_13: [
+    10,
+  ],
+  Dye_14: [
+    11,
+  ],
+  Dye_15: [
+    12,
+  ],
+  Dye_16: [
+    13,
+  ],
+  Dye_17: [
+    14,
+  ],
+  Dye_18: [
+    15,
+  ],
+  Dye_19: [
+    16,
+  ],
+  Dye_20: [
+    17,
+  ],
+  Dye_CE_01: [
+    18,
+  ],
+  Dye_CE_02: [
+    19,
+  ],
+  Dye_Vanishing: [
+    20,
+  ],
+  Emerald_01: [
+    0,
+    859117715,
+  ],
+  Emerald_02: [
+    0,
+    859117716,
+  ],
+  Emerald_03: [
+    0,
+    859117717,
+  ],
+  Emerald_04: [
+    0,
+    859117718,
+  ],
+  Emerald_05: [
+    0,
+    859117719,
+  ],
+  Emerald_06: [
+    0,
+    859117720,
+  ],
+  Emerald_07: [
+    0,
+    859117721,
+  ],
+  Emerald_08: [
+    0,
+    859117722,
+  ],
+  Emerald_09: [
+    0,
+    859117723,
+  ],
+  Emerald_10: [
+    0,
+    859117747,
+  ],
+  Emerald_11: [
+    0,
+    859117748,
+  ],
+  Emerald_12: [
+    0,
+    859117749,
+  ],
+  Emerald_13: [
+    0,
+    859117750,
+  ],
+  Emerald_14: [
+    0,
+    859117751,
+  ],
+  Emerald_15: [
+    0,
+    859117752,
+  ],
+  Emerald_16: [
+    0,
+    1889873377,
+  ],
+  Emerald_17: [
+    0,
+    1889909314,
+  ],
+  Emerald_18: [
+    0,
+    1889945251,
+  ],
+  Emerald_19: [
+    0,
+    1889981188,
+  ],
+  FistWeapon_1H_000: [
+    15,
+    1901558576,
+  ],
+  FistWeapon_1H_001: [
+    15,
+    1901558576,
+  ],
+  FistWeapon_1H_002: [
+    16,
+    1940693969,
+  ],
+  FistWeapon_1H_003: [
+    17,
+    1979829362,
+  ],
+  FistWeapon_1H_004: [
+    18,
+    2018964755,
+  ],
+  FistWeapon_1H_101: [
+    15,
+    1901558576,
+  ],
+  FistWeapon_1H_102: [
+    16,
+    1940693969,
+  ],
+  FistWeapon_1H_103: [
+    17,
+    1979829362,
+  ],
+  FistWeapon_1H_104: [
+    18,
+    2018964755,
+  ],
+  FistWeapon_1H_201: [
+    15,
+    1901558576,
+  ],
+  FistWeapon_1H_202: [
+    16,
+    1940693969,
+  ],
+  FistWeapon_1H_203: [
+    17,
+    1979829362,
+  ],
+  FistWeapon_1H_204: [
+    16,
+    1940693969,
+  ],
+  FistWeapon_1H_205: [
+    17,
+    1979829362,
+  ],
+  FistWeapon_1H_206: [
+    18,
+    2018964755,
+  ],
+  FistWeapon_1H_301: [
+    19,
+    660205912,
+  ],
+  FistWeapon_1H_302: [
+    20,
+    699341305,
+  ],
+  Flail_1H_000: [
+    8,
+    4236106653,
+  ],
+  Flail_1H_001: [
+    8,
+    4236106653,
+  ],
+  Flail_1H_002: [
+    9,
+    4236106654,
+  ],
+  Flail_1H_003: [
+    10,
+    4236106655,
+  ],
+  Flail_1H_004: [
+    11,
+    4236106656,
+  ],
+  Flail_1H_005: [
+    12,
+    4236106657,
+  ],
+  Flail_1H_101: [
+    8,
+    4236106653,
+  ],
+  Flail_1H_102: [
+    9,
+    4236106654,
+  ],
+  Flail_1H_103: [
+    10,
+    4236106655,
+  ],
+  Flail_1H_104: [
+    11,
+    4236106656,
+  ],
+  Flail_1H_105: [
+    12,
+    4236106657,
+  ],
+  Flail_1H_201: [
+    8,
+    4236106653,
+  ],
+  Flail_1H_202: [
+    9,
+    4236106654,
+  ],
+  Flail_1H_203: [
+    10,
+    4236106655,
+  ],
+  Flail_1H_204: [
+    11,
+    4236106656,
+  ],
+  Flail_1H_205: [
+    12,
+    4236106657,
+  ],
+  Flail_2H_001: [
+    4,
+    2680506718,
+  ],
+  Flail_2H_002: [
+    5,
+    2680506719,
+  ],
+  Flail_2H_003: [
+    6,
+    2680506720,
+  ],
+  Flail_2H_004: [
+    7,
+    2680506721,
+  ],
+  Flail_2H_005: [
+    8,
+    2680506722,
+  ],
+  Flail_2H_101: [
+    4,
+    2680506718,
+  ],
+  Flail_2H_102: [
+    5,
+    2680506719,
+  ],
+  Flail_2H_103: [
+    6,
+    2680506720,
+  ],
+  Flail_2H_104: [
+    7,
+    2680506721,
+  ],
+  Flail_2H_105: [
+    8,
+    2680506722,
+  ],
+  Flail_2H_201: [
+    4,
+    2680506718,
+  ],
+  Flail_2H_202: [
+    5,
+    2680506719,
+  ],
+  Flail_2H_203: [
+    6,
+    2680506720,
+  ],
+  Flail_2H_204: [
+    7,
+    2680506721,
+  ],
+  Flail_2H_205: [
+    8,
+    2680506722,
+  ],
+  Gloves_001: [
+    35,
+    {
+      "0": 2634470574,
+      "10": 2359534819,
+      "2": 3226057785,
+      "4": 1672164947,
+      "6": 1246016637,
+      "8": 2387719735,
+    },
+  ],
+  Gloves_002: [
+    36,
+    {
+      "0": 293815727,
+      "10": 803934884,
+      "2": 1168535930,
+      "4": 3003793364,
+      "6": 3200329086,
+      "8": 330197880,
+    },
+  ],
+  Gloves_003: [
+    37,
+    {
+      "0": 2248128176,
+      "10": 3543302245,
+      "2": 3405981371,
+      "4": 40454485,
+      "6": 859674239,
+      "8": 2567643321,
+    },
+  ],
+  Gloves_004: [
+    38,
+    {
+      "0": 4202440625,
+      "10": 1987702310,
+      "2": 1348459516,
+      "4": 1372082902,
+      "6": 2813986688,
+      "8": 510121466,
+    },
+  ],
+  Gloves_005: [
+    39,
+    {
+      "0": 1861785778,
+      "10": 432102375,
+      "2": 3585904957,
+      "4": 2703711319,
+      "6": 473331841,
+      "8": 2747566907,
+    },
+  ],
+  Gloves_006: [
+    40,
+    {
+      "0": 3816098227,
+      "10": 3171469736,
+      "2": 1528383102,
+      "4": 4035339736,
+      "6": 2427644290,
+      "8": 690045052,
+    },
+  ],
+  Gloves_101: [
+    41,
+    {
+      "0": 4018617425,
+      "10": 2388478854,
+      "2": 3028457628,
+      "4": 1233958774,
+      "6": 2630163488,
+      "8": 2190119578,
+    },
+  ],
+  Gloves_102: [
+    42,
+    {
+      "0": 1677962578,
+      "10": 832878919,
+      "2": 970935773,
+      "4": 2565587191,
+      "6": 289508641,
+      "8": 132597723,
+    },
+  ],
+  Gloves_103: [
+    43,
+    {
+      "0": 3632275027,
+      "10": 3572246280,
+      "2": 3208381214,
+      "4": 3897215608,
+      "6": 2243821090,
+      "8": 2370043164,
+    },
+  ],
+  Gloves_104: [
+    44,
+    {
+      "0": 1291620180,
+      "10": 845995273,
+      "2": 1150859359,
+      "4": 933876729,
+      "6": 4198133539,
+      "8": 312521309,
+    },
+  ],
+  Gloves_105: [
+    45,
+    {
+      "0": 3245932629,
+      "10": 461046410,
+      "2": 3388304800,
+      "4": 2265505146,
+      "5": 1554707269,
+      "6": 1857478692,
+      "8": 2549966750,
+    },
+  ],
+  Gloves_201: [
+    46,
+    {
+      "0": 3291812119,
+      "10": 289150924,
+      "2": 1811461858,
+      "4": 3070459708,
+      "6": 1903358182,
+      "8": 973123808,
+    },
+  ],
+  Gloves_202: [
+    47,
+    {
+      "0": 951157272,
+      "10": 3028518285,
+      "2": 4048907299,
+      "4": 107120829,
+      "6": 3857670631,
+      "8": 3210569249,
+    },
+  ],
+  Gloves_203: [
+    48,
+    {
+      "0": 2905469721,
+      "10": 1472918350,
+      "2": 1991385444,
+      "4": 1438749246,
+      "6": 1517015784,
+      "8": 1153047394,
+    },
+  ],
+  Gloves_204: [
+    49,
+    {
+      "0": 564814874,
+      "10": 4212285711,
+      "2": 4228830885,
+      "4": 2770377663,
+      "6": 3471328233,
+      "8": 3390492835,
+    },
+  ],
+  Gloves_205: [
+    50,
+    {
+      "0": 2519127323,
+      "10": 2656685776,
+      "2": 2171309030,
+      "4": 4102006080,
+      "6": 1130673386,
+      "8": 1332970980,
+    },
+  ],
+  Gloves_206: [
+    51,
+    {
+      "0": 178472476,
+      "10": 1101085841,
+      "2": 113787175,
+      "4": 1138667201,
+      "6": 3084985835,
+      "8": 3570416421,
+    },
+  ],
+  Gloves_207: [
+    52,
+    {
+      "0": 2829705755,
+      "10": 3840453202,
+      "2": 74120965,
+      "4": 3678057514,
+      "6": 1397322051,
+      "8": 1600770638,
+    },
+  ],
+  Gloves_208: [
+    53,
+    {
+      "0": 2028433414,
+      "10": 2284853267,
+      "2": 3034515452,
+      "4": 3593496011,
+      "6": 1096782692,
+      "8": 3838216079,
+    },
+  ],
+  HandXbow_000: [
+    12,
+    1650044728,
+  ],
+  HandXbow_001: [
+    12,
+    1650044728,
+  ],
+  HandXbow_002: [
+    13,
+    1689180121,
+  ],
+  HandXbow_003: [
+    14,
+    1728315514,
+  ],
+  HandXbow_004: [
+    15,
+    1767450907,
+  ],
+  HandXbow_005: [
+    16,
+    1806586300,
+  ],
+  HandXbow_006: [
+    17,
+    1845721693,
+  ],
+  HandXbow_007: [
+    18,
+    1884857086,
+  ],
+  HandXbow_008: [
+    19,
+    1923992479,
+  ],
+  HandXbow_101: [
+    12,
+    1650044728,
+  ],
+  HandXbow_102: [
+    13,
+    1689180121,
+  ],
+  HandXbow_103: [
+    14,
+    1728315514,
+  ],
+  HandXbow_104: [
+    15,
+    1767450907,
+  ],
+  HandXbow_105: [
+    16,
+    1806586300,
+  ],
+  HandXbow_106: [
+    17,
+    1845721693,
+  ],
+  HandXbow_107: [
+    18,
+    1884857086,
+  ],
+  HandXbow_108: [
+    19,
+    1923992479,
+  ],
+  HandXbow_201: [
+    12,
+    1650044728,
+  ],
+  HandXbow_202: [
+    13,
+    1689180121,
+  ],
+  HandXbow_203: [
+    14,
+    1728315514,
+  ],
+  HandXbow_204: [
+    15,
+    1767450907,
+  ],
+  HandXbow_205: [
+    16,
+    1806586300,
+  ],
+  HandXbow_206: [
+    17,
+    1845721693,
+  ],
+  HandXbow_207: [
+    18,
+    1884857086,
+  ],
+  HandXbow_208: [
+    19,
+    1923992479,
+  ],
+  HandXbow_301: [
+    20,
+    4181431904,
+  ],
+  HandXbow_302: [
+    21,
+    4220567297,
+  ],
+  Helm_002: [
+    34,
+    {
+      "0": 2625785381,
+      "10": 180318618,
+      "2": 2357817200,
+      "4": 1050973002,
+      "6": 1237331444,
+      "8": 1519479150,
+    },
+  ],
+  Helm_003: [
+    35,
+    {
+      "0": 285130534,
+      "10": 2919685979,
+      "2": 300295345,
+      "4": 2382601419,
+      "6": 3191643893,
+      "8": 3756924591,
+    },
+  ],
+  Helm_004: [
+    36,
+    {
+      "0": 2239442983,
+      "10": 1364086044,
+      "2": 2537740786,
+      "4": 3714229836,
+      "6": 850989046,
+      "8": 1699402736,
+    },
+  ],
+  Helm_005: [
+    37,
+    {
+      "0": 4193755432,
+      "10": 4103453405,
+      "2": 480218931,
+      "4": 750890957,
+      "6": 2805301495,
+      "8": 3936848177,
+    },
+  ],
+  Helm_006: [
+    38,
+    {
+      "0": 1853100585,
+      "10": 2547853470,
+      "2": 2717664372,
+      "4": 2082519374,
+      "6": 464646648,
+      "8": 1879326322,
+      "9": 1912762941,
+    },
+  ],
+  Helm_101: [
+    39,
+    {
+      "0": 4000054919,
+      "10": 3497096252,
+      "2": 4288725074,
+      "4": 3570640044,
+      "6": 2611600982,
+      "8": 3450387024,
+    },
+  ],
+  Helm_102: [
+    40,
+    {
+      "0": 1659400072,
+      "10": 1941496317,
+      "2": 2231203219,
+      "4": 607301165,
+      "6": 270946135,
+      "8": 1392865169,
+    },
+  ],
+  Helm_103: [
+    41,
+    {
+      "0": 3613712521,
+      "10": 3510212606,
+      "2": 173681364,
+      "4": 1938929582,
+      "6": 2225258584,
+      "8": 3630310610,
+    },
+  ],
+  Helm_104: [
+    42,
+    {
+      "0": 1273057674,
+      "10": 1954612671,
+      "2": 2411126805,
+      "4": 3270557999,
+      "6": 4179571033,
+      "8": 1572788755,
+    },
+  ],
+  Helm_105: [
+    43,
+    {
+      "0": 3227370123,
+      "10": 399012736,
+      "2": 353604950,
+      "4": 307219120,
+      "5": 3579971067,
+      "6": 1838916186,
+      "8": 3810234196,
+    },
+  ],
+  Helm_201: [
+    44,
+    {
+      "0": 1328814477,
+      "10": 3960501954,
+      "2": 3000743128,
+      "4": 1117639346,
+      "6": 4235327836,
+      "8": 2162405078,
+    },
+  ],
+  Helm_202: [
+    45,
+    {
+      "0": 3283126926,
+      "10": 2404902019,
+      "2": 943221273,
+      "4": 2449267763,
+      "6": 1894672989,
+      "8": 104883223,
+    },
+  ],
+  Helm_203: [
+    46,
+    {
+      "0": 942472079,
+      "10": 849302084,
+      "2": 3180666714,
+      "4": 3780896180,
+      "6": 3848985438,
+      "8": 2342328664,
+    },
+  ],
+  Helm_204: [
+    47,
+    {
+      "0": 2896784528,
+      "10": 3588669445,
+      "2": 1123144859,
+      "4": 817557301,
+      "6": 1508330591,
+      "8": 284806809,
+    },
+  ],
+  Helm_205: [
+    48,
+    {
+      "0": 556129681,
+      "1": 4060632348,
+      "10": 2033069510,
+      "2": 3360590300,
+      "4": 2149185718,
+      "6": 3462643040,
+      "8": 2522252250,
+    },
+  ],
+  Helm_206: [
+    49,
+    {
+      "0": 2510442130,
+      "10": 477469575,
+      "2": 1303068445,
+      "4": 3480814135,
+      "6": 1121988193,
+      "8": 464730395,
+    },
+  ],
+  Helm_207: [
+    50,
+    {
+      "0": 2373508475,
+      "10": 3216836936,
+      "2": 3725205457,
+      "4": 3697204640,
+      "6": 1638921337,
+      "8": 4076291684,
+    },
+  ],
+  Helm_208: [
+    51,
+    {
+      "0": 32853628,
+      "10": 1661237001,
+      "2": 3930015154,
+      "4": 733865761,
+      "6": 1338381978,
+      "8": 2018769829,
+    },
+  ],
+  Helm_console_promo: [
+    52,
+    364063986,
+  ],
+  Mace_1H_001: [
+    11,
+    3402544600,
+  ],
+  Mace_1H_002: [
+    12,
+    3402544601,
+  ],
+  Mace_1H_003: [
+    13,
+    3402544602,
+  ],
+  Mace_1H_004: [
+    14,
+    3402544603,
+  ],
+  Mace_1H_005: [
+    15,
+    3402544604,
+  ],
+  Mace_1H_006: [
+    16,
+    3402544605,
+  ],
+  Mace_1H_007: [
+    17,
+    3402544606,
+  ],
+  Mace_1H_101: [
+    11,
+    3402544600,
+  ],
+  Mace_1H_102: [
+    12,
+    3402544601,
+  ],
+  Mace_1H_103: [
+    13,
+    3402544602,
+  ],
+  Mace_1H_104: [
+    14,
+    3402544603,
+  ],
+  Mace_1H_105: [
+    15,
+    3402544604,
+  ],
+  Mace_1H_106: [
+    16,
+    3402544605,
+  ],
+  Mace_1H_107: [
+    17,
+    3402544606,
+  ],
+  Mace_1H_201: [
+    11,
+    3402544600,
+  ],
+  Mace_1H_202: [
+    12,
+    3402544601,
+  ],
+  Mace_1H_203: [
+    13,
+    3402544602,
+  ],
+  Mace_1H_204: [
+    14,
+    3402544603,
+  ],
+  Mace_1H_205: [
+    15,
+    3402544604,
+  ],
+  Mace_1H_206: [
+    16,
+    3402544605,
+  ],
+  Mace_1H_207: [
+    17,
+    3402544606,
+  ],
+  Mace_1H_301: [
+    18,
+    3402544607,
+  ],
+  Mace_1H_302: [
+    19,
+    4220919252,
+  ],
+  Mace_2H_001: [
+    9,
+    1132776137,
+  ],
+  Mace_2H_002: [
+    10,
+    1132776138,
+  ],
+  Mace_2H_003: [
+    11,
+    1132776139,
+  ],
+  Mace_2H_004: [
+    12,
+    1132776140,
+  ],
+  Mace_2H_005: [
+    13,
+    1132776141,
+  ],
+  Mace_2H_006: [
+    14,
+    1132776142,
+  ],
+  Mace_2H_101: [
+    9,
+    1132776137,
+  ],
+  Mace_2H_102: [
+    10,
+    1132776138,
+  ],
+  Mace_2H_103: [
+    11,
+    1132776139,
+  ],
+  Mace_2H_104: [
+    12,
+    1132776140,
+  ],
+  Mace_2H_105: [
+    13,
+    1132776141,
+  ],
+  Mace_2H_106: [
+    14,
+    1132776142,
+  ],
+  Mace_2H_201: [
+    9,
+    1132776137,
+  ],
+  Mace_2H_202: [
+    10,
+    1132776138,
+  ],
+  Mace_2H_203: [
+    11,
+    1132776139,
+  ],
+  Mace_2H_204: [
+    12,
+    1132776140,
+  ],
+  Mace_2H_205: [
+    13,
+    1132776141,
+  ],
+  Mace_2H_206: [
+    14,
+    1132776142,
+  ],
+  Mace_2H_301: [
+    15,
+    3664163313,
+  ],
+  Mace_2H_302: [
+    16,
+    3664163314,
+  ],
+  MightyWeapon1H_001: [
+    9,
+    3721220565,
+  ],
+  MightyWeapon1H_002: [
+    10,
+    3721220566,
+  ],
+  MightyWeapon1H_003: [
+    11,
+    3721220567,
+  ],
+  MightyWeapon1H_004: [
+    12,
+    3721220568,
+  ],
+  MightyWeapon1H_101: [
+    9,
+    3721220565,
+  ],
+  MightyWeapon1H_102: [
+    10,
+    3721220566,
+  ],
+  MightyWeapon1H_103: [
+    11,
+    3721220567,
+  ],
+  MightyWeapon1H_104: [
+    12,
+    3721220568,
+  ],
+  MightyWeapon1H_201: [
+    9,
+    3721220565,
+  ],
+  MightyWeapon1H_202: [
+    10,
+    3721220566,
+  ],
+  MightyWeapon1H_203: [
+    11,
+    3721220567,
+  ],
+  MightyWeapon1H_204: [
+    12,
+    3721220568,
+  ],
+  MightyWeapon1H_301: [
+    13,
+    3291433981,
+  ],
+  MightyWeapon1H_302: [
+    14,
+    3291433982,
+  ],
+  MightyWeapon2H_001: [
+    6,
+    3721256502,
+  ],
+  MightyWeapon2H_002: [
+    7,
+    3721256503,
+  ],
+  MightyWeapon2H_003: [
+    8,
+    3721256504,
+  ],
+  MightyWeapon2H_004: [
+    9,
+    3721256505,
+  ],
+  MightyWeapon2H_101: [
+    6,
+    3721256502,
+  ],
+  MightyWeapon2H_102: [
+    7,
+    3721256503,
+  ],
+  MightyWeapon2H_103: [
+    8,
+    3721256504,
+  ],
+  MightyWeapon2H_104: [
+    9,
+    3721256505,
+  ],
+  MightyWeapon2H_201: [
+    6,
+    3721256502,
+  ],
+  MightyWeapon2H_202: [
+    7,
+    3721256503,
+  ],
+  MightyWeapon2H_203: [
+    8,
+    3721256504,
+  ],
+  MightyWeapon2H_204: [
+    9,
+    3721256505,
+  ],
+  MightyWeapon2H_301: [
+    10,
+    3291469918,
+  ],
+  MightyWeapon2H_302: [
+    11,
+    3291469919,
+  ],
+  Mojo_001: [
+    9,
+    2274522762,
+  ],
+  Mojo_002: [
+    10,
+    2274522763,
+  ],
+  Mojo_003: [
+    11,
+    2274522764,
+  ],
+  Mojo_004: [
+    12,
+    2274522765,
+  ],
+  Mojo_101: [
+    9,
+    2274522762,
+  ],
+  Mojo_102: [
+    10,
+    2274522763,
+  ],
+  Mojo_103: [
+    11,
+    2274522764,
+  ],
+  Mojo_104: [
+    12,
+    2274522765,
+  ],
+  Mojo_201: [
+    9,
+    2274522762,
+  ],
+  Mojo_202: [
+    10,
+    2274522763,
+  ],
+  Mojo_203: [
+    11,
+    2274522764,
+  ],
+  Mojo_204: [
+    12,
+    2274522765,
+  ],
+  Mojo_205: [
+    13,
+    1844736178,
+  ],
+  Mojo_206: [
+    14,
+    817379355,
+  ],
+  Orb_001: [
+    10,
+    3982311672,
+  ],
+  Orb_002: [
+    11,
+    3982311678,
+  ],
+  Orb_003: [
+    12,
+    3982311679,
+  ],
+  Orb_004: [
+    13,
+    3982311680,
+  ],
+  Orb_101: [
+    10,
+    3982311672,
+  ],
+  Orb_102: [
+    11,
+    3982311678,
+  ],
+  Orb_103: [
+    12,
+    3982311679,
+  ],
+  Orb_104: [
+    13,
+    3982311680,
+  ],
+  Orb_201: [
+    10,
+    3982311672,
+  ],
+  Orb_202: [
+    11,
+    3982311678,
+  ],
+  Orb_203: [
+    12,
+    3982311679,
+  ],
+  Orb_204: [
+    13,
+    3982311680,
+  ],
+  Orb_205: [
+    14,
+    3839137312,
+  ],
+  Orb_206: [
+    15,
+    3839137313,
+  ],
+  P1_CeremonialDagger_norm_unique_01: [
+    0,
+    2555854434,
+  ],
+  P1_CeremonialDagger_norm_unique_02: [
+    1,
+    2594989827,
+  ],
+  P1_CruShield_norm_unique_01: [
+    0,
+    755747548,
+  ],
+  P1_CruShield_norm_unique_02: [
+    1,
+    794882941,
+  ],
+  P1_Unique_Boots_010: [
+    0,
+    2420035936,
+  ],
+  P1_Unique_WizardHat_003: [
+    0,
+    517702537,
+  ],
+  P1_Wand_norm_unique_01: [
+    0,
+    855596131,
+  ],
+  P1_fistWeapon_norm_unique_01: [
+    0,
+    4174347692,
+  ],
+  P1_fistWeapon_norm_unique_02: [
+    1,
+    4213483085,
+  ],
+  P1_flail1H_norm_unique_01: [
+    0,
+    3561738169,
+  ],
+  P2_Unique_BarbBelt_001: [
+    0,
+    4149212837,
+  ],
+  P2_Unique_BarbBelt_006: [
+    0,
+    707441093,
+  ],
+  P2_Unique_Belt_008: [
+    1,
+    629170307,
+  ],
+  P2_Unique_Belt_01: [
+    2,
+    2250648000,
+  ],
+  P2_Unique_Belt_02: [
+    3,
+    2289783393,
+  ],
+  P2_Unique_Belt_03: [
+    4,
+    2328918786,
+  ],
+  P2_Unique_Belt_04: [
+    5,
+    2368054179,
+  ],
+  P2_Unique_Belt_05: [
+    6,
+    2407189572,
+  ],
+  P2_Unique_Belt_06: [
+    7,
+    2446324965,
+  ],
+  P2_Unique_Boots_01: [
+    1,
+    988373077,
+  ],
+  P2_Unique_Boots_02: [
+    2,
+    2569918859,
+  ],
+  P2_Unique_Bracer_006: [
+    0,
+    2941331374,
+  ],
+  P2_Unique_Bracer_109: [
+    1,
+    1032622629,
+  ],
+  P2_Unique_Bracer_110: [
+    2,
+    1993693525,
+  ],
+  P2_Unique_Flail_2H_104: [
+    0,
+    1723123869,
+  ],
+  P2_Unique_Gloves_01: [
+    0,
+    510071950,
+  ],
+  P2_Unique_Gloves_02: [
+    1,
+    927525543,
+  ],
+  P2_Unique_Gloves_03: [
+    2,
+    2239147360,
+  ],
+  P2_Unique_Gloves_04: [
+    3,
+    2320289309,
+  ],
+  P2_Unique_Helm_001: [
+    0,
+    3265926264,
+  ],
+  P2_Unique_Mighty_2H_001: [
+    0,
+    1131735308,
+  ],
+  P2_Unique_Orb_003: [
+    0,
+    526889078,
+  ],
+  P2_Unique_Pants_01: [
+    0,
+    2272846829,
+  ],
+  P2_Unique_Pants_02: [
+    1,
+    374668066,
+  ],
+  P2_Unique_Pants_03: [
+    2,
+    3246802739,
+  ],
+  P2_Unique_Pants_04: [
+    3,
+    935502174,
+  ],
+  P2_Unique_Quiver_007: [
+    0,
+    2477083948,
+  ],
+  P2_Unique_Ring_01: [
+    0,
+    1356901590,
+  ],
+  P2_Unique_Ring_02: [
+    1,
+    3302511606,
+  ],
+  P2_Unique_Ring_03: [
+    2,
+    87064745,
+  ],
+  P2_Unique_Ring_04: [
+    3,
+    2355536554,
+  ],
+  P2_Unique_Shield_002: [
+    0,
+    3585622873,
+  ],
+  P2_Unique_Shield_007: [
+    1,
+    3389945908,
+  ],
+  P2_Unique_Staff_003: [
+    0,
+    577113555,
+  ],
+  P2_Unique_Wand_002: [
+    1,
+    3489950341,
+  ],
+  P2_handXbow_norm_unique_03: [
+    0,
+    2024325239,
+  ],
+  P2_mojo_norm_unique_02: [
+    0,
+    955628136,
+  ],
+  P3_Unique_Belt_005: [
+    8,
+    342963128,
+  ],
+  P3_Unique_Belt_01: [
+    9,
+    3832254466,
+  ],
+  P3_Unique_Belt_02: [
+    10,
+    3871389859,
+  ],
+  P3_Unique_Belt_03: [
+    11,
+    3910525252,
+  ],
+  P3_Unique_Bracer_101: [
+    3,
+    2179058646,
+  ],
+  P3_Unique_Bracer_103: [
+    4,
+    3059360894,
+  ],
+  P3_Unique_Bracer_104: [
+    5,
+    3098496287,
+  ],
+  P3_Unique_Bracer_105: [
+    6,
+    3137631680,
+  ],
+  P3_Unique_Bracer_106: [
+    7,
+    901884111,
+  ],
+  P3_Unique_Bracer_107: [
+    8,
+    3215902466,
+  ],
+  P3_Unique_HandXBow_005: [
+    1,
+    4129891353,
+  ],
+  P3_Unique_Mighty_1H_006: [
+    0,
+    389374674,
+  ],
+  P3_Unique_Shoulder_102: [
+    0,
+    515337801,
+  ],
+  P3_Unique_Spear_001: [
+    0,
+    2295726708,
+  ],
+  P3_Unique_Sword_1H_012: [
+    0,
+    3146854469,
+  ],
+  P3_Unique_Sword_1H_104: [
+    1,
+    190449309,
+  ],
+  P3_Unique_WizardHat_003: [
+    0,
+    517702537,
+  ],
+  Pants_001: [
+    34,
+    {
+      "0": 3911833156,
+      "10": 1246648825,
+      "2": 2704505679,
+      "4": 637604585,
+      "6": 2523379219,
+      "8": 1866167629,
+      "9": 467848152,
+    },
+  ],
+  Pants_002: [
+    35,
+    {
+      "0": 1571178309,
+      "10": 3986016186,
+      "2": 646983824,
+      "4": 1969233002,
+      "6": 182724372,
+      "8": 4103613070,
+      "9": 1799476569,
+    },
+  ],
+  Pants_003: [
+    36,
+    {
+      "0": 3525490758,
+      "10": 2430416251,
+      "2": 2884429265,
+      "4": 3300861419,
+      "6": 2137036821,
+      "8": 2046091215,
+      "9": 3131104986,
+    },
+  ],
+  Pants_004: [
+    37,
+    {
+      "0": 1184835911,
+      "10": 874816316,
+      "2": 826907410,
+      "4": 337522540,
+      "6": 4091349270,
+      "8": 4283536656,
+      "9": 167766107,
+    },
+  ],
+  Pants_005: [
+    38,
+    {
+      "0": 3139148360,
+      "10": 3614183677,
+      "2": 3064352851,
+      "4": 1669150957,
+      "6": 1750694423,
+      "8": 2226014801,
+    },
+  ],
+  Pants_006: [
+    39,
+    {
+      "0": 798493513,
+      "10": 2058583742,
+      "2": 1006830996,
+      "4": 3000779374,
+      "6": 3705006872,
+      "8": 168492946,
+      "9": 2831022941,
+    },
+  ],
+  Pants_101: [
+    40,
+    {
+      "0": 4237863847,
+      "10": 3478298204,
+      "2": 1269642610,
+      "4": 1439818188,
+      "6": 2849409910,
+      "8": 431304560,
+    },
+  ],
+  Pants_102: [
+    41,
+    {
+      "0": 1897209000,
+      "10": 1922698269,
+      "2": 3507088051,
+      "4": 2771446605,
+      "6": 508755063,
+      "8": 2668750001,
+      "9": 2601690172,
+    },
+  ],
+  Pants_103: [
+    42,
+    {
+      "0": 3851521449,
+      "10": 3491414558,
+      "2": 1449566196,
+      "4": 4103075022,
+      "6": 2463067512,
+      "8": 611228146,
+      "9": 3933318589,
+    },
+  ],
+  Pants_104: [
+    43,
+    {
+      "0": 1510866602,
+      "10": 1935814623,
+      "2": 3687011637,
+      "4": 1139736143,
+      "6": 122412665,
+      "8": 2848673587,
+    },
+  ],
+  Pants_105: [
+    44,
+    {
+      "0": 3465179051,
+      "10": 380214688,
+      "2": 1629489782,
+      "4": 2471364560,
+      "6": 2076725114,
+      "8": 791151732,
+    },
+  ],
+  Pants_201: [
+    45,
+    {
+      "0": 274207405,
+      "10": 3471232226,
+      "2": 1289909752,
+      "4": 2035899346,
+      "6": 3180720764,
+      "8": 451571702,
+    },
+  ],
+  Pants_202: [
+    46,
+    {
+      "0": 2228519854,
+      "10": 1915632291,
+      "2": 3527355193,
+      "4": 3367527763,
+      "6": 840065917,
+      "8": 2689017143,
+    },
+  ],
+  Pants_203: [
+    47,
+    {
+      "0": 4182832303,
+      "10": 360032356,
+      "2": 1469833338,
+      "4": 404188884,
+      "6": 2794378366,
+      "8": 631495288,
+      "9": 234432451,
+    },
+  ],
+  Pants_204: [
+    48,
+    {
+      "0": 1842177456,
+      "10": 3099399717,
+      "2": 3707278779,
+      "4": 1735817301,
+      "6": 453723519,
+      "8": 2868940729,
+    },
+  ],
+  Pants_205: [
+    49,
+    {
+      "0": 3796489905,
+      "10": 1543799782,
+      "2": 1649756924,
+      "4": 3067445718,
+      "6": 2408035968,
+      "8": 811418874,
+    },
+  ],
+  Pants_206: [
+    50,
+    {
+      "0": 1455835058,
+      "10": 4283167143,
+      "2": 3887202365,
+      "4": 104106839,
+      "6": 67381121,
+      "8": 3048864315,
+    },
+  ],
+  Pants_207: [
+    51,
+    {
+      "0": 1951472539,
+      "10": 2727567208,
+      "2": 464206321,
+      "4": 2130695136,
+      "6": 2348816025,
+      "8": 1632201828,
+    },
+  ],
+  Pants_208: [
+    52,
+    {
+      "0": 3905784988,
+      "10": 1171967273,
+      "2": 669016018,
+      "4": 3462323553,
+      "6": 2048276666,
+      "8": 3869647269,
+    },
+  ],
+  Polearm_001: [
+    5,
+    3804125197,
+  ],
+  Polearm_002: [
+    6,
+    3843260590,
+  ],
+  Polearm_003: [
+    7,
+    3882395983,
+  ],
+  Polearm_004: [
+    8,
+    3921531376,
+  ],
+  Polearm_005: [
+    9,
+    3960666769,
+  ],
+  Polearm_006: [
+    10,
+    3999802162,
+  ],
+  Polearm_007: [
+    11,
+    4038937555,
+  ],
+  Polearm_008: [
+    12,
+    4078072948,
+  ],
+  Polearm_101: [
+    5,
+    3804125197,
+  ],
+  Polearm_102: [
+    6,
+    3843260590,
+  ],
+  Polearm_103: [
+    7,
+    3882395983,
+  ],
+  Polearm_104: [
+    8,
+    3921531376,
+  ],
+  Polearm_105: [
+    9,
+    3960666769,
+  ],
+  Polearm_106: [
+    10,
+    3999802162,
+  ],
+  Polearm_107: [
+    11,
+    4038937555,
+  ],
+  Polearm_108: [
+    12,
+    4078072948,
+  ],
+  Polearm_201: [
+    5,
+    3804125197,
+  ],
+  Polearm_202: [
+    6,
+    3843260590,
+  ],
+  Polearm_203: [
+    7,
+    3882395983,
+  ],
+  Polearm_204: [
+    8,
+    3921531376,
+  ],
+  Polearm_205: [
+    9,
+    3960666769,
+  ],
+  Polearm_206: [
+    10,
+    3999802162,
+  ],
+  Polearm_207: [
+    11,
+    4038937555,
+  ],
+  Polearm_208: [
+    12,
+    4078072948,
+  ],
+  Polearm_301: [
+    13,
+    1407973941,
+  ],
+  Polearm_302: [
+    14,
+    1447109334,
+  ],
+  Ruby_01: [
+    0,
+    1817368187,
+  ],
+  Ruby_02: [
+    0,
+    1817368188,
+  ],
+  Ruby_03: [
+    0,
+    1817368189,
+  ],
+  Ruby_04: [
+    0,
+    1817368190,
+  ],
+  Ruby_05: [
+    0,
+    1817368191,
+  ],
+  Ruby_06: [
+    0,
+    1817368192,
+  ],
+  Ruby_07: [
+    0,
+    1817368193,
+  ],
+  Ruby_08: [
+    0,
+    1817368194,
+  ],
+  Ruby_09: [
+    0,
+    1817368195,
+  ],
+  Ruby_10: [
+    0,
+    1817368219,
+  ],
+  Ruby_11: [
+    0,
+    1817368220,
+  ],
+  Ruby_12: [
+    0,
+    1817368221,
+  ],
+  Ruby_13: [
+    0,
+    1817368222,
+  ],
+  Ruby_14: [
+    0,
+    1817368223,
+  ],
+  Ruby_15: [
+    0,
+    1817368224,
+  ],
+  Ruby_16: [
+    0,
+    1489306313,
+  ],
+  Ruby_17: [
+    0,
+    1489342250,
+  ],
+  Ruby_18: [
+    0,
+    1489378187,
+  ],
+  Ruby_19: [
+    0,
+    1489414124,
+  ],
+  Shield_000: [
+    11,
+    1730338358,
+  ],
+  Shield_001: [
+    11,
+    1730338358,
+  ],
+  Shield_002: [
+    12,
+    1769473751,
+  ],
+  Shield_003: [
+    13,
+    1808609144,
+  ],
+  Shield_004: [
+    14,
+    1847744537,
+  ],
+  Shield_005: [
+    15,
+    1886879930,
+  ],
+  Shield_006: [
+    16,
+    1926015323,
+  ],
+  Shield_007: [
+    17,
+    1965150716,
+  ],
+  Shield_101: [
+    11,
+    1730338358,
+  ],
+  Shield_102: [
+    12,
+    1769473751,
+  ],
+  Shield_103: [
+    13,
+    1808609144,
+  ],
+  Shield_104: [
+    14,
+    1847744537,
+  ],
+  Shield_105: [
+    15,
+    1886879930,
+  ],
+  Shield_106: [
+    16,
+    1926015323,
+  ],
+  Shield_107: [
+    17,
+    1965150716,
+  ],
+  Shield_201: [
+    11,
+    1730338358,
+  ],
+  Shield_202: [
+    12,
+    1769473751,
+  ],
+  Shield_203: [
+    13,
+    1808609144,
+  ],
+  Shield_204: [
+    14,
+    1847744537,
+  ],
+  Shield_205: [
+    15,
+    1886879930,
+  ],
+  Shield_206: [
+    16,
+    1926015323,
+  ],
+  Shield_207: [
+    17,
+    1965150716,
+  ],
+  Shield_208: [
+    18,
+    1787878238,
+  ],
+  Shield_209: [
+    19,
+    1827013631,
+  ],
+  Shoulders_002: [
+    30,
+    {
+      "0": 1750804911,
+      "10": 3871317508,
+      "2": 3955995162,
+      "4": 1058154420,
+      "6": 1750805534,
+      "8": 3956405592,
+    },
+  ],
+  Shoulders_003: [
+    31,
+    {
+      "0": 1750840848,
+      "10": 3939118885,
+      "2": 3995130555,
+      "4": 726924437,
+      "6": 1750841471,
+      "8": 3995540985,
+    },
+  ],
+  Shoulders_004: [
+    32,
+    {
+      "0": 1750876785,
+      "10": 4006920262,
+      "2": 4034265948,
+      "4": 395694454,
+      "6": 1750877408,
+      "8": 4034676378,
+    },
+  ],
+  Shoulders_005: [
+    33,
+    {
+      "0": 1750912722,
+      "10": 4074721639,
+      "2": 4073401341,
+      "4": 64464471,
+      "6": 1750913345,
+      "8": 4073811771,
+    },
+  ],
+  Shoulders_006: [
+    34,
+    {
+      "0": 1750948659,
+      "10": 4142523016,
+      "2": 4112536734,
+      "4": 4028201784,
+      "6": 1750949282,
+      "8": 4112947164,
+      "9": 1370849093,
+    },
+  ],
+  Shoulders_101: [
+    35,
+    {
+      "0": 1395022289,
+      "10": 1873451174,
+      "2": 3055776444,
+      "4": 4267481302,
+      "6": 1395022912,
+      "8": 3056186874,
+    },
+  ],
+  Shoulders_102: [
+    36,
+    {
+      "0": 1395058226,
+      "10": 1941252551,
+      "2": 3094911837,
+      "4": 3936251319,
+      "6": 1395058849,
+      "8": 3095322267,
+    },
+  ],
+  Shoulders_103: [
+    37,
+    {
+      "0": 1395094163,
+      "10": 2009053928,
+      "2": 3134047230,
+      "4": 3605021336,
+      "6": 1395094786,
+      "8": 3134457660,
+    },
+  ],
+  Shoulders_104: [
+    38,
+    {
+      "0": 1395130100,
+      "10": 2076855305,
+      "2": 3173182623,
+      "4": 3273791353,
+      "6": 1395130723,
+      "8": 3173593053,
+    },
+  ],
+  Shoulders_105: [
+    39,
+    {
+      "0": 1395166037,
+      "10": 2144656682,
+      "2": 3212318016,
+      "4": 2942561370,
+      "5": 1737693699,
+      "6": 1395166660,
+      "8": 3212728446,
+    },
+  ],
+  Shoulders_201: [
+    40,
+    {
+      "0": 922629143,
+      "10": 4020950636,
+      "2": 4015715970,
+      "4": 1669604892,
+      "6": 922629766,
+      "8": 4016126400,
+    },
+  ],
+  Shoulders_202: [
+    41,
+    {
+      "0": 922665080,
+      "10": 4088752013,
+      "2": 4054851363,
+      "4": 1338374909,
+      "6": 922665703,
+      "8": 4055261793,
+    },
+  ],
+  Shoulders_203: [
+    42,
+    {
+      "0": 922701017,
+      "10": 4156553390,
+      "2": 4093986756,
+      "4": 1007144926,
+      "6": 922701640,
+      "8": 4094397186,
+    },
+  ],
+  Shoulders_204: [
+    43,
+    {
+      "0": 922736954,
+      "10": 4224354767,
+      "2": 4133122149,
+      "4": 675914943,
+      "6": 922737577,
+      "8": 4133532579,
+    },
+  ],
+  Shoulders_205: [
+    44,
+    {
+      "0": 922772891,
+      "10": 4292156144,
+      "2": 4172257542,
+      "4": 344684960,
+      "6": 922773514,
+      "8": 4172667972,
+    },
+  ],
+  Shoulders_206: [
+    45,
+    {
+      "0": 922808828,
+      "10": 64990225,
+      "2": 4211392935,
+      "4": 13454977,
+      "6": 922809451,
+      "8": 4211803365,
+    },
+  ],
+  Shoulders_207: [
+    46,
+    {
+      "0": 234475397,
+      "10": 132791602,
+      "2": 3519521563,
+      "4": 2269174954,
+      "6": 4003127491,
+      "8": 1942156494,
+    },
+  ],
+  Shoulders_208: [
+    47,
+    {
+      "0": 234511334,
+      "10": 200592979,
+      "2": 1461999708,
+      "4": 1937944971,
+      "6": 1039788612,
+      "8": 1981291887,
+    },
+  ],
+  Spear_001: [
+    5,
+    3993235768,
+  ],
+  Spear_002: [
+    6,
+    4032371161,
+  ],
+  Spear_003: [
+    7,
+    4071506554,
+  ],
+  Spear_004: [
+    8,
+    4110641947,
+  ],
+  Spear_005: [
+    9,
+    4149777340,
+  ],
+  Spear_101: [
+    5,
+    3993235768,
+  ],
+  Spear_102: [
+    6,
+    4032371161,
+  ],
+  Spear_103: [
+    7,
+    4071506554,
+  ],
+  Spear_104: [
+    8,
+    4110641947,
+  ],
+  Spear_105: [
+    9,
+    4149777340,
+  ],
+  Spear_201: [
+    5,
+    3993235768,
+  ],
+  Spear_202: [
+    6,
+    4032371161,
+  ],
+  Spear_203: [
+    7,
+    4071506554,
+  ],
+  Spear_204: [
+    8,
+    4110641947,
+  ],
+  Spear_205: [
+    9,
+    4149777340,
+  ],
+  Spear_301: [
+    10,
+    3214076256,
+  ],
+  Spear_302: [
+    11,
+    3253211649,
+  ],
+  SpiritStone_001: [
+    12,
+    659315553,
+  ],
+  SpiritStone_002: [
+    13,
+    698450946,
+  ],
+  SpiritStone_003: [
+    14,
+    737586339,
+  ],
+  SpiritStone_004: [
+    15,
+    776721732,
+  ],
+  SpiritStone_101: [
+    12,
+    659315553,
+  ],
+  SpiritStone_102: [
+    13,
+    698450946,
+  ],
+  SpiritStone_103: [
+    14,
+    737586339,
+  ],
+  SpiritStone_104: [
+    15,
+    776721732,
+  ],
+  SpiritStone_201: [
+    12,
+    659315553,
+  ],
+  SpiritStone_202: [
+    13,
+    698450946,
+  ],
+  SpiritStone_203: [
+    14,
+    737586339,
+  ],
+  SpiritStone_204: [
+    15,
+    776721732,
+  ],
+  SpiritStone_205: [
+    16,
+    976554707,
+  ],
+  SpiritStone_206: [
+    17,
+    1044356084,
+  ],
+  Staff_001: [
+    11,
+    654855825,
+  ],
+  Staff_002: [
+    12,
+    693991218,
+  ],
+  Staff_003: [
+    13,
+    733126611,
+  ],
+  Staff_004: [
+    14,
+    772262004,
+  ],
+  Staff_005: [
+    15,
+    811397397,
+  ],
+  Staff_006: [
+    16,
+    850532790,
+  ],
+  Staff_007: [
+    17,
+    889668183,
+  ],
+  Staff_101: [
+    11,
+    654855825,
+  ],
+  Staff_102: [
+    12,
+    693991218,
+  ],
+  Staff_103: [
+    13,
+    733126611,
+  ],
+  Staff_104: [
+    14,
+    772262004,
+  ],
+  Staff_105: [
+    15,
+    811397397,
+  ],
+  Staff_106: [
+    16,
+    850532790,
+  ],
+  Staff_107: [
+    17,
+    889668183,
+  ],
+  Staff_201: [
+    11,
+    654855825,
+  ],
+  Staff_202: [
+    12,
+    693991218,
+  ],
+  Staff_203: [
+    13,
+    733126611,
+  ],
+  Staff_204: [
+    14,
+    772262004,
+  ],
+  Staff_205: [
+    15,
+    811397397,
+  ],
+  Staff_206: [
+    16,
+    850532790,
+  ],
+  Staff_207: [
+    17,
+    889668183,
+  ],
+  Staff_301: [
+    18,
+    4170663609,
+  ],
+  Staff_302: [
+    19,
+    4209799002,
+  ],
+  Sword_1H_001: [
+    20,
+    1593282436,
+  ],
+  Sword_1H_002: [
+    21,
+    1593282437,
+  ],
+  Sword_1H_003: [
+    22,
+    1593282440,
+  ],
+  Sword_1H_004: [
+    23,
+    1593282441,
+  ],
+  Sword_1H_005: [
+    24,
+    1593282438,
+  ],
+  Sword_1H_006: [
+    25,
+    1593282439,
+  ],
+  Sword_1H_007: [
+    26,
+    1593282443,
+  ],
+  Sword_1H_008: [
+    27,
+    1593282442,
+  ],
+  Sword_1H_101: [
+    20,
+    1593282436,
+  ],
+  Sword_1H_102: [
+    21,
+    1593282437,
+  ],
+  Sword_1H_103: [
+    22,
+    1593282440,
+  ],
+  Sword_1H_104: [
+    23,
+    1593282441,
+  ],
+  Sword_1H_105: [
+    24,
+    1593282438,
+  ],
+  Sword_1H_106: [
+    25,
+    1593282439,
+  ],
+  Sword_1H_107: [
+    26,
+    1593282443,
+  ],
+  Sword_1H_108: [
+    27,
+    1593282442,
+  ],
+  Sword_1H_201: [
+    20,
+    1593282436,
+  ],
+  Sword_1H_202: [
+    21,
+    1593282437,
+  ],
+  Sword_1H_203: [
+    22,
+    1593282440,
+  ],
+  Sword_1H_204: [
+    23,
+    1593282441,
+  ],
+  Sword_1H_205: [
+    24,
+    1593282438,
+  ],
+  Sword_1H_206: [
+    25,
+    1593282439,
+  ],
+  Sword_1H_207: [
+    26,
+    1593282443,
+  ],
+  Sword_1H_208: [
+    27,
+    1593282442,
+  ],
+  Sword_1H_301: [
+    28,
+    295227052,
+  ],
+  Sword_1H_302: [
+    29,
+    295227053,
+  ],
+  Sword_2H_001: [
+    13,
+    1465719394,
+  ],
+  Sword_2H_002: [
+    14,
+    1465719396,
+  ],
+  Sword_2H_003: [
+    15,
+    {
+      "0": 1465719398,
+      "2": 1465719395,
+      "4": 1465719395,
+      "6": 1465719395,
+      "8": 1465719395,
+    },
+  ],
+  Sword_2H_004: [
+    15,
+    1465719398,
+  ],
+  Sword_2H_005: [
+    16,
+    1465719397,
+  ],
+  Sword_2H_006: [
+    17,
+    1465719399,
+  ],
+  Sword_2H_101: [
+    13,
+    1465719394,
+  ],
+  Sword_2H_102: [
+    14,
+    1465719396,
+  ],
+  Sword_2H_103: [
+    15,
+    {
+      "0": 1465719398,
+      "2": 1465719395,
+      "4": 1465719395,
+      "6": 1465719395,
+      "8": 1465719395,
+    },
+  ],
+  Sword_2H_104: [
+    15,
+    1465719398,
+  ],
+  Sword_2H_105: [
+    16,
+    1465719397,
+  ],
+  Sword_2H_106: [
+    17,
+    1465719399,
+  ],
+  Sword_2H_201: [
+    13,
+    1465719394,
+  ],
+  Sword_2H_202: [
+    14,
+    1465719396,
+  ],
+  Sword_2H_203: [
+    15,
+    {
+      "0": 1465719398,
+      "2": 1465719395,
+      "4": 1465719395,
+      "6": 1465719395,
+      "8": 1465719395,
+    },
+  ],
+  Sword_2H_204: [
+    15,
+    1465719398,
+  ],
+  Sword_2H_205: [
+    16,
+    1465719397,
+  ],
+  Sword_2H_206: [
+    17,
+    1465719399,
+  ],
+  Sword_2H_301: [
+    18,
+    1521871954,
+  ],
+  Sword_2H_302: [
+    19,
+    1561007347,
+  ],
+  Topaz_01: [
+    0,
+    542729735,
+  ],
+  Topaz_02: [
+    0,
+    542729736,
+  ],
+  Topaz_03: [
+    0,
+    542729737,
+  ],
+  Topaz_04: [
+    0,
+    542729738,
+  ],
+  Topaz_05: [
+    0,
+    542729739,
+  ],
+  Topaz_06: [
+    0,
+    542729740,
+  ],
+  Topaz_07: [
+    0,
+    542729741,
+  ],
+  Topaz_08: [
+    0,
+    542729742,
+  ],
+  Topaz_09: [
+    0,
+    542729743,
+  ],
+  Topaz_10: [
+    0,
+    542729767,
+  ],
+  Topaz_11: [
+    0,
+    542729768,
+  ],
+  Topaz_12: [
+    0,
+    542729769,
+  ],
+  Topaz_13: [
+    0,
+    542729770,
+  ],
+  Topaz_14: [
+    0,
+    542729771,
+  ],
+  Topaz_15: [
+    0,
+    542729772,
+  ],
+  Topaz_16: [
+    0,
+    633468629,
+  ],
+  Topaz_17: [
+    0,
+    633504566,
+  ],
+  Topaz_18: [
+    0,
+    633540503,
+  ],
+  Topaz_19: [
+    0,
+    633576440,
+  ],
+  Unique_Amulet_001_x1: [
+    0,
+    1780727835,
+  ],
+  Unique_Amulet_002_x1: [
+    1,
+    3667520144,
+  ],
+  Unique_Amulet_003_x1: [
+    2,
+    2598316653,
+  ],
+  Unique_Amulet_004_x1: [
+    3,
+    872353049,
+  ],
+  Unique_Amulet_005_x1: [
+    4,
+    3146197369,
+  ],
+  Unique_Amulet_006_x1: [
+    5,
+    1619115680,
+  ],
+  Unique_Amulet_007_x1: [
+    6,
+    11885056,
+  ],
+  Unique_Amulet_008_x1: [
+    7,
+    1542832316,
+  ],
+  Unique_Amulet_009_x1: [
+    8,
+    2307233070,
+  ],
+  Unique_Amulet_010_x1: [
+    9,
+    3170650022,
+  ],
+  Unique_Amulet_012_x1: [
+    10,
+    3956989239,
+  ],
+  Unique_Amulet_013_x1: [
+    11,
+    3329413330,
+  ],
+  Unique_Amulet_014_x1: [
+    12,
+    3535511262,
+  ],
+  Unique_Amulet_015_x1: [
+    7,
+    1542832316,
+  ],
+  Unique_Amulet_016_x1: [
+    13,
+    2133790158,
+  ],
+  Unique_Amulet_101_x1: [
+    14,
+    197460040,
+  ],
+  Unique_Amulet_102_x1: [
+    15,
+    197460041,
+  ],
+  Unique_Amulet_103_x1: [
+    16,
+    197460042,
+  ],
+  Unique_Amulet_104_x1: [
+    17,
+    197460066,
+  ],
+  Unique_Amulet_105_x1: [
+    18,
+    197460067,
+  ],
+  Unique_Amulet_106_x1: [
+    19,
+    197460068,
+  ],
+  Unique_Amulet_107_x1: [
+    20,
+    197460069,
+  ],
+  Unique_Amulet_108_x1: [
+    21,
+    197460070,
+  ],
+  Unique_Amulet_109_x1_210: [
+    22,
+    197460071,
+  ],
+  Unique_Amulet_Set_11_x1: [
+    23,
+    197460034,
+  ],
+  Unique_Axe_1H_001_x1: [
+    0,
+    179170961,
+  ],
+  Unique_Axe_1H_003_x1: [
+    1,
+    179170959,
+  ],
+  Unique_Axe_1H_004_x1: [
+    2,
+    179170960,
+  ],
+  Unique_Axe_1H_005_104: [
+    3,
+    179170962,
+  ],
+  Unique_Axe_1H_005_p2: [
+    3,
+    179170962,
+  ],
+  Unique_Axe_1H_006_x1: [
+    4,
+    179170963,
+  ],
+  Unique_Axe_1H_007_x1: [
+    5,
+    179170964,
+  ],
+  Unique_Axe_1H_013_x1: [
+    6,
+    3765156644,
+  ],
+  Unique_Axe_1H_103_x1: [
+    7,
+    3176082879,
+  ],
+  Unique_Axe_2H_001_x1: [
+    0,
+    51607923,
+  ],
+  Unique_Axe_2H_003_x1: [
+    1,
+    51607922,
+  ],
+  Unique_Axe_2H_009_x1: [
+    2,
+    51607924,
+  ],
+  Unique_Axe_2H_010_x1: [
+    3,
+    51607917,
+  ],
+  Unique_Axe_2H_011_x1: [
+    4,
+    51607920,
+  ],
+  Unique_Axe_2H_103_x1: [
+    5,
+    1983006109,
+  ],
+  Unique_BarbBelt_001_x1: [
+    1,
+    4149212837,
+  ],
+  Unique_BarbBelt_002_x1: [
+    2,
+    1569455952,
+  ],
+  Unique_BarbBelt_003_x1: [
+    12,
+    9623867,
+  ],
+  Unique_BarbBelt_004_x1: [
+    3,
+    2924855902,
+  ],
+  Unique_BarbBelt_005_p1: [
+    4,
+    2357553258,
+  ],
+  Unique_BarbBelt_005_x1: [
+    4,
+    2357553258,
+  ],
+  Unique_BarbBelt_006_x1: [
+    0,
+    707441093,
+  ],
+  Unique_BarbBelt_007_x1: [
+    5,
+    824847272,
+  ],
+  Unique_BarbBelt_008_x1: [
+    6,
+    629170307,
+  ],
+  Unique_BarbBelt_009_x1: [
+    7,
+    1851310082,
+  ],
+  Unique_BarbBelt_101_x1: [
+    8,
+    342963127,
+  ],
+  Unique_Belt_001_x1: [
+    13,
+    746576486,
+  ],
+  Unique_Belt_002_x1: [
+    14,
+    511764128,
+  ],
+  Unique_Belt_003_p1: [
+    15,
+    307573260,
+  ],
+  Unique_Belt_003_x1: [
+    15,
+    307573260,
+  ],
+  Unique_Belt_004_x1: [
+    16,
+    4104776313,
+  ],
+  Unique_Belt_005_x1: [
+    17,
+    289977125,
+  ],
+  Unique_Belt_006_x1: [
+    18,
+    3496060044,
+  ],
+  Unique_Belt_007_x1: [
+    19,
+    4141667653,
+  ],
+  Unique_Belt_008_x1: [
+    20,
+    668305700,
+  ],
+  Unique_Belt_009_x1: [
+    21,
+    550899521,
+  ],
+  Unique_Belt_010_x1: [
+    22,
+    590034914,
+  ],
+  Unique_Belt_012_x1: [
+    23,
+    2510932953,
+  ],
+  Unique_Belt_013_x1: [
+    24,
+    1310169712,
+  ],
+  Unique_Belt_014_x1: [
+    25,
+    500906865,
+  ],
+  Unique_Belt_015_x1: [
+    26,
+    2618965635,
+  ],
+  Unique_Belt_101_x1: [
+    27,
+    4190690405,
+  ],
+  Unique_Belt_102_p1: [
+    28,
+    4190690406,
+  ],
+  Unique_Belt_102_p2: [
+    28,
+    4190690406,
+  ],
+  Unique_Belt_103_x1: [
+    29,
+    4190690407,
+  ],
+  Unique_Belt_104_p2: [
+    30,
+    4190690408,
+  ],
+  Unique_Belt_104_x1: [
+    30,
+    4190690408,
+  ],
+  Unique_Belt_105_x1: [
+    31,
+    4190690409,
+  ],
+  Unique_Belt_106_x1: [
+    32,
+    4190690433,
+  ],
+  Unique_Belt_107_x1: [
+    33,
+    4190690434,
+  ],
+  Unique_Belt_108_p2: [
+    34,
+    4190690435,
+  ],
+  Unique_Belt_108_x1: [
+    34,
+    4190690435,
+  ],
+  Unique_Belt_Set_02_x1: [
+    35,
+    3543211638,
+  ],
+  Unique_Boots_001_x1: [
+    3,
+    1834351555,
+  ],
+  Unique_Boots_005_x1: [
+    4,
+    2042317220,
+  ],
+  Unique_Boots_007_p2: [
+    5,
+    675874258,
+  ],
+  Unique_Boots_007_x1: [
+    5,
+    675874258,
+  ],
+  Unique_Boots_008_x1: [
+    6,
+    3731127326,
+  ],
+  Unique_Boots_009_x1: [
+    7,
+    1275115435,
+  ],
+  Unique_Boots_010_x1: [
+    0,
+    2420035936,
+  ],
+  Unique_Boots_011_x1: [
+    8,
+    2165395441,
+  ],
+  Unique_Boots_012_x1: [
+    9,
+    2871604435,
+  ],
+  Unique_Boots_013_x1: [
+    10,
+    906761285,
+  ],
+  Unique_Boots_014_x1: [
+    11,
+    3784418801,
+  ],
+  Unique_Boots_015_x1: [
+    12,
+    4184968414,
+  ],
+  Unique_Boots_017_x1: [
+    13,
+    742560689,
+  ],
+  Unique_Boots_018_x1: [
+    14,
+    1235813666,
+  ],
+  Unique_Boots_019_x1: [
+    15,
+    3893122416,
+  ],
+  Unique_Boots_102_x1: [
+    16,
+    1659014945,
+  ],
+  Unique_Boots_103_x1: [
+    17,
+    1659014946,
+  ],
+  Unique_Boots_104_x1: [
+    18,
+    1659014947,
+  ],
+  Unique_Boots_Set_01_p1: [
+    19,
+    203870299,
+  ],
+  Unique_Boots_Set_01_p2: [
+    20,
+    1718873334,
+  ],
+  Unique_Boots_Set_01_p3: [
+    21,
+    1797300900,
+  ],
+  Unique_Boots_Set_02_p2: [
+    22,
+    3284178572,
+  ],
+  Unique_Boots_Set_02_p3: [
+    23,
+    1945299276,
+  ],
+  Unique_Boots_Set_03_p2: [
+    24,
+    526977159,
+  ],
+  Unique_Boots_Set_03_p3: [
+    25,
+    1325046016,
+  ],
+  Unique_Boots_Set_05_x1: [
+    26,
+    2542195321,
+  ],
+  Unique_Boots_Set_06_x1: [
+    27,
+    2255066826,
+  ],
+  Unique_Boots_Set_07_x1: [
+    28,
+    1844978428,
+  ],
+  Unique_Boots_Set_08_x1: [
+    29,
+    3721133819,
+  ],
+  Unique_Boots_Set_09_x1: [
+    30,
+    {
+      "0": 1584101601,
+      "10": 133862798,
+      "2": 3361229335,
+      "4": 3716780454,
+      "6": 1774683903,
+      "8": 479465994,
+    },
+  ],
+  Unique_Boots_Set_10_x1: [
+    31,
+    1635652934,
+  ],
+  Unique_Boots_Set_13_x1: [
+    32,
+    {
+      "0": 3619599583,
+      "10": 1876836620,
+      "2": 3370519797,
+      "4": 2722202500,
+      "6": 703313821,
+      "8": 2478974088,
+    },
+  ],
+  Unique_Boots_Set_14_x1: [
+    33,
+    3276497094,
+  ],
+  Unique_Boots_Set_16_x1: [
+    34,
+    1202643658,
+  ],
+  Unique_Bow_001_p1: [
+    0,
+    3028059202,
+  ],
+  Unique_Bow_001_x1: [
+    0,
+    3028059202,
+  ],
+  Unique_Bow_005_p1: [
+    1,
+    2988923809,
+  ],
+  Unique_Bow_005_x1: [
+    1,
+    2988923809,
+  ],
+  Unique_Bow_007_x1: [
+    2,
+    3145465381,
+  ],
+  Unique_Bow_008_x1: [
+    3,
+    3223736167,
+  ],
+  Unique_Bow_009_x1: [
+    4,
+    3106329988,
+  ],
+  Unique_Bow_010_x1: [
+    5,
+    3184600774,
+  ],
+  Unique_Bow_015_x1: [
+    6,
+    3067194595,
+  ],
+  Unique_Bow_101_x1: [
+    7,
+    2522847441,
+  ],
+  Unique_Bow_102_x1: [
+    8,
+    3462096873,
+  ],
+  Unique_Bow_103_x1: [
+    9,
+    3501232266,
+  ],
+  Unique_Bow_104_x1: [
+    10,
+    2483712048,
+  ],
+  Unique_Bracer_001_x1: [
+    9,
+    2745654409,
+  ],
+  Unique_Bracer_002_x1: [
+    10,
+    2823925195,
+  ],
+  Unique_Bracer_003_x1: [
+    11,
+    2784789802,
+  ],
+  Unique_Bracer_004_x1: [
+    12,
+    2863060588,
+  ],
+  Unique_Bracer_005_x1: [
+    13,
+    2902195981,
+  ],
+  Unique_Bracer_006_x1: [
+    0,
+    2941331374,
+  ],
+  Unique_Bracer_007_x1: [
+    14,
+    2706519016,
+  ],
+  Unique_Bracer_009_x1: [
+    15,
+    1948416707,
+  ],
+  Unique_Bracer_010_x1: [
+    16,
+    3958851592,
+  ],
+  Unique_Bracer_011_x1: [
+    17,
+    189924668,
+  ],
+  Unique_Bracer_101_x1: [
+    18,
+    3105160604,
+  ],
+  Unique_Bracer_102_x1: [
+    19,
+    3105160605,
+  ],
+  Unique_Bracer_103_x1: [
+    20,
+    3105160606,
+  ],
+  Unique_Bracer_104_x1: [
+    21,
+    3105160607,
+  ],
+  Unique_Bracer_105_x1: [
+    22,
+    3105160608,
+  ],
+  Unique_Bracer_106_x1: [
+    23,
+    3105160609,
+  ],
+  Unique_Bracer_107_x1: [
+    24,
+    3105160610,
+  ],
+  Unique_Bracer_108_x1: [
+    25,
+    3105160611,
+  ],
+  Unique_Bracer_Set_02_x1: [
+    26,
+    3426177425,
+  ],
+  Unique_Bracer_Set_12_x1: [
+    27,
+    3884194258,
+  ],
+  Unique_CeremonialDagger_001_x1: [
+    2,
+    1997394245,
+  ],
+  Unique_CeremonialDagger_002_x1: [
+    3,
+    2193071210,
+  ],
+  Unique_CeremonialDagger_003_x1: [
+    4,
+    1919123459,
+  ],
+  Unique_CeremonialDagger_004_x1: [
+    5,
+    2036529638,
+  ],
+  Unique_CeremonialDagger_006_x1: [
+    6,
+    1879988066,
+  ],
+  Unique_CeremonialDagger_008_x1: [
+    7,
+    1958258852,
+  ],
+  Unique_CeremonialDagger_009_x1: [
+    8,
+    2075665031,
+  ],
+  Unique_CeremonialDagger_011_x1: [
+    9,
+    2114800424,
+  ],
+  Unique_CeremonialDagger_101_x1: [
+    10,
+    4070856842,
+  ],
+  Unique_CeremonialDagger_102_x1: [
+    11,
+    4109992235,
+  ],
+  Unique_CeremonialDagger_Promo_01_x1: [
+    18,
+    823205472,
+  ],
+  Unique_ChestArmor_028_x1: [
+    0,
+    3077370674,
+  ],
+  Unique_Chest_001_x1: [
+    1,
+    2153555792,
+  ],
+  Unique_Chest_002_x1: [
+    2,
+    1478967385,
+  ],
+  Unique_Chest_006_x1: [
+    3,
+    4168359473,
+  ],
+  Unique_Chest_010_x1: [
+    4,
+    2461237602,
+  ],
+  Unique_Chest_012_x1: [
+    5,
+    1108103318,
+  ],
+  Unique_Chest_013_x1: [
+    6,
+    3607464624,
+  ],
+  Unique_Chest_014_x1: [
+    7,
+    1021765857,
+  ],
+  Unique_Chest_015_x1: [
+    8,
+    3022954451,
+  ],
+  Unique_Chest_016_x1: [
+    9,
+    3387527343,
+  ],
+  Unique_Chest_018_x1: [
+    10,
+    1294369174,
+  ],
+  Unique_Chest_019_x1: [
+    11,
+    2715607709,
+  ],
+  Unique_Chest_025_x1: [
+    12,
+    2603830128,
+  ],
+  Unique_Chest_026_x1: [
+    13,
+    596270727,
+  ],
+  Unique_Chest_027_x1: [
+    14,
+    220094416,
+  ],
+  Unique_Chest_101_x1: [
+    15,
+    1251395601,
+  ],
+  Unique_Chest_102_x1: [
+    16,
+    1251395602,
+  ],
+  Unique_Chest_Set_01_p1: [
+    17,
+    {
+      "0": 1773232983,
+      "1": 1190877424,
+      "10": 1773232983,
+      "11": 1190877424,
+      "2": 1773232983,
+      "3": 1190877424,
+      "4": 1773232983,
+      "5": 1190877424,
+      "6": 1773232983,
+      "7": 1190877424,
+      "8": 1773232983,
+      "9": 1190877424,
+    },
+  ],
+  Unique_Chest_Set_01_p2: [
+    18,
+    {
+      "0": 1371210151,
+      "1": 3925543010,
+      "10": 1371210151,
+      "11": 3925543010,
+      "2": 1371210151,
+      "3": 3925543010,
+      "4": 1371210151,
+      "5": 3925543010,
+      "6": 1371210151,
+      "7": 3925543010,
+      "8": 1371210151,
+      "9": 3925543010,
+    },
+  ],
+  Unique_Chest_Set_01_p3: [
+    19,
+    {
+      "0": 1150146817,
+      "1": 1150146810,
+      "10": 1150146817,
+      "11": 1150146810,
+      "2": 1150146817,
+      "3": 1150146810,
+      "4": 1150146817,
+      "5": 1150146810,
+      "6": 1150146817,
+      "7": 1150146810,
+      "8": 1150146817,
+      "9": 1150146810,
+    },
+  ],
+  Unique_Chest_Set_02_p2: [
+    20,
+    {
+      "0": 2156563337,
+      "1": 2156563330,
+      "10": 2156563337,
+      "11": 2156563330,
+      "2": 2156563337,
+      "3": 2156563330,
+      "4": 2156563337,
+      "5": 2156563330,
+      "6": 2156563337,
+      "7": 2156563330,
+      "8": 2156563337,
+      "9": 2156563330,
+    },
+  ],
+  Unique_Chest_Set_02_p3: [
+    21,
+    {
+      "0": 785121833,
+      "1": 785121826,
+      "10": 785121833,
+      "11": 785121826,
+      "2": 785121833,
+      "3": 785121826,
+      "4": 785121833,
+      "5": 785121826,
+      "6": 785121833,
+      "7": 785121826,
+      "8": 785121833,
+      "9": 785121826,
+    },
+  ],
+  Unique_Chest_Set_03_p2: [
+    0,
+    1782806244,
+  ],
+  Unique_Chest_Set_03_p3: [
+    22,
+    4045326160,
+  ],
+  Unique_Chest_Set_05_x1: [
+    23,
+    {
+      "0": 721368488,
+      "10": 721368488,
+      "2": 721368488,
+      "3": 804258707,
+      "4": 721368488,
+      "6": 721368488,
+      "8": 721368488,
+    },
+  ],
+  Unique_Chest_Set_06_x1: [
+    24,
+    {
+      "0": 251547449,
+      "10": 251547449,
+      "2": 251547449,
+      "4": 251547449,
+      "5": 3136529732,
+      "6": 251547449,
+      "8": 251547449,
+    },
+  ],
+  Unique_Chest_Set_07_x1: [
+    25,
+    3362095693,
+  ],
+  Unique_Chest_Set_08_x1: [
+    26,
+    {
+      "0": 4108087146,
+      "10": 4108087146,
+      "2": 4108087146,
+      "4": 4108087146,
+      "6": 4108087146,
+      "8": 4108087146,
+      "9": 692889973,
+    },
+  ],
+  Unique_Chest_Set_09_x1: [
+    27,
+    {
+      "0": 352265712,
+      "10": 1974436701,
+      "2": 1865416646,
+      "3": 1354981041,
+      "4": 330158677,
+      "5": 201330944,
+      "6": 2151343598,
+      "8": 2626355449,
+    },
+  ],
+  Unique_Chest_Set_10_x1: [
+    28,
+    3879515415,
+  ],
+  Unique_Chest_Set_13_x1: [
+    29,
+    {
+      "0": 2725029870,
+      "1": 1763861945,
+      "10": 1625362683,
+      "11": 2522170886,
+      "2": 757913764,
+      "3": 2763103215,
+      "4": 2626496051,
+      "5": 1834715454,
+      "6": 3946511500,
+      "7": 517495255,
+      "8": 4004422007,
+    },
+  ],
+  Unique_Chest_Set_14_x1: [
+    30,
+    {
+      "0": 2470700488,
+      "1": 2549111699,
+      "10": 194729429,
+      "2": 3801621214,
+      "4": 3822800077,
+      "5": 1811781592,
+      "6": 732996870,
+      "7": 4270449233,
+      "8": 1078974705,
+    },
+  ],
+  Unique_Chest_Set_16_x1: [
+    31,
+    {
+      "0": 2382713625,
+      "10": 2382713625,
+      "2": 2382713625,
+      "4": 2382713625,
+      "6": 2382713625,
+      "7": 345722020,
+      "8": 2382713625,
+    },
+  ],
+  Unique_Cloak_001_x1: [
+    1,
+    2279290962,
+  ],
+  Unique_Cloak_002_p1: [
+    2,
+    3738622407,
+  ],
+  Unique_Cloak_005_x1: [
+    3,
+    30586246,
+  ],
+  Unique_Cloak_006_x1: [
+    4,
+    {
+      "0": 3676331411,
+      "1": 346217886,
+      "2": 3676331411,
+      "3": 346217886,
+      "4": 3676331411,
+      "5": 346217886,
+      "6": 3676331411,
+      "7": 346217886,
+      "8": 3676331411,
+      "9": 346217886,
+    },
+  ],
+  Unique_Cloak_101_x1: [
+    5,
+    1389857187,
+  ],
+  Unique_Cloak_102_x1: [
+    6,
+    1389857188,
+  ],
+  Unique_CombatStaff_2H_001_x1: [
+    0,
+    1400973003,
+  ],
+  Unique_CombatStaff_2H_002_x1: [
+    1,
+    1244431431,
+  ],
+  Unique_CombatStaff_2H_003_x1: [
+    2,
+    1127025252,
+  ],
+  Unique_CombatStaff_2H_004_x1: [
+    3,
+    1283566824,
+  ],
+  Unique_CombatStaff_2H_005_x1: [
+    4,
+    1322702217,
+  ],
+  Unique_CombatStaff_2H_007_x1: [
+    5,
+    1205296038,
+  ],
+  Unique_CombatStaff_2H_008_x1: [
+    6,
+    1361837610,
+  ],
+  Unique_CombatStaff_2H_009_x1: [
+    7,
+    1166160645,
+  ],
+  Unique_CombatStaff_2H_101_x1: [
+    8,
+    2532809108,
+  ],
+  Unique_CombatStaff_2H_102_x1: [
+    9,
+    3472058540,
+  ],
+  Unique_CruShield_101_x1: [
+    2,
+    1476528612,
+  ],
+  Unique_CruShield_102_x1: [
+    3,
+    1515664005,
+  ],
+  Unique_CruShield_103_x1: [
+    4,
+    1554799398,
+  ],
+  Unique_CruShield_104_x1: [
+    5,
+    1593934791,
+  ],
+  Unique_CruShield_105_x1: [
+    6,
+    1633070184,
+  ],
+  Unique_CruShield_106_x1: [
+    7,
+    1672205577,
+  ],
+  Unique_CruShield_107_x1: [
+    8,
+    1711340970,
+  ],
+  Unique_CruShield_108_x1: [
+    9,
+    1750476363,
+  ],
+  Unique_Dagger_002_x1: [
+    0,
+    2391603172,
+  ],
+  Unique_Dagger_003_x1: [
+    1,
+    2430738565,
+  ],
+  Unique_Dagger_006_x1: [
+    2,
+    2469873958,
+  ],
+  Unique_Dagger_007_x1: [
+    3,
+    2548144744,
+  ],
+  Unique_Dagger_010_x1_210: [
+    4,
+    2509009351,
+  ],
+  Unique_Dagger_103_x1: [
+    5,
+    901970803,
+  ],
+  Unique_Dagger_104_x1: [
+    6,
+    4107688388,
+  ],
+  Unique_Fist_003_x1: [
+    2,
+    2357347220,
+  ],
+  Unique_Fist_004_x1: [
+    3,
+    3296596652,
+  ],
+  Unique_Fist_005_x1: [
+    4,
+    2083399469,
+  ],
+  Unique_Fist_006_x1: [
+    5,
+    2161670255,
+  ],
+  Unique_Fist_007_x1: [
+    6,
+    2122534862,
+  ],
+  Unique_Fist_008_x1: [
+    7,
+    2318211827,
+  ],
+  Unique_Fist_009_x1: [
+    8,
+    2239941041,
+  ],
+  Unique_Fist_010_x1: [
+    9,
+    3335732045,
+  ],
+  Unique_Fist_011_x1: [
+    10,
+    3374867438,
+  ],
+  Unique_Fist_012_x1: [
+    11,
+    2279076434,
+  ],
+  Unique_Fist_013_x1: [
+    12,
+    2044264076,
+  ],
+  Unique_Fist_015_x1: [
+    13,
+    1224753249,
+  ],
+  Unique_Fist_101_x1: [
+    14,
+    239818072,
+  ],
+  Unique_Fist_Promo_01_x1: [
+    21,
+    2784778090,
+  ],
+  Unique_Flail_1H_101_x1: [
+    1,
+    3554338457,
+  ],
+  Unique_Flail_1H_102_x1: [
+    2,
+    3554338458,
+  ],
+  Unique_Flail_1H_103_x1: [
+    3,
+    3554338459,
+  ],
+  Unique_Flail_1H_104_x1: [
+    4,
+    1097975716,
+  ],
+  Unique_Flail_1H_105_x1: [
+    5,
+    1137111109,
+  ],
+  Unique_Flail_1H_106_x1: [
+    6,
+    1176246502,
+  ],
+  Unique_Flail_1H_107_x1: [
+    7,
+    1215381895,
+  ],
+  Unique_Flail_1H_Promo_01_x1: [
+    13,
+    1678563543,
+  ],
+  Unique_Flail_2H_101_x1: [
+    1,
+    1723123866,
+  ],
+  Unique_Flail_2H_102_x1: [
+    2,
+    1723123867,
+  ],
+  Unique_Flail_2H_103_x1: [
+    3,
+    1723123868,
+  ],
+  Unique_Flail_2H_104_x1: [
+    0,
+    1723123869,
+  ],
+  Unique_Gem_001_x1: [
+    12,
+    3027915071,
+  ],
+  Unique_Gem_002_x1: [
+    17,
+    3027915072,
+  ],
+  Unique_Gem_003_x1: [
+    0,
+    3027915073,
+  ],
+  Unique_Gem_004_x1: [
+    18,
+    3027915074,
+  ],
+  Unique_Gem_005_x1: [
+    16,
+    3027915075,
+  ],
+  Unique_Gem_006_x1: [
+    11,
+    3027915076,
+  ],
+  Unique_Gem_007_x1: [
+    8,
+    3027915077,
+  ],
+  Unique_Gem_008_x1: [
+    4,
+    3027915078,
+  ],
+  Unique_Gem_009_x1: [
+    7,
+    3027915079,
+  ],
+  Unique_Gem_010_x1: [
+    1,
+    3027915103,
+  ],
+  Unique_Gem_011_x1: [
+    9,
+    3027915104,
+  ],
+  Unique_Gem_012_x1: [
+    19,
+    3027915105,
+  ],
+  Unique_Gem_013_x1: [
+    13,
+    3027915106,
+  ],
+  Unique_Gem_014_x1: [
+    5,
+    3027915107,
+  ],
+  Unique_Gem_015_x1: [
+    15,
+    3027915108,
+  ],
+  Unique_Gem_016_x1: [
+    2,
+    3027915109,
+  ],
+  Unique_Gem_017_x1: [
+    3,
+    3027915110,
+  ],
+  Unique_Gem_018_x1: [
+    14,
+    3027915136,
+  ],
+  Unique_Gem_019_x1: [
+    10,
+    3027915112,
+  ],
+  Unique_Gem_021_x1: [
+    6,
+    3232724834,
+  ],
+  Unique_Gloves_001_x1: [
+    4,
+    3880550163,
+  ],
+  Unique_Gloves_002_x1: [
+    5,
+    1941473482,
+  ],
+  Unique_Gloves_003_x1: [
+    6,
+    4080816174,
+  ],
+  Unique_Gloves_007_x1: [
+    7,
+    3793513747,
+  ],
+  Unique_Gloves_008_x1: [
+    8,
+    796977515,
+  ],
+  Unique_Gloves_009_x1: [
+    9,
+    3727179162,
+  ],
+  Unique_Gloves_011_x1: [
+    10,
+    2450462453,
+  ],
+  Unique_Gloves_014_x1: [
+    11,
+    1021717860,
+  ],
+  Unique_Gloves_015_x1: [
+    12,
+    2947667792,
+  ],
+  Unique_Gloves_017_x1: [
+    13,
+    3447431637,
+  ],
+  Unique_Gloves_101_p2: [
+    14,
+    1662307017,
+  ],
+  Unique_Gloves_101_x1: [
+    14,
+    1662307017,
+  ],
+  Unique_Gloves_103_x1: [
+    15,
+    1662307019,
+  ],
+  Unique_Gloves_Set_01_p1: [
+    16,
+    3690790308,
+  ],
+  Unique_Gloves_Set_01_p2: [
+    17,
+    2876653023,
+  ],
+  Unique_Gloves_Set_01_p3: [
+    18,
+    2682440697,
+  ],
+  Unique_Gloves_Set_02_p2: [
+    19,
+    2004881857,
+  ],
+  Unique_Gloves_Set_02_p3: [
+    20,
+    1585685985,
+  ],
+  Unique_Gloves_Set_03_p2: [
+    21,
+    406691868,
+  ],
+  Unique_Gloves_Set_03_p3: [
+    22,
+    871495666,
+  ],
+  Unique_Gloves_Set_05_x1: [
+    23,
+    2202566850,
+  ],
+  Unique_Gloves_Set_06_x1: [
+    24,
+    1915438355,
+  ],
+  Unique_Gloves_Set_07_x1: [
+    25,
+    477253093,
+  ],
+  Unique_Gloves_Set_08_x1: [
+    26,
+    3160337028,
+  ],
+  Unique_Gloves_Set_09_x1: [
+    27,
+    {
+      "0": 656054090,
+      "10": 1372188311,
+      "2": 3021600864,
+      "4": 2349055119,
+      "6": 2349055119,
+      "8": 3448008371,
+    },
+  ],
+  Unique_Gloves_Set_10_x1: [
+    28,
+    3312815279,
+  ],
+  Unique_Gloves_Set_11_x1: [
+    29,
+    1545826751,
+  ],
+  Unique_Gloves_Set_12_x1: [
+    30,
+    1545826752,
+  ],
+  Unique_Gloves_Set_13_x1: [
+    31,
+    4009602846,
+  ],
+  Unique_Gloves_Set_14_x1: [
+    32,
+    1950072175,
+  ],
+  Unique_Gloves_Set_15_x1: [
+    33,
+    {
+      "0": 1086478622,
+      "10": 1409034219,
+      "2": 1039448084,
+      "4": 1682687139,
+      "6": 3128585340,
+      "8": 824936071,
+    },
+  ],
+  Unique_Gloves_Set_16_x1: [
+    34,
+    4129885619,
+  ],
+  Unique_HandXBow_001_x1: [
+    2,
+    30601022,
+  ],
+  Unique_HandXBow_002_x1: [
+    3,
+    69736415,
+  ],
+  Unique_HandXBow_003_x1: [
+    4,
+    4286432925,
+  ],
+  Unique_HandXBow_004_p1: [
+    5,
+    4169026746,
+  ],
+  Unique_HandXBow_004_x1: [
+    5,
+    4169026746,
+  ],
+  Unique_HandXBow_005_x1: [
+    1,
+    4129891353,
+  ],
+  Unique_HandXBow_006_x1: [
+    6,
+    4208162139,
+  ],
+  Unique_HandXBow_007_x1: [
+    7,
+    4247297532,
+  ],
+  Unique_HandXBow_012_x1: [
+    8,
+    108871808,
+  ],
+  Unique_HandXBow_016_x1: [
+    9,
+    956795721,
+  ],
+  Unique_HandXBow_101_x1: [
+    10,
+    2335221180,
+  ],
+  Unique_HandXBow_102_x1: [
+    11,
+    2374356573,
+  ],
+  Unique_HandXBow_Promo_01_x1: [
+    22,
+    2983169362,
+  ],
+  Unique_Helm_001_x1: [
+    0,
+    3265926264,
+  ],
+  Unique_Helm_002_p1: [
+    1,
+    3265926263,
+  ],
+  Unique_Helm_002_x1: [
+    1,
+    3265926263,
+  ],
+  Unique_Helm_003_p2: [
+    2,
+    3265926265,
+  ],
+  Unique_Helm_003_x1: [
+    2,
+    3265926265,
+  ],
+  Unique_Helm_004_x1: [
+    3,
+    3265926266,
+  ],
+  Unique_Helm_006_x1: [
+    4,
+    3265926297,
+  ],
+  Unique_Helm_007_x1: [
+    5,
+    3265926269,
+  ],
+  Unique_Helm_008_x1: [
+    6,
+    3265926270,
+  ],
+  Unique_Helm_009_x1: [
+    7,
+    3265926271,
+  ],
+  Unique_Helm_010_x1: [
+    8,
+    3265926295,
+  ],
+  Unique_Helm_011_x1: [
+    9,
+    3265926296,
+  ],
+  Unique_Helm_012_x1: [
+    10,
+    349641141,
+  ],
+  Unique_Helm_014_x1: [
+    11,
+    388776534,
+  ],
+  Unique_Helm_015_x1: [
+    12,
+    310505748,
+  ],
+  Unique_Helm_016_x1: [
+    13,
+    2636700425,
+  ],
+  Unique_Helm_102_x1: [
+    14,
+    4113917515,
+  ],
+  Unique_Helm_103_x1: [
+    15,
+    4153052908,
+  ],
+  Unique_Helm_Promo_01_x1: [
+    53,
+    949917181,
+  ],
+  Unique_Helm_Promo_02_x1: [
+    54,
+    989052574,
+  ],
+  Unique_Helm_Set_01_p1: [
+    16,
+    3398872194,
+  ],
+  Unique_Helm_Set_01_p2: [
+    17,
+    606842456,
+  ],
+  Unique_Helm_Set_01_p3: [
+    18,
+    2697107041,
+  ],
+  Unique_Helm_Set_02_p2: [
+    19,
+    3507046268,
+  ],
+  Unique_Helm_Set_02_p3: [
+    20,
+    2203655753,
+  ],
+  Unique_Helm_Set_03_p2: [
+    21,
+    2317968791,
+  ],
+  Unique_Helm_Set_03_p3: [
+    22,
+    2831372768,
+  ],
+  Unique_Helm_Set_05_x1: [
+    23,
+    206987064,
+  ],
+  Unique_Helm_Set_06_x1: [
+    24,
+    4214825865,
+  ],
+  Unique_Helm_Set_07_x1: [
+    25,
+    1736036379,
+  ],
+  Unique_Helm_Set_08_x1: [
+    26,
+    1146923130,
+  ],
+  Unique_Helm_Set_09_x1: [
+    27,
+    3231233165,
+  ],
+  Unique_Helm_Set_10_x1: [
+    28,
+    1883191781,
+  ],
+  Unique_Helm_Set_11_x1: [
+    29,
+    2004581237,
+  ],
+  Unique_Helm_Set_12_x1: [
+    30,
+    1064576158,
+  ],
+  Unique_Helm_Set_13_x1: [
+    31,
+    155469238,
+  ],
+  Unique_Helm_Set_15_x1: [
+    32,
+    1746071201,
+  ],
+  Unique_Helm_Set_16_x1: [
+    33,
+    2098972970,
+  ],
+  Unique_Mace_1H_001_x1: [
+    0,
+    2043362202,
+  ],
+  Unique_Mace_1H_002_x1: [
+    1,
+    2043362203,
+  ],
+  Unique_Mace_1H_003_x1: [
+    2,
+    2043362196,
+  ],
+  Unique_Mace_1H_005_x1: [
+    3,
+    2043362198,
+  ],
+  Unique_Mace_1H_007_x1: [
+    4,
+    2043362204,
+  ],
+  Unique_Mace_1H_008_x1: [
+    5,
+    2043362197,
+  ],
+  Unique_Mace_1H_009_x1: [
+    6,
+    2043362201,
+  ],
+  Unique_Mace_1H_011_x1: [
+    7,
+    2043362199,
+  ],
+  Unique_Mace_1H_101_x1: [
+    8,
+    1466829278,
+  ],
+  Unique_Mace_1H_102_x1: [
+    9,
+    1466829277,
+  ],
+  Unique_Mace_1H_103_x1: [
+    10,
+    1466829276,
+  ],
+  Unique_Mace_2H_001_x1: [
+    0,
+    4166668486,
+  ],
+  Unique_Mace_2H_002_x1: [
+    1,
+    4166668488,
+  ],
+  Unique_Mace_2H_003_x1: [
+    2,
+    4166668485,
+  ],
+  Unique_Mace_2H_006_x1: [
+    3,
+    4166668489,
+  ],
+  Unique_Mace_2H_009_p2: [
+    4,
+    3439584352,
+  ],
+  Unique_Mace_2H_009_x1: [
+    4,
+    3439584352,
+  ],
+  Unique_Mace_2H_010_x1: [
+    5,
+    4166668487,
+  ],
+  Unique_Mace_2H_012_p1: [
+    6,
+    4166668490,
+  ],
+  Unique_Mace_2H_012_x1: [
+    6,
+    4166668490,
+  ],
+  Unique_Mace_2H_103_x1: [
+    7,
+    3478299124,
+  ],
+  Unique_Mace_2H_104_x1: [
+    8,
+    3478299125,
+  ],
+  Unique_Mighty_1H_001_x1: [
+    1,
+    389374675,
+  ],
+  Unique_Mighty_1H_005_x1: [
+    2,
+    389374677,
+  ],
+  Unique_Mighty_1H_006_x1: [
+    0,
+    389374674,
+  ],
+  Unique_Mighty_1H_010_x1: [
+    3,
+    389374678,
+  ],
+  Unique_Mighty_1H_011_x1: [
+    4,
+    389374679,
+  ],
+  Unique_Mighty_1H_012_x1: [
+    5,
+    389374676,
+  ],
+  Unique_Mighty_1H_015_x1: [
+    6,
+    2633707098,
+  ],
+  Unique_Mighty_1H_102_x1: [
+    7,
+    858776852,
+  ],
+  Unique_Mighty_1H_103_x1: [
+    8,
+    858776853,
+  ],
+  Unique_Mighty_2H_001_x1: [
+    0,
+    1131735308,
+  ],
+  Unique_Mighty_2H_004_p1: [
+    1,
+    1131735310,
+  ],
+  Unique_Mighty_2H_004_x1: [
+    1,
+    1131735310,
+  ],
+  Unique_Mighty_2H_006_x1: [
+    2,
+    1131735309,
+  ],
+  Unique_Mighty_2H_010_x1: [
+    3,
+    2987526844,
+  ],
+  Unique_Mighty_2H_012_x1: [
+    4,
+    1131735311,
+  ],
+  Unique_Mighty_2H_101_x1: [
+    5,
+    3480821674,
+  ],
+  Unique_Mighty_2H_Promo_01_x1: [
+    12,
+    2496096511,
+  ],
+  Unique_Mojo_002_x1: [
+    1,
+    1988227272,
+  ],
+  Unique_Mojo_003_x1: [
+    2,
+    1988227274,
+  ],
+  Unique_Mojo_004_p2: [
+    3,
+    1988227273,
+  ],
+  Unique_Mojo_004_x1: [
+    3,
+    1988227273,
+  ],
+  Unique_Mojo_008_x1: [
+    4,
+    1988227270,
+  ],
+  Unique_Mojo_009_x1: [
+    5,
+    1988227271,
+  ],
+  Unique_Mojo_010_x1: [
+    6,
+    1988227275,
+  ],
+  Unique_Mojo_011_x1: [
+    7,
+    1988227276,
+  ],
+  Unique_Mojo_102_x1: [
+    8,
+    2859464183,
+  ],
+  Unique_Orb_001_x1: [
+    1,
+    526889076,
+  ],
+  Unique_Orb_003_x1: [
+    0,
+    526889078,
+  ],
+  Unique_Orb_004_x1: [
+    2,
+    526889077,
+  ],
+  Unique_Orb_005_x1: [
+    3,
+    526889075,
+  ],
+  Unique_Orb_011_x1: [
+    4,
+    526889079,
+  ],
+  Unique_Orb_012_x1: [
+    5,
+    526889080,
+  ],
+  Unique_Orb_101_x1: [
+    6,
+    751455714,
+  ],
+  Unique_Orb_102_x1: [
+    7,
+    751455715,
+  ],
+  Unique_Orb_103_x1: [
+    8,
+    751455716,
+  ],
+  Unique_Orb_Promo_01_x1: [
+    16,
+    3659593458,
+  ],
+  Unique_Orb_Set_06_x1: [
+    9,
+    594562486,
+  ],
+  Unique_Pants_001_x1: [
+    4,
+    2302068449,
+  ],
+  Unique_Pants_002_x1: [
+    5,
+    709439843,
+  ],
+  Unique_Pants_005_x1: [
+    6,
+    4050315392,
+  ],
+  Unique_Pants_006_p1: [
+    7,
+    3456592884,
+  ],
+  Unique_Pants_006_x1: [
+    7,
+    3456592884,
+  ],
+  Unique_Pants_007_p2: [
+    8,
+    2463824009,
+  ],
+  Unique_Pants_007_x1: [
+    8,
+    2463824009,
+  ],
+  Unique_Pants_008_x1: [
+    9,
+    2333460584,
+  ],
+  Unique_Pants_009_x1: [
+    10,
+    2531768720,
+  ],
+  Unique_Pants_010_x1: [
+    11,
+    1518320092,
+  ],
+  Unique_Pants_012_x1: [
+    12,
+    2393100207,
+  ],
+  Unique_Pants_013_x1: [
+    13,
+    334934971,
+  ],
+  Unique_Pants_014_x1: [
+    14,
+    1085858959,
+  ],
+  Unique_Pants_101_x1: [
+    15,
+    2011507423,
+  ],
+  Unique_Pants_102_x1: [
+    16,
+    2011507424,
+  ],
+  Unique_Pants_Set_01_p1: [
+    17,
+    1741593402,
+  ],
+  Unique_Pants_Set_01_p2: [
+    18,
+    1896030293,
+  ],
+  Unique_Pants_Set_01_p3: [
+    19,
+    2700963695,
+  ],
+  Unique_Pants_Set_02_p2: [
+    20,
+    2600891575,
+  ],
+  Unique_Pants_Set_02_p3: [
+    21,
+    1189194807,
+  ],
+  Unique_Pants_Set_03_p2: [
+    22,
+    1258626226,
+  ],
+  Unique_Pants_Set_03_p3: [
+    23,
+    194687102,
+  ],
+  Unique_Pants_Set_05_x1: [
+    24,
+    4079918424,
+  ],
+  Unique_Pants_Set_06_x1: [
+    25,
+    3792789929,
+  ],
+  Unique_Pants_Set_07_x1: [
+    26,
+    3396190779,
+  ],
+  Unique_Pants_Set_08_x1: [
+    27,
+    1776172409,
+  ],
+  Unique_Pants_Set_09_x1: [
+    28,
+    {
+      "0": 1917669536,
+      "10": 1819529325,
+      "2": 3837283764,
+      "4": 2957694345,
+      "6": 1317897630,
+      "8": 2957694345,
+    },
+  ],
+  Unique_Pants_Set_10_x1: [
+    29,
+    840907781,
+  ],
+  Unique_Pants_Set_13_x1: [
+    30,
+    {
+      "0": 3117346248,
+      "10": 4181381717,
+      "2": 3502163262,
+      "4": 2230503693,
+      "6": 3136976806,
+      "8": 2304316913,
+    },
+  ],
+  Unique_Pants_Set_14_x1: [
+    31,
+    {
+      "0": 945543478,
+      "10": 2624613347,
+      "2": 153759372,
+      "4": 1903904571,
+      "6": 1056199732,
+      "8": 2335334367,
+    },
+  ],
+  Unique_Pants_Set_15_x1: [
+    32,
+    {
+      "0": 635898546,
+      "10": 3190740543,
+      "2": 4259319464,
+      "4": 2420591703,
+      "6": 4216246672,
+      "8": 1920876347,
+    },
+  ],
+  Unique_Pants_Set_16_x1: [
+    33,
+    2753856009,
+  ],
+  Unique_Polearm_001_x1: [
+    0,
+    3842198475,
+  ],
+  Unique_Polearm_002_x1: [
+    1,
+    3881333868,
+  ],
+  Unique_Polearm_003_p1: [
+    2,
+    3803063082,
+  ],
+  Unique_Polearm_003_x1: [
+    2,
+    3803063082,
+  ],
+  Unique_Polearm_004_x1: [
+    3,
+    3763927689,
+  ],
+  Unique_Polearm_101_x1: [
+    4,
+    1184883478,
+  ],
+  Unique_Quiver_001_p1: [
+    1,
+    2437948555,
+  ],
+  Unique_Quiver_002_x1: [
+    2,
+    2555354734,
+  ],
+  Unique_Quiver_003_x1: [
+    3,
+    2398813162,
+  ],
+  Unique_Quiver_004_x1: [
+    4,
+    2516219341,
+  ],
+  Unique_Quiver_005_p1: [
+    5,
+    2594490127,
+  ],
+  Unique_Quiver_005_x1: [
+    5,
+    2594490127,
+  ],
+  Unique_Quiver_006_x1: [
+    6,
+    2633625520,
+  ],
+  Unique_Quiver_007_x1: [
+    0,
+    2477083948,
+  ],
+  Unique_Quiver_101_x1: [
+    7,
+    1745115580,
+  ],
+  Unique_Quiver_102_x1: [
+    8,
+    1745115581,
+  ],
+  Unique_Quiver_103_x1: [
+    9,
+    1745115605,
+  ],
+  Unique_Ring_001_x1: [
+    4,
+    3629246208,
+  ],
+  Unique_Ring_002_x1: [
+    5,
+    2978938288,
+  ],
+  Unique_Ring_003_x1: [
+    6,
+    1274725944,
+  ],
+  Unique_Ring_004_x1: [
+    7,
+    2098444968,
+  ],
+  Unique_Ring_005_x1: [
+    8,
+    374574675,
+  ],
+  Unique_Ring_006_p2: [
+    9,
+    2002527361,
+  ],
+  Unique_Ring_006_x1: [
+    9,
+    2002527361,
+  ],
+  Unique_Ring_007_p1: [
+    10,
+    843302757,
+  ],
+  Unique_Ring_007_x1: [
+    10,
+    843302757,
+  ],
+  Unique_Ring_008_x1: [
+    11,
+    1048513273,
+  ],
+  Unique_Ring_009_x1: [
+    12,
+    1491051746,
+  ],
+  Unique_Ring_010_x1: [
+    13,
+    855042039,
+  ],
+  Unique_Ring_011_x1: [
+    14,
+    3930942744,
+  ],
+  Unique_Ring_012_x1: [
+    15,
+    1125823025,
+  ],
+  Unique_Ring_013_x1: [
+    15,
+    1125823025,
+  ],
+  Unique_Ring_014_x1: [
+    16,
+    2665157960,
+  ],
+  Unique_Ring_015_x1: [
+    16,
+    2665157960,
+  ],
+  Unique_Ring_017_p2: [
+    17,
+    386514790,
+  ],
+  Unique_Ring_017_x1: [
+    17,
+    386514790,
+  ],
+  Unique_Ring_018_p2: [
+    18,
+    3711879989,
+  ],
+  Unique_Ring_018_x1: [
+    18,
+    3711879989,
+  ],
+  Unique_Ring_019_x1: [
+    19,
+    1895734392,
+  ],
+  Unique_Ring_020_x1: [
+    20,
+    902429532,
+  ],
+  Unique_Ring_021_x1: [
+    21,
+    4042758070,
+  ],
+  Unique_Ring_022_x1: [
+    0,
+    1356901590,
+  ],
+  Unique_Ring_023_p2: [
+    22,
+    3003473588,
+  ],
+  Unique_Ring_023_x1: [
+    22,
+    3003473588,
+  ],
+  Unique_Ring_024_x1: [
+    23,
+    2106432474,
+  ],
+  Unique_Ring_101_x1: [
+    24,
+    534556127,
+  ],
+  Unique_Ring_102_p2: [
+    25,
+    534556128,
+  ],
+  Unique_Ring_102_x1: [
+    25,
+    534556128,
+  ],
+  Unique_Ring_103_x1: [
+    26,
+    534556129,
+  ],
+  Unique_Ring_104_x1: [
+    27,
+    534556130,
+  ],
+  Unique_Ring_106_x1: [
+    28,
+    534556155,
+  ],
+  Unique_Ring_107_x1: [
+    29,
+    534556156,
+  ],
+  Unique_Ring_108_x1: [
+    30,
+    534556157,
+  ],
+  Unique_Ring_109_x1: [
+    31,
+    534556158,
+  ],
+  Unique_Ring_Set_001_x1: [
+    32,
+    3692270350,
+  ],
+  Unique_Ring_Set_002_x1: [
+    33,
+    3692270351,
+  ],
+  Unique_Shield_002_x1: [
+    0,
+    3585622873,
+  ],
+  Unique_Shield_004_x1: [
+    2,
+    3311675122,
+  ],
+  Unique_Shield_007_x1: [
+    1,
+    3389945908,
+  ],
+  Unique_Shield_008_x1: [
+    3,
+    3546487480,
+  ],
+  Unique_Shield_009_x1: [
+    4,
+    3507352087,
+  ],
+  Unique_Shield_011_x1: [
+    5,
+    3429081301,
+  ],
+  Unique_Shield_012_x1: [
+    6,
+    2781336199,
+  ],
+  Unique_Shield_101_p2: [
+    7,
+    1860464239,
+  ],
+  Unique_Shield_101_x1: [
+    7,
+    1860464239,
+  ],
+  Unique_Shield_102_x1: [
+    8,
+    2799713671,
+  ],
+  Unique_Shield_103_x1: [
+    10,
+    2838849064,
+  ],
+  Unique_Shield_104_x1: [
+    9,
+    2877984457,
+  ],
+  Unique_Shield_107_x1: [
+    10,
+    2995390636,
+  ],
+  Unique_Shoulder_001_x1: [
+    1,
+    2110764927,
+  ],
+  Unique_Shoulder_002_p2: [
+    2,
+    2110764928,
+  ],
+  Unique_Shoulder_002_x1: [
+    2,
+    2110764928,
+  ],
+  Unique_Shoulder_003_p1: [
+    3,
+    2110764929,
+  ],
+  Unique_Shoulder_003_x1: [
+    3,
+    2110764929,
+  ],
+  Unique_Shoulder_006_x1: [
+    4,
+    1711843860,
+  ],
+  Unique_Shoulder_007_x1: [
+    5,
+    2110764930,
+  ],
+  Unique_Shoulder_008_x1: [
+    6,
+    1711843861,
+  ],
+  Unique_Shoulder_009_x1: [
+    7,
+    2110764932,
+  ],
+  Unique_Shoulder_017_x1: [
+    8,
+    2110764933,
+  ],
+  Unique_Shoulder_101_x1: [
+    9,
+    4042163118,
+  ],
+  Unique_Shoulder_102_x1: [
+    10,
+    4042163119,
+  ],
+  Unique_Shoulder_103_x1: [
+    11,
+    586317904,
+  ],
+  Unique_Shoulder_Set_01_p1: [
+    12,
+    858028682,
+  ],
+  Unique_Shoulder_Set_01_p2: [
+    13,
+    1302653536,
+  ],
+  Unique_Shoulder_Set_01_p3: [
+    14,
+    2457891177,
+  ],
+  Unique_Shoulder_Set_02_p2: [
+    15,
+    699008132,
+  ],
+  Unique_Shoulder_Set_02_p3: [
+    16,
+    781255793,
+  ],
+  Unique_Shoulder_Set_03_p2: [
+    17,
+    946964383,
+  ],
+  Unique_Shoulder_Set_03_p3: [
+    18,
+    4006445461,
+  ],
+  Unique_Shoulder_Set_05_x1: [
+    19,
+    1538248768,
+  ],
+  Unique_Shoulder_Set_06_x1: [
+    20,
+    1251120273,
+  ],
+  Unique_Shoulder_Set_07_x1: [
+    21,
+    3392773667,
+  ],
+  Unique_Shoulder_Set_08_x1: [
+    22,
+    1809314690,
+  ],
+  Unique_Shoulder_Set_09_x1: [
+    23,
+    3893624725,
+  ],
+  Unique_Shoulder_Set_10_x1: [
+    24,
+    2865155053,
+  ],
+  Unique_Shoulder_Set_11_x1: [
+    25,
+    1769383773,
+  ],
+  Unique_Shoulder_Set_12_x1: [
+    26,
+    854479270,
+  ],
+  Unique_Shoulder_Set_13_x1: [
+    27,
+    {
+      "0": 1379028158,
+      "10": 1379028158,
+      "2": 1379028158,
+      "4": 1379028158,
+      "6": 1286829919,
+      "8": 1286829919,
+    },
+  ],
+  Unique_Shoulder_Set_15_x1: [
+    28,
+    971885449,
+  ],
+  Unique_Shoulder_Set_16_x1: [
+    29,
+    2750438897,
+  ],
+  Unique_Spear_001_x1: [
+    0,
+    2295726708,
+  ],
+  Unique_Spear_002_x1: [
+    1,
+    2373997494,
+  ],
+  Unique_Spear_003_x1: [
+    2,
+    2334862101,
+  ],
+  Unique_Spear_004_p3: [
+    3,
+    2413132887,
+  ],
+  Unique_Spear_004_x1: [
+    3,
+    2413132887,
+  ],
+  Unique_Spear_101_x1: [
+    4,
+    56117024,
+  ],
+  Unique_SpiritStone_001_x1: [
+    0,
+    2195445662,
+  ],
+  Unique_SpiritStone_002_x1: [
+    1,
+    1099654658,
+  ],
+  Unique_SpiritStone_003_x1: [
+    2,
+    1138790051,
+  ],
+  Unique_SpiritStone_004_x1: [
+    3,
+    1060519265,
+  ],
+  Unique_SpiritStone_005_x1: [
+    4,
+    2273716448,
+  ],
+  Unique_SpiritStone_006_x1: [
+    5,
+    943113086,
+  ],
+  Unique_SpiritStone_007_x1: [
+    6,
+    2234581055,
+  ],
+  Unique_SpiritStone_008_x1: [
+    7,
+    903977693,
+  ],
+  Unique_SpiritStone_009_x1: [
+    8,
+    1177925444,
+  ],
+  Unique_SpiritStone_101_x1: [
+    9,
+    1075502497,
+  ],
+  Unique_SpiritStone_102_x1: [
+    10,
+    3897389706,
+  ],
+  Unique_SpiritStone_103_x1: [
+    11,
+    3936525099,
+  ],
+  Unique_Staff_001_x1: [
+    1,
+    342301197,
+  ],
+  Unique_Staff_002_x1: [
+    2,
+    381436590,
+  ],
+  Unique_Staff_003_x1: [
+    0,
+    577113555,
+  ],
+  Unique_Staff_006_x1: [
+    3,
+    537978162,
+  ],
+  Unique_Staff_007_x1: [
+    4,
+    498842769,
+  ],
+  Unique_Staff_008_x1: [
+    5,
+    420571983,
+  ],
+  Unique_Staff_009_p1: [
+    6,
+    459707376,
+  ],
+  Unique_Staff_009_x1: [
+    6,
+    459707376,
+  ],
+  Unique_Staff_101_x1: [
+    7,
+    2515064988,
+  ],
+  Unique_Staff_102_x1: [
+    8,
+    2554200381,
+  ],
+  Unique_Staff_103_x1: [
+    9,
+    3493449813,
+  ],
+  Unique_Staff_104_x1: [
+    10,
+    3532585206,
+  ],
+  Unique_Sword_1H_002_x1: [
+    2,
+    766982257,
+  ],
+  Unique_Sword_1H_003_x1: [
+    3,
+    3146854471,
+  ],
+  Unique_Sword_1H_004_x1: [
+    4,
+    3146854467,
+  ],
+  Unique_Sword_1H_007_x1: [
+    5,
+    3146854465,
+  ],
+  Unique_Sword_1H_011_x1: [
+    6,
+    3146854468,
+  ],
+  Unique_Sword_1H_012_x1: [
+    0,
+    3146854469,
+  ],
+  Unique_Sword_1H_014_x1: [
+    7,
+    3146854470,
+  ],
+  Unique_Sword_1H_017_x1: [
+    8,
+    3146854464,
+  ],
+  Unique_Sword_1H_018_x1: [
+    9,
+    3451515509,
+  ],
+  Unique_Sword_1H_019_x1: [
+    10,
+    766982256,
+  ],
+  Unique_Sword_1H_021_x1: [
+    11,
+    3146854472,
+  ],
+  Unique_Sword_1H_101_x1: [
+    12,
+    190449306,
+  ],
+  Unique_Sword_1H_102_x1: [
+    13,
+    190449307,
+  ],
+  Unique_Sword_1H_103_x1: [
+    14,
+    190449308,
+  ],
+  Unique_Sword_1H_104_x1: [
+    1,
+    190449309,
+  ],
+  Unique_Sword_1H_109_x1: [
+    15,
+    190449337,
+  ],
+  Unique_Sword_1H_113_x1: [
+    16,
+    618452553,
+  ],
+  Unique_Sword_1H_Promo_01_x1: [
+    30,
+    1861983014,
+  ],
+  Unique_Sword_1H_Promo_02_x1: [
+    17,
+    1901118407,
+  ],
+  Unique_Sword_1H_Set_02_x1: [
+    18,
+    3021728926,
+  ],
+  Unique_Sword_1H_Set_03_x1: [
+    19,
+    3021728927,
+  ],
+  Unique_Sword_2H_001_x1: [
+    0,
+    147033188,
+  ],
+  Unique_Sword_2H_002_x1: [
+    1,
+    147033181,
+  ],
+  Unique_Sword_2H_003_x1: [
+    2,
+    147033187,
+  ],
+  Unique_Sword_2H_004_x1: [
+    3,
+    147033186,
+  ],
+  Unique_Sword_2H_007_x1: [
+    4,
+    147033183,
+  ],
+  Unique_Sword_2H_008_x1: [
+    5,
+    147033185,
+  ],
+  Unique_Sword_2H_010_x1: [
+    6,
+    147033184,
+  ],
+  Unique_Sword_2H_011_x1: [
+    7,
+    557127725,
+  ],
+  Unique_Sword_2H_012_x1: [
+    8,
+    147033189,
+  ],
+  Unique_Sword_2H_101_x1: [
+    9,
+    1249081783,
+  ],
+  Unique_Sword_2H_102_x1: [
+    10,
+    1249081784,
+  ],
+  Unique_Sword_2H_103_x1: [
+    11,
+    1249081785,
+  ],
+  Unique_Sword_2H_104_x1: [
+    12,
+    1966817544,
+  ],
+  Unique_VoodooMask_001_x1: [
+    0,
+    35667136,
+  ],
+  Unique_VoodooMask_002_x1: [
+    1,
+    3733652154,
+  ],
+  Unique_VoodooMask_005_x1: [
+    2,
+    3421834531,
+  ],
+  Unique_VoodooMask_006_x1: [
+    3,
+    3811922940,
+  ],
+  Unique_VoodooMask_007_x1: [
+    4,
+    3851058333,
+  ],
+  Unique_VoodooMask_008_x1: [
+    5,
+    4291499039,
+  ],
+  Unique_VoodooMask_101_x1: [
+    6,
+    2059837577,
+  ],
+  Unique_VoodooMask_102_x1: [
+    7,
+    2098972970,
+  ],
+  Unique_Wand_002_x1: [
+    1,
+    3489950341,
+  ],
+  Unique_Wand_003_x1: [
+    2,
+    3529085734,
+  ],
+  Unique_Wand_006_x1: [
+    3,
+    3607356520,
+  ],
+  Unique_Wand_009_x1: [
+    4,
+    3568221127,
+  ],
+  Unique_Wand_010_x1: [
+    5,
+    3450814948,
+  ],
+  Unique_Wand_012_x1: [
+    6,
+    3646491913,
+  ],
+  Unique_Wand_013_x1: [
+    7,
+    3411679555,
+  ],
+  Unique_Wand_018_x1: [
+    8,
+    2761260664,
+  ],
+  Unique_Wand_101_x1: [
+    9,
+    3664896400,
+  ],
+  Unique_Wand_102_x1: [
+    10,
+    3508354828,
+  ],
+  Unique_WizardHat_001_x1: [
+    1,
+    595973323,
+  ],
+  Unique_WizardHat_004_x1: [
+    2,
+    556837930,
+  ],
+  Unique_WizardHat_101_x1: [
+    3,
+    3754700794,
+  ],
+  Unique_WizardHat_102_x1: [
+    4,
+    2712669269,
+  ],
+  Unique_WizardHat_103_x1: [
+    5,
+    2751804662,
+  ],
+  Unique_WizardHat_104_x1: [
+    6,
+    2790940055,
+  ],
+  Unique_XBow_001_x1: [
+    0,
+    3764858047,
+  ],
+  Unique_XBow_002_x1: [
+    1,
+    3569181082,
+  ],
+  Unique_XBow_003_x1: [
+    2,
+    3725722654,
+  ],
+  Unique_XBow_004_x1: [
+    3,
+    3647451868,
+  ],
+  Unique_XBow_006_x1: [
+    4,
+    3530045689,
+  ],
+  Unique_XBow_011_x1: [
+    5,
+    3608316475,
+  ],
+  Unique_XBow_012_x1: [
+    6,
+    3686587261,
+  ],
+  Unique_Xbow_101_x1: [
+    7,
+    3861533320,
+  ],
+  Unique_Xbow_102_x1: [
+    8,
+    3900668713,
+  ],
+  VoodooMask_001: [
+    8,
+    3265292959,
+  ],
+  VoodooMask_002: [
+    9,
+    3304428352,
+  ],
+  VoodooMask_003: [
+    10,
+    3343563745,
+  ],
+  VoodooMask_004: [
+    11,
+    3382699138,
+  ],
+  VoodooMask_101: [
+    8,
+    3265292959,
+  ],
+  VoodooMask_102: [
+    9,
+    3304428352,
+  ],
+  VoodooMask_103: [
+    10,
+    3343563745,
+  ],
+  VoodooMask_104: [
+    11,
+    3382699138,
+  ],
+  VoodooMask_201: [
+    8,
+    3265292959,
+  ],
+  VoodooMask_202: [
+    9,
+    3304428352,
+  ],
+  VoodooMask_203: [
+    10,
+    3343563745,
+  ],
+  VoodooMask_204: [
+    11,
+    3382699138,
+  ],
+  VoodooMask_205: [
+    12,
+    2576923591,
+  ],
+  VoodooMask_206: [
+    13,
+    2616058984,
+  ],
+  Wand_000: [
+    11,
+    1067845703,
+  ],
+  Wand_001: [
+    11,
+    1067845703,
+  ],
+  Wand_002: [
+    12,
+    1106981096,
+  ],
+  Wand_003: [
+    13,
+    1146116489,
+  ],
+  Wand_004: [
+    14,
+    1185251882,
+  ],
+  Wand_005: [
+    15,
+    1224387275,
+  ],
+  Wand_006: [
+    16,
+    1263522668,
+  ],
+  Wand_007: [
+    17,
+    1302658061,
+  ],
+  Wand_101: [
+    11,
+    1067845703,
+  ],
+  Wand_102: [
+    12,
+    1106981096,
+  ],
+  Wand_103: [
+    13,
+    1146116489,
+  ],
+  Wand_104: [
+    14,
+    1185251882,
+  ],
+  Wand_105: [
+    15,
+    1224387275,
+  ],
+  Wand_106: [
+    16,
+    1263522668,
+  ],
+  Wand_107: [
+    17,
+    1302658061,
+  ],
+  Wand_201: [
+    11,
+    1067845703,
+  ],
+  Wand_202: [
+    12,
+    1106981096,
+  ],
+  Wand_203: [
+    13,
+    1146116489,
+  ],
+  Wand_204: [
+    14,
+    1185251882,
+  ],
+  Wand_205: [
+    15,
+    1224387275,
+  ],
+  Wand_206: [
+    16,
+    1263522668,
+  ],
+  Wand_207: [
+    17,
+    1302658061,
+  ],
+  Wand_301: [
+    18,
+    3517094767,
+  ],
+  Wand_302: [
+    19,
+    3556230160,
+  ],
+  WizardHat_001: [
+    7,
+    1562054731,
+  ],
+  WizardHat_002: [
+    8,
+    1601190124,
+  ],
+  WizardHat_003: [
+    9,
+    1640325517,
+  ],
+  WizardHat_004: [
+    10,
+    1679460910,
+  ],
+  WizardHat_101: [
+    7,
+    1562054731,
+  ],
+  WizardHat_102: [
+    8,
+    1601190124,
+  ],
+  WizardHat_103: [
+    9,
+    1640325517,
+  ],
+  WizardHat_104: [
+    10,
+    1679460910,
+  ],
+  WizardHat_201: [
+    7,
+    1562054731,
+  ],
+  WizardHat_202: [
+    8,
+    1601190124,
+  ],
+  WizardHat_203: [
+    9,
+    1640325517,
+  ],
+  WizardHat_204: [
+    10,
+    1679460910,
+  ],
+  WizardHat_205: [
+    11,
+    3493452915,
+  ],
+  WizardHat_206: [
+    12,
+    3532588308,
+  ],
+  X1_Boots_norm_season_01: [
+    54,
+    {
+      "0": 2890525029,
+      "10": 1305913074,
+      "2": 592529340,
+      "4": 1424147018,
+      "6": 2890524564,
+      "8": 3866030702,
+    },
+  ],
+  X1_Gloves_norm_season_01: [
+    54,
+    {
+      "0": 2431495738,
+      "10": 2178442695,
+      "2": 2113140997,
+      "4": 2796597471,
+      "6": 2430989353,
+      "8": 2560099267,
+    },
+  ],
+  X1_Helm_norm_season_01: [
+    55,
+    3819108505,
+  ],
+  X1_Pants_norm_season_01: [
+    53,
+    {
+      "0": 3516099152,
+      "10": 1281120861,
+      "2": 2130252443,
+      "4": 4251092981,
+      "6": 3515592767,
+      "8": 2577210713,
+    },
+  ],
+  X1_chestArmor_norm_season_01: [
+    51,
+    {
+      "0": 572967810,
+      "1": 572967803,
+      "10": 1937854403,
+      "11": 1494505736,
+      "2": 1105823821,
+      "3": 1105823814,
+      "4": 1044853287,
+      "5": 1044853280,
+      "6": 572461425,
+      "7": 572461418,
+      "8": 573299391,
+      "9": 1552782084,
+    },
+  ],
+  X1_shoulderPads_norm_season_01: [
+    48,
+    408915073,
+  ],
+  p1_Mace_norm_promo_01: [
+    20,
+    2625753733,
+  ],
+  p1_Staff_norm_promo_01: [
+    20,
+    3725028067,
+  ],
+  p1_bow_norm_promo_01: [
+    19,
+    2174854615,
+  ],
+  p1_fistWeapon_norm_promo_01: [
+    22,
+    473839458,
+  ],
+  p1_mightyWeapon_2H_norm_promo_01: [
+    13,
+    2357986295,
+  ],
+  p1_orb_norm_promo_01: [
+    17,
+    3722110386,
+  ],
+  p2_Unique_Ring_Wizard_001: [
+    12,
+    1491051746,
+  ],
+  x1_Amulet_norm_unique_25: [
+    24,
+    3600585091,
+  ],
+  x1_FollowerItem_Enchantress_Legendary_01: [
+    0,
+    1298519721,
+  ],
+  x1_FollowerItem_Enchantress_Legendary_02: [
+    0,
+    1298519721,
+  ],
+  x1_FollowerItem_Enchantress_Legendary_03: [
+    0,
+    1298519721,
+  ],
+  x1_FollowerItem_Scoundrel_Legendary_01: [
+    0,
+    3371640641,
+  ],
+  x1_FollowerItem_Scoundrel_Legendary_02: [
+    0,
+    3371640641,
+  ],
+  x1_FollowerItem_Scoundrel_Legendary_03: [
+    0,
+    3371640641,
+  ],
+  x1_FollowerItem_Templar_Legendary_01: [
+    0,
+    4223895183,
+  ],
+  x1_FollowerItem_Templar_Legendary_02: [
+    0,
+    4223895183,
+  ],
+  x1_FollowerItem_Templar_Legendary_03: [
+    0,
+    4223895183,
+  ],
+  Unique_Offhand_001_x1: [
+    7,
+    2762335310,
+  ],
+};
+

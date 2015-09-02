@@ -165,7 +165,11 @@
   polyFill(window, "setTimeout", hijackTimeFunc);
   polyFill(window, "setInterval", hijackTimeFunc);
   if (window.requestAnimationFrame) {
-    polyFill(window, "requestAnimationFrame", hijackTimeFunc);
+    polyFill(window, "requestAnimationFrame", function (_super) {
+      return function (callback) {
+        return _super(wrap(callback));
+      };
+    });
   }
 
   function hijackEventFunc(_super) {

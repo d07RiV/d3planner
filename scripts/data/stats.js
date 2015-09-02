@@ -47,6 +47,7 @@
     life: {name: "Life", format: "+%d%% Life", id: "Hitpoints_Max_Percent_Bonus_Item", percent: true},
 
     weaponias: {name: "Attack Speed Increase", format: "Increases Attack Speed by %d%%", id: "Attacks_Per_Second_Item_Percent", percent: true},
+    weaponaps: {name: "Attack Speed Increase"},
     ias: {name: "Attack Speed Increase", format: "Attack Speed Increased by %.1f%%", id: "Attacks_Per_Second_Percent", percent: true},
     chd: {name: "Critical Hit Damage", format: "Critical Hit Damage Increased by %.1f%%", id: "Crit_Damage_Percent", percent: true},
     chc: {name: "Critical Hit Chance", format: "Critical Hit Chance Increased by %.1f%%", id: "Critical_Chance", percent: true},

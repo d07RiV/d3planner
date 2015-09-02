@@ -6,9 +6,8 @@ DiabloCalc.itemSets = {
     tclass: "wizard",
     bonuses: {
       "2": [
-        {stat: "int", value: [250]},
-        {stat: "edef", value: [10]},
-        {format: "Your shields heal for 25%% of their remaining amount when they expire."},
+        {format: "Every second while in Archon form you expel a Wave of Destruction, dealing 350%% weapon damage to enemies within 30 yards."},
+        {format: "Every time you hit with an attack while not in Archon form, 350%% weapon damage is added to the Wave of Destruction, stacking up to 20 times."},
       ],
     },
   },
@@ -80,9 +79,8 @@ DiabloCalc.itemSets = {
     tclass: "witchdoctor",
     bonuses: {
       "2": [
-        {stat: "int", value: [250]},
-        {stat: "manaperkill", value: [30]},
-        {format: "You are surrounded by a deadly Poison Cloud."},
+        {format: "Your Hex - Angry Chicken explosion damage is increased by 200%% and slain enemies trigger an additional explosion."},
+        {format: "Your Hex - Angry Chicken lasts 15 seconds and movement speed as a chicken is increased by an additional 100%."},
       ],
     },
   },
@@ -92,9 +90,8 @@ DiabloCalc.itemSets = {
     tclass: "monk",
     bonuses: {
       "2": [
-        {stat: "dex", value: [250]},
-        {stat: "spiritregen", value: [4]},
-        {format: "Chance to hurl a ball of pure energy when attacking."},
+        {format: "The damage of your Spirit Generators is increased by 1.5%% for each point of Spirit you have."},
+        {format: "When reaching maximum Spirit, all damage is increased by 100%%, but you no longer passively regenerate Spirit and 65 Spirit is drained every second until you run out of Spirit."},
       ],
     },
   },
@@ -268,7 +265,7 @@ DiabloCalc.itemSets = {
         {stat: "vit", value: [250]},
       ],
       "3": [
-        {format: "Whenever a Death's Breath drops, a second one will also drop."},
+        {format: "Increases Death's Breath drops by 1."},
       ],
     },
   },
@@ -292,14 +289,17 @@ DiabloCalc.itemSets = {
 
   vyr: {
     name: "Vyr's Amazing Arcana",
-    order: ["chestarmor", "pants", "gloves", "boots"],
+    order: ["chestarmor", "pants", "gloves", "boots", "helm", "shoulders"],
     tclass: "wizard",
     bonuses: {
       "2": [
-        {stat: "int", value: [500]},
+        {format: "Archon gains the effect of every rune."},
       ],
       "4": [
-        {format: "Archon gains the effect of every rune."},
+        {format: "Archon stacks also increase your Attack Speed, Armor and Resistances by 1%%."},
+      ],
+      "6": [
+        {format: "You also gain Archon stacks when you hit with an Archon ability."},
       ],
     },
   },
@@ -361,7 +361,7 @@ DiabloCalc.itemSets = {
         {format: "Companion calls all companion types to your side."},
       ],
       "4": [
-        {format: "Sentries now cast your Hatred spenders every time you do."},
+        {format: "Sentries cast Elemental Arrow, Chakram, Impale, Multishot, and Cluster Arrow when you do."},
       ],
       "6": [
         {format: "Your generators, Chakram, Cluster Arrow, Elemental Arrow, Impale and Multishot deal 100%% increased damage for every active Sentry."},
@@ -375,7 +375,7 @@ DiabloCalc.itemSets = {
     tclass: "witchdoctor",
     bonuses: {
       "2": [
-        {format: "Your Fetish Army lasts until they die."},
+        {format: "Your Fetish Army lasts until they die and the cooldown of your Fetish Army is reduced by 80%."},
       ],
       "4": [
         {format: "You and your pets take 2% less damage for every Fetish you have alive."},
@@ -392,13 +392,13 @@ DiabloCalc.itemSets = {
     order: ["gloves", "boots", "pants", "shoulders", "helm", "chestarmor"],
     bonuses: {
       "2": [
-        {stat: "int", value: [500]},
+        {format: "Enemies hit by your primary skills, Acid Cloud, Firebats, Zombie Charger, Zombie Dogs, Gargantuan, Grasp of the Dead, Piranhas, or Wall of Death are afflicted by Necrosis, becoming Slowed, taking 1500%% weapon damage every second, and taking 20%% increased damage from all sources for 10 seconds."},
       ],
       "4": [
-        {stat: "skill_witchdoctor_wallofzombies_cooldown", value: [2]},
+        {format: "After applying Necrosis to an enemy, you take 50%% reduced damage for 10 seconds."},
       ],
       "6": [
-        {format: "Wall of Zombies spews acid, dealing 300%% weapon damage every second for its entire duration."},
+        {format: "After casting Wall of Death, gain 900%% increased damage for 15 seconds to your primary skills, Acid Cloud, Firebats, Zombie Charger, Zombie Dogs, Gargantuan, Grasp of the Dead, Piranhas, and Wall of Death."},
       ],
     },
   },
@@ -432,7 +432,7 @@ DiabloCalc.itemSets = {
         {format: "Reduce the cooldown of Wrath of the Berserker and Call of the Ancients by 3 seconds for every 10 Fury you spend with an attack."},
       ],
       "6": [
-        {format: "While both Wrath of the Berserker and Call of the Ancients are active, you deal 100% increased damage."},
+        {format: "While both Wrath of the Berserker and Call of the Ancients are active, you deal 250% increased damage."},
       ],
     },
   },
@@ -590,13 +590,64 @@ DiabloCalc.itemSets = {
     order: ["chestarmor", "gloves", "pants", "helm", "boots", "shoulders"],
     bonuses: {
       "2": [
-        {format: "Increase the damage of Rend by 500%% and its duration to 15 seconds."},
+        {format: "Increase the damage per second of Rend by 500%% and its duration to 15 seconds."},
       ],
       "4": [
         {format: "During Whirlwind you gain 40%% damage reduction."},
       ],
       "6": [
         {format: "Whirlwind gains the effect of the Dust Devils rune and Dust Devils damage is increased to 2500%% weapon damage."},
+      ],
+    },
+  },
+
+  light: {
+    name: "Seeker of the Light",
+    class: "crusader",
+    order: ["chestarmor", "gloves", "pants", "helm", "boots", "shoulders"],
+    bonuses: {
+      "2": [
+        {format: "Every use of Blessed Hammer that hits an enemy reduces the cooldown of Falling Sword and Provoke by 1 second."},
+      ],
+      "4": [
+        {format: "You take 50%% less damage for 8 seconds after landing with Falling Sword."},
+      ],
+      "6": [
+        {format: "Increase the damage of Blessed Hammer by 750%% and Falling Sword by 500%%."},
+      ],
+    },
+  },
+
+  uliana: {
+    name: "Uliana's Stratagem",
+    class: "monk",
+    order: ["chestarmor", "gloves", "pants", "helm", "boots", "shoulders"],
+    bonuses: {
+      "2": [
+        {format: "Every third hit of your Spirit Generators applies Exploding Palm."},
+      ],
+      "4": [
+        {format: "Your Seven-Sided Strike deals its total damage with each hit."},
+      ],
+      "6": [
+        {format: "Your Seven-Sided Strike detonates your Exploding Palm."},
+      ],
+    },
+  },
+
+  arachyr: {
+    name: "Spirit of Arachyr",
+    class: "witchdoctor",
+    order: ["chestarmor", "gloves", "pants", "helm", "boots", "shoulders"],
+    bonuses: {
+      "2": [
+        {format: "Summon a permanent Spider Queen who leaves behind webs that deal 4000%% weapon damage over 5 seconds and Slows enemies. The Spider Queen is commanded to move to where you cast your Corpse Spiders."},
+      ],
+      "4": [
+        {format: "Hex gains the effect of the Toad of Hugeness rune. While Toad of Hugeness is active, you take 40%% reduced damage. After Toad of Hugeness finishes his meal, you will heal for 10%% of your maximum Life per second for 10 seconds."},
+      ],
+      "6": [
+        {format: "The damage of your creature skills is increased by 800%%. Creature skills are Corpse Spiders, Plague of Toads, Firebats, Locust Swarm, Hex, and Piranhas."},
       ],
     },
   },

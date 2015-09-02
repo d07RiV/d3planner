@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteBase /webgl/
+
+RewriteRule ^(textures|animations|models|animsets|icons)/([0-9]+)$ assets.php [L]
+RewriteRule ^([a-z0-9]+)$ index.html [L]

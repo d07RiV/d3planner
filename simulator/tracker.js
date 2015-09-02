@@ -53,6 +53,7 @@
     }
     return SkillCounters[id];
   }
+  var CastCounters = {};
   Sim.register("onhit", function(data) {
     var source = ((data.skill ? (!data.pet && data.triggered) || data.skill : data.triggered) || "unknown");
     var amount = data.damage * data.targets;
@@ -71,12 +72,24 @@
     if (MaxHealth) {
       Sim.targetHealth = (MaxHealth - TotalDamage) / MaxHealth;
     }
+    var castId = (data.castInfo && data.castInfo.castId);
+    if (castId && CastCounters[castId]) {
+      var source = (data.triggered || data.skill || "unknown");
+      var evt = CastCounters[castId];
+      if (data.triggered) {
+        evt[4][source] = (evt[4][source] || 0) + amount;
+      } else {
+        evt[3] += amount;
+      }
+    }
   });
   Sim.register("oncast", function(data) {
     var cnt = _counter(data.skill);
     cnt.count = (cnt.count || 0) + 1;
-    if (Sample && Sample.length < 50) {
-      Sample.push([data.time, data.skill, Sim.resources[Sim.rcTypes[0]]]);
+    if (Sample /*&& Sample.length < 50*/) {
+      var evt = [data.time, data.skill, Sim.resources[Sim.rcTypes[0]], 0, {}];
+      if (data.castId) CastCounters[data.castId] = evt;
+      Sample.push(evt);
     }
   });
   Sim.register("resourcegain", function(data) {

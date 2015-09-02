@@ -16,31 +16,7 @@ leg_genzaniku Unique_Axe_1H_003_x1
 leg_skycutter Unique_Sword_1H_004_x1
 leg_thegrinreaper Unique_VoodooMask_002_x1
 leg_jawbreaker Unique_Fist_101_x1
-
-Crus:
-leg_jaceshammerofvigilance Unique_Mace_1H_103_x1
-leg_denial
-leg_eberlicharo
-leg_hellskull
-leg_jekangbord
-leg_thefinalwitness
-leg_frydehrswrath
-leg_unrelentingphalanx
-leg_piromarella
-leg_eternalunion
-leg_darklight Unique_Flail_1H_106_x1
-leg_gyrfalconsfoote
-leg_inviolablefaith
-leg_justiniansmercy
-leg_swiftmount
-leg_goldenscourge
-leg_armorofthekindregent
-leg_bladeofprophecy Unique_Sword_2H_007_x1
-leg_camsrebuttal Unique_Sword_2H_102_x1
-leg_fateofthefell
-leg_goldenflense
-leg_goldenflense_p2
-leg_themortaldrama
+leg_thefistofazturrasq
 
 Barb:
 leg_lutsocks

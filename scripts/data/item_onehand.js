@@ -259,6 +259,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Spear_004_x1",
     name: "Scrimshaw",
+    suffix: _L("Legacy"),
     type: "spear",
     quality: "legendary",
     preset: ["wpnlit", "mainstat", "damage"],
@@ -267,6 +268,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Spear_001_x1",
     name: "Arreat's Law",
+    suffix: _L("Legacy"),
     type: "spear",
     quality: "legendary",
     preset: ["wpnphy", "mainstat", "sockets"],
@@ -366,6 +368,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Sword_1H_104_x1",
     name: "Fulminator",
+    suffix: _L("Legacy"),
     type: "sword",
     quality: "legendary",
     required: {
@@ -438,6 +441,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Sword_1H_012_x1",
     name: "Azurewrath",
+    suffix: _L("Legacy"),
     type: "sword",
     quality: "legendary",
     affixes: {
@@ -515,9 +519,11 @@ DiabloCalc.addItems([
     type: "ceremonialknife",
     quality: "legendary",
     required: {
+      skill_witchdoctor_graspofthedead: {min: 45, max: 60},
       custom: {id: "leg_deadlyrebirth", name: "Grasp of the Dead Gains Rain of Corpses", format: "Grasp of the Dead gains the effect of the Rain of Corpses rune.", args: 0},
     },
-    preset: ["wpnarc", "mainstat", "manaregen", "expadd"],
+    preset: ["wpnarc", "mainstat", "manaregen"],
+    primary: 5,
   },
 
   {
@@ -573,8 +579,11 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       custom: {id: "leg_thespiderqueensgrasp", name: "Corpse Spiders Slow Enemies", format: "Corpse Spiders releases a web on impact that Slows enemies by %d%%.", min: 60, max: 80},
+      skill_witchdoctor_corpsespiders: {min: 45, max: 60},
     },
-    preset: ["mainstat", "manaregen"],
+    preset: ["mainstat"],
+    primary: 5,
+    secondary: 1,
   },
 
   {
@@ -715,7 +724,7 @@ DiabloCalc.addItems([
     required: {
       custom: {id: "leg_thefistofazturrasq", name: "Exploding Palm Explosion Damage", format: "Exploding Palm's on-death explosion damage is increased by %d%%.", min: 75, max: 100},
     },
-    preset: ["spiritregen"],
+    preset: ["spiritregen", "mainstat"],
   },
 
   {
@@ -864,6 +873,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Mighty_1H_006_x1",
     name: "Fjord Cutter",
+    suffix: _L("Legacy"),
     type: "mightyweapon",
     quality: "legendary",
     required: {
@@ -917,7 +927,7 @@ DiabloCalc.addItems([
     type: "mightyweapon",
     quality: "set",
     set: "bulkathos",
-    preset: ["wpnhol", "mainstat", "sockets"],
+    preset: ["wpnhol", "mainstat"],
   },
 
   {
@@ -926,7 +936,7 @@ DiabloCalc.addItems([
     type: "mightyweapon",
     quality: "set",
     set: "bulkathos",
-    preset: ["wpnhol", "mainstat", "sockets"],
+    preset: ["wpnhol", "mainstat"],
   },
 
   {
@@ -959,7 +969,7 @@ DiabloCalc.addItems([
     required: {
       custom: {id: "leg_ingeom", name: "Cooldown Reduction", format: "Your skill cooldowns are reduced by %d seconds for 15 seconds after killing an elite pack.", min: 8, max: 10},
     },
-    preset: ["mainstat", "damage"],
+    preset: ["wpnhol", "mainstat", "damage"],
   },
 
   {
@@ -990,10 +1000,124 @@ DiabloCalc.addItems([
   },
 
   {
-    id: "Unique_Sword_1H_021",
+    id: "Unique_Sword_1H_021_x1",
+    ids: ["Unique_Sword_1H_021"],
     name: "Spectrum",
     type: "sword",
     quality: "legendary",
+    preset: ["mainstat"],
+    primary: 5,
+    secondary: 1,
+  },
+
+  {
+    id: "Unique_Offhand_001_x1",
+    name: "The Horadric Hamburger",
+    type: "dagger",
+    quality: "legendary",
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P1_fistWeapon_norm_unique_01",
+    local: true,
+    name: "Lion’s Claw",
+    type: "fistweapon",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_lionsclaw", name: "Extra Seven-Sided Strike Attacks", format: "Seven-Sided Strike performs an additional 7 strikes.", args: 0},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P1_flail1H_norm_unique_01",
+    local: true,
+    name: "Johanna's Argument",
+    type: "flail",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_johannasargument", name: "Blessed Hammer Attack Speed", format: "Increase the attack speed of Blessed Hammer by 100%%.", args: 0},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P3_Unique_Mighty_1H_006",
+    local: true,
+    name: "Fjord Cutter",
+    type: "mightyweapon",
+    quality: "legendary",
+    required: {
+      hitfreeze: {min: 7.5, max: 10, step: 0.1},
+      custom: {id: "leg_fjordcutter_p3", name: "Chilling Aura", format: "You are surrounded by a Chilling Aura when attacking.", args: 0},
+    },
+    preset: ["wpncol", "mainstat"],
+  },
+
+  {
+    id: "P3_Unique_Spear_001",
+    local: true,
+    name: "Arreat's Law",
+    type: "spear",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_arreatslaw", name: "Weapon Throw Extra Fury", format: "Weapon Throw generates up to 15-20 additional Fury based on how far away the enemy hit is. Maximum benefit when the enemy hit is 20 or more yards away.", args: 0},
+    },
+    preset: ["wpnphy", "mainstat"],
+  },
+
+  {
+    id: "P3_Unique_Sword_1H_012",
+    local: true,
+    name: "Azurewrath",
+    type: "sword",
+    quality: "legendary",
+    affixes: {
+      dmgcol: "elementalDamage",
+    },
+    required: {
+      hitfreeze: {min: 20, max: 25, step: 0.1},
+      custom: {id: "leg_azurewrath_p3", name: "Aura Damage vs Undead", format: "Undead and Demon enemies within 25 yards take %d%% weapon damage as Holy every second and are sometimes knocked into the air.", min: 500, max: 650},
+    },
+    preset: ["wpncol", "dmgcol"],
+  },
+
+  {
+    id: "P3_Unique_Sword_1H_104",
+    local: true,
+    name: "Fulminator",
+    type: "sword",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_fulminator", name: "Lightning Rod Damage", format: "Lightning damage has a chance to turn enemies into lightning rods, causing them to pulse %d%% weapon damage as Lightning every second to nearby enemies for 6 seconds.", min: 444, max: 555},
+    },
+    preset: ["wpnlit", "mainstat"],
+  },
+
+  {
+    id: "Unique_Mighty_1H_103_x1",
+    local: true,
+    name: "Dishonored Legacy",
+    type: "mightyweapon",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_dishonoredlegacy", name: "Cleave Extra Damage", format: "Cleave deals up to %d%% increased damage based on percentage of missing Fury.", min: 300, max: 400},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "Unique_Spear_004_p3",
+    local: true,
+    name: "Scrimshaw",
+    type: "spear",
+    quality: "legendary",
+    required: {
+      skill_witchdoctor_zombiecharger: {min: 60, max: 80},
+      custom: {id: "leg_scrimshaw", name: "Zombie Charger Cost Reduction", format: "Reduces the Mana cost of Zombie Charger by %d%%.", min: 40, max: 50},
+    },
+    preset: ["wpnphy", "mainstat", "damage"],
     primary: 5,
   },
 

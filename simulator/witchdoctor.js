@@ -44,7 +44,7 @@
     elem: {x: "psn", b: "psn", c: "col", d: "phy", a: "fir", e: "psn"},
   };
 
-  function cs_wm_onhit(data) {
+  function cs_bs_onhit(data) {
     Sim.addResource(3 * data.targets);
     if (Sim.stats.leg_thespiderqueensgrasp) {
       Sim.addBuff("slowed", undefined, 180);
@@ -55,19 +55,19 @@
     offensive: true,
     speed: 58,
     oncast: function(rune) {
-      var params = {duration: 240, tickrate: 60, tickinitial: 70, ontick: {count: 4, coeff: 0.48}};
+      var params = {duration: 240, tickrate: 60, tickinitial: 70, ontick: {count: 4, coeff: 0.48, pet: true}};
       switch (rune) {
       case "c": params.ontick.coeff *= 1.12; break;
       case "b":
         Sim.addBuff("spiderqueen", undefined, {
           duration: 901,
           tickrate: 15,
-          ontick: {type: "area", range: 10, coeff: 1.75 / 4},
+          ontick: {type: "area", range: 10, coeff: 1.75 / 4, pet: true},
         });
         return;
-      case "d": params.ontick.onhit = cs_wm_onhit; break;
+      case "d": params.ontick.coeff *= 1.215; break;
       case "e": params.ontick.onhit = Sim.apply_effect("slowed", 90); break;
-      case "a": params.ontick.coeff *= 1.215; break;
+      case "a": params.ontick.onhit = cs_bs_onhit; break;
       }
       if (Sim.stats.leg_thespiderqueensgrasp && rune !== "d") {
         params.ontick.onhit = Sim.apply_effect("slowed", 180);
@@ -105,7 +105,7 @@
       }
     },
     proctable: {x: 0.667, a: 0.667, c: 0.5, b: 0.1667, e: 0.667, d: 0.667},
-    elem: {x: "psn", a: "fir", c: "psn", b: "psn", e: "psn", d: "psn"},
+    elem: {x: "psn", a: "fir", c: "phy", b: "psn", e: "psn", d: "col"},
   };
 
   function firebomb_pit_onhit(data) {
@@ -145,14 +145,14 @@
       }
     },
     proctable: {x: 0.667, e: 0.2, b: 0.222, c: 0.067, d: 0.1, a: 0.1667},
-    elem: "fir",
+    elem: {x: "fir", e: "fir", b: "fir", c: "fir", d: "fir", a: "col"},
   };
 
   skills.graspofthedead = {
     offensive: true,
     speed: 57.142853,
-    cost: 150,
-    cooldown: {x: 8, c: 8, a: 8, e: 8, d: 6, b: 8},
+    cost: {x: 150, a: 150, e: 150, d: 150, b: 150},
+    cooldown: {x: 8, c: 8, a: 8, e: 8, d: 4, b: 8},
     oncast: function(rune) {
       if (rune === "b" || Sim.stats.leg_deadlyrebirth) {
         Sim.addBuff(undefined, undefined, {
@@ -166,7 +166,7 @@
         duration: 480,
         tickrate: 30,
         tickinitial: 1,
-        ontick: {type: "area", range: 14, coeff: (rune === "a" ? 0.55 : 0.35)},
+        ontick: {type: "area", range: 14, coeff: (rune === "a" ? 0.85 : 0.475)},
       });
     },
     proctable: {x: 0.07, c: 0.07, a: 0.07, e: 0.07, d: 0.07, b: 0.07},
@@ -177,15 +177,15 @@
     offensive: true,
     channeling: {x: 30, a: 60, d: 30, c: 30, b: 30, e: 30},
     speed: 87.804871,
-    initialcost: {x: 150, a: 150, d: 225, c: 150, b: 150, e: 150},
-    cost: {x: 75, a: 75, c: 75, b: 75, e: 75},
+    initialcost: {d: 250},
+    cost: {x: 125, a: 125, c: 125, b: 125, e: 125},
     oncast: function(rune) {
-      var dmg = {type: "cone", width: 40, range: 28, coeff: 4.25 / 2};
+      var dmg = {type: "cone", width: 40, range: 28, coeff: 4.75 / 2};
       switch (rune) {
-      case "a": dmg.coeff = 4.95; break;
+      case "a": dmg.coeff = 5; break;
       case "c":
         dmg = function(data) {
-          var coeff = 4.25 * (1 + 0.1 * Math.min(5, data.buff.ticks)) / 5;
+          var coeff = 4.75 * (1 + 0.103 * Math.min(5, data.buff.ticks)) / 5;
           var rate = Math.floor(60 / Sim.stats.info.aps);
           Sim.addBuff(undefined, undefined, {
             duration: rate * 5 + 1,
@@ -194,7 +194,7 @@
           });
         };
         break;
-      case "b": dmg = {coeff: 6.35}; break;
+      case "b": dmg = {coeff: 7.5 / 2}; break;
       case "e":
         dmg = function(data) {
           var coeff = 4.25 * (1 + 0.2 * Math.min(5, data.buff.ticks)) / 2;
@@ -202,10 +202,14 @@
         };
         break;
       }
-      Sim.channeling("firebats", this.channeling[rune], dmg);
+      var base;
+      if (Sim.stats.leg_coilsofthefirstspider) {
+        base.buffs = {lph: Sim.stats.leg_coilsofthefirstspider, dmgred: 30};
+      }
+      Sim.channeling("firebats", this.channeling[rune], dmg, undefined, base);
     },
     proctable: {x: 0.1667, a: 0.333, d: 0.2, c: 0.2, b: 0.5, e: 0.25},
-    elem: {x: "fir", a: "fir", d: "fir", c: "psn", b: "fir", e: "fir"},
+    elem: {x: "fir", a: "fir", d: "phy", c: "psn", b: "fir", e: "fir"},
   };
 
   function haunt_ontick(data) {
@@ -277,7 +281,7 @@
       data: {coeff: 1.3 / 5},
       ontick: swarm_ontick,
     };
-    if (data.castInfo.rune === "d" && !data.castInfo.user.spread) {
+    if (data.castInfo.rune === "d" && (!data.castInfo.user || !data.castInfo.user.spread)) {
       params.data.leech = 5;
     }
     if (data.castInfo.rune === "a") {
@@ -285,8 +289,6 @@
     }
     if (Sim.stats.passives.creepingdeath) {
       params.duration = 18000;
-    } else if (data.castInfo.rune === "c") {
-      params.duration = 960;
     }
     if (Sim.stats.leg_quetzalcoatl) {
       params.duration /= 2;
@@ -297,6 +299,7 @@
     }
     Sim.addBuff("locustswarm", undefined, params);
     Sim.after(45, function() {
+      if (!data.castInfo.user) data.castInfo.user = {};
       data.castInfo.user.spread = true;
       var spread = data.targets;
       if (data.castInfo.rune === "b") {
@@ -447,12 +450,24 @@
       return 15 * (Sim.stats.passives.tribalrites ? 0.75 : 1);
     },
     oncast: function(rune) {
-      if (rune === "a") return;
+      if (rune === "a" || Sim.stats.set_arachyr_4pc) {
+        var buffs = {dmgtaken: 25};
+        if (Sim.stats.set_arachyr_4pc) {
+          buffs.dmgred = 40;
+        }
+        Sim.addBuff("toadofhugeness", buffs, {
+          duration: 301,
+          tickrate: 30,
+          ontick: {coeff: 0.75},
+        });
+        if (rune === "a") return;
+      }
       if (rune === "b") {
-        Sim.addBuff("angrychicken", {shift: "angrychicken", extrams: 50}, {
-          duration: 120,
+        var mj = (Sim.stats.set_manajuma_2pc ? 1 : 0);
+        Sim.addBuff("angrychicken", {shift: "angrychicken", extrams: 50 + mj * 100}, {
+          duration: mj ? 900 : 120,
           onexpire: function(data) {
-            Sim.damage({type: "area", range: 12, self: true, coeff: 13.5});
+            Sim.damage({type: "area", range: 12, self: true, coeff: 13.5 * (1 + 2 * mj)});
           },
         });
         return;
@@ -462,12 +477,12 @@
         tickrate: 180,
         tickinitial: 1,
         ontick: function() {
-          Sim.addBuff("hex", {dmgtaken: (rune === "e" ? 20 : 10)}, {duration: 180, status: "charmed"});
+          Sim.addBuff("hex", {dmgtaken: (rune === "e" ? 30 : 15)}, {duration: 180, status: "charmed"});
         },
       });
     },
     proctable: {c: 0.333, a: 0.2},
-    elem: {x: "phy", d: "phy", e: "phy", b: "phy", a: "psn", c: "fir"},
+    elem: {x: "phy", d: "phy", e: "phy", b: "psn", a: "psn", c: "fir"},
   };
   skills.hex_explode = {
     secondary: true,
@@ -514,7 +529,7 @@
       }
       var duration = 1800;
       if (rune === "b" || Sim.stats.set_jadeharvester_4pc) {
-        duration = 3600;
+        buffs.extrams = 5;
       }
       Sim.addBuff("soulharvest", buffs, {duration: duration, stacks: targets, maxstacks: Sim.stats.leg_sacredharvester ? 10 : 5});
       if (rune === "e" || Sim.stats.set_jadeharvester_4pc) {
@@ -571,7 +586,7 @@
   skills.massconfusion = {
     speed: 57.142853,
     cooldown: function(rune) {
-      return (rune === "d" ? 45 : 60) * (Sim.stats.passives.tribalrites ? 0.75 : 1);
+      return (rune === "d" ? 30 : 60) * (Sim.stats.passives.tribalrites ? 0.75 : 1);
     },
     oncast: function(rune) {
       if (rune === "a") {
@@ -579,9 +594,9 @@
       }
       if (rune === "c") {
         Sim.addBuff(undefined, undefined, {
-          duration: 840,
+          duration: 720,
           tickrate: 15,
-          ontick: {type: "area", range: 8, coeff: 1.95 / 4},
+          ontick: {type: "area", range: 8, coeff: 1},
         });
       }
       Sim.addBuff("massconfusion", undefined, {duration: 720, status: "charmed"});
@@ -593,19 +608,21 @@
   skills.zombiecharger = {
     offensive: true,
     speed: 54.999996,
-    cost: 150,
+    cost: function(rune) {
+      return 150 * (1 - 0.01 * (Sim.stats.leg_scrimshaw || 0));
+    },
     oncast: function(rune) {
       switch (rune) {
       case "x": return {type: "line", speed: 0.3, radius: 6, pierce: true, coeff: 5.6, range: 22};
-      case "c": return {delay: 60, type: "area", range: 6, coeff: 8};
+      case "c": return {delay: 60, type: "area", range: 7, coeff: 8.8};
       case "d": return {type: "line", speed: 0.3, radius: 6, pierce: true, coeff: 5.6, range: 22};
       case "b":
         for (var i = 0; i < 7; ++i) {
-          Sim.damage({type: "line", speed: 0.3, radius: 6, pierce: true, coeff: 1.96, range: 22, angle: (i - 3) * 360 / 7, onhit: Sim.apply_effect("slowed", 120)});
+          Sim.damage({type: "line", speed: 0.3, radius: 6, pierce: true, coeff: 2.8, range: 22, angle: (i - 3) * 360 / 7, onhit: Sim.apply_effect("slowed", 120)});
         }
         break;
-      case "e": return {type: "line", speed: 0.8, radius: 6, area: 9, coeff: 5.32, range: 42};
-      case "a": return {type: "line", speed: 0.5, radius: 6, pierce: true, coeff: 3.92, count: 3, range: 44};
+      case "e": return {type: "line", speed: 1.2, radius: 6, area: 12, coeff: 6.8, range: 57};
+      case "a": return {type: "line", speed: 0.5, radius: 6, pierce: true, coeff: 5.2, count: 3, range: 44};
       }
     },
     proctable: {x: 0.5, c: 0.5, d: 0.5, b: 0.333, e: 0.5, a: 0.111},
@@ -660,15 +677,18 @@
         tickrate: 15,
         ontick: {type: "area", range: 6, coeff: 0.3},
       };
+      var name = "acidcloud";
       switch (rune) {
       case "b":
         dmg.delay = 36;
         dmg.range = 24;
         break;
       case "c":
-        params.duration = 300;
+        name = "acidcloud_blob";
+        params.duration = 301;
         params.ontick.pet = true;
         params.maxstacks = 3;
+        params.ontick.range = 9;
         break;
       case "d":
         params.duration = 360;
@@ -677,14 +697,17 @@
         dmg.type = "cone";
         dmg.range = 30;
         dmg.width = 55;
-        dmg.coeff *= 1.1;
-        params.ontick.coeff *= 1.1;
+        dmg.coeff *= 1.111;
+        params.ontick.coeff *= 1.111;
         break;
       case "a":
-        return {delay: 36, type: "area", range: 12, coeff: 5.25};
+        return {delay: 30, type: "area", range: 12, coeff: 7};
+      }
+      if (rune !== "c" && Sim.stats.leg_suwongdiviner) {
+        Sim.addBuff("acidcloud_blob", undefined, {duration: 301, tickrate: 15, ontick: {type: "area", range: 6, coeff: 0.3, pet: true}, maxstacks: 3});
       }
       Sim.damage(dmg);
-      Sim.addBuff("acidcloud", undefined, params);
+      Sim.addBuff(name, undefined, params);
     },
     proctable: {x: 0.2, b: 0.2, c: 0.2, d: 0.2, e: 0.1667, a: 0.333},
     elem: {x: "psn", b: "psn", c: "psn", d: "col", e: "psn", a: "fir"},
@@ -693,58 +716,45 @@
   skills.wallofzombies = {
     offensive: true,
     speed: 56.249996,
-    cooldown: function(rune) {
-      return 8 - (Sim.stats.set_helltooth_4pc ? 2 : 0);
+    cooldown: 8,
+    grace: function(rune) {
+      if (Sim.stats.leg_jeramsbracers) {
+        return [120, 2];
+      }
     },
     oncast: function(rune) {
       var params = {
-        duration: 240,
+        duration: 360,
         tickrate: 12,
         tickinitial: 1,
-        ontick: {type: "line", origin: 14, range: 28, radius: 5, pierce: true, coeff: 0.1},
+        ontick: {type: "line", origin: 14, range: 28, radius: 5, pierce: true, coeff: 10 / 30},
       };
       switch (rune) {
       case "b":
-        params.ontick.origin -= 9.5;
-        params.ontick.range += 19;
+        params.duration = 480;
+        params.ontick = {type: "area", range: 15, coeff: 0.3};
         break;
       case "d":
-        params.ontick.radius = 7;
-        params.ontick.onhit = Sim.apply_effect("chilled", 300);
-        break;
-      case "a":
-        Sim.addBuff(undefined, undefined, {
-          duration: 240,
-          tickrate: 72,
-          ontick: function(data) {
-            Sim.petattack("creepers", undefined, {
-              maxstacks: 10,
-              duration: 480,
-              tickrate: [60, 72],
-              ontick: {coeff: 0.25, pet: true},
-            });
-          },
-        });
-        break;
-      case "c":
+        params.origin = 25;
+        params.range = 50;
         if (!Sim.target.boss) Sim.addBuff("knockback", undefined, 30);
         break;
-      }
-      if (Sim.stats.set_helltooth_6pc) {
-        params.data = {ontick: params.ontick};
-        params.pool = Sim.extend({}, params.ontick);
-        params.pool.radius = 30;
-        params.pool.coeff = 0.6;
-        params.pool.proc = 0;
-        params.ontick = function(data) {
-          Sim.damage(data.ontick);
-          Sim.damage(data.pool);
-        };
+      case "a":
+        params.duration = 240;
+        params.ontick = {type: "area", range: 15, coeff: 0.5};
+        break;
+      case "e":
+        params.duration = 240;
+        params.ontick = {type: "line", origin: 20, range: 40, radius: 5, pierce: true, coeff: 0.55};
+        break;
+      case "c":
+        params.ontick = {type: "area", range: 15, coeff: 0.4, onhit: Sim.apply_effect("slowed", 180)};
+        break;
       }
       Sim.addBuff(undefined, undefined, params);
     },
     proctable: {x: 0.08, b: 0.07, d: 0.06, a: 0.05, e: 0.03, c: 0.033},
-    elem: {x: "phy", b: "phy", d: "col", a: "phy", e: "phy", c: "phy"},
+    elem: {x: "phy", b: "psn", d: "phy", a: "phy", e: "fir", c: "col"},
   };
 
   function piranhas_onhit(data) {
@@ -842,7 +852,7 @@
         Sim.after(60, function poison() {
           var stacks = Sim.getBuff("gargantuan");
           if (stacks) {
-            Sim.damage({type: "area", range: 10, origin: 5, coeff: 0.45 * Sim.stats.info.aps, pet: true, count: stacks});
+            Sim.damage({type: "area", range: 12, origin: 5, coeff: 0.45 * Sim.stats.info.aps, pet: true, count: stacks});
           }
           Sim.after(60, poison);
         });
@@ -861,6 +871,7 @@
       var params = {duration: 1200};
       switch (rune) {
       case "b": params.duration = 1800; break;
+      case "c": buffs.dmgred = 20; break;
       case "d": buffs.manaregen = 250; break;
       case "a": buffs.damage = 30; break;
       }
@@ -883,7 +894,7 @@
     pet: true,
     speed: 60,
     cooldown: function(rune) {
-      return (rune === "d" ? 90 : 120) * (Sim.stats.passives.tribalrites ? 0.75 : 1);
+      return (rune === "d" ? 90 : 120) * (Sim.stats.passives.tribalrites ? 0.75 : 1) * (Sim.stats.set_zunimassa_2pc ? 0.2 : 1);
     },
     oncast: function(rune) {
       var daggers = 5;
@@ -925,7 +936,7 @@
   };
 
   Sim.summon_sycophant = function() {
-    Sim.pushCastInfo({skill: "fetishsycophants", elem: Sim.stats.info.maxelem, pet: true});
+    Sim.pushCastInfo({skill: "fetishsycophants", elem: Sim.stats.info.maxelem, pet: true, castId: Sim.getCastId()});
     Sim.petattack("fetishsycophants", undefined, {
       duration: 3600,
       tickrate: 48,
@@ -940,14 +951,14 @@
     junglefortitude: {dmgred: 15},
     circleoflife: function() {
     },
-    spiritualattunement: {maxmana_percent: 10, manaregen_percent: 1},
+    spiritualattunement: {maxmana_percent: 10, manaregen_percent: 2},
     gruesomefeast: function() {
       Sim.register("onglobe", function() {
         Sim.addResource(0.1 * (Sim.stats.maxmana || 0));
         Sim.addBuff("gruesomefeast", {int_percent: 10}, {duration: 900, refresh: false, maxstacks: 5});
       });
     },
-    bloodritual: {rcr_mana: 10, regen_percent: 1},
+    bloodritual: {rcr_mana: 20, regen_percent: 1},
     badmedicine: function() {
     },
     zombiehandler: {life: 20},
@@ -972,7 +983,7 @@
     visionquest: function() {
       Sim.register("onhit", function(data) {
         if (data.skill && skills[data.skill] && skills[data.skill].signature) {
-          Sim.addBuff("visionquest", {manaregen_percent: 30}, {duration: 300});
+          Sim.addBuff("visionquest", {resourcegen: 40}, {duration: 300});
         }
       });
     },
@@ -987,6 +998,11 @@
     physicalattunement: function() {
     },
     midnightfeast: {dmgmul: {skills: ["summonzombiedogs", "gargantuan"], percent: 50}},
+    confidenceritual: function() {
+      if (Sim.target.distance - Sim.target.size < 20) {
+        Sim.addBuff("audacity", {dmgmul: 25});
+      }
+    },
   };
 
 })();

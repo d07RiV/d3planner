@@ -74,13 +74,13 @@ DiabloCalc.skills.wizard = {
       c: "Ice Blades",
     },
     info: {
-      "*": {"DPS": {sum: true, fpa: 56.25, round: "up", "Damage": 1}},
-      x: {"Damage": {elem: "arc", coeff: 1.68}},
-      a: {"Damage": {elem: "fir", coeff: 1.68}},
-      d: {"Damage": {elem: "arc", coeff: 1.68}},
-      b: {"Damage": {elem: "lit", coeff: 2.31}},
-      e: {"Damage": {elem: "arc", coeff: 1.68}},
-      c: {"Damage": {elem: "col", coeff: 1.68}},
+      "*": {"DPS": {sum: true, "Damage": {count: 3, fpa: 56.25, round: "up", speed: 1}}},
+      x: {"Damage": {elem: "arc", coeff: 0.56}},
+      a: {"Damage": {elem: "fir", coeff: 0.56}},
+      d: {"Damage": {elem: "arc", coeff: 0.56}},
+      b: {"Damage": {elem: "lit", coeff: 0.77}},
+      e: {"Damage": {elem: "arc", coeff: 0.56}},
+      c: {"Damage": {elem: "col", coeff: 0.56}},
     },
     active: true,
     params: [{rune: "a", name: "Stacks", min: 0, max: 50, val: 0, inf: true}],
@@ -257,7 +257,6 @@ DiabloCalc.skills.wizard = {
     category: "defensive",
     row: 2,
     col: 1,
-    nolmb: true,
     runes: {
       c: "Crystal Shell",
       d: "Prism",
@@ -508,7 +507,6 @@ DiabloCalc.skills.wizard = {
     category: "conjuration",
     row: 4,
     col: 0,
-    nolmb: true,
     runes: {
       b: "Chilling Aura",
       d: "Crystallize",
@@ -542,7 +540,6 @@ DiabloCalc.skills.wizard = {
     category: "conjuration",
     row: 4,
     col: 1,
-    nolmb: true,
     runes: {
       c: "Reactive Armor",
       d: "Power of the Storm",
@@ -570,7 +567,6 @@ DiabloCalc.skills.wizard = {
     category: "conjuration",
     row: 4,
     col: 2,
-    nolmb: true,
     runes: {
       b: "Electrify",
       c: "Force Weapon",
@@ -599,7 +595,6 @@ DiabloCalc.skills.wizard = {
     category: "conjuration",
     row: 4,
     col: 3,
-    nolmb: true,
     runes: {
       a: "Sparkflint",
       c: "Icicle",
@@ -628,7 +623,6 @@ DiabloCalc.skills.wizard = {
     category: "conjuration",
     row: 4,
     col: 4,
-    nolmb: true,
     runes: {
       d: "Absorption",
       e: "Pinpoint Barrier",
@@ -705,31 +699,42 @@ DiabloCalc.skills.wizard = {
       a: "Improved Archon",
     },
     info: function(rune, stats) {
-      var uptime = {duration: 20, cooldown: (rune == "d" || stats.set_vyr_4pc ? 100 : 120)};
-      if (stats.set_vyr_4pc) {
-        var elem;
-        switch (rune) {
-        case "e": elem = "fir"; break;
-        case "d": elem = "lit"; break;
-        case "b": elem = "col"; break;
-        default: elem = "arc";
-        }
-        return {"Explosion Damage": {elem: elem, coeff: 36.8, bonuses: {"Improved": 22}}, "Arcane Strike Damage": {elem: "max", coeff: 7.9, bonuses: {"Improved": 22}}, "Disintegration Wave DPS": {elem: "fir", aps: true, coeff: 7.79, bonuses: {"Improved": 22}, total: true}, "Arcane Blast Damage": {elem: "max", coeff: 6.04, bonuses: {"Improved": 22}}, "Uptime": uptime};
-      } else {
-        switch (rune) {
-          case "x": return {"Arcane Strike Damage": {elem: "arc", coeff: 7.9}, "Disintegration Wave DPS": {elem: "arc", aps: true, coeff: 7.79, total: true}, "Arcane Blast Damage": {elem: "arc", coeff: 6.04}, "Uptime": uptime};
-          case "e": return {"Explosion Damage": {elem: "fir", coeff: 36.8}, "Arcane Strike Damage": {elem: "fir", coeff: 7.9}, "Disintegration Wave DPS": {elem: "fir", aps: true, coeff: 7.79, total: true}, "Arcane Blast Damage":  {elem: "fir", coeff: 6.04}, "Uptime": uptime};
-          case "c": return {"Arcane Strike Damage": {elem: "arc", coeff: 7.9}, "Disintegration Wave DPS": {elem: "arc", aps: true, coeff: 7.79, total: true}, "Arcane Blast Damage": {elem: "arc", coeff: 6.04}, "Uptime": uptime};
-          case "d": return {"Arcane Strike Damage": {elem: "lit", coeff: 7.9}, "Disintegration Wave DPS": {elem: "lit", aps: true, coeff: 7.79, total: true}, "Arcane Blast Damage": {elem: "lit", coeff: 6.04}, "Uptime": uptime};
-          case "b": return {"Arcane Strike Damage": {elem: "col", coeff: 7.9}, "Disintegration Wave DPS": {elem: "col", aps: true, coeff: 7.79, total: true}, "Arcane Blast Damage": {elem: "col", coeff: 6.04}, "Uptime": uptime};
-          case "a": return {"Arcane Strike Damage": {elem: "arc", coeff: 7.9, bonuses: {"Improved": 22}}, "Disintegration Wave DPS": {elem: "fir", aps: true, coeff: 7.79, bonuses: {"Improved": 22}, total: true}, "Arcane Blast Damage": {elem: "arc", coeff: 6.04, bonuses: {"Improved": 22}}, "Uptime": uptime};
+      var res = {"Uptime": {duration: 20, cooldown: (rune == "d" || stats.set_vyr_2pc ? 100 : 120)}};
+      var elem = DiabloCalc.skilltips.wizard.archon.elements[rune];
+      if (rune === "e" || stats.set_vyr_2pc) {
+        res["Explosion Damage"] = {elem: elem, coeff: 36.8};
+      }
+      if (stats.set_vyr_2pc) {
+        elem = stats.info.maxelem;
+      }
+      res["Arcane Strike Damage"] = {elem: elem, coeff: 7.9};
+      res["Disintegration Wave DPS"] = {elem: elem, aps: true, coeff: 7.79, total: true};
+      res["Arcane Blast Damage"] = {elem: elem, coeff: 6.04};
+      res["Arcane Strike DPS"] = {sum: true, "Arcane Strike Damage": {speed: 1, fpa: 57.599954, round: "up"}};
+      if (stats.set_chantodo_2pc) {
+        res["Chantodo's DPS"] = {elem: "max", coeff: 3.5};
+        res["Max Chantodo's Damage"] = {elem: "max", coeff: 3.5, addcoeff: [[3.5, 20]]};
+      }
+      if (rune === "a" || stats.set_vyr_2pc) {
+        for (var k in res) {
+          if (res[k].coeff) {
+            res[k].bonuses = {"Improved": 22};
+          }
         }
       }
+      return res;
     },
     active: false,
-    params: (DiabloCalc.itemaffixes&&DiabloCalc.itemaffixes.leg_theswami.params||[{min: 0, max: 50, val: 0, name: "Stacks", inf: true}]),
+    params: (DiabloCalc.itemaffixes&&DiabloCalc.itemaffixes.leg_theswami.params||
+      [{min: "leg_fazulasimprobablechain", max: "leg_fazulasimprobablechain+50", val: "min", name: "Stacks", inf: true}]),
     buffs: function(rune, stats) {
-      return {damage: 20 + 6 * this.params[0].val, armor_percent: 20, resist_percent: 20};
+      var res = {damage: 20 + 6 * this.params[0].val, armor_percent: 20, resist_percent: 20};
+      if (stats.set_vyr_4pc) {
+        res.ias = this.params[0].val;
+        res.armor_percent += this.params[0].val;
+        res.resist_percent += this.params[0].val;
+      }
+      return res;
     },
   },
   blackhole: {
@@ -861,7 +866,7 @@ DiabloCalc.passives.wizard = {
     name: "Audacity",
     index: 16,
     active: true,
-    buffs: {dmgmul: {pet: false, percent: 15}},
+    buffs: {dmgmul: {pet: false, percent: 30}},
   },
   elementalexposure: {
     id: "elemental-exposure",
@@ -931,7 +936,7 @@ DiabloCalc.passives.wizard = {
         case "familiar":
           if (type !== "tal2") break;
         case "archon":
-          if (stats.set_vyrs_4pc) elems[maxelem] = true;
+          if (stats.set_vyrs_2pc) elems[maxelem] = true;
         default:
           if (DiabloCalc.skilltips.wizard[skill]) {
             var elem = DiabloCalc.skilltips.wizard[skill].elements[rune];
@@ -1018,7 +1023,7 @@ DiabloCalc.extraskills.wizard = {
   },
   archon_slowtime: {
     skill: "archon",
-    required: function(stats) { return stats.skills.archon && (stats.skills.archon === "b" || stats.set_vyr_4pc); },
+    required: function(stats) { return stats.skills.archon && (stats.skills.archon === "b" || stats.set_vyr_2pc); },
     name: "Slow Time",
     row: 6,
     col: 4,
@@ -1026,7 +1031,7 @@ DiabloCalc.extraskills.wizard = {
   },
   archon_teleport: {
     skill: "archon",
-    required: function(stats) { return stats.skills.archon && (stats.skills.archon === "c" || stats.set_vyr_4pc); },
+    required: function(stats) { return stats.skills.archon && (stats.skills.archon === "c" || stats.set_vyr_2pc); },
     name: "Teleport",
     row: 6,
     col: 3,

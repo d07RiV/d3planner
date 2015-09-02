@@ -1,6 +1,86 @@
 (function() {
   var _L = DiabloCalc.locale("bnet-tooltips.js");
 
+  DiabloCalc.itemPerfection = function(data) {
+    var slot;
+    if (typeof data === "string") {
+      slot = data;
+      data = DiabloCalc.getSlot(slot);
+    } else if (data) {
+      var slots = [];
+      for (var cur in DiabloCalc.itemSlots) {
+        if (DiabloCalc.itemSlots[cur].item && DiabloCalc.itemSlots[cur].item.id === data.id) {
+          slots = [cur];
+          break;
+        }
+        if (DiabloCalc.isItemAllowed(cur, data.id)) {
+          slots.push(cur);
+        }
+      }
+      if (!slots.length) return;
+      slot = slots[0];
+    }
+    if (!data) return;
+    var affixes = DiabloCalc.getItemAffixesById(data.id, data.ancient, false);
+    var required = DiabloCalc.getItemAffixesById(data.id, data.ancient, "only");
+    var info = {stats: {}, total: 0};
+    var dataMin = $.extend(true, {}, data);
+    var dataMax = $.extend(true, {}, data);
+    var count = 0;
+    for (var stat in data.stats) {
+      var range = required[stat];
+      if (!range) range = affixes[stat];
+      if (!range || range.max === undefined || range.min === range.max) continue;
+      if (range.noblock && affixes[stat] && data.stats[stat][0] > range.max) {
+        range = $.extend({}, range);
+        if (DiabloCalc.stats[stat] && DiabloCalc.stats[stat].dr) {
+          range.min = 100 - 0.01 * (100 - range.min) * (100 - affixes[stat].min);
+          range.max = 100 - 0.01 * (100 - range.max) * (100 - affixes[stat].max);
+        } else {
+          range.min += affixes[stat].min;
+          range.max += affixes[stat].max;
+        }
+      }
+      var ratio = (data.stats[stat][0] - range.min) / (range.max - range.min);
+      if (range.best === "min") {
+        dataMin.stats[stat][0] = range.max;
+        dataMax.stats[stat][0] = range.min;
+      } else {
+        dataMin.stats[stat][0] = range.min;
+        dataMax.stats[stat][0] = range.max;
+      }
+      if (range.max2 !== undefined && range.min2 !== range.max2) {
+        ratio = 0.5 * (ratio + ((data.stats[stat][1] || 0) - range.min2) / (range.max2 - range.min2));
+        dataMin.stats[stat][1] = range.min2;
+        dataMax.stats[stat][2] = range.max2;
+      }
+      info.stats[stat] = ratio;
+      var statInfo = DiabloCalc.stats[stat];
+      if (!statInfo || (!statInfo.base && !statInfo.secondary) || stat === "custom") {
+        info.total += ratio;
+        ++count;
+      }
+    }
+    if (count) info.total /= count;
+    else info.total = 1;
+    var stats = DiabloCalc.computeStats(function(id) {
+      return (id === slot ? data : DiabloCalc.getSlot(id));
+    });
+    var statsMin = DiabloCalc.computeStats(function(id) {
+      return (id === slot ? dataMin : DiabloCalc.getSlot(id));
+    });
+    var statsMax = DiabloCalc.computeStats(function(id) {
+      return (id === slot ? dataMax : DiabloCalc.getSlot(id));
+    });
+    info.dps = (statsMax.info.dps > statsMin.info.dps + 1 ?
+      (stats.info.dps - statsMin.info.dps) / (statsMax.info.dps - statsMin.info.dps) : 1);
+    info.dpsDelta = Math.max(0, statsMax.info.dps - stats.info.dps);
+    info.toughness = (statsMax.info.toughness > statsMin.info.toughness + 1 ?
+      (stats.info.toughness - statsMin.info.toughness) / (statsMax.info.toughness - statsMin.info.toughness) : 1);
+    info.toughnessDelta = Math.max(0, statsMax.info.toughness - stats.info.toughness);
+    return info;
+  };
+
   DiabloCalc.tooltip = new function() {
     var tooltipWrapper;
     var tooltipContent;
@@ -442,9 +522,21 @@
       //return DiabloCalc.getSlotId("leftfinger") === "Unique_Ring_107_x1" ||
       //       DiabloCalc.getSlotId("rightfinger") === "Unique_Ring_107_x1";
     }
+    function percentSpan(value, cls) {
+      var red = Math.round(255 * (value > 0.5 ? 2 - 2 * value : 1));
+      var green = Math.round(255 * (value > 0.5 ? 1 : 2 * value));
+      red = Math.max(0, Math.min(255, red));
+      green = Math.max(0, Math.min(255, green));
+      var color = "#" + ("0" + red.toString(16)).slice(-2) + ("0" + green.toString(16)).slice(-2) + "00";
+      var result = "<span style=\"color: " + color + "\"";
+      if (cls) result += " class=\"" + cls + "\"> (";
+      else result += ">";
+      return result + parseFloat((value * 100).toFixed(1)) + "%" + (cls ? ")" : "") + "</span>";
+    }
     function showItem(node, slot, _side) {
       var data;
       var compare = false;
+      var perfection;
       if (typeof slot === "string") {
         if (DiabloCalc.itemSlots[slot]) {
           data = DiabloCalc.getSlot(slot);
@@ -454,6 +546,7 @@
             slotSize.custom = slotSize[DiabloCalc.itemTypes[type].slot];
             break;
           }
+          perfection = DiabloCalc.itemPerfection(slot);
         } else if (DiabloCalc.itemById[slot]) {
           data = {id: slot, template: true};
           slot = undefined;
@@ -476,9 +569,35 @@
         data = slot;
         slot = undefined;
         slotSize.custom = "square";
+        perfection = DiabloCalc.itemPerfection(data);
       }
       if (!data || !DiabloCalc.itemById[data.id]) {
         return;
+      }
+
+      var sideSlot;
+      if (compare && DiabloCalc.tipStatList) {
+        curCompare = data;
+        var slots = [];
+        for (var _slot in DiabloCalc.itemSlots) {
+          if (DiabloCalc.itemSlots[_slot].item && DiabloCalc.itemSlots[_slot].item.id === data.id) {
+            slots = [_slot];
+            break;
+          }
+          if (DiabloCalc.itemSlots[_slot].item && DiabloCalc.isItemAllowed(_slot, data.id)) {
+            slots.push(_slot);
+          }
+        }
+        if (slots.length) {
+          sideSlot = slots[0];
+          if (slots.length > 1 && altKey) {
+            sideSlot = slots[1];
+          }
+        } else {
+          compare = undefined;
+        }
+      } else {
+        compare = undefined;
       }
 
       if (_side && !side_tooltipWrapper) {
@@ -760,6 +879,9 @@
             range = "<span class=\"d3-color-gray d3-tooltip-range\"> [" + DiabloCalc.formatNumber(minval, decimal, 10000) + " - " +
               DiabloCalc.formatNumber(maxval, decimal, 10000) + "]" + (format.match(/%(d|\.[0-9]f)%%/g) ? "%" : "") + "</span>";
           }
+          if (!compare && perfection && perfection.stats[stat] !== undefined) {
+            range += percentSpan(perfection.stats[stat], "d3-perfection-value");
+          }
           format = formatBonus(format, data.stats[stat], stat == "custom" ? 2 : 1, stat);
           effects.append("<li class=\"d3-color-" + propColor + " d3-item-property-" + propType + "\"><p>" + format + range + "</p></li>");
         }
@@ -784,6 +906,19 @@
         if (data.random) {
           effects.append("<li class=\"d3-color-blue\"><span class=\"value\">+" + data.random + "</span> " + _L("Random Magic Properties") + "</li>");
         }
+      }
+
+      if (data.transmog && DiabloCalc.itemById[data.transmog] && DiabloCalc.itemById[data.transmog].quality !== "rare") {
+        effects.append("<p class=\"item-property-category d3-color-blue\">" + _L("Transmogrification") + ":</p>");
+        var tmitem = DiabloCalc.itemById[data.transmog];
+        effects.append("<li class=\"value d3-color-" + (tmitem.quality === "set" ? "green" : "orange") + "\">" + tmitem.name + "</li>");
+      } else if (data.transmog && DiabloCalc.webglItems[data.transmog]) {
+        effects.append("<p class=\"item-property-category d3-color-blue\">" + _L("Transmogrification") + ":</p>");
+        var tmitem = DiabloCalc.webglItems[data.transmog];
+        effects.append("<li class=\"value d3-color-" + (tmitem.promo ? "orange" : "white") + "\">" + (tmitem.name || data.transmog) + "</li>");
+      }
+      if (data.dye && DiabloCalc.webglDyes && DiabloCalc.webglDyes[data.dye]) {
+        effects.append("<p class=\"item-property-category\">" + DiabloCalc.webglDyes[data.dye].name + "</p>");
       }
 
       //FTFY
@@ -874,80 +1009,70 @@
         }
       }
 
-      props.append("<ul class=\"item-extras\"><li class=\"item-reqlevel\"><span class=\"d3-color-gold\">" + _L("Required Level: ") + "</span><span class=\"value\">70</span></li>" +
-        "<li>" + _L("Account Bound") + "</li></ul><span class=\"item-unique-equipped\">" + _L("Unique Equipped") + "</span><span class=\"clear\"><!--   --></span>");
-
-      if (item.flavor) {
-        outer.append("<div class=\"tooltip-extension\"><div class=\"flavor\">" + item.flavor + "</div></div>");
+      var perfText = "<span class=\"item-unique-equipped\">" + _L("Unique Equipped") + "</span>";
+      if (perfection && perfection.total !== undefined) {
+        perfText = "<span class=\"item-unique-equipped\">" + _L("Perfection: ") + percentSpan(perfection.total);
+        if (!compare && !_side) {
+          if (!shiftKey) perfText += " <span class=\"d3-perfection-tip\">" + _L("(hold shift for details)") + "</span>";
+          perfText += "</span><span class=\"d3-perfection-section item-unique-equipped\">";
+          perfText += _L(perfection.dpsDelta ? "Damage: {0} (max {1})" : "Damage: {0}").format(percentSpan(perfection.dps),
+            "<span class=\"d3-color-white\">+" + DiabloCalc.formatNumber(perfection.dpsDelta, 0, 10000) + "</span>");
+          perfText += "</span><span class=\"d3-perfection-section item-unique-equipped\">";
+          perfText += _L(perfection.toughnessDelta ? "Toughness: {0} (max {1})" : "Toughness: {0}").format(percentSpan(perfection.toughness),
+            "<span class=\"d3-color-white\">+" + DiabloCalc.formatNumber(perfection.toughnessDelta, 0, 10000) + "</span>");
+          perfText += "</span>";
+        }
       }
+      props.append("<ul class=\"item-extras\"><li class=\"item-reqlevel\"><span class=\"d3-color-gold\">" + _L("Required Level: ") + "</span><span class=\"value\">70</span></li>" +
+        "<li>" + _L("Account Bound") + "</li></ul>" + perfText + "<span class=\"clear\"><!--   --></span>");
 
-      var sideSlot;
-      if (compare && DiabloCalc.tipStatList) {
-        curCompare = data;
-        var slots = [];
-        for (var slot in DiabloCalc.itemSlots) {
-          if (DiabloCalc.itemSlots[slot].item && DiabloCalc.itemSlots[slot].item.id === data.id) {
-            slots = [slot];
-            break;
-          }
-          if (DiabloCalc.itemSlots[slot].item && DiabloCalc.isItemAllowed(slot, data.id)) {
-            slots.push(slot);
-          }
-        }
-        if (slots.length) {
-          slot = slots[0];
-          if (slots.length > 1 && altKey) {
-            slot = slots[1];
-          }
-          sideSlot = slot;
-          var stats = DiabloCalc.getStats();
-          if (shiftKey && DiabloCalc.itemSlots[slot].item && DiabloCalc.itemSlots[slot].item.gems) {
-            //sideSlot = $.extend({}, DiabloCalc.itemSlots[slot].item);
-            //sideSlot.gems = [];
-            stats = DiabloCalc.computeStats(function(id) {
-              if (id === slot) {
-                var tmp = $.extend({}, DiabloCalc.itemSlots[slot].item);
-                tmp.gems = [];
-                return tmp;
-              } else {
-                return DiabloCalc.getSlot(id);
-              }
-            });
-          }
-          var altStats = DiabloCalc.computeStats(function(id) {
-            if (id === slot) {
-              if (shiftKey) {
-                var tmp = $.extend({}, data);
-                tmp.gems = [];
-                return tmp;
-              } else {
-                return data;
-              }
+      if (compare && sideSlot) {
+        var stats = DiabloCalc.getStats();
+        if (shiftKey && DiabloCalc.itemSlots[sideSlot].item && DiabloCalc.itemSlots[sideSlot].item.gems) {
+          stats = DiabloCalc.computeStats(function(id) {
+            if (id === sideSlot) {
+              var tmp = $.extend({}, DiabloCalc.itemSlots[sideSlot].item);
+              tmp.gems = [];
+              return tmp;
+            } else {
+              return DiabloCalc.getSlot(id);
             }
-            else return DiabloCalc.getSlot(id);
           });
-          var out = [];
-          for (var x in DiabloCalc.tipStatList) {
-            if (!DiabloCalc.tipStatList[x].stat) continue;
-            var value = stats.getValue(DiabloCalc.tipStatList[x].stat);
-            var altValue = altStats.getValue(DiabloCalc.tipStatList[x].stat);
-            if (1 || value !== altValue) {
-              var delta = altValue - value;
-              var percent = (value < 0.01 ? 100000 : 100 * delta / value);
-              out.push([percent, "<li><span class=\"tooltip-icon-bullet\"></span> <span class=\"d3-color-white\">" + (DiabloCalc.tipStatList[x].shortName || DiabloCalc.tipStatList[x].name) + "</span>: " +
-                "<span class=\"d3-color-" + (delta === 0 ? "gray" : (delta > 0 ? "green" : "red")) + "\">" + (value > 0.01 ? DiabloCalc.formatNumber(percent, 2) + "%" : "+&#8734;") +
-                "</span></li>"]);
+        }
+        var altStats = DiabloCalc.computeStats(function(id) {
+          if (id === sideSlot) {
+            if (shiftKey) {
+              var tmp = $.extend({}, data);
+              tmp.gems = [];
+              return tmp;
+            } else {
+              return data;
             }
           }
-          out.sort(function(a, b) {return b[0] - a[0] + a[1].localeCompare(b[1]) * 0.001;});
-          var outStr = "<div class=\"tooltip-extension\"><ul class=\"item-type\"><li><span class=\"d3-color-gold\">" + _L("Stat Changes if Equipped:") + "</span></li>";
-          for (var i = 0; i < out.length; ++i) {
-            outStr += out[i][1];
+          else return DiabloCalc.getSlot(id);
+        });
+        var out = [];
+        for (var x in DiabloCalc.tipStatList) {
+          if (!DiabloCalc.tipStatList[x].stat) continue;
+          var value = stats.getValue(DiabloCalc.tipStatList[x].stat);
+          var altValue = altStats.getValue(DiabloCalc.tipStatList[x].stat);
+          if (1 || value !== altValue) {
+            var delta = altValue - value;
+            var percent = (value < 0.01 ? 100000 : 100 * delta / value);
+            out.push([percent, "<li><span class=\"tooltip-icon-bullet\"></span> <span class=\"d3-color-white\">" + (DiabloCalc.tipStatList[x].shortName || DiabloCalc.tipStatList[x].name) + "</span>: " +
+              "<span class=\"d3-color-" + (delta === 0 ? "gray" : (delta > 0 ? "green" : "red")) + "\">" + (value > 0.01 ? DiabloCalc.formatNumber(percent, 2) + "%" : "+&#8734;") +
+              "</span></li>"]);
           }
-          outer.append(outStr + "</ul></div>");
-        } else {
-          compare = undefined;
         }
+        out.sort(function(a, b) {return b[0] - a[0] + a[1].localeCompare(b[1]) * 0.001;});
+        var outStr = "<div class=\"tooltip-extension\"><ul class=\"item-type\"><li><span class=\"d3-color-gold\">" + _L("Stat Changes if Equipped:") + "</span></li>";
+        for (var i = 0; i < out.length; ++i) {
+          outStr += out[i][1];
+        }
+        outer.append(outStr + "</ul></div>");
+      }
+      if (item.flavor && !compare) {
+        outer.append("<div class=\"tooltip-extension\"><div class=\"flavor\">" + item.flavor + "</div></div>");
       }
 
       if (_side) {
@@ -1045,6 +1170,9 @@
       if (e.which == 17 && tooltipWrapper) {
         tooltipWrapper.addClass("d3-tooltip-showrange");
       }
+      if (e.which == 16 && tooltipWrapper) {
+        tooltipWrapper.addClass("d3-tooltip-perfection");
+      }
       if (e.which === 16 || e.which === 18) {
         if (e.which === 16) shiftKey = true;
         if (e.which === 18) altKey = true;
@@ -1056,6 +1184,9 @@
     }).keyup(function(e) {
       if (e.which == 17 && tooltipWrapper) {
         tooltipWrapper.removeClass("d3-tooltip-showrange");
+      }
+      if (e.which == 16 && tooltipWrapper) {
+        tooltipWrapper.removeClass("d3-tooltip-perfection");
       }
       if (e.which === 16 || e.which === 18) {
         if (e.which === 16) shiftKey = false;

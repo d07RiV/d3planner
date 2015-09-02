@@ -132,7 +132,7 @@ DiabloCalc.addItems([
     type: "gloves",
     quality: "set",
     set: "helltooth",
-    preset: ["mainstat", "cdr"],
+    preset: ["mainstat", "chc"],
   },
 
   {
@@ -307,6 +307,36 @@ DiabloCalc.addItems([
     type: "gloves",
     quality: "set",
     set: "wastes",
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "Unique_Gloves_Set_01_p3",
+    local: true,
+    name: "Uliana's Fury",
+    type: "gloves",
+    quality: "set",
+    set: "uliana",
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "Unique_Gloves_Set_02_p3",
+    local: true,
+    name: "Arachyr’s Claws ",
+    type: "gloves",
+    quality: "set",
+    set: "arachyr",
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "Unique_Gloves_Set_03_p3",
+    local: true,
+    name: "Will of the Light",
+    type: "gloves",
+    quality: "set",
+    set: "light",
     preset: ["mainstat", "chc"],
   },
 

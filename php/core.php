@@ -1,0 +1,22 @@
+<?php
+require("getter.php");
+GetDocs(array(
+  "scripts/common.js",
+  "scripts/bnet-parser.js",
+  "scripts/bnet-tooltips.js",
+  "scripts/stats.js",
+  "scripts/itembox.js",
+  "scripts/skillbox.js",
+  "scripts/account.js",
+  "scripts/ui-paperdoll.js",
+  "scripts/ui-equipment.js",
+  "scripts/ui-import.js",
+  "scripts/ui-paragon.js",
+  "scripts/ui-stats.js",
+  "scripts/ui-skills.js",
+  "scripts/ui-timeline.js",
+  "scripts/ui-simulator.js",
+  "scripts/d3gl_physics.js",
+  "scripts/d3gl.js",
+), false, "", "DiabloCalc.onLoaded();");
+?>

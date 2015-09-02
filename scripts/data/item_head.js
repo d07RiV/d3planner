@@ -15,7 +15,7 @@ DiabloCalc.addItems([
     type: "helm",
     quality: "legendary",
     required: {
-      custom: {id: "leg_brokencrown", name: "Extra Gem Drops", format: "Whenever a gem drops, a gem of the type socketed into this item also drops.", args: 0},
+      custom: {id: "leg_brokencrown", name: "Extra Gem Drops", format: "Whenever a gem drops, a gem of the type socketed into your helmet also drops.", args: 0},
     },
     preset: ["mainstat", "sockets"],
   },
@@ -31,11 +31,12 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Helm_002_p1",
+    ids: ["Unique_Helm_002_p3"],
     name: "Leoric's Crown",
     type: "helm",
     quality: "legendary",
     required: {
-      custom: {id: "leg_leoricscrown", name: "Increased Gem Effects", format: "Increase the effect of any gem socketed into this item by %d%%.", min: 75, max: 100},
+      custom: {id: "leg_leoricscrown", name: "Increased Gem Effects", format: "Increase the effect of any gem socketed into your helm by %d%%.", min: 75, max: 100},
     },
     preset: ["mainstat", "sockets"],
   },
@@ -319,6 +320,7 @@ DiabloCalc.addItems([
     id: "P1_Unique_WizardHat_003",
     ids: ["p1_Unique_WizardHat_003"],
     name: "The Swami",
+    suffix: _L("Legacy"),
     type: "wizardhat",
     quality: "legendary",
     required: {
@@ -415,7 +417,7 @@ DiabloCalc.addItems([
     type: "voodoomask",
     quality: "legendary",
     required: {
-      custom: {id: "leg_carnevil", name: "Fetishes Shoot Darts", format: "Your Fetishes shoot a Poison Dart every time you do.", args: 0},
+      custom: {id: "leg_carnevil", name: "Fetishes Shoot Darts", format: "The 5 Fetishes closest to you will shoot a powerful Poison Dart every time you do.", args: 0},
     },
     preset: ["mainstat", "chc"],
   },
@@ -437,7 +439,7 @@ DiabloCalc.addItems([
     type: "voodoomask",
     quality: "legendary",
     required: {
-      custom: {id: "leg_thegrinreaper", name: "Chance to Summon Mimics", format: "Chance to summon horrific Mimics when attacking.", args: 0},
+      custom: {id: "leg_thegrinreaper", name: "Chance to Summon Mimics", format: "Chance when attacking to summon horrific Mimics that cast some of your equipped skills.", args: 0},
     },
     preset: ["mainstat", "sockets"],
   },
@@ -648,6 +650,58 @@ DiabloCalc.addItems([
     type: "helm",
     quality: "set",
     set: "wastes",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P3_Unique_WizardHat_003",
+    local: true,
+    name: "The Swami",
+    type: "wizardhat",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_theswami_p3", name: "Extra Archon Damage Duration", format: "The bonuses from Archon stacks now last for %d seconds after Archon expires.", min: 15, max: 20},
+    },
+    preset: ["mainstat", "apoc", "maxap"],
+  },
+
+  {
+    id: "Unique_Helm_Set_01_p3",
+    local: true,
+    name: "Uliana's Spirit",
+    type: "helm",
+    quality: "set",
+    set: "uliana",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "Unique_Helm_Set_02_p3",
+    local: true,
+    name: "Arachyr’s Visage",
+    type: "helm",
+    quality: "set",
+    set: "arachyr",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "Unique_Helm_Set_03_p3",
+    local: true,
+    name: "Crown of the Light",
+    type: "helm",
+    quality: "set",
+    set: "light",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "Unique_Helm_Set_13_x1",
+    local: true,
+    name: "Vyr's Sightless Skull",
+    type: "helm",
+    quality: "set",
+    set: "vyr",
     preset: ["mainstat", "sockets"],
   },
 

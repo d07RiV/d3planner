@@ -170,6 +170,24 @@
       });
     }
   };
+  gems.stricken = function(level) {
+    var next = 0;
+    var counter = 0;
+    Sim.register("onhit", function(data) {
+      if (Sim.time >= next) {
+        if (--counter < 0) {
+          Sim.addBuff("baneofthestricken", {dmgmul: 0.8 + level * 0.01}, {
+            maxstacks: 9999,
+          });
+          counter = Sim.target.count;
+        }
+        next = Sim.time + 15;
+      }
+    });
+    if (level >= 25) {
+      Sim.addBaseStats({bossdmg: 25});
+    }
+  };
 
   affixes.leg_wandofwoh = function() {
     function docast(data) {
@@ -278,9 +296,7 @@
     });
   };
   affixes.leg_pridesfall = function(amount) {
-    if (Sim.params.leg_pridesfall && Sim.params.leg_pridesfall[0]) {
-      Sim.addBaseStats({rcr: 30});
-    }
+    Sim.addBaseStats({rcr: 30});
   };
   affixes.leg_hexingpantsofmryan = function(amount) {
     if (Sim.params.leg_hexingpantsofmryan && Sim.params.leg_hexingpantsofmryan[0]) {
@@ -462,7 +478,7 @@
       }
     });
   };
-  affixes.leg_fulminator = function(amount) {
+  affixes.leg_fulminator = affixes.leg_fulminator_p3 = function(amount) {
     Sim.register("onhit_proc", function(data) {
       var targets = Sim.random("fulminator", data.proc, data.targets, true);
       if (targets) {
@@ -500,11 +516,11 @@
       }
     });
   };
-  affixes.leg_azurewrath = function(amount) {
+  affixes.leg_azurewrath = affixes.leg_azurewrath_p3 = function(amount) {
     Sim.addBuff(undefined, undefined, {
       tickrate: 30,
       ontick: function(data) {
-        if (Sim.target.type === "undead") {
+        if (Sim.target.type === "undead" || (Sim.stats.leg_azurewrath_p3 && Sim.target.type === "demon")) {
           Sim.damage({type: "area", range: 25, self: true, elem: "hol", coeff: amount * 0.005});
         }
       },
@@ -669,14 +685,19 @@
       if (data.skill === "poisondart") {
         var pierce = (Sim.stats.leg_thedaggerofdarts ? true : undefined);
         var sources = ["fetisharmy", "fetishsycophants", "thegidbinn"];
-        for (var i = 0; i < sources.length; ++i) {
-          var count = Sim.getBuff(sources[i]);
-          if (count) {
-            Sim.pushCastInfo({triggered: sources[i]});
+        var count = 5;
+        for (var i = 0; i < sources.length && count; ++i) {
+          var curCount = Sim.petdelay(sources[i], count);
+          if (curCount) {
+            Sim.pushCastInfo({triggered: sources[i], castId: data.castId});
             var pierce = !!Sim.stats.leg_thedaggerofdarts;
-            Sim.damage({type: "line", pierce: pierce, speed: 1.5, skill: "poisondart", pet: true, elem: "psn", coeff: 1.3 * Sim.stats.info.aps, count: count});
+            var factor = 1.3 * Sim.stats.info.aps * 3.5;
+            if (sources[i] === "fetishsycophants") {
+              factor *= 1 + 0.01 * (Sim.stats.skill_witchdoctor_fetisharmy || 0);
+            }
+            Sim.damage({type: "line", pierce: pierce, speed: 1.5, skill: "poisondart", pet: true, elem: "psn", coeff: factor, count: curCount});
             Sim.popCastInfo();
-            Sim.petdelay(sources[i]);
+            count -= curCount;
           }
         }
       }
@@ -738,7 +759,7 @@
     var next = 0;
     Sim.register("oncast", function(data) {
       if (Sim.time >= next && data.offensive && Sim.random("flyingdragon", 0.05)) {
-        Sim.addBuff("flyingdragon", {weaponias: 100}, {duration: 420});
+        Sim.addBuff("flyingdragon", {weaponaps: 1.15}, {duration: 420});
       }
     });
   };
@@ -749,6 +770,94 @@
       if (data.generate) {
         Sim.addBuff("spiritguards", {dmgred: amount}, {duration: 180});
       }
+    });
+  };
+
+  affixes.leg_hunterswrath = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["hungeringarrow", "entanglingshot", "bolas", "evasivefire", "grenade"], percent: amount}});
+  };
+
+  affixes.leg_bindingofthelost = function(amount) {
+    Sim.register("onhit", function(data) {
+      if (data.castInfo && data.castInfo.skill === "sevensidedstrike") {
+        //todo: damage reduction
+        Sim.addBuff("bindingsofthelost", undefined, {duration: 420, maxstacks: 50, refresh: false});
+      }
+    });
+  };
+
+  affixes.leg_wrapsofclarity = function(amount) {
+    if (Sim.stats.charClass !== "demonhunter") return;
+    Sim.register("oncast", function(data) {
+      if (data.generate) {
+        Sim.addBuff("wrapsofclarity", {dmgred: amount}, {duration: 300});
+      }
+    });
+  };
+
+  affixes.leg_jeramsbracers = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["wallofzombies"], percent: amount}});
+  };
+
+  affixes.leg_hellskull = function(amount) {
+    if (Sim.stats.info.mainhand.slot == "twohand") {
+      Sim.addBaseStats({damage: 10});
+    }
+  };
+
+  affixes.leg_sacredharness = function(amount) {
+    Sim.register("oncast", function(data) {
+      if (data.skill === "fallingsword") {
+        Sim.after(54, function() {
+          Sim.cast("judgment");
+        });
+      }
+    });
+  };
+
+  affixes.leg_blessedofhaull = function(amount) {
+    Sim.register("onhit", function(data) {
+      if (data.castInfo && data.castInfo.skill === "justice") {
+        if (data.castInfo.user && !data.castInfo.user.blessedofhaull) {
+          Sim.cast_hammer(false);
+          data.castInfo.user.blessedofhaull = true;
+        }
+      }
+    });
+  };
+
+  affixes.leg_beltofthetrove = function(amount) {
+    Sim.after(amount * 60, function impact() {
+      Sim.cast("bombardment");
+      Sim.after(amount * 60, impact);
+    });
+  };
+
+  affixes.leg_brokenpromises = function(amount) {
+    var cache = new Float32Array(16 * 6);
+    cache[15 * 6] = 1;
+    var lastFrame = 0;
+    Sim.register("onhit_proc", function(data) {
+      if (Sim.getBuff("brokenpromises")) return;
+      var p0 = Math.pow(1 - data.chc, data.hits || 1);
+      var tmp = new Float32Array(16 * 6);
+      var dt = Sim.time - lastFrame;
+      for (var t = 0; t < 16; ++t) for (var n = 0; n < 5; ++n) {
+        var p = cache[t * 6 + n];
+        if (t + dt >= 15) tmp[n + 1] += p * p0;
+        else tmp[(t + dt) * 6 + n] += p * p0;
+        tmp[Math.min(t + dt, 15) * 6] += p * (1 - p0);
+      }
+      if (Sim.random("brokenpromises", tmp[5])) {
+        cache = new Float32Array(16 * 6);
+        cache[15 * 6] = 1;
+        Sim.addBuff("brokenpromises", {chc: 100}, {duration: 180});
+      } else {
+        var sum = 0;
+        for (var t = 0; t < 16; ++t) for (var n = 0; n < 5; ++n) sum += tmp[t * 6 + n];
+        for (var t = 0; t < 16; ++t) for (var n = 0; n < 5; ++n) cache[t * 6 + n] = tmp[t * 6 + n] / sum;
+      }
+      lastFrame = Sim.time;
     });
   };
 

@@ -897,7 +897,7 @@ DiabloCalc.itemTypes = {
       speed: 1.4,
       min: 168,
       max: 392,
-      type: "hth",
+      type: "fist",
     },
     generic: "FistWeapon_1H_206",
   },
@@ -1163,6 +1163,8 @@ DiabloCalc.itemTypes = {
       resall: "resistAll",
       armor: "armorLarge",
       edef: "edefNormal",
+      rcr: "rcrSmall",
+      cdr: "cdrSmall",
 
       resist: "resistSingle",
       meleedef: "defNormal",

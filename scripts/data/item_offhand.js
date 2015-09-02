@@ -345,7 +345,7 @@ DiabloCalc.addItems([
     type: "mojo",
     quality: "set",
     set: "manajuma",
-    preset: ["mainstat", "manaregen"],
+    preset: ["mainstat", "chc"],
   },
 
   {
@@ -615,6 +615,32 @@ DiabloCalc.addItems([
     type: "quiver",
     quality: "legendary",
     preset: ["chc", "edmg"],
+  },
+
+  {
+    id: "P2_mojo_norm_unique_02",
+    local: true,
+    name: "Henri’s Perquisition",
+    type: "mojo",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_henrisperquisition", name: "Damage Reduction", format: "The first time an enemy deals damage to you, reduce that damage by %d%% and Charm the enemy for 3 seconds.", min: 60, max: 80},
+      dura: "one",
+    },
+    preset: ["chc", "mainstat"],
+    secondary: 3,
+  },
+
+  {
+    id: "Unique_Shield_103_x1",
+    local: true,
+    name: "Guard of Johanna",
+    type: "crusadershield",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_guardofjohanna", name: "Increased Blessed Hammer Damage", format: "Blessed Hammer damage is increased by %d%% for the first 3 enemies it hits.", min: 200, max: 250},
+    },
+    preset: ["mainstat"],
   },
 
 ]);

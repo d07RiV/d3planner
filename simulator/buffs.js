@@ -233,30 +233,37 @@
       obj.events.tick = Sim.after(e.buff.params.tickrate, onBuffTick, e);
     }
   }
-  Sim.delayBuff = function(id, delay) {
+  Sim.delayBuff = function(id, delay, stacks) {
     var buff = this.buffs[id];
+    if (stacks === undefined) stacks = 9999;
     if (!buff) {
       var meta = this.metaBuffs[id];
-      if (!meta) return;
-      for (var i = 0; i < meta.length; ++i) {
-        Sim.delayBuff(meta[i], delay);
+      if (!meta) return 0;
+      var reduced = 0;
+      for (var i = 0; i < meta.length && stacks > reduced; ++i) {
+        reduced += Sim.delayBuff(meta[i], delay, stacks - reduced);
       }
-      return;
+      return reduced;
     }
     if (buff.params.refresh) {
       if (buff.events.tick && buff.events.tick.time < this.time + delay) {
         this.removeEvent(buff.events.tick);
         buff.events.tick = this.after(delay, onBuffTick, {buff: buff});
+        return 1;
       }
     } else {
-      for (var i = 0; i < buff.stacklist.length; ++i) {
+      var reduced = 0;
+      for (var i = 0; i < buff.stacklist.length && stacks > reduced; ++i) {
         var stack = buff.stacklist[i];
         if (stack && stack.events.tick && stack.events.tick.time < this.time + delay) {
           this.removeEvent(stack.events.tick);
           stack.events.tick = this.after(delay, onBuffTick, {buff: buff, stack: stack});
+          ++reduced;
         }
       }
+      return reduced;
     }
+    return 0;
   };
 
   Sim.refreshBuff = function(id, duration) {
@@ -347,6 +354,7 @@
           buff.userStart = this.time;
         }
         buff.castInfo.weapon = castInfo.weapon;
+        buff.castInfo.castId = castInfo.castId;
       }
     }
 

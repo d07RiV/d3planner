@@ -209,6 +209,7 @@
     var data = DiabloCalc.getSkills();
     data.paragon = DiabloCalc.getParagonLevels();
     data.class = $(".char-class").val();
+    data.gender = (DiabloCalc.gender || "female");
     data.items = {};
     for (var slot in DiabloCalc.itemSlots) {
       var item = DiabloCalc.getSlot(slot);
@@ -225,7 +226,8 @@
   DiabloCalc.getAllProfiles = DiabloCalc.getProfile;
   DiabloCalc.setProfile = function(data, evt) {
     DiabloCalc.importStart();
-    if (data.class && data.class != $(".char-class")) {
+    if ((data.class && data.class != $(".char-class")) || (data.gender && data.gender !== (DiabloCalc.gender || "female"))) {
+      DiabloCalc.gender = data.gender;
       $(".char-class").val(data.class).change().trigger("chosen:updated");
     }
     if (data.items) {
@@ -268,14 +270,37 @@
       }
       id += (tmp[0] + 1);
     }
-    if (!DiabloCalc.itemById[id] && !DiabloCalc.legendaryGems[id] && !DiabloCalc.gemById[id]) {
+    if (DiabloCalc.legendaryGems[id]) {
+      id = DiabloCalc.legendaryGems[id].id;
+    }
+    var icon = DiabloCalc.itemIcons[id];
+    var base = location.protocol + "//" + location.hostname + DiabloCalc.relPath + "webgl/icons/";
+    if (icon && icon[1]) {
+      if (typeof icon[1] === "number") {
+        return base + icon[1];
+      } else {
+        icon = icon[1];
+        var idxClass = DiabloCalc.classToIcon[DiabloCalc.charClass];
+        var idxGender = (DiabloCalc.gender === "male" ? 0 : 1);
+        if (icon[idxClass + idxGender] !== undefined) return base + icon[idxClass + idxGender];
+        if (icon[idxClass] !== undefined) return base + icon[idxClass];
+        if (icon[idxGender] !== undefined) return base + icon[idxGender];
+      }
+    }
+    return "";
+    /*var item = DiabloCalc.itemById[id];
+    if (!item && !DiabloCalc.legendaryGems[id] && !DiabloCalc.gemById[id]) {
       id = "custom";
     }
-    if (DiabloCalc.itemById[id] && DiabloCalc.itemById[id].local) {
-      if (DiabloCalc.itemById[id].local === true) {
-        return location.protocol + "//" + location.hostname + DiabloCalc.relPath + "external/bnet/items/" + id.toLowerCase() + ".png";
+    if (item && item.local) {
+      if (item.local === true) {
+        if (item.usealt) {
+          return location.protocol + "//" + location.hostname + DiabloCalc.relPath + "external/bnet/local/" + id + "_" + (DiabloCalc.gender || "female") + ".png";
+        } else {
+          return location.protocol + "//" + location.hostname + DiabloCalc.relPath + "external/bnet/items/" + id.toLowerCase() + ".png";
+        }
       } else {
-        id = DiabloCalc.itemById[id].local;
+        id = item.local;
       }
     }
     if (DiabloCalc.legendaryGems[id]) {
@@ -286,11 +311,14 @@
       }
     }
     if (location.hostname.indexOf("d3planner.com") < 0) {
-      return location.protocol + "//" + location.hostname + DiabloCalc.relPath + "external/bnet/local/" + id.toLowerCase() + ".png";
+      var suffix = "";
+      if (item && item.usealt) suffix = "_" + (DiabloCalc.gender || "female");
+      return location.protocol + "//" + location.hostname + DiabloCalc.relPath + "external/bnet/local/" + id + suffix + ".png";
     } else {
       var external = "http://media.blizzard.com/d3/icons/items/" + (size || "large") + "/";
-      return external + id.toLowerCase() + "_" + DiabloCalc.classes[DiabloCalc.charClass].imageSuffix + ".png";
-    }
+      var cls = DiabloCalc.classes[DiabloCalc.charClass];
+      return external + id.toLowerCase() + "_" + (item && item.usealt && DiabloCalc.gender !== "male" ? cls.imageSuffixAlt : cls.imageSuffix) + ".png";
+    }*/
   };
 
   var actives = {
@@ -624,19 +652,13 @@
     /*
     var exportRes = {};
     var exportList = [
-      "itemById.*.type",
-      "itemTypes.*.generic",
-      "legendaryGems.*.id",
+      "itemById.*.required.custom.id",
+//      "gemColors.*.id",
+//      "legendaryGems.*.id",
+//      "legendaryGems.*.effects.*.format",
     ];
-//    for (var i = 0; i < exportList.length; ++i) {
-//      $.extend(true, exportRes, DiabloCalc.exportData(exportList[i]));
-//    }
-    for (var id in DiabloCalc.itemById) {
-      if (DiabloCalc.itemById[id].suffix === "PTR") {
-        $.extend(true, exportRes, DiabloCalc.exportData("itemById." + id + ".name"));
-        $.extend(true, exportRes, DiabloCalc.exportData("itemById." + id + ".required.custom.name"));
-        $.extend(true, exportRes, DiabloCalc.exportData("itemById." + id + ".required.custom.format"));
-      }
+    for (var i = 0; i < exportList.length; ++i) {
+      $.extend(true, exportRes, DiabloCalc.exportData(exportList[i]));
     }
     console.log(exportRes.toSource());
     //*/
@@ -799,6 +821,9 @@
       var gem = DiabloCalc.gemColors[type];
       for (var i = 0; i < DiabloCalc.gemQualities.length; ++i) {
         DiabloCalc.gemById[gem.id + (i < 9 ? "0" : "") + (i + 1)] = [i, type];
+        if (i >= 9) {
+          DiabloCalc.gemById["x1_" + gem.id + (i - 9 < 9 ? "0" : "") + (i + 1 - 9)] = [i, type];
+        }
       }
     }
     for (var type in DiabloCalc.legendaryGems) {

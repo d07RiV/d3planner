@@ -210,7 +210,7 @@ DiabloCalc.addItems([
     type: "bracers",
     quality: "legendary",
     required: {
-      custom: {id: "leg_drakonslesson", name: "Increased Shield Bash Damage", format: "When your Shield Bash hits 3 or less enemies, its damage is increased by %d%% and 25%% of its Wrath Cost is refunded.", min: 150, max: 200},
+      custom: {id: "leg_drakonslesson", name: "Increased Shield Bash Damage", format: "When your Shield Bash hits 3 or fewer enemies, its damage is increased by %d%% and 25%% of its Wrath Cost is refunded.", min: 150, max: 200},
     },
     preset: ["mainstat", "chc"],
   },
@@ -234,7 +234,7 @@ DiabloCalc.addItems([
     type: "bracers",
     quality: "legendary",
     required: {
-      custom: {id: "leg_ranslorsfolly", name: "Energy Twister Vortex", format: "Energy Twister Periodically pulls in enemies within 30 yards.", args: 0},
+      custom: {id: "leg_ranslorsfolly", name: "Energy Twister Vortex", format: "Energy Twister Periodically pulls in lesser enemies within 30 yards.", args: 0},
     },
     preset: ["mainstat", "chc"],
   },
@@ -260,5 +260,92 @@ DiabloCalc.addItems([
     quality: "set",
     set: "magnumopus",
   },*/
+
+  {
+    id: "P3_Unique_Bracer_101",
+    local: true,
+    name: "Gabriel's Vambraces",
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_gabrielsvambraces", name: "Blessed Hammer Cost Refund", format: "When your Blessed Hammer hits 3 or fewer enemies, %d%% of its Wrath Cost is refunded.", min: 75, max: 100},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+/*  {
+    id: "P3_Unique_Bracer_102",
+    local: true,
+    name: "Bindings of the Lesser Gods",
+    suffix: _L("PTR"),
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_gabrielsvambraces", name: "Blessed Hammer Cost Refund", format: "When your Blessed Hammer hits 3 or fewer enemies, %d%% of its Wrath Cost is refunded.", min: 75, max: 100},
+    },
+    preset: ["mainstat", "chc"],
+  },*/
+
+  {
+    id: "P3_Unique_Bracer_103",
+    local: true,
+    name: "Wraps of Clarity",
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_wrapsofclarity", name: "Damage Reduction", format: "Your Hatred Generators reduce your damage taken by %d%% for 5 seconds.", min: 30, max: 35},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P3_Unique_Bracer_104",
+    local: true,
+    name: "Bracers of Destruction",
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_bracersofdestruction", name: "Seismic Slam Damage Increase", format: "Seismic Slam deals %d%% increased damage to the first 5 enemies it hits.", min: 300, max: 400},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P3_Unique_Bracer_105",
+    local: true,
+    name: "Bracers of the First Men",
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_bracersofthefirstmen", name: "HotA Damage", format: "Hammer of the Ancients attacks 50%% faster and deals %d%% increased damage.", min: 150, max: 200},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P3_Unique_Bracer_106",
+    local: true,
+    name: "Jeram's Bracers",
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_jeramsbracers", name: "Wall of Death Damage", format: "Wall of Death deals %d%% increased damage and can be cast up to three times within 2 seconds before the cooldown begins.", min: 75, max: 100},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P3_Unique_Bracer_107",
+    local: true,
+    name: "Coils of the First Spider",
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_coilsofthefirstspider", name: "Firebats Life on Hit", format: "While channeling Firebats, you take 30%% reduced damage and gain %d Life per Hit.", min: 60000, max: 80000},
+    },
+    preset: ["mainstat", "chc", "regen"],
+    primary: 5,
+    secondary: 1,
+  },
 
 ]);

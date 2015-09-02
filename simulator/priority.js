@@ -165,8 +165,44 @@
       }
     }
   }
-
+/*
+  function* PrioGen() {
+    var runes = {"x":1, "a":1, "b": 1, "c":1, "d":1, "e":1};
+    for (var id in Sim.skills) {
+      for (var rune in runes) {
+        Sim.baseStats.skills[id] = rune;
+        Sim.stats.skills[id] = rune;
+        Sim.removeBuff(id);
+        var skill = Sim.skills[id];
+        if (skill.oninit) {
+          Sim.pushCastInfo({
+            skill: id,
+            rune: rune,
+            buffs: [],
+            elem: Sim.getProp(skill, "elem", rune),
+            proc: Sim.getProp(skill, "proctable", rune),
+          });
+          skill.oninit.call(skill, rune);
+          Sim.popCastInfo();
+        }
+        Sim.reduceCooldown(id);
+        Sim.addResource(200);
+        console.log(id + " - " + rune);
+        yield id;
+      }
+    }
+  }
+  function TestPrio(data) {
+    if (!data.gen) data.gen = PrioGen();
+    var val = data.gen.next();
+    if (!val.done) {
+      Sim.cast(val.value);
+      Sim.after(120, TestPrio, data);
+    }
+  }
+//*/
   Sim.register("init", function() {
+    //this.after(0, TestPrio);
     var parts = splitPriority(Sim.priority);
     for (var i = 0; i < parts.length; ++i) {
       this.after(0, rotationStep, {priority: parts[i]});

@@ -162,6 +162,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Chest_Set_06_x1",
+    usealt: true,
     name: "Firebird's Breast",
     type: "chestarmor",
     quality: "set",
@@ -171,6 +172,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Chest_Set_08_x1",
+    usealt: true,
     name: "Heart of the Crashing Wave",
     type: "chestarmor",
     quality: "set",
@@ -180,6 +182,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Chest_Set_16_x1",
+    usealt: true,
     name: "Helltooth Tunic",
     type: "chestarmor",
     quality: "set",
@@ -207,6 +210,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Chest_Set_05_x1",
+    usealt: true,
     name: "Raekor's Heart",
     type: "chestarmor",
     quality: "set",
@@ -216,6 +220,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Chest_Set_01_p1",
+    usealt: true,
     name: "Roland's Bearing",
     type: "chestarmor",
     quality: "set",
@@ -225,6 +230,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Chest_Set_14_x1",
+    usealt: true,
     name: "The Shadow's Bane",
     type: "chestarmor",
     quality: "set",
@@ -234,6 +240,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Chest_Set_13_x1",
+    usealt: true,
     name: "Vyr's Astonishing Aura",
     type: "chestarmor",
     quality: "set",
@@ -314,6 +321,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Cloak_006_x1",
+    usealt: true,
     name: "Natalya's Embrace",
     type: "cloak",
     quality: "set",
@@ -323,6 +331,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Chest_Set_02_p2",
+    usealt: true,
     ids: ["ptr_MagnumChest"],
     local: true,
     name: "Harness of Truth",
@@ -345,12 +354,45 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Chest_Set_01_p2",
+    usealt: true,
     ids: ["ptr_WastesChest"],
     local: true,
     name: "Cuirass of the Wastes",
     type: "chestarmor",
     quality: "set",
     set: "wastes",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "Unique_Chest_Set_01_p3",
+    local: true,
+    usealt: true,
+    name: "Uliana's Heart",
+    type: "chestarmor",
+    quality: "set",
+    set: "uliana",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "Unique_Chest_Set_02_p3",
+    usealt: true,
+    local: true,
+    name: "Arachyr’s Carapace",
+    type: "chestarmor",
+    quality: "set",
+    set: "arachyr",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "Unique_Chest_Set_03_p3",
+    local: true,
+    name: "Heart of the Light",
+    type: "chestarmor",
+    quality: "set",
+    set: "light",
     preset: ["mainstat", "sockets"],
   },
 

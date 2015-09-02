@@ -62,7 +62,7 @@ DiabloCalc.addItems([
     required: {
       custom: {id: "leg_kridershot", name: "Elemental Arrow Generates Hatred", format: "Elemental Arrow now generates %d Hatred.", min: 3, max: 4},
     },
-    preset: ["mainstat", "sockets"],
+    preset: ["mainstat", "damage"],
   },
 
   {
@@ -420,7 +420,7 @@ DiabloCalc.addItems([
     },
     preset: ["wpnarc", "mainstat"],
     primary: 5,
-    secondary: 1,
+    secondary: 2,
   },
 
   {
@@ -469,6 +469,44 @@ DiabloCalc.addItems([
       custom: {id: "leg_odysseysend", name: "Snared Damage Bonus", format: "Enemies snared by your Entangling Shot take %d%% increased damage from all sources.", min: 20, max: 25},
     },
     preset: ["mainstat"],
+  },
+
+  {
+    id: "P2_handXbow_norm_unique_03",
+    local: true,
+    name: "The Demon's Demise",
+    type: "handcrossbow",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_thedemonsdemise", name: "Sticky Trap Chains", format: "Spike Trap - Sticky Trap spreads to nearby enemies when it explodes.", args: 0},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P3_Unique_HandXBow_005",
+    local: true,
+    name: "Valla's Bequest",
+    type: "handcrossbow",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_vallasbequest", name: "Strafe Pierce", format: "Strafe projectiles pierce.", args: 0},
+    },
+    preset: ["mainstat", "maxdisc"],
+  },
+
+  {
+    id: "Unique_Bow_104_x1",
+    local: true,
+    name: "Yang's Recurve",
+    type: "bow",
+    quality: "legendary",
+    required: {
+      rcr: {min: 40, max: 50, noblock: true},
+      custom: {id: "leg_yangsrecurve", name: "Multishot Speed", format: "Multishot attacks 50%% faster.", args: 0},
+    },
+    preset: ["mainstat", "damage"],
+    primary: 5,
   },
 
 ]);

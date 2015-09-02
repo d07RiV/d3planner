@@ -121,7 +121,7 @@
   DC.shiftKey = false;
   $(document).mouseup(function(e) {
     if (curPopup && e.target && $.contains(document.documentElement, e.target) &&
-        !curPopup.contains(e.target)) {
+        !curPopup.contains(e.target) && !$(e.target).closest(".popup-menu").length) {
       curPopup.hide();
     }
   }).keydown(function(e) {

@@ -472,22 +472,29 @@ DiabloCalc.legendaryGems = {
     },
   },
 
-/*  sticken: {
-    id: "ptr_Stricken",
+  stricken: {
+    id: "Unique_Gem_018_x1",
     local: true,
     name: "Bane of the Stricken",
     types: ["finger", "neck"],
+    active: true,
     effects: [
       {
-        format: "Each attack you make against an enemy increases the damage it takes from your attacks by %d%% weapon damage.",
-        value: [10],
-        delta: [1],
+        format: "Each attack you make against an enemy increases the damage it takes from your attacks by %.2f%%.",
+        value: [0.8],
+        delta: [0.01],
       },
       {
-        format: "Allied players, followers, and pets also benefit from this effect.",
+        format: "Gain 25%% increased damage against bosses and Rift Guardians.",
       },
     ],
-  },*/
+    params: [{min: 0, max: 50, name: "Stacks", inf: true}],
+    buffs: function(level, stats) {
+      var res = {dmgmul: this.params[0].val * (0.8 + 0.01 * level)};
+      if (level >= 25) res.bossdmg = 25;
+      return res;
+    },
+  },
   iceblink: {
     id: "Unique_Gem_021_x1",
     ids: ["ptr_Iceblink"],

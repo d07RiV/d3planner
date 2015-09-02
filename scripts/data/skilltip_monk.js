@@ -287,7 +287,7 @@ DiabloCalc.skilltips.monk = {
       e: "hol",
       x: "phy",
     },
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/monk_sevensidedstrike.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">50</span> Spirit<br/><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">30</span> seconds</p><p>Dash rapidly between nearby enemies, dealing <span class=\"d3-color-green\">5677%</span> weapon damage over <span class=\"d3-color-green\">7</span> strikes.</p> <p class=\"special\">Focus</p> <p class=\"subtle\">Unlocked at level <em>17</em></p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/monk_sevensidedstrike.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">50</span> Spirit<br/><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">30</span> seconds</p><p>Dash rapidly between nearby enemies, dealing <span class=\"d3-color-green\">5677%</span> weapon damage over <span class=\"d3-color-green\">7</span> strikes. This ability does not start its cooldown until after its effects expire.</p> <p class=\"special\">Focus</p> <p class=\"subtle\">Unlocked at level <em>17</em></p> </div> </div>",
   },
   sweepingwind: {
     a: "<p>Intensify the vortex, increasing the damage per stack to <span class=\"d3-color-green\">145%</span> weapon damage. This increases the damage with <span class=\"d3-color-green\">3</span> stacks to <span class=\"d3-color-green\">435%</span> weapon damage.</p> <p class=\"subtle\">Unlocked at level <em>33</em></p>",
@@ -310,7 +310,7 @@ DiabloCalc.skilltips.monk = {
     b: "<p>Increases your movement speed while using Tempest Rush by <span class=\"d3-color-green\">25%</span>.</p> <p class=\"subtle\">Unlocked at level <em>20</em></p>",
     c: "<p>Enemies within <span class=\"d3-color-green\">20</span> yards take an additional <span class=\"d3-color-green\">135%</span> weapon damage as Lightning every second.</p><p>Tempest Rush's damage turns into Lightning.</p> <p class=\"subtle\">Unlocked at level <em>45</em></p>",
     d: "<p>Reduce the Spirit cost of Tempest Rush to <span class=\"d3-color-green\">25</span> Spirit and increase its damage to <span class=\"d3-color-green\">500%</span> weapon damage as Holy.</p> <p class=\"subtle\">Unlocked at level <em>11</em></p>",
-    e: "<p>After you stop channeling Tempest Rush, you cause an icy blast to all enemies within <span class=\"d3-color-green\">15</span> yards. The damage of the explosion increases by <span class=\"d3-color-green\">150%</span> weapon damage as Cold while channeling.</p><p>Tempest Rush's damage turns into Cold.</p> <p class=\"subtle\">Unlocked at level <em>33</em></p>",
+    e: "<p>After you stop channeling Tempest Rush, you cause an icy blast to all enemies within <span class=\"d3-color-green\">15</span> yards. The damage of the explosion increases by <span class=\"d3-color-green\">90%</span> weapon damage as Cold while channeling.</p><p>Tempest Rush's damage turns into Cold.</p> <p class=\"subtle\">Unlocked at level <em>33</em></p>",
     elements: {
       a: "fir",
       b: "phy",

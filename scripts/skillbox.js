@@ -31,6 +31,37 @@
   }
   DiabloCalc.getPassiveBonus = getPassiveBonus;
 
+  var kanaiTypes = {
+    weapon: {
+      name: _L("Weapon"),
+      filter: function(type) {
+        var slot = (DiabloCalc.itemTypes[type] && DiabloCalc.itemTypes[type].slot);
+        return slot === "onehand" || slot === "twohand" || slot === "offhand";
+      },
+    },
+    armor: {
+      name: _L("Armor"),
+      filter: function(type) {
+        if (kanaiTypes.weapon.filter(type)) return false;
+        if (kanaiTypes.jewelry.filter(type)) return false;
+        return true;
+      },
+    },
+    jewelry: {
+      name: _L("Jewelry"),
+      filter: function(type) {
+        return type === "ring" || type === "amulet";
+      },
+    },
+  };
+  DiabloCalc.getKanaiType = function(id) {
+    var item = DiabloCalc.itemById[id];
+    if (!item) return;
+    for (var id in kanaiTypes) {
+      if (kanaiTypes[id].filter(item.type)) return id;
+    }
+  };
+
   function execString(expr, stats, affix, params) {
     if (!expr) return 0;
     if (typeof expr != "string") return expr;
@@ -255,7 +286,7 @@
     }
 
     // boss damage
-    if (DiabloCalc.options.targetBoss && stats.bossdmg) {
+    if (DiabloCalc.options.targetBoss && DiabloCalc.options.showElites && stats.bossdmg) {
       factors.push({
         name: DiabloCalc.stats.bossdmg.name,
         percent: stats.bossdmg,
@@ -931,7 +962,7 @@
         if (okay) {
           result[stat].value = sum;
           result[stat].text = DiabloCalc.formatNumber(sum, 0, 10000);
-          result[stat].tip = tipHeader(_L(stat).replace("DPS", "Damage Per Second"), result[stat].text);
+          result[stat].tip = tipHeader(_L(stat).replace("DPS", _L("Damage Per Second")), result[stat].text);
           result[stat].tip += fmtTip(lines[stat].tip);
           result[stat].tip += tip + "</p></div>";
           if (!lines[stat].nobp) {
@@ -1260,7 +1291,7 @@
           return;
         }
       }
-      this.apply[0].lastChild.nodeValue = (info.activetip || _L("Include in stats"));
+      this.apply[0].lastChild.nodeValue = (_L(info.activetip) || _L("Include in stats"));
 
       var anyLines = false;
       $.each(this.paramList, function(i, data) {
@@ -1434,29 +1465,6 @@
       var info = DiabloCalc.itemaffixes[this.affix];
       this.apply.toggle(info.active !== undefined);
     } else if (type === "kanai") {
-      var kanaiTypes = {
-        weapon: {
-          name: _L("Weapon"),
-          filter: function(type) {
-            var slot = (DiabloCalc.itemTypes[type] && DiabloCalc.itemTypes[type].slot);
-            return slot === "onehand" || slot === "twohand" || slot === "offhand";
-          },
-        },
-        armor: {
-          name: _L("Armor"),
-          filter: function(type) {
-            if (kanaiTypes.weapon.filter(type)) return false;
-            if (kanaiTypes.jewelry.filter(type)) return false;
-            return true;
-          },
-        },
-        jewelry: {
-          name: _L("Jewelry"),
-          filter: function(type) {
-            return type === "ring" || type === "amulet";
-          },
-        },
-      };
       this.fillnames = function() {
         var self = this;
         var prev = this.namebox.val();
@@ -1466,9 +1474,12 @@
         var groups = {};
         $.each(DiabloCalc.items, function(index, item) {
           if (!item.required || !item.required.custom) return;
+          var customId = item.required.custom.id;
           if (item.classes && item.classes.indexOf(DiabloCalc.charClass) < 0) return;
           var type = DiabloCalc.itemTypes[item.type];
           if (type.classes && type.classes.indexOf(DiabloCalc.charClass) < 0) return;
+          if (DiabloCalc.itemPowerClasses && DiabloCalc.itemPowerClasses[customId] &&
+            DiabloCalc.itemPowerClasses[customId] !== DiabloCalc.charClass) return;
           if (!kanaiTypes[self.kanai].filter(item.type)) return;
           if (item.required.custom.args < 0) return;
           if (!groups[item.type]) {
@@ -1532,7 +1543,7 @@
         var icons = DiabloCalc.itemIcons;
         var icon = (icons ? icons[id] : undefined);
         if (icon !== undefined) {
-          return "<span style=\"background: url(css/items/" + item.type + ".png) 0 -" + (24 * icon) + "px no-repeat\"></span>";
+          return "<span style=\"background: url(css/items/" + item.type + ".png) 0 -" + (24 * icon[0]) + "px no-repeat\"></span>";
         }
       });
     }

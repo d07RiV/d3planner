@@ -97,6 +97,7 @@
       chc: chc,
       distance: data.distance,
       dmgmul: dmgmul,
+      hits: (data.count || 1),
     };
   };
   Sim.dealDamage = function(event) {
@@ -105,16 +106,16 @@
     }
     Sim.trigger("onhit", event);
 
-    if (!event.pet) {
+    /*if (!event.pet)*/ {
       if (Sim.target.area_coeff === undefined) {
         var area = Math.PI * Math.pow(Sim.target.size + 10, 2);
-        Sim.target.area_coeff = (Sim.target.count - 1) * area / Sim.target.area;
+        Sim.target.area_coeff = (Sim.target.count - 1) * Math.min(1, area / Sim.target.area);
       }
       if (Sim.target.area_coeff && Sim.stats.area) {
         Sim.trigger("onhit", {
           targets: event.targets * 0.2 * Sim.target.area_coeff,
           skill: event.skill,
-          damage: event.damage * 0.01 * Sim.stats.area / (event.dmgmul || 1),
+          damage: event.damage * 0.01 * Sim.stats.area/* / (event.dmgmul || 1)*/,
           elem: event.elem,
           triggered: "area",
           chc: 0,
@@ -147,12 +148,12 @@
     }
     var fanCount = (data.fan ? (data.count || 1) : 1);
     var hitCount = (data.fan ? 1 : (data.count || 1));
-    var area = Sim.math.lineArea(Sim.target.radius, size, origin, data.range, data.angle, data.fan, fanCount);
+    var area = Sim.math.lineArea(Sim.target.radius, size, origin, data.range, data.angle, data.fan, fanCount, data.skip);
     if (area < 1e-9) return;
     area = Math.min(area, Sim.target.area) / Sim.target.area;
     var distance;
     if (!data.pierce || data.speed) {
-      distance = Sim.math.lineDistance(tcount, Sim.target.radius, size, origin, data.range, data.angle, data.fan, fanCount);
+      distance = Sim.math.lineDistance(tcount, Sim.target.radius, size, origin, data.range, data.angle, data.fan, fanCount, data.skip);
       if (distance === undefined) return;
     }
     var secondary;
@@ -161,10 +162,12 @@
       if (data.pierce !== true) {
         hits = Sim.math.limitedAverage(area, tcount, data.pierce);
       }
-      data.count = hitCount * hits;
+      data.count = hitCount;
+      data.targets = hits;
       data.distance = origin;
     } else {
-      data.count = hitCount * (1 - Math.pow(1 - area, tcount));
+      data.count = hitCount;
+      data.targets = 1 - Math.pow(1 - area, tcount);
       if (data.area && tcount > 1) {
         var ta = Math.PI * Math.pow(data.area + Sim.target.size, 2);
         ta = Math.min(ta, Sim.target.area) / Sim.target.area;
@@ -174,11 +177,12 @@
         }
         if (data.areacoeff || data.areadelay) {
           secondary = Sim.extend({}, data);
-          secondary.count *= targets;
+          secondary.targets *= targets;
           secondary.coeff = (data.areacoeff || data.coeff);
           secondary.delay = data.areadelay;
+          delete secondary.onhit;
         } else {
-          data.count *= 1 + targets;
+          data.targets *= 1 + targets;
         }
       }
       data.distance = distance + size;
@@ -272,6 +276,7 @@
     var res = Sim.math.waveOfLight(Sim.target.count, Sim.target.radius,
       (data.radius || 0) + Sim.target.size, Sim.target.distance, data.range,
       data.expos, data.exrange);
+    if (!res) return;
     data.targets = Math.min(res.area, Sim.target.area) / Sim.target.area * Sim.target.count;
     data.distance = res.distance;
     Sim.after(res.distance / data.speed, _target, data);

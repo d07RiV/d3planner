@@ -47,7 +47,7 @@ DiabloCalc.skills.demonhunter = {
       case "c": res = {"Damage": {elem: "col", coeff: 1.55}, "Damage Increase per Pierce": {sum: true, "Damage": {factor: 0.7}}}; break;
       case "e": res = {"Damage": {elem: "phy", coeff: 1.55}}; break;
       }
-      return $.extend({"DPS": {sum: true, "Damage": {speed: 1, fpa: fpa, round: "up"}}, "Damage": {}, "Pierce Chance": pierce + "%"}, res);
+      return $.extend({"DPS": {sum: true, "Damage": {speed: 1, ias: (stats.leg_hunterswrath ? 30 : 0), fpa: fpa, round: "up"}}, "Damage": {}, "Pierce Chance": pierce + "%"}, res);
     },
   },
   entanglingshot: {
@@ -74,7 +74,7 @@ DiabloCalc.skills.demonhunter = {
       case "d": res = {"Damage": {elem: "fir", coeff: 2}}; break;
       case "e": res = {"Damage": {elem: "phy", coeff: 2}}; break;
       }
-      return $.extend({"DPS": {sum: true, "Damage": {speed: 1, fpa: fpa, round: "up"}}}, res);
+      return $.extend({"DPS": {sum: true, "Damage": {speed: 1, ias: (stats.leg_hunterswrath ? 30 : 0), fpa: fpa, round: "up"}}}, res);
     },
   },
   bolas: {
@@ -91,7 +91,7 @@ DiabloCalc.skills.demonhunter = {
       e: "Imminent Doom",
     },
     info: {
-      "*": {"DPS": {sum: true, "Damage": {speed: 1, fpa: 56.666666, round: "up"}}},
+      "*": {"DPS": {sum: true, "Damage": {speed: 1, ias: "leg_hunterswrath?30:0", fpa: 56.666666, round: "up"}}},
       x: {"Damage": {elem: "fir", coeff: 1.6}, "Secondary Damage": {elem: "fir", coeff: 1.1}},
       a: {"Damage": {elem: "fir", coeff: 1.6}, "Secondary Damage": {elem: "fir", coeff: 1.1}},
       c: {"Damage": {elem: "lit", coeff: 1.6}, "Secondary Damage": {elem: "lit", coeff: 1.1}},
@@ -124,7 +124,7 @@ DiabloCalc.skills.demonhunter = {
       case "e": res = {"Damage": {elem: "col", coeff: 2}, "Secondary Damage": {elem: "col", coeff: 1}}; break;
       case "d": res = {"Damage": {elem: "lit", coeff: 2}, "Secondary Damage": {elem: "lit", coeff: 1}}; break;
       }
-      return $.extend({"DPS": {sum: true, "Damage": {speed: 1, fpa: fpa, round: "up"}}}, res);
+      return $.extend({"DPS": {sum: true, "Damage": {speed: 1, ias: (stats.leg_hunterswrath ? 30 : 0), fpa: fpa, round: "up"}}}, res);
     },
   },
   grenade: {
@@ -141,7 +141,7 @@ DiabloCalc.skills.demonhunter = {
       a: "Cold Grenade",
     },
     info: {
-      "*": {"DPS": {sum: true, "Damage": {speed: 1, fpa: 56.470554}}},
+      "*": {"DPS": {sum: true, "Damage": {speed: 1, ias: "leg_hunterswrath?30:0", fpa: 56.470554}}},
       x: {"Damage": {elem: "fir", coeff: 1.6, passives: {grenadier: 10}}},
       d: {"Damage": {elem: "fir", coeff: 1.6, passives: {grenadier: 10}}},
       b: {"Damage": {elem: "fir", coeff: 2, passives: {grenadier: 10}}},
@@ -445,7 +445,6 @@ DiabloCalc.skills.demonhunter = {
     category: "hunting",
     row: 3,
     col: 1,
-    nolmb: true,
     runes: {
       b: "Invigoration",
       a: "Punishment",
@@ -471,7 +470,6 @@ DiabloCalc.skills.demonhunter = {
     category: "hunting",
     row: 3,
     col: 2,
-    nolmb: true,
     runes: {
       a: "Spider Companion",
       d: "Bat Companion",
@@ -583,11 +581,15 @@ DiabloCalc.skills.demonhunter = {
     info: {
       "*": {"Cost": {cost: 30}},
       x: {"Damage": {elem: "fir", coeff: 3.4}},
-      b: {"Damage": {elem: "col", coeff: 4.2}},
-      c: {"Damage": {elem: "fir", coeff: 8}},
-      a: {"Damage": {elem: "fir", coeff: 5.2}},
-      e: {"Damage": {elem: "lit", coeff: 5}},
+      b: {"Damage": {elem: "col", coeff: 5.75}},
+      c: {"Damage": {elem: "fir", coeff: 9.15}},
+      a: {"Damage": {elem: "fir", coeff: 9.3}},
+      e: {"Damage": {elem: "lit", coeff: 8.8}},
       d: {"Damage": {elem: "fir", coeff: 3.4}},
+    },
+    active: false,
+    buffs: {
+      b: {dmgtaken: 20},
     },
   },
   sentry: {
@@ -647,7 +649,6 @@ DiabloCalc.skills.demonhunter = {
     category: "devices",
     row: 4,
     col: 3,
-    nolmb: true,
     runes: {
       c: "Personal Mortar",
       b: "Dark Heart",
@@ -748,9 +749,9 @@ DiabloCalc.skills.demonhunter = {
         total.sum = true;
         total["Damage"] = {};
         res["Total Damage"] = total;
-        res["DPS"] = {sum: true, "Total Damage": {speed: 1, fpa: 56.666664, round: "up"}};
+        res["DPS"] = {sum: true, "Total Damage": {speed: 1, ias: (stats.leg_yangsrecurve ? 50 : 0), fpa: 56.666664, round: "up"}};
       } else {
-        res["DPS"] = {sum: true, "Damage": {speed: 1, fpa: 56.666664, round: "up"}};
+        res["DPS"] = {sum: true, "Damage": {speed: 1, ias: (stats.leg_yangsrecurve ? 50 : 0), fpa: 56.666664, round: "up"}};
       }
 /*
       var regen = (stats.hatredregen || 5);
@@ -1078,6 +1079,12 @@ DiabloCalc.passives.demonhunter = {
     name: "Ballistics",
     index: 14,
     info: {"Rocket Damage": {elem: "phy", coeff: 1.5, passives: {ballistics: 100}}},
+  },
+  leech: {
+    id: "leech",
+    name: "Leech",
+    index: 18,
+    buffs: function(stats) {return {lph: 18506.5245 + 0.75 * (stats.laek || 0)};},
   },
   ambush: {
     id: "ambush",

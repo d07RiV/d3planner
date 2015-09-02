@@ -3,32 +3,8 @@
   var affixes = Sim.affixes;
 
 /*
-danetta: built in vault
-bulkathos: built in WW
 nightmares: todo
-shenlong: todo
 asheara's: todo
-
-natalya
-shadow: built in shadow power
-marauder: ./.
-unhallowed
-
-zunimassa
-helltooth: ???
-jadeharvester
-
-immortalking
-earth
-raekor
-wastes
-
-inna
-sunwuko
-storms
-
-akkhan
-roland
 */
 
   affixes.set_bastionsofwill_2pc = function() {
@@ -122,6 +98,21 @@ roland
     });
   };
 
+  affixes.set_vyr_6pc = function() {
+    Sim.register("onhit", function(data) {
+      var skill = (data.castInfo && data.castInfo.skill && Sim.skills[data.castInfo.skill]);
+      if (skill && skill.shift === "archon" && data.castInfo.user) {
+        var counter = data.castInfo.user.vyr_6pc;
+        if (!counter || counter < 1) {
+          var hits = Math.min(1 - (counter || 0), Math.ceil(data.targets));
+          var buffs = {damage: 6, ias: 1, armor_percent: 1, resist_percent: 1};
+          Sim.addBuff("archon_stacks", buffs, {maxstacks: 9999, stacks: hits});
+          data.castInfo.user.vyr_6pc = (counter || 0) + hits;
+        }
+      }
+    });
+  };
+
   affixes.set_magnumopus_2pc = function() {
     var skills = ["arcaneorb", "energytwiser", "magicmissile", "shockpulse"];
     Sim.register("oncast", function(data) {
@@ -137,6 +128,30 @@ roland
       if (skills.indexOf(data.skill) >= 0) {
         if (Sim.getBuff("slowtime")) {
           return {percent: 750};
+        }
+      }
+    });
+  };
+
+  affixes.set_chantodo_2pc = function() {
+    Sim.after(60, function tick() {
+      if (Sim.getBuff("archon")) {
+        var stacks = Sim.getBuff("chantodo_2pc");
+        Sim.damage({type: "area", range: 30, self: true, coeff: 3.5 + 3.5 * stacks});
+        /*if (Sim.stats.set_vyr_6pc) {
+          var buffs = {damage: 6, ias: 1, armor_percent: 1, resist_percent: 1};
+          Sim.addBuff("archon_stacks", buffs, {maxstacks: 9999, stacks: 1});
+        }*/
+      }
+      Sim.after(60, tick);
+    });
+    Sim.register("onhit", function(data) {
+      if (!Sim.getBuff("archon") && data.castInfo && data.castInfo.user) {
+        var counter = data.castInfo.user.chantodo_2pc;
+        if (!counter || counter < 3) {
+          var hits = Math.min(3 - (counter || 0), Math.ceil(data.targets));
+          Sim.addBuff("chantodo_2pc", undefined, {duration: 1200, maxstacks: 20, stacks: hits});
+          data.castInfo.user.chantodo_2pc = (counter || 0) + hits;
         }
       }
     });
@@ -199,7 +214,7 @@ roland
   affixes.set_unhallowed_4pc = function() {
     Sim.after(6, function check() {
       if (Sim.getTargets(10, Sim.target.distance) < 0.1) {
-        Sim.addBuff("unhallowed_4pc", {damage: 20, dmgred: 20}, {duration: 240});
+        Sim.addBuff("unhallowed_4pc", {dmgmul: 20, dmgred: 20}, {duration: 240});
       }
       Sim.after(6, check);
     });
@@ -213,13 +228,6 @@ roland
     });
   };
 
-  affixes.set_manajuma_2pc = function() {
-    Sim.after(30, function tick() {
-      Sim.damage({type: "area", range: 10, self: true, coeff: 0.75});
-      Sim.after(30, tick);
-    });
-  };
-
   affixes.set_zunimassa_6pc = function() {
     if (Sim.stats.charClass !== "witchdoctor") return;
     Sim.register("onhit", function(data) {
@@ -229,13 +237,72 @@ roland
     });
   };
 
-  affixes.set_shenlong_2pc = function() {
-    var next = 0;
-    Sim.register("onhit_proc", function(data) {
-      if (Sim.time >= next && Sim.random("shenlong", data.proc, data.targets)) {
-        Sim.damage({type: "line", speed: 1, pierce: true, radius: 5, coeff: 12});
-        next = Sim.time + Math.floor(180 / Sim.stats.info.aps);
+  affixes.set_helltooth_2pc = function() {
+    var skills = ["poisondart", "firebomb", "corpsespiders", "plagueoftoads", "acidcloud", "firebats", "zombiecharger",
+      "summonzombiedogs", "gargantuan", "graspofthedead", "piranhas", "wallofzombies"];
+    Sim.register("onhit", function(data) {
+      if (data.castInfo && skills.indexOf(data.castInfo.skill) >= 0) {
+        var buffs = {dmgtaken: 20};
+        if (Sim.stats.set_helltooth_4pc) {
+          buffs.dmgred = 50;
+        }
+        Sim.addBuff("helltooth_2pc", buffs, {
+          status: "slowed",
+          duration: 601,
+          tickrate: 30,
+          ontick: {targets: Sim.target.count, elem: "max", coeff: 7.5},
+        });
       }
+    });
+  };
+  affixes.set_helltooth_6pc = function() {
+    Sim.register("oncast", function(data) {
+      if (data.skill === "wallofzombies") {
+        Sim.addBuff("helltooth_6pc", {
+          dmgmul: {list: [
+            {pet: false, skills: ["poisondart", "firebomb", "plagueoftoads", "acidcloud", "firebats", "zombiecharger",
+              "graspofthedead", "piranhas", "wallofzombies"], percent: 900},
+            {skills: ["corpsespiders", "summonzombiedogs", "gargantuan"], percent: 900},
+          ]},
+        }, {duration: 900});
+      }
+    });
+  };
+
+  affixes.set_arachyr_2pc = function() {
+    Sim.after(48, function drop() {
+      Sim.addBuff(undefined, undefined, {
+        status: "slowed",
+        duration: 300,
+        tickrate: 30,
+        tickinitial: 1,
+        ontick: {type: "area", range: 15, coeff: 4},
+      });
+      Sim.after(48, drop);
+    });
+  };
+  affixes.set_arachyr_6pc = function() {
+    Sim.addBaseStats({dmgmul: {skills: ["corpsespiders", "plagueoftoads", "firebats", "hex", "locustswarm", "piranhas"], percent: 800}});
+  };
+
+  affixes.set_shenlong_2pc = function() {
+    Sim.register("oncast", function(data) {
+      if (data.generate) {
+        return {percent: Sim.resources.spirit * 1.5};
+      }
+    });
+    Sim.register("updatestats", function(data) {
+      if (Sim.getBuff("shenlong_2pc")) {
+        data.stats.spiritregen = -65;
+      }
+    });
+    Sim.after(12, function check() {
+      if (Sim.resources.spirit >= Sim.stats.maxspirit - 1) {
+        Sim.addBuff("shenlong_2pc", {dmgmul: 100}, {});
+      } else if (Sim.resources.spirit <= 1) {
+        Sim.removeBuff("shenlong_2pc");
+      }
+      Sim.after(12, check);
     });
   };
 
@@ -300,6 +367,96 @@ roland
         Sim.addBuff("storms_6pc", undefined, {duration: 360});
       }
     });
+  };
+
+  function ep_explode(data) {
+    if (data.castInfo && data.castInfo.rune === "d") {
+      Sim.addResource(15 * data.targets);
+    }
+    if (Sim.stats.leg_gungdogear && Sim.apply_palm) {
+      Sim.apply_palm(data.targets);
+    }
+  }
+  affixes.set_uliana_2pc = function() {
+    Sim.register("oncast", function(data) {
+      if (data.generate) {
+        data.user.sequence = Sim.getBuff(data.skill);
+      }
+    });
+    Sim.register("onhit", function(data) {
+      if (data.user && data.user.sequence === 2 && Sim.apply_palm) {
+        Sim.apply_palm(data.targets);
+        delete data.user.sequence;
+      }
+    });
+  };
+  affixes.set_uliana_6pc = function() {
+    Sim.register("onhit", function(data) {
+      if (data.castInfo && data.castInfo.skill === "sevensidedstrike" && Sim.getBuff("explodingpalm")) {
+        var stack = Sim.removeBuff("explodingpalm", 1);
+        if (!stack || !stack.castInfo) return;
+        var damage = {type: "area", range: 15, coeff: 27.7, onhit: ep_explode};
+        switch (stack.castInfo.rune) {
+        case "b": damage.coeff = 63.05; break;
+        case "e": damage.coeff = 32.6 / 6; damage.count = 6; break;
+        }
+        if (Sim.stats.leg_thefistofazturrasq) {
+          damage.coeff *= 1 + 0.01 * Sim.stats.leg_thefistofazturrasq;
+        }
+        Sim.pushCastInfo(stack.castInfo);
+        Sim.damage(damage);
+        Sim.popCastInfo();
+      }
+    });
+  };
+
+  affixes.set_roland_2pc = function() {
+    var list = ["lawsofvalor", "lawsofjustice", "lawsofhope", "shieldglare", "ironskin", "consecration", "judgment"];
+    Sim.register("oncast", function(data) {
+      if (data.skill === "shieldbash" || data.skill === "sweepattack") {
+        for (var i = 0; i < list.length; ++i) {
+          Sim.reduceCooldown(list[i], 60);
+        }
+      }
+    });
+  };
+  affixes.set_roland_4pc = function() {
+    Sim.addBaseStats({dmgmul: {skills: ["shieldbash", "sweepattack"], percent: 500}});
+  };
+  affixes.set_roland_6pc = function() {
+    Sim.register("onhit", function(data) {
+      if (data.castInfo && (data.castInfo.skill === "shieldbash" || data.castInfo.skill === "sweepattack")) {
+        if (data.castInfo.user && !data.castInfo.user.roland_6pc) {
+          Sim.addBuff("roland_6pc", {ias: 30}, {duration: 180, maxstacks: 5});
+          data.castInfo.user.roland_6pc = true;
+        }
+      }
+    });
+  };
+
+  affixes.set_light_2pc = function() {
+    Sim.register("onhit", function(data) {
+      if (data.castInfo && data.castInfo.skill === "blessedhammer") {
+        if (data.castInfo.user && !data.castInfo.user.light_2pc) {
+          Sim.reduceCooldown("fallingsword", 60);
+          Sim.reduceCooldown("provoke", 60);
+          data.castInfo.user.light_2pc = true;
+        }
+      }
+    });
+  };
+  affixes.set_light_4pc = function() {
+    Sim.register("oncast", function(data) {
+      if (data.skill === "fallingsword") {
+        Sim.after(54, function() {
+          Sim.addBuff("light_4pc", {dmgred: 50}, {duration: 480});
+        });
+      }
+    });
+  };
+  affixes.set_light_6pc = function() {
+    Sim.addBaseStats({dmgmul: {skills: ["blessedhammer"], percent: 750}});
+    Sim.addBaseStats({dmgmul: {skills: ["fallingsword"], percent: 500}});
   };
 
 })();

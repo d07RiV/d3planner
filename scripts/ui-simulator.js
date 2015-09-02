@@ -38,7 +38,7 @@
         var total = 0, good = 0;
         if (opts.skill) {
           ++total;
-          if (stats.skills[opts.skill[0]] && (opts.skill.length < 2 || stats.skills[opts.skill[0]] === opts.skill[1])) ++good;
+          if (stats.skills[opts.skill[0]] && (opts.skill.length < 2 || opts.skill[1].indexOf(stats.skills[opts.skill[0]]) >= 0)) ++good;
         }
         if (opts.passive) {
           ++total;
@@ -54,7 +54,16 @@
         }
         if (opts.stat) {
           ++total;
-          if (stats[opts.stat]) ++good;
+          if (opts.stat instanceof Array) {
+            for (var i = 0; i < opts.stat.length; ++i) {
+              if (stats[opts.stat[i]]) {
+                ++good;
+                break;
+              }
+            }
+          } else {
+            if (stats[opts.stat]) ++good;
+          }
         }
         if (total && good < (opts.min || 1)) return;
       }
@@ -763,7 +772,8 @@
   Sections.append("<h3>" + _L("Simulate") + " ( <span class=\"status-icon class-wizard class-icon\"></span> " +
                                 "<span class=\"status-icon class-demonhunter class-icon\"></span> " +
                                 "<span class=\"status-icon class-witchdoctor class-icon\"></span> " +
-                                "<span class=\"status-icon class-monk class-icon\"></span>)</h3>");
+                                "<span class=\"status-icon class-monk class-icon\"></span> " +
+                                "<span class=\"status-icon class-crusader class-icon\"></span>)</h3>");
   Section = $("<div></div>");
   Sections.append(Section);
 
@@ -855,6 +865,89 @@
     this.chartData = [];
     Section.append(this.dps, this.graph, this.section);
 
+    this.sourceName = function(id) {
+      if (DC.skills[this.charClass][id]) {
+        return DC.skills[this.charClass][id].name;
+      } else if (DC.extraskills && DC.extraskills[this.charClass] && DC.extraskills[this.charClass][id]) {
+        return DC.extraskills[this.charClass][id].name;
+      } else if (DC.passives[this.charClass][id]) {
+        return DC.passives[this.charClass][id].name;
+      } else if (DC.legendaryGems[id]) {
+        return DC.legendaryGems[id].name;
+      } else if (self.initData.stats.affixes[id]) {
+        var affix = self.initData.stats.affixes[id];
+        if (affix.set) {
+          return "(" + affix.pieces + ") " + DC.itemSets[affix.set].name;
+        } else {
+          var item = DC.getSlotId(affix.slot);
+          if (item && DC.itemById[item]) {
+            return DC.itemById[item].name;
+          }
+        }
+      } else if (DC.stats[id] && DC.stats[id].name) {
+        return DC.stats[id].name;
+      } else if (DC.itemFromAffix[id]) {
+        return DC.itemFromAffix[id].name;
+      } else {
+        return id;
+      }
+    };
+
+    this.sampleLines = {};
+    this.updateSample = function() {
+      if (!this.sectSample || !this.chart || !this.sampleData) return;
+      var min = this.chart._chart.sessionVariables.axisX.internalMinimum;
+      var max = this.chart._chart.sessionVariables.axisX.internalMaximum;
+      if (!min) min = 0;
+      var index0 = 0, prevl = undefined;
+      var self = this;
+      $.each(this.sampleData, function(index, value) {
+        var shown = (value[0] * 1000 / 60 >= min);
+        if (!shown) index0 = index;
+        if (!max && index > index0 + 50) shown = false;
+        if (index > index0 + 100) shown = false;
+        if (max && value[0] * 1000 / 60 > max) shown = false;
+        if (!shown) {
+          if (self.sampleLines[index]) {
+            self.sampleLines[index].remove();
+            delete self.sampleLines[index];
+          }
+          return;
+        }
+        if (!self.sampleLines[index]) {
+          var skill = DC.skills[self.charClass][value[1]];
+          if (!skill) skill = (DC.extraskills && DC.extraskills[self.charClass] && DC.extraskills[self.charClass][value[1]]);
+          if (skill) {
+            var time = DC.formatNumber(value[0] / 60, 2);
+            var icon = makeSkillIcon(value[1], self.charClass);
+            var line = $("<li><span><span>" + time + "</span>" + icon + "<span>" + skill.name +
+              "</span></span><span>" + value[2].toFixed(0) + "</span></li>");
+            //self.sectSample.append(line);
+            var tip = "<div xmlns=\"http://www.w3.org/1999/xhtml\" class=\"profile-tooltip\"><p><span class=\"d3-color-gold\">" + _L("Damage") +
+               ": <span class=\"d3-color-green\">" + DC.formatNumber(value[3], 0, 10000) + "</span></span>";
+            for (var id in value[4]) {
+              var name = self.sourceName(id);
+              if (name) {
+                tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + name + ": <span class=\"d3-color-green\">" + DC.formatNumber(value[4][id], 0, 10000) + "</span>";
+              }
+            }
+            tip += "</p></div>";
+            line.hover(function() {
+              DC.tooltip.showHtml(this, tip);
+            }, function() {
+              DC.tooltip.hide();
+            });
+            self.sampleLines[index] = line;
+          }
+          if (prevl) prevl.after(self.sampleLines[index]);
+          else self.sectSample.prepend(self.sampleLines[index]);
+        }
+        if (self.sampleLines[index]) {
+          prevl = self.sampleLines[index];
+        }
+      });
+    };
+
     this.chartInit = function() {
       this.graph.empty();
       this.chart = new CanvasJS.Chart(this.graph[0], {
@@ -870,23 +963,30 @@
           lineThickness: 1,
           gridThickness: 1,
           tickThickness: 1,
-          interval: 60,
+//          interval: 60,
           labelFormatter: function(e) {
-            return FmtTime(e.value);
+            return FmtTime(e.value / 1000);
           },
         },
         data: [{
           type: "area",
+          xValueType: "dateTime",
           dataPoints: this.chartData,
         }],
         zoomEnabled: true,
         toolTip: {
           contentFormatter: function(e) {
             var pt = e.entries[0].dataPoint;
-            return "<b>" + FmtTime(pt.x) + "</b> - " + FmtNumber(pt.y);
+            return "<b>" + FmtTime(pt.x / 1000) + "</b> - " + FmtNumber(pt.y);
           },
         },
       });
+      var _r = this.chart._chart.render;
+      var _this = this;
+      this.chart._chart.render = function() {
+        _r.apply(this, arguments);
+        _this.updateSample();
+      };
       this.chart.render();
     };
     this.chartInit();
@@ -933,37 +1033,13 @@
       DC.recordDPS(this.results.damage / this.results.time * 60);
 
       var charClass = this.initData.stats.charClass;
+      this.charClass = charClass;
 
       var self = this;
 
       var lines = [];
       $.each(data.counters, function(id, value) {
-        var name;
-        if (DC.skills[charClass][id]) {
-          name = DC.skills[charClass][id].name;
-        } else if (DC.extraskills && DC.extraskills[charClass] && DC.extraskills[charClass][id]) {
-          name = DC.extraskills[charClass][id].name;
-        } else if (DC.passives[charClass][id]) {
-          name = DC.passives[charClass][id].name;
-        } else if (DC.legendaryGems[id]) {
-          name = DC.legendaryGems[id].name;
-        } else if (self.initData.stats.affixes[id]) {
-          var affix = self.initData.stats.affixes[id];
-          if (affix.set) {
-            name = "(" + affix.pieces + ") " + DC.itemSets[affix.set].name;
-          } else {
-            var item = DC.getSlotId(affix.slot);
-            if (item && DC.itemById[item]) {
-              name = DC.itemById[item].name;
-            }
-          }
-        } else if (DC.stats[id] && DC.stats[id].name) {
-          name = DC.stats[id].name;
-        } else if (DC.itemFromAffix[id]) {
-          name = DC.itemFromAffix[id].name;
-        } else {
-          name = id;
-        }
+        var name = self.sourceName(id);
         if (name) {
           lines.push([name, id, value]);
         }
@@ -975,7 +1051,7 @@
           type = DC.itemById[id].type;
         }
         var index = DC.itemIcons[id];
-        return "<div style=\"background: url(css/items/" + type + ".png) 0 " + (-24 * (index || 0)) + "px no-repeat\"></div>";
+        return "<div style=\"background: url(css/items/" + type + ".png) 0 " + (-24 * (index && index[0] || 0)) + "px no-repeat\"></div>";
       }
       this.sectCounters.empty();
       var extras = (DC.extraskills && DC.extraskills[charClass]) || {};
@@ -1062,34 +1138,25 @@
       var lines = [];
       $.each(data.uptimes, function(id, value) {
         var name = (DC.simMapping.buffs[id] && DC.simMapping.buffs[id].name || id);
-        var amount = DC.formatNumber(value * 100, 2) + "%";
-        lines.push([name, amount]);
+        lines.push([name, value]);
       });
       lines.sort(function(lhs, rhs) {return lhs[0].toLowerCase().localeCompare(rhs[0].toLowerCase());});
       this.sectUptimes.empty();
       for (var i = 0; i < lines.length; ++i) {
-        var line = $("<li><span>" + lines[i][0] + "</span><span>" + lines[i][1] + "</span></li>");
-        DC.addTip(line, lines[i][0] + ": <span class=\"d3-color-green\">" + lines[i][1] + "</span>");
+        var pct = DC.formatNumber(lines[i][1] * 100, 2) + "%";
+        var line = $("<li><span>" + lines[i][0] + "</span><span>" + pct + "</span></li>");
+        var tip = lines[i][0] + ": <span class=\"d3-color-green\">" + pct + "</span>";
+        if (lines[i][1] > 1) {
+          tip += "</span><br/><span class=\"tooltip-icon-bullet\"></span>Average stacks: <span class=\"d3-color-green\">" + DC.formatNumber(lines[i][1], 2);
+        }
+        DC.addTip(line, tip);
         this.sectUptimes.append(line);
       }
 
       this.sectSample.empty();
-      $.each(data.sample, function(index, value) {
-        var skill = DC.skills[charClass][value[1]];
-        if (!skill) skill = (DC.extraskills && DC.extraskills[charClass] && DC.extraskills[charClass][value[1]]);
-        if (skill) {
-          var time = DC.formatNumber(value[0] / 60, 2);
-          var icon = makeSkillIcon(value[1], charClass);
-          var line = $("<li><span><span>" + time + "</span>" + icon + "<span>" + skill.name +
-            "</span></span><span>" + value[2].toFixed(0) + "</span></li>");
-          self.sectSample.append(line);
-          line.hover(function() {
-            DC.tooltip.showSkill(this, charClass, value[1], self.initData.stats.skills[value[1]]);
-          }, function() {
-            DC.tooltip.hide();
-          });
-        }
-      });
+      this.sampleLines = {};
+      this.sampleData = data.sample;
+      this.updateSample();
 
       this.section.show();
     };
@@ -1106,7 +1173,7 @@
         this.finish(data);
       } else {
         this.results.damage += data.damage;
-        this.chartData.push({x: data.time / 60, y: data.damage / 3});
+        this.chartData.push({x: data.time * 1000 / 60, y: data.damage / 3});
         this.chart.render();
       }
       this.dps.find("span").text(FmtNumber(this.results.damage / this.results.time * 60));
@@ -1114,6 +1181,7 @@
 
     this.start = function(data) {
       data.type = "start";
+      delete this.sampleData;
       this.initData = data;
       this.worker = new Worker("sim");
       var self = this;
@@ -1142,6 +1210,7 @@
       this.worker.terminate();
       delete this.worker;
       delete this.results;
+      delete this.sampleData;
       SimButton.button({
         icons: {primary: "ui-icon-play"},
         label: _L("Start"),
@@ -1152,6 +1221,7 @@
       return !!this.worker;
     };
   };
+  DC.SimResults = Results;
 
   DC.exportStats = function() {
     var stats = new DC.Stats();

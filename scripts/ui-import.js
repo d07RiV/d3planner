@@ -20,6 +20,9 @@
     var charClass = DiabloCalc.classMap[data.class] || data.class;
     var pData = {};
     pData.class = charClass;
+    if (data.gender === 0) pData.gender = "male";
+    if (data.gender === 1) pData.gender = "female";
+    pData.gender
     pData.items = {};
     for (var slot in data.items) {
       pData.items[DiabloCalc.slotMap[slot] || slot] = DiabloCalc.parseItemData(data.items[slot], charClass);
@@ -55,6 +58,14 @@
       pData.paragon.level = data.paragonLevel;
       if (data.paragonLevel >= 800) {
         pData.paragon.data = [[0,0,0,0], [50,50,50,50], [50,50,50,50], [50,50,50,50]];
+      }
+    }
+    if (data.legendaryPowers) {
+      pData.kanai = {};
+      for (var i = 0; i < data.legendaryPowers.length; ++i) {
+        var p = data.legendaryPowers[i];
+        var t = (p && DiabloCalc.getKanaiType(p.id));
+        if (p && t) pData.kanai[t] = p.id;
       }
     }
     DiabloCalc.setProfile(pData, "import");
@@ -235,7 +246,7 @@
   function MakeProfile(data, hero) {
     var id = hero.id;
     var li = $("<li></li>");
-    li.append("<span class=\"class-icon class-" + hero.class + "\">&nbsp;</span>");
+    li.append("<span class=\"class-icon class-" + hero.class + (hero.gender ? " " + hero.gender : "") + "\">&nbsp;</span>");
     li.click(function(evt) {
       loadProfile(evt, id);
     });

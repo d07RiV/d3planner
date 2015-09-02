@@ -10,6 +10,9 @@ DiabloCalc.skillcat.monk = {
   focus: "Focus",
   mantras: "Mantras",
 };
+DiabloCalc.monk = {
+  spirit: [{min: 0, max: "maxspirit", name: "Spirit", buffs: false, show: function(rune, stats) {return !!stats.set_shenlong_2pc;}}],
+};
 DiabloCalc.skills.monk = {
   fistsofthunder: {
     id: "fists-of-thunder",
@@ -24,6 +27,7 @@ DiabloCalc.skills.monk = {
       d: "Quickening",
       b: "Bounding Light",
     },
+    params: DiabloCalc.monk.spirit,
     info: function(rune, stats) {
       var res;
       switch (rune) {
@@ -34,10 +38,17 @@ DiabloCalc.skills.monk = {
       case "d": res = {"Damage": {elem: "phy", coeff: 2}, "Third Hit Damage": {elem: "phy", coeff: 4}}; break;
       case "b": res = {"Damage": {elem: "hol", coeff: 2}, "Third Hit Damage": {elem: "hol", coeff: 4}, "Arc Damage": {elem: "hol", coeff: 2.4}}; break;
       }
+      if (stats.set_shenlong_2pc) {
+        var percent = {};
+        percent[DiabloCalc.itemSets.shenlong.name] = this.params[0].val * 1.5;
+        for (var k in res) {
+          res[k].percent = percent;
+        }
+      }
       var ias = (stats.passives.alacrity ? 1.15 : 1) * (stats.set_storms_2pc ? 1.25 : 1);
-      res["DPS"] = {sum: "sequence", "First Hit": {src: "Damage", speed: 1.55 * ias, fpa: 57},
-                                     "Second Hit": {src: "Damage", speed: 1.55 * ias, fpa: 57.391289},
-                                     "Third Hit": {src: "Third Hit Damage", speed: ias, fpa: 58.064510}};
+      res["DPS"] = {sum: "sequence", "First Hit": {src: "Damage", speed: 1.55 * ias, round: "up", fpa: 57},
+                                     "Second Hit": {src: "Damage", speed: 1.55 * ias, round: "up", fpa: 57.391289},
+                                     "Third Hit": {src: "Third Hit Damage", speed: ias, round: "up", fpa: 58.064510}};
       if (res["Shockwave Damage"]) res["DPS"]["Shockwave Damage"] = {count: 3};
       if (res["Arc Damage"]) res["DPS"]["Arc Damage"] = {};
       var spirit = (rune === "d" ? 20 : 14);
@@ -62,6 +73,7 @@ DiabloCalc.skills.monk = {
       d: "Strike from Beyond",
       a: "Foresight",
     },
+    params: DiabloCalc.monk.spirit,
     info: function(rune, stats) {
       var res;
       switch (rune) {
@@ -72,10 +84,17 @@ DiabloCalc.skills.monk = {
       case "d": res = {"Damage": {elem: "col", coeff: 1.5}}; break;
       case "a": res = {"Damage": {elem: "phy", coeff: 1.5}}; break;
       }
+      if (stats.set_shenlong_2pc) {
+        var percent = {};
+        percent[DiabloCalc.itemSets.shenlong.name] = this.params[0].val * 1.5;
+        for (var k in res) {
+          res[k].percent = percent;
+        }
+      }
       var ias = (stats.passives.alacrity ? 1.15 : 1) * (stats.set_storms_2pc ? 1.25 : 1);
-      res["DPS"] = {sum: "sequence", "First Hit": {src: "Damage", speed: 1.5 * ias, fpa: 55.384609},
-                                     "Second Hit": {src: "Damage", speed: 1.5 * ias, fpa: 57.391300},
-                                     "Third Hit": {src: "Damage", speed: ias, fpa: (rune === "c" ? 57.857132 : 58.064510)}};
+      res["DPS"] = {sum: "sequence", "First Hit": {src: "Damage", speed: 1.5 * ias, round: "up", fpa: 55.384609},
+                                     "Second Hit": {src: "Damage", speed: 1.5 * ias, round: "up", fpa: 57.391300},
+                                     "Third Hit": {src: "Damage", speed: ias, round: "up", fpa: (rune === "c" ? 57.857132 : 58.064510)}};
       var spirit = 12;
       if (stats.skills.breathofheaven === "d" && DiabloCalc.isSkillActive("breathofheaven")) {
         spirit += 14;
@@ -102,7 +121,7 @@ DiabloCalc.skills.monk = {
       b: "Tsunami",
       e: "Breaking Wave",
     },
-    params: [{rune: "d", min: 0, max: 10, val: 1, name: "Enemies Hit", buffs: false}],
+    params: [DiabloCalc.monk.spirit[0], {rune: "d", min: 0, max: 10, val: 1, name: "Enemies Hit", buffs: false}],
     info: function(rune, stats) {
       var res;
       switch (rune) {
@@ -113,11 +132,18 @@ DiabloCalc.skills.monk = {
       case "b": res = {"Damage": {elem: "col", coeff: 1.55}}; break;
       case "e": res = {"Damage": {elem: "phy", coeff: 1.55}}; break;
       }
+      if (stats.set_shenlong_2pc) {
+        var percent = {};
+        percent[DiabloCalc.itemSets.shenlong.name] = this.params[0].val * 1.5;
+        for (var k in res) {
+          res[k].percent = percent;
+        }
+      }
       var ias = (stats.passives.alacrity ? 1.15 : 1) * (stats.set_storms_2pc ? 1.25 : 1);
-      res["DPS"] = {sum: "sequence", "First Hit": {src: "Damage", speed: 1.45 * ias, fpa: 56.842102},
-                                     "Second Hit": {src: "Damage", speed: 1.45 * ias, fpa: 56.842102},
-                                     "Third Hit": {src: "Damage", speed: ias, fpa: 58}};
-      var spirit = (rune === "d" ? 12 + this.params[0].val * 2.5 : 12);
+      res["DPS"] = {sum: "sequence", "First Hit": {src: "Damage", speed: 1.45 * ias, round: "up", fpa: 56.842102},
+                                     "Second Hit": {src: "Damage", speed: 1.45 * ias, round: "up", fpa: 56.842102},
+                                     "Third Hit": {src: "Damage", speed: ias, round: "up", fpa: 58}};
+      var spirit = (rune === "d" ? 12 + this.params[1].val * 2.5 : 12);
       if (stats.skills.breathofheaven === "d" && DiabloCalc.isSkillActive("breathofheaven")) {
         spirit += 14;
       }
@@ -143,6 +169,9 @@ DiabloCalc.skills.monk = {
       d: "Assimilation",
       e: "Windforce Flurry",
     },
+    params: [DiabloCalc.monk.spirit[0],
+             {rune: "c", min: 0, max: 3, val: 0, name: "Stacks"},
+             {rune: "d", min: 0, max: 10, val: 0, name: "Stacks", inf: true}],
     info: function(rune, stats) {
       var res;
       switch (rune) {
@@ -153,10 +182,17 @@ DiabloCalc.skills.monk = {
       case "d": res = {"Damage": {elem: "phy", coeff: 1.9}}; break;
       case "e": res = {"Damage": {elem: "col", coeff: 1.9}, "Wave Damage": {elem: "col", coeff: 5}}; break;
       }
+      if (stats.set_shenlong_2pc) {
+        var percent = {};
+        percent[DiabloCalc.itemSets.shenlong.name] = this.params[0].val * 1.5;
+        for (var k in res) {
+          res[k].percent = percent;
+        }
+      }
       var ias = (stats.passives.alacrity ? 1.15 : 1) * (stats.set_storms_2pc ? 1.25 : 1);
-      res["DPS"] = {sum: "sequence", "First Hit": {src: "Damage", speed: 1.275 * ias, fpa: 57},
-                                     "Second Hit": {src: (rune === "b" ? "Second Hit Damage" : "Damage"), speed: 1.175 * ias, fpa: 42},
-                                     "Third Hit": {src: "Damage", speed: ias, fpa: 57.599998}};
+      res["DPS"] = {sum: "sequence", "First Hit": {src: "Damage", speed: 1.275 * ias, round: "up", fpa: 57},
+                                     "Second Hit": {src: (rune === "b" ? "Second Hit Damage" : "Damage"), speed: 1.175 * ias, round: "up", fpa: 42},
+                                     "Third Hit": {src: "Damage", speed: ias, round: "up", fpa: 57.599998}};
       if (res["Dash Damage"]) res["DPS"]["Dash Damage"] = {};
       if (res["Wave Damage"]) res["DPS"]["Wave Damage"] = {};
       var spirit = 12;
@@ -168,11 +204,9 @@ DiabloCalc.skills.monk = {
       return res;
     },
     active: true,
-    params: [{rune: "c", min: 0, max: 3, val: 0, name: "Stacks"},
-             {rune: "d", min: 0, max: 10, val: 0, name: "Stacks", inf: true}],
     buffs: function(rune, stats) {
-      if (rune === "c") return {ias: this.params[0].val * 5, extrams: this.params[0].val * 5};
-      if (rune === "d") return {damage: this.params[1].val * 5};
+      if (rune === "c") return {ias: this.params[1].val * 5, extrams: this.params[1].val * 5};
+      if (rune === "d") return {damage: this.params[2].val * 5};
     },
   },
   lashingtailkick: {
@@ -233,7 +267,7 @@ DiabloCalc.skills.monk = {
       case "x": res = {"Tick Damage": {elem: "phy", coeff: 3.9}}; break;
       case "d": res = {"Tick Damage": {elem: "hol", coeff: 5}}; break;
       case "b": res = {"Tick Damage": {elem: "phy", coeff: 3.9}}; break;
-      case "e": res = {"Tick Damage": {elem: "col", coeff: 3.9}, "Flurry Damage": {elem: "col", coeff: 1.5, addcoeff: [[1.35, this.params[0].val]]}}; break;
+      case "e": res = {"Tick Damage": {elem: "col", coeff: 3.9}, "Flurry Damage": {elem: "col", coeff: 0.9, addcoeff: [[0.9, this.params[0].val]]}}; break;
       case "c": res = {"Tick Damage": {elem: "lit", coeff: 3.9}, "Field DPS": {elem: "lit", coeff: 1.35, total: true}}; break;
       case "a": res = {"Tick Damage": {elem: "fir", coeff: 3.9}}; break;
       }
@@ -290,7 +324,6 @@ DiabloCalc.skills.monk = {
     category: "defensive",
     row: 2,
     col: 0,
-    nolmb: true,
     runes: {
       d: "Self Reflection",
       c: "Mystifying Light",
@@ -318,7 +351,6 @@ DiabloCalc.skills.monk = {
     category: "defensive",
     row: 2,
     col: 1,
-    nolmb: true,
     runes: {
       a: "Circle of Scorn",
       b: "Circle of Life",
@@ -327,12 +359,12 @@ DiabloCalc.skills.monk = {
       e: "Zephyr",
     },
     info: {
-      x: {"Cooldown": {cooldown: 15}},
-      a: {"Cooldown": {cooldown: 15}, "Damage": {elem: "hol", coeff: 5.05}},
-      b: {"Cooldown": {cooldown: 15}},
-      c: {"Uptime": {duration: 9, cooldown: 15}},
-      d: {"Cooldown": {cooldown: 15}},
-      e: {"Cooldown": {cooldown: 15}},
+      x: {"Cooldown": {cooldown: 15, cdr: "leg_eyeofpeshkov"}},
+      a: {"Cooldown": {cooldown: 15, cdr: "leg_eyeofpeshkov"}, "Damage": {elem: "hol", coeff: 5.05}},
+      b: {"Cooldown": {cooldown: 15, cdr: "leg_eyeofpeshkov"}},
+      c: {"Uptime": {duration: 9, cooldown: 15, cdr: "leg_eyeofpeshkov"}},
+      d: {"Uptime": {duration: 5, cooldown: 15, cdr: "leg_eyeofpeshkov"}},
+      e: {"Cooldown": {cooldown: 15, cdr: "leg_eyeofpeshkov"}},
     },
     active: true,
     buffs: {
@@ -346,7 +378,6 @@ DiabloCalc.skills.monk = {
     category: "defensive",
     row: 2,
     col: 2,
-    nolmb: true,
     runes: {
       a: "Peaceful Repose",
       e: "Unwelcome Disturbance",
@@ -425,6 +456,12 @@ DiabloCalc.skills.monk = {
         res["Damage"].coeff = 125;
       }
       return $.extend({"Cooldown": {cooldown: 8}}, res);
+    },
+    active: false,
+    buffs: {
+      b: {extrams: 20},
+      c: {dodge: 40},
+      e: {ias: 15},
     },
   },
   explodingpalm: {
@@ -544,13 +581,22 @@ DiabloCalc.skills.monk = {
     },
     info: function(rune, stats) {
       var res;
+      var hits = 7 + (stats.leg_lionsclaw ? 7 : 0);
       switch (rune) {
-      case "x": res = {"Damage": {elem: "phy", coeff: 56.77, divide: {"Hits": 7}}, "Total Damage": {sum: true, "Damage": {count: 7}}}; break;
-      case "a": res = {"Damage": {elem: "lit", coeff: 82.85, divide: {"Hits": 7}}, "Total Damage": {sum: true, "Damage": {count: 7}}}; break;
-      case "b": res = {"Damage": {elem: "fir", coeff: 56.77, divide: {"Hits": 7}}, "Burn Damage": {elem: "fir", coeff: 6.3, total: true}, "Total Damage": {sum: true, "Damage": {count: 7}, "Burn Damage": {count: 7}}}; break;
-      case "c": res = {"Damage": {elem: "col", coeff: 56.77, divide: {"Hits": 7}}, "Total Damage": {sum: true, "Damage": {count: 7}}}; break;
-      case "d": res = {"Damage": {elem: "phy", coeff: 56.77, divide: {"Hits": 7}}, "Total Damage": {sum: true, "Damage": {count: 7}}}; break;
-      case "e": res = {"Damage": {elem: "hol", coeff: 8.77}, "Total Damage": {sum: true, "Damage": {count: 7}}}; break;
+      case "x": res = {"Damage": {elem: "phy", coeff: 56.77, divide: {"Base Hits": 7}}, "Total Damage": {sum: true, "Damage": {count: hits}}}; break;
+      case "a": res = {"Damage": {elem: "lit", coeff: 82.85, divide: {"Base Hits": 7}}, "Total Damage": {sum: true, "Damage": {count: hits}}}; break;
+      case "b": res = {"Damage": {elem: "fir", coeff: 56.77, divide: {"Base Hits": 7}}, "Burn Damage": {elem: "fir", coeff: 6.3, total: true}, "Total Damage": {sum: true, "Damage": {count: 7}, "Burn Damage": {count: hits}}}; break;
+      case "c": res = {"Damage": {elem: "col", coeff: 56.77, divide: {"Base Hits": 7}}, "Total Damage": {sum: true, "Damage": {count: hits}}}; break;
+      case "d": res = {"Damage": {elem: "phy", coeff: 56.77, divide: {"Base Hits": 7}}, "Total Damage": {sum: true, "Damage": {count: hits}}}; break;
+      case "e": res = {"Damage": {elem: "hol", coeff: 8.77}, "Total Damage": {sum: true, "Damage": {count: hits}}}; break;
+      }
+      if (stats.set_uliana_4pc) {
+        if (rune !== "e") {
+          delete res["Damage"].divide;
+        } else {
+          res["Damage"].factor = {};
+          res["Damage"].factor[DiabloCalc.itemSets.uliana.name] = 7;
+        }
       }
       if (stats.set_inna_6pc) {
         var ext = {pet: true, weapon: "mainhand", percent: {"Ally %": stats.skill_monk_mystically}};
@@ -566,6 +612,12 @@ DiabloCalc.skills.monk = {
       if (rune !== "c") base["Cost"] = {cost: 50};
       return $.extend(base, res);
     },
+    active: true,
+    buffs: function(rune, stats) {
+      if (stats.leg_bindingsofthelost) {
+        return {dmgred: stats.leg_bindingsofthelost * (7 + (stats.leg_lionsclaw ? 7 : 0))};
+      }
+    },
   },
   mystically: {
     id: "mystic-ally",
@@ -573,7 +625,6 @@ DiabloCalc.skills.monk = {
     category: "focus",
     row: 4,
     col: 2,
-    nolmb: true,
     runes: {
       b: "Water Ally",
       a: "Fire Ally",
@@ -606,7 +657,6 @@ DiabloCalc.skills.monk = {
     category: "focus",
     row: 4,
     col: 3,
-    nolmb: true,
     runes: {
       a: "Desert Shroud",
       e: "Ascendance",

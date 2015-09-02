@@ -21,7 +21,7 @@ DiabloCalc.skilltips.crusader = {
     a: "<p>The hammer is engulfed in fire and has a <span class=\"d3-color-green\">25%</span> chance to scorch the ground over which it passes. Enemies who pass through the scorched ground take <span class=\"d3-color-green\">330%</span> weapon damage as Fire per second.</p> <p class=\"subtle\">Unlocked at level <em>18</em></p>",
     b: "<p>The hammer is charged with lightning that occasionally arcs between you and the hammer as it spirals through the air, dealing <span class=\"d3-color-green\">60%</span> weapon damage as Lightning to enemies caught in the arcs. </p> <p class=\"subtle\">Unlocked at level <em>22</em></p>",
     c: "<p>When the hammer hits an enemy there is a <span class=\"d3-color-green\">50%</span> chance that a new hammer will be created at the location of the enemy hit.  This can only occur once per hammer.</p> <p class=\"subtle\">Unlocked at level <em>35</em></p>",
-    d: "<p>The hammer is made of ice, chilling enemies it passes through and has a <span class=\"d3-color-green\">10%</span> chance to explode on impact, dealing <span class=\"d3-color-green\">380%</span> weapon damage as Cold and Freezing enemies within <span class=\"d3-color-green\">6</span> yards for <span class=\"d3-color-green\">2</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>48</em></p>",
+    d: "<p>The hammer is made of ice, chilling enemies it passes through and has a <span class=\"d3-color-green\">35%</span> chance to explode on impact, dealing <span class=\"d3-color-green\">460%</span> weapon damage as Cold and Freezing enemies within <span class=\"d3-color-green\">6</span> yards for <span class=\"d3-color-green\">1</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>48</em></p>",
     e: "<p>The Hammer now orbits you as you move.</p> <p class=\"subtle\">Unlocked at level <em>57</em></p>",
     elements: {
       a: "fir",
@@ -111,7 +111,7 @@ DiabloCalc.skilltips.crusader = {
       e: "hol",
       x: "phy",
     },
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/x1_crusader_fallingsword.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">25</span> Wrath<br/><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">30</span> seconds</p><p>Launch yourself into the heavens and come crashing down on your enemies, dealing <span class=\"d3-color-green\">1700%</span> weapon damage to everything within <span class=\"d3-color-green\">14</span> yards of where you land.</p> <p class=\"special\">Conviction</p> <p class=\"subtle\">Unlocked at level <em>19</em></p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/x1_crusader_fallingsword.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">25</span> Wrath<br/><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">30</span> seconds</p><p>Launch yourself into the heavens and come crashing down on your enemies, dealing <span class=\"d3-color-green\">1700%</span> weapon damage to everything within <span class=\"d3-color-green\">14</span> yards of where you land. This ability does not start its cooldown until after its effects expire.</p> <p class=\"special\">Conviction</p> <p class=\"subtle\">Unlocked at level <em>19</em></p> </div> </div>",
   },
   fistoftheheavens: {
     a: "<p>Summon a fiery storm that covers a <span class=\"d3-color-green\">8</span> yard radius for <span class=\"d3-color-green\">5</span> seconds, dealing <span class=\"d3-color-green\">100%</span> weapon damage as Fire every second to enemies who pass underneath it.</p> <p class=\"subtle\">Unlocked at level <em>36</em></p>",
@@ -163,10 +163,10 @@ DiabloCalc.skilltips.crusader = {
   },
   judgment: {
     a: "<p>For every enemy upon whom you pass judgment, you heal for <span class=\"d3-color-green\">2682</span> Life per second for <span class=\"d3-color-green\">3</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>27</em></p>",
-    b: "<p>All enemies are first drawn toward the center of the judged area.</p> <p class=\"subtle\">Unlocked at level <em>31</em></p>",
+    b: "<p>All enemies are drawn toward the center of the judged area.</p> <p class=\"subtle\">Unlocked at level <em>31</em></p>",
     c: "<p>Increase the duration of the Immobilize to <span class=\"d3-color-green\">10</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>37</em></p>",
     d: "<p>Damage dealt to judged enemies has an <span class=\"d3-color-green\">20%</span> increased chance to be a Critical Hit.</p> <p class=\"subtle\">Unlocked at level <em>43</em></p>",
-    e: "<p>Enemies below <span class=\"d3-color-green\">25%</span> health who are judged have a <span class=\"d3-color-green\">20%</span> chance to be converted into an Avatar of the Order who fights by your side for <span class=\"d3-color-green\">5</span> seconds. Each Avatar attacks for <span class=\"d3-color-green\">100%</span> of your weapon damage.</p> <p class=\"subtle\">Unlocked at level <em>59</em></p>",
+    e: "<p>Enemies in the judged area deal <span class=\"d3-color-green\">40%</span> reduced damage for <span class=\"d3-color-green\">6</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>59</em></p>",
     elements: {
       a: "phy",
       b: "phy",

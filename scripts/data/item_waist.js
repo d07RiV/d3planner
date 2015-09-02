@@ -165,6 +165,7 @@ DiabloCalc.addItems([
       custom: {id: "leg_angelhairbraid", name: "Punish Gains All Runes", format: "Punish gains the effect of every rune.", args: 0},
     },
     preset: ["mainstat", "dura"],
+    secondary: 3,
   },
 
   {
@@ -513,6 +514,54 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       custom: {id: "leg_omrynschain", name: "Vault Drops Caltrops", format: "Drop Caltrops when using Vault.", args: 0},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P3_Unique_Belt_005",
+    local: true,
+    name: "Hunter's Wrath",
+    type: "belt",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_hunterswrath", name: "Generator Damage Bonus", format: "Your primary skills attack 30%% faster and deal %d%% increased damage.", min: 45, max: 60},
+    },
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "P3_Unique_Belt_01",
+    local: true,
+    name: "Sacred Harness",
+    type: "belt",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_sacredharness", name: "Falling Sword Casts Judgment", format: "Judgment gains the effect of the Debilitate rune and is cast at your landing location when casting Falling Sword.", args: 0},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P3_Unique_Belt_02",
+    local: true,
+    name: "Fazula’s Improbable Chain",
+    type: "belt",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_fazulasimprobablechain", name: "Archon Stacks Extra Bonuses", format: "You automatically start with %d Archon stacks when entering Archon form.", min: 15, max: 20},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P3_Unique_Belt_03",
+    local: true,
+    name: "Binding of the Lost",
+    type: "belt",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_bindingsofthelost", name: "Damage Reduction", format: "Each hit with Seven-Sided Strike grants %.1f%% damage reduction for 7 seconds.", min: 3, max: 3.5, step: 0.1},
     },
     preset: ["mainstat"],
   },

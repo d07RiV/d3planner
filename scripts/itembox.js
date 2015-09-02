@@ -182,11 +182,11 @@
     return stats;
   };
 
-  DC.makeItem = function(id, custom) {
-    var data = {id: id, stats: {}, ancient: false};
+  DC.makeItem = function(id, custom, ancient) {
+    var data = {id: id, stats: {}, ancient: (ancient || false)};
     var preset = getItemPreset(id);
-    var affixes = DC.getItemAffixesById(id, false, true);
-    var required = DC.getItemAffixesById(id, false, "only");
+    var affixes = DC.getItemAffixesById(id, data.ancient, true);
+    var required = DC.getItemAffixesById(id, data.ancient, "only");
     function mkval(stat) {
       if (!affixes[stat]) return [0];
       var val = [];
@@ -515,7 +515,7 @@
   StatLine.prototype.onRemove = function() {
     if (!this.required) {
       var index = this.line.index();
-      this.box.removeStat(index);
+      this.box.removeStat(index, this.merged);
     }
   };
   // generate list of passives for hellfire (auto fill)
@@ -628,13 +628,13 @@
           chosen_addIcons(sock.type, function(id) {
             if (isNaN(id)) {
               var gem = DC.legendaryGems[id];
-              if (gem && DC.itemIcons[gem.id] !== undefined) {
-                return "<span style=\"background: url(css/items/gemleg.png) 0 -" + (24 * DC.itemIcons[gem.id]) + "px no-repeat\"></span>";
+              if (gem && (gem.id in DC.itemIcons)) {
+                return "<span style=\"background: url(css/items/gemleg.png) 0 -" + (24 * DC.itemIcons[gem.id][0]) + "px no-repeat\"></span>";
               }
             } else {
               id = parseInt(id);
               if (id >= 0 && id < DC.gemQualities.length) {
-                return "<span style=\"background: url(css/items/gems.png) -" + (24 * id) + "px 0 no-repeat\"></span>";
+                return "<span style=\"background: url(css/items/gems.png) -" + (24 * id) + "px -120px no-repeat\"></span>";
               }
             }
           });
@@ -670,9 +670,9 @@
           });
           chosen_addIcons(sock.color, function(id) {
             var gem = DC.gemColors[id];
-            if (gem && DC.itemIcons[gem.id] !== undefined) {
+            if (gem && gem.id in DC.itemIcons) {
               var level = parseInt(sock.type.val());
-              return "<span style=\"background: url(css/items/gems.png) -" + (24 * level) + "px -" + (24 * DC.itemIcons[gem.id]) + "px no-repeat\"></span>";
+              return "<span style=\"background: url(css/items/gems.png) -" + (24 * level) + "px -" + (24 * DC.itemIcons[gem.id][0]) + "px no-repeat\"></span>";
             }
           });
           onChangeSocketType(sock);
@@ -710,8 +710,14 @@
         sublimits = limitList[sublimits];
       }
       limits = $.extend({}, limits);
-      limits.min = (limits.min || 0) + (sublimits.min || 0);
-      limits.max = (limits.max || 0) + (sublimits.max || 0);
+      if (DC.stats[stat] && DC.stats[stat].dr) {
+        limits.min = 100 - 0.01 * (100 - (limits.min || 0)) * (100 - (sublimits.min || 0));
+        limits.max = 100 - 0.01 * (100 - (limits.max || 0)) * (100 - (sublimits.max || 0));
+        limits.step = "any";
+      } else {
+        limits.min = (limits.min || 0) + (sublimits.min || 0);
+        limits.max = (limits.max || 0) + (sublimits.max || 0);
+      }
     }
 
     var args = 0;
@@ -843,19 +849,29 @@
 
     this.type = $("<select class=\"item-info-type\"></select>");
     this.item = $("<select class=\"item-info-item\"></select>");
+    this.transmogs = $("<select class=\"item-info-item\"></select>");
+    this.dyes = $("<select class=\"item-info-item item-info-dye\"></select>");
+    this.equipSet = $("<span class=\"item-info-equipset\">" + _L("Equip full set") + "</span>").hide();
     this.ancient = $("<input type=\"checkbox\"></input>");
     this.ancientTip = $("<label class=\"item-info-ancient\"></label>").append(this.ancient).append(_L("Ancient")).hide();
     this.statsDiv = $("<ul class=\"item-info-statlist chosen-noframe\"></ul>");
-    this.itemSpan = $("<span style=\"display: inline-block\"></span>");
+    this.typeSpan = $("<span style=\"display: inline-block; vertical-align: top\"></span>");
+    this.itemSpan = $("<span style=\"display: inline-block; vertical-align: top\"></span>");
+    this.itemMod = $("<div class=\"item-mod chosen-noframe\"></div>");
     this.stats = [];
 
     this.div = $("<div class=\"item-info\"></div>");
     if (this.slot) {
       this.div.append("<h3>" + DC.itemSlots[this.slot].name + "</h3>");
     }
-    this.div.append($("<div></div>").append(this.type).append(this.itemSpan.append(this.item)));
+    this.div.append($("<div></div>").append(this.typeSpan.append(this.type)).append(this.itemSpan.append(this.item)));
+    this.typeSpan.append(this.equipSet);
     this.itemSpan.append(this.ancientTip);
     this.div.append(this.statsDiv);
+
+    this.equipSet.click(function() {self.onEquipSet();});
+    DC.register("updateSlotItem", function() {self.updateEquipSet();});
+    DC.register("importEnd", function() {self.updateEquipSet();});
 
     parent.append(this.div);
 
@@ -868,6 +884,8 @@
 
     this.badstats = $("<span class=\"item-info-badstats\"></span>").hide();
     this.div.append(this.badstats);
+
+    this.div.append(this.itemMod.append(this.transmogs, this.dyes));
 
     this.ancient.change(function() {
       self.updateItem();
@@ -896,6 +914,32 @@
       search_contains: true,
       placeholder_text_single: _L("Empty Slot"),
     });
+    this.transmogs.append("<option value=\"\">" + (DC.noChosen ? _L("Transmogrification") : "") + "</option>");
+    this.transmogs.chosen({
+      disable_search_threshold: 10,
+      inherit_select_classes: true,
+      allow_single_deselect: true,
+      search_contains: true,
+      placeholder_text_single: _L("Transmogrification"),
+      populate_func: function() {self.fillTransmogs();},
+    });
+    this.transmogs.change(function() {
+      self.onUpdate(true);
+    });
+    this.dyes.append("<option value=\"\">" + (DC.noChosen ? _L("Dye") : "") + "</option>");
+    for (var id in DC.webglDyes) {
+      this.dyes.append("<option value=\"" + id + "\" class=\"item-info-icon\">" + DC.webglDyes[id].name + "</option>");
+    }
+    this.dyes.chosen({
+      disable_search_threshold: 10,
+      inherit_select_classes: true,
+      allow_single_deselect: true,
+      search_contains: true,
+      placeholder_text_single: _L("Dye"),
+    });
+    this.dyes.change(function() {
+      self.onUpdate(true);
+    });
     chosen_addIcons(this.item, function(id) {
       var type = this.type.val();
       var icon = DC.itemIcons[id];
@@ -909,7 +953,20 @@
         }
       }
       if (icon !== undefined) {
-        return "<span style=\"background: url(css/items/" + type + ".png) 0 -" + (24 * icon) + "px no-repeat\"></span>";
+        return "<span style=\"background: url(css/items/" + type + ".png) 0 -" + (24 * icon[0]) + "px no-repeat\"></span>";
+      }
+    }, this);
+    chosen_addIcons(this.transmogs, function(id) {
+      var icon = DC.itemIcons[id];
+      var item = (DC.itemById[id] || DC.webglItems[id]);
+      if (icon !== undefined && item && item.type) {
+        return "<span style=\"background: url(css/items/" + item.type + ".png) 0 -" + (24 * icon[0]) + "px no-repeat\"></span>";
+      }
+    }, this);
+    chosen_addIcons(this.dyes, function(id) {
+      var icon = DC.itemIcons[id];
+      if (icon !== undefined) {
+        return "<span style=\"background: url(css/items/dyes.png) 0 -" + (24 * icon[0]) + "px no-repeat\"></span>";
       }
     }, this);
     DC.chosenTips(this.item, function(id) {
@@ -919,10 +976,14 @@
     });
   };
 
-  DC.ItemBox.prototype.removeStat = function(index) {
+  DC.ItemBox.prototype.removeStat = function(index, merged) {
     var stat = this.stats[index].list.val();
     this.stats[index].line.remove();
     this.stats.splice(index, 1);
+    if (merged) {
+      var statData = this.onAddStat(merged, merged);
+      statData.list.val(merged);
+    }
     if (DC.stats[stat]) {
       this.updateStatCounts();
     } else {
@@ -1221,8 +1282,50 @@
     }
     return new StatLine(this, type, required, current);
   };
+  DC.ItemBox.prototype.onEquipSet = function(dry) {
+    var id = this.item.val();
+    if (!id || !DC.itemById[id] || !DC.itemById[id].set) return false;
+    var item = DC.itemById[id];
+    var set = DC.itemSets[item.set];
+    var list = {};
+    var equipped = {};
+    var mhtype;
+    if (DC.itemSlots.mainhand && DC.itemSlots.mainhand.item) {
+      var mhid = DC.itemSlots.mainhand.item.id;
+      if (mhid && DC.itemById[mhid]) mhtype = DC.itemById[mhid].type;
+    }
+    for (var slot in DC.itemSlots) {
+      var id = DC.getSlotId(slot);
+      if (id) equipped[id] = slot;
+    }
+    for (var i = 0; i < set.items.length; ++i) {
+      var cur = set.items[i];
+      if (equipped[cur.id]) continue;
+      var type = cur.type;
+      var slot = DC.itemTypes[type].slot;
+      var slots = [slot];
+      if (DC.metaSlots[slot]) slots = DC.metaSlots[slot].slots;
+      for (var j = 0; j < slots.length; ++j) {
+        if (!list[slots[j]] && !DC.getSlotId(slots[j]) && DC.isItemAllowed(slots[j], cur.id, mhtype)) {
+          list[slots[j]] = cur.id;
+          break;
+        }
+      }
+    }
+    if ($.isEmptyObject(list)) return false;
+    if (dry) return true;
+    var ancient = !!this.ancient.prop("checked");
+    for (var slot in list) {
+      DC.setSlot(slot, DC.makeItem(list[slot], undefined, ancient));
+    }
+    return true;
+  };
+  DC.ItemBox.prototype.updateEquipSet = function() {
+    this.equipSet.toggle(this.onEquipSet(true));
+  };
   // big function
   DC.ItemBox.prototype.onChangeItem = function() {
+    delete this.enchant;
     var id = this.item.val();
     var self = this;
     if (this.slot === "mainhand" && DC.itemSlots.offhand.item && DC.itemById[DC.itemSlots.offhand.item.id]) {
@@ -1234,6 +1337,8 @@
       }
     }
     this.updateItem();
+    this.updateMods();
+    this.updateEquipSet();
     if (!id) {
       this.statsDiv.empty();
       this.stats = [];
@@ -1464,6 +1569,9 @@
     }
     delete this.nonRecursive;
     this.updateStatCounts();
+    this.updateMods(data.transmog, data.dye);
+    this.updateEquipSet();
+    this.enchant = data.enchant;
     return true;
   };
 
@@ -1532,6 +1640,12 @@
         }
       }
     }
+    if (this.enchant && data.stats[this.enchant]) {
+      data.enchant = this.enchant;
+    }
+    var mods = this.getMods();
+    if (mods[0] && this.transmogs.val()) data.transmog = this.transmogs.val();
+    if (mods[1] && this.dyes.val()) data.dye = this.dyes.val();
     if (empty) data.empty = empty;
     return data;
   };
@@ -1580,6 +1694,98 @@
     if (refresh || this.type.val() !== value || !value) {
       this.onChangeType();
     }
+  };
+
+  DC.ItemBox.prototype.getMods = function() {
+    var canTransmog = false, canDye = false;
+    var item = this.item.val();
+    item = (item && DC.itemById[item]);
+    var type = (item && DC.itemTypes[item.type]);
+    if (item && type) {
+      if (type.slot === "head" || type.slot === "shoulders" || type.slot === "torso" ||
+          type.slot === "legs" || type.slot === "hands" || type.slot === "feet") {
+        canTransmog = true;
+        canDye = true;
+      }
+      if (type.slot === "mainhand" || type.slot === "offhand" || type.slot === "twohand" || type.slot === "onehand") {
+        if (item.type !== "quiver") canTransmog = true;
+      }
+    }
+    return [canTransmog, canDye];
+  };
+  DC.ItemBox.prototype.updateMods = function(transmog, dye) {
+    var mods = this.getMods();
+    this.itemMod.toggle(!!(mods[0] || mods[1]));
+    var transmogs = this.transmogs;
+    if (!DC.noChosen) transmogs = transmogs.next();
+    transmogs.toggle(mods[0]);
+    var dyes = this.dyes;
+    if (!DC.noChosen) dyes = dyes.next();
+    dyes.toggle(mods[1]);
+    if (mods[0]) {
+      if (DC.noChosen) {
+        this.fillTransmogs(transmog);
+      } else {
+        this.transmogs.empty();
+        var item = (transmog && (DC.itemById[transmog] || DC.webglItems[transmog]));
+        this.transmogs.append("<option value=\"" + (transmog || "") + "\" selected=\"selected\">" + (item && item.name || "") + "</option>");
+        this.transmogs.trigger("chosen:updated");
+      }
+    }
+    if (mods[1]) {
+      this.dyes.val(dye);
+      this.dyes.trigger("chosen:updated");
+    }
+  };
+  DC.ItemBox.prototype.fillTransmogs = function() {
+    var list = this.transmogs;
+    var itemid = list.val();
+    if (arguments.length > 0) itemid = arguments[0];
+    list.empty();
+    list.append("<option value=\"\">" + (DC.noChosen ? _L("Transmogrification") : "") + "</option>");
+    var curItem = this.item.val();
+    curItem = (curItem && DC.itemById[curItem]);
+    if (!curItem) return;
+    var curType = DC.itemTypes[curItem.type];
+    var group = $("<optgroup label=\"" + _L("Normal Items") + "\"></optgroup>");
+    var groupPromo = $("<optgroup label=\"" + _L("Promotion Items") + "\"></optgroup>");
+    list.append(group);
+    var actorList = {};
+    var charActor = ((DC.webglClasses[DC.charClass] || {})[DC.gender || "female"] || 0);
+    function addItem(index, item) {
+      if (!item.name) return;
+      if (item.id && item.quality === "rare") return;
+      var type = DC.itemTypes[item.type];
+      if (!type) return;
+      if (type.classes && type.classes.indexOf(DC.charClass) < 0) return;
+      if (item.classes && item.classes.indexOf(DC.charClass) < 0) return;
+      if (type.slot != curType.slot) return;
+      if (type.slot === "offhand" && type !== curType) {
+        if (type !== DC.itemTypes.shield && type !== DC.itemTypes.crusadershield) return;
+        if (curType !== DC.itemTypes.shield && curType !== DC.itemTypes.crusadershield) return;
+      }
+      if (type.weapon && curType.weapon && type.weapon.type !== curType.weapon.type) return;
+      if (item.actor) {
+        var actor = item.actor;
+        if (typeof actor === "object") actor = actor[charActor];
+        if (actorList[actor] && itemid !== index) return;
+        actorList[actor] = true;
+      }
+      if (item.armortype) {
+        var actor = item.armortype + "_" + item.look;
+        if (actorList[actor] && itemid !== index) return;
+        actorList[actor] = true;
+      }
+      (item.promo ? groupPromo : group).append("<option value=\"" + (item.id || index) +
+         "\" class=\"item-info-icon quality-" + (item.quality || (item.promo ? "legendary" : "normal")) +
+        (itemid == (item.id || index) ? "\" selected=\"selected" : "") +
+        "\">" + item.name + (item.suffix ? " (" + item.suffix + ")" : "") + "</option>");
+    }
+    $.each(DC.webglItems, addItem);
+    group = $("<optgroup label=\"" + _L("Legendary Items") + "\"></optgroup>");
+    list.append(group);
+    $.each(DC.items, addItem);
+    list.append(groupPromo);
   };
 
   DC.ItemBox.prototype.onChangeType = function() {

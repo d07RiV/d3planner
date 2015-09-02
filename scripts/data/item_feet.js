@@ -307,4 +307,34 @@ DiabloCalc.addItems([
     preset: ["mainstat", "vit"],
   },
 
+  {
+    id: "Unique_Boots_Set_01_p3",
+    local: true,
+    name: "Uliana's Destiny",
+    type: "boots",
+    quality: "set",
+    set: "uliana",
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "Unique_Boots_Set_02_p3",
+    local: true,
+    name: "Arachyr’s Stride",
+    type: "boots",
+    quality: "set",
+    set: "arachyr",
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "Unique_Boots_Set_03_p3",
+    local: true,
+    name: "Foundation of the Light",
+    type: "boots",
+    quality: "set",
+    set: "light",
+    preset: ["mainstat", "vit"],
+  },
+
 ]);

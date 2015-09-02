@@ -70,6 +70,9 @@ DiabloCalc.skills.barbarian = {
       a: "Broad Sweep",
       b: "Gathering Storm",
     },
+    params: [{min: 0, max: "maxfury", name: "Fury", buffs: false, show: function(rune, stats) {
+               return !!stats.leg_dishonoredlegacy;
+             }}],
     info: function(rune, stats) {
       var fpa;
       switch (stats.info.weaponClass) {
@@ -89,6 +92,14 @@ DiabloCalc.skills.barbarian = {
       case "c": res = {"Damage": {elem: "phy", coeff: 2}, "Critical Damage": {elem: "phy", coeff: 0.8}}; break;
       case "a": res = {"Damage": {elem: "lit", coeff: 2.35}}; break;
       case "b": res = {"Damage": {elem: "col", coeff: 2}}; break;
+      }
+      if (stats.leg_dishonoredlegacy) {
+        var percent = {};
+        percent[DiabloCalc.itemById.Unique_Mighty_1H_103_x1.name] =
+          stats.leg_dishonoredlegacy * Math.max(0, (stats.maxfury - this.params[0].val) / stats.maxfury);
+        for (var k in res) {
+          res[k].percent = percent;
+        }
       }
       var dps = {"DPS": {sum: true, "Damage": {speed: 1, fpa: fpa, round: "up"}}};
       if (rune === "c") {
@@ -142,7 +153,7 @@ DiabloCalc.skills.barbarian = {
       if (rune == "a" || stats.leg_theundisputedchampion) {
         return {damage: this.params[0].val * 2.5};
       } else if (rune === "c") {
-        return {extrams: this.params[0].val ? 25 : 0};
+        return {extrams: this.params[0].val * 5};
       }
     },
   },
@@ -184,7 +195,7 @@ DiabloCalc.skills.barbarian = {
     },
     params: [{min: 0, max: "maxfury", name: "Fury", buffs: false}],
     info: {
-      "*": {"Cost": {cost: 20}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 56.666664, round: "up"}}},
+      "*": {"Cost": {cost: 20}, "DPS": {sum: true, "Damage": {speed: 1, ias: "leg_bracersofthefirstmen?50:0", fpa: 56.666664, round: "up"}}},
       x: {"Damage": {elem: "phy", coeff: 5.35, chc: "$1/5"}},
       b: {"Damage": {elem: "phy", coeff: 5.35, chc: "$1/5"}, "Shockwave Damage": {elem: "phy", coeff: 5.05}},
       a: {"Damage": {elem: "fir", coeff: 6.4, chc: "$1/5"}},
@@ -233,15 +244,27 @@ DiabloCalc.skills.barbarian = {
       d: "Strength from Earth",
       e: "Permafrost",
     },
-    info: {
-      "*": {"Cost": {cost: 30}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58.666656, round: "up"}}},
-      x: {"Damage": {elem: "phy", coeff: 6.2}},
-      c: {"Cost": {cost: 22}, "Damage": {elem: "lit", coeff: 6.2}},
-      a: {"Damage": {elem: "fir", coeff: 7.35}},
-      b: {"DPS": {sum: true, "Damage": {speed: 1, fpa: 58.666656, round: "up"}, "Rumble Damage": {speed: 1, fpa: 58.666656, round: "up", nobp: true}},
-        "Damage": {elem: "phy", coeff: 6.2}, "Rumble Damage": {elem: "phy", coeff: 2.3}},
-      d: {"Damage": {elem: "phy", coeff: 6.2}},
-      e: {"Damage": {elem: "col", coeff: 7.55}},
+    active: true,
+    activetip: "First 5 enemies",
+    activeshow: function(rune, stats) {
+      return !!stats.leg_bracersofdestruction;
+    },
+    info: function(rune, stats) {
+      var res;
+      switch (rune) {
+      case "x": res = {"Damage": {elem: "phy", coeff: 6.2}}; break;
+      case "c": res = {"Cost": {cost: 22}, "Damage": {elem: "lit", coeff: 6.2}}; break;
+      case "a": res = {"Damage": {elem: "fir", coeff: 7.35}}; break;
+      case "b": res = {"DPS": {sum: true, "Damage": {speed: 1, fpa: 58.666656, round: "up"}, "Rumble Damage": {speed: 1, fpa: 58.666656, round: "up", nobp: true}},
+        "Damage": {elem: "phy", coeff: 6.2}, "Rumble Damage": {elem: "phy", coeff: 2.3}}; break;
+      case "d": res = {"Damage": {elem: "phy", coeff: 6.2}}; break;
+      case "e": res = {"Damage": {elem: "col", coeff: 7.55}}; break;
+      }
+      if (this.active && stats.leg_bracersofdestruction) {
+        res["Damage"].percent = {};
+        res["Damage"].percent[DiabloCalc.itemById.P3_Unique_Bracer_104.name] = stats.leg_bracersofdestruction;
+      }
+      return $.extend({"Cost": {cost: 30, rcr: "leg_furyofthevanishedpeak"}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58.666656, round: "up"}}}, res);
     },
   },
   whirlwind: {
@@ -370,7 +393,6 @@ DiabloCalc.skills.barbarian = {
     category: "defensive",
     row: 2,
     col: 2,
-    nolmb: true,
     runes: {
       b: "Rush",
       c: "Run Like the Wind",
@@ -399,7 +421,6 @@ DiabloCalc.skills.barbarian = {
     category: "defensive",
     row: 2,
     col: 3,
-    nolmb: true,
     runes: {
       d: "Bravado",
       b: "Iron Hide",
@@ -542,7 +563,6 @@ DiabloCalc.skills.barbarian = {
     category: "tactics",
     row: 4,
     col: 0,
-    nolmb: true,
     runes: {
       b: "Intimidate",
       d: "Falter",
@@ -553,6 +573,10 @@ DiabloCalc.skills.barbarian = {
     info: {
       "*": {"Cooldown": {cooldown: 10}},
     },
+    active: true,
+    buffs: {
+      d: {dmgtaken: 25},
+    },
   },
   battlerage: {
     id: "battle-rage",
@@ -560,7 +584,6 @@ DiabloCalc.skills.barbarian = {
     category: "tactics",
     row: 4,
     col: 1,
-    nolmb: true,
     runes: {
       a: "Marauder's Rage",
       b: "Ferocity",
@@ -578,6 +601,7 @@ DiabloCalc.skills.barbarian = {
     buffs: function(rune, stats) {
       var res = {damage: 10, chc: 3};
       if (rune === "a") res.damage = 15;
+      if (rune === "b") res.extrams = 10;
       if (rune === "d") res.chc += this.params[0].val;
       return res;
     },
@@ -588,7 +612,6 @@ DiabloCalc.skills.barbarian = {
     category: "tactics",
     row: 4,
     col: 2,
-    nolmb: true,
     runes: {
       a: "Hardened Wrath",
       d: "Charge!",
@@ -605,7 +628,7 @@ DiabloCalc.skills.barbarian = {
       a: {armor_percent: 40},
       d: {armor_percent: 20},
       e: {armor_percent: 20, life: 10, regen: 8315},
-      b: {armor_percent: 20, dodge: 15},
+      b: {armor_percent: 20, dodge: 30},
       c: {armor_percent: 20, resist_percent: 20},
     },
   },
@@ -678,7 +701,6 @@ DiabloCalc.skills.barbarian = {
     category: "rage",
     row: 5,
     col: 2,
-    nolmb: true,
     runes: {
       b: "Arreat's Wail",
       a: "Insanity",
@@ -781,7 +803,7 @@ DiabloCalc.passives.barbarian = {
     name: "Bloodthirst",
     index: 6,
     buffs: function(stats) {
-      return {lifefury: 966 + 0.01 * stats.healbonus};
+      return {lifefury: 966 + 0.01 * (stats.healbonus || 0)};
     },
   },
   animosity: {
@@ -800,14 +822,16 @@ DiabloCalc.passives.barbarian = {
     id: "tough-as-nails",
     name: "Tough as Nails",
     index: 9,
-    buffs: {armor_percent: 25},
+    buffs: function(stats) {
+      return {armor_percent: 25/*, thorns: ((0 || stats.thorns) + (0 || stats.firethorns)) * 0.5*/};
+    },
   },
   noescape: {
     id: "no-escape",
     name: "No Escape",
     index: 10,
     active: true,
-    buffs: {dmgmul: {skills: ["weaponthrow", "ancientspear"], percent: 25}},
+    buffs: {dmgmul: {skills: ["weaponthrow", "ancientspear", "avalanche"], percent: 30}},
   },
   relentless: {
     id: "relentless",
@@ -875,6 +899,9 @@ DiabloCalc.partybuffs.barbarian = {
   },
   warcry: {
     runelist: "*",
+  },
+  threateningshout: {
+    runelist: "d",
   },
   calloftheancients: {
     runelist: "d",

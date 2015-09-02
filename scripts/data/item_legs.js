@@ -307,4 +307,34 @@ DiabloCalc.addItems([
     preset: ["mainstat", "sockets"],
   },
 
+  {
+    id: "Unique_Pants_Set_01_p3",
+    local: true,
+    name: "Uliana's Burden",
+    type: "pants",
+    quality: "set",
+    set: "uliana",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "Unique_Pants_Set_02_p3",
+    local: true,
+    name: "Arachyr’s Legs",
+    type: "pants",
+    quality: "set",
+    set: "arachyr",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "Unique_Pants_Set_03_p3",
+    local: true,
+    name: "Towers of the Light",
+    type: "pants",
+    quality: "set",
+    set: "light",
+    preset: ["mainstat", "sockets"],
+  },
+
 ]);

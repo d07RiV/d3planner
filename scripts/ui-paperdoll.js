@@ -11,6 +11,7 @@
   }
   var skills = [];
   var passives = [];
+  var $btnMale, $btnFemale;
   DiabloCalc.getDollSkill = function(index) {
     return skills[index];
   };
@@ -117,8 +118,16 @@
 
   function onChangeClass() {
     var charClass = $(".char-class").val();
-    $(".paperdoll-background").parent().removeClass().addClass("paperdoll-container").addClass("class-" + charClass);
+    $(".paperdoll-background").parent().removeClass().addClass("paperdoll-container").addClass("class-" + charClass).addClass(DiabloCalc.gender || "female");
     $(".paperdoll-background").removeClass().addClass("paperdoll-background").addClass(DiabloCalc.classes[charClass].follower ? "class-follower" : "class-character");
+    $btnMale.toggleClass("selected", DiabloCalc.gender === "male");
+    $btnFemale.toggleClass("selected", DiabloCalc.gender !== "male");
+  }
+  function onChangeGender() {
+    onChangeClass();
+    for (var slot in DiabloCalc.itemSlots) {
+      onUpdateSlot(slot);
+    }
   }
 
   var outer = $(".paperdoll-background");
@@ -173,7 +182,15 @@
         if (DiabloCalc.tooltip) DiabloCalc.tooltip.hide()
       });
       icon.click(function() {
-        DiabloCalc.trigger("editSkill", i);
+        var skill = DiabloCalc.getSkill(i);
+        if (skill && DiabloCalc.d3gl && DiabloCalc.d3gl.character && DiabloCalc.d3gl.enabled()) {
+          DiabloCalc.tooltip.hide();
+          var info = (DiabloCalc.webglSkills && skill && DiabloCalc.webglSkills[skill[0]]);
+          if (info && typeof info === "object" && "x" in info) info = info[skill[1]];
+          if (info) DiabloCalc.d3gl.character.animate(info);
+        } else {
+          DiabloCalc.trigger("editSkill", i);
+        }
       });
     })(i);
     skillLine.append(icon);
@@ -203,7 +220,24 @@
   }
   outer.parent().append(skillLine).append(passiveLine);
 
+  $btnMale = $("<span class=\"d3gl-button-male\"></span>").click(function() {
+    DiabloCalc.gender = "male";
+    $btnMale.addClass("selected");
+    $btnFemale.removeClass("selected");
+    if (DiabloCalc.updateClassIcon) DiabloCalc.updateClassIcon();
+    DiabloCalc.trigger("changeGender");
+  });
+  $btnFemale = $("<span class=\"d3gl-button-female selected\"></span>").click(function() {
+    DiabloCalc.gender = "female";
+    $btnMale.removeClass("selected");
+    $btnFemale.addClass("selected");
+    if (DiabloCalc.updateClassIcon) DiabloCalc.updateClassIcon();
+    DiabloCalc.trigger("changeGender");
+  });
+  $(".paperdoll-container").append($btnMale, $btnFemale);
+
   DiabloCalc.register("changeClass", onChangeClass);
+  DiabloCalc.register("changeGender", onChangeGender);
   onChangeClass();
 
   DiabloCalc.register("updateSlotStats", onUpdateSlotStats);

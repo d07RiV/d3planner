@@ -245,4 +245,56 @@ DiabloCalc.addItems([
     preset: ["mainstat", "resall"],
   },
 
+  {
+    id: "P3_Unique_Shoulder_102",
+    local: true,
+    name: "Fury of the Ancients",
+    type: "shoulders",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_furyoftheancients", name: "CotA Gains Ancients' Fury", format: "Call of the Ancients gains the effect of the Ancients' Fury rune.", args: 0},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "Unique_Shoulder_Set_01_p3",
+    local: true,
+    name: "Uliana's Strength",
+    type: "shoulders",
+    quality: "set",
+    set: "uliana",
+    preset: ["mainstat", "resall"],
+  },
+
+  {
+    id: "Unique_Shoulder_Set_02_p3",
+    local: true,
+    name: "Arachyr’s Mantle",
+    type: "shoulders",
+    quality: "set",
+    set: "arachyr",
+    preset: ["mainstat", "resall"],
+  },
+
+  {
+    id: "Unique_Shoulder_Set_03_p3",
+    local: true,
+    name: "Mountain of the Light",
+    type: "shoulders",
+    quality: "set",
+    set: "light",
+    preset: ["mainstat", "resall"],
+  },
+
+  {
+    id: "Unique_Shoulder_Set_13_x1",
+    local: true,
+    name: "Vyr's Proud Pauldrons",
+    type: "shoulders",
+    quality: "set",
+    set: "vyr",
+    preset: ["mainstat", "resall"],
+  },
+
 ]);

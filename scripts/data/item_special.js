@@ -173,7 +173,7 @@ DiabloCalc.itemaffixes = {
   leg_flyingdragon: {
     active: false,
     buffs: function(value, stats) {
-      return {weaponias: 100};
+      return {weaponaps: 1.15};
     },
   },
   leg_harringtonwaistguard: {
@@ -250,6 +250,11 @@ DiabloCalc.itemaffixes = {
     buffs: {ias: 30},
   },
   set_talrasha_2pc: {
+    active: true,
+    activetip: "3 or fewer targets",
+    activeshow: function(rune, stats) {
+      return !!stats.leg_nilfursboast;
+    },
     info: function(value, stats) {
       var elems = DiabloCalc.passives.wizard.elementalexposure.getElems(stats, "tal2");
       var res = {};
@@ -278,8 +283,14 @@ DiabloCalc.itemaffixes = {
           total[e].cd = 8;
           total[e].cdr = false;
         }
+        var pct;
+        if (stats.leg_nilfursboast) {
+          pct = {};
+          pct[DiabloCalc.itemById.P2_Unique_Boots_01.name] = (this.active ? stats.leg_nilfursboast : 100);
+        }
         for (var r in res) {
           res[r].exclude = ["arcanedynamo"];
+          res[r].percent = pct;
         }
         total.sum = true;
         res["DPS"] = total;
@@ -441,9 +452,15 @@ DiabloCalc.itemaffixes = {
   },
   set_immortalking_6pc: {
     active: true,
-    buffs: {dmgmul: {percent: 100}},
+    buffs: {dmgmul: {percent: 250}},
   },
   leg_spiritguards: {
+    active: false,
+    buffs: function(value, stats) {
+      return {dmgred: value[0]};
+    },
+  },
+  leg_wrapsofclarity: {
     active: false,
     buffs: function(value, stats) {
       return {dmgred: value[0]};
@@ -524,7 +541,7 @@ DiabloCalc.itemaffixes = {
 
   set_unhallowed_4pc: {
     active: true,
-    buffs: {dmgred: 20, damage: 20},
+    buffs: {dmgred: 20, dmgmul: 20},
   },
   set_unhallowed_6pc: {
     params: [{min: 0, max: "maxdisc", name: "Discipline"}],
@@ -544,6 +561,21 @@ DiabloCalc.itemaffixes = {
     buffs: {dmgmul: {skills: ["rend"], percent: 500}},
   },
 
+/*  leg_nilfursboast: {
+    active: true,
+    activetip: "3 or less targets",
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["meteor"], percent: value[0]}};
+    },
+    inactive: {dmgmul: {skills: ["meteor"], percent: 100}},
+  },
+  leg_drakonslesson: {
+    active: true,
+    activetip: "3 or less targets",
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["shieldbash"], percent: value[0]}};
+    },
+  },*/
   set_storms_2pc: {
     buffs: {dmgmul: {skills: ["fistsofthunder", "deadlyreach", "cripplingwave", "wayofthehundredfists"], percent: 300}},
   },
@@ -669,14 +701,106 @@ DiabloCalc.itemaffixes = {
       }
     },
   },
+
+  leg_hunterswrath: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["hungeringarrow", "entanglingshot", "bolas", "evasivefire", "grenade"], percent: value[0]}};
+    },
+  },
+  leg_bracersofthefirstmen: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["hammeroftheancients"], percent: value[0]}};
+    },
+  },
   leg_theswami: {
     check: true,
     active: true,
-    params: (DiabloCalc.skills&&DiabloCalc.skills.wizard&&DiabloCalc.skills.wizard.archon.params||[{min: 0, max: 50, val: 0, name: "Stacks", inf: true}]),
+    params: (DiabloCalc.skills&&DiabloCalc.skills.wizard&&DiabloCalc.skills.wizard.archon.params||
+      [{min: "leg_fazulasimprobablechain", max: "leg_fazulasimprobablechain+50", val: "min", name: "Stacks", inf: true}]),
     buffs: function(value, stats) {
       if (stats.skills.archon && !DiabloCalc.skills.wizard.archon.active) {
-        return {damage: this.params[0].val * 6};
+        var stacks = this.params[0].val;
+        var res = {damage: stacks * 6};
+        if (stats.set_vyr_4pc) {
+          res.ias = stacks;
+          res.armor_percent += stacks;
+          res.resist_percent += stacks;
+        }
+        return res;
       }
     },
+  },
+  leg_theswami_p3: {
+    clone: "leg_theswami",
+  },
+  set_light_4pc: {
+    check: true,
+    active: true,
+    buffs: function(value, stats) {
+      if (stats.skills.fallingsword) {
+        return {dmgred: 50};
+      }
+    },
+  },
+  set_light_6pc: {
+    buffs: {dmgmul: {list: [
+      {skills: ["blessedhammer"], percent: 750},
+      {skills: ["fallingsword"], percent: 500},
+    ]}},
+  },
+  set_shenlong_2pc: {
+    active: true,
+    buffs: {dmgmul: 100},
+  },
+  set_helltooth_2pc: {
+    active: true,
+    info: {"Necrosis DPS": {elem: "max", coeff: 15, total: true}},
+    buffs: {dmgtaken: 20},
+  },
+  set_helltooth_4pc: {
+    active: true,
+    buffs: {dmgred: 50},
+  },
+  set_helltooth_6pc: {
+    buffs: function(value, stats) {
+      return {dmgmul: {list: [
+        {pet: false, skills: ["poisondart", "plagueoftoads", "firebomb", "acidcloud",
+           "firebats", "zombiecharger", "graspofthedead", "piranhas", "wallofzombies"], percent: 900},
+        {skills: ["summonzombiedogs", "gargantuan", "corpsespiders"], percent: 900},
+      ]}};
+    },
+  },
+  set_arachyr_2pc: {
+    info: {"DPS": {elem: "max", pet: true, coeff: 8, total: true}},
+  },
+  set_arachyr_6pc: {
+    buffs: {dmgmul: {skills: ["corpsespiders", "plagueoftoads", "firebats", "hex", "locustswarm", "piranhas"], percent: 800}},
+  },
+  leg_chilanikschain: {
+    check: true,
+    active: true,
+    buffs: function(value, stats) {
+      if (stats.skills.warcry) {
+        return {extrams: value[0]};
+      }
+    },
+  },
+  leg_jeramsbracers: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["wallofzombies"], percent: value[0]}};
+    },
+  },
+  set_uliana_2pc: {
+    check: true,
+    info: function(value, stats) {
+      if (!stats.skills.explodingpalm) {
+        var expl = {};
+        if (stats.leg_thefistofazturrasq) {
+          expl[DiabloCalc.itemById.Unique_Fist_009_x1.name] = stats.leg_thefistofazturrasq;
+        }
+        return {"Palm Damage": {elem: "phy", coeff: 12, total: true, skill: "explodingpalm"},
+          "Palm Explosion Damage": {elem: "phy", coeff: 27.7, percent: expl, skill: "explodingpalm"}};
+      }
+    }
   },
 };

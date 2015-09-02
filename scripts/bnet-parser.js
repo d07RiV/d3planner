@@ -44,6 +44,12 @@
       id: data.id,
       stats: {},
     };
+    if (data.transmogItem) {
+      result.transmog = data.transmogItem.id;
+    }
+    if (data.dyeColor && data.dyeColor.item) {
+      result.dye = data.dyeColor.item.id;
+    }
     if (!DiabloCalc.itemById[data.id]) {
       var typeid = data.type.id.toLowerCase();
       typeid = (DiabloCalc.typeMap[typeid] || typeid);

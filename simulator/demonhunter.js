@@ -160,11 +160,23 @@
     }
   }
 
+  function GenSpeed(data) {
+    if (typeof data === "function") {
+      return function(rune) {
+        return data(rune) / (Sim.stats.leg_hunterswrath ? 1.3 : 1);
+      };
+    } else {
+      return function(rune) {
+        return data / (Sim.stats.leg_hunterswrath ? 1.3 : 1);
+      };
+    }
+  }
+
   skills.hungeringarrow = {
     signature: true,
     offensive: true,
     generate: {x: 3, d: 3, a: 6, b: 3, c: 3, e: 3},
-    speed: VarSpeed,
+    speed: GenSpeed(VarSpeed),
     oncast: function(rune) {
       var data = ha_compute(rune);
       if (data.count) {
@@ -202,7 +214,7 @@
     signature: true,
     offensive: true,
     generate: {x: 3, b: 3, c: 3, a: 3, d: 6, e: 3},
-    speed: VarSpeed,
+    speed: GenSpeed(VarSpeed),
     oncast: function(rune) {
       var pierce = _buriza();
       switch (rune) {
@@ -227,7 +239,7 @@
     signature: true,
     offensive: true,
     generate: {x: 3, a: 3, c: 6, b: 3, d: 3, e: 3},
-    speed: 56.666666,
+    speed: GenSpeed(56.666666),
     oncast: function(rune) {
       var delay = (Sim.stats.leg_emimeisduffel ? 0 : 60);
       var pierce = _buriza();
@@ -248,7 +260,7 @@
     signature: true,
     offensive: true,
     generate: {x: 4, a: 4, c: 4, b: 4, e: 7, d: 4},
-    speed: VarSpeed,
+    speed: GenSpeed(VarSpeed),
     oncast: function(rune) {
       switch (rune) {
       case "x": Sim.damage({coeff: 2}); Sim.damage({coeff: 1, targets: Math.min(2, Sim.target.count - 1)}); break;
@@ -277,7 +289,7 @@
     signature: true,
     offensive: true,
     generate: {x: 3, d: 6, b: 3, c: 3, e: 3, a: 3},
-    speed: 56.470554,
+    speed: GenSpeed(56.470554),
     oncast: function(rune) {
       var mod_damage = (Sim.stats.passives.grenadier ? 1.1 : 1);
       var mod_range = (Sim.stats.passives.grenadier ? 1.2 : 1);
@@ -446,7 +458,7 @@
       case "d": return {type: "line", pierce: true, speed: 0.4, coeff: 3};
       }
     },
-    proctable: {x: 0.5, b: 0.333, a: 0.5, c: 0.4, e: 0.5, d: 0.05},
+    proctable: {x: 0.5, b: 0.333, a: 0.25, c: 0.1, e: 0.4, d: 0.3},
     elem: {x: "fir", b: "lit", a: "col", c: "fir", e: "lit", d: "phy"},
   };
 
@@ -709,6 +721,9 @@
     proctable: {x: 0.333, d: 0.5, e: 0.333, a: 0.3, c: 0.333, b: 0.2},
   };
 
+  function st_echoing_onhit(data) {
+    Sim.addBuff("echoingblast", {dmgtaken: 20}, {status: "frozen", duration: 180});
+  }
   skills.spiketrap = {
     offensive: true,
     weapon: "mainhand",
@@ -718,26 +733,34 @@
       var params = {
         maxstacks: 3 * (Sim.stats.passives.customengineering ? 2 : 1),
         refresh: false,
-        duration: 361,
-        tickrate: 120,
-        ontick: {type: "area", range: 8, self: true, coeff: 3.4},
+        duration: 151,
+        tickrate: 30,
+        tickinitial: 90,
+        ontick: {type: "area", range: 8, distance: Sim.target.distance, coeff: 3.4},
       };
       switch (rune) {
       case "b":
-        params.ontick.coeff = 4.2;
+        params.ontick.coeff = 5.75;
+        params.duration = 91;
+        params.ontick.onhit = st_echoing_onhit;
         break;
       case "c":
-        params.duration = 121;
-        params.ontick = {type: "area", range: 16, coeff: 8};
+        params.duration = 61;
+        params.tickinitial = 60;
+        params.ontick = {type: "area", range: 12, coeff: 9.15};
+        if (Sim.stats.leg_thedemonsdemise) {
+          delete params.duration;
+        }
         break;
       case "a":
-        params.duration = 541;
+        params.duration = 181;
         params.tickrate = 180;
-        params.ontick.coeff = 5.2;
+        params.ontick.coeff = 9.3;
         break;
       case "e":
+        params.duration = 91;
         params.ontick.onhit = function(data) {
-          Sim.damage({targets: 3, coeff: 5});
+          Sim.damage({targets: Sim.target.count, count: 10, coeff: 0.88});
         };
         break;
       case "d":
@@ -869,6 +892,9 @@
       }
       break;
     }
+    if (Sim.stats.leg_vallasbequest) {
+      dmg.pierce = true;
+    }
     Sim.damage(dmg);
   }
   skills.strafe = {
@@ -887,14 +913,16 @@
       }
       Sim.channeling("strafe", this.channeling[rune], strafe_ontick, {rune: rune});
     },
-    proctable: {x: 0.25, b: 0.2, d: 0.25, e: 0.25, c: 0.25, a: 0.2},
+    proctable: {x: 0.25, b: 0.25, d: 0.25, e: 0.25, c: 0.25, a: 0.2},
     elem: {x: "phy", b: "col", d: "lit", e: "phy", c: "fir", a: "fir"},
   };
 
   skills.multishot = {
     offensive: true,
     cost: {x: 25, d: 18, b: 25, e: 25, a: 25, c: 25},
-    speed: 56.666664,
+    speed: function(rune) {
+      return 56.666664 / (Sim.stats.leg_yangsrecurve ? 1.5 : 1);
+    },
     oncast: function(rune) {
       var dmg = {delay: Math.floor(Sim.target.distance / 2), type: "cone", width: 80, range: 75, coeff: 3.6};
       switch (rune) {
@@ -1072,7 +1100,7 @@
     },
     hotpursuit: function() {
       Sim.register("onhit", function() {
-        Sim.addBuff("hotpursuit", {extrams: 20}, {duration: 120});
+        Sim.addBuff("hotpursuit", {extrams: 20}, {duration: 240});
       });
     },
     archery: function() {
@@ -1114,6 +1142,9 @@
           next = Sim.time + Math.floor(54 / Sim.stats.info.aps);
         }
       });
+    },
+    leech: function() {
+      Sim.addBaseStats({lph: 18506.5245 + 0.75 * (Sim.baseStats.laek || 0)});
     },
     ambush: function() {
       var id;

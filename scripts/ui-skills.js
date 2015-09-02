@@ -658,23 +658,7 @@
         applySkill(DiabloCalc.getPassiveBonus(stats.extra_passive, stats), stats, stats.extra_passive);
       }
     }
-    for (var affix in stats.affixes) {
-      var info = DiabloCalc.itemaffixes[affix];
-      if (!info) continue;
-      var func = "buffs";
-      if (!info[func] || info.active === false) {
-        func = "inactive";
-      }
-      if (func) {
-        var list;
-        if (typeof info[func] == "function") {
-          list = info[func](stats.affixes[affix].value, stats);
-        } else {
-          list = info[func];
-        }
-        applySkill(list, stats, stats.affixes[affix].set || DiabloCalc.getSlotId(stats.affixes[affix].slot));
-      }
-    }
+    var kanaiFx = [];
     for (var type in kanai) {
       var affix = kanai[type].getItemAffix();
       if (!affix) continue;
@@ -695,8 +679,27 @@
           list = info[func];
         }
         applySkill(list, stats, kanai[type].getItemPair());
+        kanaiFx.push(affix);
       }
     }    
+    for (var affix in stats.affixes) {
+      if (kanaiFx.indexOf(affix) >= 0) continue;
+      var info = DiabloCalc.itemaffixes[affix];
+      if (!info) continue;
+      var func = "buffs";
+      if (!info[func] || info.active === false) {
+        func = "inactive";
+      }
+      if (func) {
+        var list;
+        if (typeof info[func] == "function") {
+          list = info[func](stats.affixes[affix].value, stats);
+        } else {
+          list = info[func];
+        }
+        applySkill(list, stats, stats.affixes[affix].set || DiabloCalc.getSlotId(stats.affixes[affix].slot));
+      }
+    }
 
     DiabloCalc.addPartyBuffs(stats);
   };
