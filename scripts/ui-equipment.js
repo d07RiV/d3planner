@@ -743,6 +743,7 @@
 
   var saveTip = $("<span class=\"status\"></span>").hide();
   var header = $("<div class=\"stash-header\">" + _L("Drag items between paperdoll and stash.<br/>Hold shift to clone items.") + "</div>");
+  DiabloCalc.stashHeader = header;
   tab.append(header.prepend(saveTip));
   header.append(DiabloCalc.account.makeLine(_L(" to access your personal stash"), function(okay) {
     if (okay) {

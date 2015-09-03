@@ -247,9 +247,9 @@
     },
     oncast: function(rune) {
       var onhit = (rune === "c" && wothf_blazing_onhit);
+      if (rune === "a") onhit = wothf_fury_onhit;
       switch (this.sequence.step()) {
       case 0:
-        if (rune === "a") onhit = wothf_fury_onhit;
         Sim.damage({coeff: 1.9, onhit: onhit});
         break;
       case 1:

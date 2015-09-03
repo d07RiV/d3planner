@@ -837,26 +837,39 @@
     var cache = new Float32Array(16 * 6);
     cache[15 * 6] = 1;
     var lastFrame = 0;
+    var accum = 0;
+    var steps = 0;
+    debugger;
     Sim.register("onhit_proc", function(data) {
       if (Sim.getBuff("brokenpromises")) return;
-      var p0 = Math.pow(1 - data.chc, data.hits || 1);
+      var p0a = Math.pow(1 - data.chc, data.hits || 1);
       var tmp = new Float32Array(16 * 6);
       var dt = Sim.time - lastFrame;
       for (var t = 0; t < 16; ++t) for (var n = 0; n < 5; ++n) {
         var p = cache[t * 6 + n];
+        var p0 = (n === 4 ? 1 - data.chc : p0a);
         if (t + dt >= 15) tmp[n + 1] += p * p0;
         else tmp[(t + dt) * 6 + n] += p * p0;
         tmp[Math.min(t + dt, 15) * 6] += p * (1 - p0);
       }
-      if (Sim.random("brokenpromises", tmp[5])) {
-        cache = new Float32Array(16 * 6);
-        cache[15 * 6] = 1;
-        Sim.addBuff("brokenpromises", {chc: 100}, {duration: 180});
-      } else {
-        var sum = 0;
-        for (var t = 0; t < 16; ++t) for (var n = 0; n < 5; ++n) sum += tmp[t * 6 + n];
-        for (var t = 0; t < 16; ++t) for (var n = 0; n < 5; ++n) cache[t * 6 + n] = tmp[t * 6 + n] / sum;
+      ++steps;
+      var A0 = 1 - cache[5];
+      var A = 1 - (tmp[5] + cache[5]);
+      var B = tmp[5];
+      tmp[5] += cache[5];
+      accum += (A + A0) / 2;
+      if (B > 1e-6) {
+        if (cache[5] < 1e-6) B /= steps;
+        var area = A * A / B;
+        if (accum + area < steps) {
+          Sim.addBuff("brokenpromises", {chc: 100}, {duration: 180});
+          accum = 0;
+          tmp = new Float32Array(16 * 6);
+          tmp[15 * 6] = 1;
+          steps = steps - accum - area;
+        }
       }
+      cache = tmp;
       lastFrame = Sim.time;
     });
   };

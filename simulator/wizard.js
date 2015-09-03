@@ -995,11 +995,7 @@
     secondary: true,
     shift: "archon",
     oncast: function(rune) {
-      var buffs;
-      if (Sim.stats.leg_crownoftheprimus) {
-        buffs = {dmgtaken: 15, ias: 10};
-      }
-      Sim.addBuff("slowtime", buffs, {duration: 900, status: "slowed"});
+      skills.slowtime.cast.call(this, rune);
     },
     elem: function(rune) {
       return skills.archon.elem(Sim.stats.skills.archon);

@@ -45,6 +45,7 @@
   }).change(onUpdateStats);*/
 
   var skillSection;
+  var kanaiSection;
   var buffSection;
   var skills = [];
   var passives = [];
@@ -484,12 +485,14 @@
     itemSection = $("<div><h3 class=\"skill-category\">" + _L("Item Effects") + "</h3></div>").hide();
     skillSection.append(itemSection);
 
-    skillSection.append("<h3 class=\"skill-category\">" + _L("Kanai's Cube") + "</h3>");
+    kanaiSection.empty();
+
+    kanaiSection.append("<h3 class=\"skill-category\">" + _L("Kanai's Cube") + "</h3>");
 
     kanai = {
-      weapon: new DiabloCalc.SkillBox("kanai", {kanai: "weapon", parent: skillSection}),
-      armor: new DiabloCalc.SkillBox("kanai", {kanai: "armor", parent: skillSection}),
-      jewelry: new DiabloCalc.SkillBox("kanai", {kanai: "jewelry", parent: skillSection}),
+      weapon: new DiabloCalc.SkillBox("kanai", {kanai: "weapon", parent: kanaiSection}),
+      armor: new DiabloCalc.SkillBox("kanai", {kanai: "armor", parent: kanaiSection}),
+      jewelry: new DiabloCalc.SkillBox("kanai", {kanai: "jewelry", parent: kanaiSection}),
     };
 
     skillPopup.setClass(charClass);
@@ -727,6 +730,9 @@
 
   skillSection = $("<div></div>");
   tab.append(skillSection);
+
+  kanaiSection = $("<div style=\"margin: 0 47px\"></div>");
+  DiabloCalc.stashHeader.before(kanaiSection);
 
   tab.append("<h3 class=\"skill-category\" style=\"margin-bottom: 5px\">" + _L("Group Buffs") + "</h3>");
   tab.append("<p class=\"change-note\"><i>" + _L("The calculator does not check for correct buff stacking.") + "</i></p>");
