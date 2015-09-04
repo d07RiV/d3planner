@@ -1,148 +1,103 @@
-DiabloCalc.gemQualities = [
-  "Chipped", "Flawed", "Normal", "Flawless", "Perfect", "Radiant",
-  "Square", "Flawless Square", "Perfect Square", "Radiant Square",
-  "Star", "Flawless Star", "Perfect Star", "Radiant Star",
-  "Marquise", "Imperial", "Flawless Imperial", "Royal", "Flawless Royal",
+DiabloCalc.gemQualities = {
+  "01": "Normal",
+  "02": "Flawless",
+  "03": "Square",
+  "04": "Flawless Square",
+  "05": "Star",
+  "06": "Marquise",
+  "07": "Imperial",
+  "08": "Flawless Imperial",
+  "09": "Royal",
+  "10": "Flawless Royal",
+};
+DiabloCalc.oldGemQualities = [
+  "01", "01", "01", "02", "03", "03", "03", "04", "05", "05", "05",
+  "06", "06", "06", "06", "07", "08", "09", "10",
 ];
 DiabloCalc.gemColors = {
   amethyst: {
-    id: "Amethyst_",
+    id: "x1_Amethyst_",
+    oldid: "Amethyst_",
     name: "Amethyst",
     weapon: {
       stat: "lph",
-      amount: [2, 3, 6, 10, 15, 25,
-               35, 65, 105, 190,
-               300, 400, 500, 600,
-               700, 3000, 6400, 8800, 11200
-      ],
+      amount: [6, 10, 35, 65, 300, 700, 3000, 6400, 8800, 11200],
     },
     head: {
       stat: "life",
-      amount: [5, 6, 7, 8, 9, 10,
-               11, 12, 13, 14,
-               15, 16, 17, 18,
-               19, 20, 21, 22, 23
-      ],
+      amount: [7, 8, 11, 12, 15, 19, 20, 21, 22, 23],
     },
     other: {
       stat: "vit",
-      amount: [6, 10, 14, 18, 22, 26,
-               30, 34, 38, 42,
-               46, 50, 54, 58,
-               62, 100, 160, 220, 280
-      ],
+      amount: [14, 18, 30, 34, 46, 62, 100, 160, 220, 280],
     },
   },
   diamond: {
-    id: "Diamond_",
+    id: "x1_Diamond_",
+    oldid: "Diamond_",
     name: "Diamond",
     weapon: {
       stat: "edmg",
-      amount: [2, 3, 4, 5, 6, 7,
-               8, 9, 10, 11,
-               12, 13, 14, 15,
-               16, 17, 18, 19, 20
-      ],
+      amount: [4, 5, 8, 9, 12, 16, 17, 18, 19, 20],
     },
     head: {
       stat: "cdr",
-      amount: [3.5, 4, 4.5, 5, 5.5, 6,
-               6.5, 7, 7.5, 8,
-               8.5, 9, 9.5, 10,
-               10.5, 11, 11.5, 12, 12.5
-      ],
+      amount: [4.5, 5, 6.5, 7, 8.5, 10.5, 11, 11.5, 12, 12.5],
     },
     other: {
       stat: "resall",
-      amount: [6, 10, 14, 18, 22, 26,
-               30, 34, 38, 42,
-               46, 50, 54, 58,
-               62, 66, 70, 74, 78
-      ],
+      amount: [14, 18, 30, 34, 46, 62, 66, 70, 74, 78],
     },
   },
   emerald: {
-    id: "Emerald_",
+    id: "x1_Emerald_",
+    oldid: "Emerald_",
     name: "Emerald",
     weapon: {
       stat: "chd",
-      amount: [10, 15, 20, 25, 30, 35,
-               40, 45, 50, 60,
-               70, 80, 90, 100,
-               110, 115, 120, 125, 130
-      ],
+      amount: [20, 25, 40, 45, 70, 110, 115, 120, 125, 130],
     },
     head: {
       stat: "gf",
-      amount: [5, 7, 9, 11, 13, 15,
-               17, 19, 21, 23,
-               25, 27, 29, 31,
-               33, 35, 37, 39, 41
-      ],
+      amount: [9, 11, 17, 19, 25, 33, 35, 37, 39, 41],
     },
     other: {
       stat: "dex",
-      amount: [6, 10, 14, 18, 22, 26,
-               30, 34, 38, 42,
-               46, 50, 54, 58,
-               62, 100, 160, 220, 280
-      ],
+      amount: [14, 18, 30, 34, 46, 62, 100, 160, 220, 280],
     },
   },
   ruby: {
-    id: "Ruby_",
+    id: "x1_Ruby_",
+    oldid: "Ruby_",
     name: "Ruby",
     weapon: {
       stat: "wpnphy",
-      amount: [3, 6, 9, 12, 15, 18,
-               21, 25, 30, 40,
-               60, 80, 100, 130,
-               160, 190, 220, 250, 270
-      ],
+      amount: [9, 12, 21, 25, 60, 160, 190, 220, 250, 270],
     },
     head: {
       stat: "expmul",
-      amount: [5, 7, 9, 11, 13, 15,
-               17, 19, 21, 23,
-               25, 27, 29, 31,
-               33, 35, 37, 39, 41
-      ],
+      amount: [9, 11, 17, 19, 25, 33, 35, 37, 39, 41],
     },
     other: {
       stat: "str",
-      amount: [6, 10, 14, 18, 22, 26,
-               30, 34, 38, 42,
-               46, 50, 54, 58,
-               62, 100, 160, 220, 280
-      ],
+      amount: [14, 18, 30, 34, 46, 62, 100, 160, 220, 280],
     },
   },
   topaz: {
-    id: "Topaz_",
+    id: "x1_Topaz_",
+    oldid: "Topaz_",
     name: "Topaz",
     weapon: {
       stat: "thorns",
-      amount: [2, 3, 6, 10, 15, 30,
-               50, 100, 200, 350,
-               600, 900, 1250, 1800,
-               2500, 3100, 3725, 4350, 4975
-      ],
+      amount: [6, 10, 50, 100, 600, 2500, 3100, 3725, 4350, 4975],
     },
     head: {
       stat: "mf",
-      amount: [5, 7, 9, 11, 13, 15,
-               17, 19, 21, 23,
-               25, 27, 29, 31,
-               33, 35, 37, 39, 41
-      ],
+      amount: [9, 11, 17, 19, 25, 33, 35, 37, 39, 41],
     },
     other: {
       stat: "int",
-      amount: [6, 10, 14, 18, 22, 26,
-               30, 34, 38, 42,
-               46, 50, 54, 58,
-               62, 100, 160, 220, 280
-      ],
+      amount: [14, 18, 30, 34, 46, 62, 100, 160, 220, 280],
     },
   },
 };

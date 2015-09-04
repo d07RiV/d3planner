@@ -572,7 +572,7 @@
         break;
       case "d": Sim.addResource(280 * count); break;
       case "b": dmg.coeff = 13; break;
-      case "a": Sim.addBuff("provokethepack", {damage: 20}, {duration: 300, refresh: false, maxstacks: 5, stacks: count}); break;
+      case "a": Sim.addBuff("provokethepack", {damage: 20}, {duration: 300, /*refresh: false, */maxstacks: 5, stacks: count}); break;
       }
       if (Sim.stats.leg_thetallmansfinger) {
         dmg.coeff *= 3;
@@ -1000,7 +1000,7 @@
     midnightfeast: {dmgmul: {skills: ["summonzombiedogs", "gargantuan"], percent: 50}},
     confidenceritual: function() {
       if (Sim.target.distance - Sim.target.size < 20) {
-        Sim.addBuff("audacity", {dmgmul: 25});
+        Sim.addBuff("confidenceritual", {dmgmul: 25});
       }
     },
   };

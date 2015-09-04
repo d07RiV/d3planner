@@ -478,7 +478,7 @@ DiabloCalc.skills.witchdoctor = {
       a: {"Damage": {elem: "phy", coeff: 10.9, percent: {"The Tall Man's Finger": "leg_thetallmansfinger?200:0"}}},
     },
     active: false,
-    params: [{rune: "a", min: 0, max: 10, val: 0, name: "Stacks", inf: true}],
+    params: [{rune: "a", min: 0, max: 5, val: 0, name: "Stacks"}],
     buffs: function(rune, stats) {
       if (rune === "a") return {damage: this.params[0].val * 20};
     },

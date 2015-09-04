@@ -8,6 +8,7 @@ DiabloCalc.simMapping = {
     knockback: "Knockback",
     charmed: "Charmed",
     feared: "Feared",
+    rooted: "Immobilized",
   },
   targetOptions: {
     distance: {var: "targetDistance", name: "Distance", tip: "Player distance from the center of the monster cluster.", min: 0, max: 50, val: 40, profile: true},
@@ -40,7 +41,7 @@ DiabloCalc.simMapping = {
     knockback: {name: "Knockback", category: "Status"},
     charmed: {name: "Charmed", category: "Status"},
     feared: {name: "Feared", category: "Status"},
-    bleed: {name: "Bleeding", category: "Status"},
+    rooted: {name: "Immobilized", category: "Status"},
 
     conflagrate: {name: "Magic Missile - Conflagrate", category: "Skills", classes: ["wizard"], skill: ["magicmissile", "c"]},
     flameblades: {name: "Spectral Blade - Flame Blades", category: "Skills", classes: ["wizard"], skill: ["spectralblade", "a"]},
@@ -163,6 +164,7 @@ DiabloCalc.simMapping = {
     gruesomefeast: {name: "Gruesome Feast", category: "Passives", classes: ["witchdoctor"], passive: "gruesomefeast"},
     fetishsycophants: {name: "Fetish Sycophants", category: "Passives", classes: ["witchdoctor"], passive: "fetishsycophants"},
     visionquest: {name: "Vision Quest", category: "Passives", classes: ["witchdoctor"], passive: "visionquest"},
+    confidenceritual: {name: "Confidence Ritual", category: "Passives", classes: ["witchdoctor"], passive: "confidenceritual"},
 
     fistsofthunder: {name: "Fists of Thunder (Sequence)", category: "Skills", classes: ["monk"], skill: ["fistsofthunder"]},
     staticcharge: {name: "Fists of Thunder - Static Charge", category: "Skills", classes: ["monk"], skill: ["fistsofthunder", "c"]},
