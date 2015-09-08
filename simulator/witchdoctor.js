@@ -204,7 +204,7 @@
       }
       var base;
       if (Sim.stats.leg_coilsofthefirstspider) {
-        base.buffs = {lph: Sim.stats.leg_coilsofthefirstspider, dmgred: 30};
+        base = {buffs: {lph: Sim.stats.leg_coilsofthefirstspider, dmgred: 30}};
       }
       Sim.channeling("firebats", this.channeling[rune], dmg, undefined, base);
     },

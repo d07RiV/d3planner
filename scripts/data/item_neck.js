@@ -8,7 +8,7 @@ DiabloCalc.addItems([
     required: {
       custom: {id: "extra_passive", name: "Extra Passive Skill", format: "Gain the %p passive.", args: -1},
     },
-    preset: ["mainstat"],
+    preset: ["mainstat", "sockets"],
   },
 
   {
@@ -147,8 +147,8 @@ DiabloCalc.addItems([
   },
 
   {
-    id: "Unique_Amulet_002_x1",
-    ids: ["Unique_Amulet_002_p1"],
+    id: "Unique_Amulet_002_p1",
+    ids: ["Unique_Amulet_002_x1"],
     name: "Kymbo's Gold",
     type: "amulet",
     quality: "legendary",

@@ -223,10 +223,10 @@ DiabloCalc.addItems([
     name: "Echoing Fury",
     type: "mace",
     quality: "legendary",
-    affixes: {
-      hitfear: {min: 10, max: 20, step: 0.1},
+    required: {
+      hitfear: {min: 10, max: 20, step: 0.1, noblock: true},
     },
-    preset: ["wpnphy", "mainstat", "weaponias", "damage", "hitfear"],
+    preset: ["wpnphy", "mainstat", "weaponias", "damage"],
   },
 
   {

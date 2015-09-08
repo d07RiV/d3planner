@@ -8431,13 +8431,13 @@ DiabloCalc.webglItems = {
   },
   p1_Mace_norm_promo_01: {
     actor: 403366,
-    name: "Deadeye’s Mace",
+    name: "Deadeyeâ€™s Mace",
     promo: true,
     type: "mace",
   },
   p1_Staff_norm_promo_01: {
     actor: 402266,
-    name: "Ner’zhul’s Staff of Shadowmoon",
+    name: "Nerâ€™zhulâ€™s Staff of Shadowmoon",
     promo: true,
     type: "staff",
   },
@@ -8461,7 +8461,7 @@ DiabloCalc.webglItems = {
   },
   p1_orb_norm_promo_01: {
     actor: 403401,
-    name: "Gul’dan’s Secret",
+    name: "Gulâ€™danâ€™s Secret",
     promo: true,
     type: "source",
   },

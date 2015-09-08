@@ -30,8 +30,8 @@ DiabloCalc.addItems([
   },
 
   {
-    id: "Unique_Helm_002_p1",
-    ids: ["Unique_Helm_002_p3"],
+    id: "Unique_Helm_002_p3",
+    ids: ["Unique_Helm_002_p1"],
     name: "Leoric's Crown",
     type: "helm",
     quality: "legendary",
@@ -577,7 +577,8 @@ DiabloCalc.addItems([
   },
 
   {
-    id: "Unique_SpiritStone_008_x1",
+    id: "P1_Unique_SpiritStone_008",
+    ids: ["Unique_SpiritStone_008_x1"],
     name: "Madstone",
     type: "spiritstone",
     quality: "legendary",

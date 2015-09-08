@@ -1331,6 +1331,7 @@
         case "passive": curInfo = info.info(stats); break;
         case "gem": curInfo = info.info(stats.gems[this.gem], stats); break;
         case "affix": curInfo = info.info(stats.affixes[this.affix].value, stats); break;
+        case "kanai": curInfo = info.info(stats[info.affixid], stats); break;
         }
         if (curInfo) {
           curInfo = $.extend({}, curInfo);

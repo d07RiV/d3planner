@@ -98,6 +98,30 @@ Object.defineProperty(_L, "patch", {enumerable: false});
 Object.defineProperty(_L.patch, "add", {enumerable: false});
 Object.defineProperty(_L.patch, "apply", {enumerable: false});
 
+DiabloCalc.translateMainPage = function() {
+  var _L = DiabloCalc.locale("title");
+  document.title = _L("Diablo III Character Planner");
+  var label = $("#char-info label");
+  var input = label.find("input").detach();
+  label.text(_L("Level") + " ").append(input);
+  if (document.styleSheets) {
+    var ss = document.styleSheets[0];
+    var totalLength = _L("Equipment") + _L("Paragon") + _L("Skills/Effects") +
+      _L("Import/Save") + _L("Simulate");
+    var size = Math.round(850 / totalLength.length);
+    size = "font-size: " + Math.min(15, Math.max(12, size)) + "px !important";
+    if (ss.addRule) ss.addRule(".main-tab", size, 0);
+    else ss.insertRule(".main-tab {" + size + ";}", 0);
+  }
+  $("a[href=\"#tab-equipment\"]").text(_L("Equipment"));
+  $("a[href=\"#tab-paragon\"]").text(_L("Paragon"));
+  $("a[href=\"#tab-skills\"]").text(_L("Skills/Effects"));
+  $("a[href=\"#tab-import\"]").text(_L("Import/Save"));
+  $("a[href=\"#tab-simulator\"]").text(_L("Simulate"));
+  $(".theme-select option[value=\"light\"]").text(_L("Light Theme"));
+  $(".theme-select option[value=\"dark\"]").text(_L("Dark Theme"));
+};
+
 $(function() {
   $(".editframe").tabs({heightStyle: "fill"});
   $(window).resize(function() {
@@ -176,7 +200,15 @@ $(function() {
     }
     if (DiabloCalc.trigger) DiabloCalc.trigger("changeTheme");
   });
-  $(".footer").append(themeSelect);
+
+  var localeSelect = $(".locale-select");
+  var curLocale = ($.cookie("locale") || "enUS");
+  localeSelect.val(curLocale).css("margin-left", 12);
+  localeSelect.change(function() {
+    $.cookie("locale", $(this).val(), {expires: 365});
+    location.reload();
+  });
+  //$(".footer").append(themeSelect);
 
   DiabloCalc.spinStart();
 

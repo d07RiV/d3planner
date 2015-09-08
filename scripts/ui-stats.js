@@ -6,7 +6,7 @@
   function formatTip(stat, data) {
     var text = stat.tooltip;
     var values = data.getValue(stat.stat);
-    text = text.replace(/{([^};]*)(?:;(\+)?([0-9])?(\%)?)?}/g, function(m, expr, plus, precision, percent) {
+    text = text.replace(/{([^};]*)(?:;(\+)?([0-9])?(\%)?(x)?)?}/g, function(m, expr, plus, precision, percent, times) {
       expr = expr.replace(/\$([1-9])/g, function(m, index) {
         return (typeof values == "number" ? values : values[["min", "max"][parseInt(index) - 1]]);
       });
@@ -16,12 +16,13 @@
       } else {
         expr = DiabloCalc.formatNumber(expr.min, precision, 1000) + "-" + DiabloCalc.formatNumber(expr.max, precision, 1000);
       }
-      return "<span class=\"d3-color-green\">" + (plus || "") + expr + (percent || "") + "</span>";
+      return "<span class=\"d3-color-green\">" + (plus || "") + expr + (percent || "") + (times || "") + "</span>";
     });
     text = text.replace(/\$([1-9])/g, function(m, index) {
       return "<span class=\"d3-color-green\">" + (stat.plus ? "+" : "") + DiabloCalc.formatNumber(typeof values == "number" ?
         values : values[["min", "max"][parseInt(index) - 1]], stat.decimal, 1000) + (stat.percent ? "%" : "") + "</span>";
     });
+    text = text.replace(/<\/span>-<span class="d3-color-green">/g, "-");
     var first = "</span>";
     text = text.replace(/\n( ?\* )?/g, function(m, bullet) {
       var res = first + "<br/><span class=\"tooltip-icon-" + (bullet ? "bullet" : "nobullet") + "\"></span>";

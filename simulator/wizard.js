@@ -995,7 +995,7 @@
     secondary: true,
     shift: "archon",
     oncast: function(rune) {
-      skills.slowtime.cast.call(this, rune);
+      skills.slowtime.oncast.call(this, rune);
     },
     elem: function(rune) {
       return skills.archon.elem(Sim.stats.skills.archon);

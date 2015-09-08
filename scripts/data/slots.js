@@ -1281,21 +1281,21 @@ DiabloCalc.qualities = {
     color: "white",
   },
   magic: {
-    prefix: "Magic ",
+    prefix: "Magic",
     color: "blue",
   },
   rare: {
-    prefix: "Rare ",
+    prefix: "Rare",
     color: "yellow",
   },
   legendary: {
-    prefix: "Legendary ",
+    prefix: "Legendary",
     color: "orange",
-    ancient: true,
+    ancient: "Ancient Legendary",
   },
   set: {
-    prefix: "Set ",
+    prefix: "Set",
     color: "green",
-    ancient: true,
+    ancient: "Ancient Set",
   },
 };

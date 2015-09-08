@@ -608,6 +608,15 @@ DiabloCalc.skills.monk = {
         }
         res["Total Damage"]["Ally Damage"] = {count: (stats.leg_thecrudestboots ? 2 : 1)};
       }
+      if (stats.leg_gungdogear && stats.set_uliana_6pc) {
+        var ep_rune = (stats.skills.explodingpalm || "x");
+        var ep_info = DiabloCalc.skills.monk.explodingpalm.info(ep_rune, stats);
+        ep_info = DiabloCalc.skill_processInfo(ep_info, {skill: ["explodingpalm", ep_rune]});
+        res["Exploding Palm Damage"] = {sum: true};
+        res["Exploding Palm Damage"][DiabloCalc.skills.monk.explodingpalm.name] = {
+          value: ep_info["Explosion Damage"].value, count: (stats.leg_lionsclaw ? 14 : 7),
+        };
+      }
       var base = {"Cooldown": {cooldown: (rune === "d" ? 14 : 30), cdr: "leg_theflowofeternity"}};
       if (rune !== "c") base["Cost"] = {cost: 50};
       return $.extend(base, res);

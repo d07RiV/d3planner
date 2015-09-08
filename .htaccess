@@ -21,9 +21,10 @@ RewriteRule ^(items|itemsets|powers)_diff.html$ http://www.d3local.com/diff/$1 [
 #RewriteRule ^.*$ http://www.d3local.com/$0 [L,R=302]
 
 RewriteRule ^(external|css|external/bnet/css)/all\.css$ php/style.php [L]
-RewriteRule ^(__old|css|external|php|scripts|mantisbt|simulator|chinese|ziptest)/ - [L]
+RewriteRule ^(__old|css|external|php|scripts|mantisbt|simulator|chinese|ziptest|translate)/ - [L]
 RewriteRule ^e?[0-9]*$ index.php [L]
 RewriteRule ^reset=[0-9a-f]{32}$ index.php [L]
 RewriteRule ^sim(/[a-z]+)?$ php/sim.php [L]
 RewriteRule ^skills(/(wizard|demonhunter|monk|crusader|witchdoctor|barbarian))?$ skills.php [L]
-RewriteRule ^(timestamp|core|locale|proxy|save|load|search|data|report|savestash|loadstash|account|delete|changes|errors|priority|script|style)$ php/$1.php [L]
+RewriteRule ^locale(/[a-z][a-z][A-Z][A-Z])?$ php/locale.php [L]
+RewriteRule ^(timestamp|core|proxy|save|load|search|data|report|savestash|loadstash|account|delete|changes|errors|priority|script|style)$ php/$1.php [L]

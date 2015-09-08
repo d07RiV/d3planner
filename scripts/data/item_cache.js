@@ -36,8 +36,8 @@ DiabloCalc.addItems([
   },
 
   {
-    id: "Unique_Ring_107_x1",
-    ids: ["P3_Unique_Ring_107"],
+    id: "P3_Unique_Ring_107",
+    ids: ["Unique_Ring_107_x1"],
     name: "Ring of Royal Grandeur",
     type: "ring",
     quality: "legendary",

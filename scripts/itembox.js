@@ -1681,7 +1681,7 @@
       }
       for (var i = 0; i < slots[slot].length; ++i) {
         var type = slots[slot][i];
-        var option = "<option value=\"" + type + (value == type ? "\" selected=\"selected" : "") + "\">" + types[type].name + "</option>";
+        var option = "<option value=\"" + type + (value == type ? "\" selected=\"selected" : "") + "\">" + DC.GenderString(types[type].name) + "</option>";
         group.append(option);
       }
     }

@@ -900,8 +900,15 @@
         data = undefined;
       } else {
         data.id = DiabloCalc.itemById[data.id].id;
-        if (data.gems && data.gems.length && (!data.stats.sockets || data.stats.sockets[0] < data.gems.length)) {
-          data.stats.sockets = [data.gems.length];
+        if (data.gems && data.gems.length) {
+          for (var i = 0; i < data.gems.length; ++i) {
+            if (typeof data.gems[i][0] === "number" && data.gems[i][0] >= DiabloCalc.gemQualities.length) {
+              data.gems[i][0] = DiabloCalc.oldGemQualities[data.gems[i][0]];
+            }
+          }
+          if (!data.stats.sockets || data.stats.sockets[0] < data.gems.length) {
+            data.stats.sockets = [data.gems.length];
+          }
         }
       }
     }

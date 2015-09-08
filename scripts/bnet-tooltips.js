@@ -417,8 +417,12 @@
       html += "<span class=\"d3-icon d3-icon-skill d3-icon-skill-64 miscbuffs-icon\" style=\"background-position: -" +
         (info.icon * 64) + "px 0; width: 64px; height: 64px\"><span class=\"frame\"></span></span>";
       html += "<div class=\"description\">";
-      for (var i = 0; i < info.desc.length; ++i) {
-        html += "<p>" + info.desc[i].replace(/\+?[0-9]+(?:\.[0-9]+)?%?/g, "<span class=\"d3-color-green\">$&</span>") + "</p>";
+      if (info.desc instanceof Array) {
+        for (var i = 0; i < info.desc.length; ++i) {
+          html += "<p>" + info.desc[i].replace(/\+?[0-9]+(?:\.[0-9]+)?%?/g, "<span class=\"d3-color-green\">$&</span>") + "</p>";
+        }
+      } else {
+        html += "<p>" + info.desc + "</p>";
       }
       if (info.level) {
         html += "<p class=\"subtle\">" + _L("Unlocked at level {0}").format("<em>" + info.level + "</em>") + "</p>";
@@ -700,13 +704,9 @@
         classSpecific = "<li class=\"item-class-specific d3-color-white\">" + DiabloCalc.classes[item.class || itemType.class].name + "</li>";
       }
       props.append("<ul class=\"item-type-right\"><li class=\"item-slot\">" + slotInfo.name + "</li>" + classSpecific + "</ul>");
-      var ancient = "";
-      if (data.ancient) {
-        ancient = _L("Ancient ");
-        //FTFY
-        //ancient = "Ethereal ";
-      }
-      props.append("<ul class=\"item-type\"><li class=\"d3-color-" + color + "\">" + ancient + DiabloCalc.qualities[item.quality].prefix + itemType.name + "</li></ul>");
+      var qual = DiabloCalc.qualities[item.quality];
+      props.append("<ul class=\"item-type\"><li class=\"d3-color-" + color + "\">" +
+        DiabloCalc.GenderPair(data.ancient && qual.ancient || qual.prefix, itemType.name) + "</li></ul>");
 
       if (data.stats.basearmor) {
         var armor, armor_max;
@@ -1126,10 +1126,10 @@
         if (level) {
           props.append("<ul class=\"item-type-right\"><li class=\"item-jewel-rank\">" + _L("Rank {0}").format(level) + "</li></ul>");
         }
-        props.append("<ul class=\"item-type\"><li><span class=\"d3-color-orange\">" + DiabloCalc.qualities.legendary.prefix + _L("Gem") + "</span></li></ul>");
+        props.append("<ul class=\"item-type\"><li><span class=\"d3-color-orange\">" + DiabloCalc.GenderPair(DiabloCalc.qualities.legendary.prefix, _L("Gem")) + "</span></li></ul>");
         props.append("<div class=\"item-description d3-color-white\"><p></p></div>");
       } else {
-        props.append("<ul class=\"item-type\"><li><span class=\"d3-color-default\">" + _L("Gem") + "</span></li></ul>");
+        props.append("<ul class=\"item-type\"><li><span class=\"d3-color-default\">" + DiabloCalc.GenderString(_L("Gem")) + "</span></li></ul>");
       }
 
       props.append("<div class=\"item-before-effects\"></div>");

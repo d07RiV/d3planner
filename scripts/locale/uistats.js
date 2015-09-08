@@ -265,7 +265,7 @@ _L.add({
         },
         {
           stat: "blockamount",
-          tooltip: "Block Amount: {blockamount}\n* The amount of damage prevented whenever an attack is blocked.\n* Block amount can be increased by skills and items.",
+          tooltip: "Block Amount: $1-$2\n* The amount of damage prevented whenever an attack is blocked.\n* Block amount can be increased by skills and items.",
         },
         {
           stat: "block",

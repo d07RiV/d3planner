@@ -299,7 +299,7 @@ DiabloCalc.simMapping = {
     bindingsofthelost: {name: "Bindings of the Lost", category: "Items", stat: "leg_bindingsofthelost"},
     wrapsofclarity: {name: "Wraps of Clarity", category: "Items", stat: "leg_wrapsofclarity"},
     theswami: {name: "The Swami", category: "Items", stat: ["leg_theswami", "leg_theswami_p3"]},
-    denial: {name: "Denial", category: "Items", stat: ["leg_denial"]},
-    brokenpromises: {name: "Broken Promises", category: "Items", stat: ["leg_brokenpromises"]},
+    denial: {name: "Denial", category: "Items", stat: "leg_denial"},
+    brokenpromises: {name: "Broken Promises", category: "Items", stat: "leg_brokenpromises"},
   },
 };

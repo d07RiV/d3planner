@@ -227,6 +227,7 @@ DiabloCalc.skills.crusader = {
         res["Damage"].percent = {};
         res["Damage"].percent[DiabloCalc.itemById.Unique_Shield_103_x1.name] = stats.leg_guardofjohanna;
       }
+      res["DPS"] = {sum: true, "Damage": {fpa: 57.777767, speed: 1.2 * (stats.leg_johannasargument ? 2 : 1), round: "up"}};
       return $.extend({"Cost": {cost: 10}}, res);
     },
   },

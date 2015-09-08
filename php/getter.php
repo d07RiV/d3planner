@@ -12,7 +12,7 @@ function EnumDir($dir) {
 }
 function GetDocs($order, $worker=false, $head='', $tail='') {
   global $compress_scripts;
-  header('Content-Type: application/javascript');
+  header('Content-Type: application/javascript; charset=utf-8');
   if ($compress_scripts || count($order) <= 1) {
     $tm = 0;
     $out = $head;

@@ -1,18 +1,18 @@
-DiabloCalc.gemQualities = {
-  "01": "Normal",
-  "02": "Flawless",
-  "03": "Square",
-  "04": "Flawless Square",
-  "05": "Star",
-  "06": "Marquise",
-  "07": "Imperial",
-  "08": "Flawless Imperial",
-  "09": "Royal",
-  "10": "Flawless Royal",
-};
+DiabloCalc.gemQualities = [
+  "Normal",
+  "Flawless",
+  "Square",
+  "Flawless Square",
+  "Star",
+  "Marquise",
+  "Imperial",
+  "Flawless Imperial",
+  "Royal",
+  "Flawless Royal",
+];
 DiabloCalc.oldGemQualities = [
-  "01", "01", "01", "02", "03", "03", "03", "04", "05", "05", "05",
-  "06", "06", "06", "06", "07", "08", "09", "10",
+  0, 0, 0, 1, 2, 2, 2, 3, 4, 4, 4,
+  5, 5, 5, 5, 6, 7, 8, 9,
 ];
 DiabloCalc.gemColors = {
   amethyst: {

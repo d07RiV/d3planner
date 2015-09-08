@@ -120,6 +120,16 @@ function mklink($path, $src = NULL) {
      <option value="light">Light Theme</option>
      <option value="dark">Dark Theme</option>
     </select>
+    <select class="locale-select">
+<?php
+    require('translate/translate.inc.php');
+    foreach ($locale_languages as $key => $info) {
+      if (!$info || $info['usable']) {
+        echo "     <option value=\"$key\">" . ($info ? $info['name'] : 'English') . "</option>\n";
+      }
+    }
+?>
+    </select>
    </div>
 
   </div>
