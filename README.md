@@ -1,5 +1,6 @@
 # d3planner
 Diablo III Character Planner
+Source for www.d3planner.com
 
 This repository does not include most server-side scripts (related to importing characters and saving/loading information), but other than that everything should work. Also, 3D viewer data is not included to save space.
 
