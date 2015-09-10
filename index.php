@@ -1,6 +1,6 @@
 <?php
-require("php/session.php");
-get_session(TRUE);
+//require("php/session.php");
+//get_session(TRUE);
 function mklink($path, $src = NULL) {
   echo $path . "?" . filemtime($_SERVER['DOCUMENT_ROOT'] . ($src ? $src : $path));
 }
@@ -122,12 +122,12 @@ function mklink($path, $src = NULL) {
     </select>
     <select class="locale-select">
 <?php
-    require('translate/translate.inc.php');
+/*    require('translate/translate.inc.php');
     foreach ($locale_languages as $key => $info) {
       if (!$info || $info['usable']) {
         echo "     <option value=\"$key\">" . ($info ? $info['name'] : 'English') . "</option>\n";
       }
-    }
+    }*/
 ?>
     </select>
    </div>
