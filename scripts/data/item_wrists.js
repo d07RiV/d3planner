@@ -65,7 +65,7 @@ DiabloCalc.addItems([
     type: "bracers",
     quality: "legendary",
     required: {
-      custom: {id: "leg_custerianwristguards", name: "Experience to Gold", format: "Picking up gold grants experience.", args: 0},
+      custom: {id: "leg_custerianwristguards", name: "Gold to Experience", format: "Picking up gold grants experience.", args: 0},
     },
     preset: ["chc", "gf"],
   },

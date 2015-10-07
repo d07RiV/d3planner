@@ -10,7 +10,7 @@ DiabloCalc.itemPowerClasses = {
   leg_beckonsail: "demonhunter",
   leg_beltofthetrove: "crusader",
   leg_beltoftranscendence: "witchdoctor",
-  leg_bindingsofthelost: "monk",
+  leg_bindingofthelost: "monk",
   leg_blackfeather: "demonhunter",
   leg_bladeofprophecy: "crusader",
   leg_blessedofhaull: "crusader",

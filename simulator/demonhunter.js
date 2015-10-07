@@ -726,7 +726,7 @@
   }
   skills.spiketrap = {
     offensive: true,
-    weapon: "mainhand",
+    //weapon: "mainhand",
     speed: 57.142845,
     cost: 30,
     oncast: function(rune) {

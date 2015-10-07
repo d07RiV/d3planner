@@ -498,7 +498,7 @@ DiabloCalc.addItems([
     id: "P2_Unique_BarbBelt_001",
     ids: ["ptr_DreadIron"],
     name: "Dread Iron",
-    type: "belt",
+    type: "mightybelt",
     quality: "legendary",
     required: {
       custom: {id: "leg_dreadiron", name: "Ground Stomp Causes Avalance", format: "Ground Stomp causes an Avalanche.", args: 0},
@@ -561,7 +561,7 @@ DiabloCalc.addItems([
     type: "belt",
     quality: "legendary",
     required: {
-      custom: {id: "leg_bindingsofthelost", name: "Damage Reduction", format: "Each hit with Seven-Sided Strike grants %.1f%% damage reduction for 7 seconds.", min: 3, max: 3.5, step: 0.1},
+      custom: {id: "leg_bindingofthelost", name: "Damage Reduction", format: "Each hit with Seven-Sided Strike grants %.1f%% damage reduction for 7 seconds.", min: 3, max: 3.5, step: 0.1},
     },
     preset: ["mainstat"],
   },

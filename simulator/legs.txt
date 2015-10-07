@@ -16,15 +16,6 @@ leg_genzaniku Unique_Axe_1H_003_x1
 leg_skycutter Unique_Sword_1H_004_x1
 leg_thegrinreaper Unique_VoodooMask_002_x1
 leg_jawbreaker Unique_Fist_101_x1
-leg_thefistofazturrasq
-
-Barb:
-leg_lutsocks
-leg_skullgrasp
 leg_skullofresonance Unique_Helm_004_x1
 leg_fjordcutter Unique_Mighty_1H_006_x1
 leg_remorseless Unique_Mighty_1H_102_x1
-leg_vileward Unique_Shoulder_003_p1
-leg_bastionsrevered
-leg_furyofthevanishedpeak
-leg_gavelofjudgment

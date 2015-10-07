@@ -713,7 +713,9 @@ DiabloCalc.skills.wizard = {
       res["Arcane Strike DPS"] = {sum: true, "Arcane Strike Damage": {speed: 1, fpa: 57.599954, round: "up"}};
       if (stats.set_chantodo_2pc) {
         res["Chantodo's DPS"] = {elem: "max", coeff: 3.5};
-        res["Max Chantodo's Damage"] = {elem: "max", coeff: 3.5, addcoeff: [[3.5, 20]]};
+        if (this.params[1].val) {
+          res["Chantodo's DPS"].addcoeff = [[3.5, this.params[1].val]];
+        }
       }
       if (rune === "a" || stats.set_vyr_2pc) {
         for (var k in res) {
@@ -725,8 +727,11 @@ DiabloCalc.skills.wizard = {
       return res;
     },
     active: false,
-    params: (DiabloCalc.itemaffixes&&DiabloCalc.itemaffixes.leg_theswami.params||
-      [{min: "leg_fazulasimprobablechain", max: "leg_fazulasimprobablechain+50", val: "min", name: "Stacks", inf: true}]),
+    params: [(DiabloCalc.itemaffixes&&DiabloCalc.itemaffixes.leg_theswami.params[0]||
+      {min: "leg_fazulasimprobablechain", max: "leg_fazulasimprobablechain+50", val: "min", name: "Stacks", inf: true, buffs: false}),
+      {min: 0, max: 20, val: 20, name: "Chantodo's", buffs: false, show: function(rune, stats) {
+        return !!stats.set_chantodo_2pc;
+      }}],
     buffs: function(rune, stats) {
       var res = {damage: 20 + 6 * this.params[0].val, armor_percent: 20, resist_percent: 20};
       if (stats.set_vyr_4pc) {

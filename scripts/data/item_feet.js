@@ -46,7 +46,7 @@ DiabloCalc.addItems([
     type: "boots",
     quality: "legendary",
     required: {
-      custom: {id: "leg_irontoemudsputters", name: "Increased Speed on Low Life", format: "Gain up to 25%% increased movement speed based on amount of Life missing.", args: 0},
+      custom: {id: "leg_irontoemudsputters", name: "Increased Speed on Low Life", format: "Gain up to %d%% increased movement speed based on amount of Life missing.", min: 25, max: 30},
     },
     preset: ["mainstat", "vit"],
   },

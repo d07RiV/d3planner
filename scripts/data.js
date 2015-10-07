@@ -16,16 +16,16 @@
   DiabloCalc.GenderPair = function(lhs, rhs, upper) {
     function doPair(lhs, rhs) {
       if (!lhs.length || !rhs.length) return lhs + rhs;
-      if (!lhs[0] == '[') return lhs + " " + rhs;
-      var reg = /\[([a-z]+)\]([^\[]+)/g;
-      var m, parts = {};
-      while (m = reg.exec(lhs)) {
-        parts[m[1]] = m[2];
-      }
       var key = "ah";
       if (m = rhs.match(/\[([a-z]+)\]([^\[]+)/)) {
         key = m[1];
         rhs = m[2];
+      }
+      if (lhs[0] != '[') return lhs + " " + rhs;
+      var reg = /\[([a-z]+)\]([^\[]+)/g;
+      var m, parts = {};
+      while (m = reg.exec(lhs)) {
+        parts[m[1]] = m[2];
       }
       if (!(key in parts)) {
         for (var k in parts) {
@@ -837,6 +837,12 @@
     DiabloCalc.gemById = {};
     for (var type in DiabloCalc.gemColors) {
       var gem = DiabloCalc.gemColors[type];
+      if (!gem.names) {
+        gem.names = [];
+        for (var i = 0; i < DiabloCalc.gemQualities.length; ++i) {
+          gem.names.push(DiabloCalc.gemQualities[i] + " " + gem.name);
+        }
+      }
       for (var i = 0; i < DiabloCalc.gemQualities.length; ++i) {
         DiabloCalc.gemById[gem.id + i2s2(i + 1)] = [i, type];
       }

@@ -361,12 +361,23 @@ DiabloCalc.skills.witchdoctor = {
       a: "Toad of Hugeness",
       c: "Unstable Form",
     },
-    info: {
-      "*": {"Uptime": {cooldown: "15*(passives.tribalrites?0.75:1)", duration: 12}},
-      b: {"Cooldown": {cooldown: "15*(passives.tribalrites?0.75:1)"}, "Uptime": null,
-          "Explosion Damage": {elem: "psn", coeff: 13.5, percent: {"Manajuma's Way": "set_manajuma_2pc?200:0"}}},
-      a: {"Cooldown": {cooldown: "15*(passives.tribalrites?0.75:1)"}, "Uptime": null, "Damage": {elem: "psn", coeff: 7.5, total: true}},
-      c: {"Explosion Damage": {elem: "fir", coeff: 5}},
+    info: function(rune, stats) {
+      var res = {"Uptime": {cooldown: 15 * (stats.passives.tribalrites ? 0.75 : 1), duration: 12}};
+      switch (rune) {
+      case "b":
+        res = {"Cooldown": {cooldown: 15 * (stats.passives.tribalrites ? 0.75 : 1)}, "Explosion Damage": {elem: "psn", coeff: 13.5}};
+        if (stats.set_manajuma_2pc) {
+          res["Explosion Damage"].percent = {};
+          res["Explosion Damage"].percent[DiabloCalc.itemSets.manajuma.name] = 200;
+        }
+        return res;
+      case "a":
+        return {"Cooldown": {cooldown: 15 * (stats.passives.tribalrites ? 0.75 : 1)}, "Damage": {elem: "psn", coeff: 7.5, total: true}};
+      case "c":
+        res["Explosion Damage"] = {elem: "fir", coeff: 5};
+        break;
+      }
+      return res;
     },
     active: false,
     buffs: function(rune, stats) {

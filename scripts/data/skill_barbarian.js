@@ -43,10 +43,10 @@ DiabloCalc.skills.barbarian = {
       switch (rune) {
       case "x": res = {"Damage": {elem: "phy", coeff: 3.2}}; break;
       case "c": res = {"Damage": {elem: "col", coeff: 3.2}}; break;
-      case "a": res = {"Damage": {elem: "lit", coeff: 3.2}, "Shockwave Damage": {elem: "fir", coeff: 1}}; break;
+      case "a": res = {"Damage": {elem: "lit", coeff: 3.2}}; break;
       case "b": res = {"Damage": {elem: "phy", coeff: 3.2}}; break;
       case "d": res = {"Damage": {elem: "fir", coeff: 3.2}}; break;
-      case "e": res = {"Damage": {elem: "fir", coeff: 3.2}}; break;
+      case "e": res = {"Damage": {elem: "fir", coeff: 3.2}, "Shockwave Damage": {elem: "fir", coeff: 1}}; break;
       }
       return $.extend({"DPS": {sum: true, "Damage": {speed: 1, fpa: fpa, round: "up"}}}, res);
     },
@@ -217,8 +217,9 @@ DiabloCalc.skills.barbarian = {
       c: "Mutilate",
       e: "Bloodbath",
     },
+    params: [{min: 1, max: "leg_lamentation?2:1", name: "Stacks", buffs: false}],
     info: {
-      "*": {"Cost": {cost: 20}, "DPS": {sum: true, "Damage": {divide: "set_wastes_2pc?15:5", factor: "leg_lamentation?2:1"}}},
+      "*": {"Cost": {cost: 20}, "DPS": {sum: true, "Damage": {divide: "set_wastes_2pc?15:5", factor: "$1"}}},
       x: {"Damage": {weapon: "mainhand", elem: "phy", coeff: 11, total: true, factors: {"Extra Duration": "set_wastes_2pc?3:1"}}},
       b: {"Damage": {weapon: "mainhand", elem: "fir", coeff: 11, total: true, factors: {"Extra Duration": "set_wastes_2pc?3:1"}}},
       d: {"Damage": {weapon: "mainhand", elem: "phy", coeff: 11, total: true, factors: {"Extra Duration": "set_wastes_2pc?3:1"}}},
@@ -521,7 +522,7 @@ DiabloCalc.skills.barbarian = {
       case "b": elem = "lit"; break;
       }
       var coeff = (rune == "a" || stats.set_raekor_4pc ? 10.5 : 6);
-      var res = {"Cooldown": {cooldown: 10}, "Damage": {elem: elem, coeff: coeff}};
+      var res = {"Cooldown": {cooldown: 10}, "Damage": {elem: elem, weapon: "mainhand", coeff: coeff}};
       if (stats.set_raekor_2pc) {
         res["Damage to First Target"] = {elem: elem, coeff: coeff, percent: {"First Target": 100}};
       }
@@ -538,6 +539,7 @@ DiabloCalc.skills.barbarian = {
     id: "avalanche",
     name: "Avalanche",
     category: "might",
+    weapon: "mainhand",
     row: 3,
     col: 3,
     runes: {
@@ -582,6 +584,7 @@ DiabloCalc.skills.barbarian = {
     id: "battle-rage",
     name: "Battle Rage",
     category: "tactics",
+    weapon: "mainhand",
     row: 4,
     col: 1,
     runes: {

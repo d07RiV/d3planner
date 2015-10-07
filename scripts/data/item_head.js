@@ -36,7 +36,8 @@ DiabloCalc.addItems([
     type: "helm",
     quality: "legendary",
     required: {
-      custom: {id: "leg_leoricscrown", name: "Increased Gem Effects", format: "Increase the effect of any gem socketed into your helm by %d%%.", min: 75, max: 100},
+      custom: {id: "leg_leoricscrown", name: "Increased Gem Effects", format: "Increase the effect of any gem socketed into your helm by %d%%.", min: 75, max: 100,
+        altformat: "Increase the effect of any gem socketed into this item by %d%%."},
     },
     preset: ["mainstat", "sockets"],
   },
@@ -439,7 +440,8 @@ DiabloCalc.addItems([
     type: "voodoomask",
     quality: "legendary",
     required: {
-      custom: {id: "leg_thegrinreaper", name: "Chance to Summon Mimics", format: "Chance when attacking to summon horrific Mimics that cast some of your equipped skills.", args: 0},
+      custom: {id: "leg_thegrinreaper", name: "༼ ºل͜º ༽ºل͜º ༽ºل͜º ༽", format: "Chance when attacking to summon horrific Mimics that cast some of your equipped skills.", args: 0},
+//      custom: {id: "leg_thegrinreaper", name: "Chance to Summon Mimics", format: "Chance when attacking to summon horrific Mimics that cast some of your equipped skills.", args: 0},
     },
     preset: ["mainstat", "sockets"],
   },

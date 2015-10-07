@@ -839,17 +839,17 @@
       case "d": buffs.armor_percent = 150; break;
       case "e": buffs.ias = 15; break;
       }
-      Sim.addBuff("akaratschampion", buffs, {duration: 20});
+      Sim.addBuff("akaratschampion", buffs, {duration: 1200});
     },
     oninit: function(rune) {
-      if (rune === "d") {
+      if (rune === "a") {
         Sim.register("onhit_proc", function(data) {
           if (Sim.getBuff("akaratschampion")) {
             Sim.addBuff(undefined, undefined, {
               duration: 180,
               tickrate: 30,
               tickinitial: 1,
-              ontick: {count: data.proc * data.targets, coeff: 4.6 / 6},
+              ontick: {count: data.proc * data.targets, coeff: 4.6 / 6, proc: 0},
             });
           }
         });

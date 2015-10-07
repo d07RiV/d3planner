@@ -309,7 +309,7 @@
       Sim.channeling("disintegrate", this.channeling, dis_ontick, {dmg: dmg, rune: rune});
     },
     proctable: {x: 0.1667, b: 0.111, e: 0.125, c: 0.1667, d: 0.111, a: 0.1667},
-    elem: {x: "arc", d: "fir", c: "arc", e: "arc", b: "arc", a: "arc"},
+    elem: {x: "arc", b: "fir", e: "arc", c: "arc", d: "arc", a: "arc"},
   };
 
   function fn_mist_ontick(data) {
@@ -640,7 +640,7 @@
       case "d":
         dmg = {delay: 75, type: "area", range: 12, coeff: 7.4 + 0.2 * Sim.resources.ap};
         if (!Sim.castInfo().triggered) {
-          Sim.resources.ap = 0;
+          Sim.spendResource(Sim.resources.ap);
         }
         break;
       case "c": dmg = {delay: 75, type: "area", range: 12, coeff: 7.4}; break;

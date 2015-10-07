@@ -176,12 +176,12 @@
     Sim.register("onhit", function(data) {
       if (Sim.time >= next) {
         if (--counter < 0) {
-          Sim.addBuff("baneofthestricken", {dmgmul: 0.8 + level * 0.01}, {
+          Sim.addBuff("stricken", {dmgmul: 0.8 + level * 0.01}, {
             maxstacks: 9999,
           });
           counter = Sim.target.count;
         }
-        next = Sim.time + 15;
+        next = Sim.time + Math.floor(54 / Sim.stats.info.aps);
       }
     });
     if (level >= 25) {
@@ -760,6 +760,7 @@
     Sim.register("oncast", function(data) {
       if (Sim.time >= next && data.offensive && Sim.random("flyingdragon", 0.05)) {
         Sim.addBuff("flyingdragon", {weaponaps: 1.15}, {duration: 420});
+        next = Sim.time + 300;
       }
     });
   };
@@ -781,7 +782,7 @@
     Sim.register("onhit", function(data) {
       if (data.castInfo && data.castInfo.skill === "sevensidedstrike") {
         //todo: damage reduction
-        Sim.addBuff("bindingsofthelost", undefined, {duration: 420, maxstacks: 50, refresh: false});
+        Sim.addBuff("bindingofthelost", undefined, {duration: 420, maxstacks: 50, refresh: false});
       }
     });
   };
@@ -874,4 +875,58 @@
     });
   };
 
+  affixes.leg_bracersofthefirstmen = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["hammeroftheancients"], percent: amount}});
+  };
+
+/*
+  affixes.leg_thegrinreaper = function(amount) {
+    var skills = {};
+    skills.poisondart = function(rune) {
+      return true;
+    };
+    skills.corpsespiders = function(rune) {
+      if (rune === "b") {
+        Sim.addBuff(undefined, undefined, {
+          duration: 901,
+          tickrate: 15,
+          ontick: {type: "area", range: 10, coeff: 1.75 / 4, pet: true},
+        });
+      } else {
+        return true;
+      }
+    };
+    skills.plagueoftoads = function(rune) {
+      return true;
+    };
+    skills.firebomb = function(rune) {
+      if (rune === "d") {
+        Sim.addBuff("pyrogeist", undefined, {
+          maxstacks: 3,
+          duration: 361,
+          tickrate: 18,
+          ontick: {coeff: 0.44},
+        });
+      } else {
+        return true;
+      }
+    };
+    skills.graspofthedead = function(rune) {
+      if (rune === "b" || Sim.stats.leg_deadlyrebirth) {
+        Sim.addBuff(undefined, undefined, {
+          duration: 481,
+          tickrate: 120,
+          ontick: {type: "area", range: 8, radius: 45, coeff: 1.05},
+        });
+      }
+      Sim.addBuff(undefined, undefined, {
+        status: "slowed",
+        duration: 480,
+        tickrate: 30,
+        tickinitial: 1,
+        ontick: {type: "area", range: 14, coeff: (rune === "a" ? 0.85 : 0.475)},
+      });
+    };
+  };
+*/
 })();

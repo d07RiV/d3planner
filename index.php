@@ -1,6 +1,6 @@
 <?php
-//require("php/session.php");
-//get_session(TRUE);
+$unset_session = TRUE;
+require_once("php/session.php");
 function mklink($path, $src = NULL) {
   echo $path . "?" . filemtime($_SERVER['DOCUMENT_ROOT'] . ($src ? $src : $path));
 }
@@ -51,8 +51,30 @@ function mklink($path, $src = NULL) {
 
   <div class="page">
 
-   <div class="row body">
+   <div class="col left-banner">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- Left banner -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:160px;height:600px"
+         data-ad-client="ca-pub-7703035589260001"
+         data-ad-slot="9264362972"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+   </div>
+   <div class="col right-banner">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- Right banner -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:160px;height:600px"
+         data-ad-client="ca-pub-7703035589260001"
+         data-ad-slot="9124762171"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+   </div>
 
+   <div class="row body">
     <div class="col dollframe">
 
      <div id="ptr-link">

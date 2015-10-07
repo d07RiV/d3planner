@@ -305,6 +305,9 @@
   Sections.append(ImportDiv);
 
   ImportDiv.append("<p>" + _L("Imported data does not contain Paragon point distribution.") + "</p>");
+  ImportDiv.append("<p><b>" + _L("The US battle.net API seems to be having issues at this time, so " +
+    "it might take multiple attempts to load a profile/character (see " +
+    "<a href=\"http://us.battle.net/en/forum/topic/19022402648\">this topic</a>).") + "</b></p>");
 
   Import.region = $("<select></select>").addClass("import-region");
   Import.region.append("<option value=\"eu\">EU</option>");

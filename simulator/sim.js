@@ -131,7 +131,8 @@
     this.target.boss = data.params.targetBoss;
     this.target.type = (data.params.targetType || "");
     this.target.density = this.target.count / this.target.area;
-    this.target.maxdr = 0;
+    this.target.maxdr = 0.95;
+    this.target.mincc = 0.65;
     if (!this.target.elite) {
       this.target.boss = false;
     }

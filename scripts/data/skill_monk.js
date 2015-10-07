@@ -178,7 +178,7 @@ DiabloCalc.skills.monk = {
       case "x": res = {"Damage": {elem: "phy", coeff: 1.9}}; break;
       case "b": res = {"Damage": {elem: "lit", coeff: 1.9}, "Second Hit Damage": {elem: "lit", coeff: 4.23, total: true}}; break;
       case "c": res = {"Damage": {elem: "fir", coeff: 1.9}}; break;
-      case "a": res = {"Damage": {elem: "hol", coeff: 1.9}, "Dash Damage": {elem: "hol", coeff: 0.6, total: true}}; break;
+      case "a": res = {"Damage": {elem: "hol", coeff: 1.9}, "Extra Damage": {elem: "hol", coeff: 0.6, total: true}}; break;
       case "d": res = {"Damage": {elem: "phy", coeff: 1.9}}; break;
       case "e": res = {"Damage": {elem: "col", coeff: 1.9}, "Wave Damage": {elem: "col", coeff: 5}}; break;
       }
@@ -563,7 +563,7 @@ DiabloCalc.skills.monk = {
         res["Ally Damage"] = $.extend({}, res["Damage"], ext);
         res["Total Damage"] = {sum: true, "Damage": {}, "Ally Damage": {count: (stats.leg_thecrudestboots ? 2 : 1)}};
       }
-      return $.extend({"Cost": {cost: 50}}, res);
+      return $.extend({"Cost": {cost: (rune === "d" ? 26 : 50)}}, res);
     },
   },
   sevensidedstrike: {
@@ -623,8 +623,8 @@ DiabloCalc.skills.monk = {
     },
     active: true,
     buffs: function(rune, stats) {
-      if (stats.leg_bindingsofthelost) {
-        return {dmgred: stats.leg_bindingsofthelost * (7 + (stats.leg_lionsclaw ? 7 : 0))};
+      if (stats.leg_bindingofthelost) {
+        return {dmgred: stats.leg_bindingofthelost * (7 + (stats.leg_lionsclaw ? 7 : 0))};
       }
     },
   },
@@ -781,7 +781,7 @@ DiabloCalc.skills.monk = {
       case "x": return {regen: regen};
       case "a": return {regen: regen + 10728.42 + (stats.regen || 0) * 0.3};
       case "d": return {regen: regen, spiritregen: 3};
-      case "b": return {regen: regen};
+      case "b": return {regen: regen, lph: 3576 + (stats.lph || 0) * 0.2};
       case "c": return {regen: regen, life: 20};
       case "e": return {regen: regen};
       }
@@ -803,7 +803,7 @@ DiabloCalc.skills.monk = {
     },
     info: {
       "*": {"Cost": {cost: 50}},
-      b: {"DPS": {elem: "hol", coeff: 0.38, total: true}},
+      b: {"DPS": {elem: "hol", weapon: "mainhand", coeff: 0.38, total: true}},
     },
     active: false,
     buffs: {

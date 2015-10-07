@@ -42,6 +42,7 @@
     if (!amount) return true;
     if (!type) type = rcTypes[this.stats.charClass][0];
     if (this.resources[type] && this.resources[type] >= amount) {
+      Sim.trigger("resourceloss", {type: type, amount: amount, castInfo: Sim.castInfo()});
       this.resources[type] -= amount;
       return true;
     } else {
@@ -137,8 +138,10 @@
   };
 
   Sim.cooldowns = {};
+  Sim.durationLock = {};
   Sim.getCooldown = function(id) {
     var cd = this.cooldowns[id];
+    if (this.durationLock[id] && this.durationLock[id] > this.time) return 0;
     if (!cd || !cd.ends || cd.ends <= this.time) return 0;
     return cd.ends - this.time;
   };
@@ -190,9 +193,13 @@
     var skill = this.skills[id];
     var rune = rune || this.stats.skills[id];
     var cooldown = this.getProp(skill, "cooldown", rune);
-    var duration = this.getProp(skill, "duration", rune);
     cooldown = fixCooldown(id, cooldown);
-    if (cooldown && duration) {
+    if (this.durationLock[id] && this.durationLock[id] > this.time) {
+      return false;
+    }
+    var duration = this.getProp(skill, "duration", rune);
+    if (duration && !dry) {
+      this.durationLock[id] = this.time + duration;
       cooldown += duration;
     }
     var grace = this.getProp(skill, "grace", rune);
@@ -200,7 +207,7 @@
       grace = [grace, 1];
     }
     var charges = this.getProp(skill, "charges", rune);
-    if (dry && !this.cooldowns[id]) return cooldown;
+    if (dry && !this.cooldowns[id] && charges !== 0) return cooldown;
     var cd = this.cooldowns[id];
     if (!cd) cd = this.cooldowns[id] = {};
     if (grace) {
@@ -218,17 +225,17 @@
           cd.graceEvent = this.after(grace[0], onGrace, {id: id, rune: rune});
         }
       }
-    } else if (charges) {
+    } else if (charges !== undefined) {
       if (cd.charges === undefined) {
         cd.charges = charges;
       }
       if (!cd.charges) return false;
       if (!dry) {
         --cd.charges;
-        if (!cd.chargeEvent) {
+        if (!cd.chargeEvent && cooldown) {
           cd.chargeEvent = this.after(cooldown, onCharge, {id: id, rune: rune});
         }
-        if (!cd.charges) {
+        if (!cd.charges && cd.chargeEvent) {
           cd.ends = cd.chargeEvent.time;
         }
       }
@@ -245,6 +252,7 @@
     var rune = rune || this.stats.skills[id];
     var skill = this.skills[id];
     if (!rune || !skill) return false;
+    if (this.durationLock[id] && this.durationLock[id] > this.time) return false;
     var cd = this.cooldowns[id];
     if (!cd) return false;
     var cooldown = this.getProp(skill, "cooldown", rune);
@@ -339,9 +347,9 @@
       if (!this.stats.info[castInfo.weapon]) {
         return false;
       }
-      if (!triggered) {
-        this.curweapon = castInfo.weapon;
-      }
+      //if (!triggered) {
+      //  this.curweapon = castInfo.weapon;
+      //}
       break;
     case "current":
       castInfo.weapon = this.curweapon;

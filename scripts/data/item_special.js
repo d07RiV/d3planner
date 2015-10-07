@@ -715,8 +715,8 @@ DiabloCalc.itemaffixes = {
   leg_theswami: {
     check: true,
     active: true,
-    params: (DiabloCalc.skills&&DiabloCalc.skills.wizard&&DiabloCalc.skills.wizard.archon.params||
-      [{min: "leg_fazulasimprobablechain", max: "leg_fazulasimprobablechain+50", val: "min", name: "Stacks", inf: true}]),
+    params: [(DiabloCalc.skills&&DiabloCalc.skills.wizard&&DiabloCalc.skills.wizard.archon.params[0]||
+      {min: "leg_fazulasimprobablechain", max: "leg_fazulasimprobablechain+50", val: "min", name: "Stacks", inf: true})],
     buffs: function(value, stats) {
       if (stats.skills.archon && !DiabloCalc.skills.wizard.archon.active) {
         var stacks = this.params[0].val;
@@ -802,5 +802,11 @@ DiabloCalc.itemaffixes = {
           "Palm Explosion Damage": {elem: "phy", coeff: 27.7, percent: expl, skill: "explodingpalm"}};
       }
     }
+  },
+
+  leg_nagelring: {
+    info: function(value, stats) {
+      return {"Damage": {elem: "max", coeff: 100}, "DPS": {sum: true, "Damage": {divide: value[0]}}};
+    },
   },
 };

@@ -384,9 +384,9 @@ asheara's: todo
       }
     });
     Sim.register("onhit", function(data) {
-      if (data.user && data.user.sequence === 2 && Sim.apply_palm) {
+      if (data.castInfo && data.castInfo.user && data.castInfo.user.sequence === 2 && Sim.apply_palm) {
         Sim.apply_palm(data.targets);
-        delete data.user.sequence;
+        delete data.castInfo.user.sequence;
       }
     });
   };
@@ -457,6 +457,37 @@ asheara's: todo
   affixes.set_light_6pc = function() {
     Sim.addBaseStats({dmgmul: {skills: ["blessedhammer"], percent: 750}});
     Sim.addBaseStats({dmgmul: {skills: ["fallingsword"], percent: 500}});
+  };
+
+  affixes.set_immortalking_4pc = function() {
+    Sim.register("resourceloss", function(data) {
+      if (data.type === "fury") {
+        var ticks = Sim.random("immortalking_4pc", 1, data.amount / 10, true);
+        while (ticks--) {
+          Sim.reduceCooldown("wrathoftheberserker", 180);
+          Sim.reduceCooldown("calloftheancients", 180);
+        }
+      }
+    });
+  };
+  affixes.set_immortalking_6pc = function() {
+    Sim.after(60, function check() {
+      if (Sim.getBuff("wrathoftheberserker") && Sim.getBuff("calloftheancients")) {
+        Sim.addBuff("immortalking_6pc", {dmgmul: 250}, {duration: 72});
+      }
+      Sim.after(60, check);
+    });
+  };
+
+  affixes.set_earth_4pc = function() {
+    Sim.register("oncast", function(data) {
+      if (data.skill === "leap" && !data.triggered) {
+        Sim.cast("earthquake");
+      }
+    });
+  };
+  affixes.set_wastes_2pc = function() {
+    Sim.addBaseStats({dmgmul: {skills: ["rend"], percent: 500}});
   };
 
 })();

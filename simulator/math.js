@@ -465,6 +465,16 @@
     if (final < 1e-6) return undefined;
     return {area: f(range), distance: range - _integrate(p, 0, range) / final};
   });
+  Sim.math.rollingThunder = _wrap(function(targets, spread, size, origin, range, angle, expos, exrange) {
+    angle = (angle || 0) * Math.PI / 180;
+    var shape = new PolyShape();
+    shape.cone(-origin, 0, 0, angle, range, size);
+    var inter = new PolyShape();
+    shape.intersect(0, 0, spread, inter);
+    var area = Math.max(0, inter.area() - inter.intersect(-expos, 0, exrange + size).area);
+    if (area < 1e-6) return undefined;
+    return {area: area, distance: range / 2};
+  });
 
   Sim.math.coneArea = _wrap(function(spread, size, origin, width, range, angle) {
     var shape = new PolyShape();

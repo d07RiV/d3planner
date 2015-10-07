@@ -407,7 +407,8 @@ DiabloCalc.addItems([
     type: "sword",
     quality: "legendary",
     required: {
-      custom: {id: "leg_thunderfury", name: "Lightning Effect Damage", format: "Chance on hit to blast your enemy with Lightning, dealing %d%% weapon damage as Lightning and then jumping to additional nearby enemies. Each enemy hit has their attack speed and movement speed reduced by 30%% for 3 seconds. Jumps up to 5 targets.", min: 279, max: 372},
+      custom: {id: "leg_thunderfury", name: "Did someone say [Thunderfury, Blessed Blade of the Windseeker]?", format: "Chance on hit to blast your enemy with Lightning, dealing %d%% weapon damage as Lightning and then jumping to additional nearby enemies. Each enemy hit has their attack speed and movement speed reduced by 30%% for 3 seconds. Jumps up to 5 targets.", min: 279, max: 372},
+      //custom: {id: "leg_thunderfury", name: "Lightning Effect Damage", format: "Chance on hit to blast your enemy with Lightning, dealing %d%% weapon damage as Lightning and then jumping to additional nearby enemies. Each enemy hit has their attack speed and movement speed reduced by 30%% for 3 seconds. Jumps up to 5 targets.", min: 279, max: 372},
     },
     preset: ["wpnlit", "mainstat", "sockets"],
   },
@@ -632,7 +633,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_CeremonialDagger_009_x1",
-    name: "Manajuba's Carving Knife",
+    name: "Manajuma's Carving Knife",
     type: "ceremonialknife",
     quality: "set",
     set: "manajuma",
@@ -1062,7 +1063,7 @@ DiabloCalc.addItems([
     type: "spear",
     quality: "legendary",
     required: {
-      custom: {id: "leg_arreatslaw", name: "Weapon Throw Extra Fury", format: "Weapon Throw generates up to 15-20 additional Fury based on how far away the enemy hit is. Maximum benefit when the enemy hit is 20 or more yards away.", args: 0},
+      custom: {id: "leg_arreatslaw", name: "Weapon Throw Extra Fury", format: "Weapon Throw generates up to %d additional Fury based on how far away the enemy hit is. Maximum benefit when the enemy hit is 20 or more yards away.", min: 15, max: 20},
     },
     preset: ["wpnphy", "mainstat"],
   },

@@ -82,7 +82,13 @@
         }
         var result = text.match(stat.regex);
         if (!result) {
-          return null;
+          if (stat.altformat) {
+            if (!stat.altregex) {
+              stat.altregex = buildRegEx(stat.altformat, stat.class);
+            }
+            result = text.match(stat.altregex);
+          }
+          if (!result) return null;
         }
         var out = [];
         for (var i = 0; i < stat.args; i++) {

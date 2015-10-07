@@ -769,11 +769,7 @@
 
   ///////////////////////////////////////////////////
 
-  Sections.append("<h3>" + _L("Simulate") + " ( <span class=\"status-icon class-wizard class-icon\"></span> " +
-                                "<span class=\"status-icon class-demonhunter class-icon\"></span> " +
-                                "<span class=\"status-icon class-witchdoctor class-icon\"></span> " +
-                                "<span class=\"status-icon class-monk class-icon\"></span> " +
-                                "<span class=\"status-icon class-crusader class-icon\"></span>)</h3>");
+  Sections.append("<h3>" + _L("Simulate") + "</h3>");
   Section = $("<div></div>");
   Sections.append(Section);
 
@@ -845,6 +841,28 @@
       slider.slider("value", x);
     }, info.profile);
   });
+
+  var nyiSection = $("<div><p>" + _L("The following equipped items are not implemented in the simulation:") + "</p></div>");
+  var nyiList = $("<ul class=\"nyi-list\"></ul>");
+  Section.append(nyiSection.append(nyiList));
+  nyiSection.hide();
+  function updateNYI() {
+    nyiList.empty();
+    $.each(DC.itemSlots, function(slot, info) {
+      var id = DC.getSlotId(slot);
+      if (id && DC.simMapping.nyi[id]) {
+        var line = $("<li>" + DC.itemById[id].name + "</li>");
+        line.addClass("quality-" + DC.itemById[id].quality);
+        line.hover(function() {
+          DC.tooltip.showItem(this, slot);
+        }, function() {
+          DC.tooltip.hide();
+        });
+        nyiList.append(line);
+      }
+    });
+    nyiSection.toggle(!!nyiList.children().length);
+  }
 
   var SimButton = $("<button class=\"button-start\">" + _L("Start") + "</button>").button({
     icons: {primary: "ui-icon-play"},
@@ -981,6 +999,7 @@
           },
         },
       });
+      this.graph.append("<div class=\"comment\">" + _L("Drag to zoom/pan (affects Sample output)") + "</div>");
       var _r = this.chart._chart.render;
       var _this = this;
       this.chart._chart.render = function() {
@@ -1272,5 +1291,7 @@
     DC.priority.setData(DC.priority.getData());
     UpdatePriorities();
   });
+  DC.register("updateSlotItem", updateNYI);
+  DC.register("importEnd", updateNYI);
 
 })();

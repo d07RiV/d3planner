@@ -277,7 +277,7 @@ DiabloCalc.skills.crusader = {
       x: {"Damage": {elem: "lit", coeff: 5.45}, "Bolt Damage": {elem: "lit", coeff: 2.25}},
       d: {"Damage": {elem: "hol", coeff: 5.45}, "Bolt Damage": {elem: "hol", coeff: 2.25}, "Zap Damage": {elem: "hol", coeff: 0.4}},
       a: {"Damage": {elem: "fir", coeff: 5.45}, "Bolt Damage": {elem: "fir", coeff: 2.25}, "Storm Damage": {elem: "fir", coeff: 1, total: true}},
-      c: {"Damage": {elem: "lit", coeff: 5.45}, "Bolt Damage": {elem: "lit", coeff: 2.25}, "Fisure Dammage": {elem: "lit", coeff: 4.1, total: true}, "Arc Damage": {elem: "lit", coeff: 1.35}},
+      c: {"Damage": {elem: "lit", coeff: 5.45}, "Bolt Damage": {elem: "lit", coeff: 2.25}, "Fissure Damage": {elem: "lit", coeff: 4.1, total: true}, "Arc Damage": {elem: "lit", coeff: 1.35}},
       b: {"Damage": {elem: "lit", coeff: 5.45}, "Bolt Damage": {elem: "lit", coeff: 2.25}},
       e: {"Fist Damage": {elem: "hol", coeff: 2.7}, "Explosion Damage": {elem: "hol", coeff: 4.35}, "Bolt Damage": {elem: "hol", coeff: 1.85}},
     },

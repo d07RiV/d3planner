@@ -19,6 +19,9 @@ DiabloCalc.partybuffs.items = {
   toxin: {
     buffs: function() {return {dmgtaken: 10};},
   },
+  iceblink: {
+    buffs: function() {return {chctaken: 10};},
+  },
 };
 DiabloCalc.partybuffs.followers = {
   templar_loyalty: {

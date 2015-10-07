@@ -70,6 +70,20 @@ li a, .ui-state-focus {
   outline-color: transparent; /* tab selection fix */
 }
 
+.left-banner {
+  left: -192px;
+  width: 162px;
+  padding: 100px 0;
+}
+.right-banner {
+  right: -192px;
+  width: 162px;
+  padding: 100px 0;
+}
+.logged-in .left-banner, .logged-in .right-banner {
+  display: none;
+}
+
 .body {
   top: 0;
   bottom: 50px;

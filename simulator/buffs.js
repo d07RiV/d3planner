@@ -116,14 +116,14 @@
   var dr_start, dr_end;
   function drUpdate() {
     if (dr_start !== undefined) {
-      dr_accum = Math.min(6 * (Sim.target.maxdr || 0), dr_accum + Sim.time - dr_start);
+      dr_accum = Math.min(12 * (Sim.target.maxdr || 0), dr_accum + 2 * (Sim.time - dr_start));
       dr_start = undefined;
     }
     if (dr_end !== undefined) {
       dr_accum = Math.max(0, dr_accum - (Sim.time - dr_end));
       dr_end = undefined;
     }
-    return 1 - dr_accum / 600;
+    return 1 - dr_accum / 1200;
   }
 
   function onBuffExpired(e) {

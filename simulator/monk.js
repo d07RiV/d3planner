@@ -34,16 +34,10 @@
   }
 
   function fot_static_onhit(data) {
-    if (Sim.getBuff("staticcharge")) {
-      var targets = Sim.getTargets(6);
-      if (targets > 1) {
-        Sim.damage({targets: targets - 1, count: data.proc * data.targets, coeff: 1.8});
-      }
-    }
-    if (data.targets > 1) {
-      if (rune === "c") {
-        Sim.addBuff("staticcharge", undefined, {duration: 360});
-      }
+    if (data.castInfo && data.castInfo.rune === "c") {
+      var stacks = Math.max(Sim.getBuff("staticcharge"), Math.round(data.targets));
+      Sim.removeBuff("staticcharge");
+      Sim.addBuff("staticcharge", undefined, {duration: 360, stacks: stacks});
     }
   }
   skills.fistsofthunder = {
@@ -65,13 +59,28 @@
       if (rune === "c") onhit = fot_static_onhit;
       if (rune === "e" && index === 2) onhit = Sim.apply_effect("frozen", 120);
       if (index < 2) {
-        return {coeff: 2};
+        return {coeff: 2, onhit: onhit};
       } else {
         var targets = Sim.getTargets(6);
         if (rune === "b") {
           Sim.damage({targets: 3, coeff: 2.4, onhit: onhit});
         }
         return {coeff: 4 / targets, targets: targets, onhit: onhit};
+      }
+    },
+    oninit: function(rune) {
+      if (rune === "c") {
+        Sim.register("onhit_proc", function(data) {
+          var stacks = Sim.getBuff("staticcharge");
+          if (stacks > 1) {
+            var coeff = 1.8;
+            if (Sim.stats.set_shenlong_2pc) {
+              // dirty fix
+              coeff *= 1 + 0.015 * (Sim.resources.spirit || 0);
+            }
+            Sim.damage({targets: stacks - 1, count: data.proc * data.targets, coeff: coeff, proc: 0});
+          }
+        });
       }
     },
     proctable: function(rune) {
@@ -464,6 +473,7 @@
   skills.innersanctuary = {
     cooldown: 20,
     speed: 57.599991,
+    weapon: "mainhand",
     oncast: function(rune) {
       var buffs = {dmgred: 55};
       var params = {duration: 360};

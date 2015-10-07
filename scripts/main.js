@@ -80,10 +80,8 @@ _L.patch.add = function(data) {
 _L.patch.apply = function(to) {
   function _myExtend(dst, src) {
     for (var key in src) {
-      if (typeof src[key] === "object") {
-        if (typeof dst[key] === "object") {
-          _myExtend(dst[key], src[key]);
-        }
+      if (typeof src[key] === "object" && typeof dst[key] === "object") {
+        _myExtend(dst[key], src[key]);
       } else {
         dst[key] = src[key];
       }
@@ -106,12 +104,19 @@ DiabloCalc.translateMainPage = function() {
   label.text(_L("Level") + " ").append(input);
   if (document.styleSheets) {
     var ss = document.styleSheets[0];
-    var totalLength = _L("Equipment") + _L("Paragon") + _L("Skills/Effects") +
-      _L("Import/Save") + _L("Simulate");
-    var size = Math.round(850 / totalLength.length);
-    size = "font-size: " + Math.min(15, Math.max(12, size)) + "px !important";
-    if (ss.addRule) ss.addRule(".main-tab", size, 0);
-    else ss.insertRule(".main-tab {" + size + ";}", 0);
+    var tmp = $("<div style=\"position: absolute; visibility: hidden; white-space: nowrap\"></div>");
+    tmp.text(_L("Equipment") + _L("Paragon") + _L("Skills/Effects") +
+      _L("Import/Save") + _L("Simulate"));
+    $("body").append(tmp);
+    var fontSize = 16;
+    do {
+      --fontSize;
+      tmp.css("font-size", fontSize + "px");
+    } while (fontSize > 12 && tmp.width() > 420);
+    fontSize = "font-size: " + fontSize + "px !important";
+    if (ss.addRule) ss.addRule(".main-tab", fontSize, 0);
+    else ss.insertRule(".main-tab {" + fontSize + ";}", 0);
+    tmp.remove();
   }
   $("a[href=\"#tab-equipment\"]").text(_L("Equipment"));
   $("a[href=\"#tab-paragon\"]").text(_L("Paragon"));

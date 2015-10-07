@@ -43,6 +43,7 @@
       }
       var ratio = (data.stats[stat][0] - range.min) / (range.max - range.min);
       if (range.best === "min") {
+        ratio = 1 - ratio;
         dataMin.stats[stat][0] = range.max;
         dataMax.stats[stat][0] = range.min;
       } else {
@@ -425,7 +426,7 @@
         html += "<p>" + info.desc + "</p>";
       }
       if (info.level) {
-        html += "<p class=\"subtle\">" + _L("Unlocked at level {0}").format("<em>" + info.level + "</em>") + "</p>";
+        html += "<p class=\"subtle\">" + _L("Unlocked at level {0}.").format("<em>" + info.level + "</em>") + "</p>";
       }
       html += "</div></div></div>";
       tooltipContent.html(html);
@@ -482,7 +483,7 @@
         format = format.replace(/\+?(?:%d|%\.[0-9]f)(?:%%)?/g,
           spans > 1 ? "<span class=\"d3-color-blue\"><span class=\"value\">$&</span></span>" : "<span class=\"value\">$&</span>");
         format = format.replace(/[0-9]+(?:\.[0-9]+)?(?:-[0-9]+)?%%/g, "<span class=\"value\">$&</span>");
-        format = format.replace(/\r\n/g, "<br/><span class=\"tooltip-icon-bullet\"/>");
+        format = format.replace(/\n\*|\r\n/g, "<br/><span class=\"tooltip-icon-bullet\"/>");
       }
       var index = 0;
       function fmtValue(val, p) {
@@ -1108,7 +1109,7 @@
 
       var quality = (gem ? "orange" : "blue");
       outer.append("<div class=\"tooltip-head tooltip-head-" + quality + "\"><h3 class=\"d3-color-" + quality + "\">" +
-        (gem ? gem.name : DiabloCalc.gemQualities[id[0]] + " " + reg.name) + "</h3></div>");
+        (gem ? gem.name : reg.names[id[0]]) + "</h3></div>");
 
       var ttbody = $("<div class=\"tooltip-body\"></div>");
       outer.append(ttbody);

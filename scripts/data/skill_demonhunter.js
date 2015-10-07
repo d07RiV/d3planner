@@ -429,12 +429,12 @@ DiabloCalc.skills.demonhunter = {
       var res = {"Cost": {cost: 8, resource: (stats.set_danetta_2pc ? "hatred" : "disc")}};
       if (rune === "d") res["Tumble Cost"] = {cost: 4, resource: res["Cost"].resource};
       if (rune === "c") {
-        res["Damage"] = {elem: "phy", weapon: "mainhand", coeff: 0.75, chc: 100, tip: ["Uses currently active weapon", "@Does not switch weapons"]};
-        res["Offhand Damage"] = {elem: "phy", weapon: "offhand", coeff: 0.75, chc: 100};
+        res["Damage"] = {elem: "phy", weapon: "mainhand", coeff: 0.75, chc: 100/*, tip: ["Uses currently active weapon", "@Does not switch weapons"]*/};
+        //res["Offhand Damage"] = {elem: "phy", weapon: "offhand", coeff: 0.75, chc: 100};
       }
       if (rune === "a") {
-        res["Damage"] = {elem: "fir", weapon: "mainhand", coeff: 3, total: true, tip: ["Uses currently active weapon", "@Does not switch weapons"]};
-        res["Offhand Damage"] = {elem: "fir", weapon: "offhand", coeff: 3, total: true};
+        res["Damage"] = {elem: "fir", weapon: "mainhand", coeff: 3, total: true/*, tip: ["Uses currently active weapon", "@Does not switch weapons"]*/};
+        //res["Offhand Damage"] = {elem: "fir", weapon: "offhand", coeff: 3, total: true};
       }
       return res;
     },

@@ -9,6 +9,9 @@
 
     var base = stats.info[data.weapon || "mainhand"].wpnbase;
     var avg = (data.thorns ? Sim.stats.thorns : (base.min + base.max) * 0.5);
+    if (!data.thorns && data.castInfo && data.castInfo.pet === "min") {
+      avg = base.min;
+    }
 
     var factor = 1 + 0.01 * stats.info.primary * (data.thorns ? 0.25 : 1);
     if (data.fix) {
@@ -76,9 +79,10 @@
     factor *= dmgmul;
 
     var value = avg * factor;
-    if (!data.nocrit && !orphan) {
+    if (!orphan) {
       value *= 1 + chc * chd;
     }
+    if (data.nocrit) chc = 0;
 
     var count = (data.count || 1);
     if (data.targets) {
@@ -282,6 +286,16 @@
     Sim.after(res.distance / data.speed, _target, data);
   }
 
+  function _rollingthunder(data) {
+    var res = Sim.math.rollingThunder(Sim.target.count, Sim.target.radius,
+      Sim.target.size, Sim.target.distance, data.range, data.angle,
+      data.expos, data.exrange);
+    if (!res) return;
+    data.targets = Math.min(res.area, Sim.target.area) / Sim.target.area * Sim.target.count;
+    data.distance = res.distance;
+    _target(data);
+  }
+
   function _damage(data) {
     switch (data.type) {
     case "line":
@@ -298,6 +312,10 @@
       break;
     case "waveoflight":
       _waveoflight(data);
+      break;
+    case "rollingthunder":
+      _rollingthunder(data);
+      break;
     default:
       _target(data);
     }
