@@ -231,10 +231,11 @@
     }
   }
   function wothf_fury_onhit(data) {
-    Sim.addBuff(undefined, undefined, {
-      duration: 181,
-      tickrate: 60,
-      ontick: {count: data.targets, coeff: 0.2},
+    Sim.addBuff("fistsoffury", undefined, {
+      duration: 179,
+      tickrate: 12,
+      maxstacks: Math.ceil(9 * Sim.stats.info.aps),
+      ontick: {count: data.targets, coeff: 0.04, proc: data.proc},
     });
   }
   function wothf_assimilation_onhit(data) {

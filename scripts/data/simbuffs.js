@@ -174,6 +174,7 @@ DiabloCalc.simMapping = {
     cripplingwave: {name: "Crippling Wave (Sequence)", category: "Skills", classes: ["monk"], skill: ["cripplingwave"]},
     breakingwave: {name: "Crippling Wave - Breaking Wave", category: "Skills", classes: ["monk"], skill: ["cripplingwave", "e"]},
     wayofthehundredfists: {name: "Way of the Hundred Fists (Sequence)", category: "Skills", classes: ["monk"], skill: ["wayofthehundredfists"]},
+    fistsoffury: {name: "Way of the Hundred Fists - Fists of Fury", category: "Skills", classes: ["monk"], skill: ["wayofthehundredfists", "a"]},
     blazingfists: {name: "Way of the Hundred Fists - Blazing Fists", category: "Skills", classes: ["monk"], skill: ["wayofthehundredfists", "c"]},
     assimilation: {name: "Way of the Hundred Fists - Assimilation", category: "Skills", classes: ["monk"], skill: ["wayofthehundredfists", "d"]},
     tempestrush: {name: "Tempest Rush (Channeling)", category: "Skills", classes: ["monk"], skill: ["tempestrush"]},
