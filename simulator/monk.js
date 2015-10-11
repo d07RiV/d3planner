@@ -240,7 +240,7 @@
         data.targets = Math.max(data.targets, newdata.targets);
       },
       ontick: function(data) {
-        Sim.damage({count: data.targets, coeff: 0.04, proc: data.proc});
+        Sim.damage({count: data.targets * data.stacks, coeff: 0.04, proc: data.proc});
       },
     });
   }
