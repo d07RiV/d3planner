@@ -235,7 +235,13 @@
       duration: 179,
       tickrate: 12,
       maxstacks: Math.ceil(9 * Sim.stats.info.aps),
-      ontick: {count: data.targets, coeff: 0.04, proc: data.proc},
+      data: {targets: data.targets, proc: data.proc},
+      onrefresh: function(data, newdata) {
+        data.targets = Math.max(data.targets, newdata.targets);
+      },
+      ontick: function(data) {
+        Sim.damage({count: data.targets, coeff: 0.04, proc: data.proc});
+      },
     });
   }
   function wothf_assimilation_onhit(data) {
