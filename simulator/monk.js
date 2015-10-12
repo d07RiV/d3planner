@@ -235,7 +235,7 @@
       duration: 179,
       tickrate: 12,
       maxstacks: Math.ceil(9 * Sim.stats.info.aps),
-      data: {targets: data.targets, proc: data.proc},
+      data: {targets: Math.min(Sim.target.count, data.targets / data.hits), proc: data.proc},
       onrefresh: function(data, newdata) {
         data.targets = Math.max(data.targets, newdata.targets);
       },
@@ -269,7 +269,7 @@
         Sim.damage({coeff: 1.9, onhit: onhit});
         break;
       case 1:
-        if (rune === "b") {
+        if (rune !== "b") {
           Sim.damage({type: "cone", range: 10, coeff: 1.9 / 7, count: 7, onhit: onhit});
         } else {
           Sim.damage({type: "cone", range: 10, coeff: 4.23 / 10, count: 10, onhit: onhit});
