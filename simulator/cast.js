@@ -59,7 +59,13 @@
       var regen = this.stats[type + "regen"];
       regen *= 1 + 0.01 * (this.stats.resourcegen || 0);
       if (this.resources[type] === undefined) {
-        this.resources[type] = maxval;
+        if (this.stats.charClass === "barbarian" && !this.stats.passives.unforgiving) {
+          this.resources[type] = 0;
+        } else if (this.stats.set_shenlong_2pc) {
+          this.resources[type] = 0;
+        } else {
+          this.resources[type] = maxval;
+        }
       }
       if (regen) {
         this.resources[type] = Math.min(maxval, this.resources[type] + regen * elapsed);
