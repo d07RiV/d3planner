@@ -342,7 +342,7 @@ DiabloCalc.skills.monk = {
     active: false,
     buffs: function(rune, stats) {
       if (rune === "a") return {damage: 29};
-      if (rune === "e") return {regen: 26821 + 0.9 * stats.info.itemregen};
+      if (rune === "e") return {post_regen: 26821.05, post_regen_bonus: 90};
     },
   },
   breathofheaven: {
@@ -655,7 +655,7 @@ DiabloCalc.skills.monk = {
       switch (rune) {
       case "a": return {damage: 10 * count};
       case "d": return {spiritregen: 4 * count};
-      case "e": return {regen: (10728.42 + stats.info.itemregen * 0.3) * count};
+      case "e": return {regen: (10728.42 + stats.regen * 0.3) * count};
       case "c": return {life: 20 * count};
       }
     },
@@ -779,7 +779,7 @@ DiabloCalc.skills.monk = {
       regen *= (stats.set_inna_2pc ? 2 : 1);
       switch (rune) {
       case "x": return {regen: regen};
-      case "a": return {regen: regen + 10728.42 + (stats.regen || 0) * 0.3};
+      case "a": return {regen: regen * 2};
       case "d": return {regen: regen, spiritregen: 3};
       case "b": return {regen: regen, lph: 3576 + (stats.lph || 0) * 0.2};
       case "c": return {regen: regen, life: 20};

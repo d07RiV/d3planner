@@ -211,6 +211,96 @@
       });
     }
   }
+  var exportSection = $("<div class=\"stat-section\"><h3>" + _L("Export") + "</h3><ul></ul></div>");
+  column.append(exportSection);
+  var exportElement = document.createElement('a');
+  exportSection.find("ul").append($("<li><span class=\"link-like\">" + _L("Export CSV") + "</span></li>").on("click", "span", function() {
+    var profile = DiabloCalc.getProfile();
+
+    var lines = [];
+    var sections = [DiabloCalc.classes[profile.class].name];
+
+    var slotNames = [_L("LMB"), _L("RMB"), "1", "2", "3", "4"];
+    var noRune = DiabloCalc.locale("ui-skills.js")("No rune");
+    for (var slot = 0; slot < profile.skills.length; ++slot) {
+      var skill = profile.skills[slot];
+      var info = (skill && DiabloCalc.skills[profile.class][skill[0]]);
+      if (skill && info) {
+        lines.push(slotNames[slot] + "," + info.name + "," + (skill[1] === "x" ? noRune : info.runes[skill[1]]));
+      }
+    }
+    if (lines.length) {
+      sections.push(lines.join("\n"));
+      lines.length = 0;
+    }
+
+    for (var slot = 0; slot < profile.passives.length; ++slot) {
+      var skill = profile.passives[slot];
+      var info = (skill && DiabloCalc.passives[DiabloCalc.charClass][skill]);
+      if (skill && info) {
+        lines.push(info.name);
+      }
+    }
+    if (lines.length) {
+      sections.push(lines.join("\n"));
+      lines.length = 0;
+    }
+
+    var eqL = DiabloCalc.locale("ui-equipment.js");
+    for (var slot in profile.items) {
+      var data = [DiabloCalc.itemSlots[slot].name];
+      var item = profile.items[slot];
+      var info = (item && DiabloCalc.itemById[item.id]);
+      if (!item || !info) {
+        data.push(eqL("Empty slot"));
+      } else {
+        data.push(info.name);
+        data.push(item.ancient ? eqL("Ancient") : "");
+        for (var stat in item.stats) {
+          var name = (stat === "custom" && (info.required && info.required.custom && info.required.custom.name) || (DiabloCalc.stats[stat] && DiabloCalc.stats[stat].name));
+          if (name) {
+            data.push(item.stats[stat].join("-") + " " + name);
+          }
+        }
+      }
+      lines.push(data.join(","));
+      if (item && item.gems) {
+        for (var i = 0; i < item.gems.length; ++i) {
+          var id = item.gems[i];
+          if (!id || !(id instanceof Array)) continue;
+          var gem = DiabloCalc.legendaryGems[id[0]];
+          var reg = DiabloCalc.gemColors[id[1]];
+          if (gem) lines.push("," + gem.name + "," + id[1]);
+          else if (reg) lines.push("," + reg.names[id[0]]);
+        }
+      }
+    }
+    if (lines.length) {
+      sections.push(lines.join("\n"));
+      lines.length = 0;
+    }
+
+    for (var id in profile.kanai) {
+      var iid = profile.kanai[id];
+      var item = (iid && DiabloCalc.itemById[iid]);
+      if (item) lines.push(item.name);
+    }
+    if (lines.length) {
+      lines.unshift(DiabloCalc.locale("ui-skills.js")("Kanai's Cube"));
+      sections.push(lines.join("\n"));
+      lines.length = 0;
+    }
+
+    var url = window.URL.createObjectURL(new Blob([sections.join("\n\n")], {type: "text/csv"}));
+    exportElement.href = url;
+    exportElement.download = "profile.csv";
+    document.body.appendChild(exportElement);
+    exportElement.click();
+    setTimeout(function() {
+      document.body.removeChild(exportElement);
+      window.URL.revokeObjectURL(url);
+    }, 100);
+  }));
   DiabloCalc.isKnownStat = function(stat) {
     return !!statMap[stat];
   };

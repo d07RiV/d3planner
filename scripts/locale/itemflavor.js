@@ -15,20 +15,26 @@ _L.patch.add({
     P1_Unique_Boots_010: {
       flavor: "You've got to mind those feets.",
     },
+    P1_Unique_SpiritStone_008: {
+      flavor: "The monk Vhalit is said to have been driven mad with the power of this stone. Can you withstand the corruption that lies within?",
+    },
     P1_Unique_WizardHat_003: {
       flavor: "Bestows upon the wearer both formidable power and an unsurpassed statement of fashion.",
     },
     P1_Wand_norm_unique_01: {
       flavor: "Virgil quickly lashed together remnants of his old broken wands and an unidentified artifact and sanctified them with his own blood, allowing him to teleport to safety and to begin formulating his revenge.",
     },
+    P1_Wand_norm_unique_02: {
+      flavor: "“Yet another item allegedly taken from Vyr’s armory after his demise. It uses the inherent instability of Arcane power to enhance its destructive efficiency.” - High Councilor Valthek’s Compendium of Exotic Weaponry\n",
+    },
     P1_fistWeapon_norm_unique_01: {
-      flavor: "The ferocity of Uliana’s unrelenting attacks was often compared to that of a lion. ",
+      flavor: "The ferocity of Uliana’s unrelenting attacks was often compared to that of a lion.",
     },
     P1_fistWeapon_norm_unique_02: {
       flavor: "“Some learned people say that evil cannot be overcome through violence. I say there is no other way.” -Akyev the Unyielding",
     },
     P1_flail1H_norm_unique_01: {
-      flavor: "One of the more mysterious tales in the annals of the Crusaders is that of Johanna. A powerful warrior, she disappeared suddenly. The fact that she did not take this, her favorite flail, seems to indicate that her journey was unplanned. She has not been seen since. ",
+      flavor: "One of the more mysterious tales in the annals of the Crusaders is that of Johanna. A powerful warrior, she disappeared suddenly. The fact that she did not take this, her favorite flail, seems to indicate that her journey was unplanned. She has not been seen since.",
     },
     P2_Unique_BarbBelt_001: {
       flavor: "Forged from armor found in the aftermath of the destruction of Mount Arreat.",
@@ -154,7 +160,7 @@ _L.patch.add({
       flavor: "All that was ever found of Uliana after her disappearance.",
     },
     P3_Unique_Bracer_101: {
-      flavor: "“Always seeking to improve the Crusaders’ efficiency, Akkhan’s Master Blacksmith Gabriel crafted these bracers to ease the strain of summoning the Blessed Hammer.”  -Rennold's Catalogue of Arms",
+      flavor: "“Always seeking to improve the Crusaders’ efficiency, Akkhan’s Master Blacksmith Gabriel crafted these bracers to ease the strain of summoning the Blessed Hammer.” -Rennold's Catalogue of Arms",
     },
     P3_Unique_Bracer_103: {
       flavor: "Steadies the arm and brings calm certainty in the face of death.",
@@ -169,13 +175,16 @@ _L.patch.add({
       flavor: "You can still see traces of the blood left by the demonic multitudes Jeram slew on his quest for revenge.",
     },
     P3_Unique_Bracer_107: {
-      flavor: "It is claimed that Arachyr was able to restore the vital life essence of his followers by using creatures spawned from the realm that lies between our world and the Unformed Land. ",
+      flavor: "It is claimed that Arachyr was able to restore the vital life essence of his followers by using creatures spawned from the realm that lies between our world and the Unformed Land.",
     },
     P3_Unique_HandXBow_005: {
       flavor: "Valla was one of the most lethal Demon Hunters ever known, until her abrupt disappearance. Some claim that she still lives, fighting in another land. Her body was never found, but she did leave behind her prized possession: this bow.",
     },
     P3_Unique_Mighty_1H_006: {
       flavor: "It takes a sturdy weapon to survive on the shores of the Frozen Sea.",
+    },
+    P3_Unique_Ring_107: {
+      flavor: "\"Contemporary accounts say the Mad King's ring was a wonder to behold, its many jewels glinting like stars in the firmament.\" —Abd al-Hazir",
     },
     P3_Unique_Shoulder_102: {
       flavor: "This mantle was crafted by one banished from the sacred mountain, in order to commune with the ancients.",
@@ -192,11 +201,176 @@ _L.patch.add({
     P3_Unique_WizardHat_003: {
       flavor: "Bestows upon the wearer both formidable power and an unsurpassed statement of fashion.",
     },
+    P4_Unique_Axe_1H_102: {
+      flavor: "\"When I move to the unformed land, you may throw my skull at the unwise, and I will return long enough to invigorate you.\" -Mordullu's promise to his heirs.",
+    },
+    P4_Unique_Belt_01: {
+      flavor: "“Some theorized that hunters like Kunai harnessed the power of shadows to accomplish feats beyond the ken of mere mortals. Preposterous.”- Abd al-Hazir",
+    },
+    P4_Unique_Belt_02: {
+      flavor: "Unable to make this belt work with his Magnum Opus, Delsere rejected it out of hand and forbade anyone from using it. Ever.",
+    },
+    P4_Unique_Belt_03: {
+      flavor: "A proud fighter displays the ears of those he has slain in battle.",
+    },
+    P4_Unique_Belt_04: {
+      flavor: "Zoey First-Blood displayed enormous luck on the battlefield, surviving blasts that killed her fellow demon hunters Kairo Nontooth, Aidan Longcollar, and Oliver Manyhair. Only after the Order of Villamar discovered that her belt deflected damage onto her colleagues did she promise to alter it so that damage would not hit those around her.",
+    },
+    P4_Unique_Belt_05: {
+      flavor: "Kyoshiro felt a great calm come over him after the battle at Xiansai. He closed his eyes and it felt like nothing changed at all.",
+    },
+    P4_Unique_Belt_06: {
+      flavor: "“Truly understanding the depth and chaos of the untamed Arcane realm can easily lead to madness — or enlightenment. Which will you choose… or, which will choose you?” — Hergbrash the Mad",
+    },
+    P4_Unique_Boots_001: {
+      flavor: "Everyone wishes they were as cool as the person wearing these boots.",
+    },
+    P4_Unique_Bracer_101: {
+      flavor: "Skular was one of the few Barbarians to survive Baal's destruction of Sescheron. These bracers are the reason.",
+    },
+    P4_Unique_Bracer_102: {
+      flavor: "There is a thread from the Unformed Land in all things. Lakumba, above all others, knew how to weave it. Her shrouds revealed a truth many refused to see.",
+    },
+    P4_Unique_Bracer_103: {
+      flavor: "\"Crusaders are unburdened by the tedium of a worldly life, but they must still be bound by charity, duty, and Akarat's will.\" -Akkhan",
+    },
+    P4_Unique_Bracer_104: {
+      flavor: "Those that cannot see the truth of the Light will suffer its wrath. ",
+    },
+    P4_Unique_Bracer_105: {
+      flavor: "A group of monks on a mission from the Patriarchs entered a small village in the west. Here they met a smith named Pinto, and were much impressed by his mighty beard. Touched at their admiration, Pinto agreed to create a pair of bracers that would enhance their powers.",
+    },
+    P4_Unique_Bracer_106: {
+      flavor: "“These look to be of Sescheron origin to me. Strange though - when others use them, they are nothing special. When you use them, well...” — Haedrig\n",
+    },
+    P4_Unique_Bracer_107: {
+      flavor: "Against the will of the Patriarchs, Cesar kept a lock of her hair, weaving it into his bracers. They filled him with calm, just as she always had. He never spoke of her again, but neither did he forget.",
+    },
+    P4_Unique_Bracer_108: {
+      flavor: "For those who may not be sufficiently holy to find refuge in Inna’s arms.",
+    },
+    P4_Unique_Bracer_110: {
+      flavor: "The Elder Crusader Drakon believed in precision, and trained his apprentice to strike fewer targets, but with more power. \"Would you rather face ten opponents who are slightly injured? Or seven healthy opponents, who are distracted by the three corpses at your feet?\"",
+    },
+    P4_Unique_CeremonialDagger_008: {
+      flavor: "Even an immortal could be felled by the power of this blade.",
+    },
+    P4_Unique_Chest_012: {
+      flavor: "Ceremonial armor commemorating the chieftain Ghaold's victory over the wild men from the east.",
+    },
+    P4_Unique_Chest_018: {
+      flavor: "The blessed armor of Olenna the 'Iron Crusader' eventually passed to her apprentice, who proudly wore it alongside her own. Though she took her master's name, she was ultimately known with a very different moniker. -- Abd al-Hazir, The Crusaders",
+    },
+    P4_Unique_CombatStaff_2H_001: {
+      flavor: "\"We must walk the middle way between chaos and order, and not allow our emotions to sway us.\" —Tenets of the Veradani",
+    },
+    P4_Unique_Dagger_002: {
+      flavor: "There is nothing humorous about the way this dagger feeds off the souls of your enemies. ",
+    },
+    P4_Unique_Fist_102: {
+      flavor: "Kyoshiro was an optimist going into the battle at Xiansai. Though the walls were tumbling down around him, he quickly disposed of his enemies.",
+    },
+    P4_Unique_Flail_2H_001: {
+      flavor: "\"The best armor in the world is of little use without a good weapon.\" -Akkhan",
+    },
+    P4_Unique_Flail_2H_Set_01_x1: {
+      flavor: "\"Give me a flail and a horse, and I will save the zakarum faith.\" -Norvald the Crusader",
+    },
+    P4_Unique_HandXBow_001: {
+      flavor: "Calm pervades your soul as you are warmed by the morning’s first light, for you know vengeance will soon be yours.\n",
+    },
+    P4_Unique_HandXBow_01: {
+      flavor: "This weapon, upon which the angel Lianna bestowed her wings, fell from the heavens and grants the wielder great power, but at a cost.",
+    },
+    P4_Unique_HandXBow_02: {
+      flavor: "The Fortress Ballista was famously used by Valla during the Siege of Bastion’s Keep. A strangely garbed wizard infused it with a spell on the spur of the moment, apparently conjured from nothing, when it seemed their fate was sealed.",
+    },
+    P4_Unique_Helm_102: {
+      flavor: "At Akkhan's request, Kassar trained the first Crusaders, turning them into skillful warriors through his rigorous methods. His own apprentices faced harsher trials and were each lost in training, unable to carry on his name. --Abd al-Hazir, The Crusaders",
+    },
+    P4_Unique_Helm_103: {
+      flavor: "The hunter Gunes would never reveal the origins of this helmet. Some say it contained the essences of demons who had suffered his vengeance. They also claim it was the cause of his downfall.",
+    },
+    P4_Unique_Mighty_1H_005: {
+      flavor: "Awrak led the people of the Bear tribe to a great many victories in his all-too-short life. His name is still highly revered among his people.",
+    },
+    P4_Unique_Mighty_1H_104: {
+      flavor: "Betrayed by his kin, robbed of his birthright, Andar Kul-Vagas spent more than a year in isolation forging this blade. The Tribe of Thunder records that he returned to reclaim his clan, and before they died, his traitorous brothers did finally uphold their broken oaths.",
+    },
+    P4_Unique_Mighty_2H_101: {
+      flavor: "Every tribe tells tales of their greatest weapons, capable of moving mountains or terrifying enemies, each one different. But every tribe claims this blade as their own.",
+    },
+    P4_Unique_Mojo_001: {
+      flavor: "\"Who sees an oozing, vermin-filled nest hanging from a branch and says, 'That is exactly what I was hoping to carry around all day'?\" —Lyndon the Scoundrel",
+    },
+    P4_Unique_Mojo_002: {
+      flavor: "A terrifying being spawned from the primordial depths. To gaze upon it is enough to drive one mad. Currently disguised as a frog.",
+    },
+    P4_Unique_Mojo_003: {
+      flavor: "\"I studied the relationship between the Umbaru and the dead. And it is safe to say that their grasp matches their reach.\" -High Scholar Wilken",
+    },
+    P4_Unique_Orb_001: {
+      flavor: "The Primordial Soul has existed since before time began. It is the perfect expression of the original elements of creation.",
+    },
+    P4_Unique_Orb_002: {
+      flavor: "“When you gaze long into the arcane realm, the arcane realm also gazes into you.” - Zoltun Kulle",
+    },
+    P4_Unique_Orb_003: {
+      flavor: "The Triumvirate is composed of the three basic elements of creation.",
+    },
+    P4_Unique_Pants_002: {
+      flavor: "Stop! Hammer time.",
+    },
+    P4_Unique_Polearm_01: {
+      flavor: "With this, one warrior can hold back an army.",
+    },
+    P4_Unique_Quiver_001: {
+      flavor: "Bolts pulled from this quiver instinctively seek out demonic blood.",
+    },
+    P4_Unique_Ring_01: {
+      flavor: "The warriors of the Teganze believe that every being senses the Unformed Land waiting for them, whether they realize it or not. This band can disrupt that connection, resulting in an emptiness that rivals even the most excruciating physical pain.",
+    },
+    P4_Unique_Ring_02: {
+      flavor: "You are harder to hit when you can’t be found.",
+    },
+    P4_Unique_Ring_03: {
+      flavor: "Once worn by the self-appointed guardians of Sanctuary, who were said to feel no fear.",
+    },
+    P4_Unique_Ring_05: {
+      flavor: "“Seems designed to reduce damage, but I’m not sure how it works. Obviously, it failed its previous owner. Hopefully it will work better for you.”  -Haedrig",
+    },
+    P4_Unique_Shield_Set_01_x1: {
+      flavor: "\"My master used to claim a flail and a horse are all that is needed to see the crusade to it's conclusion. I'd bring along a shield as well, just to be safe.\" -Norvald the Crusader ",
+    },
+    P4_Unique_Shoulder_101: {
+      flavor: "The monk Lefebvre was famous for delivering soliloquies in battle. If they were eloquent, no one knows, for all who heard them died.",
+    },
+    P4_Unique_Shoulder_103: {
+      flavor: "Drawing power from the ether is a tricky thing. Even the most dedicated practitioner is not able to effectively contain all of it for their use. This armor redirects that excess energy to serve its wearer.",
+    },
+    P4_Unique_Spear_002: {
+      flavor: "They fought against incredible odds, down to the last warrior.",
+    },
+    P4_Unique_Staff_001: {
+      flavor: "Without the correct tools, forming energy into Firebats can be taxing.",
+    },
+    P4_Unique_Sword_1H_01: {
+      flavor: "Hate is a powerful weapon that can destroy even the best of us. So tread lightly.",
+    },
+    P4_Unique_XBow_001: {
+      flavor: "The flying quills of the manticore's tail are filled with lethal toxin.",
+    },
+    P4_fistWeapon_norm_unique_02: {
+      flavor: "“Some learned people say that evil cannot be overcome through violence. I say there is no other way.” -Akyev the Unyielding",
+    },
+    P4_flail2H_norm_unique_01: {
+      flavor: "\"Let no crusader succumb to their base emotions, for they are to be the mere vessels of Zakarum’s righteous punishment, and the purveyors of his mercy.\" -Akkhan",
+    },
     Unique_Amulet_001_x1: {
       flavor: "This garish amulet, once worn by an over large imp, makes time an insignificant thing.",
     },
-    Unique_Amulet_002_x1: {
-      flavor: "This heavy amulet was originally crafted for the fiercest of all fighters. Only the strongest can claim the right to wear it.",
+    Unique_Amulet_002_p1: {
+      flavor: "The great merchant Abd al-Kymbo commissioned this amulet, believing that health and wealth should be synonymous. Alas, he did not realize how much time he would spend on his knees picking up single coins, and soon abandoned the practice.",
     },
     Unique_Amulet_003_x1: {
       flavor: "\"The moonlight shrouds the warrior who walks with the spirits.\" —Darweshi, Knower of the Clan of the Seven Stones",
@@ -516,11 +690,17 @@ _L.patch.add({
     Unique_Boots_Set_10_x1: {
       flavor: "\"Let the crusaders sheathe their feet in sabatons of unquestionable strength, for the crusade will take them all over the world.\" -Akkhan",
     },
+    Unique_Boots_Set_12_x1: {
+      flavor: "\"Her thorned armor having been purified in the Light, my apprentice's new faith grew with each step. The feet that wandered lost in the mist now march with fervor as we leave these swamplands at long last and head north.\" -- Olenna's journal",
+    },
     Unique_Boots_Set_13_x1: {
       flavor: "\"The last piece of Vyr's Archon armor to be found, these ornate boots were long believed to have been destroyed along with the Black Obelisk that bore the wizard’s name.\" —Abd al-Hazir",
     },
     Unique_Boots_Set_14_x1: {
       flavor: "\"I walk amongst the shadows and call them my own. With every silent stride, I claim my domain.\" —Demon Hunter Kunai",
+    },
+    Unique_Boots_Set_15_x1: {
+      flavor: "Even the grandest structure will fall if it is built on sand. ",
     },
     Unique_Boots_Set_16_x1: {
       flavor: "\"As I slay more and more demons, I have come to know their purpose. They exist to make us stronger.\" —Jeram of the Whispering Valley",
@@ -622,7 +802,7 @@ _L.patch.add({
       flavor: "“Twas hitherto eons past from whence Krelm the Immodest didst thitherward dash forth upon the Blazing Wastes clad only in his bogodile skin belt and bracers to face the loathsome Oglak beast and slew him thence mightily with nigh but his bare hands thereupon.” -Excerpt from Stories Meant to Frighten Small Children",
     },
     Unique_Bracer_Set_12_x1: {
-      flavor: "Each of these bracers is charred and scored with gouges, as if whoever once wore the armor had tried desperately to cast it off.",
+      flavor: "\"I discovered my enemy was just a young Vizjerei apprentice, no older than twelve. Defeated, her armor began to turn against her. Cursed thorns dug deep into her arms and drew blood. I had to act quickly.\" -- Olenna's journal",
     },
     Unique_CeremonialDagger_001_x1: {
       flavor: "The secrets of this blade are known only to the artisans of the Silzer Plains.",
@@ -744,11 +924,17 @@ _L.patch.add({
     Unique_Chest_Set_10_x1: {
       flavor: "\"Let each crusader's heart be protected by a breastplate of astounding strength, for the heart drives all else in the depths of battle.\" -Akkhan",
     },
+    Unique_Chest_Set_11_x1: {
+      flavor: "Though he was said to be 'awakened to emptiness', Sunwuko could never relinquish his violent ways. In truth, he reveled in them.",
+    },
     Unique_Chest_Set_13_x1: {
       flavor: "\"Vyr created his famed obelisk to gather the power of the Archon, a being he claimed existed on a different plane of reality. He is even reputed to have stored this macabre power in armor of his own design.\" —Abd al-Hazir",
     },
     Unique_Chest_Set_14_x1: {
       flavor: "Legends in the Dreadlands speak of an uncanny demon hunter named Kunai who could become one with shadow.",
+    },
+    Unique_Chest_Set_15_x1: {
+      flavor: "The spirit of the earth is the strongest force there is, nothing can withstand its power.",
     },
     Unique_Chest_Set_16_x1: {
       flavor: "\"Great power festers within demon skulls. Wear them close to your heart, and feel their dark magic thunder through you.\" —Jeram of the Whispering Valley",
@@ -839,6 +1025,12 @@ _L.patch.add({
     },
     Unique_Dagger_010_x1_210: {
       flavor: "The energies of forbidden magics course through this blade.",
+    },
+    Unique_Dagger_101_x1: {
+      flavor: "Those who argued with the Demon Hunter Karlei quickly learned that she could make her point with devastating effect.",
+    },
+    Unique_Dagger_102_x1: {
+      flavor: "Legend has it that on hot days, Lord Greenstone enjoyed cooling himself with the wind of hurled knives.",
     },
     Unique_Dagger_103_x1: {
       flavor: "\"All who chance to behold it, desire it. Those who possess it must shed blood to keep it. And those who deem themselves above its allure are the most endangered by it.\" –Lam Esen on the nature of the blade",
@@ -1000,7 +1192,7 @@ _L.patch.add({
       flavor: "Sunwuko is said to have been the greatest staff fighter from Xiansai to Ivgorod, and his gloves possess a nimbleness to them second to none.",
     },
     Unique_Gloves_Set_12_x1: {
-      flavor: "The gauntlets are etched with archaic Vizjerei runes used to summon and enslave the foul creatures of the Burning Hells.",
+      flavor: "\"My opponent’s hands were fast. She quickly cast aside my shield and plunged her dagger toward my heart. As my armor broke her blade, her surprised look was just the opening I needed.\" -- Olenna's journal",
     },
     Unique_Gloves_Set_13_x1: {
       flavor: "\"It's posited that Vyr created these enchanted gloves to protect his hands while he manipulated power summoned from beyond this realm.\" —Abd al-Hazir",
@@ -1009,7 +1201,7 @@ _L.patch.add({
       flavor: "\"Fear nothing you can touch. What you can touch, you can destroy.\" —Demon Hunter Kunai",
     },
     Unique_Gloves_Set_15_x1: {
-      flavor: "No mortal can escape the grasp of the earth. No matter how high something jumps or flies, it always eventually plummets back to the ground. Imagine that power in your hands.",
+      flavor: "No mortal can escape the grasp of the earth. No matter how high something jumps or flies, it inevitably plummets back to the ground. Imagine that power in your hands.",
     },
     Unique_Gloves_Set_16_x1: {
       flavor: "\"The spirits say that great demons can never die. I say they have not yet met me.\" —Jeram of the Whispering Valley",
@@ -1053,7 +1245,7 @@ _L.patch.add({
     Unique_Helm_001_x1: {
       flavor: "The ancient crown of Rakkis, first ruler of Westmarch.",
     },
-    Unique_Helm_002_p1: {
+    Unique_Helm_002_p3: {
       flavor: "The crown of the Black King. The taint of his madness wafts from the metal, clinging to any jewel that comes near it.",
     },
     Unique_Helm_002_x1: {
@@ -1147,10 +1339,13 @@ _L.patch.add({
       flavor: "Trained by the famed monks of Ivgorod, Sunwuko returned to his homeland of Xiansai, where his frenzied fighting earned him the title \"Monkey King.\" Intended as a joke, the name soon became feared.",
     },
     Unique_Helm_Set_12_x1: {
-      flavor: "This helm is clearly manmade, but the fetid black brambles that adorn it thrum with unmistakable demonic energy.",
+      flavor: "\"Evil continued to test my defenses. Soon after entering the swamplands, I was caught in an unnatural fog. As I lost sight of the path, I spotted a being in the distance crowned in thorns. I was not alone.\" -- Olenna's journal",
     },
     Unique_Helm_Set_13_x1: {
       flavor: "“Vyr's paranoia finally became all-encompassing. As his days approached their violent end, he demanded a defense be crafted against the constant psychic assaults being waged upon him by his enemies.” -Abd al-Hazir\n",
+    },
+    Unique_Helm_Set_14_x1: {
+      flavor: "“The darkness is your friend and your enemy’s nightmare.” -Demon Hunter Kunai",
     },
     Unique_Helm_Set_15_x1: {
       flavor: "Mountains crumble. Cliffs fall. Canyons rip asunder. The forces that shape the land are a mystery to most. But not to you. Not anymore.",
@@ -1299,6 +1494,9 @@ _L.patch.add({
     Unique_Mojo_102_x1: {
       flavor: "The inhuman organ set into the center of this mojo once belonged to the demon Zagraal. At the end of a titanic battle during which all of her fellows were slain, the surviving witch doctor carved the still-beating heart from the fallen demon. Mounting it in a spirit cage, Shukrani harnessed the dark power of the heart that she might stride the realm of Mbwiru Eikura unchallenged.",
     },
+    Unique_Offhand_001_x1: {
+      flavor: "The Horadrim wandered far and wide to gather the finest ingredients for their feast. Only the lone traveler sent to the Moo Moo farm failed to return. Diablo had laid a trap for the Horadrim, the Hell Bovine, who struck the traveler down before he could gather the final ingredient: cheese. ",
+    },
     Unique_Orb_001_x1: {
       flavor: "This orb was purported to be the eye of a giant, magical sea creature, but it was actually painstakingly crafted, layer upon layer, by the grand mage Ethad five hundred years before the time of the Horadrim.",
     },
@@ -1412,6 +1610,12 @@ _L.patch.add({
     },
     Unique_Pants_Set_10_x1: {
       flavor: "\"Let the crusaders wrap their legs in plate of wondrous strength. Their stride will take them to the salvation of the Zakarum faith. Thus shall Akarat's word be cleansed.\" -Akkhan",
+    },
+    Unique_Pants_Set_11_x1: {
+      flavor: "One of the many legends told of Sunwuko maintains that he scaled Shengmu Feng, the tallest mountain in the Guozhi mountain range, planted a flag, and declared himself 'The Great Sage Equal to Heaven'.",
+    },
+    Unique_Pants_Set_12_x1: {
+      flavor: "\"The mists began to clear as the healing rituals mended the lost acolyte's mind and body. She wished her armor destroyed but it was all she had to survive the wilds. If it could also be purified, it would still be of use.\" -- Olenna's journal",
     },
     Unique_Pants_Set_13_x1: {
       flavor: "\"Vyr was a tyrant, but took enormous pride in his appearance. It is believed he was wearing these silken trousers the day he was murdered by his own acolytes.\" —Abd al-Hazir",
@@ -1578,9 +1782,6 @@ _L.patch.add({
     Unique_Ring_106_x1: {
       flavor: "\"Rue chambers are rooms within templar strongholds where penitents are reeducated through the harshest of means. Here, they renounce their past sins and give their lives over to the cause of the Zakarum. The zealous faith engendered by scourge and whip in the rue chambers were captured in this ring, forged from barbs that once mortified the flesh of early converts to the order.\" —Abd al-Hazir",
     },
-    Unique_Ring_107_x1: {
-      flavor: "\"Contemporary accounts say the Mad King's ring was a wonder to behold, its many jewels glinting like stars in the firmament.\" —Abd al-Hazir",
-    },
     Unique_Ring_108_x1: {
       flavor: "\"A great demon lounged against stacks of treasure as his minions delivered more and more goods unto him. Gold, gems, and exquisite weapons fell at his feet, but still, he demanded more.\" – Excerpt from the scrolls of Malzakam",
     },
@@ -1628,6 +1829,9 @@ _L.patch.add({
     },
     Unique_Shield_104_x1: {
       flavor: "The demon smith Vo'Toyias designed this shield to inflict great injury upon those daring to attack its bearer. The wicked brass spikes that bristle along the shield's surface make it a formidable weapon in its own right, however, allowing its wielder to make deadly counterattacks.",
+    },
+    Unique_Shield_106_x1: {
+      flavor: "Those who deny the Light will be forced to reckon with its power.",
     },
     Unique_Shield_107_x1: {
       flavor: "By bearing the arms of your enemy, you risk surrendering that which divides you from your foe.",
@@ -1714,10 +1918,13 @@ _L.patch.add({
       flavor: "The pauldrons of Sunwuko the Monkey King are renowned for their ability to improve agility. With these equipped, a trained monk can master the martial arts... or dance.",
     },
     Unique_Shoulder_Set_12_x1: {
-      flavor: "Ancient Vizjerei mages would infuse their armor and weaponry with demon blood. Over time, these implements often twisted the sorcerers into instruments of torment.",
+      flavor: "\"My trial grew more harrowing with each passing day. The thorned figure continued to ambush from the mist, armor adorned with monstrous, heavy barbs that retaliated against my attacks and threatened to impale me.\" -- Olenna's journal",
     },
     Unique_Shoulder_Set_13_x1: {
       flavor: "“Vyr was convinced not only of his intellectual superiority and martial prowess, but also in his complete control over his acolytes. He was sadly mistaken on all counts.” -Abd al-Hazir",
+    },
+    Unique_Shoulder_Set_14_x1: {
+      flavor: "“This power is not to be taken lightly. Those lacking in will may find they’ve lost their way should they dwell in the shadows too long.” -Demon Hunter Kunai",
     },
     Unique_Shoulder_Set_15_x1: {
       flavor: "Travelers speak of a stone arch in the desert, where mystics seek wisdom from supernatural visions, or strength from the ground. Some claim to have received both.",
@@ -1763,9 +1970,6 @@ _L.patch.add({
     },
     Unique_SpiritStone_007_x1: {
       flavor: "The old warrior came to Tzo Krin to ask how to settle his troubled mind. \"Bring me your mind, and I will settle it.\" Upon hearing this, the old warrior immediately achieved enlightenment.",
-    },
-    Unique_SpiritStone_008_x1: {
-      flavor: "The monk Vhalit is said to have been driven mad with the power of this stone. Can you withstand the corruption that lies within?",
     },
     Unique_SpiritStone_009_x1: {
       flavor: "Inna, the goddess of the sky, radiates beauty for all to see.",
@@ -1845,7 +2049,7 @@ _L.patch.add({
     Unique_Sword_1H_019_x1: {
       flavor: "Griswold labored and studied for years to devise the perfect sword. Sadly, he died a horrible death before he himself could forge it.",
     },
-    Unique_Sword_1H_021: {
+    Unique_Sword_1H_021_x1: {
       flavor: "This fantastical blade is the physical manifestation of unicorn smiles, bright rainbow colors, shooting star wishes, and teddy bear giggles.",
     },
     Unique_Sword_1H_101_x1: {
@@ -1860,8 +2064,14 @@ _L.patch.add({
     Unique_Sword_1H_104_x1: {
       flavor: "The Quinblades are the only surviving weapons forged by master swordsmith Morad Peerse, each a unique expression of his craft. Made during Peerse's Early Period, Fulminator expresses, through blinding speed and arcing lightning strikes, its maker's youthful exuberance and the joy he found in his craft.",
     },
+    Unique_Sword_1H_107_x1: {
+      flavor: "“Li-Ming was always experimenting. She imbued this sword with an unfathomable combination of spells that saved her life on more than one occasion. She was obviously a genius - but I’ll deny ever saying that.” - High Councilor Valthek",
+    },
     Unique_Sword_1H_109_x1: {
       flavor: "The Quinblades are the only surviving weapons forged by master swordsmith Morad Peerse, each a unique expression of his craft. Made during Peerse's Low Period, which followed the loss of his family, Rimeheart, with the blistering chill it radiates and its cold-forged iron blade, reflects both the hardening of its creator in the wake of tragedy and his consummate skill.",
+    },
+    Unique_Sword_1H_112_x1: {
+      flavor: "The Quinblades are the only surviving weapons forged by master swordsmith Morad Peerse, each a unique expression of his craft. The aptly-named Deathwish was the last weapon he forged. Despairing over his unhappy life, Peerse decided to craft his masterwork. Pulling the red-hot blade from the forge, the smith fell upon it, quenching the sword in his own blood and imbuing it with an arcane shard of his very soul.",
     },
     Unique_Sword_1H_113_x1: {
       flavor: "Carried by the kings of Xiansai in antiquity, this sword was said to harness the speed and lethality of four tiger spirits. One king claimed to have “exorcised” a thousand demons from their hapless victims, using only this blade.",
@@ -2046,8 +2256,70 @@ _L.patch.add({
     x1_FollowerItem_Templar_Legendary_03: {
       flavor: "Hillenbrand was a Templar of surpassing dedication, who used his training sword to practice every day and night. Finally, his physical conditioning grew so vast that he could fight for forty straight hours. When lack of sleep finally drove him mad, it required ten of his brothers to fell him.",
     },
-    Unique_Offhand_001_x1: {
-      flavor: "The Horadrim wandered far and wide to gather the finest ingredients for their feast. Only the lone traveler sent to the Moo Moo farm failed to return. Diablo had laid a trap for the Horadrim, the Hell Bovine, who struck the traveler down before he could gather the final ingredient: cheese.",
+  },
+  legendaryGems: {
+    boyarsky: {
+      flavor: "This fragment of a gem, called  a chip, was discovered in an underground vault by old man Boyarsky, who fashioned it into the beautiful gem it is today. It damages those who would damage its owner, and once inserted into a socket, it will never fall out.",
+    },
+    ease: {
+      flavor: "This stone twinkles with low level light, inviting its bearer to dream of higher ambitions.",
+    },
+    enforcer: {
+      flavor: "This stone shares its powerful heart with those who serve the bearer.\n",
+    },
+    esoteric: {
+      flavor: "Chuanyang of Xiansai designed a gem which would transport magical energies from their target to the workshop of his greatest competitor, Chau Thanh. He created several copies of this gem before he mysteriously disappeared. ",
+    },
+    gizzard: {
+      flavor: "The gizzard of the molten wildebeest evinced such extraordinary properties when steeped in the correct mixture of alchemical reagents that the animals were hunted to extinction long ago. ",
+    },
+    gogok: {
+      flavor: "\"You do not need to be stronger than your enemy, if you are faster of mind and body.\" -Queen Seondeok\n",
+    },
+    hoarder: {
+      flavor: "\"Rumors speak of a greedy Baroness who sends forth minions to collect treasure, equipped with gems to aid in gathering ever more. Boon of the Hoarder is said to be one of these precious gems.\" -Abd al-Hazir\n",
+    },
+    iceblink: {
+      flavor: "Adventurers used to speak fondly of splint mail armor that would freeze their opponents in place. The sickly gemcutter, Zhong Yi Rou, heard these tales and set out to create a gem that could do the same. \"I'll make a few modifications all my own, yes I will,\" she was heard to mutter.",
+    },
+    invigorating: {
+      flavor: "“Some say this stone derives its power from its owners life force, which is shortened with each use. Well I say any fight I can walk away from is a victory, and tomorrow can take care of itself.” - Famed warrior Lenalas, the day before his death\n",
+    },
+    mirinae: {
+      flavor: "“It was said that once a year, the two lovers would arrive at opposite river banks. A bridge of birds would form so they could touch. When they parted, their tears filled the land. Mirinae is one such tear. The sadness and rage in its core will only affect those close to it.” -Scholar Sojin Hwang\n",
+    },
+    moratorium: {
+      flavor: "Precious stones can sometimes be found among the peaks of Ivgorod. The harmonics of these gems, while in combat, are said to forestall death itself.\n",
+    },
+    mutilation: {
+      flavor: "Chau Thanh of Guozhi designed a gem which would transport the pain and suffering of a physical attack to an undisclosed location. When asked about the ultimate destination of this damage, she would simply smile and mutter “Well deserved. Well deserved.” ",
+    },
+    pain: {
+      flavor: "Xiangyi, most beautiful of Xiansai master gem cutters, crafted this gem in honor of a former lover. The angrier she got, the faster she worked, and the gem was ready in no time. Only after she had tested its efficacy was she finally satisfied.\n",
+    },
+    powerful: {
+      flavor: "\"Few things embolden the spirit like a powerful enemy lying dead at your feet.\" -Andomiel Chu, Master Gem Cutter of Xiansai.",
+    },
+    simplicity: {
+      flavor: "\"A simple task performed a thousand times may seem a drudgery, yet the power it creates is immeasurable.\" - Matriarch Lian Rasmussen\n",
+    },
+    stricken: {
+      flavor: "After the defeat of Malthael, Diadra the Scholar wandered the world. She studied the gem cutters of Xiansai, and brought their secrets back to Westmarch. Bane of the Stricken is the first gem to come out of her Westmarch workshop.",
+    },
+    taeguk: {
+      flavor: "\"Given enough resources, one is possessed of an absolute and infinite potentiality.\" -High Priest Baek",
+    },
+    toxin: {
+      flavor: "The poison mixers of Xiansai tell of a sickly gem cutter named Zhong Yi Rou who would come by their vats and scream \"I'll put you all out of work someday! Yes I will!\"\n",
+    },
+    trapped: {
+      flavor: "Lady Tu de Qing commissioned this gem from the workshops of Xiansai, saying \"I prefer my targets asleep or drunk. Barring that, I'll take sluggish.\"\n",
+    },
+    wreath: {
+      flavor: "The madwoman Arianne believed she could cut a gem that would make for her a hood of lightning. \"Lightning,\" she was heard to mutter \"On my head!\" Her body was discovered some weeks later, with no hair, clutching this gem.\n",
+    },
+    zei: {
+      flavor: "Legend says this gem was crafted by Zei to torment fleeing enemies. Other legends claim that Zei never existed.\n",
     },
   },
 });

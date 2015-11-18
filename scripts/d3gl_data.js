@@ -1075,6 +1075,1384 @@ DiabloCalc.webglCharacters = {
   },
 };
 DiabloCalc.webglItems = {
+  Axe_1H_000: {
+    actor: 3245,
+    name: "Weathered Hand Axe",
+    type: "axe",
+  },
+  Axe_1H_002: {
+    actor: 3246,
+    name: "Broad Axe",
+    type: "axe",
+  },
+  Axe_1H_003: {
+    actor: 3247,
+    name: "Double Axe",
+    type: "axe",
+  },
+  Axe_1H_004: {
+    actor: 3248,
+    name: "Heavy Axe",
+    type: "axe",
+  },
+  Axe_1H_005: {
+    actor: 3249,
+    name: "Battle Axe",
+    type: "axe",
+  },
+  Axe_1H_006: {
+    actor: 3250,
+    name: "Marauder Axe",
+    type: "axe",
+  },
+  Axe_1H_007: {
+    actor: 3251,
+    name: "Soldier Axe",
+    type: "axe",
+  },
+  Axe_1H_301: {
+    actor: 335155,
+    name: "Executioner's Axe",
+    type: "axe",
+  },
+  Axe_1H_302: {
+    actor: 367143,
+    name: "Dire Axe",
+    type: "axe",
+  },
+  Axe_2H_001: {
+    actor: 6319,
+    name: "Lumber Axe",
+    type: "axe2h",
+  },
+  Axe_2H_002: {
+    actor: 6320,
+    name: "War Axe",
+    type: "axe2h",
+  },
+  Axe_2H_003: {
+    actor: 6321,
+    name: "Tabarzin",
+    type: "axe2h",
+  },
+  Axe_2H_004: {
+    actor: 6322,
+    name: "Military Axe",
+    type: "axe2h",
+  },
+  Axe_2H_005: {
+    actor: 6323,
+    name: "Great Axe",
+    type: "axe2h",
+  },
+  Axe_2H_301: {
+    actor: 335159,
+    name: "Dread Axe",
+    type: "axe2h",
+  },
+  Axe_2H_302: {
+    actor: 367145,
+    name: "Flesh Render",
+    type: "axe2h",
+  },
+  Boots_001: {
+    armortype: 0,
+    look: 66,
+    name: "Shoes",
+    type: "boots",
+  },
+  Boots_002: {
+    armortype: 1,
+    look: 65,
+    name: "Boots",
+    type: "boots",
+  },
+  Boots_003: {
+    armortype: 1,
+    look: 66,
+    name: "Heavy Boots",
+    type: "boots",
+  },
+  Boots_004: {
+    armortype: 3,
+    look: 65,
+    name: "Chain Boots",
+    type: "boots",
+  },
+  Boots_005: {
+    armortype: 3,
+    look: 66,
+    name: "Sabatons",
+    type: "boots",
+  },
+  Boots_006: {
+    armortype: 5,
+    look: 65,
+    name: "Greaves",
+    type: "boots",
+  },
+  Boots_101: {
+    armortype: 1,
+    look: 67,
+    name: "Silk Shoes",
+    type: "boots",
+  },
+  Boots_102: {
+    armortype: 1,
+    look: 68,
+    name: "Brogans",
+    type: "boots",
+  },
+  Boots_103: {
+    armortype: 3,
+    look: 67,
+    name: "Treads",
+    type: "boots",
+  },
+  Boots_104: {
+    armortype: 3,
+    look: 68,
+    name: "Heavy Sabatons",
+    type: "boots",
+  },
+  Boots_105: {
+    armortype: 5,
+    look: 68,
+    name: "Battle Greaves",
+    type: "boots",
+  },
+  Boots_201: {
+    armortype: 3,
+    look: 70,
+    name: "Balor Treads",
+    type: "boots",
+  },
+  Boots_202: {
+    armortype: 3,
+    look: 71,
+    name: "Astral Greaves",
+    type: "boots",
+  },
+  Boots_203: {
+    armortype: 5,
+    look: 70,
+    name: "Warlord Boots",
+    type: "boots",
+  },
+  Boots_204: {
+    armortype: 5,
+    look: 71,
+    name: "Doom Treads",
+    type: "boots",
+  },
+  Boots_205: {
+    armortype: 5,
+    look: 72,
+    name: "Sovereign Greaves",
+    type: "boots",
+  },
+  Boots_206: {
+    armortype: 5,
+    look: 73,
+    name: "Archon Greaves",
+    type: "boots",
+  },
+  Boots_207: {
+    armortype: 3,
+    look: 72,
+    name: "Rakkisgard Greaves",
+    type: "boots",
+  },
+  Boots_208: {
+    armortype: 5,
+    look: 74,
+    name: "Ascended Greaves",
+    type: "boots",
+  },
+  Bow_001: {
+    actor: 3445,
+    name: "Short Bow",
+    type: "bow",
+  },
+  Bow_002: {
+    actor: 3446,
+    name: "Warden Bow",
+    type: "bow",
+  },
+  Bow_003: {
+    actor: 3447,
+    name: "Long Bow",
+    type: "bow",
+  },
+  Bow_004: {
+    actor: 3448,
+    name: "Recurve Bow",
+    type: "bow",
+  },
+  Bow_005: {
+    actor: 3449,
+    name: "Hunting Bow",
+    type: "bow",
+  },
+  Bow_006: {
+    actor: 3450,
+    name: "Battle Bow",
+    type: "bow",
+  },
+  Bow_301: {
+    actor: 335186,
+    name: "Twinbow",
+    type: "bow",
+  },
+  Bow_302: {
+    actor: 367157,
+    name: "Doubleshot",
+    type: "bow",
+  },
+  CeremonialDagger_1H_000: {
+    actor: 139102,
+    name: "Simple Knife",
+    type: "ceremonialknife",
+  },
+  CeremonialDagger_1H_002: {
+    actor: 139105,
+    name: "Kris Blade",
+    type: "ceremonialknife",
+  },
+  CeremonialDagger_1H_003: {
+    actor: 139106,
+    name: "Jagged Edge",
+    type: "ceremonialknife",
+  },
+  CeremonialDagger_1H_004: {
+    actor: 139107,
+    name: "Flint Knife",
+    type: "ceremonialknife",
+  },
+  CeremonialDagger_1H_301: {
+    actor: 326811,
+    name: "Obsidian Skiver",
+    type: "ceremonialknife",
+  },
+  CeremonialDagger_1H_302: {
+    actor: 367198,
+    name: "Tecpatl",
+    type: "ceremonialknife",
+  },
+  ChestArmor_001: {
+    armortype: 0,
+    look: 66,
+    name: "Cloth Tunic",
+    type: "chestarmor",
+  },
+  ChestArmor_002: {
+    armortype: 1,
+    look: 65,
+    name: "Leather Doublet",
+    type: "chestarmor",
+  },
+  ChestArmor_003: {
+    armortype: 1,
+    look: 66,
+    name: "Brigandine Coat",
+    type: "chestarmor",
+  },
+  ChestArmor_004: {
+    armortype: 4,
+    look: 65,
+    name: "Chain Mail",
+    type: "chestarmor",
+  },
+  ChestArmor_005: {
+    armortype: 4,
+    look: 66,
+    name: "Splint Cuirass",
+    type: "chestarmor",
+  },
+  ChestArmor_006: {
+    armortype: 5,
+    look: 65,
+    name: "Plate Mail",
+    type: "chestarmor",
+  },
+  ChestArmor_101: {
+    armortype: 1,
+    look: 67,
+    name: "Stygian Harness",
+    type: "chestarmor",
+  },
+  ChestArmor_102: {
+    armortype: 1,
+    look: 68,
+    name: "Etched Jacket",
+    type: "chestarmor",
+  },
+  ChestArmor_103: {
+    armortype: 8,
+    look: 67,
+    name: "Jazeraint Mail",
+    type: "chestarmor",
+  },
+  ChestArmor_104: {
+    armortype: 3,
+    look: 68,
+    name: "Battle Armor",
+    type: "chestarmor",
+  },
+  ChestArmor_105: {
+    armortype: 5,
+    look: 68,
+    name: "Boneweave Hauberk",
+    type: "chestarmor",
+  },
+  ChestArmor_201: {
+    armortype: 3,
+    look: 70,
+    name: "Balor Armor",
+    type: "chestarmor",
+  },
+  ChestArmor_202: {
+    armortype: 3,
+    look: 71,
+    name: "Astral Mail",
+    type: "chestarmor",
+  },
+  ChestArmor_203: {
+    armortype: 5,
+    look: 70,
+    name: "Warlord Plate",
+    type: "chestarmor",
+  },
+  ChestArmor_204: {
+    armortype: 5,
+    look: 71,
+    name: "Doom Armor",
+    type: "chestarmor",
+  },
+  ChestArmor_205: {
+    armortype: 5,
+    look: 72,
+    name: "Sovereign Mail",
+    type: "chestarmor",
+  },
+  ChestArmor_206: {
+    armortype: 5,
+    look: 73,
+    name: "Archon Armor",
+    type: "chestarmor",
+  },
+  ChestArmor_207: {
+    armortype: 3,
+    look: 72,
+    name: "Rakkisgard Armor",
+    type: "chestarmor",
+  },
+  ChestArmor_208: {
+    armortype: 5,
+    look: 74,
+    name: "Ascended Armor",
+    type: "chestarmor",
+  },
+  Cloak_001: {
+    armortype: 10,
+    look: 65,
+    name: "Hunter Cloak",
+    type: "cloak",
+  },
+  Cloak_002: {
+    armortype: 13,
+    look: 65,
+    name: "Shroud",
+    type: "cloak",
+  },
+  Cloak_003: {
+    armortype: 14,
+    look: 65,
+    name: "Cape",
+    type: "cloak",
+  },
+  Cloak_004: {
+    armortype: 16,
+    look: 65,
+    name: "Tabard",
+    type: "cloak",
+  },
+  Cloak_205: {
+    armortype: 14,
+    look: 68,
+    name: "Rakkisgard Cloak",
+    type: "cloak",
+  },
+  Cloak_206: {
+    armortype: 14,
+    look: 69,
+    name: "Ascended Cloak",
+    type: "cloak",
+  },
+  CombatStaff_2H_001: {
+    actor: 3835,
+    name: "Wooden Bo",
+    type: "daibo",
+  },
+  CombatStaff_2H_002: {
+    actor: 3836,
+    name: "Spade",
+    type: "daibo",
+  },
+  CombatStaff_2H_003: {
+    actor: 3837,
+    name: "Eiku",
+    type: "daibo",
+  },
+  CombatStaff_2H_004: {
+    actor: 3838,
+    name: "Taiji",
+    type: "daibo",
+  },
+  CombatStaff_2H_301: {
+    actor: 327966,
+    name: "Iron Judgement",
+    type: "daibo",
+  },
+  CombatStaff_2H_302: {
+    actor: 367191,
+    name: "Whirlwind Staff",
+    type: "daibo",
+  },
+  Crossbow_001: {
+    actor: 497,
+    name: "Light Crossbow",
+    type: "crossbow",
+  },
+  Crossbow_002: {
+    actor: 6611,
+    name: "Crossbow",
+    type: "crossbow",
+  },
+  Crossbow_003: {
+    actor: 6612,
+    name: "Heavy Crossbow",
+    type: "crossbow",
+  },
+  Crossbow_004: {
+    actor: 6613,
+    name: "Arbalest",
+    type: "crossbow",
+  },
+  Crossbow_005: {
+    actor: 6614,
+    name: "Lian Nu",
+    type: "crossbow",
+  },
+  Crossbow_006: {
+    actor: 6615,
+    name: "War Crossbow",
+    type: "crossbow",
+  },
+  Crossbow_007: {
+    actor: 98159,
+    name: "Porcupine",
+    type: "crossbow",
+  },
+  Crossbow_301: {
+    actor: 335189,
+    name: "Rampart Bow",
+    type: "crossbow",
+  },
+  Crossbow_302: {
+    actor: 367159,
+    name: "Oxybeles",
+    type: "crossbow",
+  },
+  CrusaderShield_000: {
+    actor: 305908,
+    name: "Crusader Shield",
+    type: "crusadershield",
+  },
+  CrusaderShield_002: {
+    actor: 314462,
+    name: "Sacred Scutum",
+    type: "crusadershield",
+  },
+  CrusaderShield_003: {
+    actor: 335031,
+    name: "Royal Shield",
+    type: "crusadershield",
+  },
+  CrusaderShield_004: {
+    actor: 335034,
+    name: "Heraldic Heater",
+    type: "crusadershield",
+  },
+  CrusaderShield_005: {
+    actor: 335035,
+    name: "Embossed Shield",
+    type: "crusadershield",
+  },
+  CrusaderShield_006: {
+    actor: 335036,
+    name: "Protector Shield",
+    type: "crusadershield",
+  },
+  CrusaderShield_007: {
+    actor: 335037,
+    name: "Crown Shield",
+    type: "crusadershield",
+  },
+  CrusaderShield_207: {
+    actor: 367175,
+    name: "Stalwart Guardian",
+    type: "crusadershield",
+  },
+  Dagger_001: {
+    actor: 3903,
+    name: "Simple Dagger",
+    type: "dagger",
+  },
+  Dagger_002: {
+    actor: 3904,
+    name: "Shiv",
+    type: "dagger",
+  },
+  Dagger_003: {
+    actor: 3905,
+    name: "Short Dagger",
+    type: "dagger",
+  },
+  Dagger_004: {
+    actor: 3906,
+    name: "Dagger",
+    type: "dagger",
+  },
+  Dagger_005: {
+    actor: 3907,
+    name: "Poignard",
+    type: "dagger",
+  },
+  Dagger_006: {
+    actor: 3908,
+    name: "Stiletto",
+    type: "dagger",
+  },
+  Dagger_007: {
+    actor: 3909,
+    name: "Skiver",
+    type: "dagger",
+  },
+  Dagger_301: {
+    actor: 335128,
+    name: "Kingsport Blade",
+    type: "dagger",
+  },
+  Dagger_302: {
+    actor: 367136,
+    name: "Punyal",
+    type: "dagger",
+  },
+  FistWeapon_1H_000: {
+    actor: {
+      "4717": 205388,
+      "4721": 4133,
+    },
+    name: "Worn Knuckles",
+    type: "fistweapon",
+  },
+  FistWeapon_1H_002: {
+    actor: {
+      "4717": 205400,
+      "4721": 4134,
+    },
+    name: "Spikes",
+    type: "fistweapon",
+  },
+  FistWeapon_1H_003: {
+    actor: {
+      "4717": 205413,
+      "4721": 4135,
+    },
+    name: "Talon",
+    type: "fistweapon",
+  },
+  FistWeapon_1H_004: {
+    actor: {
+      "4717": 205419,
+      "4721": 4136,
+    },
+    name: "Shuko",
+    type: "fistweapon",
+  },
+  FistWeapon_1H_301: {
+    actor: 328572,
+    name: "Spiked Fist",
+    type: "fistweapon",
+  },
+  FistWeapon_1H_302: {
+    actor: 367193,
+    name: "Suwaiya",
+    type: "fistweapon",
+  },
+  Flail_1H_000: {
+    actor: 246811,
+    name: "Rusty Flail",
+    type: "flail",
+  },
+  Flail_1H_002: {
+    actor: 247378,
+    name: "Iron Whip",
+    type: "flail",
+  },
+  Flail_1H_003: {
+    actor: 247379,
+    name: "Barbed Flail",
+    type: "flail",
+  },
+  Flail_1H_004: {
+    actor: 247380,
+    name: "Thresher",
+    type: "flail",
+  },
+  Flail_1H_005: {
+    actor: 247381,
+    name: "Flail",
+    type: "flail",
+  },
+  Flail_2H_001: {
+    actor: 247307,
+    name: "Chang Xiao Bang",
+    type: "flail2h",
+  },
+  Flail_2H_002: {
+    actor: 247384,
+    name: "Battle Flail",
+    type: "flail2h",
+  },
+  Flail_2H_003: {
+    actor: 247385,
+    name: "Grand Thresher",
+    type: "flail2h",
+  },
+  Flail_2H_004: {
+    actor: 247386,
+    name: "Two-Handed Flail",
+    type: "flail2h",
+  },
+  Flail_2H_005: {
+    actor: 247387,
+    name: "Castigator",
+    type: "flail2h",
+  },
+  Gloves_001: {
+    armortype: 0,
+    look: 66,
+    name: "Gloves",
+    type: "gloves",
+  },
+  Gloves_002: {
+    armortype: 1,
+    look: 65,
+    name: "Leather Gloves",
+    type: "gloves",
+  },
+  Gloves_003: {
+    armortype: 1,
+    look: 66,
+    name: "Hide Gloves",
+    type: "gloves",
+  },
+  Gloves_004: {
+    armortype: 3,
+    look: 65,
+    name: "Chain Gloves",
+    type: "gloves",
+  },
+  Gloves_005: {
+    armortype: 3,
+    look: 66,
+    name: "Gauntlets",
+    type: "gloves",
+  },
+  Gloves_006: {
+    armortype: 5,
+    look: 65,
+    name: "Plated Gauntlets",
+    type: "gloves",
+  },
+  Gloves_101: {
+    armortype: 1,
+    look: 67,
+    name: "Grips",
+    type: "gloves",
+  },
+  Gloves_102: {
+    armortype: 1,
+    look: 68,
+    name: "Etched Gloves",
+    type: "gloves",
+  },
+  Gloves_103: {
+    armortype: 3,
+    look: 67,
+    name: "Vambraces",
+    type: "gloves",
+  },
+  Gloves_104: {
+    armortype: 3,
+    look: 68,
+    name: "Battle Gauntlets",
+    type: "gloves",
+  },
+  Gloves_105: {
+    armortype: 5,
+    look: 68,
+    name: "Boneweave Gauntlets",
+    type: "gloves",
+  },
+  Gloves_201: {
+    armortype: 3,
+    look: 70,
+    name: "Balor Fists",
+    type: "gloves",
+  },
+  Gloves_202: {
+    armortype: 3,
+    look: 71,
+    name: "Manifers",
+    type: "gloves",
+  },
+  Gloves_203: {
+    armortype: 5,
+    look: 70,
+    name: "Warlord Gauntlets",
+    type: "gloves",
+  },
+  Gloves_204: {
+    armortype: 5,
+    look: 71,
+    name: "Stranglers",
+    type: "gloves",
+  },
+  Gloves_205: {
+    armortype: 5,
+    look: 72,
+    name: "Sovereign Vambraces",
+    type: "gloves",
+  },
+  Gloves_206: {
+    armortype: 5,
+    look: 73,
+    name: "Archon Gauntlets",
+    type: "gloves",
+  },
+  Gloves_207: {
+    armortype: 3,
+    look: 72,
+    name: "Rakkisgard Gauntlets",
+    type: "gloves",
+  },
+  Gloves_208: {
+    armortype: 5,
+    look: 74,
+    name: "Ascended Gauntlets",
+    type: "gloves",
+  },
+  HandXbow_000: {
+    actor: 82626,
+    name: "Initiate's Hand Crossbow",
+    type: "handcrossbow",
+  },
+  HandXbow_002: {
+    actor: 82639,
+    name: "Light Hand Crossbow",
+    type: "handcrossbow",
+  },
+  HandXbow_003: {
+    actor: 145082,
+    name: "Stake Thrower",
+    type: "handcrossbow",
+  },
+  HandXbow_004: {
+    actor: 145083,
+    name: "Hand Crossbow",
+    type: "handcrossbow",
+  },
+  HandXbow_005: {
+    actor: 145084,
+    name: "Slinglock",
+    type: "handcrossbow",
+  },
+  HandXbow_006: {
+    actor: 145086,
+    name: "Quillshot",
+    type: "handcrossbow",
+  },
+  HandXbow_007: {
+    actor: 145087,
+    name: "Nail Spitter",
+    type: "handcrossbow",
+  },
+  HandXbow_008: {
+    actor: 145088,
+    name: "Heavy Stake Thrower",
+    type: "handcrossbow",
+  },
+  HandXbow_301: {
+    actor: 335369,
+    name: "Lionblade Bow",
+    type: "handcrossbow",
+  },
+  HandXbow_302: {
+    actor: 367185,
+    name: "Penetrator",
+    type: "handcrossbow",
+  },
+  Helm_002: {
+    actor: {
+      "238284": 288029,
+      "238286": 324765,
+      "3285": 138005,
+      "3301": 138002,
+      "4717": 62879,
+      "4721": 138007,
+      "6481": 138008,
+      "6485": 138009,
+      "6526": 138010,
+      "6544": 4477,
+      "74706": 138006,
+      "75207": 138011,
+    },
+    name: "Leather Hood",
+    type: "helm",
+  },
+  Helm_003: {
+    actor: {
+      "238284": 274825,
+      "238286": 293400,
+      "3285": 4458,
+      "3301": 78481,
+      "4717": 84793,
+      "4721": 79617,
+      "6481": 78641,
+      "6485": 78241,
+      "6526": 57764,
+      "6544": 4478,
+      "74706": 97487,
+      "75207": 122111,
+    },
+    name: "Coif",
+    type: "helm",
+  },
+  Helm_004: {
+    actor: {
+      "238284": 288459,
+      "238286": 293401,
+      "3285": 4459,
+      "3301": 4461,
+      "4717": 71439,
+      "4721": 79618,
+      "6481": 4467,
+      "6485": 78242,
+      "6526": 57766,
+      "6544": 73318,
+      "74706": 175082,
+      "75207": 174239,
+    },
+    name: "Arming Cap",
+    type: "helm",
+  },
+  Helm_005: {
+    actor: {
+      "238284": 298435,
+      "238286": 299075,
+      "3285": 95789,
+      "3301": 384,
+      "4717": 71440,
+      "4721": 79619,
+      "6481": 4468,
+      "6485": 78243,
+      "6526": 57767,
+      "6544": 73319,
+      "74706": 138016,
+      "75207": 138019,
+    },
+    name: "Helmet",
+    type: "helm",
+  },
+  Helm_006: {
+    actor: {
+      "238284": 254836,
+      "238286": 264078,
+      "3285": 138020,
+      "3301": 4462,
+      "4717": 71441,
+      "4721": 79620,
+      "6481": 4469,
+      "6485": 78244,
+      "6526": 57768,
+      "6544": 59712,
+      "74706": 112800,
+      "75207": 129750,
+    },
+    name: "Plated Helm",
+    type: "helm",
+  },
+  Helm_101: {
+    actor: {
+      "238284": 338284,
+      "238286": 338395,
+      "3285": 116159,
+      "3301": 114514,
+      "4717": 135853,
+      "4721": 135841,
+      "6481": 107756,
+      "6485": 99662,
+      "6526": 57769,
+      "6544": 73320,
+      "74706": 179563,
+      "75207": 174241,
+    },
+    name: "Crown",
+    type: "helm",
+  },
+  Helm_102: {
+    actor: {
+      "238284": 288030,
+      "238286": 293402,
+      "3285": 116167,
+      "3301": 82184,
+      "4717": 100837,
+      "4721": 122717,
+      "6481": 98026,
+      "6485": 92260,
+      "6526": 57770,
+      "6544": 73321,
+      "74706": 175085,
+      "75207": 174242,
+    },
+    name: "Basinet",
+    type: "helm",
+  },
+  Helm_103: {
+    actor: {
+      "238284": 288455,
+      "238286": 293403,
+      "3285": 94095,
+      "3301": 94691,
+      "4717": 100875,
+      "4721": 107721,
+      "6481": 94840,
+      "6485": 82260,
+      "6526": 70378,
+      "6544": 73322,
+      "74706": 88235,
+      "75207": 149017,
+    },
+    name: "Klappvisier",
+    type: "helm",
+  },
+  Helm_104: {
+    actor: {
+      "238284": 293580,
+      "238286": 294179,
+      "3285": 94096,
+      "3301": 90803,
+      "4717": 123116,
+      "4721": 135842,
+      "6481": 114197,
+      "6485": 105973,
+      "6526": 57771,
+      "6544": 59713,
+      "74706": 179564,
+      "75207": 179656,
+    },
+    name: "Casque",
+    type: "helm",
+  },
+  Helm_105: {
+    actor: {
+      "238284": 288053,
+      "238286": 293404,
+      "3285": 136003,
+      "3301": 136004,
+      "4717": 131107,
+      "4721": 122718,
+      "6481": 76696,
+      "6485": 78245,
+      "6526": 70379,
+      "6544": 73323,
+      "74706": 179565,
+      "75207": 179657,
+    },
+    name: "Great Helm",
+    type: "helm",
+  },
+  Helm_201: {
+    actor: {
+      "238284": 293579,
+      "238286": 293405,
+      "3285": 95788,
+      "3301": 90588,
+      "4717": 134487,
+      "4721": 122719,
+      "6481": 94839,
+      "6485": 84819,
+      "6526": 57774,
+      "6544": 73325,
+      "74706": 179561,
+      "75207": 174243,
+    },
+    name: "Hounskull",
+    type: "helm",
+  },
+  Helm_202: {
+    actor: {
+      "238284": 303615,
+      "238286": 303614,
+      "3285": 116670,
+      "3301": 116722,
+      "4717": 123097,
+      "4721": 122645,
+      "6481": 105740,
+      "6485": 105970,
+      "6526": 57775,
+      "6544": 73326,
+      "74706": 175087,
+      "75207": 174244,
+    },
+    name: "Stechhelm",
+    type: "helm",
+  },
+  Helm_203: {
+    actor: {
+      "238284": 268347,
+      "238286": 268344,
+      "3285": 114044,
+      "3301": 105695,
+      "4717": 134486,
+      "4721": 135828,
+      "6481": 114239,
+      "6485": 78246,
+      "6526": 70375,
+      "6544": 73327,
+      "74706": 179562,
+      "75207": 179655,
+    },
+    name: "Zischagge",
+    type: "helm",
+  },
+  Helm_204: {
+    actor: {
+      "238284": 268348,
+      "238286": 268345,
+      "3285": 116153,
+      "3301": 114526,
+      "4717": 106005,
+      "4721": 135843,
+      "6481": 76697,
+      "6485": 101263,
+      "6526": 57776,
+      "6544": 73328,
+      "74706": 175530,
+      "75207": 174245,
+    },
+    name: "Hellscape Mask",
+    type: "helm",
+  },
+  Helm_205: {
+    actor: {
+      "238284": 267196,
+      "238286": 268212,
+      "3285": 99754,
+      "3301": 98068,
+      "4717": 134489,
+      "4721": 135844,
+      "6481": 99626,
+      "6485": 97502,
+      "6526": 70376,
+      "6544": 73329,
+      "74706": 175089,
+      "75207": 174246,
+    },
+    name: "Sovereign Helm",
+    type: "helm",
+  },
+  Helm_206: {
+    actor: {
+      "238284": 272471,
+      "238286": 272472,
+      "3285": 99755,
+      "3301": 94690,
+      "4717": 134488,
+      "4721": 135845,
+      "6481": 114198,
+      "6485": 105971,
+      "6526": 70377,
+      "6544": 73330,
+      "74706": 175091,
+      "75207": 174247,
+    },
+    name: "Archon Crown",
+    type: "helm",
+  },
+  Helm_207: {
+    actor: {
+      "238284": 322503,
+      "238286": 323497,
+      "3285": 239286,
+      "3301": 238575,
+      "4717": 254144,
+      "4721": 254145,
+      "6481": 254148,
+      "6485": 254149,
+      "6526": 254151,
+      "6544": 254150,
+      "74706": 254146,
+      "75207": 254147,
+    },
+    name: "Rakkisgard Helm",
+    type: "helm",
+  },
+  Helm_208: {
+    actor: {
+      "238284": 268349,
+      "238286": 268346,
+      "3285": 267924,
+      "3301": 267925,
+      "4717": 268252,
+      "4721": 268251,
+      "6481": 268150,
+      "6485": 268151,
+      "6526": 268094,
+      "6544": 268095,
+      "74706": 294896,
+      "75207": 294897,
+    },
+    name: "Ascended Crown",
+    type: "helm",
+  },
+  Helm_console_promo: {
+    actor: {
+      "238284": 360215,
+      "238286": 360214,
+      "3285": 325968,
+      "3301": 325969,
+      "4717": 325972,
+      "4721": 325973,
+      "6481": 325976,
+      "6485": 325977,
+      "6526": 325978,
+      "6544": 325979,
+      "74706": 325970,
+      "75207": 325971,
+    },
+    name: "Infernal Helm",
+    promo: true,
+    type: "helm",
+  },
+  Mace_1H_001: {
+    actor: 4645,
+    name: "Club",
+    type: "mace",
+  },
+  Mace_1H_002: {
+    actor: 4646,
+    name: "Cudgel",
+    type: "mace",
+  },
+  Mace_1H_003: {
+    actor: 4647,
+    name: "Morning Star",
+    type: "mace",
+  },
+  Mace_1H_004: {
+    actor: 4648,
+    name: "Mace",
+    type: "mace",
+  },
+  Mace_1H_005: {
+    actor: 4649,
+    name: "Flanged Mace",
+    type: "mace",
+  },
+  Mace_1H_006: {
+    actor: 4650,
+    name: "Hammer",
+    type: "mace",
+  },
+  Mace_1H_007: {
+    actor: 394,
+    name: "War Gavel",
+    type: "mace",
+  },
+  Mace_1H_301: {
+    actor: 335166,
+    name: "Brutalizer",
+    type: "mace",
+  },
+  Mace_1H_302: {
+    actor: 367147,
+    name: "Skullsplitter",
+    type: "mace",
+  },
+  Mace_2H_001: {
+    actor: 6330,
+    name: "Two-Handed Club",
+    type: "mace2h",
+  },
+  Mace_2H_002: {
+    actor: 6331,
+    name: "Two-Handed Mace",
+    type: "mace2h",
+  },
+  Mace_2H_003: {
+    actor: 6332,
+    name: "Two-Handed Hammer",
+    type: "mace2h",
+  },
+  Mace_2H_004: {
+    actor: 6333,
+    name: "Maul",
+    type: "mace2h",
+  },
+  Mace_2H_005: {
+    actor: 6334,
+    name: "Mallet",
+    type: "mace2h",
+  },
+  Mace_2H_006: {
+    actor: 6335,
+    name: "Great Hammer",
+    type: "mace2h",
+  },
+  Mace_2H_301: {
+    actor: 335169,
+    name: "Royal Mace",
+    type: "mace2h",
+  },
+  Mace_2H_302: {
+    actor: 367151,
+    name: "Persuader",
+    type: "mace2h",
+  },
+  MightyWeapon1H_001: {
+    actor: 139044,
+    name: "Sickle",
+    type: "mightyweapon",
+  },
+  MightyWeapon1H_002: {
+    actor: 139059,
+    name: "Carver",
+    type: "mightyweapon",
+  },
+  MightyWeapon1H_003: {
+    actor: 139062,
+    name: "Maw Axe",
+    type: "mightyweapon",
+  },
+  MightyWeapon1H_004: {
+    actor: 139063,
+    name: "War Blade",
+    type: "mightyweapon",
+  },
+  MightyWeapon1H_301: {
+    actor: 335340,
+    name: "Caldean Sword",
+    type: "mightyweapon",
+  },
+  MightyWeapon1H_302: {
+    actor: 367168,
+    name: "Limb Cleaver",
+    type: "mightyweapon",
+  },
+  MightyWeapon2H_001: {
+    actor: 139064,
+    name: "Petrified Trunk",
+    type: "mightyweapon2h",
+  },
+  MightyWeapon2H_002: {
+    actor: 139069,
+    name: "Giant Sword",
+    type: "mightyweapon2h",
+  },
+  MightyWeapon2H_003: {
+    actor: 139070,
+    name: "Giant Hammer",
+    type: "mightyweapon2h",
+  },
+  MightyWeapon2H_004: {
+    actor: 139071,
+    name: "Giant Axe",
+    type: "mightyweapon2h",
+  },
+  MightyWeapon2H_301: {
+    actor: 221451,
+    name: "Hassan Chopper",
+    type: "mightyweapon2h",
+  },
+  MightyWeapon2H_302: {
+    actor: 367170,
+    name: "Steppes Smasher",
+    type: "mightyweapon2h",
+  },
+  Mojo_001: {
+    actor: 139095,
+    name: "Wanga Doll",
+    type: "mojo",
+  },
+  Mojo_002: {
+    actor: 139096,
+    name: "Shrunken Head",
+    type: "mojo",
+  },
+  Mojo_003: {
+    actor: 139098,
+    name: "Caged Horror",
+    type: "mojo",
+  },
+  Mojo_004: {
+    actor: 139099,
+    name: "Viper",
+    type: "mojo",
+  },
+  Mojo_205: {
+    actor: 335259,
+    name: "Skull Talisman",
+    type: "mojo",
+  },
+  Mojo_206: {
+    actor: 367195,
+    name: "Thing That Should Not Be",
+    type: "mojo",
+  },
+  Orb_001: {
+    actor: 4810,
+    name: "Eagle Orb",
+    type: "source",
+  },
+  Orb_002: {
+    actor: 4811,
+    name: "Spellbook",
+    type: "source",
+  },
+  Orb_003: {
+    actor: 4812,
+    name: "Smoked Spheres",
+    type: "source",
+  },
+  Orb_004: {
+    actor: 4813,
+    name: "Cursed Skull",
+    type: "source",
+  },
+  Orb_205: {
+    actor: 327063,
+    name: "Puzzle Box",
+    type: "source",
+  },
+  Orb_206: {
+    actor: 367204,
+    name: "Moschen Spheres",
+    type: "source",
+  },
   P1_CeremonialDagger_norm_unique_01: {
     actor: 403748,
   },
@@ -1088,8 +2466,14 @@ DiabloCalc.webglItems = {
     actor: 405514,
   },
   P1_Unique_Boots_010: {
-    look: 2190352704,
     armortype: 3,
+    look: 2190352704,
+  },
+  P1_Unique_SpiritStone_008: {
+    actor: {
+      "4717": 144092,
+      "4721": 144107,
+    },
   },
   P1_Unique_WizardHat_003: {
     actor: {
@@ -1099,6 +2483,9 @@ DiabloCalc.webglItems = {
   },
   P1_Wand_norm_unique_01: {
     actor: 403781,
+  },
+  P1_Wand_norm_unique_02: {
+    actor: 380733,
   },
   P1_fistWeapon_norm_unique_01: {
     actor: 403772,
@@ -1110,31 +2497,31 @@ DiabloCalc.webglItems = {
     actor: 403812,
   },
   P2_Unique_Boots_01: {
-    look: 2190352632,
     armortype: 5,
+    look: 2190352632,
   },
   P2_Unique_Boots_02: {
-    look: 2190352669,
     armortype: 5,
+    look: 2190352669,
   },
   P2_Unique_Flail_2H_104: {
     actor: 299437,
   },
   P2_Unique_Gloves_01: {
-    look: 2190352668,
     armortype: 1,
+    look: 2190352668,
   },
   P2_Unique_Gloves_02: {
-    look: 2190352632,
     armortype: 5,
+    look: 2190352632,
   },
   P2_Unique_Gloves_03: {
-    look: 2190352670,
     armortype: 5,
+    look: 2190352670,
   },
   P2_Unique_Gloves_04: {
-    look: 2190352669,
     armortype: 5,
+    look: 2190352669,
   },
   P2_Unique_Helm_001: {
     actor: {
@@ -1159,23 +2546,20 @@ DiabloCalc.webglItems = {
     actor: 195325,
   },
   P2_Unique_Pants_01: {
-    look: 2190352668,
     armortype: 1,
+    look: 2190352668,
   },
   P2_Unique_Pants_02: {
-    look: 2190352668,
     armortype: 5,
+    look: 2190352668,
   },
   P2_Unique_Pants_03: {
-    look: 2190352632,
     armortype: 5,
+    look: 2190352632,
   },
   P2_Unique_Pants_04: {
-    look: 2190352670,
     armortype: 5,
-  },
-  P2_Unique_Quiver_007: {
-    actor: 197630,
+    look: 2190352670,
   },
   P2_Unique_Shield_002: {
     actor: 197478,
@@ -1246,6 +2630,1251 @@ DiabloCalc.webglItems = {
       "6544": 181609,
     },
   },
+  P4_Unique_Axe_1H_102: {
+    actor: 271597,
+  },
+  P4_Unique_Boots_001: {
+    armortype: 1,
+    look: 2190352669,
+  },
+  P4_Unique_CeremonialDagger_008: {
+    actor: 195370,
+  },
+  P4_Unique_Chest_012: {
+    armortype: 1,
+    look: 2190352671,
+  },
+  P4_Unique_Chest_018: {
+    armortype: 3,
+    look: 2190352703,
+  },
+  P4_Unique_CombatStaff_2H_001: {
+    actor: 195145,
+  },
+  P4_Unique_Dagger_002: {
+    actor: 192579,
+  },
+  P4_Unique_Fist_102: {
+    actor: 271963,
+  },
+  P4_Unique_Flail_2H_001: {
+    actor: 395228,
+  },
+  P4_Unique_Flail_2H_Set_01_x1: {
+    actor: 395227,
+  },
+  P4_Unique_HandXBow_001: {
+    actor: 196409,
+  },
+  P4_Unique_HandXBow_01: {
+    actor: 395303,
+  },
+  P4_Unique_HandXBow_02: {
+    actor: 395304,
+  },
+  P4_Unique_Helm_102: {
+    actor: {
+      "238284": 427041,
+      "238286": 427039,
+      "3285": 426916,
+      "3301": 426776,
+      "4717": 427009,
+      "4721": 427012,
+      "6481": 427027,
+      "6485": 427029,
+      "6526": 426899,
+      "6544": 426877,
+      "74706": 426960,
+      "75207": 426998,
+    },
+  },
+  P4_Unique_Helm_103: {
+    actor: {
+      "238284": 429647,
+      "238286": 429645,
+      "3285": 429273,
+      "3301": 429290,
+      "4717": 429542,
+      "4721": 429545,
+      "6481": 429641,
+      "6485": 429643,
+      "6526": 429270,
+      "6544": 429264,
+      "74706": 429538,
+      "75207": 429540,
+    },
+  },
+  P4_Unique_Mighty_1H_005: {
+    actor: 193611,
+  },
+  P4_Unique_Mighty_1H_104: {
+    actor: 272009,
+  },
+  P4_Unique_Mighty_2H_101: {
+    actor: 322776,
+  },
+  P4_Unique_Mojo_001: {
+    actor: 220326,
+  },
+  P4_Unique_Mojo_002: {
+    actor: 192468,
+  },
+  P4_Unique_Mojo_003: {
+    actor: 395198,
+  },
+  P4_Unique_Orb_001: {
+    actor: 399317,
+  },
+  P4_Unique_Orb_002: {
+    actor: 399318,
+  },
+  P4_Unique_Orb_003: {
+    actor: 195325,
+  },
+  P4_Unique_Pants_002: {
+    armortype: 3,
+    look: 2190352706,
+  },
+  P4_Unique_Polearm_01: {
+    actor: 191570,
+  },
+  P4_Unique_Shield_Set_01_x1: {
+    actor: 298189,
+  },
+  P4_Unique_Shoulder_101: {
+    actor: {
+      "238284": 355052,
+      "238286": 355009,
+      "3285": 355041,
+      "3301": 355038,
+      "4717": 355025,
+      "4721": 355021,
+      "6481": 354233,
+      "6485": 354227,
+      "6526": 355017,
+      "6544": 355014,
+      "74706": 355033,
+      "75207": 355029,
+    },
+    actor_r: {
+      "238284": 355049,
+      "238286": 355010,
+      "3285": 355042,
+      "3301": 355039,
+      "4717": 355026,
+      "4721": 355022,
+      "6481": 354234,
+      "6485": 354228,
+      "6526": 355018,
+      "6544": 355013,
+      "74706": 355034,
+      "75207": 355030,
+    },
+  },
+  P4_Unique_Shoulder_103: {
+    actor: {
+      "238284": 429748,
+      "238286": 429744,
+      "3285": 429685,
+      "3301": 429699,
+      "4717": 429711,
+      "4721": 429715,
+      "6481": 429720,
+      "6485": 429730,
+      "6526": 429738,
+      "6544": 429740,
+      "74706": 429703,
+      "75207": 429707,
+    },
+    actor_r: {
+      "238284": 429750,
+      "238286": 429746,
+      "3285": 429687,
+      "3301": 429701,
+      "4717": 429713,
+      "4721": 429717,
+      "6481": 429722,
+      "6485": 429728,
+      "6526": 429736,
+      "6544": 429742,
+      "74706": 429705,
+      "75207": 429709,
+    },
+  },
+  P4_Unique_Spear_002: {
+    actor: 196638,
+  },
+  P4_Unique_Staff_001: {
+    actor: 184228,
+  },
+  P4_Unique_Sword_1H_01: {
+    actor: 328591,
+  },
+  P4_Unique_XBow_001: {
+    actor: 221760,
+  },
+  P4_fistWeapon_norm_unique_02: {
+    actor: 403775,
+  },
+  P4_flail2H_norm_unique_01: {
+    actor: 403846,
+  },
+  Pants_001: {
+    armortype: 0,
+    look: 66,
+    name: "Cloth Pants",
+    type: "pants",
+  },
+  Pants_002: {
+    armortype: 1,
+    look: 65,
+    name: "Leather Pants",
+    type: "pants",
+  },
+  Pants_003: {
+    armortype: 1,
+    look: 66,
+    name: "Hide Breeches",
+    type: "pants",
+  },
+  Pants_004: {
+    armortype: 3,
+    look: 65,
+    name: "Chain Leggings",
+    type: "pants",
+  },
+  Pants_005: {
+    armortype: 3,
+    look: 66,
+    name: "Faulds",
+    type: "pants",
+  },
+  Pants_006: {
+    armortype: 5,
+    look: 65,
+    name: "Plate Leggings",
+    type: "pants",
+  },
+  Pants_101: {
+    armortype: 1,
+    look: 67,
+    name: "Legwraps",
+    type: "pants",
+  },
+  Pants_102: {
+    armortype: 1,
+    look: 68,
+    name: "Etched Pants",
+    type: "pants",
+  },
+  Pants_103: {
+    armortype: 3,
+    look: 67,
+    name: "Chausses",
+    type: "pants",
+  },
+  Pants_104: {
+    armortype: 3,
+    look: 68,
+    name: "Tassets",
+    type: "pants",
+  },
+  Pants_105: {
+    armortype: 5,
+    look: 68,
+    name: "Boneweave Faulds",
+    type: "pants",
+  },
+  Pants_201: {
+    armortype: 3,
+    look: 70,
+    name: "Leg Guards",
+    type: "pants",
+  },
+  Pants_202: {
+    armortype: 3,
+    look: 71,
+    name: "Poleyns",
+    type: "pants",
+  },
+  Pants_203: {
+    armortype: 5,
+    look: 70,
+    name: "Warlord Leg Plates",
+    type: "pants",
+  },
+  Pants_204: {
+    armortype: 5,
+    look: 71,
+    name: "Schynbalds",
+    type: "pants",
+  },
+  Pants_205: {
+    armortype: 5,
+    look: 72,
+    name: "Sovereign Tassets",
+    type: "pants",
+  },
+  Pants_206: {
+    armortype: 5,
+    look: 73,
+    name: "Archon Faulds",
+    type: "pants",
+  },
+  Pants_207: {
+    armortype: 3,
+    look: 72,
+    name: "Rakkisgard Leg Plates",
+    type: "pants",
+  },
+  Pants_208: {
+    armortype: 5,
+    look: 74,
+    name: "Ascended Faulds",
+    type: "pants",
+  },
+  Polearm_001: {
+    actor: 4864,
+    name: "Bardiche",
+    type: "polearm",
+  },
+  Polearm_002: {
+    actor: 4865,
+    name: "Pike",
+    type: "polearm",
+  },
+  Polearm_003: {
+    actor: 4866,
+    name: "Guisarme",
+    type: "polearm",
+  },
+  Polearm_004: {
+    actor: 4867,
+    name: "Hache",
+    type: "polearm",
+  },
+  Polearm_005: {
+    actor: 4868,
+    name: "Glaive",
+    type: "polearm",
+  },
+  Polearm_006: {
+    actor: 4869,
+    name: "Pole Axe",
+    type: "polearm",
+  },
+  Polearm_007: {
+    actor: 4870,
+    name: "Halberd",
+    type: "polearm",
+  },
+  Polearm_008: {
+    actor: 4871,
+    name: "Lance",
+    type: "polearm",
+  },
+  Polearm_301: {
+    actor: 335176,
+    name: "Trident",
+    type: "polearm",
+  },
+  Polearm_302: {
+    actor: 367153,
+    name: "Trishula",
+    type: "polearm",
+  },
+  Shield_000: {
+    actor: 5259,
+    name: "Buckler",
+    type: "shield",
+  },
+  Shield_002: {
+    actor: 426,
+    name: "Targe Shield",
+    type: "shield",
+  },
+  Shield_003: {
+    actor: 5260,
+    name: "Heater Shield",
+    type: "shield",
+  },
+  Shield_004: {
+    actor: 5261,
+    name: "Kite Shield",
+    type: "shield",
+  },
+  Shield_005: {
+    actor: 5262,
+    name: "Large Shield",
+    type: "shield",
+  },
+  Shield_006: {
+    actor: 5263,
+    name: "Gothic Shield",
+    type: "shield",
+  },
+  Shield_007: {
+    actor: 5264,
+    name: "Tower Shield",
+    type: "shield",
+  },
+  Shield_208: {
+    actor: 335208,
+    name: "Rakkisgard Shield",
+    type: "shield",
+  },
+  Shield_209: {
+    actor: 367164,
+    name: "Ascended Shield",
+    type: "shield",
+  },
+  Shoulders_002: {
+    actor: {
+      "238284": 324751,
+      "238286": 324759,
+      "3285": 138432,
+      "3301": 138483,
+      "4717": 62926,
+      "4721": 138532,
+      "6481": 138534,
+      "6485": 138535,
+      "6526": 184648,
+      "6544": 5318,
+      "74706": 138489,
+      "75207": 138493,
+    },
+    actor_r: {
+      "238284": 324752,
+      "238286": 324760,
+      "3285": 138433,
+      "3301": 138486,
+      "4717": 62922,
+      "4721": 191072,
+      "6526": 138537,
+      "6544": 186212,
+      "74706": 138490,
+      "75207": 138496,
+    },
+    name: "Leather Mantle",
+    type: "shoulders",
+  },
+  Shoulders_003: {
+    actor: {
+      "238284": 313286,
+      "238286": 293436,
+      "3285": 83346,
+      "3301": 78494,
+      "4717": 84798,
+      "4721": 5299,
+      "6481": 78676,
+      "6485": 78174,
+      "6526": 184661,
+      "6544": 5319,
+      "74706": 97230,
+      "75207": 122113,
+    },
+    actor_r: {
+      "238284": 313287,
+      "238286": 293437,
+      "3285": 83347,
+      "3301": 78495,
+      "4717": 84799,
+      "4721": 191070,
+      "6481": 138541,
+      "6485": 138540,
+      "6526": 58676,
+      "6544": 186217,
+      "74706": 97233,
+      "75207": 122114,
+    },
+    name: "Shoulder Guards",
+    type: "shoulders",
+  },
+  Shoulders_004: {
+    actor: {
+      "238284": 288572,
+      "238286": 293438,
+      "3285": 94081,
+      "3301": 5293,
+      "4717": 71454,
+      "4721": 5300,
+      "6481": 5303,
+      "6485": 78175,
+      "6526": 184676,
+      "6544": 73368,
+      "74706": 175161,
+      "75207": 174315,
+    },
+    actor_r: {
+      "238284": 288584,
+      "238286": 293439,
+      "3285": 94082,
+      "3301": 71906,
+      "4717": 71455,
+      "4721": 138543,
+      "6481": 5304,
+      "6485": 78176,
+      "6526": 58677,
+      "6544": 186222,
+      "74706": 175162,
+      "75207": 174314,
+    },
+    name: "Amice",
+    type: "shoulders",
+  },
+  Shoulders_005: {
+    actor: {
+      "238284": 298429,
+      "238286": 299081,
+      "3285": 95766,
+      "3301": 5294,
+      "4717": 107652,
+      "4721": 79658,
+      "6481": 5305,
+      "6485": 78182,
+      "6526": 184668,
+      "6544": 73369,
+      "74706": 138526,
+      "75207": 138528,
+    },
+    actor_r: {
+      "238284": 298430,
+      "238286": 299082,
+      "3285": 95767,
+      "3301": 5295,
+      "4717": 107653,
+      "4721": 110587,
+      "6481": 5306,
+      "6485": 78183,
+      "6526": 58678,
+      "6544": 186231,
+      "74706": 138527,
+      "75207": 138529,
+    },
+    name: "Spaulders",
+    type: "shoulders",
+  },
+  Shoulders_006: {
+    actor: {
+      "238284": 254837,
+      "238286": 264079,
+      "3285": 83348,
+      "3301": 5296,
+      "4717": 71456,
+      "4721": 5302,
+      "6481": 5307,
+      "6485": 78184,
+      "6526": 184670,
+      "6544": 59739,
+      "74706": 112802,
+      "75207": 129753,
+    },
+    actor_r: {
+      "238284": 254838,
+      "238286": 264080,
+      "3285": 83349,
+      "3301": 5298,
+      "4717": 71457,
+      "4721": 182708,
+      "6481": 5308,
+      "6485": 78185,
+      "6526": 58679,
+      "6544": 186238,
+      "74706": 112801,
+      "75207": 129755,
+    },
+    name: "Shoulder Plates",
+    type: "shoulders",
+  },
+  Shoulders_101: {
+    actor: {
+      "238284": 338327,
+      "238286": 338427,
+      "3285": 116287,
+      "3301": 114497,
+      "4717": 135964,
+      "4721": 135935,
+      "6481": 107740,
+      "6485": 99663,
+      "6526": 184744,
+      "6544": 73371,
+      "74706": 179602,
+    },
+    actor_r: {
+      "238284": 338332,
+      "238286": 338432,
+      "3285": 116288,
+      "3301": 114498,
+      "4717": 135965,
+      "4721": 135936,
+      "6481": 107741,
+      "6485": 99664,
+      "6526": 58680,
+      "6544": 186304,
+      "74706": 179603,
+      "75207": 174316,
+    },
+    name: "Etched Mantle",
+    type: "shoulders",
+  },
+  Shoulders_102: {
+    actor: {
+      "238284": 288616,
+      "238286": 293440,
+      "3285": 116208,
+      "3301": 82475,
+      "4717": 106008,
+      "4721": 122755,
+      "6481": 98037,
+      "6485": 92241,
+      "6526": 184752,
+      "6544": 73372,
+      "74706": 175163,
+      "75207": 174317,
+    },
+    actor_r: {
+      "238284": 288617,
+      "238286": 293441,
+      "3285": 116209,
+      "3301": 82476,
+      "4717": 106009,
+      "4721": 122756,
+      "6481": 98038,
+      "6485": 92242,
+      "6526": 58681,
+      "6544": 186306,
+      "74706": 175164,
+      "75207": 174319,
+    },
+    name: "Ailettes",
+    type: "shoulders",
+  },
+  Shoulders_103: {
+    actor: {
+      "238284": 288618,
+      "238286": 293442,
+      "3285": 94083,
+      "3301": 138974,
+      "4717": 101433,
+      "4721": 110589,
+      "6481": 94821,
+      "6485": 82548,
+      "6526": 185562,
+      "6544": 73373,
+      "74706": 88240,
+      "75207": 149008,
+    },
+    actor_r: {
+      "238284": 288619,
+      "238286": 293443,
+      "3285": 94084,
+      "3301": 138976,
+      "4717": 101434,
+      "4721": 111249,
+      "6481": 94822,
+      "6485": 82549,
+      "6526": 70399,
+      "6544": 186308,
+      "74706": 88241,
+      "75207": 149009,
+    },
+    name: "Pauldrons",
+    type: "shoulders",
+  },
+  Shoulders_104: {
+    actor: {
+      "238284": 293553,
+      "238286": 294181,
+      "3285": 94069,
+      "3301": 91127,
+      "4717": 123527,
+      "4721": 135937,
+      "6481": 114203,
+      "6485": 105979,
+      "6526": 184761,
+      "6544": 59740,
+      "74706": 179604,
+      "75207": 179660,
+    },
+    actor_r: {
+      "238284": 293554,
+      "238286": 294183,
+      "3285": 94070,
+      "3301": 91128,
+      "4717": 123528,
+      "4721": 135938,
+      "6481": 114204,
+      "6485": 105980,
+      "6526": 58682,
+      "6544": 186310,
+      "74706": 179606,
+      "75207": 179661,
+    },
+    name: "Sode",
+    type: "shoulders",
+  },
+  Shoulders_105: {
+    actor: {
+      "238284": 288620,
+      "238286": 293444,
+      "3285": 136005,
+      "3301": 136007,
+      "4717": 131108,
+      "4721": 122761,
+      "6481": 76807,
+      "6485": 78186,
+      "6526": 184767,
+      "6544": 73374,
+      "74706": 179607,
+      "75207": 179662,
+    },
+    actor_r: {
+      "238284": 288621,
+      "238286": 293445,
+      "3285": 136006,
+      "3301": 136008,
+      "4717": 131110,
+      "4721": 122762,
+      "6481": 76808,
+      "6485": 78187,
+      "6526": 70400,
+      "6544": 186312,
+      "74706": 179608,
+      "75207": 179663,
+    },
+    name: "Epaulets",
+    type: "shoulders",
+  },
+  Shoulders_201: {
+    actor: {
+      "238284": 293551,
+      "238286": 293434,
+      "3285": 95768,
+      "3301": 91129,
+      "4717": 134520,
+      "4721": 122757,
+      "6481": 94823,
+      "6485": 84832,
+      "6526": 184771,
+      "6544": 73376,
+      "74706": 179598,
+      "75207": 174305,
+    },
+    actor_r: {
+      "238284": 293552,
+      "238286": 293435,
+      "3285": 95769,
+      "3301": 91130,
+      "4717": 134521,
+      "4721": 122758,
+      "6481": 94826,
+      "6485": 84833,
+      "6526": 58684,
+      "6544": 186316,
+      "74706": 179599,
+      "75207": 174306,
+    },
+    name: "Balor Pauldrons",
+    type: "shoulders",
+  },
+  Shoulders_202: {
+    actor: {
+      "238284": 303623,
+      "238286": 303620,
+      "3285": 116690,
+      "3301": 116744,
+      "4717": 123525,
+      "4721": 122759,
+      "6481": 105741,
+      "6485": 105974,
+      "6526": 185682,
+      "6544": 73377,
+      "74706": 175165,
+      "75207": 174307,
+    },
+    actor_r: {
+      "238284": 303624,
+      "238286": 303621,
+      "3285": 116691,
+      "3301": 116745,
+      "4717": 123526,
+      "4721": 122760,
+      "6481": 105742,
+      "6485": 105975,
+      "6526": 58685,
+      "6544": 186318,
+      "74706": 175166,
+      "75207": 174308,
+    },
+    name: "Espaliers",
+    type: "shoulders",
+  },
+  Shoulders_203: {
+    actor: {
+      "238284": 268356,
+      "238286": 268350,
+      "3285": 114045,
+      "3301": 105715,
+      "4717": 134522,
+      "4721": 135933,
+      "6481": 114240,
+      "6485": 78188,
+      "6526": 187112,
+      "6544": 73378,
+      "74706": 179600,
+      "75207": 179658,
+    },
+    actor_r: {
+      "238284": 268357,
+      "238286": 268351,
+      "3285": 114046,
+      "3301": 105716,
+      "4717": 134526,
+      "4721": 135934,
+      "6481": 114241,
+      "6485": 78189,
+      "6526": 70397,
+      "6544": 187168,
+      "74706": 179601,
+      "75207": 179659,
+    },
+    name: "Warlord Spaulders",
+    type: "shoulders",
+  },
+  Shoulders_204: {
+    actor: {
+      "238284": 268358,
+      "238286": 268352,
+      "3285": 116352,
+      "3301": 114499,
+      "4717": 106006,
+      "4721": 135939,
+      "6481": 76809,
+      "6485": 101381,
+      "6526": 186125,
+      "6544": 73379,
+      "74706": 175528,
+      "75207": 174309,
+    },
+    actor_r: {
+      "238284": 268359,
+      "238286": 268353,
+      "3285": 116353,
+      "3301": 114500,
+      "4717": 106007,
+      "4721": 135940,
+      "6481": 76810,
+      "6485": 101399,
+      "6526": 58686,
+      "6544": 186320,
+      "74706": 175529,
+      "75207": 174310,
+    },
+    name: "Doom Pauldrons",
+    type: "shoulders",
+  },
+  Shoulders_205: {
+    actor: {
+      "238284": 267192,
+      "238286": 268216,
+      "3285": 99756,
+      "3301": 98062,
+      "4717": 134527,
+      "4721": 135941,
+      "6481": 99598,
+      "6485": 97516,
+      "6526": 186192,
+      "6544": 73380,
+      "74706": 175167,
+      "75207": 174311,
+    },
+    actor_r: {
+      "238284": 267194,
+      "238286": 268214,
+      "3285": 99757,
+      "3301": 98063,
+      "4717": 134528,
+      "4721": 135942,
+      "6481": 99600,
+      "6485": 97517,
+      "6526": 70398,
+      "6544": 186322,
+      "74706": 175168,
+      "75207": 174312,
+    },
+    name: "Pallium",
+    type: "shoulders",
+  },
+  Shoulders_206: {
+    actor: {
+      "238284": 272475,
+      "238286": 272473,
+      "3285": 99758,
+      "3301": 94037,
+      "4717": 134529,
+      "4721": 135943,
+      "6481": 114200,
+      "6485": 105976,
+      "6526": 186196,
+      "6544": 73381,
+      "74706": 203314,
+    },
+    actor_r: {
+      "238284": 272476,
+      "238286": 272474,
+      "3285": 99759,
+      "3301": 94038,
+      "4717": 134530,
+      "4721": 135944,
+      "6481": 114201,
+      "6485": 105978,
+      "6526": 70401,
+      "6544": 186324,
+      "75207": 174313,
+    },
+    name: "Archon Spaulders",
+    type: "shoulders",
+  },
+  Shoulders_207: {
+    actor: {
+      "238284": 322562,
+      "238286": 323511,
+      "3285": 239287,
+      "3301": 238576,
+      "4717": 254302,
+      "4721": 254306,
+      "6481": 254308,
+      "6485": 254310,
+      "6526": 254314,
+      "6544": 254316,
+      "74706": 254300,
+      "75207": 254304,
+    },
+    actor_r: {
+      "238284": 322563,
+      "238286": 323512,
+      "3285": 239288,
+      "3301": 238577,
+      "4717": 254303,
+      "4721": 254307,
+      "6481": 254309,
+      "6485": 254311,
+      "6526": 254315,
+      "6544": 254317,
+      "74706": 254301,
+      "75207": 254305,
+    },
+    name: "Rakkisgard Pauldrons",
+    type: "shoulders",
+  },
+  Shoulders_208: {
+    actor: {
+      "238284": 268360,
+      "238286": 268354,
+      "3285": 267926,
+      "3301": 267928,
+      "4717": 268253,
+      "4721": 268255,
+      "6481": 268152,
+      "6485": 268154,
+      "6526": 268096,
+      "6544": 268098,
+      "74706": 294898,
+      "75207": 294900,
+    },
+    actor_r: {
+      "238284": 268361,
+      "238286": 268355,
+      "3285": 267927,
+      "3301": 267929,
+      "4717": 268254,
+      "4721": 268256,
+      "6481": 268153,
+      "6485": 268155,
+      "6526": 268097,
+      "6544": 268099,
+      "74706": 294899,
+      "75207": 294901,
+    },
+    name: "Ascended Pauldrons",
+    type: "shoulders",
+  },
+  Spear_001: {
+    actor: 5451,
+    name: "Javelin",
+    type: "spear",
+  },
+  Spear_002: {
+    actor: 5452,
+    name: "Fuscina",
+    type: "spear",
+  },
+  Spear_003: {
+    actor: 5453,
+    name: "Spear",
+    type: "spear",
+  },
+  Spear_004: {
+    actor: 5454,
+    name: "Hasta",
+    type: "spear",
+  },
+  Spear_005: {
+    actor: 5455,
+    name: "Pilum",
+    type: "spear",
+  },
+  Spear_301: {
+    actor: 335179,
+    name: "Honed Spear",
+    type: "spear",
+  },
+  Spear_302: {
+    actor: 367155,
+    name: "Disemboweler",
+    type: "spear",
+  },
+  SpiritStone_001: {
+    actor: {
+      "4717": 144092,
+      "4721": 144107,
+    },
+    name: "Glass Star",
+    type: "spiritstone",
+  },
+  SpiritStone_002: {
+    actor: {
+      "4717": 144093,
+      "4721": 144108,
+    },
+    name: "Thought Mirror",
+    type: "spiritstone",
+  },
+  SpiritStone_003: {
+    actor: {
+      "4717": 144094,
+      "4721": 144109,
+    },
+    name: "Third Eye",
+    type: "spiritstone",
+  },
+  SpiritStone_004: {
+    actor: {
+      "4717": 144096,
+      "4721": 144111,
+    },
+    name: "Onyx Cluster",
+    type: "spiritstone",
+  },
+  SpiritStone_205: {
+    actor: {
+      "4717": 335388,
+      "4721": 335390,
+    },
+    name: "Insight Stone",
+    type: "spiritstone",
+  },
+  SpiritStone_206: {
+    actor: {
+      "4717": 364179,
+      "4721": 364162,
+    },
+    name: "Ascended Stone",
+    type: "spiritstone",
+  },
+  Staff_001: {
+    actor: 5483,
+    name: "Short Staff",
+    type: "staff",
+  },
+  Staff_002: {
+    actor: 5484,
+    name: "Long Staff",
+    type: "staff",
+  },
+  Staff_003: {
+    actor: 5485,
+    name: "Yew Staff",
+    type: "staff",
+  },
+  Staff_004: {
+    actor: 5486,
+    name: "Gnarled Staff",
+    type: "staff",
+  },
+  Staff_005: {
+    actor: 5487,
+    name: "Bone Staff",
+    type: "staff",
+  },
+  Staff_006: {
+    actor: 438,
+    name: "Battle Staff",
+    type: "staff",
+  },
+  Staff_007: {
+    actor: 5488,
+    name: "War Staff",
+    type: "staff",
+  },
+  Staff_301: {
+    actor: 328169,
+    name: "Caduceus Staff",
+    type: "staff",
+  },
+  Staff_302: {
+    actor: 367162,
+    name: "Kerykeion",
+    type: "staff",
+  },
+  Sword_1H_001: {
+    actor: 5516,
+    name: "Short Sword",
+    type: "sword",
+  },
+  Sword_1H_002: {
+    actor: 5520,
+    name: "Sabre",
+    type: "sword",
+  },
+  Sword_1H_003: {
+    actor: 5523,
+    name: "Broadsword",
+    type: "sword",
+  },
+  Sword_1H_004: {
+    actor: 5524,
+    name: "Longsword",
+    type: "sword",
+  },
+  Sword_1H_005: {
+    actor: 5521,
+    name: "Falchion",
+    type: "sword",
+  },
+  Sword_1H_006: {
+    actor: 5522,
+    name: "Scimitar",
+    type: "sword",
+  },
+  Sword_1H_007: {
+    actor: 440,
+    name: "War Sword",
+    type: "sword",
+  },
+  Sword_1H_008: {
+    actor: 5525,
+    name: "Bastard Sword",
+    type: "sword",
+  },
+  Sword_1H_301: {
+    actor: 335133,
+    name: "Champion Sword",
+    type: "sword",
+  },
+  Sword_1H_302: {
+    actor: 367139,
+    name: "Tsunami Blade",
+    type: "sword",
+  },
+  Sword_2H_001: {
+    actor: 6342,
+    name: "Two-Handed Sword",
+    type: "sword2h",
+  },
+  Sword_2H_002: {
+    actor: 6344,
+    name: "Flamberge",
+    type: "sword2h",
+  },
+  Sword_2H_003: {
+    actor: 6343,
+    name: "Dervish",
+    type: "sword2h",
+  },
+  Sword_2H_004: {
+    actor: 6345,
+    name: "Executioner Sword",
+    type: "sword2h",
+  },
+  Sword_2H_005: {
+    actor: 483,
+    name: "Nodachi",
+    type: "sword2h",
+  },
+  Sword_2H_006: {
+    actor: 6346,
+    name: "Claymore",
+    type: "sword2h",
+  },
+  Sword_2H_301: {
+    actor: 335139,
+    name: "Gothic Blade",
+    type: "sword2h",
+  },
+  Sword_2H_302: {
+    actor: 367141,
+    name: "Kingslayer",
+    type: "sword2h",
+  },
+  TransmogHelm_001: {
+    actor: {
+      "238284": 428475,
+      "238286": 428509,
+      "3285": 428501,
+      "3301": 428456,
+      "4717": 428670,
+      "4721": 428657,
+      "6481": 428651,
+      "6485": 428638,
+      "6526": 428597,
+      "6544": 428618,
+      "74706": 428549,
+      "75207": 428528,
+    },
+    name: "Star Helm",
+    promo: true,
+    type: "helm",
+  },
+  TransmogShield_313: {
+    actor: 445356,
+    name: "Lachdanan's Stormshield",
+    promo: true,
+    type: "shield",
+  },
+  TransmogShoulders_001: {
+    actor: {
+      "238284": 428480,
+      "238286": 428520,
+      "3285": 428504,
+      "3301": 428445,
+      "4717": 428673,
+      "4721": 428660,
+      "6481": 428654,
+      "6485": 428643,
+      "6526": 428600,
+      "6544": 428624,
+      "74706": 428560,
+      "75207": 428535,
+    },
+    actor_r: {
+      "238284": 428481,
+      "238286": 428521,
+      "3285": 428505,
+      "3301": 428446,
+      "4717": 428674,
+      "4721": 428661,
+      "6481": 428655,
+      "6485": 428644,
+      "6526": 428601,
+      "6544": 428625,
+      "74706": 428561,
+      "75207": 428536,
+    },
+    name: "Star Pauldrons",
+    promo: true,
+    type: "shoulders",
+  },
   Unique_Axe_1H_001_x1: {
     actor: 116388,
   },
@@ -1292,140 +3921,148 @@ DiabloCalc.webglItems = {
     actor: 271601,
   },
   Unique_Boots_001_x1: {
-    look: 2190352669,
     armortype: 1,
+    look: 2190352669,
   },
   Unique_Boots_005_x1: {
-    look: 2190352705,
     armortype: 3,
+    look: 2190352705,
   },
   Unique_Boots_007_p2: {
-    look: 2190352667,
     armortype: 5,
+    look: 2190352667,
   },
   Unique_Boots_007_x1: {
-    look: 2190352667,
     armortype: 5,
+    look: 2190352667,
   },
   Unique_Boots_008_x1: {
-    look: 2190352698,
     armortype: 1,
+    look: 2190352698,
   },
   Unique_Boots_009_x1: {
-    look: 2190352706,
     armortype: 3,
+    look: 2190352706,
   },
   Unique_Boots_010_x1: {
-    look: 2190352704,
     armortype: 3,
+    look: 2190352704,
   },
   Unique_Boots_011_x1: {
-    look: 2190352668,
     armortype: 1,
+    look: 2190352668,
   },
   Unique_Boots_012_x1: {
-    look: 2190352668,
     armortype: 5,
+    look: 2190352668,
   },
   Unique_Boots_013_x1: {
-    look: 2190352670,
     armortype: 5,
+    look: 2190352670,
   },
   Unique_Boots_014_x1: {
-    look: 2190352702,
     armortype: 3,
+    look: 2190352702,
   },
   Unique_Boots_015_x1: {
-    look: 2190352670,
     armortype: 1,
+    look: 2190352670,
   },
   Unique_Boots_017_x1: {
-    look: 2190352667,
     armortype: 1,
+    look: 2190352667,
   },
   Unique_Boots_018_x1: {
-    look: 2190352669,
     armortype: 5,
+    look: 2190352669,
   },
   Unique_Boots_019_x1: {
-    look: 2190352697,
     armortype: 1,
+    look: 2190352697,
   },
   Unique_Boots_102_x1: {
-    look: 2190352766,
     armortype: 5,
+    look: 2190352766,
   },
   Unique_Boots_103_x1: {
-    look: 2190352767,
     armortype: 3,
+    look: 2190352767,
   },
   Unique_Boots_104_x1: {
-    look: 2190352765,
     armortype: 5,
+    look: 2190352765,
   },
   Unique_Boots_Set_01_p1: {
-    look: 2190352832,
     armortype: 5,
+    look: 2190352832,
   },
   Unique_Boots_Set_01_p2: {
-    look: 2190352833,
     armortype: 5,
+    look: 2190352833,
   },
   Unique_Boots_Set_01_p3: {
-    look: 2190352835,
     armortype: 5,
+    look: 2190352835,
   },
   Unique_Boots_Set_02_p2: {
-    look: 2190352834,
     armortype: 3,
+    look: 2190352834,
   },
   Unique_Boots_Set_02_p3: {
-    look: 2190352837,
     armortype: 5,
+    look: 2190352837,
   },
   Unique_Boots_Set_03_p2: {
-    look: 2190352837,
     armortype: 5,
+    look: 2190352837,
   },
   Unique_Boots_Set_03_p3: {
-    look: 2190352838,
     armortype: 5,
+    look: 2190352838,
   },
   Unique_Boots_Set_05_x1: {
-    look: 2190352797,
     armortype: 3,
+    look: 2190352797,
   },
   Unique_Boots_Set_06_x1: {
-    look: 2190352805,
     armortype: 3,
+    look: 2190352805,
   },
   Unique_Boots_Set_07_x1: {
-    look: 2190352798,
     armortype: 3,
+    look: 2190352798,
   },
   Unique_Boots_Set_08_x1: {
-    look: 2190352799,
     armortype: 3,
+    look: 2190352799,
   },
   Unique_Boots_Set_09_x1: {
-    look: 2190352800,
     armortype: 3,
+    look: 2190352800,
   },
   Unique_Boots_Set_10_x1: {
-    look: 2190352829,
     armortype: 3,
+    look: 2190352829,
+  },
+  Unique_Boots_Set_12_x1: {
+    armortype: 5,
+    look: 2190352772,
   },
   Unique_Boots_Set_13_x1: {
-    look: 2190352770,
     armortype: 5,
+    look: 2190352770,
   },
   Unique_Boots_Set_14_x1: {
-    look: 2190352771,
     armortype: 3,
+    look: 2190352771,
+  },
+  Unique_Boots_Set_15_x1: {
+    armortype: 3,
+    look: 2190352801,
   },
   Unique_Boots_Set_16_x1: {
-    look: 2190352802,
     armortype: 5,
+    look: 2190352802,
   },
   Unique_Bow_001_p1: {
     actor: 175581,
@@ -1496,161 +4133,175 @@ DiabloCalc.webglItems = {
   Unique_CeremonialDagger_102_x1: {
     actor: 271745,
   },
+  Unique_CeremonialDagger_Promo_01_x1: {
+    actor: 337285,
+    name: "Sacrificer",
+    promo: true,
+    type: "ceremonialknife",
+  },
   Unique_ChestArmor_028_x1: {
-    look: 2190352697,
     armortype: 1,
+    look: 2190352697,
   },
   Unique_Chest_001_x1: {
-    look: 2190352671,
     armortype: 5,
+    look: 2190352671,
   },
   Unique_Chest_002_x1: {
-    look: 2190352704,
     armortype: 3,
+    look: 2190352704,
   },
   Unique_Chest_006_x1: {
-    look: 2190352673,
     armortype: 1,
+    look: 2190352673,
   },
   Unique_Chest_010_x1: {
-    look: 2190352672,
     armortype: 1,
+    look: 2190352672,
   },
   Unique_Chest_012_x1: {
-    look: 2190352671,
     armortype: 1,
+    look: 2190352671,
   },
   Unique_Chest_013_x1: {
-    look: 2190352668,
     armortype: 5,
+    look: 2190352668,
   },
   Unique_Chest_014_x1: {
-    look: 2190352632,
     armortype: 5,
+    look: 2190352632,
   },
   Unique_Chest_015_x1: {
-    look: 2190352669,
     armortype: 5,
+    look: 2190352669,
   },
   Unique_Chest_016_x1: {
-    look: 2190352670,
     armortype: 5,
+    look: 2190352670,
   },
   Unique_Chest_018_x1: {
-    look: 2190352703,
     armortype: 3,
+    look: 2190352703,
   },
   Unique_Chest_019_x1: {
-    look: 2190352705,
     armortype: 3,
+    look: 2190352705,
   },
   Unique_Chest_025_x1: {
-    look: 2190352668,
     armortype: 1,
+    look: 2190352668,
   },
   Unique_Chest_026_x1: {
-    look: 2190352667,
     armortype: 1,
+    look: 2190352667,
   },
   Unique_Chest_027_x1: {
-    look: 2190352667,
     armortype: 5,
+    look: 2190352667,
   },
   Unique_Chest_101_x1: {
-    look: 2190352737,
     armortype: 1,
+    look: 2190352737,
   },
   Unique_Chest_102_x1: {
-    look: 2190352768,
     armortype: 5,
+    look: 2190352768,
   },
   Unique_Chest_Set_01_p1: {
-    look: 2190352832,
     armortype: 5,
+    look: 2190352832,
   },
   Unique_Chest_Set_01_p2: {
-    look: 2190352833,
     armortype: 5,
+    look: 2190352833,
   },
   Unique_Chest_Set_01_p3: {
-    look: 2190352835,
     armortype: 5,
+    look: 2190352835,
   },
   Unique_Chest_Set_02_p2: {
-    look: 2190352834,
     armortype: 3,
+    look: 2190352834,
   },
   Unique_Chest_Set_02_p3: {
-    look: 2190352837,
     armortype: 5,
+    look: 2190352837,
   },
   Unique_Chest_Set_03_p2: {
-    look: 2190352837,
     armortype: 5,
+    look: 2190352837,
   },
   Unique_Chest_Set_03_p3: {
-    look: 2190352838,
     armortype: 5,
+    look: 2190352838,
   },
   Unique_Chest_Set_05_x1: {
-    look: 2190352797,
     armortype: 3,
+    look: 2190352797,
   },
   Unique_Chest_Set_06_x1: {
-    look: 2190352805,
     armortype: 3,
+    look: 2190352805,
   },
   Unique_Chest_Set_07_x1: {
-    look: 2190352798,
     armortype: 3,
+    look: 2190352798,
   },
   Unique_Chest_Set_08_x1: {
-    look: 2190352799,
     armortype: 3,
+    look: 2190352799,
   },
   Unique_Chest_Set_09_x1: {
-    look: 2190352800,
     armortype: 3,
+    look: 2190352800,
   },
   Unique_Chest_Set_10_x1: {
-    look: 2190352829,
     armortype: 3,
+    look: 2190352829,
+  },
+  Unique_Chest_Set_11_x1: {
+    armortype: 3,
+    look: 2190352796,
   },
   Unique_Chest_Set_13_x1: {
-    look: 2190352770,
     armortype: 5,
+    look: 2190352770,
   },
   Unique_Chest_Set_14_x1: {
-    look: 2190352771,
     armortype: 3,
+    look: 2190352771,
+  },
+  Unique_Chest_Set_15_x1: {
+    armortype: 3,
+    look: 2190352801,
   },
   Unique_Chest_Set_16_x1: {
-    look: 2190352802,
     armortype: 5,
+    look: 2190352802,
   },
   Unique_Cloak_001_x1: {
-    look: 2190352632,
     armortype: 16,
+    look: 2190352632,
   },
   Unique_Cloak_002_p1: {
-    look: 2190352634,
     armortype: 16,
+    look: 2190352634,
   },
   Unique_Cloak_005_x1: {
-    look: 2190352633,
     armortype: 16,
+    look: 2190352633,
   },
   Unique_Cloak_006_x1: {
-    look: 2190352632,
     armortype: 14,
+    look: 2190352632,
   },
   Unique_Cloak_101_x1: {
-    look: 2190352737,
     armortype: 14,
+    look: 2190352737,
   },
   Unique_Cloak_102_x1: {
-    look: 2190352738,
     armortype: 13,
+    look: 2190352738,
   },
   Unique_CombatStaff_2H_001_x1: {
     actor: 212208,
@@ -1721,6 +4372,12 @@ DiabloCalc.webglItems = {
   Unique_Dagger_010_x1_210: {
     actor: 219329,
   },
+  Unique_Dagger_101_x1: {
+    actor: 271728,
+  },
+  Unique_Dagger_102_x1: {
+    actor: 271731,
+  },
   Unique_Dagger_103_x1: {
     actor: 271732,
   },
@@ -1766,6 +4423,12 @@ DiabloCalc.webglItems = {
   Unique_Fist_101_x1: {
     actor: 271957,
   },
+  Unique_Fist_Promo_01_x1: {
+    actor: 337291,
+    name: "Deathreach",
+    promo: true,
+    type: "fistweapon",
+  },
   Unique_Flail_1H_101_x1: {
     actor: 299419,
   },
@@ -1787,6 +4450,12 @@ DiabloCalc.webglItems = {
   Unique_Flail_1H_107_x1: {
     actor: 299429,
   },
+  Unique_Flail_1H_Promo_01_x1: {
+    actor: 359263,
+    name: "Mortal Coil",
+    promo: true,
+    type: "flail",
+  },
   Unique_Flail_2H_101_x1: {
     actor: 299431,
   },
@@ -1800,132 +4469,132 @@ DiabloCalc.webglItems = {
     actor: 299437,
   },
   Unique_Gloves_001_x1: {
-    look: 2190352669,
     armortype: 1,
+    look: 2190352669,
   },
   Unique_Gloves_002_x1: {
-    look: 2190352667,
     armortype: 1,
+    look: 2190352667,
   },
   Unique_Gloves_003_x1: {
-    look: 2190352730,
     armortype: 3,
+    look: 2190352730,
   },
   Unique_Gloves_007_x1: {
-    look: 2190352705,
     armortype: 3,
+    look: 2190352705,
   },
   Unique_Gloves_008_x1: {
-    look: 2190352668,
     armortype: 5,
+    look: 2190352668,
   },
   Unique_Gloves_009_x1: {
-    look: 2190352702,
     armortype: 3,
+    look: 2190352702,
   },
   Unique_Gloves_011_x1: {
-    look: 2190352672,
     armortype: 5,
+    look: 2190352672,
   },
   Unique_Gloves_014_x1: {
-    look: 2190352668,
     armortype: 1,
+    look: 2190352668,
   },
   Unique_Gloves_015_x1: {
-    look: 2190352670,
     armortype: 1,
+    look: 2190352670,
   },
   Unique_Gloves_017_x1: {
-    look: 2190352669,
     armortype: 5,
+    look: 2190352669,
   },
   Unique_Gloves_101_p2: {
-    look: 2190352738,
     armortype: 3,
+    look: 2190352738,
   },
   Unique_Gloves_101_x1: {
-    look: 2190352738,
     armortype: 3,
+    look: 2190352738,
   },
   Unique_Gloves_103_x1: {
-    look: 2190352764,
     armortype: 3,
+    look: 2190352764,
   },
   Unique_Gloves_Set_01_p1: {
-    look: 2190352832,
     armortype: 5,
+    look: 2190352832,
   },
   Unique_Gloves_Set_01_p2: {
-    look: 2190352833,
     armortype: 5,
+    look: 2190352833,
   },
   Unique_Gloves_Set_01_p3: {
-    look: 2190352835,
     armortype: 5,
+    look: 2190352835,
   },
   Unique_Gloves_Set_02_p2: {
-    look: 2190352834,
     armortype: 3,
+    look: 2190352834,
   },
   Unique_Gloves_Set_02_p3: {
-    look: 2190352837,
     armortype: 5,
+    look: 2190352837,
   },
   Unique_Gloves_Set_03_p2: {
-    look: 2190352837,
     armortype: 5,
+    look: 2190352837,
   },
   Unique_Gloves_Set_03_p3: {
-    look: 2190352838,
     armortype: 5,
+    look: 2190352838,
   },
   Unique_Gloves_Set_05_x1: {
-    look: 2190352797,
     armortype: 3,
+    look: 2190352797,
   },
   Unique_Gloves_Set_06_x1: {
-    look: 2190352805,
     armortype: 3,
+    look: 2190352805,
   },
   Unique_Gloves_Set_07_x1: {
-    look: 2190352798,
     armortype: 3,
+    look: 2190352798,
   },
   Unique_Gloves_Set_08_x1: {
-    look: 2190352799,
     armortype: 3,
+    look: 2190352799,
   },
   Unique_Gloves_Set_09_x1: {
-    look: 2190352800,
     armortype: 3,
+    look: 2190352800,
   },
   Unique_Gloves_Set_10_x1: {
-    look: 2190352829,
     armortype: 3,
+    look: 2190352829,
   },
   Unique_Gloves_Set_11_x1: {
-    look: 2190352796,
     armortype: 3,
+    look: 2190352796,
   },
   Unique_Gloves_Set_12_x1: {
-    look: 2190352772,
     armortype: 5,
+    look: 2190352772,
   },
   Unique_Gloves_Set_13_x1: {
-    look: 2190352770,
     armortype: 5,
+    look: 2190352770,
   },
   Unique_Gloves_Set_14_x1: {
-    look: 2190352771,
     armortype: 3,
+    look: 2190352771,
   },
   Unique_Gloves_Set_15_x1: {
-    look: 2190352801,
     armortype: 3,
+    look: 2190352801,
   },
   Unique_Gloves_Set_16_x1: {
-    look: 2190352802,
     armortype: 5,
+    look: 2190352802,
   },
   Unique_HandXBow_001_x1: {
     actor: 211745,
@@ -1963,6 +4632,12 @@ DiabloCalc.webglItems = {
   Unique_HandXBow_102_x1: {
     actor: 271914,
   },
+  Unique_HandXBow_Promo_01_x1: {
+    actor: 337306,
+    name: "Quietus",
+    promo: true,
+    type: "handcrossbow",
+  },
   Unique_Helm_001_x1: {
     actor: {
       "238284": 288035,
@@ -1979,7 +4654,7 @@ DiabloCalc.webglItems = {
       "75207": 220618,
     },
   },
-  Unique_Helm_002_p1: {
+  Unique_Helm_002_p3: {
     actor: {
       "238284": 288034,
       "238286": 339936,
@@ -2238,6 +4913,44 @@ DiabloCalc.webglItems = {
       "75207": 355912,
     },
   },
+  Unique_Helm_Promo_01_x1: {
+    actor: {
+      "238284": 359439,
+      "238286": 359714,
+      "3285": 367868,
+      "3301": 368034,
+      "4717": 368366,
+      "4721": 368409,
+      "6481": 368585,
+      "6485": 368590,
+      "6526": 368562,
+      "6544": 368576,
+      "74706": 368298,
+      "75207": 368323,
+    },
+    name: "Hallowed Helm",
+    promo: true,
+    type: "helm",
+  },
+  Unique_Helm_Promo_02_x1: {
+    actor: {
+      "238284": 361646,
+      "238286": 367549,
+      "3285": 367558,
+      "3301": 367557,
+      "4717": 367555,
+      "4721": 367554,
+      "6481": 367553,
+      "6485": 367552,
+      "6526": 367551,
+      "6544": 367550,
+      "74706": 367556,
+      "75207": 359973,
+    },
+    name: "Death Mask",
+    promo: true,
+    type: "helm",
+  },
   Unique_Helm_Set_01_p1: {
     actor: {
       "238284": 404682,
@@ -2276,8 +4989,8 @@ DiabloCalc.webglItems = {
   },
   Unique_Helm_Set_03_p3: {
     actor: {
-      "238284": 440933,
-      "238286": 441050,
+      "238284": 440055,
+      "238286": 440239,
     },
   },
   Unique_Helm_Set_05_x1: {
@@ -2422,6 +5135,22 @@ DiabloCalc.webglItems = {
       "6544": 439185,
       "74706": 439334,
       "75207": 439357,
+    },
+  },
+  Unique_Helm_Set_14_x1: {
+    actor: {
+      "238284": 444072,
+      "238286": 444063,
+      "3285": 444006,
+      "3301": 443603,
+      "4717": 444351,
+      "4721": 444375,
+      "6481": 444045,
+      "6485": 444049,
+      "6526": 444057,
+      "6544": 444061,
+      "74706": 444013,
+      "75207": 444015,
     },
   },
   Unique_Helm_Set_15_x1: {
@@ -2570,6 +5299,12 @@ DiabloCalc.webglItems = {
   Unique_Mighty_2H_101_x1: {
     actor: 272012,
   },
+  Unique_Mighty_2H_Promo_01_x1: {
+    actor: 337314,
+    name: "Grim Reaper",
+    promo: true,
+    type: "mightyweapon2h",
+  },
   Unique_Mojo_002_x1: {
     actor: 194988,
   },
@@ -2596,6 +5331,9 @@ DiabloCalc.webglItems = {
   },
   Unique_Mojo_102_x1: {
     actor: 272070,
+  },
+  Unique_Offhand_001_x1: {
+    actor: 200476,
   },
   Unique_Orb_001_x1: {
     actor: 192320,
@@ -2624,136 +5362,150 @@ DiabloCalc.webglItems = {
   Unique_Orb_103_x1: {
     actor: 272038,
   },
+  Unique_Orb_Promo_01_x1: {
+    actor: 359418,
+    name: "Heart of Darkness",
+    promo: true,
+    type: "source",
+  },
   Unique_Orb_Set_06_x1: {
     actor: 358819,
   },
   Unique_Pants_001_x1: {
-    look: 2190352704,
     armortype: 3,
+    look: 2190352704,
   },
   Unique_Pants_002_x1: {
-    look: 2190352706,
     armortype: 3,
+    look: 2190352706,
   },
   Unique_Pants_005_x1: {
-    look: 2190352673,
     armortype: 1,
+    look: 2190352673,
   },
   Unique_Pants_006_p1: {
-    look: 2190352668,
     armortype: 1,
+    look: 2190352668,
   },
   Unique_Pants_006_x1: {
-    look: 2190352668,
     armortype: 1,
+    look: 2190352668,
   },
   Unique_Pants_007_p2: {
-    look: 2190352672,
     armortype: 1,
+    look: 2190352672,
   },
   Unique_Pants_007_x1: {
-    look: 2190352672,
     armortype: 1,
+    look: 2190352672,
   },
   Unique_Pants_008_x1: {
-    look: 2190352669,
     armortype: 5,
+    look: 2190352669,
   },
   Unique_Pants_009_x1: {
-    look: 2190352702,
     armortype: 3,
+    look: 2190352702,
   },
   Unique_Pants_010_x1: {
-    look: 2190352670,
     armortype: 1,
+    look: 2190352670,
   },
   Unique_Pants_012_x1: {
-    look: 2190352667,
     armortype: 1,
+    look: 2190352667,
   },
   Unique_Pants_013_x1: {
-    look: 2190352697,
     armortype: 1,
+    look: 2190352697,
   },
   Unique_Pants_014_x1: {
-    look: 2190352667,
     armortype: 5,
+    look: 2190352667,
   },
   Unique_Pants_101_x1: {
-    look: 2190352739,
     armortype: 3,
+    look: 2190352739,
   },
   Unique_Pants_102_x1: {
-    look: 2190352769,
     armortype: 5,
+    look: 2190352769,
   },
   Unique_Pants_Set_01_p1: {
-    look: 2190352832,
     armortype: 5,
+    look: 2190352832,
   },
   Unique_Pants_Set_01_p2: {
-    look: 2190352833,
     armortype: 5,
+    look: 2190352833,
   },
   Unique_Pants_Set_01_p3: {
-    look: 2190352835,
     armortype: 5,
+    look: 2190352835,
   },
   Unique_Pants_Set_02_p2: {
-    look: 2190352834,
     armortype: 3,
+    look: 2190352834,
   },
   Unique_Pants_Set_02_p3: {
-    look: 2190352837,
     armortype: 5,
+    look: 2190352837,
   },
   Unique_Pants_Set_03_p2: {
-    look: 2190352837,
     armortype: 5,
+    look: 2190352837,
   },
   Unique_Pants_Set_03_p3: {
-    look: 2190352838,
     armortype: 5,
+    look: 2190352838,
   },
   Unique_Pants_Set_05_x1: {
-    look: 2190352797,
     armortype: 3,
+    look: 2190352797,
   },
   Unique_Pants_Set_06_x1: {
-    look: 2190352805,
     armortype: 3,
+    look: 2190352805,
   },
   Unique_Pants_Set_07_x1: {
-    look: 2190352798,
     armortype: 3,
+    look: 2190352798,
   },
   Unique_Pants_Set_08_x1: {
-    look: 2190352799,
     armortype: 3,
+    look: 2190352799,
   },
   Unique_Pants_Set_09_x1: {
-    look: 2190352800,
     armortype: 3,
+    look: 2190352800,
   },
   Unique_Pants_Set_10_x1: {
-    look: 2190352829,
     armortype: 3,
+    look: 2190352829,
+  },
+  Unique_Pants_Set_11_x1: {
+    armortype: 3,
+    look: 2190352796,
+  },
+  Unique_Pants_Set_12_x1: {
+    armortype: 5,
+    look: 2190352772,
   },
   Unique_Pants_Set_13_x1: {
-    look: 2190352770,
     armortype: 5,
+    look: 2190352770,
   },
   Unique_Pants_Set_14_x1: {
-    look: 2190352771,
     armortype: 3,
+    look: 2190352771,
   },
   Unique_Pants_Set_15_x1: {
-    look: 2190352801,
     armortype: 3,
+    look: 2190352801,
   },
   Unique_Pants_Set_16_x1: {
-    look: 2190352802,
     armortype: 5,
+    look: 2190352802,
   },
   Unique_Polearm_001_x1: {
     actor: 195491,
@@ -2772,39 +5524,6 @@ DiabloCalc.webglItems = {
   },
   Unique_Polearm_101_x1: {
     actor: 272056,
-  },
-  Unique_Quiver_001_p1: {
-    actor: 197624,
-  },
-  Unique_Quiver_002_x1: {
-    actor: 197625,
-  },
-  Unique_Quiver_003_x1: {
-    actor: 197626,
-  },
-  Unique_Quiver_004_x1: {
-    actor: 197627,
-  },
-  Unique_Quiver_005_p1: {
-    actor: 197628,
-  },
-  Unique_Quiver_005_x1: {
-    actor: 197628,
-  },
-  Unique_Quiver_006_x1: {
-    actor: 197629,
-  },
-  Unique_Quiver_007_x1: {
-    actor: 197630,
-  },
-  Unique_Quiver_101_x1: {
-    actor: 298170,
-  },
-  Unique_Quiver_102_x1: {
-    actor: 298171,
-  },
-  Unique_Quiver_103_x1: {
-    actor: 298172,
   },
   Unique_Shield_002_x1: {
     actor: 197478,
@@ -2841,6 +5560,9 @@ DiabloCalc.webglItems = {
   },
   Unique_Shield_104_x1: {
     actor: 298188,
+  },
+  Unique_Shield_106_x1: {
+    actor: 298190,
   },
   Unique_Shield_107_x1: {
     actor: 298191,
@@ -3297,12 +6019,12 @@ DiabloCalc.webglItems = {
   },
   Unique_Shoulder_Set_03_p3: {
     actor: {
-      "238284": 441045,
-      "238286": 441047,
+      "238284": 440059,
+      "238286": 440241,
     },
     actor_r: {
-      "238284": 441046,
-      "238286": 441048,
+      "238284": 440060,
+      "238286": 440242,
     },
   },
   Unique_Shoulder_Set_05_x1: {
@@ -3525,6 +6247,36 @@ DiabloCalc.webglItems = {
       "75207": 439902,
     },
   },
+  Unique_Shoulder_Set_14_x1: {
+    actor: {
+      "238284": 444790,
+      "238286": 444786,
+      "3285": 444731,
+      "3301": 444724,
+      "4717": 445124,
+      "4721": 445119,
+      "6481": 445137,
+      "6485": 445128,
+      "6526": 444778,
+      "6544": 444782,
+      "74706": 444735,
+      "75207": 444774,
+    },
+    actor_r: {
+      "238284": 444791,
+      "238286": 444787,
+      "3285": 444732,
+      "3301": 444728,
+      "4717": 445125,
+      "4721": 445120,
+      "6481": 445138,
+      "6485": 445129,
+      "6526": 444779,
+      "6544": 444783,
+      "74706": 444736,
+      "75207": 444775,
+    },
+  },
   Unique_Shoulder_Set_15_x1: {
     actor: {
       "238284": 366448,
@@ -3635,12 +6387,6 @@ DiabloCalc.webglItems = {
       "4721": 144109,
     },
   },
-  Unique_SpiritStone_008_x1: {
-    actor: {
-      "4717": 144092,
-      "4721": 144107,
-    },
-  },
   Unique_SpiritStone_009_x1: {
     actor: {
       "4717": 144092,
@@ -3699,7 +6445,20 @@ DiabloCalc.webglItems = {
     actor: 271774,
   },
   Unique_Staff_104_x1: {
-    actor: 271775,
+    actor: {
+      "238284": 271775,
+      "238286": 271775,
+      "3285": 271775,
+      "3301": 271775,
+      "4717": 271775,
+      "4721": 271775,
+      "6481": 271775,
+      "6485": 443283,
+      "6526": 271775,
+      "6544": 271775,
+      "74706": 271775,
+      "75207": 271775,
+    },
   },
   Unique_Sword_1H_002_x1: {
     actor: 270978,
@@ -3746,11 +6505,23 @@ DiabloCalc.webglItems = {
   Unique_Sword_1H_104_x1: {
     actor: 271631,
   },
+  Unique_Sword_1H_107_x1: {
+    actor: 271634,
+  },
   Unique_Sword_1H_109_x1: {
     actor: 271636,
   },
+  Unique_Sword_1H_112_x1: {
+    actor: 331908,
+  },
   Unique_Sword_1H_113_x1: {
     actor: 410946,
+  },
+  Unique_Sword_1H_Promo_01_x1: {
+    actor: 337282,
+    name: "Lifebane",
+    promo: true,
+    type: "sword",
   },
   Unique_Sword_1H_Promo_02_x1: {
     actor: {
@@ -3954,4400 +6725,146 @@ DiabloCalc.webglItems = {
   Unique_Xbow_102_x1: {
     actor: 271889,
   },
-  Axe_1H_000: {
-    actor: 3245,
-    type: "axe",
-    name: "Weathered Hand Axe",
-  },
-  Axe_1H_001: {
-    actor: 3245,
-    type: "axe",
-    name: "Hand Axe",
-  },
-  Axe_1H_002: {
-    actor: 3246,
-    type: "axe",
-    name: "Broad Axe",
-  },
-  Axe_1H_003: {
-    actor: 3247,
-    type: "axe",
-    name: "Double Axe",
-  },
-  Axe_1H_004: {
-    actor: 3248,
-    type: "axe",
-    name: "Heavy Axe",
-  },
-  Axe_1H_005: {
-    actor: 3249,
-    type: "axe",
-    name: "Battle Axe",
-  },
-  Axe_1H_006: {
-    actor: 3250,
-    type: "axe",
-    name: "Marauder Axe",
-  },
-  Axe_1H_007: {
-    actor: 3251,
-    type: "axe",
-    name: "Soldier Axe",
-  },
-  Axe_1H_101: {
-    actor: 3245,
-    type: "axe",
-    name: "Hatchet",
-  },
-  Axe_1H_102: {
-    actor: 3246,
-    type: "axe",
-    name: "Ono",
-  },
-  Axe_1H_103: {
-    actor: 3247,
-    type: "axe",
-    name: "Bullova",
-  },
-  Axe_1H_104: {
-    actor: 3248,
-    type: "axe",
-    name: "Adze",
-  },
-  Axe_1H_105: {
-    actor: 3249,
-    type: "axe",
-    name: "Chopper",
-  },
-  Axe_1H_106: {
-    actor: 3250,
-    type: "axe",
-    name: "Toporok",
-  },
-  Axe_1H_107: {
-    actor: 3251,
-    type: "axe",
-    name: "Masakari",
-  },
-  Axe_1H_201: {
-    actor: 3245,
-    type: "axe",
-    name: "Tomahawk",
-  },
-  Axe_1H_202: {
-    actor: 3246,
-    type: "axe",
-    name: "Crescent Axe",
-  },
-  Axe_1H_203: {
-    actor: 3247,
-    type: "axe",
-    name: "Arreat Axe",
-  },
-  Axe_1H_204: {
-    actor: 3248,
-    type: "axe",
-    name: "Balestarius",
-  },
-  Axe_1H_205: {
-    actor: 3249,
-    type: "axe",
-    name: "Skartaran Axe",
-  },
-  Axe_1H_206: {
-    actor: 3250,
-    type: "axe",
-    name: "Galraki",
-  },
-  Axe_1H_207: {
-    actor: 3251,
-    type: "axe",
-    name: "Arch Axe",
-  },
-  Axe_1H_301: {
-    actor: 335155,
-    type: "axe",
-    name: "Executioner's Axe",
-  },
-  Axe_1H_302: {
-    actor: 367143,
-    type: "axe",
-    name: "Dire Axe",
-  },
-  Axe_2H_001: {
-    actor: 6319,
-    type: "axe2h",
-    name: "Lumber Axe",
-  },
-  Axe_2H_002: {
-    actor: 6320,
-    type: "axe2h",
-    name: "War Axe",
-  },
-  Axe_2H_003: {
-    actor: 6321,
-    type: "axe2h",
-    name: "Tabarzin",
-  },
-  Axe_2H_004: {
-    actor: 6322,
-    type: "axe2h",
-    name: "Military Axe",
-  },
-  Axe_2H_005: {
-    actor: 6323,
-    type: "axe2h",
-    name: "Great Axe",
-  },
-  Axe_2H_101: {
-    actor: 6319,
-    type: "axe2h",
-    name: "Timber Axe",
-  },
-  Axe_2H_102: {
-    actor: 6320,
-    type: "axe2h",
-    name: "Francisca",
-  },
-  Axe_2H_103: {
-    actor: 6321,
-    type: "axe2h",
-    name: "Fang Axe",
-  },
-  Axe_2H_104: {
-    actor: 6322,
-    type: "axe2h",
-    name: "Parashu",
-  },
-  Axe_2H_105: {
-    actor: 6323,
-    type: "axe2h",
-    name: "Labrys",
-  },
-  Axe_2H_201: {
-    actor: 6319,
-    type: "axe2h",
-    name: "Fell Axe",
-  },
-  Axe_2H_202: {
-    actor: 6320,
-    type: "axe2h",
-    name: "Valaska",
-  },
-  Axe_2H_203: {
-    actor: 6321,
-    type: "axe2h",
-    name: "Ripper Axe",
-  },
-  Axe_2H_204: {
-    actor: 6322,
-    type: "axe2h",
-    name: "Sagaris",
-  },
-  Axe_2H_205: {
-    actor: 6323,
-    type: "axe2h",
-    name: "Decapitator",
-  },
-  Axe_2H_301: {
-    actor: 335159,
-    type: "axe2h",
-    name: "Dread Axe",
-  },
-  Axe_2H_302: {
-    actor: 367145,
-    type: "axe2h",
-    name: "Flesh Render",
-  },
-  Boots_001: {
-    type: "boots",
-    look: 66,
-    name: "Shoes",
-    armortype: 0,
-  },
-  Boots_002: {
-    type: "boots",
-    look: 65,
-    name: "Boots",
-    armortype: 1,
-  },
-  Boots_003: {
-    type: "boots",
-    look: 66,
-    name: "Heavy Boots",
-    armortype: 1,
-  },
-  Boots_004: {
-    type: "boots",
-    look: 65,
-    name: "Chain Boots",
-    armortype: 3,
-  },
-  Boots_005: {
-    type: "boots",
-    look: 66,
-    name: "Sabatons",
-    armortype: 3,
-  },
-  Boots_006: {
-    type: "boots",
-    look: 65,
-    name: "Greaves",
-    armortype: 5,
-  },
-  Boots_101: {
-    type: "boots",
-    look: 67,
-    name: "Silk Shoes",
-    armortype: 1,
-  },
-  Boots_102: {
-    type: "boots",
-    look: 68,
-    name: "Brogans",
-    armortype: 1,
-  },
-  Boots_103: {
-    type: "boots",
-    look: 67,
-    name: "Treads",
-    armortype: 3,
-  },
-  Boots_104: {
-    type: "boots",
-    look: 68,
-    name: "Heavy Sabatons",
-    armortype: 3,
-  },
-  Boots_105: {
-    type: "boots",
-    look: 68,
-    name: "Battle Greaves",
-    armortype: 5,
-  },
-  Boots_201: {
-    type: "boots",
-    look: 70,
-    name: "Balor Treads",
-    armortype: 3,
-  },
-  Boots_202: {
-    type: "boots",
-    look: 71,
-    name: "Astral Greaves",
-    armortype: 3,
-  },
-  Boots_203: {
-    type: "boots",
-    look: 70,
-    name: "Warlord Boots",
-    armortype: 5,
-  },
-  Boots_204: {
-    type: "boots",
-    look: 71,
-    name: "Doom Treads",
-    armortype: 5,
-  },
-  Boots_205: {
-    type: "boots",
-    look: 72,
-    name: "Sovereign Greaves",
-    armortype: 5,
-  },
-  Boots_206: {
-    type: "boots",
-    look: 73,
-    name: "Archon Greaves",
-    armortype: 5,
-  },
-  Boots_207: {
-    type: "boots",
-    look: 72,
-    name: "Rakkisgard Greaves",
-    armortype: 3,
-  },
-  Boots_208: {
-    type: "boots",
-    look: 74,
-    name: "Ascended Greaves",
-    armortype: 5,
-  },
-  Bow_001: {
-    actor: 3445,
-    type: "bow",
-    name: "Short Bow",
-  },
-  Bow_002: {
-    actor: 3446,
-    type: "bow",
-    name: "Warden Bow",
-  },
-  Bow_003: {
-    actor: 3447,
-    type: "bow",
-    name: "Long Bow",
-  },
-  Bow_004: {
-    actor: 3448,
-    type: "bow",
-    name: "Recurve Bow",
-  },
-  Bow_005: {
-    actor: 3449,
-    type: "bow",
-    name: "Hunting Bow",
-  },
-  Bow_006: {
-    actor: 3450,
-    type: "bow",
-    name: "Battle Bow",
-  },
-  Bow_101: {
-    actor: 3445,
-    type: "bow",
-    name: "Siege Bow",
-  },
-  Bow_102: {
-    actor: 3446,
-    type: "bow",
-    name: "Maruki",
-  },
-  Bow_103: {
-    actor: 3447,
-    type: "bow",
-    name: "Yumi",
-  },
-  Bow_104: {
-    actor: 3448,
-    type: "bow",
-    name: "Composite Bow",
-  },
-  Bow_105: {
-    actor: 3449,
-    type: "bow",
-    name: "Daikyu",
-  },
-  Bow_106: {
-    actor: 3450,
-    type: "bow",
-    name: "Hankyu",
-  },
-  Bow_201: {
-    actor: 3445,
-    type: "bow",
-    name: "Higoyumi",
-  },
-  Bow_202: {
-    actor: 3446,
-    type: "bow",
-    name: "Ranger Bow",
-  },
-  Bow_203: {
-    actor: 3447,
-    type: "bow",
-    name: "Longshot Bow",
-  },
-  Bow_204: {
-    actor: 3448,
-    type: "bow",
-    name: "Sniper Bow",
-  },
-  Bow_205: {
-    actor: 3449,
-    type: "bow",
-    name: "Phantom Bow",
-  },
-  Bow_206: {
-    actor: 3450,
-    type: "bow",
-    name: "Revenant Bow",
-  },
-  Bow_301: {
-    actor: 335186,
-    type: "bow",
-    name: "Twinbow",
-  },
-  Bow_302: {
-    actor: 367157,
-    type: "bow",
-    name: "Doubleshot",
-  },
-  CeremonialDagger_1H_000: {
-    actor: 139102,
-    type: "ceremonialknife",
-    name: "Simple Knife",
-  },
-  CeremonialDagger_1H_001: {
-    actor: 139102,
-    type: "ceremonialknife",
-    name: "Stone Knife",
-  },
-  CeremonialDagger_1H_002: {
-    actor: 139105,
-    type: "ceremonialknife",
-    name: "Kris Blade",
-  },
-  CeremonialDagger_1H_003: {
-    actor: 139106,
-    type: "ceremonialknife",
-    name: "Jagged Edge",
-  },
-  CeremonialDagger_1H_004: {
-    actor: 139107,
-    type: "ceremonialknife",
-    name: "Flint Knife",
-  },
-  CeremonialDagger_1H_101: {
-    actor: 139102,
-    type: "ceremonialknife",
-    name: "Sacrifice Blade",
-  },
-  CeremonialDagger_1H_102: {
-    actor: 139105,
-    type: "ceremonialknife",
-    name: "Flayer",
-  },
-  CeremonialDagger_1H_103: {
-    actor: 139106,
-    type: "ceremonialknife",
-    name: "Bone Saw",
-  },
-  CeremonialDagger_1H_104: {
-    actor: 139107,
-    type: "ceremonialknife",
-    name: "Beast Tusk",
-  },
-  CeremonialDagger_1H_201: {
-    actor: 139102,
-    type: "ceremonialknife",
-    name: "Scalping Razor",
-  },
-  CeremonialDagger_1H_202: {
-    actor: 139105,
-    type: "ceremonialknife",
-    name: "Obsidian Edge",
-  },
-  CeremonialDagger_1H_203: {
-    actor: 139106,
-    type: "ceremonialknife",
-    name: "Skin Cutter",
-  },
-  CeremonialDagger_1H_204: {
-    actor: 139105,
-    type: "ceremonialknife",
-    name: "Exquisite Knife",
-  },
-  CeremonialDagger_1H_205: {
-    actor: 139106,
-    type: "ceremonialknife",
-    name: "Flesh Ripper",
-  },
-  CeremonialDagger_1H_206: {
-    actor: 139107,
-    type: "ceremonialknife",
-    name: "Veil Piercer",
-  },
-  CeremonialDagger_1H_301: {
-    actor: 326811,
-    type: "ceremonialknife",
-    name: "Obsidian Skiver",
-  },
-  CeremonialDagger_1H_302: {
-    actor: 367198,
-    type: "ceremonialknife",
-    name: "Tecpatl",
-  },
-  ChestArmor_001: {
-    type: "chestarmor",
-    look: 66,
-    name: "Cloth Tunic",
-    armortype: 0,
-  },
-  ChestArmor_002: {
-    type: "chestarmor",
-    look: 65,
-    name: "Leather Doublet",
-    armortype: 1,
-  },
-  ChestArmor_003: {
-    type: "chestarmor",
-    look: 66,
-    name: "Brigandine Coat",
-    armortype: 1,
-  },
-  ChestArmor_004: {
-    type: "chestarmor",
-    look: 65,
-    name: "Chain Mail",
-    armortype: 4,
-  },
-  ChestArmor_005: {
-    type: "chestarmor",
-    look: 66,
-    name: "Splint Cuirass",
-    armortype: 4,
-  },
-  ChestArmor_006: {
-    type: "chestarmor",
-    look: 65,
-    name: "Plate Mail",
-    armortype: 5,
-  },
-  ChestArmor_101: {
-    type: "chestarmor",
-    look: 67,
-    name: "Stygian Harness",
-    armortype: 1,
-  },
-  ChestArmor_102: {
-    type: "chestarmor",
-    look: 68,
-    name: "Etched Jacket",
-    armortype: 1,
-  },
-  ChestArmor_103: {
-    type: "chestarmor",
-    look: 67,
-    name: "Jazeraint Mail",
-    armortype: 8,
-  },
-  ChestArmor_104: {
-    type: "chestarmor",
-    look: 68,
-    name: "Battle Armor",
-    armortype: 3,
-  },
-  ChestArmor_105: {
-    type: "chestarmor",
-    look: 68,
-    name: "Boneweave Hauberk",
-    armortype: 5,
-  },
-  ChestArmor_201: {
-    type: "chestarmor",
-    look: 70,
-    name: "Balor Armor",
-    armortype: 3,
-  },
-  ChestArmor_202: {
-    type: "chestarmor",
-    look: 71,
-    name: "Astral Mail",
-    armortype: 3,
-  },
-  ChestArmor_203: {
-    type: "chestarmor",
-    look: 70,
-    name: "Warlord Plate",
-    armortype: 5,
-  },
-  ChestArmor_204: {
-    type: "chestarmor",
-    look: 71,
-    name: "Doom Armor",
-    armortype: 5,
-  },
-  ChestArmor_205: {
-    type: "chestarmor",
-    look: 72,
-    name: "Sovereign Mail",
-    armortype: 5,
-  },
-  ChestArmor_206: {
-    type: "chestarmor",
-    look: 73,
-    name: "Archon Armor",
-    armortype: 5,
-  },
-  ChestArmor_207: {
-    type: "chestarmor",
-    look: 72,
-    name: "Rakkisgard Armor",
-    armortype: 3,
-  },
-  ChestArmor_208: {
-    type: "chestarmor",
-    look: 74,
-    name: "Ascended Armor",
-    armortype: 9,
-  },
-  Cloak_001: {
-    type: "cloak",
-    look: 65,
-    name: "Hunter Cloak",
-    armortype: 10,
-  },
-  Cloak_002: {
-    type: "cloak",
-    look: 65,
-    name: "Shroud",
-    armortype: 13,
-  },
-  Cloak_003: {
-    type: "cloak",
-    look: 65,
-    name: "Cape",
-    armortype: 14,
-  },
-  Cloak_004: {
-    type: "cloak",
-    look: 65,
-    name: "Tabard",
-    armortype: 16,
-  },
-  Cloak_101: {
-    type: "cloak",
-    look: 65,
-    name: "Wrap",
-    armortype: 10,
-  },
-  Cloak_102: {
-    type: "cloak",
-    look: 65,
-    name: "Lurker Shroud",
-    armortype: 13,
-  },
-  Cloak_103: {
-    type: "cloak",
-    look: 65,
-    name: "Talma",
-    armortype: 14,
-  },
-  Cloak_104: {
-    type: "cloak",
-    look: 65,
-    name: "Cardinal",
-    armortype: 16,
-  },
-  Cloak_201: {
-    type: "cloak",
-    look: 65,
-    name: "Veteran Cloak",
-    armortype: 10,
-  },
-  Cloak_202: {
-    type: "cloak",
-    look: 65,
-    name: "Death Shroud",
-    armortype: 13,
-  },
-  Cloak_203: {
-    type: "cloak",
-    look: 65,
-    name: "Stalker Cape",
-    armortype: 14,
-  },
-  Cloak_204: {
-    type: "cloak",
-    look: 65,
-    name: "Dread Cloak",
-    armortype: 16,
-  },
-  Cloak_205: {
-    type: "cloak",
-    look: 68,
-    name: "Rakkisgard Cloak",
-    armortype: 14,
-  },
-  Cloak_206: {
-    type: "cloak",
-    look: 69,
-    name: "Ascended Cloak",
-    armortype: 14,
-  },
-  CombatStaff_2H_001: {
-    actor: 3835,
-    type: "daibo",
-    name: "Wooden Bo",
-  },
-  CombatStaff_2H_002: {
-    actor: 3836,
-    type: "daibo",
-    name: "Spade",
-  },
-  CombatStaff_2H_003: {
-    actor: 3837,
-    type: "daibo",
-    name: "Eiku",
-  },
-  CombatStaff_2H_004: {
-    actor: 3838,
-    type: "daibo",
-    name: "Taiji",
-  },
-  CombatStaff_2H_101: {
-    actor: 3835,
-    type: "daibo",
-    name: "Jodo Staff",
-  },
-  CombatStaff_2H_102: {
-    actor: 3836,
-    type: "daibo",
-    name: "Sibat",
-  },
-  CombatStaff_2H_103: {
-    actor: 3837,
-    type: "daibo",
-    name: "Trost",
-  },
-  CombatStaff_2H_104: {
-    actor: 3838,
-    type: "daibo",
-    name: "Svardstav",
-  },
-  CombatStaff_2H_201: {
-    actor: 3835,
-    type: "daibo",
-    name: "Lathi",
-  },
-  CombatStaff_2H_202: {
-    actor: 3836,
-    type: "daibo",
-    name: "Silambam",
-  },
-  CombatStaff_2H_203: {
-    actor: 3837,
-    type: "daibo",
-    name: "Drevko",
-  },
-  CombatStaff_2H_204: {
-    actor: 3836,
-    type: "daibo",
-    name: "Grand Taiji",
-  },
-  CombatStaff_2H_205: {
-    actor: 3837,
-    type: "daibo",
-    name: "Zhezl",
-  },
-  CombatStaff_2H_206: {
-    actor: 3838,
-    type: "daibo",
-    name: "Guru Staff",
-  },
-  CombatStaff_2H_301: {
-    actor: 327966,
-    type: "daibo",
-    name: "Iron Judgement",
-  },
-  CombatStaff_2H_302: {
-    actor: 367191,
-    type: "daibo",
-    name: "Whirlwind Staff",
-  },
-  Crossbow_001: {
-    actor: 497,
-    type: "crossbow",
-    name: "Light Crossbow",
-  },
-  Crossbow_002: {
-    actor: 6611,
-    type: "crossbow",
-    name: "Crossbow",
-  },
-  Crossbow_003: {
-    actor: 6612,
-    type: "crossbow",
-    name: "Heavy Crossbow",
-  },
-  Crossbow_004: {
-    actor: 6613,
-    type: "crossbow",
-    name: "Arbalest",
-  },
-  Crossbow_005: {
-    actor: 6614,
-    type: "crossbow",
-    name: "Lian Nu",
-  },
-  Crossbow_006: {
-    actor: 6615,
-    type: "crossbow",
-    name: "War Crossbow",
-  },
-  Crossbow_007: {
-    actor: 98159,
-    type: "crossbow",
-    name: "Porcupine",
-  },
-  Crossbow_101: {
-    actor: 497,
-    type: "crossbow",
-    name: "Siege Crossbow",
-  },
-  Crossbow_102: {
-    actor: 6611,
-    type: "crossbow",
-    name: "Quarrelbow",
-  },
-  Crossbow_103: {
-    actor: 6612,
-    type: "crossbow",
-    name: "Heavy Siege Crossbow",
-  },
-  Crossbow_104: {
-    actor: 6613,
-    type: "crossbow",
-    name: "Slingbow",
-  },
-  Crossbow_105: {
-    actor: 6614,
-    type: "crossbow",
-    name: "Chokonu",
-  },
-  Crossbow_106: {
-    actor: 6615,
-    type: "crossbow",
-    name: "War Caster",
-  },
-  Crossbow_107: {
-    actor: 98159,
-    type: "crossbow",
-    name: "Scorpion",
-  },
-  Crossbow_201: {
-    actor: 497,
-    type: "crossbow",
-    name: "Windlass",
-  },
-  Crossbow_202: {
-    actor: 6611,
-    type: "crossbow",
-    name: "Cranequin",
-  },
-  Crossbow_203: {
-    actor: 6612,
-    type: "crossbow",
-    name: "Dread Crossbow",
-  },
-  Crossbow_204: {
-    actor: 6613,
-    type: "crossbow",
-    name: "Nayin",
-  },
-  Crossbow_205: {
-    actor: 6614,
-    type: "crossbow",
-    name: "Stonebow",
-  },
-  Crossbow_206: {
-    actor: 6615,
-    type: "crossbow",
-    name: "Doomcaster",
-  },
-  Crossbow_207: {
-    actor: 98159,
-    type: "crossbow",
-    name: "Hellion Crossbow",
-  },
-  Crossbow_301: {
-    actor: 335189,
-    type: "crossbow",
-    name: "Rampart Bow",
-  },
-  Crossbow_302: {
-    actor: 367159,
-    type: "crossbow",
-    name: "Oxybeles",
-  },
-  CrusaderShield_000: {
-    actor: 305908,
-    type: "crusadershield",
-    name: "Crusader Shield",
-  },
-  CrusaderShield_001: {
-    actor: 305908,
-    type: "crusadershield",
-    name: "Crusader Shield",
-  },
-  CrusaderShield_002: {
-    actor: 314462,
-    type: "crusadershield",
-    name: "Sacred Scutum",
-  },
-  CrusaderShield_003: {
-    actor: 335031,
-    type: "crusadershield",
-    name: "Royal Shield",
-  },
-  CrusaderShield_004: {
-    actor: 335034,
-    type: "crusadershield",
-    name: "Heraldic Heater",
-  },
-  CrusaderShield_005: {
-    actor: 335035,
-    type: "crusadershield",
-    name: "Embossed Shield",
-  },
-  CrusaderShield_006: {
-    actor: 335036,
-    type: "crusadershield",
-    name: "Protector Shield",
-  },
-  CrusaderShield_007: {
-    actor: 335037,
-    type: "crusadershield",
-    name: "Crown Shield",
-  },
-  CrusaderShield_101: {
-    actor: 305908,
-    type: "crusadershield",
-    name: "Gilded Shield",
-  },
-  CrusaderShield_102: {
-    actor: 314462,
-    type: "crusadershield",
-    name: "Wall Shield",
-  },
-  CrusaderShield_103: {
-    actor: 335031,
-    type: "crusadershield",
-    name: "Zakara Heater",
-  },
-  CrusaderShield_104: {
-    actor: 335034,
-    type: "crusadershield",
-    name: "Blazoned Shield",
-  },
-  CrusaderShield_105: {
-    actor: 335035,
-    type: "crusadershield",
-    name: "Chased Shield",
-  },
-  CrusaderShield_106: {
-    actor: 335036,
-    type: "crusadershield",
-    name: "Conquest Shield",
-  },
-  CrusaderShield_107: {
-    actor: 335037,
-    type: "crusadershield",
-    name: "Imperial Kite",
-  },
-  CrusaderShield_201: {
-    actor: 314462,
-    type: "crusadershield",
-    name: "Righteous Defender",
-  },
-  CrusaderShield_202: {
-    actor: 335031,
-    type: "crusadershield",
-    name: "Enduring Guardian",
-  },
-  CrusaderShield_203: {
-    actor: 335034,
-    type: "crusadershield",
-    name: "Zealous Protector",
-  },
-  CrusaderShield_204: {
-    actor: 335035,
-    type: "crusadershield",
-    name: "Raptor Shield",
-  },
-  CrusaderShield_205: {
-    actor: 335036,
-    type: "crusadershield",
-    name: "Adamantine Blason",
-  },
-  CrusaderShield_206: {
-    actor: 335037,
-    type: "crusadershield",
-    name: "Heavy Shield",
-  },
-  CrusaderShield_207: {
-    actor: 367175,
-    type: "crusadershield",
-    name: "Stalwart Guardian",
-  },
-  Dagger_001: {
-    actor: 3903,
-    type: "dagger",
-    name: "Simple Dagger",
-  },
-  Dagger_002: {
-    actor: 3904,
-    type: "dagger",
-    name: "Shiv",
-  },
-  Dagger_003: {
-    actor: 3905,
-    type: "dagger",
-    name: "Short Dagger",
-  },
-  Dagger_004: {
-    actor: 3906,
-    type: "dagger",
-    name: "Dagger",
-  },
-  Dagger_005: {
-    actor: 3907,
-    type: "dagger",
-    name: "Poignard",
-  },
-  Dagger_006: {
-    actor: 3908,
-    type: "dagger",
-    name: "Stiletto",
-  },
-  Dagger_007: {
-    actor: 3909,
-    type: "dagger",
-    name: "Skiver",
-  },
-  Dagger_101: {
-    actor: 3903,
-    type: "dagger",
-    name: "Jagged Dagger",
-  },
-  Dagger_102: {
-    actor: 3904,
-    type: "dagger",
-    name: "Kindjal",
-  },
-  Dagger_103: {
-    actor: 3905,
-    type: "dagger",
-    name: "Pugio",
-  },
-  Dagger_104: {
-    actor: 3906,
-    type: "dagger",
-    name: "Rondel",
-  },
-  Dagger_105: {
-    actor: 3907,
-    type: "dagger",
-    name: "Scramasax",
-  },
-  Dagger_106: {
-    actor: 3908,
-    type: "dagger",
-    name: "Main Gauche",
-  },
-  Dagger_107: {
-    actor: 3909,
-    type: "dagger",
-    name: "Spine",
-  },
-  Dagger_201: {
-    actor: 3903,
-    type: "dagger",
-    name: "Kukri",
-  },
-  Dagger_202: {
-    actor: 3904,
-    type: "dagger",
-    name: "Pavade",
-  },
-  Dagger_203: {
-    actor: 3905,
-    type: "dagger",
-    name: "Cinquedea",
-  },
-  Dagger_204: {
-    actor: 3906,
-    type: "dagger",
-    name: "Skain",
-  },
-  Dagger_205: {
-    actor: 3907,
-    type: "dagger",
-    name: "Basilard",
-  },
-  Dagger_206: {
-    actor: 3908,
-    type: "dagger",
-    name: "Piercer",
-  },
-  Dagger_207: {
-    actor: 3909,
-    type: "dagger",
-    name: "Darkblade",
-  },
-  Dagger_301: {
-    actor: 335128,
-    type: "dagger",
-    name: "Kingsport Blade",
-  },
-  Dagger_302: {
-    actor: 367136,
-    type: "dagger",
-    name: "Punyal",
-  },
-  FistWeapon_1H_000: {
-    actor: {
-      "4717": 205388,
-      "4721": 4133,
-    },
-    type: "fistweapon",
-    name: "Worn Knuckles",
-  },
-  FistWeapon_1H_001: {
-    actor: {
-      "4717": 205388,
-      "4721": 4133,
-    },
-    type: "fistweapon",
-    name: "Knuckles",
-  },
-  FistWeapon_1H_002: {
-    actor: {
-      "4717": 205400,
-      "4721": 4134,
-    },
-    type: "fistweapon",
-    name: "Spikes",
-  },
-  FistWeapon_1H_003: {
-    actor: {
-      "4717": 205413,
-      "4721": 4135,
-    },
-    type: "fistweapon",
-    name: "Talon",
-  },
-  FistWeapon_1H_004: {
-    actor: {
-      "4717": 205419,
-      "4721": 4136,
-    },
-    type: "fistweapon",
-    name: "Shuko",
-  },
-  FistWeapon_1H_101: {
-    actor: {
-      "4717": 205388,
-      "4721": 4133,
-    },
-    type: "fistweapon",
-    name: "Breaker",
-  },
-  FistWeapon_1H_102: {
-    actor: {
-      "4717": 205400,
-      "4721": 4134,
-    },
-    type: "fistweapon",
-    name: "Iron Fist",
-  },
-  FistWeapon_1H_103: {
-    actor: {
-      "4717": 205413,
-      "4721": 4135,
-    },
-    type: "fistweapon",
-    name: "Claw",
-  },
-  FistWeapon_1H_104: {
-    actor: {
-      "4717": 205419,
-      "4721": 4136,
-    },
-    type: "fistweapon",
-    name: "Kastet",
-  },
-  FistWeapon_1H_201: {
-    actor: {
-      "4717": 205388,
-      "4721": 4133,
-    },
-    type: "fistweapon",
-    name: "Grappler",
-  },
-  FistWeapon_1H_202: {
-    actor: {
-      "4717": 205400,
-      "4721": 4134,
-    },
-    type: "fistweapon",
-    name: "Hammer Hand",
-  },
-  FistWeapon_1H_203: {
-    actor: {
-      "4717": 205413,
-      "4721": 4135,
-    },
-    type: "fistweapon",
-    name: "Demon Fang",
-  },
-  FistWeapon_1H_204: {
-    actor: {
-      "4717": 205400,
-      "4721": 4134,
-    },
-    type: "fistweapon",
-    name: "Pulverizer",
-  },
-  FistWeapon_1H_205: {
-    actor: {
-      "4717": 205413,
-      "4721": 4135,
-    },
-    type: "fistweapon",
-    name: "Golden Talon",
-  },
-  FistWeapon_1H_206: {
-    actor: {
-      "4717": 205419,
-      "4721": 4136,
-    },
-    type: "fistweapon",
-    name: "Heaven Hand",
-  },
-  FistWeapon_1H_301: {
-    actor: 328572,
-    type: "fistweapon",
-    name: "Spiked Fist",
-  },
-  FistWeapon_1H_302: {
-    actor: 367193,
-    type: "fistweapon",
-    name: "Suwaiya",
-  },
-  Flail_1H_000: {
-    actor: 246811,
-    type: "flail",
-    name: "Rusty Flail",
-  },
-  Flail_1H_001: {
-    actor: 246811,
-    type: "flail",
-    name: "Spiked Flail",
-  },
-  Flail_1H_002: {
-    actor: 247378,
-    type: "flail",
-    name: "Iron Whip",
-  },
-  Flail_1H_003: {
-    actor: 247379,
-    type: "flail",
-    name: "Barbed Flail",
-  },
-  Flail_1H_004: {
-    actor: 247380,
-    type: "flail",
-    name: "Thresher",
-  },
-  Flail_1H_005: {
-    actor: 247381,
-    type: "flail",
-    name: "Flail",
-  },
-  Flail_1H_101: {
-    actor: 246811,
-    type: "flail",
-    name: "Ball and Chain",
-  },
-  Flail_1H_102: {
-    actor: 247378,
-    type: "flail",
-    name: "Chain Mace",
-  },
-  Flail_1H_103: {
-    actor: 247379,
-    type: "flail",
-    name: "Shredder",
-  },
-  Flail_1H_104: {
-    actor: 247380,
-    type: "flail",
-    name: "Imposing Flail",
-  },
-  Flail_1H_105: {
-    actor: 247381,
-    type: "flail",
-    name: "Royal Guardian",
-  },
-  Flail_1H_201: {
-    actor: 246811,
-    type: "flail",
-    name: "Painbringer",
-  },
-  Flail_1H_202: {
-    actor: 247378,
-    type: "flail",
-    name: "Knout",
-  },
-  Flail_1H_203: {
-    actor: 247379,
-    type: "flail",
-    name: "Wicked Flail",
-  },
-  Flail_1H_204: {
-    actor: 247380,
-    type: "flail",
-    name: "Giant's Flail",
-  },
-  Flail_1H_205: {
-    actor: 247381,
-    type: "flail",
-    name: "Grandfather Flail",
-  },
-  Flail_2H_001: {
-    actor: 247307,
-    type: "flail2h",
-    name: "Chang Xiao Bang",
-  },
-  Flail_2H_002: {
-    actor: 247384,
-    type: "flail2h",
-    name: "Battle Flail",
-  },
-  Flail_2H_003: {
-    actor: 247385,
-    type: "flail2h",
-    name: "Grand Thresher",
-  },
-  Flail_2H_004: {
-    actor: 247386,
-    type: "flail2h",
-    name: "Two-Handed Flail",
-  },
-  Flail_2H_005: {
-    actor: 247387,
-    type: "flail2h",
-    name: "Castigator",
-  },
-  Flail_2H_101: {
-    actor: 247307,
-    type: "flail2h",
-    name: "Pyeongon",
-  },
-  Flail_2H_102: {
-    actor: 247384,
-    type: "flail2h",
-    name: "Chigiriki",
-  },
-  Flail_2H_103: {
-    actor: 247385,
-    type: "flail2h",
-    name: "Threshal",
-  },
-  Flail_2H_104: {
-    actor: 247386,
-    type: "flail2h",
-    name: "Grand Flail",
-  },
-  Flail_2H_105: {
-    actor: 247387,
-    type: "flail2h",
-    name: "Angelic Flail",
-  },
-  Flail_2H_201: {
-    actor: 247307,
-    type: "flail2h",
-    name: "Campaigner's Grand Flail",
-  },
-  Flail_2H_202: {
-    actor: 247384,
-    type: "flail2h",
-    name: "Bludgeoning Grand Flail",
-  },
-  Flail_2H_203: {
-    actor: 247385,
-    type: "flail2h",
-    name: "Painbringer Grand Flail",
-  },
-  Flail_2H_204: {
-    actor: 247386,
-    type: "flail2h",
-    name: "Baroque Grand Flail",
-  },
-  Flail_2H_205: {
-    actor: 247387,
-    type: "flail2h",
-    name: "Angelic Grand Flail",
-  },
-  Gloves_001: {
-    type: "gloves",
-    look: 66,
-    name: "Gloves",
-    armortype: 0,
-  },
-  Gloves_002: {
-    type: "gloves",
-    look: 65,
-    name: "Leather Gloves",
-    armortype: 1,
-  },
-  Gloves_003: {
-    type: "gloves",
-    look: 66,
-    name: "Hide Gloves",
-    armortype: 1,
-  },
-  Gloves_004: {
-    type: "gloves",
-    look: 65,
-    name: "Chain Gloves",
-    armortype: 3,
-  },
-  Gloves_005: {
-    type: "gloves",
-    look: 66,
-    name: "Gauntlets",
-    armortype: 3,
-  },
-  Gloves_006: {
-    type: "gloves",
-    look: 65,
-    name: "Plated Gauntlets",
-    armortype: 5,
-  },
-  Gloves_101: {
-    type: "gloves",
-    look: 67,
-    name: "Grips",
-    armortype: 1,
-  },
-  Gloves_102: {
-    type: "gloves",
-    look: 68,
-    name: "Etched Gloves",
-    armortype: 1,
-  },
-  Gloves_103: {
-    type: "gloves",
-    look: 67,
-    name: "Vambraces",
-    armortype: 3,
-  },
-  Gloves_104: {
-    type: "gloves",
-    look: 68,
-    name: "Battle Gauntlets",
-    armortype: 3,
-  },
-  Gloves_105: {
-    type: "gloves",
-    look: 68,
-    name: "Boneweave Gauntlets",
-    armortype: 5,
-  },
-  Gloves_201: {
-    type: "gloves",
-    look: 70,
-    name: "Balor Fists",
-    armortype: 3,
-  },
-  Gloves_202: {
-    type: "gloves",
-    look: 71,
-    name: "Manifers",
-    armortype: 3,
-  },
-  Gloves_203: {
-    type: "gloves",
-    look: 70,
-    name: "Warlord Gauntlets",
-    armortype: 5,
-  },
-  Gloves_204: {
-    type: "gloves",
-    look: 71,
-    name: "Stranglers",
-    armortype: 5,
-  },
-  Gloves_205: {
-    type: "gloves",
-    look: 72,
-    name: "Sovereign Vambraces",
-    armortype: 5,
-  },
-  Gloves_206: {
-    type: "gloves",
-    look: 73,
-    name: "Archon Gauntlets",
-    armortype: 5,
-  },
-  Gloves_207: {
-    type: "gloves",
-    look: 72,
-    name: "Rakkisgard Gauntlets",
-    armortype: 3,
-  },
-  Gloves_208: {
-    type: "gloves",
-    look: 74,
-    name: "Ascended Gauntlets",
-    armortype: 5,
-  },
-  HandXbow_000: {
-    actor: 82626,
-    type: "handcrossbow",
-    name: "Initiate's Hand Crossbow",
-  },
-  HandXbow_001: {
-    actor: 82626,
-    type: "handcrossbow",
-    name: "Simple Hand Crossbow",
-  },
-  HandXbow_002: {
-    actor: 82639,
-    type: "handcrossbow",
-    name: "Light Hand Crossbow",
-  },
-  HandXbow_003: {
-    actor: 145082,
-    type: "handcrossbow",
-    name: "Stake Thrower",
-  },
-  HandXbow_004: {
-    actor: 145083,
-    type: "handcrossbow",
-    name: "Hand Crossbow",
-  },
-  HandXbow_005: {
-    actor: 145084,
-    type: "handcrossbow",
-    name: "Slinglock",
-  },
-  HandXbow_006: {
-    actor: 145086,
-    type: "handcrossbow",
-    name: "Quillshot",
-  },
-  HandXbow_007: {
-    actor: 145087,
-    type: "handcrossbow",
-    name: "Nail Spitter",
-  },
-  HandXbow_008: {
-    actor: 145088,
-    type: "handcrossbow",
-    name: "Heavy Stake Thrower",
-  },
-  HandXbow_101: {
-    actor: 82626,
-    type: "handcrossbow",
-    name: "Sling Pistol",
-  },
-  HandXbow_102: {
-    actor: 82639,
-    type: "handcrossbow",
-    name: "Crosslock",
-  },
-  HandXbow_103: {
-    actor: 145082,
-    type: "handcrossbow",
-    name: "Siege Lock",
-  },
-  HandXbow_104: {
-    actor: 145083,
-    type: "handcrossbow",
-    name: "Arcus",
-  },
-  HandXbow_105: {
-    actor: 145084,
-    type: "handcrossbow",
-    name: "Cranequin",
-  },
-  HandXbow_106: {
-    actor: 145086,
-    type: "handcrossbow",
-    name: "Spine Thrower",
-  },
-  HandXbow_107: {
-    actor: 145087,
-    type: "handcrossbow",
-    name: "Heavy Arcus",
-  },
-  HandXbow_108: {
-    actor: 145088,
-    type: "handcrossbow",
-    name: "Bolt Rack",
-  },
-  HandXbow_201: {
-    actor: 82626,
-    type: "handcrossbow",
-    name: "Runic Sling Pistol",
-  },
-  HandXbow_202: {
-    actor: 82639,
-    type: "handcrossbow",
-    name: "Splinter Shot",
-  },
-  HandXbow_203: {
-    actor: 145082,
-    type: "handcrossbow",
-    name: "Windlash",
-  },
-  HandXbow_204: {
-    actor: 145083,
-    type: "handcrossbow",
-    name: "Blade Spitter",
-  },
-  HandXbow_205: {
-    actor: 145084,
-    type: "handcrossbow",
-    name: "Heavy Cranequin",
-  },
-  HandXbow_206: {
-    actor: 145086,
-    type: "handcrossbow",
-    name: "Runic Arcus",
-  },
-  HandXbow_207: {
-    actor: 145087,
-    type: "handcrossbow",
-    name: "Bolt Caster",
-  },
-  HandXbow_208: {
-    actor: 145088,
-    type: "handcrossbow",
-    name: "Exorcist",
-  },
-  HandXbow_301: {
-    actor: 335369,
-    type: "handcrossbow",
-    name: "Lionblade Bow",
-  },
-  HandXbow_302: {
-    actor: 367185,
-    type: "handcrossbow",
-    name: "Penetrator",
-  },
-  Helm_002: {
-    actor: {
-      "238284": 288029,
-      "238286": 324765,
-      "3285": 138005,
-      "3301": 138002,
-      "4717": 62879,
-      "4721": 138007,
-      "6481": 138008,
-      "6485": 138009,
-      "6526": 138010,
-      "6544": 4477,
-      "74706": 138006,
-      "75207": 138011,
-    },
-    type: "helm",
-    name: "Leather Hood",
-  },
-  Helm_003: {
-    actor: {
-      "238284": 274825,
-      "238286": 293400,
-      "3285": 4458,
-      "3301": 78481,
-      "4717": 84793,
-      "4721": 79617,
-      "6481": 78641,
-      "6485": 78241,
-      "6526": 57764,
-      "6544": 4478,
-      "74706": 97487,
-      "75207": 122111,
-    },
-    type: "helm",
-    name: "Coif",
-  },
-  Helm_004: {
-    actor: {
-      "238284": 288459,
-      "238286": 293401,
-      "3285": 4459,
-      "3301": 4461,
-      "4717": 71439,
-      "4721": 79618,
-      "6481": 4467,
-      "6485": 78242,
-      "6526": 57766,
-      "6544": 73318,
-      "74706": 175082,
-      "75207": 174239,
-    },
-    type: "helm",
-    name: "Arming Cap",
-  },
-  Helm_005: {
-    actor: {
-      "238284": 298435,
-      "238286": 299075,
-      "3285": 95789,
-      "3301": 384,
-      "4717": 71440,
-      "4721": 79619,
-      "6481": 4468,
-      "6485": 78243,
-      "6526": 57767,
-      "6544": 73319,
-      "74706": 138016,
-      "75207": 138019,
-    },
-    type: "helm",
-    name: "Helmet",
-  },
-  Helm_006: {
-    actor: {
-      "238284": 254836,
-      "238286": 264078,
-      "3285": 138020,
-      "3301": 4462,
-      "4717": 71441,
-      "4721": 79620,
-      "6481": 4469,
-      "6485": 78244,
-      "6526": 57768,
-      "6544": 59712,
-      "74706": 112800,
-      "75207": 129750,
-    },
-    type: "helm",
-    name: "Plated Helm",
-  },
-  Helm_101: {
-    actor: {
-      "238284": 338284,
-      "238286": 338395,
-      "3285": 116159,
-      "3301": 114514,
-      "4717": 135853,
-      "4721": 135841,
-      "6481": 107756,
-      "6485": 99662,
-      "6526": 57769,
-      "6544": 73320,
-      "74706": 179563,
-      "75207": 174241,
-    },
-    type: "helm",
-    name: "Crown",
-  },
-  Helm_102: {
-    actor: {
-      "238284": 288030,
-      "238286": 293402,
-      "3285": 116167,
-      "3301": 82184,
-      "4717": 100837,
-      "4721": 122717,
-      "6481": 98026,
-      "6485": 92260,
-      "6526": 57770,
-      "6544": 73321,
-      "74706": 175085,
-      "75207": 174242,
-    },
-    type: "helm",
-    name: "Basinet",
-  },
-  Helm_103: {
-    actor: {
-      "238284": 288455,
-      "238286": 293403,
-      "3285": 94095,
-      "3301": 94691,
-      "4717": 100875,
-      "4721": 107721,
-      "6481": 94840,
-      "6485": 82260,
-      "6526": 70378,
-      "6544": 73322,
-      "74706": 88235,
-      "75207": 149017,
-    },
-    type: "helm",
-    name: "Klappvisier",
-  },
-  Helm_104: {
-    actor: {
-      "238284": 293580,
-      "238286": 294179,
-      "3285": 94096,
-      "3301": 90803,
-      "4717": 123116,
-      "4721": 135842,
-      "6481": 114197,
-      "6485": 105973,
-      "6526": 57771,
-      "6544": 59713,
-      "74706": 179564,
-      "75207": 179656,
-    },
-    type: "helm",
-    name: "Casque",
-  },
-  Helm_105: {
-    actor: {
-      "238284": 288053,
-      "238286": 293404,
-      "3285": 136003,
-      "3301": 136004,
-      "4717": 131107,
-      "4721": 122718,
-      "6481": 76696,
-      "6485": 78245,
-      "6526": 70379,
-      "6544": 73323,
-      "74706": 179565,
-      "75207": 179657,
-    },
-    type: "helm",
-    name: "Great Helm",
-  },
-  Helm_201: {
-    actor: {
-      "238284": 293579,
-      "238286": 293405,
-      "3285": 95788,
-      "3301": 90588,
-      "4717": 134487,
-      "4721": 122719,
-      "6481": 94839,
-      "6485": 84819,
-      "6526": 57774,
-      "6544": 73325,
-      "74706": 179561,
-      "75207": 174243,
-    },
-    type: "helm",
-    name: "Hounskull",
-  },
-  Helm_202: {
-    actor: {
-      "238284": 303615,
-      "238286": 303614,
-      "3285": 116670,
-      "3301": 116722,
-      "4717": 123097,
-      "4721": 122645,
-      "6481": 105740,
-      "6485": 105970,
-      "6526": 57775,
-      "6544": 73326,
-      "74706": 175087,
-      "75207": 174244,
-    },
-    type: "helm",
-    name: "Stechhelm",
-  },
-  Helm_203: {
-    actor: {
-      "238284": 268347,
-      "238286": 268344,
-      "3285": 114044,
-      "3301": 105695,
-      "4717": 134486,
-      "4721": 135828,
-      "6481": 114239,
-      "6485": 78246,
-      "6526": 70375,
-      "6544": 73327,
-      "74706": 179562,
-      "75207": 179655,
-    },
-    type: "helm",
-    name: "Zischagge",
-  },
-  Helm_204: {
-    actor: {
-      "238284": 268348,
-      "238286": 268345,
-      "3285": 116153,
-      "3301": 114526,
-      "4717": 106005,
-      "4721": 135843,
-      "6481": 76697,
-      "6485": 101263,
-      "6526": 57776,
-      "6544": 73328,
-      "74706": 175530,
-      "75207": 174245,
-    },
-    type: "helm",
-    name: "Hellscape Mask",
-  },
-  Helm_205: {
-    actor: {
-      "238284": 267196,
-      "238286": 268212,
-      "3285": 99754,
-      "3301": 98068,
-      "4717": 134489,
-      "4721": 135844,
-      "6481": 99626,
-      "6485": 97502,
-      "6526": 70376,
-      "6544": 73329,
-      "74706": 175089,
-      "75207": 174246,
-    },
-    type: "helm",
-    name: "Sovereign Helm",
-  },
-  Helm_206: {
-    actor: {
-      "238284": 272471,
-      "238286": 272472,
-      "3285": 99755,
-      "3301": 94690,
-      "4717": 134488,
-      "4721": 135845,
-      "6481": 114198,
-      "6485": 105971,
-      "6526": 70377,
-      "6544": 73330,
-      "74706": 175091,
-      "75207": 174247,
-    },
-    type: "helm",
-    name: "Archon Crown",
-  },
-  Helm_207: {
-    actor: {
-      "238284": 322503,
-      "238286": 323497,
-      "3285": 239286,
-      "3301": 238575,
-      "4717": 254144,
-      "4721": 254145,
-      "6481": 254148,
-      "6485": 254149,
-      "6526": 254151,
-      "6544": 254150,
-      "74706": 254146,
-      "75207": 254147,
-    },
-    type: "helm",
-    name: "Rakkisgard Helm",
-  },
-  Helm_208: {
-    actor: {
-      "238284": 268349,
-      "238286": 268346,
-      "3285": 267924,
-      "3301": 267925,
-      "4717": 268252,
-      "4721": 268251,
-      "6481": 268150,
-      "6485": 268151,
-      "6526": 268094,
-      "6544": 268095,
-      "74706": 294896,
-      "75207": 294897,
-    },
-    type: "helm",
-    name: "Ascended Crown",
-  },
-  Mace_1H_001: {
-    actor: 4645,
-    type: "mace",
-    name: "Club",
-  },
-  Mace_1H_002: {
-    actor: 4646,
-    type: "mace",
-    name: "Cudgel",
-  },
-  Mace_1H_003: {
-    actor: 4647,
-    type: "mace",
-    name: "Morning Star",
-  },
-  Mace_1H_004: {
-    actor: 4648,
-    type: "mace",
-    name: "Mace",
-  },
-  Mace_1H_005: {
-    actor: 4649,
-    type: "mace",
-    name: "Flanged Mace",
-  },
-  Mace_1H_006: {
-    actor: 4650,
-    type: "mace",
-    name: "Hammer",
-  },
-  Mace_1H_007: {
-    actor: 394,
-    type: "mace",
-    name: "War Gavel",
-  },
-  Mace_1H_101: {
-    actor: 4645,
-    type: "mace",
-    name: "Bludgeon",
-  },
-  Mace_1H_102: {
-    actor: 4646,
-    type: "mace",
-    name: "Spiked Baton",
-  },
-  Mace_1H_103: {
-    actor: 4647,
-    type: "mace",
-    name: "War Mace",
-  },
-  Mace_1H_104: {
-    actor: 4648,
-    type: "mace",
-    name: "Gada",
-  },
-  Mace_1H_105: {
-    actor: 4649,
-    type: "mace",
-    name: "Pernach",
-  },
-  Mace_1H_106: {
-    actor: 4650,
-    type: "mace",
-    name: "Heavy Hammer",
-  },
-  Mace_1H_107: {
-    actor: 394,
-    type: "mace",
-    name: "War Hammer",
-  },
-  Mace_1H_201: {
-    actor: 4645,
-    type: "mace",
-    name: "Skull Crusher",
-  },
-  Mace_1H_202: {
-    actor: 4646,
-    type: "mace",
-    name: "Truncheon",
-  },
-  Mace_1H_203: {
-    actor: 4647,
-    type: "mace",
-    name: "Death Mace",
-  },
-  Mace_1H_204: {
-    actor: 4648,
-    type: "mace",
-    name: "Tripyor",
-  },
-  Mace_1H_205: {
-    actor: 4649,
-    type: "mace",
-    name: "Goedendag",
-  },
-  Mace_1H_206: {
-    actor: 4650,
-    type: "mace",
-    name: "Crag Hammer",
-  },
-  Mace_1H_207: {
-    actor: 394,
-    type: "mace",
-    name: "Demolisher",
-  },
-  Mace_1H_301: {
-    actor: 335166,
-    type: "mace",
-    name: "Brutalizer",
-  },
-  Mace_1H_302: {
-    actor: 367147,
-    type: "mace",
-    name: "Skullsplitter",
-  },
-  Mace_2H_001: {
-    actor: 6330,
-    type: "mace2h",
-    name: "Two-Handed Club",
-  },
-  Mace_2H_002: {
-    actor: 6331,
-    type: "mace2h",
-    name: "Two-Handed Mace",
-  },
-  Mace_2H_003: {
-    actor: 6332,
-    type: "mace2h",
-    name: "Two-Handed Hammer",
-  },
-  Mace_2H_004: {
-    actor: 6333,
-    type: "mace2h",
-    name: "Maul",
-  },
-  Mace_2H_005: {
-    actor: 6334,
-    type: "mace2h",
-    name: "Mallet",
-  },
-  Mace_2H_006: {
-    actor: 6335,
-    type: "mace2h",
-    name: "Great Hammer",
-  },
-  Mace_2H_101: {
-    actor: 6330,
-    type: "mace2h",
-    name: "Dire Club",
-  },
-  Mace_2H_102: {
-    actor: 6331,
-    type: "mace2h",
-    name: "Dire Mace",
-  },
-  Mace_2H_103: {
-    actor: 6332,
-    type: "mace2h",
-    name: "Sledge Hammer",
-  },
-  Mace_2H_104: {
-    actor: 6333,
-    type: "mace2h",
-    name: "Great Maul",
-  },
-  Mace_2H_105: {
-    actor: 6334,
-    type: "mace2h",
-    name: "War Mallet",
-  },
-  Mace_2H_106: {
-    actor: 6335,
-    type: "mace2h",
-    name: "Rock Breaker",
-  },
-  Mace_2H_201: {
-    actor: 6330,
-    type: "mace2h",
-    name: "Wrecker",
-  },
-  Mace_2H_202: {
-    actor: 6331,
-    type: "mace2h",
-    name: "Dread Mace",
-  },
-  Mace_2H_203: {
-    actor: 6332,
-    type: "mace2h",
-    name: "War Sledge",
-  },
-  Mace_2H_204: {
-    actor: 6333,
-    type: "mace2h",
-    name: "War Maul",
-  },
-  Mace_2H_205: {
-    actor: 6334,
-    type: "mace2h",
-    name: "Slag Hammer",
-  },
-  Mace_2H_206: {
-    actor: 6335,
-    type: "mace2h",
-    name: "Doom Hammer",
-  },
-  Mace_2H_301: {
-    actor: 335169,
-    type: "mace2h",
-    name: "Royal Mace",
-  },
-  Mace_2H_302: {
-    actor: 367151,
-    type: "mace2h",
-    name: "Persuader",
-  },
-  MightyWeapon1H_001: {
-    actor: 139044,
-    type: "mightyweapon",
-    name: "Sickle",
-  },
-  MightyWeapon1H_002: {
-    actor: 139059,
-    type: "mightyweapon",
-    name: "Carver",
-  },
-  MightyWeapon1H_003: {
-    actor: 139062,
-    type: "mightyweapon",
-    name: "Maw Axe",
-  },
-  MightyWeapon1H_004: {
-    actor: 139063,
-    type: "mightyweapon",
-    name: "War Blade",
-  },
-  MightyWeapon1H_101: {
-    actor: 139044,
-    type: "mightyweapon",
-    name: "Scythe",
-  },
-  MightyWeapon1H_102: {
-    actor: 139059,
-    type: "mightyweapon",
-    name: "Machete",
-  },
-  MightyWeapon1H_103: {
-    actor: 139062,
-    type: "mightyweapon",
-    name: "Gutwrench",
-  },
-  MightyWeapon1H_104: {
-    actor: 139063,
-    type: "mightyweapon",
-    name: "Rage Blade",
-  },
-  MightyWeapon1H_201: {
-    actor: 139044,
-    type: "mightyweapon",
-    name: "Reaper",
-  },
-  MightyWeapon1H_202: {
-    actor: 139059,
-    type: "mightyweapon",
-    name: "Chopsword",
-  },
-  MightyWeapon1H_203: {
-    actor: 139062,
-    type: "mightyweapon",
-    name: "Massacre Axe",
-  },
-  MightyWeapon1H_204: {
-    actor: 139063,
-    type: "mightyweapon",
-    name: "Slayer",
-  },
-  MightyWeapon1H_301: {
-    actor: 335340,
-    type: "mightyweapon",
-    name: "Caldean Sword",
-  },
-  MightyWeapon1H_302: {
-    actor: 367168,
-    type: "mightyweapon",
-    name: "Limb Cleaver",
-  },
-  MightyWeapon2H_001: {
-    actor: 139064,
-    type: "mightyweapon2h",
-    name: "Petrified Trunk",
-  },
-  MightyWeapon2H_002: {
-    actor: 139069,
-    type: "mightyweapon2h",
-    name: "Giant Sword",
-  },
-  MightyWeapon2H_003: {
-    actor: 139070,
-    type: "mightyweapon2h",
-    name: "Giant Hammer",
-  },
-  MightyWeapon2H_004: {
-    actor: 139071,
-    type: "mightyweapon2h",
-    name: "Giant Axe",
-  },
-  MightyWeapon2H_101: {
-    actor: 139064,
-    type: "mightyweapon2h",
-    name: "Redwood War Club",
-  },
-  MightyWeapon2H_102: {
-    actor: 139069,
-    type: "mightyweapon2h",
-    name: "Colossus Sword",
-  },
-  MightyWeapon2H_103: {
-    actor: 139070,
-    type: "mightyweapon2h",
-    name: "Crusher",
-  },
-  MightyWeapon2H_104: {
-    actor: 139071,
-    type: "mightyweapon2h",
-    name: "Colossus Axe",
-  },
-  MightyWeapon2H_201: {
-    actor: 139064,
-    type: "mightyweapon2h",
-    name: "Battersmash",
-  },
-  MightyWeapon2H_202: {
-    actor: 139069,
-    type: "mightyweapon2h",
-    name: "Titan Sword",
-  },
-  MightyWeapon2H_203: {
-    actor: 139070,
-    type: "mightyweapon2h",
-    name: "Behemoth",
-  },
-  MightyWeapon2H_204: {
-    actor: 139071,
-    type: "mightyweapon2h",
-    name: "Titan Axe",
-  },
-  MightyWeapon2H_301: {
-    actor: 221451,
-    type: "mightyweapon2h",
-    name: "Hassan Chopper",
-  },
-  MightyWeapon2H_302: {
-    actor: 367170,
-    type: "mightyweapon2h",
-    name: "Steppes Smasher",
-  },
-  Mojo_001: {
-    actor: 139095,
-    type: "mojo",
-    name: "Wanga Doll",
-  },
-  Mojo_002: {
-    actor: 139096,
-    type: "mojo",
-    name: "Shrunken Head",
-  },
-  Mojo_003: {
-    actor: 139098,
-    type: "mojo",
-    name: "Caged Horror",
-  },
-  Mojo_004: {
-    actor: 139099,
-    type: "mojo",
-    name: "Viper",
-  },
-  Mojo_101: {
-    actor: 139095,
-    type: "mojo",
-    name: "Gris-Gris Moppet",
-  },
-  Mojo_102: {
-    actor: 139096,
-    type: "mojo",
-    name: "Tzantza",
-  },
-  Mojo_103: {
-    actor: 139098,
-    type: "mojo",
-    name: "Living Tentacle",
-  },
-  Mojo_104: {
-    actor: 139099,
-    type: "mojo",
-    name: "Copperhead",
-  },
-  Mojo_201: {
-    actor: 139095,
-    type: "mojo",
-    name: "Wicker Man",
-  },
-  Mojo_202: {
-    actor: 139096,
-    type: "mojo",
-    name: "Muttering Head",
-  },
-  Mojo_203: {
-    actor: 139098,
-    type: "mojo",
-    name: "Unspeakable Thing",
-  },
-  Mojo_204: {
-    actor: 139099,
-    type: "mojo",
-    name: "Kurastian Asp",
-  },
-  Mojo_205: {
-    actor: 335259,
-    type: "mojo",
-    name: "Skull Talisman",
-  },
-  Mojo_206: {
-    actor: 367195,
-    type: "mojo",
-    name: "Thing That Should Not Be",
-  },
-  Orb_001: {
-    actor: 4810,
-    type: "source",
-    name: "Eagle Orb",
-  },
-  Orb_002: {
-    actor: 4811,
-    type: "source",
-    name: "Spellbook",
-  },
-  Orb_003: {
-    actor: 4812,
-    type: "source",
-    name: "Smoked Spheres",
-  },
-  Orb_004: {
-    actor: 4813,
-    type: "source",
-    name: "Cursed Skull",
-  },
-  Orb_101: {
-    actor: 4810,
-    type: "source",
-    name: "Sanctuary Globe",
-  },
-  Orb_102: {
-    actor: 4811,
-    type: "source",
-    name: "Fiendish Folio",
-  },
-  Orb_103: {
-    actor: 4812,
-    type: "source",
-    name: "Triad",
-  },
-  Orb_104: {
-    actor: 4813,
-    type: "source",
-    name: "Screaming Skull",
-  },
-  Orb_201: {
-    actor: 4810,
-    type: "source",
-    name: "Power Sphere",
-  },
-  Orb_202: {
-    actor: 4811,
-    type: "source",
-    name: "Codex",
-  },
-  Orb_203: {
-    actor: 4812,
-    type: "source",
-    name: "Orbit Stones",
-  },
-  Orb_204: {
-    actor: 4813,
-    type: "source",
-    name: "Demi Lich",
-  },
-  Orb_205: {
-    actor: 327063,
-    type: "source",
-    name: "Puzzle Box",
-  },
-  Orb_206: {
-    actor: 367204,
-    type: "source",
-    name: "Moschen Spheres",
-  },
-  Pants_001: {
-    type: "pants",
-    look: 66,
-    name: "Cloth Pants",
-    armortype: 0,
-  },
-  Pants_002: {
-    type: "pants",
-    look: 65,
-    name: "Leather Pants",
-    armortype: 1,
-  },
-  Pants_003: {
-    type: "pants",
-    look: 66,
-    name: "Hide Breeches",
-    armortype: 1,
-  },
-  Pants_004: {
-    type: "pants",
-    look: 65,
-    name: "Chain Leggings",
-    armortype: 3,
-  },
-  Pants_005: {
-    type: "pants",
-    look: 66,
-    name: "Faulds",
-    armortype: 3,
-  },
-  Pants_006: {
-    type: "pants",
-    look: 65,
-    name: "Plate Leggings",
-    armortype: 5,
-  },
-  Pants_101: {
-    type: "pants",
-    look: 67,
-    name: "Legwraps",
-    armortype: 1,
-  },
-  Pants_102: {
-    type: "pants",
-    look: 68,
-    name: "Etched Pants",
-    armortype: 1,
-  },
-  Pants_103: {
-    type: "pants",
-    look: 67,
-    name: "Chausses",
-    armortype: 3,
-  },
-  Pants_104: {
-    type: "pants",
-    look: 68,
-    name: "Tassets",
-    armortype: 3,
-  },
-  Pants_105: {
-    type: "pants",
-    look: 68,
-    name: "Boneweave Faulds",
-    armortype: 5,
-  },
-  Pants_201: {
-    type: "pants",
-    look: 70,
-    name: "Leg Guards",
-    armortype: 3,
-  },
-  Pants_202: {
-    type: "pants",
-    look: 71,
-    name: "Poleyns",
-    armortype: 3,
-  },
-  Pants_203: {
-    type: "pants",
-    look: 70,
-    name: "Warlord Leg Plates",
-    armortype: 5,
-  },
-  Pants_204: {
-    type: "pants",
-    look: 71,
-    name: "Schynbalds",
-    armortype: 5,
-  },
-  Pants_205: {
-    type: "pants",
-    look: 72,
-    name: "Sovereign Tassets",
-    armortype: 5,
-  },
-  Pants_206: {
-    type: "pants",
-    look: 73,
-    name: "Archon Faulds",
-    armortype: 5,
-  },
-  Pants_207: {
-    type: "pants",
-    look: 72,
-    name: "Rakkisgard Leg Plates",
-    armortype: 3,
-  },
-  Pants_208: {
-    type: "pants",
-    look: 74,
-    name: "Ascended Faulds",
-    armortype: 5,
-  },
-  Polearm_001: {
-    actor: 4864,
-    type: "polearm",
-    name: "Bardiche",
-  },
-  Polearm_002: {
-    actor: 4865,
-    type: "polearm",
-    name: "Pike",
-  },
-  Polearm_003: {
-    actor: 4866,
-    type: "polearm",
-    name: "Guisarme",
-  },
-  Polearm_004: {
-    actor: 4867,
-    type: "polearm",
-    name: "Hache",
-  },
-  Polearm_005: {
-    actor: 4868,
-    type: "polearm",
-    name: "Glaive",
-  },
-  Polearm_006: {
-    actor: 4869,
-    type: "polearm",
-    name: "Pole Axe",
-  },
-  Polearm_007: {
-    actor: 4870,
-    type: "polearm",
-    name: "Halberd",
-  },
-  Polearm_008: {
-    actor: 4871,
-    type: "polearm",
-    name: "Lance",
-  },
-  Polearm_101: {
-    actor: 4864,
-    type: "polearm",
-    name: "Voulge",
-  },
-  Polearm_102: {
-    actor: 4865,
-    type: "polearm",
-    name: "Naginata",
-  },
-  Polearm_103: {
-    actor: 4866,
-    type: "polearm",
-    name: "Croc",
-  },
-  Polearm_104: {
-    actor: 4867,
-    type: "polearm",
-    name: "Battle Hache",
-  },
-  Polearm_105: {
-    actor: 4868,
-    type: "polearm",
-    name: "Bisento",
-  },
-  Polearm_106: {
-    actor: 4869,
-    type: "polearm",
-    name: "Great Pole Axe",
-  },
-  Polearm_107: {
-    actor: 4870,
-    type: "polearm",
-    name: "Battle Halberd",
-  },
-  Polearm_108: {
-    actor: 4871,
-    type: "polearm",
-    name: "Partizan",
-  },
-  Polearm_201: {
-    actor: 4864,
-    type: "polearm",
-    name: "Lochaber Axe",
-  },
-  Polearm_202: {
-    actor: 4865,
-    type: "polearm",
-    name: "Fauchard",
-  },
-  Polearm_203: {
-    actor: 4866,
-    type: "polearm",
-    name: "Skewer",
-  },
-  Polearm_204: {
-    actor: 4867,
-    type: "polearm",
-    name: "War Crest",
-  },
-  Polearm_205: {
-    actor: 4868,
-    type: "polearm",
-    name: "Kwan Dao",
-  },
-  Polearm_206: {
-    actor: 4869,
-    type: "polearm",
-    name: "War Thresher",
-  },
-  Polearm_207: {
-    actor: 4870,
-    type: "polearm",
-    name: "Grand Halberd",
-  },
-  Polearm_208: {
-    actor: 4871,
-    type: "polearm",
-    name: "Dread Lance",
-  },
-  Polearm_301: {
-    actor: 335176,
-    type: "polearm",
-    name: "Trident",
-  },
-  Polearm_302: {
-    actor: 367153,
-    type: "polearm",
-    name: "Trishula",
-  },
-  Shield_000: {
-    actor: 5259,
-    type: "shield",
-    name: "Buckler",
-  },
-  Shield_001: {
-    actor: 5259,
-    type: "shield",
-    name: "Buckler",
-  },
-  Shield_002: {
-    actor: 426,
-    type: "shield",
-    name: "Targe Shield",
-  },
-  Shield_003: {
-    actor: 5260,
-    type: "shield",
-    name: "Heater Shield",
-  },
-  Shield_004: {
-    actor: 5261,
-    type: "shield",
-    name: "Kite Shield",
-  },
-  Shield_005: {
-    actor: 5262,
-    type: "shield",
-    name: "Large Shield",
-  },
-  Shield_006: {
-    actor: 5263,
-    type: "shield",
-    name: "Gothic Shield",
-  },
-  Shield_007: {
-    actor: 5264,
-    type: "shield",
-    name: "Tower Shield",
-  },
-  Shield_101: {
-    actor: 5259,
-    type: "shield",
-    name: "Pelta",
-  },
-  Shield_102: {
-    actor: 426,
-    type: "shield",
-    name: "Rondache",
-  },
-  Shield_103: {
-    actor: 5260,
-    type: "shield",
-    name: "Knight Shield",
-  },
-  Shield_104: {
-    actor: 5261,
-    type: "shield",
-    name: "Ironwood Shield",
-  },
-  Shield_105: {
-    actor: 5262,
-    type: "shield",
-    name: "Pavise",
-  },
-  Shield_106: {
-    actor: 5263,
-    type: "shield",
-    name: "Bone Shield",
-  },
-  Shield_107: {
-    actor: 5264,
-    type: "shield",
-    name: "Savior",
-  },
-  Shield_201: {
-    actor: 5259,
-    type: "shield",
-    name: "Aspis",
-  },
-  Shield_202: {
-    actor: 426,
-    type: "shield",
-    name: "Hoplon",
-  },
-  Shield_203: {
-    actor: 5260,
-    type: "shield",
-    name: "Defender",
-  },
-  Shield_204: {
-    actor: 5261,
-    type: "shield",
-    name: "Scutum",
-  },
-  Shield_205: {
-    actor: 5262,
-    type: "shield",
-    name: "Aegis",
-  },
-  Shield_206: {
-    actor: 5263,
-    type: "shield",
-    name: "Dread Shield",
-  },
-  Shield_207: {
-    actor: 5264,
-    type: "shield",
-    name: "Sacred Shield",
-  },
-  Shield_208: {
-    actor: 335208,
-    type: "shield",
-    name: "Rakkisgard Shield",
-  },
-  Shield_209: {
-    actor: 367164,
-    type: "shield",
-    name: "Ascended Shield",
-  },
-  Shoulders_002: {
-    actor: {
-      "238284": 324751,
-      "238286": 324759,
-      "3285": 138432,
-      "3301": 138483,
-      "4717": 62926,
-      "4721": 138532,
-      "6481": 138534,
-      "6485": 138535,
-      "6526": 184648,
-      "6544": 5318,
-      "74706": 138489,
-      "75207": 138493,
-    },
-    actor_r: {
-      "238284": 324752,
-      "238286": 324760,
-      "3285": 138433,
-      "3301": 138486,
-      "4717": 62922,
-      "4721": 191072,
-      "6526": 138537,
-      "6544": 186212,
-      "74706": 138490,
-      "75207": 138496,
-    },
-    type: "shoulders",
-    name: "Leather Mantle",
-  },
-  Shoulders_003: {
-    actor: {
-      "238284": 313286,
-      "238286": 293436,
-      "3285": 83346,
-      "3301": 78494,
-      "4717": 84798,
-      "4721": 5299,
-      "6481": 78676,
-      "6485": 78174,
-      "6526": 184661,
-      "6544": 5319,
-      "74706": 97230,
-      "75207": 122113,
-    },
-    actor_r: {
-      "238284": 313287,
-      "238286": 293437,
-      "3285": 83347,
-      "3301": 78495,
-      "4717": 84799,
-      "4721": 191070,
-      "6481": 138541,
-      "6485": 138540,
-      "6526": 58676,
-      "6544": 186217,
-      "74706": 97233,
-      "75207": 122114,
-    },
-    type: "shoulders",
-    name: "Shoulder Guards",
-  },
-  Shoulders_004: {
-    actor: {
-      "238284": 288572,
-      "238286": 293438,
-      "3285": 94081,
-      "3301": 5293,
-      "4717": 71454,
-      "4721": 5300,
-      "6481": 5303,
-      "6485": 78175,
-      "6526": 184676,
-      "6544": 73368,
-      "74706": 175161,
-      "75207": 174315,
-    },
-    actor_r: {
-      "238284": 288584,
-      "238286": 293439,
-      "3285": 94082,
-      "3301": 71906,
-      "4717": 71455,
-      "4721": 138543,
-      "6481": 5304,
-      "6485": 78176,
-      "6526": 58677,
-      "6544": 186222,
-      "74706": 175162,
-      "75207": 174314,
-    },
-    type: "shoulders",
-    name: "Amice",
-  },
-  Shoulders_005: {
-    actor: {
-      "238284": 298429,
-      "238286": 299081,
-      "3285": 95766,
-      "3301": 5294,
-      "4717": 107652,
-      "4721": 79658,
-      "6481": 5305,
-      "6485": 78182,
-      "6526": 184668,
-      "6544": 73369,
-      "74706": 138526,
-      "75207": 138528,
-    },
-    actor_r: {
-      "238284": 298430,
-      "238286": 299082,
-      "3285": 95767,
-      "3301": 5295,
-      "4717": 107653,
-      "4721": 110587,
-      "6481": 5306,
-      "6485": 78183,
-      "6526": 58678,
-      "6544": 186231,
-      "74706": 138527,
-      "75207": 138529,
-    },
-    type: "shoulders",
-    name: "Spaulders",
-  },
-  Shoulders_006: {
-    actor: {
-      "238284": 254837,
-      "238286": 264079,
-      "3285": 83348,
-      "3301": 5296,
-      "4717": 71456,
-      "4721": 5302,
-      "6481": 5307,
-      "6485": 78184,
-      "6526": 184670,
-      "6544": 59739,
-      "74706": 112802,
-      "75207": 129753,
-    },
-    actor_r: {
-      "238284": 254838,
-      "238286": 264080,
-      "3285": 83349,
-      "3301": 5298,
-      "4717": 71457,
-      "4721": 182708,
-      "6481": 5308,
-      "6485": 78185,
-      "6526": 58679,
-      "6544": 186238,
-      "74706": 112801,
-      "75207": 129755,
-    },
-    type: "shoulders",
-    name: "Shoulder Plates",
-  },
-  Shoulders_101: {
-    actor: {
-      "238284": 338327,
-      "238286": 338427,
-      "3285": 116287,
-      "3301": 114497,
-      "4717": 135964,
-      "4721": 135935,
-      "6481": 107740,
-      "6485": 99663,
-      "6526": 184744,
-      "6544": 73371,
-      "74706": 179602,
-    },
-    actor_r: {
-      "238284": 338332,
-      "238286": 338432,
-      "3285": 116288,
-      "3301": 114498,
-      "4717": 135965,
-      "4721": 135936,
-      "6481": 107741,
-      "6485": 99664,
-      "6526": 58680,
-      "6544": 186304,
-      "74706": 179603,
-      "75207": 174316,
-    },
-    type: "shoulders",
-    name: "Etched Mantle",
-  },
-  Shoulders_102: {
-    actor: {
-      "238284": 288616,
-      "238286": 293440,
-      "3285": 116208,
-      "3301": 82475,
-      "4717": 106008,
-      "4721": 122755,
-      "6481": 98037,
-      "6485": 92241,
-      "6526": 184752,
-      "6544": 73372,
-      "74706": 175163,
-      "75207": 174317,
-    },
-    actor_r: {
-      "238284": 288617,
-      "238286": 293441,
-      "3285": 116209,
-      "3301": 82476,
-      "4717": 106009,
-      "4721": 122756,
-      "6481": 98038,
-      "6485": 92242,
-      "6526": 58681,
-      "6544": 186306,
-      "74706": 175164,
-      "75207": 174319,
-    },
-    type: "shoulders",
-    name: "Ailettes",
-  },
-  Shoulders_103: {
-    actor: {
-      "238284": 288618,
-      "238286": 293442,
-      "3285": 94083,
-      "3301": 138974,
-      "4717": 101433,
-      "4721": 110589,
-      "6481": 94821,
-      "6485": 82548,
-      "6526": 185562,
-      "6544": 73373,
-      "74706": 88240,
-      "75207": 149008,
-    },
-    actor_r: {
-      "238284": 288619,
-      "238286": 293443,
-      "3285": 94084,
-      "3301": 138976,
-      "4717": 101434,
-      "4721": 111249,
-      "6481": 94822,
-      "6485": 82549,
-      "6526": 70399,
-      "6544": 186308,
-      "74706": 88241,
-      "75207": 149009,
-    },
-    type: "shoulders",
-    name: "Pauldrons",
-  },
-  Shoulders_104: {
-    actor: {
-      "238284": 293553,
-      "238286": 294181,
-      "3285": 94069,
-      "3301": 91127,
-      "4717": 123527,
-      "4721": 135937,
-      "6481": 114203,
-      "6485": 105979,
-      "6526": 184761,
-      "6544": 59740,
-      "74706": 179604,
-      "75207": 179660,
-    },
-    actor_r: {
-      "238284": 293554,
-      "238286": 294183,
-      "3285": 94070,
-      "3301": 91128,
-      "4717": 123528,
-      "4721": 135938,
-      "6481": 114204,
-      "6485": 105980,
-      "6526": 58682,
-      "6544": 186310,
-      "74706": 179606,
-      "75207": 179661,
-    },
-    type: "shoulders",
-    name: "Sode",
-  },
-  Shoulders_105: {
-    actor: {
-      "238284": 288620,
-      "238286": 293444,
-      "3285": 136005,
-      "3301": 136007,
-      "4717": 131108,
-      "4721": 122761,
-      "6481": 76807,
-      "6485": 78186,
-      "6526": 184767,
-      "6544": 73374,
-      "74706": 179607,
-      "75207": 179662,
-    },
-    actor_r: {
-      "238284": 288621,
-      "238286": 293445,
-      "3285": 136006,
-      "3301": 136008,
-      "4717": 131110,
-      "4721": 122762,
-      "6481": 76808,
-      "6485": 78187,
-      "6526": 70400,
-      "6544": 186312,
-      "74706": 179608,
-      "75207": 179663,
-    },
-    type: "shoulders",
-    name: "Epaulets",
-  },
-  Shoulders_201: {
-    actor: {
-      "238284": 293551,
-      "238286": 293434,
-      "3285": 95768,
-      "3301": 91129,
-      "4717": 134520,
-      "4721": 122757,
-      "6481": 94823,
-      "6485": 84832,
-      "6526": 184771,
-      "6544": 73376,
-      "74706": 179598,
-      "75207": 174305,
-    },
-    actor_r: {
-      "238284": 293552,
-      "238286": 293435,
-      "3285": 95769,
-      "3301": 91130,
-      "4717": 134521,
-      "4721": 122758,
-      "6481": 94826,
-      "6485": 84833,
-      "6526": 58684,
-      "6544": 186316,
-      "74706": 179599,
-      "75207": 174306,
-    },
-    type: "shoulders",
-    name: "Balor Pauldrons",
-  },
-  Shoulders_202: {
-    actor: {
-      "238284": 303623,
-      "238286": 303620,
-      "3285": 116690,
-      "3301": 116744,
-      "4717": 123525,
-      "4721": 122759,
-      "6481": 105741,
-      "6485": 105974,
-      "6526": 185682,
-      "6544": 73377,
-      "74706": 175165,
-      "75207": 174307,
-    },
-    actor_r: {
-      "238284": 303624,
-      "238286": 303621,
-      "3285": 116691,
-      "3301": 116745,
-      "4717": 123526,
-      "4721": 122760,
-      "6481": 105742,
-      "6485": 105975,
-      "6526": 58685,
-      "6544": 186318,
-      "74706": 175166,
-      "75207": 174308,
-    },
-    type: "shoulders",
-    name: "Espaliers",
-  },
-  Shoulders_203: {
-    actor: {
-      "238284": 268356,
-      "238286": 268350,
-      "3285": 114045,
-      "3301": 105715,
-      "4717": 134522,
-      "4721": 135933,
-      "6481": 114240,
-      "6485": 78188,
-      "6526": 187112,
-      "6544": 73378,
-      "74706": 179600,
-      "75207": 179658,
-    },
-    actor_r: {
-      "238284": 268357,
-      "238286": 268351,
-      "3285": 114046,
-      "3301": 105716,
-      "4717": 134526,
-      "4721": 135934,
-      "6481": 114241,
-      "6485": 78189,
-      "6526": 70397,
-      "6544": 187168,
-      "74706": 179601,
-      "75207": 179659,
-    },
-    type: "shoulders",
-    name: "Warlord Spaulders",
-  },
-  Shoulders_204: {
-    actor: {
-      "238284": 268358,
-      "238286": 268352,
-      "3285": 116352,
-      "3301": 114499,
-      "4717": 106006,
-      "4721": 135939,
-      "6481": 76809,
-      "6485": 101381,
-      "6526": 186125,
-      "6544": 73379,
-      "74706": 175528,
-      "75207": 174309,
-    },
-    actor_r: {
-      "238284": 268359,
-      "238286": 268353,
-      "3285": 116353,
-      "3301": 114500,
-      "4717": 106007,
-      "4721": 135940,
-      "6481": 76810,
-      "6485": 101399,
-      "6526": 58686,
-      "6544": 186320,
-      "74706": 175529,
-      "75207": 174310,
-    },
-    type: "shoulders",
-    name: "Doom Pauldrons",
-  },
-  Shoulders_205: {
-    actor: {
-      "238284": 267192,
-      "238286": 268216,
-      "3285": 99756,
-      "3301": 98062,
-      "4717": 134527,
-      "4721": 135941,
-      "6481": 99598,
-      "6485": 97516,
-      "6526": 186192,
-      "6544": 73380,
-      "74706": 175167,
-      "75207": 174311,
-    },
-    actor_r: {
-      "238284": 267194,
-      "238286": 268214,
-      "3285": 99757,
-      "3301": 98063,
-      "4717": 134528,
-      "4721": 135942,
-      "6481": 99600,
-      "6485": 97517,
-      "6526": 70398,
-      "6544": 186322,
-      "74706": 175168,
-      "75207": 174312,
-    },
-    type: "shoulders",
-    name: "Pallium",
-  },
-  Shoulders_206: {
-    actor: {
-      "238284": 272475,
-      "238286": 272473,
-      "3285": 99758,
-      "3301": 94037,
-      "4717": 134529,
-      "4721": 135943,
-      "6481": 114200,
-      "6485": 105976,
-      "6526": 186196,
-      "6544": 73381,
-      "74706": 203314,
-    },
-    actor_r: {
-      "238284": 272476,
-      "238286": 272474,
-      "3285": 99759,
-      "3301": 94038,
-      "4717": 134530,
-      "4721": 135944,
-      "6481": 114201,
-      "6485": 105978,
-      "6526": 70401,
-      "6544": 186324,
-      "75207": 174313,
-    },
-    type: "shoulders",
-    name: "Archon Spaulders",
-  },
-  Shoulders_207: {
-    actor: {
-      "238284": 322562,
-      "238286": 323511,
-      "3285": 239287,
-      "3301": 238576,
-      "4717": 254302,
-      "4721": 254306,
-      "6481": 254308,
-      "6485": 254310,
-      "6526": 254314,
-      "6544": 254316,
-      "74706": 254300,
-      "75207": 254304,
-    },
-    actor_r: {
-      "238284": 322563,
-      "238286": 323512,
-      "3285": 239288,
-      "3301": 238577,
-      "4717": 254303,
-      "4721": 254307,
-      "6481": 254309,
-      "6485": 254311,
-      "6526": 254315,
-      "6544": 254317,
-      "74706": 254301,
-      "75207": 254305,
-    },
-    type: "shoulders",
-    name: "Rakkisgard Pauldrons",
-  },
-  Shoulders_208: {
-    actor: {
-      "238284": 268360,
-      "238286": 268354,
-      "3285": 267926,
-      "3301": 267928,
-      "4717": 268253,
-      "4721": 268255,
-      "6481": 268152,
-      "6485": 268154,
-      "6526": 268096,
-      "6544": 268098,
-      "74706": 294898,
-      "75207": 294900,
-    },
-    actor_r: {
-      "238284": 268361,
-      "238286": 268355,
-      "3285": 267927,
-      "3301": 267929,
-      "4717": 268254,
-      "4721": 268256,
-      "6481": 268153,
-      "6485": 268155,
-      "6526": 268097,
-      "6544": 268099,
-      "74706": 294899,
-      "75207": 294901,
-    },
-    type: "shoulders",
-    name: "Ascended Pauldrons",
-  },
-  Spear_001: {
-    actor: 5451,
-    type: "spear",
-    name: "Javelin",
-  },
-  Spear_002: {
-    actor: 5452,
-    type: "spear",
-    name: "Fuscina",
-  },
-  Spear_003: {
-    actor: 5453,
-    type: "spear",
-    name: "Spear",
-  },
-  Spear_004: {
-    actor: 5454,
-    type: "spear",
-    name: "Hasta",
-  },
-  Spear_005: {
-    actor: 5455,
-    type: "spear",
-    name: "Pilum",
-  },
-  Spear_101: {
-    actor: 5451,
-    type: "spear",
-    name: "Angon",
-  },
-  Spear_102: {
-    actor: 5452,
-    type: "spear",
-    name: "Assegai",
-  },
-  Spear_103: {
-    actor: 5453,
-    type: "spear",
-    name: "War Spear",
-  },
-  Spear_104: {
-    actor: 5454,
-    type: "spear",
-    name: "Spontoon",
-  },
-  Spear_105: {
-    actor: 5455,
-    type: "spear",
-    name: "Yari",
-  },
-  Spear_201: {
-    actor: 5451,
-    type: "spear",
-    name: "Harpoon",
-  },
-  Spear_202: {
-    actor: 5452,
-    type: "spear",
-    name: "Impaler",
-  },
-  Spear_203: {
-    actor: 5453,
-    type: "spear",
-    name: "Qiang",
-  },
-  Spear_204: {
-    actor: 5454,
-    type: "spear",
-    name: "Vel",
-  },
-  Spear_205: {
-    actor: 5455,
-    type: "spear",
-    name: "Centurion Spear",
-  },
-  Spear_301: {
-    actor: 335179,
-    type: "spear",
-    name: "Honed Spear",
-  },
-  Spear_302: {
-    actor: 367155,
-    type: "spear",
-    name: "Disemboweler",
-  },
-  SpiritStone_001: {
-    actor: {
-      "4717": 144092,
-      "4721": 144107,
-    },
-    type: "spiritstone",
-    name: "Glass Star",
-  },
-  SpiritStone_002: {
-    actor: {
-      "4717": 144093,
-      "4721": 144108,
-    },
-    type: "spiritstone",
-    name: "Thought Mirror",
-  },
-  SpiritStone_003: {
-    actor: {
-      "4717": 144094,
-      "4721": 144109,
-    },
-    type: "spiritstone",
-    name: "Third Eye",
-  },
-  SpiritStone_004: {
-    actor: {
-      "4717": 144096,
-      "4721": 144111,
-    },
-    type: "spiritstone",
-    name: "Onyx Cluster",
-  },
-  SpiritStone_101: {
-    actor: {
-      "4717": 144092,
-      "4721": 144107,
-    },
-    type: "spiritstone",
-    name: "Sunstone",
-  },
-  SpiritStone_102: {
-    actor: {
-      "4717": 144093,
-      "4721": 144108,
-    },
-    type: "spiritstone",
-    name: "Prism",
-  },
-  SpiritStone_103: {
-    actor: {
-      "4717": 144094,
-      "4721": 144109,
-    },
-    type: "spiritstone",
-    name: "Seer Shard",
-  },
-  SpiritStone_104: {
-    actor: {
-      "4717": 144096,
-      "4721": 144111,
-    },
-    type: "spiritstone",
-    name: "Igneous Studs",
-  },
-  SpiritStone_201: {
-    actor: {
-      "4717": 144092,
-      "4721": 144107,
-    },
-    type: "spiritstone",
-    name: "Solarius",
-  },
-  SpiritStone_202: {
-    actor: {
-      "4717": 144093,
-      "4721": 144108,
-    },
-    type: "spiritstone",
-    name: "Meditator",
-  },
-  SpiritStone_203: {
-    actor: {
-      "4717": 144094,
-      "4721": 144109,
-    },
-    type: "spiritstone",
-    name: "Ghost Sight",
-  },
-  SpiritStone_204: {
-    actor: {
-      "4717": 144096,
-      "4721": 144111,
-    },
-    type: "spiritstone",
-    name: "Star Crown",
-  },
-  SpiritStone_205: {
-    actor: {
-      "4717": 335388,
-      "4721": 335390,
-    },
-    type: "spiritstone",
-    name: "Insight Stone",
-  },
-  SpiritStone_206: {
-    actor: {
-      "4717": 364179,
-      "4721": 364162,
-    },
-    type: "spiritstone",
-    name: "Ascended Stone",
-  },
-  Staff_001: {
-    actor: 5483,
-    type: "staff",
-    name: "Short Staff",
-  },
-  Staff_002: {
-    actor: 5484,
-    type: "staff",
-    name: "Long Staff",
-  },
-  Staff_003: {
-    actor: 5485,
-    type: "staff",
-    name: "Yew Staff",
-  },
-  Staff_004: {
-    actor: 5486,
-    type: "staff",
-    name: "Gnarled Staff",
-  },
-  Staff_005: {
-    actor: 5487,
-    type: "staff",
-    name: "Bone Staff",
-  },
-  Staff_006: {
-    actor: 438,
-    type: "staff",
-    name: "Battle Staff",
-  },
-  Staff_007: {
-    actor: 5488,
-    type: "staff",
-    name: "War Staff",
-  },
-  Staff_101: {
-    actor: 5483,
-    type: "staff",
-    name: "Mentor Staff",
-  },
-  Staff_102: {
-    actor: 5484,
-    type: "staff",
-    name: "Obsidian Staff",
-  },
-  Staff_103: {
-    actor: 5485,
-    type: "staff",
-    name: "Petrified Staff",
-  },
-  Staff_104: {
-    actor: 5486,
-    type: "staff",
-    name: "Elder Staff",
-  },
-  Staff_105: {
-    actor: 5487,
-    type: "staff",
-    name: "Shamanic Staff",
-  },
-  Staff_106: {
-    actor: 438,
-    type: "staff",
-    name: "High Priest Staff",
-  },
-  Staff_107: {
-    actor: 5488,
-    type: "staff",
-    name: "Arcane Staff",
-  },
-  Staff_201: {
-    actor: 5483,
-    type: "staff",
-    name: "Hyperion Staff",
-  },
-  Staff_202: {
-    actor: 5484,
-    type: "staff",
-    name: "Stygian Staff",
-  },
-  Staff_203: {
-    actor: 5485,
-    type: "staff",
-    name: "Primordial Staff",
-  },
-  Staff_204: {
-    actor: 5486,
-    type: "staff",
-    name: "Archaic Staff",
-  },
-  Staff_205: {
-    actor: 5487,
-    type: "staff",
-    name: "Conquest Staff",
-  },
-  Staff_206: {
-    actor: 438,
-    type: "staff",
-    name: "Mythical Staff",
-  },
-  Staff_207: {
-    actor: 5488,
-    type: "staff",
-    name: "Sovereign Staff",
-  },
-  Staff_301: {
-    actor: 328169,
-    type: "staff",
-    name: "Caduceus Staff",
-  },
-  Staff_302: {
-    actor: 367162,
-    type: "staff",
-    name: "Kerykeion",
-  },
-  Sword_1H_001: {
-    actor: 5516,
-    type: "sword",
-    name: "Short Sword",
-  },
-  Sword_1H_002: {
-    actor: 5520,
-    type: "sword",
-    name: "Sabre",
-  },
-  Sword_1H_003: {
-    actor: 5523,
-    type: "sword",
-    name: "Broadsword",
-  },
-  Sword_1H_004: {
-    actor: 5524,
-    type: "sword",
-    name: "Longsword",
-  },
-  Sword_1H_005: {
-    actor: 5521,
-    type: "sword",
-    name: "Falchion",
-  },
-  Sword_1H_006: {
-    actor: 5522,
-    type: "sword",
-    name: "Scimitar",
-  },
-  Sword_1H_007: {
-    actor: 440,
-    type: "sword",
-    name: "War Sword",
-  },
-  Sword_1H_008: {
-    actor: 5525,
-    type: "sword",
-    name: "Bastard Sword",
-  },
-  Sword_1H_101: {
-    actor: 5516,
-    type: "sword",
-    name: "Gladius",
-  },
-  Sword_1H_102: {
-    actor: 5520,
-    type: "sword",
-    name: "Cutlass",
-  },
-  Sword_1H_103: {
-    actor: 5523,
-    type: "sword",
-    name: "Battle Sword",
-  },
-  Sword_1H_104: {
-    actor: 5524,
-    type: "sword",
-    name: "Knight Sword",
-  },
-  Sword_1H_105: {
-    actor: 5521,
-    type: "sword",
-    name: "Dao",
-  },
-  Sword_1H_106: {
-    actor: 5522,
-    type: "sword",
-    name: "Shamshir",
-  },
-  Sword_1H_107: {
-    actor: 440,
-    type: "sword",
-    name: "Raid Sword",
-  },
-  Sword_1H_108: {
-    actor: 5525,
-    type: "sword",
-    name: "Ancient Sword",
-  },
-  Sword_1H_201: {
-    actor: 5516,
-    type: "sword",
-    name: "Spatha",
-  },
-  Sword_1H_202: {
-    actor: 5520,
-    type: "sword",
-    name: "Pirate Sword",
-  },
-  Sword_1H_203: {
-    actor: 5523,
-    type: "sword",
-    name: "Strong Sword",
-  },
-  Sword_1H_204: {
-    actor: 5524,
-    type: "sword",
-    name: "King Blade",
-  },
-  Sword_1H_205: {
-    actor: 5521,
-    type: "sword",
-    name: "Tulwar",
-  },
-  Sword_1H_206: {
-    actor: 5522,
-    type: "sword",
-    name: "Saif",
-  },
-  Sword_1H_207: {
-    actor: 440,
-    type: "sword",
-    name: "Conquest Sword",
-  },
-  Sword_1H_208: {
-    actor: 5525,
-    type: "sword",
-    name: "Rune Sword",
-  },
-  Sword_1H_301: {
-    actor: 335133,
-    type: "sword",
-    name: "Champion Sword",
-  },
-  Sword_1H_302: {
-    actor: 367139,
-    type: "sword",
-    name: "Tsunami Blade",
-  },
-  Sword_2H_001: {
-    actor: 6342,
-    type: "sword2h",
-    name: "Two-Handed Sword",
-  },
-  Sword_2H_002: {
-    actor: 6344,
-    type: "sword2h",
-    name: "Flamberge",
-  },
-  Sword_2H_003: {
-    actor: 6343,
-    type: "sword2h",
-    name: "Dervish",
-  },
-  Sword_2H_004: {
-    actor: 6345,
-    type: "sword2h",
-    name: "Executioner Sword",
-  },
-  Sword_2H_005: {
-    actor: 483,
-    type: "sword2h",
-    name: "Nodachi",
-  },
-  Sword_2H_006: {
-    actor: 6346,
-    type: "sword2h",
-    name: "Claymore",
-  },
-  Sword_2H_101: {
-    actor: 6342,
-    type: "sword2h",
-    name: "Great Sword",
-  },
-  Sword_2H_102: {
-    actor: 6344,
-    type: "sword2h",
-    name: "Reaver",
-  },
-  Sword_2H_103: {
-    actor: 6343,
-    type: "sword2h",
-    name: "Kilij",
-  },
-  Sword_2H_104: {
-    actor: 6345,
-    type: "sword2h",
-    name: "Mameluke",
-  },
-  Sword_2H_105: {
-    actor: 483,
-    type: "sword2h",
-    name: "Nagamaki",
-  },
-  Sword_2H_106: {
-    actor: 6346,
-    type: "sword2h",
-    name: "Grand Sword",
-  },
-  Sword_2H_201: {
-    actor: 6342,
-    type: "sword2h",
-    name: "Highland Sword",
-  },
-  Sword_2H_202: {
-    actor: 6344,
-    type: "sword2h",
-    name: "Brimstone Sword",
-  },
-  Sword_2H_203: {
-    actor: 6343,
-    type: "sword2h",
-    name: "Yatagan",
-  },
-  Sword_2H_204: {
-    actor: 6345,
-    type: "sword2h",
-    name: "Colossus Blade",
-  },
-  Sword_2H_205: {
-    actor: 483,
-    type: "sword2h",
-    name: "Oni Blade",
-  },
-  Sword_2H_206: {
-    actor: 6346,
-    type: "sword2h",
-    name: "Warlord Sword",
-  },
-  Sword_2H_301: {
-    actor: 335139,
-    type: "sword2h",
-    name: "Gothic Blade",
-  },
-  Sword_2H_302: {
-    actor: 367141,
-    type: "sword2h",
-    name: "Kingslayer",
-  },
   VoodooMask_001: {
     actor: {
       "6481": 154484,
       "6485": 143329,
     },
-    type: "voodoomask",
     name: "Tribal Mask",
+    type: "voodoomask",
   },
   VoodooMask_002: {
     actor: {
       "6481": 154485,
       "6485": 143330,
     },
-    type: "voodoomask",
     name: "Shaman Mask",
+    type: "voodoomask",
   },
   VoodooMask_003: {
     actor: {
       "6481": 154486,
       "6485": 143331,
     },
-    type: "voodoomask",
     name: "Chieftain Mask",
+    type: "voodoomask",
   },
   VoodooMask_004: {
     actor: {
       "6481": 154488,
       "6485": 143332,
     },
-    type: "voodoomask",
     name: "Spirit Mask",
-  },
-  VoodooMask_101: {
-    actor: {
-      "6481": 154484,
-      "6485": 143329,
-    },
     type: "voodoomask",
-    name: "Woodwraith Bark",
-  },
-  VoodooMask_102: {
-    actor: {
-      "6481": 154485,
-      "6485": 143330,
-    },
-    type: "voodoomask",
-    name: "Burial Mask",
-  },
-  VoodooMask_103: {
-    actor: {
-      "6481": 154486,
-      "6485": 143331,
-    },
-    type: "voodoomask",
-    name: "Naga Mask",
-  },
-  VoodooMask_104: {
-    actor: {
-      "6481": 154488,
-      "6485": 143332,
-    },
-    type: "voodoomask",
-    name: "Umbra Mask",
-  },
-  VoodooMask_201: {
-    actor: {
-      "6481": 154484,
-      "6485": 143329,
-    },
-    type: "voodoomask",
-    name: "Screaming Mask",
-  },
-  VoodooMask_202: {
-    actor: {
-      "6481": 154485,
-      "6485": 143330,
-    },
-    type: "voodoomask",
-    name: "Underworld Mask",
-  },
-  VoodooMask_203: {
-    actor: {
-      "6481": 154486,
-      "6485": 143331,
-    },
-    type: "voodoomask",
-    name: "Manitou Mask",
-  },
-  VoodooMask_204: {
-    actor: {
-      "6481": 154488,
-      "6485": 143332,
-    },
-    type: "voodoomask",
-    name: "Deva",
   },
   VoodooMask_205: {
     actor: {
       "6481": 335383,
       "6485": 335385,
     },
-    type: "voodoomask",
     name: "Tribal Mask",
+    type: "voodoomask",
   },
   VoodooMask_206: {
     actor: {
       "6481": 369192,
       "6485": 369135,
     },
-    type: "voodoomask",
     name: "Ascended Mask",
+    type: "voodoomask",
   },
   Wand_000: {
     actor: 487,
-    type: "wand",
     name: "Apprentice's Wand",
-  },
-  Wand_001: {
-    actor: 487,
     type: "wand",
-    name: "Lesser Wand",
   },
   Wand_002: {
     actor: 6421,
-    type: "wand",
     name: "Oak Wand",
+    type: "wand",
   },
   Wand_003: {
     actor: 6422,
-    type: "wand",
     name: "Wand",
+    type: "wand",
   },
   Wand_004: {
     actor: 6423,
-    type: "wand",
     name: "Steel Wand",
+    type: "wand",
   },
   Wand_005: {
     actor: 6424,
-    type: "wand",
     name: "Mentor Wand",
+    type: "wand",
   },
   Wand_006: {
     actor: 6425,
-    type: "wand",
     name: "Enchanter Wand",
+    type: "wand",
   },
   Wand_007: {
     actor: 6426,
-    type: "wand",
     name: "Grim Wand",
-  },
-  Wand_101: {
-    actor: 487,
     type: "wand",
-    name: "Petrified Wand",
-  },
-  Wand_102: {
-    actor: 6421,
-    type: "wand",
-    name: "Duelist Wand",
-  },
-  Wand_103: {
-    actor: 6422,
-    type: "wand",
-    name: "Jade Wand",
-  },
-  Wand_104: {
-    actor: 6423,
-    type: "wand",
-    name: "Battle Wand",
-  },
-  Wand_105: {
-    actor: 6424,
-    type: "wand",
-    name: "Divination Wand",
-  },
-  Wand_106: {
-    actor: 6425,
-    type: "wand",
-    name: "Sorcery Wand",
-  },
-  Wand_107: {
-    actor: 6426,
-    type: "wand",
-    name: "Silversteel Wand",
-  },
-  Wand_201: {
-    actor: 487,
-    type: "wand",
-    name: "Greater Wand",
-  },
-  Wand_202: {
-    actor: 6421,
-    type: "wand",
-    name: "Guardian",
-  },
-  Wand_203: {
-    actor: 6422,
-    type: "wand",
-    name: "Magus Wand",
-  },
-  Wand_204: {
-    actor: 6423,
-    type: "wand",
-    name: "Spellbinder",
-  },
-  Wand_205: {
-    actor: 6424,
-    type: "wand",
-    name: "Archmage Wand",
-  },
-  Wand_206: {
-    actor: 6425,
-    type: "wand",
-    name: "Strike Wand",
-  },
-  Wand_207: {
-    actor: 6426,
-    type: "wand",
-    name: "Desolator Wand",
   },
   Wand_301: {
     actor: 335373,
-    type: "wand",
     name: "Demon's Head Wand",
+    type: "wand",
   },
   Wand_302: {
     actor: 367202,
-    type: "wand",
     name: "Diabolic Wand",
+    type: "wand",
   },
   WizardHat_001: {
     actor: {
       "6526": 145782,
       "6544": 145786,
     },
-    type: "wizardhat",
     name: "Wanderer Hat",
+    type: "wizardhat",
   },
   WizardHat_002: {
     actor: {
       "6526": 145783,
       "6544": 145787,
     },
-    type: "wizardhat",
     name: "Journey Mask",
+    type: "wizardhat",
   },
   WizardHat_003: {
     actor: {
       "6526": 145784,
       "6544": 145788,
     },
-    type: "wizardhat",
     name: "Scholarly Fez",
+    type: "wizardhat",
   },
   WizardHat_004: {
     actor: {
       "6526": 145785,
       "6544": 145789,
     },
-    type: "wizardhat",
     name: "Charlatan Cap",
-  },
-  WizardHat_101: {
-    actor: {
-      "6526": 145782,
-      "6544": 145786,
-    },
     type: "wizardhat",
-    name: "Conjurer Shade",
-  },
-  WizardHat_102: {
-    actor: {
-      "6526": 145783,
-      "6544": 145787,
-    },
-    type: "wizardhat",
-    name: "Mystic Shade",
-  },
-  WizardHat_103: {
-    actor: {
-      "6526": 145784,
-      "6544": 145788,
-    },
-    type: "wizardhat",
-    name: "Mentor Cap",
-  },
-  WizardHat_104: {
-    actor: {
-      "6526": 145785,
-      "6544": 145789,
-    },
-    type: "wizardhat",
-    name: "Traveler Hat",
-  },
-  WizardHat_201: {
-    actor: {
-      "6526": 145782,
-      "6544": 145786,
-    },
-    type: "wizardhat",
-    name: "Sage Hat",
-  },
-  WizardHat_202: {
-    actor: {
-      "6526": 145783,
-      "6544": 145787,
-    },
-    type: "wizardhat",
-    name: "Sinister Mask",
-  },
-  WizardHat_203: {
-    actor: {
-      "6526": 145784,
-      "6544": 145788,
-    },
-    type: "wizardhat",
-    name: "Archmage Headpiece",
-  },
-  WizardHat_204: {
-    actor: {
-      "6526": 145785,
-      "6544": 145789,
-    },
-    type: "wizardhat",
-    name: "Elder Hat",
   },
   WizardHat_205: {
     actor: {
       "6526": 335381,
       "6544": 335379,
     },
-    type: "wizardhat",
     name: "Vizier Hat",
+    type: "wizardhat",
   },
   WizardHat_206: {
     actor: {
       "6526": 373606,
       "6544": 373587,
     },
-    type: "wizardhat",
     name: "Ascended Headpiece",
-  },
-  Helm_console_promo: {
-    actor: {
-      "238284": 360215,
-      "238286": 360214,
-      "3285": 325968,
-      "3301": 325969,
-      "4717": 325972,
-      "4721": 325973,
-      "6481": 325976,
-      "6485": 325977,
-      "6526": 325978,
-      "6544": 325979,
-      "74706": 325970,
-      "75207": 325971,
-    },
-    name: "Infernal Helm",
-    promo: true,
-    type: "helm",
-  },
-  Unique_CeremonialDagger_Promo_01_x1: {
-    actor: 337285,
-    name: "Sacrificer",
-    promo: true,
-    type: "ceremonialknife",
-  },
-  Unique_Fist_Promo_01_x1: {
-    actor: 337291,
-    name: "Deathreach",
-    promo: true,
-    type: "fistweapon",
-  },
-  Unique_Flail_1H_Promo_01_x1: {
-    actor: 359263,
-    name: "Mortal Coil",
-    promo: true,
-    type: "flail",
-  },
-  Unique_HandXBow_Promo_01_x1: {
-    actor: 337306,
-    name: "Quietus",
-    promo: true,
-    type: "handcrossbow",
-  },
-  Unique_Helm_Promo_01_x1: {
-    actor: {
-      "238284": 359439,
-      "238286": 359714,
-      "3285": 367868,
-      "3301": 368034,
-      "4717": 368366,
-      "4721": 368409,
-      "6481": 368585,
-      "6485": 368590,
-      "6526": 368562,
-      "6544": 368576,
-      "74706": 368298,
-      "75207": 368323,
-    },
-    name: "Hallowed Helm",
-    promo: true,
-    type: "helm",
-  },
-  Unique_Helm_Promo_02_x1: {
-    actor: {
-      "238284": 361646,
-      "238286": 367549,
-      "3285": 367558,
-      "3301": 367557,
-      "4717": 367555,
-      "4721": 367554,
-      "6481": 367553,
-      "6485": 367552,
-      "6526": 367551,
-      "6544": 367550,
-      "74706": 367556,
-      "75207": 359973,
-    },
-    name: "Death Mask",
-    promo: true,
-    type: "helm",
-  },
-  Unique_Mighty_2H_Promo_01_x1: {
-    actor: 337314,
-    name: "Grim Reaper",
-    promo: true,
-    type: "mightyweapon2h",
-  },
-  Unique_Orb_Promo_01_x1: {
-    actor: 359418,
-    name: "Heart of Darkness",
-    promo: true,
-    type: "source",
-  },
-  Unique_Sword_1H_Promo_01_x1: {
-    actor: 337282,
-    name: "Lifebane",
-    promo: true,
-    type: "sword",
+    type: "wizardhat",
   },
   X1_Boots_norm_season_01: {
     armortype: 3,
@@ -8431,13 +6948,13 @@ DiabloCalc.webglItems = {
   },
   p1_Mace_norm_promo_01: {
     actor: 403366,
-    name: "Deadeyeâ€™s Mace",
+    name: "Deadeye’s Mace",
     promo: true,
     type: "mace",
   },
   p1_Staff_norm_promo_01: {
     actor: 402266,
-    name: "Nerâ€™zhulâ€™s Staff of Shadowmoon",
+    name: "Ner’zhul’s Staff of Shadowmoon",
     promo: true,
     type: "staff",
   },
@@ -8461,12 +6978,9 @@ DiabloCalc.webglItems = {
   },
   p1_orb_norm_promo_01: {
     actor: 403401,
-    name: "Gulâ€™danâ€™s Secret",
+    name: "Gul’dan’s Secret",
     promo: true,
     type: "source",
-  },
-  Unique_Offhand_001_x1: {
-    actor: 200476,
   },
 };
 DiabloCalc.webglActors = {
@@ -10219,7 +8733,6 @@ DiabloCalc.webglActors = {
     enable: {
       "0": 0,
     },
-    scale: 2,
   },
   "184228": {
     enable: {
@@ -10546,7 +9059,7 @@ DiabloCalc.webglActors = {
   },
   "192484": {
     enable: {
-      "2": 1,
+      "2": 0,
     },
   },
   "192511": {
@@ -10925,48 +9438,13 @@ DiabloCalc.webglActors = {
   },
   "197095": {
     enable: {
-      "2": 1,
-      "3": 1,
+      "2": 0,
+      "3": 0,
     },
   },
   "197478": {
     enable: {
       "2": 0,
-    },
-  },
-  "197624": {
-    enable: {
-      "0": 0,
-    },
-  },
-  "197625": {
-    enable: {
-      "0": 0,
-    },
-  },
-  "197626": {
-    enable: {
-      "0": 0,
-    },
-  },
-  "197627": {
-    enable: {
-      "0": 0,
-    },
-  },
-  "197628": {
-    enable: {
-      "0": 0,
-    },
-  },
-  "197629": {
-    enable: {
-      "0": 0,
-    },
-  },
-  "197630": {
-    enable: {
-      "0": 0,
     },
   },
   "197717": {
@@ -11237,6 +9715,11 @@ DiabloCalc.webglActors = {
   "200350": {
     enable: {
       "0": 0,
+    },
+  },
+  "200476": {
+    enable: {
+      "2": 0,
     },
   },
   "200558": {
@@ -11656,7 +10139,7 @@ DiabloCalc.webglActors = {
   },
   "212780": {
     enable: {
-      "1": 3,
+      "1": 0,
     },
   },
   "216525": {
@@ -11670,6 +10153,13 @@ DiabloCalc.webglActors = {
     enable: {
       "0": 0,
     },
+  },
+  "220326": {
+    animation: 141548,
+    enable: {
+      "0": 0,
+    },
+    physics: 371156,
   },
   "220410": {
     enable: {
@@ -13313,6 +11803,11 @@ DiabloCalc.webglActors = {
       "3": 0,
     },
   },
+  "271597": {
+    enable: {
+      "2": 0,
+    },
+  },
   "271598": {
     enable: {
       "2": 0,
@@ -13336,6 +11831,11 @@ DiabloCalc.webglActors = {
     },
   },
   "271631": {
+    enable: {
+      "2": 0,
+    },
+  },
+  "271634": {
     enable: {
       "2": 0,
     },
@@ -13386,6 +11886,17 @@ DiabloCalc.webglActors = {
       "2": 0,
     },
   },
+  "271728": {
+    enable: {
+      "2": 0,
+    },
+  },
+  "271731": {
+    enable: {
+      "2": 0,
+      "3": 0,
+    },
+  },
   "271732": {
     enable: {
       "2": 0,
@@ -13393,6 +11904,7 @@ DiabloCalc.webglActors = {
   },
   "271738": {
     enable: {
+      "2": 0,
       "3": 0,
     },
   },
@@ -13480,12 +11992,22 @@ DiabloCalc.webglActors = {
       "2": 0,
     },
   },
+  "271963": {
+    enable: {
+      "2": 0,
+    },
+  },
   "271979": {
     enable: {
       "2": 0,
     },
   },
   "272008": {
+    enable: {
+      "2": 0,
+    },
+  },
+  "272009": {
     enable: {
       "2": 0,
     },
@@ -13892,21 +12414,6 @@ DiabloCalc.webglActors = {
     },
     hair: 0,
   },
-  "298170": {
-    enable: {
-      "0": 0,
-    },
-  },
-  "298171": {
-    enable: {
-      "0": 0,
-    },
-  },
-  "298172": {
-    enable: {
-      "0": 0,
-    },
-  },
   "298182": {
     enable: {
       "2": 0,
@@ -13925,6 +12432,16 @@ DiabloCalc.webglActors = {
     },
   },
   "298188": {
+    enable: {
+      "2": 0,
+    },
+  },
+  "298189": {
+    enable: {
+      "2": 0,
+    },
+  },
+  "298190": {
     enable: {
       "2": 0,
     },
@@ -14321,6 +12838,12 @@ DiabloCalc.webglActors = {
       "0": 0,
     },
   },
+  "322776": {
+    enable: {
+      "2": 0,
+      "3": 0,
+    },
+  },
   "323497": {
     enable: {
       "0": 0,
@@ -14480,6 +13003,16 @@ DiabloCalc.webglActors = {
     },
   },
   "328572": {
+    enable: {
+      "2": 0,
+    },
+  },
+  "328591": {
+    enable: {
+      "2": 0,
+    },
+  },
+  "331908": {
     enable: {
       "2": 0,
     },
@@ -16969,6 +15502,11 @@ DiabloCalc.webglActors = {
     },
     physics: 147324,
   },
+  "380733": {
+    enable: {
+      "2": 0,
+    },
+  },
   "3835": {
     enable: {
       "2": 0,
@@ -17037,14 +15575,58 @@ DiabloCalc.webglActors = {
       "2": 0,
     },
   },
+  "395198": {
+    animation: 141548,
+    enable: {
+      "1": 0,
+    },
+    physics: 371156,
+  },
   "395199": {
     animation: 424534,
     enable: {
       "1": 0,
     },
   },
+  "395227": {
+    animation: 415005,
+    enable: {
+      "2": 0,
+    },
+    physics: 236298,
+  },
+  "395228": {
+    animation: 429628,
+    enable: {
+      "2": 0,
+    },
+    physics: 236298,
+  },
+  "395303": {
+    animation: 423246,
+    enable: {
+      "2": 0,
+    },
+  },
+  "395304": {
+    enable: {
+      "2": 0,
+    },
+  },
   "395305": {
     enable: {
+      "2": 0,
+    },
+  },
+  "399317": {
+    animation: 423039,
+    enable: {
+      "0": 0,
+    },
+  },
+  "399318": {
+    enable: {
+      "1": 0,
       "2": 0,
     },
   },
@@ -17109,6 +15691,13 @@ DiabloCalc.webglActors = {
   },
   "403812": {
     animation: 403813,
+    enable: {
+      "2": 0,
+    },
+    physics: 236298,
+  },
+  "403846": {
+    animation: 403850,
     enable: {
       "2": 0,
     },
@@ -17309,6 +15898,12 @@ DiabloCalc.webglActors = {
       "2": 0,
     },
   },
+  "426776": {
+    enable: {
+      "0": 0,
+    },
+    hair: 1,
+  },
   "426808": {
     enable: {
       "0": 0,
@@ -17330,6 +15925,12 @@ DiabloCalc.webglActors = {
       "0": 0,
       "1": 0,
     },
+  },
+  "426877": {
+    enable: {
+      "0": 0,
+    },
+    hair: 0,
   },
   "426885": {
     enable: {
@@ -17355,6 +15956,18 @@ DiabloCalc.webglActors = {
       "1": 0,
     },
   },
+  "426899": {
+    enable: {
+      "0": 0,
+    },
+    hair: 2,
+  },
+  "426916": {
+    enable: {
+      "0": 0,
+    },
+    hair: 1,
+  },
   "426918": {
     enable: {
       "0": 0,
@@ -17379,6 +15992,12 @@ DiabloCalc.webglActors = {
       "1": 0,
     },
   },
+  "426960": {
+    enable: {
+      "0": 0,
+    },
+    hair: 1,
+  },
   "426964": {
     enable: {
       "0": 0,
@@ -17390,6 +16009,12 @@ DiabloCalc.webglActors = {
     },
   },
   "426966": {
+    enable: {
+      "0": 0,
+    },
+    hair: 1,
+  },
+  "426998": {
     enable: {
       "0": 0,
     },
@@ -17419,6 +16044,18 @@ DiabloCalc.webglActors = {
       "1": 0,
     },
   },
+  "427009": {
+    enable: {
+      "0": 0,
+    },
+    hair: 1,
+  },
+  "427012": {
+    enable: {
+      "0": 0,
+    },
+    hair: 0,
+  },
   "427014": {
     enable: {
       "0": 0,
@@ -17442,6 +16079,18 @@ DiabloCalc.webglActors = {
       "0": 0,
       "1": 0,
     },
+  },
+  "427027": {
+    enable: {
+      "0": 0,
+    },
+    hair: 1,
+  },
+  "427029": {
+    enable: {
+      "0": 0,
+    },
+    hair: 0,
   },
   "427031": {
     enable: {
@@ -17467,6 +16116,18 @@ DiabloCalc.webglActors = {
       "1": 0,
     },
   },
+  "427039": {
+    enable: {
+      "0": 0,
+    },
+    hair: 2,
+  },
+  "427041": {
+    enable: {
+      "0": 0,
+    },
+    hair: 0,
+  },
   "427043": {
     enable: {
       "0": 0,
@@ -17477,6 +16138,400 @@ DiabloCalc.webglActors = {
     enable: {
       "0": 0,
       "1": 0,
+    },
+  },
+  "428445": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428446": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428456": {
+    enable: {
+      "0": 0,
+    },
+    hair: 1,
+  },
+  "428475": {
+    enable: {
+      "0": 0,
+    },
+    hair: 1,
+  },
+  "428480": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428481": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428501": {
+    enable: {
+      "0": 0,
+    },
+    hair: 1,
+  },
+  "428504": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428505": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428509": {
+    enable: {
+      "0": 0,
+    },
+    hair: 1,
+  },
+  "428520": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428521": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428528": {
+    enable: {
+      "0": 0,
+    },
+    hair: 1,
+  },
+  "428535": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428536": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428549": {
+    enable: {
+      "0": 0,
+    },
+    hair: 1,
+  },
+  "428560": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428561": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428597": {
+    enable: {
+      "0": 0,
+    },
+    hair: 1,
+  },
+  "428600": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428601": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428618": {
+    enable: {
+      "0": 0,
+    },
+    hair: 1,
+  },
+  "428624": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428625": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428638": {
+    enable: {
+      "0": 0,
+    },
+    hair: 1,
+  },
+  "428643": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428644": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428651": {
+    enable: {
+      "0": 0,
+    },
+    hair: 1,
+  },
+  "428654": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428655": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428657": {
+    enable: {
+      "0": 0,
+    },
+    hair: 1,
+  },
+  "428660": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428661": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428670": {
+    enable: {
+      "0": 0,
+    },
+    hair: 1,
+  },
+  "428673": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "428674": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429264": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 3,
+  },
+  "429270": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 3,
+  },
+  "429273": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 3,
+  },
+  "429290": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 3,
+  },
+  "429538": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 3,
+  },
+  "429540": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 3,
+  },
+  "429542": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 3,
+  },
+  "429545": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 3,
+  },
+  "429641": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 3,
+  },
+  "429643": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 3,
+  },
+  "429645": {
+    enable: {
+      "0": 0,
+    },
+    hair: 3,
+  },
+  "429647": {
+    enable: {
+      "0": 0,
+    },
+    hair: 3,
+  },
+  "429685": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429687": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429699": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429701": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429703": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429705": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429707": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429709": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429711": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429713": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429715": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429717": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429720": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429722": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429728": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429730": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429736": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429738": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429740": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429742": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429744": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429746": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429748": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "429750": {
+    enable: {
+      "0": 0,
     },
   },
   "430567": {
@@ -17688,6 +16743,44 @@ DiabloCalc.webglActors = {
       "2": 0,
     },
   },
+  "440055": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 3,
+  },
+  "440059": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+  },
+  "440060": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+  },
+  "440239": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 3,
+  },
+  "440241": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+  },
+  "440242": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+  },
   "440375": {
     animation: 440373,
     enable: {
@@ -17726,37 +16819,220 @@ DiabloCalc.webglActors = {
       "0": 0,
     },
   },
-  "440933": {
+  "443283": {
+    enable: {
+      "2": 0,
+      "3": 0,
+    },
+  },
+  "443603": {
     enable: {
       "0": 0,
+      "1": 0,
+    },
+    hair: 1,
+  },
+  "444006": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 3,
+  },
+  "444013": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 3,
+  },
+  "444015": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 3,
+  },
+  "444045": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 3,
+  },
+  "444049": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 3,
+  },
+  "444057": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 3,
+  },
+  "444061": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 3,
+  },
+  "444063": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 3,
+  },
+  "444072": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 3,
+  },
+  "444351": {
+    enable: {
+      "0": 0,
+      "1": 0,
     },
     hair: 0,
   },
-  "441045": {
+  "444375": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 0,
+  },
+  "444724": {
     enable: {
       "0": 0,
     },
   },
-  "441046": {
+  "444728": {
     enable: {
       "0": 0,
     },
   },
-  "441047": {
+  "444731": {
     enable: {
       "0": 0,
     },
   },
-  "441048": {
+  "444732": {
     enable: {
       "0": 0,
     },
   },
-  "441050": {
+  "444735": {
     enable: {
       "0": 0,
     },
-    hair: 3,
+  },
+  "444736": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "444774": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "444775": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "444778": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "444779": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "444782": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "444783": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "444786": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "444787": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "444790": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "444791": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "445119": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "445120": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "445124": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "445125": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "445128": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "445129": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "445137": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "445138": {
+    enable: {
+      "0": 0,
+    },
+  },
+  "445356": {
+    enable: {
+      "2": 0,
+    },
   },
   "4458": {
     enable: {
@@ -19286,11 +18562,6 @@ DiabloCalc.webglActors = {
   "99759": {
     enable: {
       "0": 0,
-    },
-  },
-  "200476": {
-    enable: {
-      "2": 0,
     },
   },
 };

@@ -452,7 +452,8 @@
       $.each(info.params, function(i, param) {
         if (param._done) return;
         param._done = true;
-        if (typeof param.min === "string" || typeof param.max === "string") {
+        if (typeof param.min === "string" || typeof param.min === "function" ||
+            typeof param.max === "string" || typeof param.max === "function") {
           if (param.val === undefined) param.val = "max";
           param._val = param.val;
           Object.defineProperty(param, "val", {
@@ -471,21 +472,29 @@
           if (param.val === undefined || param.val === "max") param.val = param.max;
           else param.val = param.min;
         }
-        if (typeof param.min === "string") {
+        if (typeof param.min === "string" || typeof param.min === "function") {
           var min = param.min;
           Object.defineProperty(param, "min", {
             get: function() {
-              var val = (DiabloCalc.getStats ? DiabloCalc.getStats().execString(min) : 0);
+              var val = 0;
+              if (DiabloCalc.getStats) {
+                var stats = DiabloCalc.getStats();
+                val = (typeof min === "string" ? stats.execString(min) : min.call(this, stats));
+              }
               var step = (param.step || 1);
               return Math.ceil(val / step) * step;
             },
           });
         }
-        if (typeof param.max === "string") {
+        if (typeof param.max === "string" || typeof param.max === "function") {
           var max = param.max;
           Object.defineProperty(param, "max", {
             get: function() {
-              var val = (DiabloCalc.getStats ? DiabloCalc.getStats().execString(max) : 0);
+              var val = 0;
+              if (DiabloCalc.getStats) {
+                var stats = DiabloCalc.getStats();
+                val = (typeof max === "string" ? stats.execString(max) : max.call(this, stats));
+              }
               var step = (param.step || 1);
               val = Math.floor(val / step) * step;
               if (param.inf) {
@@ -663,17 +672,18 @@
     /*
     var exportRes = {};
     var exportList = [
-      "webglDyes.*.name",
-      "webglItems.*.name",
-      "legendaryGems.*.id",
-      "legendaryGems.*.effects.*.format",
-      "itemById.*.name",
       "itemById.*.required.custom.id",
-      "itemById.*.required.custom.format",
-      "itemById.*.required.custom.name",
-      "itemSets.*.name",
-      "itemSets.*.bonuses.*.*.format",
-      "simMapping.buffs",
+      //"webglDyes.*.name",
+      //"webglItems.*.name",
+      //"legendaryGems.*.id",
+      //"legendaryGems.*.effects.*.format",
+      //"itemById.*.name",
+      //"itemById.*.required.custom.id",
+      //"itemById.*.required.custom.format",
+      //"itemById.*.required.custom.name",
+      //"itemSets.*.name",
+      //"itemSets.*.bonuses.*.*.format",
+      //"simMapping.buffs",
     ];
     for (var i = 0; i < exportList.length; ++i) {
       $.extend(true, exportRes, DiabloCalc.exportData(exportList[i]));
@@ -850,8 +860,13 @@
         DiabloCalc.gemById[gem.oldid + i2s2(i + 1)] = [DiabloCalc.oldGemQualities[i], type];
       }
     }
+    var todel = [];
     for (var type in DiabloCalc.legendaryGems) {
       var leg = DiabloCalc.legendaryGems[type];
+      if (!leg.effects) {
+        todel.push(type);
+        continue;
+      }
       DiabloCalc.gemById[leg.id] = [type, 0];
       DiabloCalc.sourceNames[type] = leg.name;
       if (leg.ids) {
@@ -862,6 +877,9 @@
       for (var i = 0; i < leg.effects.length; ++i) {
         leg.effects[i].args = (leg.effects[i].value || []).length;
       }
+    }
+    for (var i = 0; i < todel.length; ++i) {
+      delete DiabloCalc.legendaryGems[todel[i]];
     }
 
     DiabloCalc.skillById = {};

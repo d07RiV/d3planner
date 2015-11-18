@@ -773,6 +773,10 @@
   Section = $("<div></div>");
   Sections.append(Section);
 
+  if (location.hostname.toLowerCase().indexOf("ptr") >= 0) {
+    Section.append("<div><p><b>" + _L("The simulator has not been updated for PTR yet!") + "</b></p></div>");
+  }
+
   var showElites = $("<input></input>").attr("type", "checkbox").change(function() {
     DC.options.showElites = this.checked;
   });
@@ -936,7 +940,9 @@
           var skill = DC.skills[self.charClass][value[1]];
           if (!skill) skill = (DC.extraskills && DC.extraskills[self.charClass] && DC.extraskills[self.charClass][value[1]]);
           if (skill) {
-            var time = DC.formatNumber(value[0] / 60, 2);
+            var tmin = Math.floor(value[0] / 3600);
+            var tsec = value[0] / 60 - tmin * 60;
+            var time = (tmin ? tmin + ":" + (tsec < 10 ? "0" : ""): "") + tsec.toFixed(2);
             var icon = makeSkillIcon(value[1], self.charClass);
             var line = $("<li><span><span>" + time + "</span>" + icon + "<span>" + skill.name +
               "</span></span><span>" + value[2].toFixed(0) + "</span></li>");

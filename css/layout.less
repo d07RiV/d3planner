@@ -1086,3 +1086,15 @@
     background: #000 !important;
   }
 }
+.link-like {
+  cursor: pointer;
+  .theme-light & {
+    color: #44f;
+  }
+  .theme-dark & {
+    color: #88f;
+  }
+  &:hover {
+    text-decoration: underline;
+  }
+}

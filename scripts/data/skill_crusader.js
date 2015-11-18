@@ -330,13 +330,12 @@ DiabloCalc.skills.crusader = {
       e: {"Uptime": {duration: 4, cooldown: 30}},
     },
     active: false,
-    buffs: {
-      x: {dmgred: 50},
-      d: {dmgred: 50},
-      b: {dmgred: 50},
-      c: {dmgred: 50},
-      a: {dmgred: 50},
-      e: {dmgred: 50},
+    buffs: function(rune, stats) {
+      var res = {dmgred: 50};
+      if (stats.leg_hallowedbulwark) {
+        res.blockamount_percent = stats.leg_hallowedbulwark;
+      }
+      return res;
     },
   },
   consecration: {
@@ -657,9 +656,7 @@ DiabloCalc.skills.crusader = {
       case "d": res = {damage: 35, wrathregen: 5, armor_percent: 150}; break;
       case "e": res = {damage: 35, wrathregen: 5, ias: 15}; break;
       }
-      if (stats.set_akkhan_4pc) {
-        res.rcr = 50;
-      }
+      if (stats.set_akkhan_4pc) res.rcr = 50;
       return res;
     },
   },

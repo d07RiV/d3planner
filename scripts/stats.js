@@ -206,11 +206,26 @@
         this.sources[stat] = {};
       }
       for (var src in sources) {
-        var value = base * 0.01 * sources[src];
-        this.sources[stat][src] = (this.sources[stat][src] || 0) + value;
+        if (typeof base === "number") {
+          var value = base * 0.01 * sources[src];
+          this.sources[stat][src] = (this.sources[stat][src] || 0) + value;
+        } else {
+          for (var key in base) {
+            var value = base[key] * 0.01 * sources[src];
+            this.sources[stat][src] = (this.sources[stat][src] || 0) + value;
+            break;
+          }
+        }
       }
     }
-    this[stat] = (this[stat] || 0) + base * 0.01 * total;
+    if (typeof base === "number") {
+      this[stat] = (this[stat] || 0) + base * 0.01 * total;
+    } else {
+      if (!this[stat]) this[stat] = {};
+      for (var key in base) {
+        this[stat][key] = (this[stat][key] || 0) + base[key] * 0.01 * total;
+      }
+    }
   };
   Stats.prototype.add = function(stat, amount, factor, source) {
     addStat(this, stat, amount, factor, source);
@@ -497,6 +512,7 @@
       this.addPercent("armor", "armor_percent");
 
       addStat(this, "blockamount", [0, 0]);
+      this.addPercent("blockamount", "blockamount_percent");
       addStat(this, "block", this.baseblock, 1, "baseblock");
       this.block = Math.min(75, this.block || 0);
       this.addAbsolute("block", "extra_block");
@@ -558,11 +574,8 @@
     }
 
     this.addAbsolute("thorns", "firethorns");
+    this.addPercent("thorns", "thorns_percent");
     this.info.thorns = (this.thorns || 0) * (1 + this[this.primary] / 400);
-    //this.info.thorns = ((this.thorns || 0) + (this.firethorns || 0)) * (1 + this[this.primary] / 400);
-    if (this.passives.toughasnails || this.passives.ironmaiden) {
-      this.info.thorns *= 1.5;
-    }
 
     this.calcWeapon = function(info) {
       info.speed = info.speed + (this.weaponaps || 0);
@@ -609,7 +622,9 @@
     }
 
     if (!minimal) {
-      this.addPercent("regen", "regen_bonus", this.info.itemregen);
+      this.addAbsolute("regen", "post_regen");
+      this.addPercent("regen", "post_regen_bonus", this.info.itemregen);
+      this.addPercent("regen", "regen_bonus");
       this.info.healing = (this.regen || 0) + (this.regen_percent || 0) * 0.01 * this.info.hp + (this.lph || 0) * this.info.aps + (this.laek || 0) * 0.16 + (this.healbonus || 0) * 0.08;
       this.info.recovery = this.info.healing * this.info.toughness / this.info.hp;
     }

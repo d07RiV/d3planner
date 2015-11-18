@@ -50,28 +50,9 @@ function mklink($path, $src = NULL) {
  <body class="<?php echo (isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "\"light\"") ? "theme-light" : "theme-dark"; ?>">
 
   <div class="page">
-
    <div class="col left-banner">
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <!-- Left banner -->
-    <ins class="adsbygoogle"
-         style="display:inline-block;width:160px;height:600px"
-         data-ad-client="ca-pub-7703035589260001"
-         data-ad-slot="9264362972"></ins>
-    <script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
    </div>
    <div class="col right-banner">
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <!-- Right banner -->
-    <ins class="adsbygoogle"
-         style="display:inline-block;width:160px;height:600px"
-         data-ad-client="ca-pub-7703035589260001"
-         data-ad-slot="9124762171"></ins>
-    <script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
    </div>
 
    <div class="row body">

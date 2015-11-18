@@ -665,7 +665,8 @@
           });
           DC.chosenTips(sock.color, function(id) {
             if (DC.tooltip && DC.gemColors[id]) {
-              DC.tooltip.showGem(this, [parseInt(sock.type.val()), id]);
+              var type = (slotType && (DC.itemSlots[slotType] || DC.metaSlots[slotType]) || {});
+              DC.tooltip.showGem(this, [parseInt(sock.type.val()), id], undefined, type.socketType || "other");
             }
           });
           chosen_addIcons(sock.color, function(id) {

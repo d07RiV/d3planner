@@ -512,13 +512,16 @@
           return (index >= values.length ? "0" : fmtValue(values[index++], arg[1]));
         }
       }).replace(/([0-9])-([0-9])/g, "$1&#x2013;$2");
+      var reqClass;
       if (stat && DiabloCalc.stats[stat] && DiabloCalc.stats[stat].class) {
-        var charClass = $(".char-class").val();
-        if (charClass == DiabloCalc.stats[stat].class) {
-          format += " " + _L("({0} Only)").format(DiabloCalc.classes[DiabloCalc.stats[stat].class].name);
-        } else {
-          format += " <span class=\"d3-color-red\">" + _L("({0} Only)").format(DiabloCalc.classes[DiabloCalc.stats[stat].class].name) + "</span>";
-        }
+        reqClass = DiabloCalc.stats[stat].class;
+      } else if (stat && DiabloCalc.itemPowerClasses[stat]) {
+        reqClass = DiabloCalc.itemPowerClasses[stat];
+      }
+      if (reqClass && DiabloCalc.charClass !== reqClass) {
+        format += " <span class=\"d3-color-red\">" + _L("({0} Only)").format(DiabloCalc.classes[reqClass].name) + "</span>";
+      } else if (reqClass && DiabloCalc.stats[stat]) {
+        format += " " + _L("({0} Only)").format(DiabloCalc.classes[reqClass].name);
       }
       return format;
     }
@@ -883,7 +886,8 @@
           if (!compare && perfection && perfection.stats[stat] !== undefined) {
             range += percentSpan(perfection.stats[stat], "d3-perfection-value");
           }
-          format = formatBonus(format, data.stats[stat], stat == "custom" ? 2 : 1, stat);
+          format = formatBonus(format, data.stats[stat], stat == "custom" ? 2 : 1,
+            stat == "custom" ? (item.required && item.required.custom && item.required.custom.id) : stat);
           effects.append("<li class=\"d3-color-" + propColor + " d3-item-property-" + propType + "\"><p>" + format + range + "</p></li>");
         }
       }
@@ -1086,7 +1090,7 @@
       }
     }
 
-    function showGem(node, id, level) {
+    function showGem(node, id, level, socketType) {
       var gem = (id instanceof Array ? undefined : DiabloCalc.legendaryGems[id]);
       var reg = (id instanceof Array ? DiabloCalc.gemColors[id[1]] : undefined);
       if (!gem && !reg) {
@@ -1155,13 +1159,22 @@
                      _L("Unique Equipped") + "</span><span class=\"clear\"><!--   --></span>");
       } else {
         effects.append("<li class=\"d3-color-white\">" + _L("Can be inserted into equipment with sockets.") + "</li>");
-        effects.append("<li class=\"gem-effect\"><span class=\"d3-color-gray\">" + _L("Helm:") + "</span> " + formatBonus(
-          DiabloCalc.stats[reg.head.stat].format, [reg.head.amount[id[0]]]) + "</li>");
-        effects.append("<li class=\"gem-effect\"><span class=\"d3-color-gray\">" + _L("Weapon:") + "</span> " + formatBonus(
-          DiabloCalc.stats[reg.weapon.stat].format, [reg.weapon.amount[id[0]]]) + "</li>");
-        effects.append("<li class=\"gem-effect\"><span class=\"d3-color-gray\">" + _L("Other:") + "</span> " + formatBonus(
-          DiabloCalc.stats[reg.other.stat].format, [reg.other.amount[id[0]]]) + "</li>");
+        function fmtSlot(data, flag) {
+          var fmt = formatBonus(DiabloCalc.stats[data.stat].format, [data.amount[id[0]]]);
+          if (!flag) fmt = "<span class=\"d3-color-gray\">" + fmt + "</span>";
+          return fmt;
+        }
+        effects.append("<li class=\"gem-effect\"><span class=\"d3-color-gray\">" + _L("Helm:") + "</span> " +
+          fmtSlot(reg.head, !socketType || socketType === "head") + "</li>");
+        effects.append("<li class=\"gem-effect\"><span class=\"d3-color-gray\">" + _L("Weapon:") + "</span> " +
+          fmtSlot(reg.weapon, !socketType || socketType === "weapon") + "</li>");
+        effects.append("<li class=\"gem-effect\"><span class=\"d3-color-gray\">" + _L("Other:") + "</span> " +
+          fmtSlot(reg.other, socketType !== "helm" && socketType !== "weapon") + "</li>");
         props.append("<ul class=\"item-extras\"><li>" + _L("Account Bound") + "</li></ul><span class=\"clear\"><!--   --></span>");
+      }
+
+      if (gem && gem.flavor) {
+        outer.append("<div class=\"tooltip-extension\"><div class=\"flavor\">" + gem.flavor + "</div></div>");
       }
 
       show(node);

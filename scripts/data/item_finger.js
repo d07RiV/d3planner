@@ -9,6 +9,7 @@ DiabloCalc.addItems([
       expmul: {min: 45, max: 45},
       custom: {id: "leg_hellfirering", name: "Engulf the Ground in Lava", format: "Chance on hit to engulf the ground in lava, dealing 200%% weapon damage per second for 6 seconds.", args: 0},
     },
+    secondary: 3,
   },
 
   {

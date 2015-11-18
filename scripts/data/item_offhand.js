@@ -33,6 +33,8 @@ DiabloCalc.addItems([
       custom: {id: "leg_defenderofwestmarch", name: "Charging Wolf Damage", format: "Blocks have a chance of summoning a charging wolf that deals %d%% weapon damage to all enemies it passes through.", min: 300, max: 400},
     },
     preset: ["mainstat", "block"],
+    primary: 5,
+    secondary: 1,
   },
 
   {
@@ -44,6 +46,8 @@ DiabloCalc.addItems([
       custom: {id: "leg_defenderofwestmarch_p2", name: "Charging Wolf Damage", format: "Blocks have a chance of summoning a charging wolf that deals %d%% weapon damage to all enemies it passes through.", min: 800, max: 1000},
     },
     preset: ["mainstat", "block"],
+    primary: 5,
+    secondary: 1,
   },
 
   {

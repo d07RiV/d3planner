@@ -514,6 +514,9 @@
             tip += "</p></div>";
             result[stat].tip = tip;
           }
+        } else if (fmt.persecond) {
+          result[stat].value = cost;
+          result[stat].text = _L("{0} {1} per second").format(parseFloat(cost.toFixed(2)), DiabloCalc.resources[resource]);
         } else {
           result[stat].value = cost;
           result[stat].text = parseFloat(cost.toFixed(2)) + " " + DiabloCalc.resources[resource];
@@ -679,7 +682,8 @@
                   tip += parseFloat(data.count.toFixed(2)) + "x ";
                 }
               }
-              tip += fmtValue(data.value || result[key].value, 0, "white");
+              var theValue = (data.value ? execString(data.value) : result[key].value);
+              tip += fmtValue(theValue, 0, "white");
               if (data.factor) {
                 data.factor = execString(data.factor);
                 if (data.factor != 1) {
@@ -916,7 +920,7 @@
                         ticks = Math.ceil(data.total / frames);
                       }
                       tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Total ticks: {0} ({1} damage)").format(
-                        fmtValue(ticks, 1, "white"), "<span class=\"d3-color-green\">" + DiabloCalc.formatNumber((data.value || result[key].value) * mul * ticks, 0, 10000) + "</span>");
+                        fmtValue(ticks, 1, "white"), "<span class=\"d3-color-green\">" + DiabloCalc.formatNumber(theValue * mul * ticks, 0, 10000) + "</span>");
                     }
                   }
                 }
@@ -946,7 +950,7 @@
                   mul /= data.cd;
                 }
               }
-              sum += (data.value || result[key].value) * mul;
+              sum += theValue * mul;
             }
           }
         });
