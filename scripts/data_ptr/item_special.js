@@ -173,7 +173,7 @@ DiabloCalc.itemaffixes = {
   leg_flyingdragon: {
     active: false,
     buffs: function(value, stats) {
-      return {weaponaps: 1.15};
+      return {weaponaps_percent: 100};
     },
   },
   leg_harringtonwaistguard: {
