@@ -75,12 +75,7 @@
     if (!this.handlers[event]) {
       this.handlers[event] = [];
     }
-    var castInfo = this.castInfo();
-    if (castInfo) {
-      castInfo = this.extend(true, {}, castInfo);
-      delete castInfo.user;
-    }
-    this.handlers[event].push({func: func, castInfo: castInfo, data: data});
+    this.handlers[event].push({func: func, castInfo: this.newCastInfo(), data: data});
   };
   Sim.unregister = function(event, func) {
     var handlers = this.handlers[event];
@@ -125,17 +120,15 @@
     this.target.radius = Math.max(data.params.targetRadius || 0, 1);
     this.target.area = Math.PI * Math.pow(this.target.radius, 2);
     this.target.size = (data.params.targetSize || 0);
-    this.target.count = (data.params.targetCount || 1);
+    this.target.count = (data.params.targetCount || 0) + (data.params.targetElites || 0) + (data.params.targetBosses || 0);
+    if (!this.target.count) this.target.count = 1;
     this.target.distance = (data.params.targetDistance || 0);
-    this.target.elite = data.params.showElites;
-    this.target.boss = data.params.targetBoss;
+    this.target.elite = ((data.params.targetElites || 0) + (data.params.targetBosses || 0)) / this.target.count;
+    this.target.boss = (data.params.targetBoss || 0) / this.target.count;
     this.target.type = (data.params.targetType || "");
     this.target.density = this.target.count / this.target.area;
     this.target.maxdr = 0.95;
     this.target.mincc = 0.65;
-    if (!this.target.elite) {
-      this.target.boss = false;
-    }
     if (this.target.elite) {
       this.target.maxdr = 65;
       this.target.mincc = 0.65;
@@ -218,6 +211,14 @@
     if (this.castInfoStack.length) {
       return this.castInfoStack[this.castInfoStack.length - 1];
     }
+  };
+  Sim.newCastInfo = function() {
+    var castInfo = this.castInfo();
+    if (castInfo) {
+      castInfo = this.extend(true, {}, castInfo);
+      delete castInfo.user;
+    }
+    return castInfo;
   };
   Sim.getCastId = function() {
     for (var i = this.castInfoStack.length - 1; i >= 0; --i) {

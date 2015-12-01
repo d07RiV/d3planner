@@ -306,6 +306,7 @@ DiabloCalc.addItems([
     id: "Unique_Ring_017_p2",
     ids: ["ptr_Oculus"],
     name: "Oculus Ring",
+//    suffix: _L("Legacy"),
     type: "ring",
     quality: "legendary",
     required: {
@@ -521,7 +522,7 @@ DiabloCalc.addItems([
       custom: {id: "leg_justicelantern", name: "Block to Damage Reduction", format: "Gain damage reduction equal to %d%% of your Block Chance.", min: 50, max: 65},
       ccr: {min: 35, max: 50},
     },
-    preset: ["mainstat", "block", "sockets", "ccr"],
+    preset: ["mainstat", "sockets"],
     primary: 5,
   },
 
@@ -535,6 +536,30 @@ DiabloCalc.addItems([
       custom: {id: "leg_bandofmight", name: "Damage Reduction on Movement Skills", format: "After casting Furious Charge, Ground Stomp, or Leap, take %d%% reduced damage for 8 seconds.", min: 50, max: 60},
     },
     preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P4_Unique_Ring_04",
+    name: "Ashnagarr’s Blood",
+    suffix: _L("PTR"),
+    type: "ring",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_ashnagarrsblood", name: "Shield Increase", format: "Increases the potency of your shields by %d%%.", min: 75, max: 100},
+    },
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "Unique_Ring_017_p4",
+    name: "Oculus Ring",
+    suffix: _L("PTR"),
+    type: "ring",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_oculusring_p2", name: "Damage Bonus", format: "Chance to create an area of focused power on killing a monster. Damage is increased by %d%% while standing in the area.", min: 70, max: 85},
+    },
+    preset: ["sockets"],
   },
 
 ]);

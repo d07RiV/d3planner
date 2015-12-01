@@ -34,7 +34,7 @@ DiabloCalc.skills.crusader = {
         res["Retaliate Damage"] = {elem: elem, coeff: 1.4};
       }
       if (stats.set_invoker_6pc) {
-        res["Thorns Damage"] = {sum: true, "Thorns": {value: stats.info.thorns, factor: 6}};
+        res["Thorns Damage"] = {thorns: "normal", coeff: 6, elem: elem};
         res["DPS"]["Damage"].speed *= 1.5;
         res["DPS"]["Thorns Damage"] = $.extend({nobp: true}, res["DPS"]["Damage"]);
       }
@@ -74,7 +74,7 @@ DiabloCalc.skills.crusader = {
         "Damage": {elem: DiabloCalc.skilltips.crusader.slash.elements[rune], coeff: 2.3}};
       if (rune === "c") res["Damage"].chc = 20;
       if (stats.set_invoker_6pc) {
-        res["Thorns Damage"] = {sum: true, "Thorns": {value: stats.info.thorns, factor: 6}};
+        res["Thorns Damage"] = {thorns: "normal", coeff: 6, elem: res["Damage"].elem};
         res["DPS"]["Damage"].speed *= 1.5;
         res["DPS"]["Thorns Damage"] = $.extend({nobp: true}, res["DPS"]["Damage"]);
       }
@@ -167,7 +167,7 @@ DiabloCalc.skills.crusader = {
       case "b": res = {"Damage": {elem: "hol", coeff: 7.4, addcoeff: [[3.35, block]]}}; break;
       case "e": res = {"Damage": {elem: "lit", coeff: 7, addcoeff: [[3, block]]}}; break;
       case "c": res = {"Damage": {elem: "phy", coeff: 7, addcoeff: [[3, block]]}, "Additional Damage": {elem: "phy", coeff: 1.55, addcoeff: [[1, block]]}}; break;
-      case "a": res = {"Damage": {elem: "fir", coeff: 7, addcoeff: [[3, block]]}, "Explosion Damage": {elem: "fir", coeff: 6.6}}; break;
+      case "a": res = {"Damage": {elem: "fir", coeff: 8.75, addcoeff: [[3, block]]}}; break;
       case "d": res = {"Damage": {elem: "phy", coeff: 13.2, addcoeff: [[5, block]]}}; break;
       }
       if (this.active && (stats.leg_drakonslesson || stats.leg_drakonslesson_p2)) {
@@ -219,7 +219,7 @@ DiabloCalc.skills.crusader = {
       a: "Burning Wrath",
       b: "Thunderstruck",
       c: "Limitless",
-      d: "Crushing Blow",
+      d: "Brute Force",
       e: "Dominion",
     },
     active: true,
@@ -353,7 +353,7 @@ DiabloCalc.skills.crusader = {
     active: false,
     buffs: function(rune, stats) {
       var res = {dmgred: 50};
-      if (rune === "d") res.thorns_percent = 100;
+      if (rune === "d") res.thorns_percent = 300;
       if (stats.leg_hallowedbulwark) {
         res.blockamount_percent = stats.leg_hallowedbulwark;
       }
@@ -376,7 +376,7 @@ DiabloCalc.skills.crusader = {
     },
     info: {
       "*": {"Uptime": {duration: 10, cooldown: 30}},
-      b: {"DPS": {sum: true, "Thorns": {value: "info.thorns"}}},
+      b: {"DPS": {elem: "phy", coeff: 1, thorns: "full"}},
       d: {"DPS": {elem: "fir", coeff: 1.55, total: true}},
       a: {"Uptime": {duration: 5, cooldown: 30}},
     },
@@ -449,7 +449,7 @@ DiabloCalc.skills.crusader = {
     },
     info: {
       "*": {"Uptime": {duration: "2*(leg_swiftmount?2:1)", cooldown: 16, cdr: "passives.lordcommander?25:0"}},
-      a: {"DPS": {sum: true, "Thorns": {value: "info.thorns", factor: 5}}},
+      a: {"DPS": {elem: "phy", coeff: 5, thorns: "full"}},
       d: {"DPS": {elem: "fir", aps: true, coeff: 5.5, total: true}},
       b: {"Uptime": {duration: "3*(leg_swiftmount?2:1)", cooldown: 16, cdr: "passives.lordcommander?25:0"}},
       e: {"DPS": {elem: "hol", aps: true, coeff: 1.85, total: true}},
@@ -743,7 +743,7 @@ DiabloCalc.skills.crusader = {
         var hits = (stats.leg_themortaldrama ? 10 : 5);
         switch (rune) {
         case "x": res = {"Damage": {elem: "phy", coeff: 5.7}, "Total Damage": {sum: true, "Damage": {count: hits}}}; break;
-        case "a": res = {"Damage": {elem: "phy", coeff: 5.7}, "Thorns Damage": {sum: true, "Thorns": {value: stats.info.thorns, factor: 2}},
+        case "a": res = {"Damage": {elem: "phy", coeff: 5.7}, "Thorns Damage": {elem: "phy", coeff: 2, thorns: "full"},
           "Total Damage": {sum: true, "Damage": {count: hits}, "Thorns Damage": {count: hits}}}; break;
         case "b": res = {"Damage": {elem: "fir", coeff: 5.7, chc: 100}, "Total Damage": {sum: true, "Damage": {count: hits}}}; break;
         case "c": res = {"Damage": {elem: "fir", coeff: 5.7}, "Mine Damage": {elem: "fir", coeff: 1.6},
@@ -847,7 +847,7 @@ DiabloCalc.passives.crusader = {
     id: "iron-maiden",
     name: "Iron Maiden",
     index: 13,
-    buffs: {thorns_percent: 100},
+    buffs: {thorns_multiply: 100},
   },
   renewal: {
     id: "renewal",

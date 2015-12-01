@@ -267,6 +267,9 @@ _L.patch.add({
     P4_Unique_Dagger_002: {
       flavor: "There is nothing humorous about the way this dagger feeds off the souls of your enemies. ",
     },
+    P4_Unique_Fist_009_x1: {
+      flavor: "The corrupt magistrate of Az'Turrasq punished petty crime at a whim in the name of order. Innocent and guilty alike were crippled or killed by the hundreds during his terrible reign. ",
+    },
     P4_Unique_Fist_102: {
       flavor: "Kyoshiro was an optimist going into the battle at Xiansai. Though the walls were tumbling down around him, he quickly disposed of his enemies.",
     },
@@ -280,7 +283,7 @@ _L.patch.add({
       flavor: "Calm pervades your soul as you are warmed by the morning’s first light, for you know vengeance will soon be yours.\n",
     },
     P4_Unique_HandXBow_01: {
-      flavor: "This weapon, upon which the angel Lianna bestowed her wings, fell from the heavens and grants the wielder great power, but at a cost.",
+      flavor: "This bow, upon which the angel Lianna bestowed her wings, fell from the heavens and grants the wielder great power, but at a cost.",
     },
     P4_Unique_HandXBow_02: {
       flavor: "The Fortress Ballista was famously used by Valla during the Siege of Bastion’s Keep. A strangely garbed wizard infused it with a spell on the spur of the moment, apparently conjured from nothing, when it seemed their fate was sealed.",
@@ -335,6 +338,9 @@ _L.patch.add({
     },
     P4_Unique_Ring_03: {
       flavor: "Once worn by the self-appointed guardians of Sanctuary, who were said to feel no fear.",
+    },
+    P4_Unique_Ring_04: {
+      flavor: "“Demon blood is a very important tool in the wizard’s arsenal. I infused this ring with it, as a matter of fact. The extraction method was agonizing, to be sure, just thinking about it brings a smile to my face.” - Ashnagarr, First Wizard of the Accursed Multitude",
     },
     P4_Unique_Ring_05: {
       flavor: "“Seems designed to reduce damage, but I’m not sure how it works. Obviously, it failed its previous owner. Hopefully it will work better for you.”  -Haedrig",
@@ -1732,6 +1738,9 @@ _L.patch.add({
       flavor: "The names of those who have given their lives to fight the scourge of the Burning Hells are inscribed on this band, each one giving its power to the wearer.",
     },
     Unique_Ring_017_p2: {
+      flavor: "The eye of the one god blesses those who seek it out.",
+    },
+    Unique_Ring_017_p4: {
       flavor: "The eye of the one god blesses those who seek it out.",
     },
     Unique_Ring_017_x1: {

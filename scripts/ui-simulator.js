@@ -773,13 +773,10 @@
   Section = $("<div></div>");
   Sections.append(Section);
 
-  if (location.hostname.toLowerCase().indexOf("ptr") >= 0) {
-    Section.append("<div><p><b>" + _L("The simulator has not been updated for PTR yet!") + "</b></p></div>");
-  }
+  //if (location.hostname.toLowerCase().indexOf("ptr") >= 0) {
+  //  Section.append("<div><p><b>" + _L("The simulator has not been updated for PTR yet!") + "</b></p></div>");
+  //}
 
-  var showElites = $("<input></input>").attr("type", "checkbox").change(function() {
-    DC.options.showElites = this.checked;
-  });
   var targetType = $("<select></select>");
   targetType.append("<option value=\"\">" + _L("Generic") + "</option>");
   targetType.append("<option value=\"demons\">" + _L("Demon") + "</option>");
@@ -789,19 +786,22 @@
   targetType.change(function() {
     DC.options.targetType = $(this).val();
   });
-  var targetBoss = $("<input type=\"checkbox\"></input>").change(function() {
-    DC.options.targetBoss = this.checked;
-  });
-  var bossLabel = $("<label style=\"margin-left: 8px\">" + _L("Boss") + "</label>").prepend(targetBoss);
+  //var targetBoss = $("<input type=\"checkbox\"></input>").change(function() {
+  //  DC.options.targetBoss = this.checked;
+  //});
+  //var bossLabel = $("<label style=\"margin-left: 8px\">" + _L("Boss") + "</label>").prepend(targetBoss);
+  //var showElites = $("<input></input>").attr("type", "checkbox").change(function() {
+  //  DC.options.showElites = this.checked;
+  //});
   DC.register("updateStats", function() {
-    showElites.prop("checked", DC.options.showElites);
-    targetBoss.prop("checked", DC.options.targetBoss);
-    bossLabel.toggle(!!DC.options.showElites);
+//    showElites.prop("checked", DC.options.showElites);
+//    targetBoss.prop("checked", DC.options.targetBoss);
+//    bossLabel.toggle(!!DC.options.showElites);
     targetType.val(DC.options.targetType);
     targetType.trigger("chosen:updated");
   });
-  Section.append($("<span class=\"option-box\">" + _L("Target: ") + "</span>").append(targetType,
-    $("<label style=\"margin-left: 8px\">" + _L("Elite") + "</label>").prepend(showElites), bossLabel));
+  Section.append($("<span class=\"option-box\">" + _L("Target: ") + "</span>").append(targetType/*,
+    $("<label style=\"margin-left: 8px\">" + _L("Elite") + "</label>").prepend(showElites), bossLabel*/));
 
   var statusBox = $("<select class=\"target-status\" multiple=\"multiple\"></select>");
   for (var id in DC.simMapping.status) {

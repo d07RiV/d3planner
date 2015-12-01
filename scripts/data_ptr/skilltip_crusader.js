@@ -149,7 +149,7 @@ DiabloCalc.skilltips.crusader = {
     a: "<p>Your metal skin is electrified, giving you a <span class=\"d3-color-green\">20%</span> chance to Stun enemies within <span class=\"d3-color-green\">10</span> yards for <span class=\"d3-color-green\">2</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>44</em>.</p>",
     b: "<p>Increase the duration to <span class=\"d3-color-green\">7</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>21</em>.</p>",
     c: "<p>When Iron Skin expires the metal explodes off, dealing <span class=\"d3-color-green\">1400%</span> weapon damage to enemies within <span class=\"d3-color-green\">12</span> yards.</p> <p class=\"subtle\">Unlocked at level <em>32</em>.</p>",
-    d: "<p>While active, your Thorns is increased by <span class=\"d3-color-green\">100%</span>.</p> <p class=\"subtle\">Unlocked at level <em>14</em>.</p>",
+    d: "<p>While active, your Thorns is increased by <span class=\"d3-color-green\">300%</span>.</p> <p class=\"subtle\">Unlocked at level <em>14</em>.</p>",
     e: "<p>If you take damage while Iron Skin is active, your movement speed is increased by <span class=\"d3-color-green\">60%</span> for <span class=\"d3-color-green\">5</span> seconds and you can move through enemies unhindered.</p> <p class=\"subtle\">Unlocked at level <em>56</em>.</p>",
     elements: {
       a: "lit",
@@ -290,7 +290,7 @@ DiabloCalc.skilltips.crusader = {
     x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/x1_crusader_punish.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Generate:</span> <span class=\"d3-color-green\">5</span> Wrath per attack</p><p>Strike your enemy for <span class=\"d3-color-green\">335%</span> weapon damage and gain Hardened Senses, increasing your Block Chance by <span class=\"d3-color-green\">15%</span> for <span class=\"d3-color-green\">5</span> seconds.</p> <p>Requires <span class=\"value\">Shield</span></p> <p class=\"special\">Primary</p> <p class=\"subtle\">Unlocked at level <em>1</em>.</p> </div> </div>",
   },
   shieldbash: {
-    a: "<p>Foes who are killed explode, dealing <span class=\"d3-color-green\">660%</span> weapon damage as Fire to enemies behind them and knocking those enemies back.</p> <p class=\"subtle\">Unlocked at level <em>39</em>.</p>",
+    a: "<p>Increases the weapon damage of Shield bash to <span class=\"d3-color-green\">875%</span>.</p> <p class=\"subtle\">Unlocked at level <em>39</em>.</p>",
     b: "<p>The shield shatters into other smaller fragments, hitting more enemies for <span class=\"d3-color-green\">740%</span> weapon damage plus <span class=\"d3-color-green\">335%</span> of your shield Block Chance as damage.</p> <p class=\"subtle\">Unlocked at level <em>7</em>.</p>",
     c: "<p>Additional shields erupt from you in a cross formation. Enemies hit by any of the additional shields take <span class=\"d3-color-green\">155%</span> weapon damage plus <span class=\"d3-color-green\">100%</span> of your shield Block Chance as damage.</p> <p class=\"subtle\">Unlocked at level <em>27</em>.</p>",
     d: "<p>Shield Bash will now deal <span class=\"d3-color-green\">1320%</span> weapon damage plus <span class=\"d3-color-green\">500%</span> shield Block Chance as damage. The range is reduced to <span class=\"d3-color-green\">8</span> yards.</p> <p class=\"subtle\">Unlocked at level <em>53</em>.</p>",

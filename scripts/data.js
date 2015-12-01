@@ -672,7 +672,12 @@
     /*
     var exportRes = {};
     var exportList = [
-      "itemById.*.required.custom.id",
+      "itemById.*.type",
+      "itemTypes.*.slot",
+      "itemTypes.*.generic",
+      "legendaryGems.*.id",
+      "gemQualities",
+      "gemColors.*.id",
       //"webglDyes.*.name",
       //"webglItems.*.name",
       //"legendaryGems.*.id",

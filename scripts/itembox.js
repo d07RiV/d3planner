@@ -914,6 +914,7 @@
       allow_single_deselect: true,
       search_contains: true,
       placeholder_text_single: _L("Empty Slot"),
+      populate_func: function() {self.populateItems();},
     });
     this.transmogs.append("<option value=\"\">" + (DC.noChosen ? _L("Transmogrification") : "") + "</option>");
     this.transmogs.chosen({
@@ -1789,29 +1790,45 @@
     list.append(groupPromo);
   };
 
-  DC.ItemBox.prototype.onChangeType = function() {
+  DC.ItemBox.prototype.populateItems = function() {
     var type = this.type.val();
     var itemid = this.item.val();
     this.item.empty();
     this.item.append("<option value=\"\">" + (DC.noChosen ? _L("Empty Slot") : "") + "</option>");
+    var legacyTag = (DC.options.hideLegacy ? _L("Legacy") : "_dummy_");
     if (DC.itemTypes[type]) {
-      this.itemSpan.show();
-      this.statsDiv.show();
-      this.add.show();
       for (var i = 0; i < DC.itemTypes[type].items.length; ++i) {
         var item = DC.itemTypes[type].items[i];
         if (this.charClass && item.classes && item.classes.indexOf(this.charClass) < 0) {
           continue;
         }
+        if (item.suffix === legacyTag) continue;
+        if (DC.options.hideCrossClass && DC.itemPowerClasses) {
+          if (item.required && item.required.custom && DC.itemPowerClasses[item.required.custom.id] &&
+              DC.itemPowerClasses[item.required.custom.id] !== this.charClass) {
+            continue;
+          }
+        }
         var option = "<option value=\"" + item.id + "\" class=\"item-info-icon quality-" + (item.quality || "rare") + (itemid == item.id ? "\" selected=\"selected" : "") +
           "\">" + item.name + (item.suffix ? " (" + item.suffix + ")" : "") + "</option>";
         this.item.append(option);
       }
+    }
+  };
+
+  DC.ItemBox.prototype.onChangeType = function() {
+    var type = this.type.val();
+    if (DC.itemTypes[type]) {
+      this.itemSpan.show();
+      this.statsDiv.show();
+      this.add.show();
     } else {
       this.itemSpan.hide();
       this.statsDiv.hide();
       this.add.hide();
     }
+    this.populateItems();
+
     this.item.trigger("chosen:updated");
     this.onChangeItem();
 

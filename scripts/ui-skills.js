@@ -511,9 +511,33 @@
     }
   }
 
+  function fixSkill(skill) {
+    if (skill && !DiabloCalc.skills[DiabloCalc.charClass][skill[0]]) {
+      var list = DiabloCalc.skills[DiabloCalc.charClass];
+      for (var id in list) {
+        if (list[id].oldid === skill[0]) {
+          return [id, skill[1]];
+        }
+      }
+    } else {
+      return skill;
+    }
+  }
+  function fixPassive(passive) {
+    if (passive && !DiabloCalc.passives[DiabloCalc.charClass][passive]) {
+      var list = DiabloCalc.passives[DiabloCalc.charClass];
+      for (var id in list) {
+        if (list[id].oldid === passive) {
+          return id;
+        }
+      }
+    } else {
+      return passive;
+    }
+  }
   DiabloCalc.setSkill = function(slot, skill) {
     if (slot >= 0 && slot < skills.length) {
-      skills[slot].setSkill(skill);
+      skills[slot].setSkill(fixSkill(skill));
       DiabloCalc.trigger("updateSkills");
     }
   };
@@ -525,7 +549,7 @@
   };
   DiabloCalc.setPassive = function(slot, skill) {
     if (slot >= 0 && slot < passives.length) {
-      passives[slot].setPassive(skill);
+      passives[slot].setPassive(fixPassive(skill));
       DiabloCalc.trigger("updateSkills");
     }
   };
@@ -557,7 +581,7 @@
   DiabloCalc.setSkills = function(data) {
     if (data.skills) {
       for (var slot = 0; slot < skills.length && slot < data.skills.length; ++slot) {
-        skills[slot].setSkill(data.skills[slot]);
+        skills[slot].setSkill(fixSkill(data.skills[slot]));
       }
       for (var slot = data.skills.length; slot < skills.length; ++slot) {
         skills[slot].setSkill();
@@ -565,7 +589,7 @@
     }
     if (data.passives) {
       for (var slot = 0; slot < passives.length && slot < data.passives.length; ++slot) {
-        passives[slot].setPassive(data.passives[slot]);
+        passives[slot].setPassive(fixPassive(data.passives[slot]));
       }
       for (var slot = data.passives.length; slot < passives.length; ++slot) {
         passives[slot].setPassive();

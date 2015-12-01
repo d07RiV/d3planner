@@ -150,7 +150,7 @@ DiabloCalc.simMapping = {
     manitou: {name: "Spirit Barrage - Manitou", category: "Skills", classes: ["witchdoctor"], skill: ["spiritbarrage", "e"]},
     acidcloud: {name: "Acid Cloud", category: "Skills", classes: ["witchdoctor"], skill: ["acidcloud"]},
     acidcloud_blob: {name: "Acid Cloud - Lob Blob Bomb", category: "Skills", classes: ["witchdoctor"], skill: ["acidcloud", "c"]},
-//    creepers: {name: "Wall of Zombies - Creepers", category: "Skills", classes: ["witchdoctor"], skill: ["wallofzombies", "a"]},
+//    creepers: {name: "Wall of Death - Creepers", category: "Skills", classes: ["witchdoctor"], skill: ["wallofdeath", "a"]},
     piranhas: {name: "Piranhas (Amplification)", category: "Skills", classes: ["witchdoctor"], skill: ["piranhas"]},
     gargantuan: {name: "Gargantuan", category: "Skills", classes: ["witchdoctor"], skill: ["gargantuan"]},
     restlessgiant: {name: "Gargantuan - Restless Giant (Enrage)", category: "Skills", classes: ["witchdoctor"], skill: ["gargantuan", "a"]},

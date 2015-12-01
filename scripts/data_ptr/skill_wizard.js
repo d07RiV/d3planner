@@ -993,7 +993,15 @@ DiabloCalc.partybuffs.wizard = {
   },
   slowtime: {
     runelist: "ae",
+    boxnames: ["Delsere's Magnum Opus (4pc)"],
     multiple: true,
+    buffs: function(stats) {
+      var buffs = {};
+      if (this.runevals.a) buffs.damage = 15;
+      if (this.runevals.e) buffs.ias = 10;
+      if (this.boxvals[0]) buffs.dmgred = 25;
+      return buffs;
+    },
   },
   energytwister: {
     runelist: "a",

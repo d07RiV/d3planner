@@ -55,7 +55,11 @@
   }
   var CastCounters = {};
   Sim.register("onhit", function(data) {
-    var source = ((data.skill ? (!data.pet && data.triggered) || data.skill : data.triggered) || "unknown");
+    var source = (data.skill || data.triggered || "unknown");
+    if (data.pet || (data.castInfo && data.castInfo.pet)) {
+      source = (data.triggered || data.skill || "unknown");
+    }
+    //var source = ((data.skill ? (!data.pet && data.triggered) || data.skill : data.triggered) || "unknown");
     var amount = data.damage * data.targets;
     var cnt = _counter(source);
     cnt.damage = (cnt.damage || 0) + amount;
@@ -74,7 +78,10 @@
     }
     var castId = (data.castInfo && data.castInfo.castId);
     if (castId && CastCounters[castId]) {
-      var source = (data.triggered || data.skill || "unknown");
+      /*var source = (data.skill || data.triggered || "unknown");
+      if (data.pet || (data.castInfo && data.castInfo.pet)) {
+        source = (data.triggered || data.skill || "unknown");
+      }*/
       var evt = CastCounters[castId];
       if (data.triggered) {
         evt[4][source] = (evt[4][source] || 0) + amount;

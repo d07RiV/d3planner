@@ -31,6 +31,46 @@
     buffQueue.remove(e);
   };
 
+  Sim.buffWatchers = {};
+  Sim.statusWatchers = {};
+  Sim.buffs = {};
+  Sim.metaBuffs = {};
+  Sim.metaParents = {};
+  Sim.uptimes = {};
+
+  Sim.watchBuff = function(name, func) {
+    if (!this.buffWatchers[name]) {
+      this.buffWatchers[name] = [];
+    }
+    var castInfo = this.newCastInfo();
+    this.buffWatchers[name].push({func: func, castInfo: castInfo});
+
+    this.pushCastInfo(castInfo);
+    func.call(this, {stacks: this.getBuff(name), duration: this.getBuffDuration(name)});
+    this.popCastInfo();
+  };
+  Sim.watchStatus = function(name, func) {
+    if (!this.statusWatchers[name]) {
+      this.statusWatchers[name] = [];
+    }
+    Sim.statusWatchers[name].push({func: func, castInfo: this.newCastInfo()});
+  };
+  Sim.buffWatchTrigger = function(name) {
+    var data = {stacks: this.getBuff(name), duration: this.getBuffDuration(name)};
+    var watchers = this.buffWatchers[name];
+    if (watchers) for (var i = 0; i < watchers.length; ++i) {
+      var castInfo = this.extend({}, watchers[i].castInfo);
+      castInfo.castId = this.getCastId();
+      this.pushCastInfo(castInfo);
+      watchers[i].func.call(this, data);
+      this.popCastInfo();
+    }
+    var parents = this.metaParents[name];
+    if (parents) for (var i = 0; i < parents.length; ++i) {
+      this.buffWatchTrigger(parents[i]);
+    }
+  };
+
   Sim.buffsModified = true;
   Sim.register("update", function(evt) {
     var time = evt.time;
@@ -50,9 +90,6 @@
     }
   });
 
-  Sim.buffs = {};
-  Sim.metaBuffs = {};
-  Sim.uptimes = {};
   var lastUpdate = {};
   function updateUptime(id) {
     var stacks = (Sim.buffs[id] && Sim.buffs[id].stacks || 0);
@@ -152,6 +189,7 @@
       buff.expired = true;
       delete Sim.buffs[e.id];
     }
+    Sim.buffWatchTrigger(e.id);
   }
   function removeStack(buff) {
     var stack = buff.stacklist[buff.stackstart];
@@ -183,6 +221,7 @@
         if (buff.params.multiply) {
           Sim.buffsModified = true;
         }
+        Sim.buffWatchTrigger(id);
       } else {
         onBuffExpired({id: id});
       }
@@ -206,6 +245,7 @@
         if (buff.params.multiply) {
           Sim.buffsModified = true;
         }
+        Sim.buffWatchTrigger(e.id);
       } else {
         onBuffExpired(e);
       }
@@ -306,6 +346,13 @@
       if (params.status === "stunned" && this.stats.leg_dovuenergytrap && params.duration) {
         params.duration *= 1 + 0.01 * this.stats.leg_dovuenergytrap;
       }
+      //TODO: should we trigger before or after duration check?
+      var watchers = this.statusWatchers[params.status];
+      if (watchers) for (var i = 0; i < watchers.length; ++i) {
+        this.pushCastInfo(watchers[i].castInfo);
+        watchers[i].func.call(this, params.duration);
+        this.popCastInfo();
+      }
       if (this.statusBuffs[params.status].dr) {
         if (params.nodr) {
           drUpdate();
@@ -347,7 +394,7 @@
       buff.data = this.extend({buff: buff}, params.data);
     } else {
       var castInfo = this.castInfo();
-      if (castInfo) {
+      if (castInfo && params.refresh) {
         var castRefresh = 48 / this.stats.info.aps;
         if (this.time >= buff.userStart + castRefresh) {
           buff.castInfo.user = castInfo.user;
@@ -362,7 +409,7 @@
     this.setBuffStats(id, stats, buff.stacks + params.stacks);
 
     if (params.refresh) {
-      if (params.duration && (!buff.time || buff.time < this.time + params.duration)) {
+      if (params.duration && (!existed || (buff.time !== undefined && buff.time < this.time + params.duration))) {
         buff.time = this.time + params.duration;
         if (buff.events.expire) {
           _removeEvent(buff.events.expire);
@@ -430,6 +477,7 @@
         pos = (pos + 1) % buff.params.maxstacks;
       }
     }
+    this.buffWatchTrigger(id);
     return id;
   };
   Sim.removeBuff = function(id, stacks) {
@@ -457,16 +505,28 @@
         for (var i = 0; i < stacks; ++i) {
           stack = removeStack(buff);
         }
+        this.buffWatchTrigger(id);
         return stack;
       }
     }
   };
+  Sim.setBuffStacks = function(id, buffs, stacks) {
+    if (!id) return Sim.addBuff(id, buffs, {maxstacks: 999, stacks: stacks});
+    var cur = Sim.getBuff(id);
+    if (cur < stacks) Sim.addBuff(id, buffs, {maxstacks: 999, stacks: stacks - cur});
+    else if (cur > stacks) Sim.removeBuff(id, cur - stacks);
+    return id;
+  };
   Sim.metaBuff = function(id, list) {
     Sim.metaBuffs[id] = list;
+    for (var i = 0; i < list.length; ++i) {
+      Sim.metaParents[list[i]] = (Sim.metaParents[list[i]] || []);
+      Sim.metaParents[list[i]].push(id);
+    }
   };
   Sim.getBuff = function(id) {
     if (this.statusBuffs[id]) {
-      return this.stats[id];
+      return this.stats[id] ? 1 : 0;
     }
     var buff = this.buffs[id];
     if (!buff) {
@@ -526,5 +586,11 @@
   Sim.getBuffData = function(id) {
     var buff = this.buffs[id];
     return buff && buff.data;
+  };
+  Sim.getBuffStack = function(id) {
+    var buff = this.buffs[id];
+    if (!buff || !buff.stacklist || !buff.stacks) return;
+    var pos = (buff.stackstart + buff.stacks - 1) % buff.params.maxstacks;
+    return buff.stacklist[pos];
   };
 })();

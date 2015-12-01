@@ -333,11 +333,12 @@ _L.add({
         },
         {
           name: "Thorns",
-          stat: "info.thorns",
+          stat: "thorns",
           decimal: 2,
-          sourcestat: "thorns",
+          //sourcestat: "thorns",
           sourcedecimal: 0,
           tooltip: "Thorns: $1\n* Deals damage to attackers when hit by melee or ranged attacks.\n* Damage dealt is increased by a portion of your primary attribute.",
+          //suffix: "Thorns from gear/skills: {thorns}",
         },
 
         {

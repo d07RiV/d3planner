@@ -192,7 +192,7 @@ Passives["witchdoctor"] = {
   "Grave Injustice": "Witchdoctor_Passive_GraveInjustice",
   "Tribal Rites": "Witchdoctor_Passive_TribalRites",
   "Creeping Death": "Witchdoctor_Passive_CreepingDeath",
-  "Physical Attunement": "Witchdoctor_Passive_PhysicalAttunement",
+  "Swampland Attunement": "Witchdoctor_Passive_PhysicalAttunement",
   "Midnight Feast": "Witchdoctor_Passive_MidnightFeast",
 };
 Skills["witchdoctor"] = {
@@ -217,7 +217,7 @@ Skills["witchdoctor"] = {
   "Firebats": "Witchdoctor_Firebats",
   "Plague of Toads": "Witchdoctor_PlagueOfToads",
   "Big Bad Voodoo": "Witchdoctor_BigBadVoodoo",
-  "Wall of Zombies": "Witchdoctor_WallOfZombies",
+  "Wall of Death": "Witchdoctor_WallOfZombies",
   "Piranhas": "Witchdoctor_Piranhas",
 };
 Passives["wizard"] = {

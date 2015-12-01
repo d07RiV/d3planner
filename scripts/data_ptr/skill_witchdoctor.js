@@ -359,7 +359,12 @@ DiabloCalc.skills.witchdoctor = {
     },
     active: false,
     buffs: {
-      a: {extrams: 100},
+      x: {extrams: 50},
+      b: {extrams: 50},
+      d: {extrams: 50},
+      c: {extrams: 50},
+      a: {extrams: 150},
+      e: {extrams: 50},
     },
   },
   hex: {
@@ -605,7 +610,8 @@ DiabloCalc.skills.witchdoctor = {
       return $.extend({"Cost": {cost: 175}}, res);
     },
   },
-  wallofzombies: {
+  wallofdeath: {
+    oldid: "wallofzombies",
     id: "wall-of-death",
     name: "Wall of Death",
     category: "decay",
@@ -871,7 +877,8 @@ DiabloCalc.passives.witchdoctor = {
     name: "Creeping Death",
     index: 15,
   },
-  physicalattunement: {
+  swamplandattunement: {
+    oldid: "physicalattunement",
     id: "swampland-attunement",
     name: "Swampland Attunement",
     index: 16,

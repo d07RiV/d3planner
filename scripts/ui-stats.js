@@ -3,8 +3,7 @@
 
   var statList = DiabloCalc.localeTable.uiStats;
 
-  function formatTip(stat, data) {
-    var text = stat.tooltip;
+  function formatTipText(text, stat, data) {
     var values = data.getValue(stat.stat);
     text = text.replace(/{([^};]*)(?:;(\+)?([0-9])?(\%)?(x)?)?}/g, function(m, expr, plus, precision, percent, times) {
       expr = expr.replace(/\$([1-9])/g, function(m, index) {
@@ -22,13 +21,21 @@
       return "<span class=\"d3-color-green\">" + (stat.plus ? "+" : "") + DiabloCalc.formatNumber(typeof values == "number" ?
         values : values[["min", "max"][parseInt(index) - 1]], stat.decimal, 1000) + (stat.percent ? "%" : "") + "</span>";
     });
-    text = text.replace(/<\/span>-<span class="d3-color-green">/g, "-");
+    return text.replace(/<\/span>-<span class="d3-color-green">/g, "-");
+  }
+
+  function formatTip(stat, data) {
+    var text = formatTipText(stat.tooltip, stat, data);
     var first = "</span>";
     text = text.replace(/\n( ?\* )?/g, function(m, bullet) {
       var res = first + "<br/><span class=\"tooltip-icon-" + (bullet ? "bullet" : "nobullet") + "\"></span>";
       first = "";
       return res;
     });
+    if (stat.suffix) {
+      text += first + "<br/><span class=\"tooltip-icon-bullet\"></span>" + formatTipText(stat.suffix, stat, data);
+      first = "";
+    }
     var srcstat = (stat.sourcestat || stat.stat);
     if (DiabloCalc.stats[srcstat]) {
       var sources = {};

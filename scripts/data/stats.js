@@ -105,7 +105,7 @@
     bleed: {name: "Bleed", format: "%.1f%% chance to inflict Bleed for %d%% weapon damage over 5 seconds.", args: 2, argnames: ["chance", "amount"], utility: true, dr: true, id: "Weapon_On_Hit_Percent_Bleed_Proc_Chance"},
 
     skill_wizard_teleport_cooldown: {name: "Teleport Cooldown", format: "Reduces cooldown of Teleport by %d seconds.", class: "wizard"},
-    skill_witchdoctor_wallofzombies_cooldown: {name: "Wall of Death Cooldown", format: "Reduces cooldown of Wall of Death by %d seconds.", class: "witchdoctor"},
+    skill_witchdoctor_wallofdeath_cooldown: {name: "Wall of Death Cooldown", format: "Reduces cooldown of Wall of Death by %d seconds.", class: "witchdoctor"},
     skill_witchdoctor_massconfusion_cooldown: {name: "Mass Confusion Cooldown", format: "Reduces cooldown of Mass Confusion by %d seconds.", class: "witchdoctor"},
     skill_monk_sweepingwind_cost: {name: "Sweeping Wind Resource Cost", format: "Reduces resource cost of Sweeping Wind by %d Spirit", class: "monk"},
     skill_monk_cyclonestrike_cost: {name: "Cyclone Strike Resource Cost", format: "Reduces resource cost of Cyclone Strike by %d Spirit", class: "monk"},
@@ -274,7 +274,7 @@
       "skill_witchdoctor_locustswarm",
       "skill_witchdoctor_graspofthedead",
       "skill_witchdoctor_summonzombiedogs",
-      "skill_witchdoctor_wallofzombies",
+      "skill_witchdoctor_wallofdeath",
       "skill_witchdoctor_gargantuan",
       "skill_witchdoctor_haunt",
       "skill_witchdoctor_piranhas",

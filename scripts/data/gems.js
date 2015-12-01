@@ -172,6 +172,9 @@ DiabloCalc.legendaryGems = {
         format: "Your pets take 25%% less damage.",
       },
     ],
+    buffs: function(level, stats) {
+      return {petdamage: 15 + level * 0.3};
+    },
   },
   esoteric: {
     id: "Unique_Gem_016_x1",
@@ -360,6 +363,16 @@ DiabloCalc.legendaryGems = {
         format: "Primary skills heal you for 2%% of maximum health on hit.",
       },
     ],
+    buffs: function(level, stats) {
+      var value = 25 + level * 0.5;
+      var res = {};
+      for (var skill in DiabloCalc.skills[stats.charClass]) {
+        if (DiabloCalc.skills[stats.charClass][skill].category === "primary") {
+          res["skill_" + stats.charClass + "_" + skill] = value;
+        }
+      }
+      return res;
+    },
   },
   taeguk: {
     id: "Unique_Gem_015_x1",

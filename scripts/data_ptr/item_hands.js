@@ -160,7 +160,7 @@ DiabloCalc.addItems([
     type: "gloves",
     quality: "set",
     set: "invoker",
-    preset: ["mainstat", "chc", "thorns"],
+    preset: ["mainstat", "thorns"],
   },
 
   {

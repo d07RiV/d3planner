@@ -151,6 +151,7 @@ DiabloCalc.itemPowerClasses = {
   leg_thedemonsdemise: "demonhunter",
   leg_thefinalwitness: "crusader",
   leg_thefistofazturrasq: "monk",
+  leg_thefistofazturrasq_p2: "monk",
   leg_theflowofeternity: "monk",
   leg_thegidbinn: "witchdoctor",
   leg_thegrandvizier: "wizard",

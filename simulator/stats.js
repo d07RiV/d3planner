@@ -236,8 +236,9 @@
     this.addPercent("dex", "dex_percent");
     this.addPercent("int", "int_percent");
 
-    this.info.thorns = ((this.thorns || 0) + (this.firethorns || 0)) * (1 + this[this.primary] / 400);
-    this.info.thorns *= 1 + 0.01 * (this.thorns_percent || 0);
+    this.thorns = ((this.thorns || 0) + (this.firethorns || 0)) * (1 + this[this.primary] / 400);
+    this.info.thorns = this.thorns * (1 + 0.01 * (this.thorns_multiply || 0));
+    this.info.thorns = this.thorns * (1 + 0.01 * (this.thorns_percent || 0));
 
     this.calcWeapon = function(info) {
       info.speed = info.speed + (this.weaponaps || 0);
@@ -305,7 +306,7 @@
     this.final.elemedps = this.final.elemdps * (1 + 0.01 * (this.edmg || 0));
     this.final.elemedph = this.final.elemdph * (1 + 0.01 * (this.edmg || 0));
 
-    this.info.petdamage = (this.gem_enforcer || 0) + (this.leg_maskofjeram || 0);
+    this.ms = Math.min(25, this.ms || 0) + (this.extrams || 0);
 
     switch (this.charClass) {
     case "wizard":

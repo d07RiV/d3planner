@@ -723,6 +723,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Fist_009_x1",
     name: "The Fist of Az'Turrasq",
+//    suffix: _L("Legacy"),
     type: "fistweapon",
     quality: "legendary",
     required: {
@@ -1282,6 +1283,18 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       custom: {id: "leg_deathwish", name: "Damage Increase While Channeling", format: "While channeling Arcane Torrent, Disintegrate, or Ray of Frost, all damage is increased by %d%%.", min: 75, max: 100},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P4_Unique_Fist_009_x1",
+    name: "The Fist of Az'Turrasq",
+    suffix: _L("PTR"),
+    type: "fistweapon",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_thefistofazturrasq_p2", name: "Exploding Palm Explosion Damage", format: "Exploding Palm's on-death explosion damage is increased by %d%%.", min: 250, max: 300},
     },
     preset: ["mainstat"],
   },

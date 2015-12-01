@@ -765,7 +765,7 @@ DiabloCalc.itemaffixes = {
     buffs: function(value, stats) {
       return {dmgmul: {list: [
         {pet: false, skills: ["poisondart", "plagueoftoads", "firebomb", "acidcloud",
-           "firebats", "zombiecharger", "graspofthedead", "piranhas", "wallofzombies"], percent: 900},
+           "firebats", "zombiecharger", "graspofthedead", "piranhas", "wallofdeath"], percent: 900},
         {skills: ["summonzombiedogs", "gargantuan", "corpsespiders"], percent: 900},
       ]}};
     },
@@ -787,7 +787,7 @@ DiabloCalc.itemaffixes = {
   },
   leg_jeramsbracers: {
     buffs: function(value, stats) {
-      return {dmgmul: {skills: ["wallofzombies"], percent: value[0]}};
+      return {dmgmul: {skills: ["wallofdeath"], percent: value[0]}};
     },
   },
   set_uliana_2pc: {
@@ -807,6 +807,24 @@ DiabloCalc.itemaffixes = {
   leg_nagelring: {
     info: function(value, stats) {
       return {"Damage": {elem: "max", coeff: 100}, "DPS": {sum: true, "Damage": {divide: value[0]}}};
+    },
+  },
+  leg_maskofjeram: {
+    buffs: function(value, stats) {
+      return {petdamage: value};
+    },
+  },
+  leg_depthdiggers: {
+    buffs: function(value, stats) {
+      if (stats.charClass === "witchdoctor") return;
+      if (stats.charClass === "wizard") return;
+      var res = {};
+      for (var skill in DiabloCalc.skills[stats.charClass]) {
+        if (DiabloCalc.skills[stats.charClass][skill].category === "primary") {
+          res["skill_" + stats.charClass + "_" + skill] = value[0];
+        }
+      }
+      return res;
     },
   },
 };

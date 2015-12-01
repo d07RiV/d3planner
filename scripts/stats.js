@@ -96,6 +96,7 @@
     this.info = {
       level: parseInt($(".char-level").val()),
       gems: 0,
+      ancients: 0,
     };
     this.charClass = DC.charClass;
     this.primary = DC.classes[this.charClass].primary;
@@ -309,6 +310,7 @@
         if (slot === "offhand") {
           this.info.ohtype = item.type;
         }
+        if (data.ancient) ++this.info.ancients;
         if (itemType.weapon) {
           this.info[slot] = {
             speed: itemType.weapon.speed * (1 + 0.01 * (data.stats.weaponias || [0])[0]),
@@ -392,7 +394,7 @@
               if (!nogems) {
                 var active = (DC.isGemActive && DC.isGemActive(data.gems[i][0]));
                 if (active && leg.buffs) {
-                  var list = leg.buffs(data.gems[i][1]);
+                  var list = leg.buffs(data.gems[i][1], this);
                   for (var stat in list) {
                     this.add(stat, list[stat], factor, data.gems[i][0]);
                   }
@@ -472,18 +474,6 @@
       }
     }
 
-    if (this.gem_simplicity || this.leg_depthdiggers) {
-      for (var skill in DC.skills[this.charClass]) {
-        if (DC.skills[this.charClass][skill].category === "primary") {
-          if (this.gem_simplicity) {
-            this.add("skill_" + this.charClass + "_" + skill, this.gem_simplicity, 1, "simplicity");
-          }
-          if (this.charClass !== "wizard" && this.charClass !== "witchdoctor" && this.leg_depthdiggers) {
-            this.add("skill_" + this.charClass + "_" + skill, this.leg_depthdiggers, 1, "legs");
-          }
-        }
-      }
-    }
     if (this.info.offhand) {
       if (this.info.offhand.weaponClass === "fist") {
         this.info.weaponClass = "dualwield" + (this.info.mainhand.weaponClass === "fist" ? "_ff" : "_sf");        
@@ -518,6 +508,10 @@
       this.addAbsolute("block", "extra_block");
       this.addPercent("block", "block_percent");
       this.block = Math.min(100, this.block);
+
+      if (this.leg_justicelantern) {
+        this.add("dmgred", this.block * this.leg_justicelantern * 0.01, 1, "P4_Unique_Ring_03");
+      }
 
       var hpPerVit = 10;
       if (this.info.level == 70) {
@@ -574,8 +568,9 @@
     }
 
     this.addAbsolute("thorns", "firethorns");
+    this.addPercent("thorns", "thorns_multiply");
     this.addPercent("thorns", "thorns_percent");
-    this.info.thorns = (this.thorns || 0) * (1 + this[this.primary] / 400);
+    this.info.thorns = (this.thorns || 0) * (1 + this[this.primary] / 100);
 
     this.calcWeapon = function(info) {
       info.speed = info.speed + (this.weaponaps || 0);
@@ -651,8 +646,6 @@
     this.final.elemdph = this.final.dph * (1 + 0.01 * this.info.elemental);
     this.final.elemedps = this.final.elemdps * (1 + 0.01 * (this.edmg || 0));
     this.final.elemedph = this.final.elemdph * (1 + 0.01 * (this.edmg || 0));
-
-    this.info.petdamage = (this.gem_enforcer || 0) + (this.leg_maskofjeram || 0);
 
     if (!minimal) {
       this.ms = Math.min(25, this.ms || 0);

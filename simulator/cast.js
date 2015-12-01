@@ -33,6 +33,21 @@
       Sim.trigger("resourcegain", {type: type, amount: gain, castInfo: Sim.castInfo()});
     }
   };
+  Sim.getMaxResource = function(type) {
+    if (!type) type = rcTypes[this.stats.charClass][0];
+    return this.stats["max" + type] || 0;
+  };
+  Sim.getResource = function(type) {
+    if (!type) type = rcTypes[this.stats.charClass][0];
+    if (this.resources[type] !== undefined) return this.resources[type];
+    if (this.stats.charClass === "barbarian" && !this.stats.passives.unforgiving) {
+      return 0;
+    } else if (this.stats.set_shenlong_2pc) {
+      return 0;
+    } else {
+      return this.stats["max" + type] || 0;
+    }
+  };
   Sim.hasResource = function(amount, type) {
     if (!amount) return true;
     if (!type) type = rcTypes[this.stats.charClass][0];
@@ -458,12 +473,12 @@
       Sim.damage(data.func);
     }
     var info = Sim.castInfo();
-    data.buff.params.tickrate = Math.floor(data.speed / Sim.stats.info[info && info.weapon || "mainhand"].speed);
+    data.buff.params.tickrate = (info.noias ? Math.round(data.speed) : Math.floor(data.speed / Sim.stats.info[info && info.weapon || "mainhand"].speed));
   }
   Sim.channeling = function(name, speed, dmg, data, base) {
     var info = this.castInfo();
-    var rate = Math.floor(speed / Sim.stats.info[info && info.weapon || "mainhand"].speed);
-    Sim.addBuff(name, base && base.buffs, Sim.extend({
+    var rate = (info.noias ? Math.round(speed) : Math.floor(speed / Sim.stats.info[info && info.weapon || "mainhand"].speed));
+    Sim.addBuff(name, Sim.extend({channeling: 1}, base && base.buffs), Sim.extend({
       duration: rate + 1,
       tickrate: rate,
       tickinitial: 1,
@@ -520,7 +535,6 @@
     return 0;
   };
 
-  var fx_id = 0;
   Sim.apply_effect = function(effect, duration, chance) {
     if (effect === "knockback" && Sim.target.boss) return;
     if (chance && chance < 1) {

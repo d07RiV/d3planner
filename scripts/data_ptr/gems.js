@@ -165,6 +165,7 @@ DiabloCalc.legendaryGems = {
     effects: [
       {
         format: "Increase the damage of your pets by %.2f%%.",
+        stat: "petdamage",
         value: [15],
         delta: [0.3],
       },
@@ -360,6 +361,16 @@ DiabloCalc.legendaryGems = {
         format: "Primary skills heal you for 2%% of maximum health on hit.",
       },
     ],
+    buffs: function(level, stats) {
+      var value = 25 + level * 0.5;
+      var res = {};
+      for (var skill in DiabloCalc.skills[stats.charClass]) {
+        if (DiabloCalc.skills[stats.charClass][skill].category === "primary") {
+          res["skill_" + stats.charClass + "_" + skill] = value;
+        }
+      }
+      return res;
+    },
   },
   taeguk: {
     id: "Unique_Gem_015_x1",
@@ -490,6 +501,8 @@ DiabloCalc.legendaryGems = {
     id: "Unique_Gem_020_x1",
     name: "Boyarsky's Chip",
     types: ["finger", "neck"],
+    always: true,
+    active: true,
     effects: [
       {
         format: "Adds %d Thorns.",

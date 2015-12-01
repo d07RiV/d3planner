@@ -863,7 +863,7 @@ DiabloCalc.addItems([
     type: "flail2h",
     quality: "legendary",
     required: {
-      custom: {id: "leg_akkhansleniency", name: "Blessed Shield Damage Bonus", format: "Each enemy hit by your Blessed Shield increases the damage of your Blessed Shield by %d%% for 3 seconds.", min: 25, max: 30},
+      custom: {id: "leg_akkhansleniency", name: "Blessed Shield Damage Bonus", format: "Each enemy hit by your Blessed Shield increases the damage of your Blessed Shield by %d%% for 3 seconds.", min: 15, max: 20},
     },
     preset: ["mainstat"],
   },

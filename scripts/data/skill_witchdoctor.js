@@ -596,7 +596,8 @@ DiabloCalc.skills.witchdoctor = {
       return $.extend({"Cost": {cost: 175}}, res);
     },
   },
-  wallofzombies: {
+  wallofdeath: {
+    oldid: "wallofzombies",
     id: "wall-of-death",
     name: "Wall of Death",
     category: "decay",
@@ -862,7 +863,8 @@ DiabloCalc.passives.witchdoctor = {
     name: "Creeping Death",
     index: 15,
   },
-  physicalattunement: {
+  swamplandattunement: {
+    oldid: "physicalattunement",
     id: "swampland-attunement",
     name: "Swampland Attunement",
     index: 16,

@@ -8,22 +8,24 @@
     var triggered = (data.castInfo && data.castInfo.triggered);
 
     var base = stats.info[data.weapon || "mainhand"].wpnbase;
-    var avg = (data.thorns ? Sim.stats.thorns : (base.min + base.max) * 0.5);
-    if (!data.thorns && data.castInfo && data.castInfo.pet === "min") {
+    var avg;
+    if (data.thorns) {
+      avg = Sim.stats.thorns;
+    } else if (data.castInfo && data.castInfo.pet === "min") {
       avg = base.min;
+    } else {
+      avg = (base.min + base.max) * 0.5;
     }
 
-    var factor = 1 + 0.01 * stats.info.primary * (data.thorns ? 0.25 : 1);
-    if (data.fix) {
-      data.fix.call(data);
-    }
+    var factor = 1 + 0.01 * stats.info.primary;
+    if (data.fix) data.fix.call(data);
     factor *= (data.coeff === undefined ? 1 : data.coeff);
     factor *= (data.factor || 1);
 
     var dibs = (data.dibs || 0);
     var chc = stats.final.chc + (data.chc || 0);
     var chd = stats.chd + (data.chd || 0);
-    var orphan = (data.orphan || data.thorns);
+    var orphan = data.orphan;
     if (data.castInfo && data.castInfo.buffs) {
       for (var i = 0; i < data.castInfo.buffs.length; ++i) {
         var ex = data.castInfo.buffs[i];
@@ -48,7 +50,7 @@
         factor *= 1 + 0.01 * (stats[prefix + triggered] || 0);
       }
     } else {
-      dibs += (stats[prefix + triggered] || stats[prefix + data.skill] || 0);
+      dibs += (stats[prefix + (data.skill || triggered)] || 0);
     }
 
     var elem = (data.elem === "max" ? stats.info.maxelem : data.elem);
@@ -57,32 +59,34 @@
 
     factor *= 1 + 0.01 * dibs;
 
-    var elemental = (elem && stats["dmg" + elem] || 0);
-    if (ispet) elemental += (stats.info.petdamage || 0);
-    factor *= 1 + 0.01 * elemental;
+    if (data.thorns !== "normal") {
+      var elemental = (elem && stats["dmg" + elem] || 0);
+      if (ispet) elemental += (stats.petdamage || 0);
+      factor *= 1 + 0.01 * elemental;
+    }
 
-    if (Sim.target.elite) {
-      factor *= 1 + 0.01 * (stats.edmg || 0);
-    }
-    if (Sim.target.boss) {
-      factor *= 1 + 0.01 * (stats.bossdmg || 0);
-    }
+    var edmg = 0.01 * (stats.edmg || 0);
+    var bossdmg = 0.01 * (stats.bossdmg || 0);
+    factor *= 1 + Sim.target.elite * edmg + Sim.target.boss * (1 + edmg) * bossdmg;
     if (Sim.target.type) {
       factor *= 1 + 0.01 * (stats["damage_" + Sim.target.type] || 0);
     }
 
-    var dmgmul = (orphan ? 1 : stats.getSpecial("dmgmul", elem, ispet, data.skill, data.exclude));
-    if (stats.gems.zei && !orphan) {
-      var dist = ((data.castInfo && data.castInfo.distance) || data.distance || data.origin || Sim.target.distance);
-      dmgmul *= 1 + 0.01 * dist * (4 + 0.05 * stats.gems.zei) / 10;
+    var dmgmul = 1;
+    if (!orphan) {
+      dmgmul = stats.getSpecial("dmgmul", elem, ispet, data.skill, data.exclude);
+      if (stats.gems.zei) {
+        var dist = ((data.castInfo && data.castInfo.distance) || data.distance || data.origin || Sim.target.distance);
+        dmgmul *= 1 + 0.01 * dist * (4 + 0.05 * stats.gems.zei) / 10;
+      }
     }
     factor *= dmgmul;
 
     var value = avg * factor;
-    if (!orphan) {
+    if (!orphan && data.thorns !== "normal") {
       value *= 1 + chc * chd;
     }
-    if (data.nocrit) chc = 0;
+    if (data.nocrit || orphan || data.thorns === "normal") chc = 0;
 
     var count = (data.count || 1);
     if (data.targets) {
@@ -98,6 +102,7 @@
       pet: ispet,
       castInfo: data.castInfo,
       triggered: triggered,
+      thorns: data.thorns,
       chc: chc,
       distance: data.distance,
       dmgmul: dmgmul,
@@ -110,7 +115,7 @@
     }
     Sim.trigger("onhit", event);
 
-    /*if (!event.pet)*/ {
+    if (!event.thorns) {
       if (Sim.target.area_coeff === undefined) {
         var area = Math.PI * Math.pow(Sim.target.size + 10, 2);
         Sim.target.area_coeff = (Sim.target.count - 1) * Math.min(1, area / Sim.target.area);

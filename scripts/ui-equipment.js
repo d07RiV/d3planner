@@ -17,11 +17,27 @@
   DiabloCalc.addOption("limitStats", function() {return limitStats.prop("checked");}, function(x) {
     limitStats.prop("checked", x);
   });
+  var hideCrossClass = $("<input></input>").attr("type", "checkbox").prop("checked", true);
+  DiabloCalc.addOption("hideCrossClass", function() {return hideCrossClass.prop("checked");}, function(x) {
+    hideCrossClass.prop("checked", x);
+    currentSlot.itemBox.populateItems();
+    edit.itemBox.populateItems();
+  });
+  var hideLegacy = $("<input></input>").attr("type", "checkbox").prop("checked", true);
+  DiabloCalc.addOption("hideLegacy", function() {return hideLegacy.prop("checked");}, function(x) {
+    hideLegacy.prop("checked", x);
+    currentSlot.itemBox.populateItems();
+    edit.itemBox.populateItems();
+  });
 
-  tab.append($("<label></label>").addClass("option-box").append(moreWarnings).append(_L("Show all warnings")));
-  tab.append($("<label></label>").addClass("option-box").append(limitStats).append(_L("Only list class-specific stats")));
+  tab.append($("<label class=\"option-box\"></label>").append(moreWarnings).append(_L("Show all warnings")));
+  tab.append($("<label class=\"option-box\"></label>").append(hideCrossClass).append(_L("Hide items for other classes")));
+  tab.append($("<label class=\"option-box\"></label>").append(limitStats).append(_L("Only list class-specific stats")));
+  tab.append($("<label class=\"option-box\"></label>").append(hideLegacy).append(_L("Hide legacy items")));
   DiabloCalc.addTip(moreWarnings, _L("Show warnings for incomplete items and missing secondary stats."));
+  DiabloCalc.addTip(hideCrossClass, _L("Do not list items with affixes that do not apply to your class."));
   DiabloCalc.addTip(limitStats, _L("Only list stats useful to your class."));
+  DiabloCalc.addTip(hideLegacy, _L("Do not list legacy items."));
 
   //tab.append("<p class=\"change-note\">This is an experimental replacement for the old equipment editor. It should also be significantly faster when loading or switching between profiles. " +
   //  "If you prefer the old editor, please leave feedback in the <a href=\"/mantisbt/bug_report_page.php\">issue tracker</a>.</p>");

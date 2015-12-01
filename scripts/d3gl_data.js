@@ -4405,6 +4405,9 @@ DiabloCalc.webglItems = {
   Unique_Fist_009_x1: {
     actor: 175937,
   },
+  P4_Unique_Fist_009_x1: {
+    actor: 175937,
+  },
   Unique_Fist_010_x1: {
     actor: 208898,
   },
@@ -18907,7 +18910,7 @@ DiabloCalc.webglSkills = {
   threateningshout: 90224,
   vault: 69792,
   vengeance: 90416,
-  wallofzombies: 266240,
+  wallofdeath: 266240,
   warcry: 90256,
   waveofforce: 90112,
   waveoflight: 90416,

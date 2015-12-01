@@ -16,6 +16,9 @@ DiabloCalc.partybuffs.items = {
   leg_oculusring: {
     stat: "damage",
   },
+  leg_oculusring_p2: {
+    stat: "damage",
+  },
   toxin: {
     buffs: function() {return {dmgtaken: 10};},
   },

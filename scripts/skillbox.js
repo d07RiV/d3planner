@@ -90,7 +90,10 @@
     }
 
     var base, avg;
-    if (fmt.weapon) {
+    if (fmt.thorns) {
+      avg = (stats.thorns || 0);
+      base = {min: avg, max: avg};
+    } else if (fmt.weapon) {
       if (!stats.info[fmt.weapon]) return;
       base = $.extend({}, stats.info[fmt.weapon].wpnbase);
       avg = (base.min + base.max) * 0.5;
@@ -263,13 +266,13 @@
     }
 
     // elemental/pet damage
-    if ((elem && stats["dmg" + elem]) || (fmt.pet && stats.info.petdamage)) {
+    if ((elem && stats["dmg" + elem]) || (fmt.pet && stats.petdamage)) {
       var bonuses = {};
       if (elem && stats["dmg" + elem]) {
         bonuses[DiabloCalc.elements[elem]] = stats["dmg" + elem];
       }
-      if (fmt.pet && stats.info.petdamage) {
-        bonuses["Pets"] = stats.info.petdamage;
+      if (fmt.pet && stats.petdamage) {
+        bonuses["Pets"] = stats.petdamage;
       }
       factors.push({
         name: "Elemental damage",
@@ -330,6 +333,9 @@
     var bonus_chd = execString(fmt.chd);
     var chc = Math.min(1, 0.01 * (stats.final.chc + bonus_chc * (1 + 0.01 * (stats.chctaken_percent || 0))));
     var chd = 0.01 * (stats.chd + bonus_chd);
+    if (fmt.thorns === "normal") {
+      chc = chd = bonus_chc = 0;
+    }
 
     var value = avg * total_factor * (1 + chc * chd);
 
@@ -545,7 +551,7 @@
         if (!fmt.weapon && stats.info.mainhand && stats.info.offhand) {
           tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Alternates weapons");
         }
-        if (fmt.total !== true) {
+        if (!fmt.thorns && fmt.total !== true) {
           if (fmt.nocrit) {
             tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Damage range: {0}").format(fmtRange(data.base.min * data.total_factor * (1 + data.chc * data.chd), data.base.max * data.total_factor * (1 + data.chc * data.chd), "white"));
           } else {
@@ -573,7 +579,7 @@
         if (typeof fmt.total === "number") {
           tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Extra damage: {0}").format(fmtValue(0.5 * (data.base.min + data.base.max) * data.extra_factor * (1 + data.chc * data.chd), 0, "white"));
         }
-        tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Formula: ") + "<span class=\"d3-color-gray\">" + _L("[Weapon]") + "</span>";
+        tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Formula: ") + "<span class=\"d3-color-gray\">" + (fmt.thorns ? _L("[Thorns]") : _L("[Weapon]")) + "</span>";
         if (fmt.nocrit || fmt.total) {
           tip += " &#215; " + fmtValue(1 + data.chc * data.chd, 2);
         }
@@ -584,21 +590,27 @@
             tip += " &#215; " + fmtValue(data.factors[i].factor, 2);
           }
         }
-        if (fmt.weapon !== "offhand") {
-          if (!fmt.avg) {
-            tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Main hand damage: {0}").format(fmtRange(stats.info.mainhand.wpnbase.min, stats.info.mainhand.wpnbase.max, "white"));
-          } else {
-            tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Average main hand damage: {0}").format(fmtValue(0.5 * (stats.info.mainhand.wpnbase.min + stats.info.mainhand.wpnbase.max), 0, "white"));
+        if (fmt.thorns) {
+          tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Thorns damage: {0}").format(fmtValue(stats.thorns || 0, 0, "white"));
+        } else {
+          if (fmt.weapon !== "offhand") {
+            if (!fmt.avg) {
+              tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Main hand damage: {0}").format(fmtRange(stats.info.mainhand.wpnbase.min, stats.info.mainhand.wpnbase.max, "white"));
+            } else {
+              tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Average main hand damage: {0}").format(fmtValue(0.5 * (stats.info.mainhand.wpnbase.min + stats.info.mainhand.wpnbase.max), 0, "white"));
+            }
+          }
+          if (fmt.weapon !== "mainhand" && stats.info.offhand) {
+            tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Off hand damage: {0}").format(fmtRange(stats.info.offhand.wpnbase.min, stats.info.offhand.wpnbase.max, "white"));
           }
         }
-        if (fmt.weapon !== "mainhand" && stats.info.offhand) {
-          tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Off hand damage: {0}").format(fmtRange(stats.info.offhand.wpnbase.min, stats.info.offhand.wpnbase.max, "white"));
-        }
-        if (fmt.nocrit || fmt.total) {
-          tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Critical multiplier: {0}").format(fmtValue(1, 0, "white") + " + " +
-            fmtValue(data.chc, 2, "green") + " &#215; " + fmtValue(data.chd, 2, "green"));
-        } else {
-          tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Critical damage: {0}").format(fmtValue(100 * data.chd, 1, "white", "%"));
+        if (data.chd) {
+          if (fmt.nocrit || fmt.total) {
+            tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Critical multiplier: {0}").format(fmtValue(1, 0, "white") + " + " +
+              fmtValue(data.chc, 2, "green") + " &#215; " + fmtValue(data.chd, 2, "green"));
+          } else {
+            tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Critical damage: {0}").format(fmtValue(100 * data.chd, 1, "white", "%"));
+          }
         }
         for (var i = 0; i < data.factors.length; ++i) {
           var factor = data.factors[i];
@@ -1364,7 +1376,7 @@
               unmod = expr[0];
               expr = expr.substring(1);
             }
-            expr = execString(expr, stats, this.affix, info.params);
+            expr = execString(expr, stats, info.affixid || this.affix, info.params);
             if (typeof expr === "number") {
               if (!unmod) expr *= elites;
               if (unmod == "%") {
@@ -1772,7 +1784,7 @@
           this.boxes.push(box);
           this.boxlabels.push(boxlabel);
           this.params.before(boxlabel);
-          boxlabel.toggle(this.buff.active !== false);
+          boxlabel.toggle(this.buff.active !== false || this.buff.multiple);
           box.click((function(i) {return function() {
             self.buff.boxvals[i] = $(this).prop("checked");
             DiabloCalc.trigger("updateSkills");
@@ -1799,7 +1811,7 @@
         }
         if (this.boxlabels) {
           for (var i = 0; i < this.boxlabels.length; ++i) {
-            this.boxlabels[i].toggle(this.buff.active !== false);
+            this.boxlabels[i].toggle(this.buff.active !== false || this.buff.multiple);
           }
         }
         if (this.boxes) {
@@ -1808,7 +1820,7 @@
           }
         }
         if (this.buff.params) {
-          this.params.toggle(this.buff.active !== false);
+          this.params.toggle(this.buff.active !== false || this.buff.multiple);
         }
       }
       this.updateParams();

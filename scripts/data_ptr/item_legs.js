@@ -368,7 +368,7 @@ DiabloCalc.addItems([
     type: "pants",
     quality: "set",
     set: "invoker",
-    preset: ["mainstat"],
+    preset: ["mainstat", "sockets", "thorns"],
   },
 
 ]);

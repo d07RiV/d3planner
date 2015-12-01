@@ -471,6 +471,9 @@ DiabloCalc.skills.monk = {
       if (stats.leg_thefistofazturrasq) {
         expl[DiabloCalc.itemById.Unique_Fist_009_x1.name] = stats.leg_thefistofazturrasq;
       }
+      if (stats.leg_thefistofazturrasq_p2) {
+        expl[DiabloCalc.itemById.P4_Unique_Fist_009_x1.name] = stats.leg_thefistofazturrasq_p2;
+      }
       var res;
       switch (rune) {
       case "x": res = {"Damage": {elem: "phy", coeff: 12, total: true}, "Explosion Damage": {elem: "phy", coeff: 27.7, percent: expl}}; break;

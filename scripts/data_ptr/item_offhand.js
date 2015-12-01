@@ -716,7 +716,7 @@ DiabloCalc.addItems([
     type: "source",
     quality: "legendary",
     required: {
-      custom: {id: "leg_etchedsigil", name: "Channeling Skills Cast Other Skills", format: "Your Arcane Torrent, Disintegrate, and Ray of Frost also cast your other damaging Arcane Power Spenders every second.", args: 0},
+      custom: {id: "leg_etchedsigil", name: "Channeling Skills Cast Other Skills", format: "Your Arcane Torrent, Disintegrate, and Ray of Frost also cast one of your other damaging Arcane Power Spenders every second.", args: 0},
     },
     preset: ["mainstat", "chc"],
   },
