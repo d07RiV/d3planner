@@ -574,10 +574,7 @@
 
     this.calcWeapon = function(info) {
       info.speed += (this.weaponaps || 0);
-      if (this.weaponaps_percent) {
-        var type = DC.itemTypes[info.type];
-        if (type && type.weapon) info.speed += type.weapon.speed * 0.01 * this.weaponaps_percent;
-      }
+      info.speed *= 1 + 0.01 * (this.weaponaps_percent || 0);
       var factor = (1 + 0.01 * (info.damage || 0));
       info.wpnphy.min *= factor;
       info.wpnphy.max *= factor;

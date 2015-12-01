@@ -241,10 +241,8 @@
     this.info.thorns = this.thorns * (1 + 0.01 * (this.thorns_percent || 0));
 
     this.calcWeapon = function(info) {
-      if (this.weaponaps_percent) {
-        info.speed *= (1 + 0.01 * (this.weaponaps_percent + info.ias)) / (1 + 0.01 * info.ias);
-      }
       info.speed += (this.weaponaps || 0);
+      info.speed *= 1 + 0.01 * (this.weaponaps_percent || 0);
       var factor = (1 + 0.01 * (info.damage || 0));
       info.wpnphy.min *= factor;
       info.wpnphy.max *= factor;
