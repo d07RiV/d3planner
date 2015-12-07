@@ -256,12 +256,21 @@
     if (tmp) bonuses["Buffs"] = tmp;
     // debuffs
     var tmp = stats.getTotalSpecial("dmgtaken", elem, fmt.pet, skillid, fmt.exclude);
-    if (tmp) bonuses["Debuffs"] = tmp;
+    if (tmp && fmt.thorns !== "normal") {
+      bonuses["Debuffs"] = tmp;
+    }
 
     if (!$.isEmptyObject(bonuses)) {
       factors.push({
         name: (fmt.pet ? "Buffs/debuffs" : "Damage increased by skills"),
         percent: bonuses,
+      });
+    }
+
+    if (tmp && fmt.thorns === "normal") {
+      factors.push({
+        name: DiabloCalc.stats.dmgtaken.name,
+        percent: tmp,
       });
     }
 

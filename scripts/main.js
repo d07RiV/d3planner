@@ -250,6 +250,7 @@ $(function() {
         }
         prevClass = "class-" + $(".char-class").val() + " " + (DiabloCalc.gender || "female");
         span.addClass(prevClass);
+        $("#char-info").removeClass().addClass(DiabloCalc.gender || "female");
       };
       $(".char-class").chosen({
         disable_search: true,

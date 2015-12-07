@@ -403,7 +403,7 @@ DiabloCalc.addItems([
     type: "chestarmor",
     quality: "legendary",
     required: {
-      custom: {id: "leg_aquilacuirass", name: "Damage Reduction Threshold", format: "While above %d%% primary resource, all damage taken is reduced by 50%%.", min: 75, max: 85},
+      custom: {id: "leg_aquilacuirass", name: "Damage Reduction Threshold", format: "While above %d%% primary resource, all damage taken is reduced by 50%%.", min: 90, max: 95, best: "min"},
     },
     preset: ["mainstat", "sockets"],
   },

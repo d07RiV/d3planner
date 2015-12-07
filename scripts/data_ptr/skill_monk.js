@@ -34,7 +34,7 @@ DiabloCalc.skills.monk = {
       case "x": res = {"Damage": {elem: "lit", coeff: 2}, "Third Hit Damage": {elem: "lit", coeff: 4}}; break;
       case "a": res = {"Damage": {elem: "lit", coeff: 2}, "Third Hit Damage": {elem: "lit", coeff: 4}, "Shockwave Damage": {elem: "lit", coeff: 1.2}}; break;
       case "e": res = {"Damage": {elem: "col", coeff: 2}, "Third Hit Damage": {elem: "col", coeff: 4}}; break;
-      case "c": res = {"Damage": {elem: "lit", coeff: 2}, "Third Hit Damage": {elem: "lit", coeff: 4}, "Static Charge Damage": {elem: "lit", coeff: 1.8}}; break;
+      case "c": res = {"Damage": {elem: "lit", coeff: 2}, "Third Hit Damage": {elem: "lit", coeff: 4}, "Static Charge Damage": {elem: "lit", coeff: 0.3}}; break;
       case "d": res = {"Damage": {elem: "phy", coeff: 2}, "Third Hit Damage": {elem: "phy", coeff: 4}}; break;
       case "b": res = {"Damage": {elem: "hol", coeff: 2}, "Third Hit Damage": {elem: "hol", coeff: 4}, "Arc Damage": {elem: "hol", coeff: 2.4}}; break;
       }

@@ -438,10 +438,10 @@
 
   function leap_onhit(data) {
     var status = "slowed";
-    if (rune === "d" || Sim.stats.set_earth_4pc) {
-      Sim.addBuff("ironimpact", {armor_percent: 150}, {duration: 240 * (Sim.stats.set_earth_4pc ? 2 : 1)});
+    if (data.castInfo.rune === "d" || Sim.stats.set_earth_4pc) {
+      Sim.addBuff("ironimpact", {armor_percent: 150 * (Sim.stats.set_earth_4pc ? 2.5 : 1)}, {duration: 240 * (Sim.stats.set_earth_4pc ? 2.5 : 1)});
     }
-    if (rune === "e") status = "stunned";
+    if (data.castInfo.rune === "e") status = "stunned";
     Sim.addBuff(status, undefined, {duration: 180});
   }
   skills.leap = {
@@ -634,13 +634,13 @@
   };
 
   function avalanche_ontick(data) {
-    var dmg = {type: "area", range: 15, coeff: 1.6};
+    var dmg = {type: "area", range: 15, coeff: 2.4};
     if (Sim.stats.passives.noescape && Sim.target.distance > 15) {
       dmg.factor = 1.3;
     }
     switch (data.rune) {
     case "c":
-      dmg.coeff = 1.76;
+      dmg.coeff = 2.64;
       dmg.range = 5;
       if (Sim.random("volcano", 0.5)) {
         dmg.spread = 20;
@@ -648,7 +648,7 @@
       break;
     case "b":
       dmg.range = 20;
-      dmg.coeff = 6;
+      dmg.coeff = 28 / 3;
       dmg.onhit = Sim.apply_effect("chilled", 180);
       break;
     case "a":
@@ -804,12 +804,12 @@
   };
 
   function eq_ontick(data) {
-    var dmg = {type: "area", range: 18, self: true, coeff: 2.1};
-    if (data.rune === "a") dmg.coeff = 2.55;
+    var dmg = {type: "area", range: 18, self: true, coeff: 2.4};
+    if (data.rune === "a") dmg.coeff = 3;
     if (data.rune === "c") dmg.onhit = Sim.apply_effect("frozen", 90);
     Sim.damage(dmg);
     if (data.rune === "b") {
-      Sim.damage({type: "area", range: 8, self: true, coeff: 2});
+      Sim.damage({type: "area", range: 8, self: true, coeff: 3});
     }
   }
   skills.earthquake = {
@@ -820,7 +820,7 @@
       return (rune === "d" ? 0 : 25);
     },
     cooldown: function(rune) {
-      return (rune === "d" ? 50 : 60) - (Sim.stats.passives.boonofbulkathos ? 15 : 0);
+      return (rune === "d" ? 30 : 60) - (Sim.stats.passives.boonofbulkathos ? 15 : 0);
     },
     oncast: function(rune) {
       if (Sim.stats.passives.earthenmight) {

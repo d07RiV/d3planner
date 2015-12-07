@@ -1186,7 +1186,7 @@ DiabloCalc.addItems([
     type: "mightyweapon",
     quality: "legendary",
     required: {
-      custom: {id: "leg_bladeofthewarlord", name: "Bash Damage Bonus", format: "Bash consumes up to 40 Fury to deal up to %d%% increased damage.", min: 500, max: 600},
+      custom: {id: "leg_bladeofthewarlord", name: "Bash Damage Bonus", format: "Bash consumes up to 40 Fury to deal up to %d%% increased damage.", min: 400, max: 500},
     },
     preset: ["mainstat", "wpnhol"],
   },
@@ -1210,7 +1210,7 @@ DiabloCalc.addItems([
     type: "spear",
     quality: "legendary",
     required: {
-      custom: {id: "leg_thethreehundredthspear", name: "Thrown Damage Bonus", format: "Increase the damage of Weapon Throw and Ancient Spear by %d%%.", min: 75, max: 100},
+      custom: {id: "leg_thethreehundredthspear", name: "Thrown Damage Bonus", format: "Increase the damage of Weapon Throw and Ancient Spear by %d%%.", min: 45, max: 60},
     },
     preset: ["mainstat"],
   },
@@ -1258,7 +1258,7 @@ DiabloCalc.addItems([
     type: "dagger",
     quality: "legendary",
     required: {
-      custom: {id: "leg_lordgreenstonesfan", name: "Fan of Knives Damage Bonus", format: "Every second, gain %d%% increased damage for your next Fan of Knives. Stacks up to 30 times.", min: 250, max: 300},
+      custom: {id: "leg_lordgreenstonesfan", name: "Fan of Knives Damage Bonus", format: "Every second, gain %d%% increased damage for your next Fan of Knives. Stacks up to 30 times.", min: 80, max: 100},
     },
     preset: ["mainstat", "wpncol"],
   },
@@ -1282,7 +1282,7 @@ DiabloCalc.addItems([
     type: "sword",
     quality: "legendary",
     required: {
-      custom: {id: "leg_deathwish", name: "Damage Increase While Channeling", format: "While channeling Arcane Torrent, Disintegrate, or Ray of Frost, all damage is increased by %d%%.", min: 75, max: 100},
+      custom: {id: "leg_deathwish", name: "Damage Increase While Channeling", format: "While channeling Arcane Torrent, Disintegrate, or Ray of Frost, all damage is increased by %d%%.", min: 60, max: 80},
     },
     preset: ["mainstat"],
   },

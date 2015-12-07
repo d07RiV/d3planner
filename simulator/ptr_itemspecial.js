@@ -684,7 +684,7 @@
     });
   };
   affixes.leg_theshortmansfinger = function(amount) {
-    Sim.addBaseStats({dmgmul: {skills: ["gargantuan"], percent: 50}});
+    Sim.addBaseStats({dmgmul: {skills: ["gargantuan"], percent: 200}});
   };
   affixes.leg_wormwood = function(amount) {
     Sim.after(30, function apply() {

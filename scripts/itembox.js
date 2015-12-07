@@ -895,8 +895,13 @@
 
     this.type.append("<option value=\"\">" + (DC.noChosen ? _L("Empty Slot") : "") + "</option>");
     this.type.change(function() {
-      self.onChangeType();
-      setTimeout(function() {self.item.trigger("chosen:open");}, 0);
+      if (!self.type.val()) {
+        self.item.val("");
+        self.onChangeType();
+      } else {
+        self.onChangeType();
+        setTimeout(function() {self.item.trigger("chosen:open");}, 0);
+      }
     });
     this.type.chosen({
       disable_search_threshold: 10,
@@ -1329,6 +1334,15 @@
   DC.ItemBox.prototype.onChangeItem = function() {
     delete this.enchant;
     var id = this.item.val();
+
+    var item = DC.itemById[id];
+    if (item && item.type !== this.type.val()) {
+      this.type.val(item.type);
+      this.type.trigger("chosen:updated");
+      this.onChangeType();
+      return;
+    }
+
     var self = this;
     if (this.slot === "mainhand" && DC.itemSlots.offhand.item && DC.itemById[DC.itemSlots.offhand.item.id]) {
       var mhtype = this.type.val();
@@ -1790,30 +1804,76 @@
     list.append(groupPromo);
   };
 
+  DC.ItemBox.prototype.addItemToList = function(item, selected) {
+    if (this.charClass && item.classes && item.classes.indexOf(this.charClass) < 0) return;
+    if (!selected) {
+      if (DC.options.hideLegacy && item.suffix === _L("Legacy")) return;
+      if (DC.options.hideCrossClass && this.charClass && DC.itemPowerClasses) {
+        if (item.required && item.required.custom && DC.itemPowerClasses[item.required.custom.id] &&
+            DC.itemPowerClasses[item.required.custom.id] !== this.charClass) {
+          return;
+        }
+      }
+      if (DC.options.hideCrossClass && this.charClass && item.set) {
+        var set = DC.itemSets[item.set];
+        if (set && set.tclass && set.tclass !== this.charClass) {
+          return;
+        }
+      }
+    }
+    var option = "<option value=\"" + item.id + "\" class=\"item-info-icon quality-" + (item.quality || "rare") + (selected ? "\" selected=\"selected" : "") +
+      "\">" + item.name + (item.suffix ? " (" + item.suffix + ")" : "") + "</option>";
+    this.item.append(option);
+  };
   DC.ItemBox.prototype.populateItems = function() {
     var type = this.type.val();
     var itemid = this.item.val();
     this.item.empty();
     this.item.append("<option value=\"\">" + (DC.noChosen ? _L("Empty Slot") : "") + "</option>");
-    var legacyTag = (DC.options.hideLegacy ? _L("Legacy") : "_dummy_");
-    if (DC.itemTypes[type]) {
+    if (type && DC.itemTypes[type]) {
       for (var i = 0; i < DC.itemTypes[type].items.length; ++i) {
         var item = DC.itemTypes[type].items[i];
-        if (this.charClass && item.classes && item.classes.indexOf(this.charClass) < 0) {
+        this.addItemToList(item, item.id === itemid);
+      }
+    } else {
+      var types = (this.slot ? DC.itemSlots[this.slot].types : DC.itemTypes);
+      if (this.slot === "offhand") types = DC.getOffhandTypes();
+      var itemList = [];
+      for (var type in types) {
+        var typeData = types[type];
+        if (type === "custom") continue;
+        if (this.charClass && typeData.classes && typeData.classes.indexOf(this.charClass) < 0) {
           continue;
         }
-        if (item.suffix === legacyTag) continue;
-        if (DC.options.hideCrossClass && DC.itemPowerClasses) {
-          if (item.required && item.required.custom && DC.itemPowerClasses[item.required.custom.id] &&
-              DC.itemPowerClasses[item.required.custom.id] !== this.charClass) {
-            continue;
-          }
+        for (var i = 0; i < typeData.items.length; ++i) {
+          itemList.push(typeData.items[i]);
         }
-        var option = "<option value=\"" + item.id + "\" class=\"item-info-icon quality-" + (item.quality || "rare") + (itemid == item.id ? "\" selected=\"selected" : "") +
-          "\">" + item.name + (item.suffix ? " (" + item.suffix + ")" : "") + "</option>";
-        this.item.append(option);
+      }
+      itemList.sort(function(a, b) {
+        var aq = (a.quality === "rare" ? "" : a.quality);
+        var bq = (b.quality === "rare" ? "" : b.quality);
+        if (aq != bq) return aq.localeCompare(bq);
+        var an = a.name.toLowerCase().replace(/^(?:the|a) /, "");
+        var bn = b.name.toLowerCase().replace(/^(?:the|a) /, "");
+        return an.localeCompare(bn);
+      });
+      for (var i = 0; i < itemList.length; ++i) {
+        this.addItemToList(itemList[i], itemList[i].id === itemid);
       }
     }
+  };
+  DC.ItemBox.prototype.refreshItems = function() {
+    //if (DC.noChosen) {
+    this.populateItems();
+    /*} else {
+      var itemid = this.item.val();
+      this.item.empty();
+      this.item.append("<option value=\"\">" + (DC.noChosen ? _L("Empty Slot") : "") + "</option>");
+      var item = (itemid && DC.itemById[itemid]);
+      if (item && item.type === this.type.val()) {
+        this.addItemToList(item, true);
+      }
+    }*/
   };
 
   DC.ItemBox.prototype.onChangeType = function() {
@@ -1823,11 +1883,11 @@
       this.statsDiv.show();
       this.add.show();
     } else {
-      this.itemSpan.hide();
+      this.itemSpan.show();
       this.statsDiv.hide();
       this.add.hide();
     }
-    this.populateItems();
+    this.refreshItems();
 
     this.item.trigger("chosen:updated");
     this.onChangeItem();

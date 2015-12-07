@@ -228,7 +228,7 @@
     }
   }
   function jade2_onrefresh(data) {
-    Sim.damage({coeff: data.coeff * 600});
+    Sim.damage({coeff: data.coeff * 300});
   }
   function haunt_onhit(data) {
     var params = {
@@ -335,7 +335,7 @@
     Sim.addBuff(undefined, undefined, {
       duration: 181,
       tickrate: 60,
-      ontick: {pet: true, coeff: 0.1 * Sim.stats.info.aps, count: data.targets},
+      ontick: {pet: true, coeff: 0.4 * Sim.stats.info.aps, count: data.targets},
     });
   }
   function dogs_chilled_onhit(data) {
@@ -356,7 +356,7 @@
         maxstacks: 3,
         tickrate: [52, 58],
         refresh: false,
-        data: {coeff: 0.3},
+        data: {coeff: 1.2},
         ontick: dogs_ontick,
       };
       if (Sim.stats.passives.zombiehandler) params.maxstacks += 1;
@@ -385,7 +385,7 @@
         Sim.after(30, function burning() {
           var stacks = Sim.getBuff("zombiedogs");
           if (stacks) {
-            Sim.damage({type: "area", range: 8, origin: 5, coeff: 0.05 * Sim.stats.info.aps, pet: true, count: stacks});
+            Sim.damage({type: "area", range: 8, origin: 5, coeff: 0.2 * Sim.stats.info.aps, pet: true, count: stacks});
           }
           Sim.after(30, burning);
         });
@@ -455,7 +455,7 @@
       if (rune === "a" || Sim.stats.set_arachyr_4pc) {
         var buffs = {dmgtaken: 25};
         if (Sim.stats.set_arachyr_4pc) {
-          buffs.dmgred = 40;
+          buffs.dmgred = 50;
         }
         Sim.addBuff("toadofhugeness", buffs, {
           duration: 301,
@@ -507,7 +507,7 @@
       Sim.pushCastInfo(stack.castInfo);
       var event = Sim.calcDamage({coeff: stack.data.coeff});
       Sim.popCastInfo();
-      total += event.damage * Sim.reduceStackDuration(id, stack, 300 * 60) / tickrate;
+      total += event.damage * Sim.reduceStackDuration(id, stack, 150 * 60) / tickrate;
       --targets;
     }
     return total;
@@ -532,7 +532,7 @@
         buffs.extrams = 5;
       }
       if (Sim.stats.leg_lakumbasornament) {
-        buffs.dmgred = 5;
+        buffs.dmgred = 6;
       }
       Sim.addBuff("soulharvest", buffs, {duration: duration, stacks: targets, maxstacks: Sim.stats.leg_sacredharvester ? 10 : 5});
       if (rune === "e" || Sim.stats.set_jadeharvester_4pc) {
@@ -814,7 +814,7 @@
     case "a":
       if (Sim.time >= nextEnrage) {
         Sim.addBuff("restlessgiant", {dmgmul: {skills: ["gargantuan"], percent: 200}}, {duration: 900});
-        nextEnrage = Sim.time + 7200;
+        nextEnrage = Sim.time + 45 * 60;
       }
       data.ias = (Sim.getBuff("restlessgiant" ? 35 : 0));
       break;
@@ -840,7 +840,7 @@
       var params = {
         tickrate: 84,
         refresh: false,
-        data: {coeff: 1},
+        data: {coeff: 4.5},
         ontick: garg_ontick,
       };
       switch (rune) {
@@ -857,7 +857,7 @@
         Sim.after(60, function poison() {
           var stacks = Sim.getBuff("gargantuan");
           if (stacks) {
-            Sim.damage({type: "area", range: 12, origin: 5, coeff: 0.45 * Sim.stats.info.aps, pet: true, count: stacks});
+            Sim.damage({type: "area", range: 12, origin: 5, coeff: 1.35 * Sim.stats.info.aps, pet: true, count: stacks});
           }
           Sim.after(60, poison);
         });

@@ -304,21 +304,18 @@ DiabloCalc.skills.wizard = {
     },
     info: function(rune, stats) {
       var res = {"Cooldown": {cooldown: (rune === "c" ? 12 : 15), rcr: (stats.leg_gestureoforpheus || stats.leg_gestureoforpheus_p2 || 0)}};
-      if (stats.set_magnumopus_4pc) {
-        res["DPS"] = {elem: "max", coeff: 20, total: true};
-      }
+      //if (stats.set_magnumopus_4pc) {
+      //  res["DPS"] = {elem: "max", coeff: 20, total: true};
+      //}
       return res;
     },
     active: false,
     buffs: function(rune, stats) {
-      if (stats.leg_crownoftheprimus) {
-        return {dmgtaken: 15, ias: 10};
-      } else {
-        switch (rune) {
-        case "a": return {dmgtaken: 15};
-        case "e": return {ias: 10};
-        }
-      }
+      var res = {};
+      if (rune === "a" || stats.leg_crownoftheprimus) res.dmgtaken = 15;
+      if (rune === "e" || stats.leg_crownoftheprimus) res.ias = 10;
+      if (stats.set_magnumopus_4pc) res.dmgred = 50;
+      return res;
     },
   },
   teleport: {

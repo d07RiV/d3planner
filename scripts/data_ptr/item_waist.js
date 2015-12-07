@@ -616,7 +616,7 @@ DiabloCalc.addItems([
     type: "belt",
     quality: "legendary",
     required: {
-      custom: {id: "leg_zoeyssecret", name: "Damage Reduction Per Companion", format: "You take %.1f%% less damage for every Companion you have active.", min: 6, max: 7, step: 0.1},
+      custom: {id: "leg_zoeyssecret", name: "Damage Reduction Per Companion", format: "You take %.1f%% less damage for every Companion you have active.", min: 8, max: 9, step: 0.1},
     },
     preset: ["mainstat", "vit"],
   },

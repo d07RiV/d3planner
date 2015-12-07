@@ -73,7 +73,7 @@
         Sim.register("onhit_proc", function(data) {
           var stacks = Sim.getBuff("staticcharge");
           if (stacks > 1) {
-            var coeff = 1.8;
+            var coeff = 0.3;
             if (Sim.stats.set_shenlong_2pc) {
               // dirty fix
               coeff *= 1 + 0.015 * (Sim.resources.spirit || 0);

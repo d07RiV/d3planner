@@ -12,6 +12,20 @@ body.theme-dark {
   background-color: #000;
   color: #eee;
 }
+.theme-light a {
+  color: #44f;
+}
+.theme-dark a {
+  color: #88f;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
 .theme-light input:not([type="image"]),
 .theme-light select {
   background-color: #fff;

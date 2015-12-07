@@ -83,6 +83,9 @@ DiabloCalc.addItems([
     name: "Corruption",
     type: "shoulders",
     quality: "legendary",
+    affixes: {
+      pickup: {min: 6, max: 7},
+    },
     preset: ["pickup", "healbonus"],
   },
 

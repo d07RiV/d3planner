@@ -40,7 +40,7 @@ var job = {
 //  "scripts/d3gl_data.js": "uglifyjs",
 //  "scripts/d3gl.js": "uglifyjs",
   "scripts" : "uglifyjs",
-//  "css": "less",
+  "css": "less",
   "simulator": "uglifyjs",
 //  "external/canvasjs.js": "uglifyjs",
 //  "external/J3DIMath.js": "uglifyjs",

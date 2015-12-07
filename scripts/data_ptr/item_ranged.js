@@ -536,7 +536,7 @@ DiabloCalc.addItems([
     type: "handcrossbow",
     quality: "legendary",
     required: {
-      custom: {id: "leg_dawn", name: "Vengeance Cooldown Reduction", format: "Reduce the cooldown of Vengeance by %d%%.", min: 45, max: 60},
+      custom: {id: "leg_dawn", name: "Vengeance Cooldown Reduction", format: "Reduce the cooldown of Vengeance by %d%%.", min: 50, max: 65},
     },
     preset: ["mainstat", "wpnhol"],
   },
@@ -560,7 +560,7 @@ DiabloCalc.addItems([
     type: "handcrossbow",
     quality: "legendary",
     required: {
-      custom: {id: "leg_fortressballista", name: "Attacks Grant Absorb Shield", format: "Attacks grant you an absorb shield for %.1f%% of your maximum Life. Stacks up to 10 times.", min: 4, max: 5, step: 0.1},
+      custom: {id: "leg_fortressballista", name: "Attacks Grant Absorb Shield", format: "Attacks grant you an absorb shield for %.1f%% of your maximum Life. Stacks up to 10 times.", min: 2, max: 3, step: 0.1},
     },
     preset: ["mainstat"],
   },

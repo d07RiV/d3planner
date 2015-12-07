@@ -357,7 +357,7 @@ DiabloCalc.addItems([
     type: "bracers",
     quality: "legendary",
     required: {
-      custom: {id: "leg_lakumbasornament", name: "Soul Harvest Damage Reduction", format: "Reduce all damage taken by 5%% for each stack of Soul Harvest you have.", args: 0},
+      custom: {id: "leg_lakumbasornament", name: "Soul Harvest Damage Reduction", format: "Reduce all damage taken by 6%% for each stack of Soul Harvest you have.", args: 0},
     },
     preset: ["mainstat", "chc"],
   },
@@ -383,7 +383,7 @@ DiabloCalc.addItems([
     type: "bracers",
     quality: "legendary",
     required: {
-      custom: {id: "leg_braceroffury", name: "Heaven's Fury Damage on Blinded", format: "Heaven's Fury deals %d%% increased damage to enemies that are Blinded.", min: 300, max: 400},
+      custom: {id: "leg_braceroffury", name: "Heaven's Fury Damage on Blinded", format: "Heaven's Fury deals %d%% increased damage to enemies that are Blinded.", min: 150, max: 200},
     },
     preset: ["mainstat", "chc"],
   },

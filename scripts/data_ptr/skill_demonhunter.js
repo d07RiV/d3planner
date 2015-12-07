@@ -480,7 +480,7 @@ DiabloCalc.skills.demonhunter = {
       e: {"Cooldown": {cooldown: 45}},
     },
     passive: {
-      b: {maxdisc: 15},
+      b: {maxdisc: 20},
     },
   },
   companion: {
@@ -676,7 +676,7 @@ DiabloCalc.skills.demonhunter = {
       a: "From the Shadows",
     },
     info: {
-      "*": {"Uptime": {duration: 15, cooldown: 90, cdr: "leg_dawn"}},
+      "*": {"Uptime": {duration: 20, cooldown: 90, cdr: "leg_dawn"}},
       x: {"Side Guns Damage": {elem: "phy", weapon: "mainhand", coeff: 0.6}, "Homing Rockets Damage": {elem: "phy", weapon: "mainhand", coeff: 0.4, passives: {ballistics: 100}}, "Total Damage per Attack": {sum: true, "Side Guns Damage": {count: 4}, "Homing Rockets Damage": {count: 4}}},
       c: {"Side Guns Damage": {elem: "fir", weapon: "mainhand", coeff: 0.6}, "Grenades Damage": {elem: "fir", weapon: "mainhand", coeff: 1.5, passives: {grenadier: 10}}, "Total Damage per Attack": {sum: true, "Side Guns Damage": {count: 4}, "Grenades Damage": {count: 2}}},
       b: {"Side Guns Damage": {elem: "lit", weapon: "mainhand", coeff: 0.6}, "Homing Rockets Damage": {elem: "lit", weapon: "mainhand", coeff: 0.4, passives: {ballistics: 100}}, "Total Damage per Attack": {sum: true, "Side Guns Damage": {count: 4}, "Homing Rockets Damage": {count: 4}}},

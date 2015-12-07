@@ -55,15 +55,19 @@
 
     var elem = (data.elem === "max" ? stats.info.maxelem : data.elem);
     if (!orphan) dibs += stats.getSpecial("damage", elem, ispet, data.skill, data.exclude);
-    dibs += stats.getSpecial("dmgtaken", elem, ispet, data.skill, data.exclude);
+    var dmgtaken = stats.getSpecial("dmgtaken", elem, ispet, data.skill, data.exclude);
+    if (data.thorns === "normal") {
+      factor *= 1 + 0.01 * dmgtaken;
+    } else {
+      dibs += dmgtaken;
+    }
 
     factor *= 1 + 0.01 * dibs;
 
-    if (data.thorns !== "normal") {
-      var elemental = (elem && stats["dmg" + elem] || 0);
-      if (ispet) elemental += (stats.petdamage || 0);
-      factor *= 1 + 0.01 * elemental;
-    }
+    if (data.thorns === "normal") elem = "phy";
+    var elemental = (elem && stats["dmg" + elem] || 0);
+    if (ispet) elemental += (stats.petdamage || 0);
+    factor *= 1 + 0.01 * elemental;
 
     var edmg = 0.01 * (stats.edmg || 0);
     var bossdmg = 0.01 * (stats.bossdmg || 0);

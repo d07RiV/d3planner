@@ -550,6 +550,7 @@
   skills.steedcharge = {
     offensive: true,
     secondary: true,
+    speed: 60,
     cooldown: function(rune) {
       return 16 * (Sim.stats.passives.lordcommander ? 0.75 : 1);
     },
@@ -995,7 +996,7 @@
     lordcommander: {skill_crusader_phalanx: 20},
     holdyourground: {block: 30},
     longarmofthelaw: function() {},
-    ironmaiden: {thorns_multiply: 100},
+    ironmaiden: {thorns_multiply: 50},
     renewal: function() {},
     finery: function() {
       Sim.addBaseStats({str_percent: Sim.stats.info.gems * 1.5});

@@ -218,7 +218,7 @@ DiabloCalc.skills.witchdoctor = {
         res = {"DPS": {sum: true, "Damage": {divide: (stats.leg_quetzalcoatl ? 6 : 12)}}, "Damage": damage};
       }
       if (stats.set_jadeharvester_2pc) {
-        res["Reapplication Damage"] = {sum: true, "DPS": {factor: 120}};
+        res["Reapplication Damage"] = {sum: true, "DPS": {factor: 60}};
         res["Spam DPS"] = {sum: true, "DPS": {}, "Reapplication Damage": {speed: 1, fpa: 57.5, round: "up"}};
       }
       return $.extend({"Cost": {cost: 50}}, res);
@@ -286,12 +286,12 @@ DiabloCalc.skills.witchdoctor = {
       }
       var res;
       switch (rune) {
-      case "x": res = {"Damage": $.extend({elem: "phy", coeff: 0.3}, base)}; break;
-      case "c": res = {"Damage": $.extend({elem: "psn", coeff: 0.3}, base), "Poison Damage": $.extend({elem: "psn", coeff: 0.3, total: true}, base)}; break;
-      case "d": res = {"Damage": $.extend({elem: "col", coeff: 0.3}, base)}; break;
-      case "b": res = {"Damage": $.extend({elem: "phy", coeff: 0.3}, base)}; break;
-      case "a": res = {"Damage": $.extend({elem: "fir", coeff: 0.3}, base), "Burn DPS": $.extend({elem: "fir", coeff: 0.1, total: true}, base)}; break;
-      case "e": res = {"Damage": $.extend({elem: "phy", coeff: 0.3}, base), "Healing": DiabloCalc.formatNumber(stats.lph * (1 + 0.01 * (stats.petias || 0)) * lphm * count, 0, 1000)}; break;
+      case "x": res = {"Damage": $.extend({elem: "phy", coeff: 1.2}, base)}; break;
+      case "c": res = {"Damage": $.extend({elem: "psn", coeff: 1.2}, base), "Poison Damage": $.extend({elem: "psn", coeff: 1.2, total: true}, base)}; break;
+      case "d": res = {"Damage": $.extend({elem: "col", coeff: 1.2}, base)}; break;
+      case "b": res = {"Damage": $.extend({elem: "phy", coeff: 1.2}, base)}; break;
+      case "a": res = {"Damage": $.extend({elem: "fir", coeff: 1.2}, base), "Burn DPS": $.extend({elem: "fir", coeff: 0.4, total: true}, base)}; break;
+      case "e": res = {"Damage": $.extend({elem: "phy", coeff: 1.2}, base), "Healing": DiabloCalc.formatNumber(stats.lph * (1 + 0.01 * (stats.petias || 0)) * lphm * count, 0, 1000)}; break;
       }
       res["DPS"] = {sum: true, "Damage": {pet: 60, count: count}};
       if (rune === "c") res["DPS"]["Poison Damage"] = {pet: 60, count: count};
@@ -411,7 +411,7 @@ DiabloCalc.skills.witchdoctor = {
       }
       if (stats.set_arachyr_4pc) {
         res.dmgtaken = Math.max(res.dmgtaken || 0, 25);
-        res.dmgred = 40;
+        res.dmgred = 50;
       }
       return res;
     },
@@ -439,7 +439,7 @@ DiabloCalc.skills.witchdoctor = {
         var haunt_dps, haunt_dur;
         if (haunt_rune) {
           var haunt_info = DiabloCalc.skills.witchdoctor.haunt.info(haunt_rune, stats);
-          haunt_dur = (stats.passives.creepingdeath ? 300 : haunt_info["DPS"]["Damage"].divide);
+          haunt_dur = (stats.passives.creepingdeath ? 150 : haunt_info["DPS"]["Damage"].divide);
           haunt_info = DiabloCalc.skill_processInfo(haunt_info, {skill: ["haunt", haunt_rune]});
           haunt_dps = haunt_info["DPS"].value;
         }
@@ -451,7 +451,7 @@ DiabloCalc.skills.witchdoctor = {
         var swarm_dps, swarm_dur;
         if (swarm_rune) {
           var swarm_info = DiabloCalc.skills.witchdoctor.locustswarm.info(swarm_rune, stats);
-          swarm_dur = (stats.passives.creepingdeath ? 300 : swarm_info["DPS"]["Damage"].divide);
+          swarm_dur = (stats.passives.creepingdeath ? 150 : swarm_info["DPS"]["Damage"].divide);
           swarm_info = DiabloCalc.skill_processInfo(swarm_info, {skill: ["locustswarm", swarm_rune]});
           swarm_dps = swarm_info["DPS"].value;
         }
@@ -474,7 +474,7 @@ DiabloCalc.skills.witchdoctor = {
     buffs: function(rune, stats) {
       var stacks = this.params[0].val;
       var res = {int_percent: stacks * 3};
-      if (stats.leg_lakumbasornament) res.dmgred = stacks * 5;
+      if (stats.leg_lakumbasornament) res.dmgred = stacks * 6;
       if (rune === "d" || stats.set_jadeharvester_4pc) res.maxmana_percent = stacks * 5;
       if (rune === "c" || stats.set_jadeharvester_4pc) res.armor_percent = stacks * 10;
       if (rune === "b" || stats.set_jadeharvester_4pc) res.extrams = stacks * 5;
@@ -688,16 +688,16 @@ DiabloCalc.skills.witchdoctor = {
       if (stats.leg_theshortmansfinger) {
         count = 3;
         base.percent = {};
-        base.percent[DiabloCalc.itemById.P2_Unique_Ring_02.name] = 50;
+        base.percent[DiabloCalc.itemById.P2_Unique_Ring_02.name] = 200;
       }
       var res;
       switch (rune) {
-      case "x": res = {"Damage": $.extend(base, {elem: "phy", coeff: 1})}; break;
+      case "x": res = {"Damage": $.extend(base, {elem: "phy", coeff: 4.5})}; break;
       case "b": res = {"Damage": $.extend(base, {elem: "col", coeff: 1.3})}; break;
-      case "a": res = {"Damage": $.extend(true, base, {elem: "phy", coeff: 1, percent: {"Enrage": 200}})}; break;
+      case "a": res = {"Damage": $.extend(true, base, {elem: "phy", coeff: 4.5, percent: {"Enrage": 200}})}; break;
       case "d": res = {"Damage": $.extend(base, {elem: "fir", coeff: 5.75})}; break;
-      case "c": res = {"Damage": $.extend(base, {elem: "psn", coeff: 1}), "Poison DPS": $.extend(base, {elem: "psn", coeff: 0.45, total: true})}; break;
-      case "e": res = {"Damage": $.extend(base, {elem: "fir", coeff: 1}), "Slam Damage": $.extend(base, {elem: "fir", coeff: 2})}; break;
+      case "c": res = {"Damage": $.extend(base, {elem: "psn", coeff: 4.5}), "Poison DPS": $.extend(base, {elem: "psn", coeff: 1.35, total: true})}; break;
+      case "e": res = {"Damage": $.extend(base, {elem: "fir", coeff: 4.5}), "Slam Damage": $.extend(base, {elem: "fir", coeff: 2})}; break;
       }
       res["DPS"] = {sum: true, "Damage": {pet: 84, count: count}};
       if (rune === "a") res["DPS"]["Damage"].ias = 35;

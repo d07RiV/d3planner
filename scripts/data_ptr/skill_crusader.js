@@ -847,7 +847,7 @@ DiabloCalc.passives.crusader = {
     id: "iron-maiden",
     name: "Iron Maiden",
     index: 13,
-    buffs: {thorns_multiply: 100},
+    buffs: {thorns_multiply: 50},
   },
   renewal: {
     id: "renewal",

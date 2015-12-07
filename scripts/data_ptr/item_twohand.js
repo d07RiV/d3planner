@@ -246,7 +246,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Staff_101_x1",
-    name: "Ahvarion, Spear of Lycander",
+    name: "Ahavarion, Spear of Lycander",
     type: "staff",
     quality: "legendary",
     required: {

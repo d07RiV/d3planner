@@ -175,7 +175,9 @@
   skills.hungeringarrow = {
     signature: true,
     offensive: true,
-    generate: {x: 3, d: 3, a: 6, b: 3, c: 3, e: 3},
+    generate: function(rune) {
+      return (rune === "a" ? 7 : 4) + (Sim.stats.set_unhallowed_2pc ? 2 : 0);
+    },
     speed: GenSpeed(VarSpeed),
     oncast: function(rune) {
       var data = ha_compute(rune);
@@ -213,7 +215,9 @@
   skills.entanglingshot = {
     signature: true,
     offensive: true,
-    generate: {x: 3, b: 3, c: 3, a: 3, d: 6, e: 3},
+    generate: function(rune) {
+      return (rune === "d" ? 7 : 4) + (Sim.stats.set_unhallowed_2pc ? 2 : 0);
+    },
     speed: GenSpeed(VarSpeed),
     oncast: function(rune) {
       var pierce = _buriza();
@@ -238,7 +242,9 @@
   skills.bolas = {
     signature: true,
     offensive: true,
-    generate: {x: 3, a: 3, c: 6, b: 3, d: 3, e: 3},
+    generate: function(rune) {
+      return (rune === "c" ? 7 : 4) + (Sim.stats.set_unhallowed_2pc ? 2 : 0);
+    },
     speed: GenSpeed(56.666666),
     oncast: function(rune) {
       var delay = (Sim.stats.leg_emimeisduffel ? 0 : 60);
@@ -259,7 +265,9 @@
   skills.evasivefire = {
     signature: true,
     offensive: true,
-    generate: {x: 4, a: 4, c: 4, b: 4, e: 7, d: 4},
+    generate: function(rune) {
+      return (rune === "e" ? 7 : 4) + (Sim.stats.set_unhallowed_2pc ? 2 : 0);
+    },
     speed: GenSpeed(VarSpeed),
     oncast: function(rune) {
       switch (rune) {
@@ -288,7 +296,9 @@
   skills.grenade = {
     signature: true,
     offensive: true,
-    generate: {x: 3, d: 6, b: 3, c: 3, e: 3, a: 3},
+    generate: function(rune) {
+      return (rune === "d" ? 7 : 4) + (Sim.stats.set_unhallowed_2pc ? 2 : 0);
+    },
     speed: GenSpeed(56.470554),
     oncast: function(rune) {
       var mod_damage = (Sim.stats.passives.grenadier ? 1.1 : 1);
@@ -516,6 +526,14 @@
     speed: 34,
     cost: {x: 14, a: 14, e: 14, d: 8, c: 14, b: 14},
     resource: "disc",
+    cooldown: function(rune) {
+      if (Sim.stats.leg_liannaswings) return 1.5;
+    },
+    duration: function(rune) {
+      if (Sim.stats.leg_liannaswings) {
+        return skills.smokescreen.duration[Sim.stats.skills.smokescreen || "x"];
+      }
+    },
     oncast: function(rune) {
       var buff = {lph: 26821 + (Sim.stats.laek || 0) * 0.25};
       var params = {duration: 300};
@@ -596,7 +614,7 @@
     },
     oninit: function(rune) {
       if (rune === "b") {
-        Sim.addBaseStats({maxdisc: 15});
+        Sim.addBaseStats({maxdisc: 20});
       }
     },
     elem: "phy",
@@ -851,7 +869,7 @@
       return 90 * (1 - 0.01 * (Sim.stats.leg_dawn || 0));
     },
     oncast: function(rune) {
-      var params = {duration: 900};
+      var params = {duration: 1200};
       /*if (rune === "b") {
         params.tickrate = 15;
         params.ontick = {type: "area", range: 10, self: true, coeff: 3.25 / 4};
