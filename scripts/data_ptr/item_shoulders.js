@@ -37,7 +37,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Shoulder_101_x1",
     name: "Profane Pauldrons",
-//    suffix: _L("Legacy"),
+    suffix: _L("Legacy"),
     type: "shoulders",
     quality: "legendary",
     affixes: {

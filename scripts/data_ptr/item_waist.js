@@ -37,7 +37,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Belt_008_x1",
     name: "String of Ears",
-//    suffix: _L("Legacy"),
+    suffix: _L("Legacy"),
     type: "belt",
     quality: "legendary",
     affixes: {

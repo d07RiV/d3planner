@@ -495,13 +495,11 @@
     oncast: function(rune) {
       var base = 15.25;
       if (rune === "e") base = 8.35;
-      if (rune === "b") {
-        var stack = Sim.getBuffStack("energytwister");
-        if (stack && !stack.data.big) {
-          stack.data.base = 32;
-          stack.data.big = true;
-          return;
-        }
+      if (rune === "b" && Sim.getBuff("energytwister")) {
+        Sim.removeBuff("energytwister", 1);
+        Sim.addBuff("ragingstorm", undefined, {maxstacks: 99, duration: 360, tickrate: 30, tickinitial: 1,
+          ontick: et_ontick, data: {rune: rune, base: 32}, refresh: false, proc: this.proctable[rune]});
+        return;
       }
       Sim.addBuff("energytwister", undefined, {maxstacks: 99, duration: 360, tickrate: 30, tickinitial: 1,
         ontick: et_ontick, data: {rune: rune, base: base}, refresh: false});

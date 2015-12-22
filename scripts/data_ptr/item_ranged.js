@@ -175,7 +175,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_XBow_003_x1",
     name: "Manticore",
-//    suffix: _L("Legacy"),
+    suffix: _L("Legacy"),
     type: "crossbow",
     quality: "legendary",
     preset: ["wpnpsn", "mainstat", "sockets"],
@@ -258,7 +258,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_HandXBow_007_x1",
     name: "Dawn",
-//    suffix: _L("Legacy"),
+    suffix: _L("Legacy"),
     type: "handcrossbow",
     quality: "legendary",
     affixes: {

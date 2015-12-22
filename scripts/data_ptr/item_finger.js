@@ -229,7 +229,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Ring_008_x1",
     name: "Justice Lantern",
-//    suffix: _L("Legacy"),
+    suffix: _L("Legacy"),
     type: "ring",
     quality: "legendary",
     affixes: {
@@ -306,7 +306,7 @@ DiabloCalc.addItems([
     id: "Unique_Ring_017_p2",
     ids: ["ptr_Oculus"],
     name: "Oculus Ring",
-//    suffix: _L("Legacy"),
+    suffix: _L("Legacy"),
     type: "ring",
     quality: "legendary",
     required: {

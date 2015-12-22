@@ -26,7 +26,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Pants_002_x1",
     name: "Hammer Jammers",
-//    suffix: _L("Legacy"),
+    suffix: _L("Legacy"),
     type: "pants",
     quality: "legendary",
     affixes: {

@@ -322,7 +322,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Mojo_009_x1",
     name: "Thing of the Deep",
-//    suffix: _L("Legacy"),
+    suffix: _L("Legacy"),
     type: "mojo",
     quality: "legendary",
     required: {
@@ -453,7 +453,7 @@ DiabloCalc.addItems([
     id: "P2_Unique_Orb_003",
     ids: ["ptr_Triumvirate"],
     name: "Triumvirate",
-//    suffix: _L("Legacy"),
+    suffix: _L("Legacy"),
     type: "source",
     quality: "legendary",
     required: {
@@ -520,7 +520,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Quiver_002_x1",
     name: "Sin Seekers",
-//    suffix: _L("Legacy"),
+    suffix: _L("Legacy"),
     type: "quiver",
     quality: "legendary",
     preset: ["mainstat", "chc"],

@@ -178,7 +178,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Polearm_004_x1",
     name: "Standoff",
-//    suffix: _L("Legacy"),
+    suffix: _L("Legacy"),
     type: "polearm",
     quality: "legendary",
     preset: ["wpncol", "mainstat", "sockets"],
@@ -487,7 +487,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_CombatStaff_2H_002_x1",
     name: "Balance",
-//    suffix: _L("Legacy"),
+    suffix: _L("Legacy"),
     type: "daibo",
     quality: "legendary",
     preset: ["wpnhol", "mainstat"],

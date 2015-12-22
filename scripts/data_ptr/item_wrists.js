@@ -207,7 +207,7 @@ DiabloCalc.addItems([
     id: "P2_Unique_Bracer_110",
     ids: ["ptr_DrakonsLesson"],
     name: "Drakon's Lesson",
-//    suffix: _L("Legacy"),
+    suffix: _L("Legacy"),
     type: "bracers",
     quality: "legendary",
     required: {

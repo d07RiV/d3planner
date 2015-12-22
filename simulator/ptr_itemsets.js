@@ -25,7 +25,7 @@ asheara's: todo
   affixes.set_istvan_2pc = function() {
     Sim.register("oncast", function(data) {
       if (data.cost && data.resource !== "disc") {
-        Sim.addBuff("istvan", {ias: 6, dmgmul: 6, armor_percent: 6}, {duration: 5, maxstacks: 5});
+        Sim.addBuff("istvan", {ias: 6, dmgmul: 6, armor_percent: 6}, {duration: 300, maxstacks: 5});
       }
     });
   };
@@ -130,7 +130,7 @@ asheara's: todo
   };
 
   affixes.set_magnumopus_2pc = function() {
-    var skills = ["arcaneorb", "energytwiser", "magicmissile", "shockpulse"];
+    var skills = ["arcaneorb", "energytwister", "magicmissile", "shockpulse"];
     Sim.register("oncast", function(data) {
       if (skills.indexOf(data.skill) >= 0) {
         Sim.reduceCooldown("slowtime", 120);
@@ -139,12 +139,13 @@ asheara's: todo
   };
 
   affixes.set_magnumopus_6pc = function() {
-    var skills = ["arcaneorb", "energytwiser", "magicmissile", "shockpulse", "spectralblade", "explosiveblast", "waveofforce"];
-    Sim.register("oncast", function(data) {
-      if (skills.indexOf(data.skill) >= 0) {
-        if (Sim.getBuff("slowtime")) {
-          return {percent: 2000};
-        }
+    var buffname;
+    Sim.watchBuff("slowtime", function(data) {
+      if (data.stacks) {
+        buffname = Sim.addBuff(buffname, {dmgmul: {skills: ["arcaneorb", "energytwister", "magicmissile", "shockpulse",
+          "spectralblade", "explosiveblast", "waveofforce"], percent: 2000}});
+      } else if (buffname) {
+        Sim.removeBuff(buffname);
       }
     });
   };

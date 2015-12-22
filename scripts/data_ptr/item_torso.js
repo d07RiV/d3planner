@@ -3,7 +3,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Chest_012_x1",
     name: "Aquila Cuirass",
-//    suffix: _L("Legacy"),
+    suffix: _L("Legacy"),
     type: "chestarmor",
     quality: "legendary",
     preset: ["mainstat", "vit"],
@@ -12,7 +12,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Chest_018_x1",
     name: "Heart of Iron",
-//    suffix: _L("Legacy"),
+    suffix: _L("Legacy"),
     type: "chestarmor",
     quality: "legendary",
     preset: ["mainstat", "resall"],

@@ -278,7 +278,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Spear_002_x1",
     name: "The Three Hundredth Spear",
-//    suffix: _L("Legacy"),
+    suffix: _L("Legacy"),
     type: "spear",
     quality: "legendary",
     required: {
@@ -565,7 +565,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_CeremonialDagger_008_x1",
     name: "Last Breath",
-//    suffix: _L("Legacy"),
+    suffix: _L("Legacy"),
     type: "ceremonialknife",
     quality: "legendary",
     required: {
@@ -723,7 +723,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Fist_009_x1",
     name: "The Fist of Az'Turrasq",
-//    suffix: _L("Legacy"),
+    suffix: _L("Legacy"),
     type: "fistweapon",
     quality: "legendary",
     required: {
@@ -748,7 +748,7 @@ DiabloCalc.addItems([
   {
     id: "P1_fistWeapon_norm_unique_02",
     name: "Vengeful Wind",
-//    suffix: _L("Legacy"),
+    suffix: _L("Legacy"),
     type: "fistweapon",
     quality: "legendary",
     required: {
@@ -900,7 +900,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Mighty_1H_005_x1",
     name: "Blade of the Warlord",
-//    suffix: _L("Legacy"),
+    suffix: _L("Legacy"),
     type: "mightyweapon",
     quality: "legendary",
     preset: ["wpnhol", "mainstat", "sockets"],

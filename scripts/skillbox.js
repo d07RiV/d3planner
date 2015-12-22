@@ -1,10 +1,11 @@
 (function() {
-  var _L = DiabloCalc.locale("ui-skills.js", "skilldata");
+  var DC = DiabloCalc;
+  var _L = DC.locale("ui-skills.js", "skilldata");
 
   function getSkillBonus(skill, stats, type) {
     if (!skill) return;
     type = (type || "buffs");
-    var info = DiabloCalc.skills[DiabloCalc.charClass][skill[0]];
+    var info = DC.skills[DC.charClass][skill[0]];
     var cur = null;
     if (info && info[type]) {
       if (typeof info[type] == "function") {
@@ -15,10 +16,10 @@
     }
     return cur;
   }
-  DiabloCalc.getSkillBonus = getSkillBonus;
+  DC.getSkillBonus = getSkillBonus;
 
   function getPassiveBonus(passive, stats) {
-    var info = DiabloCalc.passives[DiabloCalc.charClass][passive];
+    var info = DC.passives[DC.charClass][passive];
     var cur = null;
     if (info && info.buffs) {
       if (typeof info.buffs == "function") {
@@ -29,13 +30,13 @@
     }
     return cur;
   }
-  DiabloCalc.getPassiveBonus = getPassiveBonus;
+  DC.getPassiveBonus = getPassiveBonus;
 
   var kanaiTypes = {
     weapon: {
       name: _L("Weapon"),
       filter: function(type) {
-        var slot = (DiabloCalc.itemTypes[type] && DiabloCalc.itemTypes[type].slot);
+        var slot = (DC.itemTypes[type] && DC.itemTypes[type].slot);
         return slot === "onehand" || slot === "twohand" || slot === "offhand";
       },
     },
@@ -54,8 +55,8 @@
       },
     },
   };
-  DiabloCalc.getKanaiType = function(id) {
-    var item = DiabloCalc.itemById[id];
+  DC.getKanaiType = function(id) {
+    var item = DC.itemById[id];
     if (!item) return;
     for (var id in kanaiTypes) {
       if (kanaiTypes[id].filter(item.type)) return id;
@@ -84,7 +85,7 @@
 
   function formatObject(fmt, options) {
     options = options || {};
-    var stats = DiabloCalc.getStats();
+    var stats = DC.getStats();
     function execString(expr) {
       return glob_execString(expr, stats, options.affix, options.params);
     }
@@ -113,7 +114,7 @@
     var factors = [];
     // primary attribute
     factors.push({
-      name: DiabloCalc.stats[DiabloCalc.classes[DiabloCalc.charClass].primary].name,
+      name: DC.stats[DC.classes[DC.charClass].primary].name,
       percent: stats.info.primary,
     });
     // attack speed scaling
@@ -203,7 +204,7 @@
           var value = execString(fmt.passives[p]);
           if (value) {
             factors.push({
-              name: DiabloCalc.passives[DiabloCalc.charClass][p].name,
+              name: DC.passives[DC.charClass][p].name,
               percent: value,
             });
           }
@@ -216,7 +217,7 @@
     // skill damage
     var skillid = (fmt.skill || (options.skill && options.skill[0]));
     if (skillid) {
-      var bonus = stats["skill_" + DiabloCalc.charClass + "_" + skillid];
+      var bonus = stats["skill_" + DC.charClass + "_" + skillid];
       if (bonus) {
         bonuses["Skill %"] = bonus;
       }
@@ -236,7 +237,7 @@
         if (stats.passives[p]) {
           var value = execString(fmt.addpassives[p]);
           if (value) {
-            bonuses[DiabloCalc.passives[DiabloCalc.charClass][p].name] = value;
+            bonuses[DC.passives[DC.charClass][p].name] = value;
           }
         }
       }
@@ -269,7 +270,7 @@
 
     if (tmp && fmt.thorns === "normal") {
       factors.push({
-        name: DiabloCalc.stats.dmgtaken.name,
+        name: DC.stats.dmgtaken.name,
         percent: tmp,
       });
     }
@@ -278,7 +279,7 @@
     if ((elem && stats["dmg" + elem]) || (fmt.pet && stats.petdamage)) {
       var bonuses = {};
       if (elem && stats["dmg" + elem]) {
-        bonuses[DiabloCalc.elements[elem]] = stats["dmg" + elem];
+        bonuses[DC.elements[elem]] = stats["dmg" + elem];
       }
       if (fmt.pet && stats.petdamage) {
         bonuses["Pets"] = stats.petdamage;
@@ -290,26 +291,26 @@
     }
 
     // elite damage
-    if (DiabloCalc.options.showElites && stats.edmg) {
+    if (DC.options.showElites && stats.edmg) {
       factors.push({
-        name: DiabloCalc.stats.edmg.name,
+        name: DC.stats.edmg.name,
         percent: stats.edmg,
       });
     }
 
     // boss damage
-    if (DiabloCalc.options.targetBoss && DiabloCalc.options.showElites && stats.bossdmg) {
+    if (DC.options.targetBoss && DC.options.showElites && stats.bossdmg) {
       factors.push({
-        name: DiabloCalc.stats.bossdmg.name,
+        name: DC.stats.bossdmg.name,
         percent: stats.bossdmg,
       });
     }
 
     // special damage
-    var targetType = DiabloCalc.options.targetType;
+    var targetType = DC.options.targetType;
     if (targetType && stats["damage_" + targetType]) {
       factors.push({
-        name: DiabloCalc.stats["damage_" + targetType].name,
+        name: DC.stats["damage_" + targetType].name,
         percent: stats["damage_" + targetType],
       });
     }
@@ -360,14 +361,14 @@
     };
   }
 
-  DiabloCalc.calcFrames = function(fpa, weapon, slowest, dspeed, method) {
+  DC.calcFrames = function(fpa, weapon, slowest, dspeed, method) {
     if (slowest !== true) {
       method = dspeed;
       dspeed = slowest;
       slowest = undefined;
     }
     var delta = (method === "up" ? 1 : 0);
-    var stats = DiabloCalc.getStats();
+    var stats = DC.getStats();
     dspeed = (dspeed || 1);
     if (!weapon && stats.info.offhand) {
       if (slowest) {
@@ -388,7 +389,7 @@
     var result = {};
     var sumlines = [];
     options = options || {};
-    var stats = DiabloCalc.getStats();
+    var stats = DC.getStats();
 
     function fmtValue(val, decimal, clr, per) {
       var parts = ("" + parseFloat(val.toFixed(decimal || 0))).split(".");
@@ -437,7 +438,7 @@
         var cooldown = execString(fmt.cooldown);
         var skill = fmt.skill || (options.skill && options.skill[0]);
         if (skill) {
-          cooldown -= (stats["skill_" + DiabloCalc.charClass + "_" + skill + "_cooldown"] || 0);
+          cooldown -= (stats["skill_" + DC.charClass + "_" + skill + "_cooldown"] || 0);
         }
         if (fmt.cdr) {
           cooldown *= 1 - 0.01 * execString(fmt.cdr);
@@ -451,7 +452,7 @@
           value = Math.min(100, 100 * duration / (cooldown + (fmt.after ? duration : 0)));
         }
         result[stat].value = value;
-        result[stat].text = DiabloCalc.formatNumber(value, 0, 10000) + "%";
+        result[stat].text = DC.formatNumber(value, 0, 10000) + "%";
 
         var tip = tipHeader(stat, result[stat].text);
         tip += fmtTip(fmt.tip);
@@ -475,7 +476,7 @@
         }
         var skill = fmt.skill || (options.skill && options.skill[0]);
         if (skill) {
-          cooldown -= (stats["skill_" + DiabloCalc.charClass + "_" + skill + "_cooldown"] || 0);
+          cooldown -= (stats["skill_" + DC.charClass + "_" + skill + "_cooldown"] || 0);
         }
         if (fmt.cdr) {
           cooldown *= 1 - 0.01 * execString(fmt.cdr);
@@ -484,20 +485,20 @@
         result[stat].value = cooldown;
         result[stat].text = _L("{0} seconds").format(parseFloat(cooldown.toFixed(2)));
       } else if (fmt.cost) {
-        var resource = (fmt.resource || DiabloCalc.classes[DiabloCalc.charClass].resources[0]);
+        var resource = (fmt.resource || DC.classes[DC.charClass].resources[0]);
         var cost = execString(fmt.cost) * (1 - 0.01 * (stats["rcr_" + resource] || 0));
         if (fmt.rcr) {
           cost *= 1 - 0.01 * execString(fmt.rcr);
         }
         if (options.skill && options.skill[0]) {
-          var skill = DiabloCalc.skilltips[DiabloCalc.charClass][options.skill[0]];
+          var skill = DC.skilltips[DC.charClass][options.skill[0]];
           if (skill && skill.elements[options.skill[1]] === "fir") {
             cost *= 1 - 0.01 * (stats.leg_cindercoat || 0);
           }
         }
         var skillid = fmt.skill || (options.skill && options.skill[0]);
         if (skillid) {
-          cost = Math.max(0, cost - (stats["skill_" + DiabloCalc.charClass + "_" + skillid + "_cost"] || 0));
+          cost = Math.max(0, cost - (stats["skill_" + DC.charClass + "_" + skillid + "_cost"] || 0));
         }
         cost = Math.max(0, cost - (stats.rcrint || 0));
         if (cost === 0) {
@@ -510,9 +511,9 @@
           var aps, frames;
           if (fmt.fpa) {
             if (fmt.slowest) {
-              frames = DiabloCalc.calcFrames(fmt.fpa, fmt.weapon, true, dspeed, fmt.round);
+              frames = DC.calcFrames(fmt.fpa, fmt.weapon, true, dspeed, fmt.round);
             } else {
-              frames = DiabloCalc.calcFrames(fmt.fpa, fmt.weapon, dspeed, fmt.round);
+              frames = DC.calcFrames(fmt.fpa, fmt.weapon, dspeed, fmt.round);
             }
             aps = 60 / frames;
             cost *= fmt.fpa / 60;
@@ -520,26 +521,26 @@
             aps = dspeed * (fmt.weapon ? stats.info[fmt.weapon].speed : stats.info.aps);
           }
           result[stat].value = cost * aps;
-          result[stat].text = _L("{0} {1} per second").format(parseFloat((cost * aps).toFixed(2)), DiabloCalc.resources[resource]);
+          result[stat].text = _L("{0} {1} per second").format(parseFloat((cost * aps).toFixed(2)), DC.resources[resource]);
           if (fmt.fpa) {
             var tip = tipHeader(stat, result[stat].text);
             tip += fmtTip(fmt.tip);
-            tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Cost per tick: {0} {1}").format(fmtValue(cost, 2, "white"), DiabloCalc.resources[resource]);
+            tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Cost per tick: {0} {1}").format(fmtValue(cost, 2, "white"), DC.resources[resource]);
             tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Breakpoint: {0} frames ({1} APS)").format(frames, fmtValue(aps, 2, "white"));
             tip += "</p></div>";
             result[stat].tip = tip;
           }
         } else if (fmt.persecond) {
           result[stat].value = cost;
-          result[stat].text = _L("{0} {1} per second").format(parseFloat(cost.toFixed(2)), DiabloCalc.resources[resource]);
+          result[stat].text = _L("{0} {1} per second").format(parseFloat(cost.toFixed(2)), DC.resources[resource]);
         } else {
           result[stat].value = cost;
-          result[stat].text = parseFloat(cost.toFixed(2)) + " " + DiabloCalc.resources[resource];
+          result[stat].text = parseFloat(cost.toFixed(2)) + " " + DC.resources[resource];
         }
       } else if (fmt.value) {
         if (typeof fmt.value === "number") {
           result[stat].value = fmt.value;
-          result[stat].text = DiabloCalc.formatNumber(fmt.value, 0, 10000);
+          result[stat].text = DC.formatNumber(fmt.value, 0, 10000);
         } else {
           result[stat].text = _L(fmt.value);
         }
@@ -553,7 +554,7 @@
           return;
         }
         result[stat].value = data.value;
-        result[stat].text = DiabloCalc.formatNumber(data.value, 0, 10000);
+        result[stat].text = DC.formatNumber(data.value, 0, 10000);
 
         var tip = tipHeader(fmt.total === true ? stat : _L("Average {0}").format(_L(stat)), result[stat].text);
         tip += fmtTip(fmt.tip);
@@ -732,7 +733,7 @@
                   frames = Math.ceil(Math.floor(data.pet / aps) / 6) * 6;
                   aps = 60 / frames;
                 }
-                var _aps = "<span class=\"d3-color-white\">" + DiabloCalc.formatNumber(aps, 2, 10000) + "</span>";
+                var _aps = "<span class=\"d3-color-white\">" + DC.formatNumber(aps, 2, 10000) + "</span>";
                 tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>";
                 if (!frames) {
                   tip += _L("Speed: {0}").format(_aps);
@@ -741,13 +742,13 @@
                   if (!data.nobp) {
                     bpValues.push(frames);
                     bpTip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("{0}: {1} frames ({2} APS)").format(
-                      _L(data.name || src), fmtValue(frames, 0, "white"), "<span class=\"d3-color-white\">" + DiabloCalc.formatNumber(aps, 2, 10000) + "</span>");
+                      _L(data.name || src), fmtValue(frames, 0, "white"), "<span class=\"d3-color-white\">" + DC.formatNumber(aps, 2, 10000) + "</span>");
                     if (data.speed) {
                       if (frames > 6) {
                         var next = data.pet / (frames - 5) / tnt + 0.00005;
-                        //bpTip += "<br/><span class=\"tooltip-icon-nobullet\"></span>Next breakpoint: <span class=\"d3-color-white\">" + DiabloCalc.formatNumber(next, 4, 10000) + "</span>" +
-                        //  " character APS (<span class=\"d3-color-white\">" + DiabloCalc.formatNumber(data.pet / (frames - 5) + 0.00005, 4, 10000) + "</span> pet APS)";
-                        //bpTip += " (<span class=\"d3-color-green\">+" + DiabloCalc.formatNumber(100 * (frames / (frames - 6) - 1), 1) + "%</span> DPS)";
+                        //bpTip += "<br/><span class=\"tooltip-icon-nobullet\"></span>Next breakpoint: <span class=\"d3-color-white\">" + DC.formatNumber(next, 4, 10000) + "</span>" +
+                        //  " character APS (<span class=\"d3-color-white\">" + DC.formatNumber(data.pet / (frames - 5) + 0.00005, 4, 10000) + "</span> pet APS)";
+                        //bpTip += " (<span class=\"d3-color-green\">+" + DC.formatNumber(100 * (frames / (frames - 6) - 1), 1) + "%</span> DPS)";
                         if (data.speed) {
                           var basemh = stats.info.mainhand.speed / (1 + 0.01 * (stats.ias || 0));
                           var apsneed = data.pet / (frames - 5) / tnt / execString(data.speed);
@@ -767,9 +768,9 @@
                       }
                       bpTip += "</table><p>";
                       //var prev = data.pet / (frames + 1) / tnt - 0.00005;
-                      //bpTip += "<br/><span class=\"tooltip-icon-nobullet\"></span>Previous breakpoint: <span class=\"d3-color-white\">" + DiabloCalc.formatNumber(prev, 4, 10000) + "</span>" +
-                      //  " character APS (<span class=\"d3-color-white\">" + DiabloCalc.formatNumber(data.pet / (frames + 1) - 0.00005, 4, 10000) + "</span> pet APS)";
-                      //bpTip += " (<span class=\"d3-color-red\">-" + DiabloCalc.formatNumber(100 * (1 - frames / (frames + 6)), 1) + "%</span> DPS)";
+                      //bpTip += "<br/><span class=\"tooltip-icon-nobullet\"></span>Previous breakpoint: <span class=\"d3-color-white\">" + DC.formatNumber(prev, 4, 10000) + "</span>" +
+                      //  " character APS (<span class=\"d3-color-white\">" + DC.formatNumber(data.pet / (frames + 1) - 0.00005, 4, 10000) + "</span> pet APS)";
+                      //bpTip += " (<span class=\"d3-color-red\">-" + DC.formatNumber(100 * (1 - frames / (frames + 6)), 1) + "%</span> DPS)";
                     }
                   }
                 }
@@ -820,14 +821,14 @@
                   }
                   var res;
                   if (fpa < frames) {
-                    return "<span class=\"d3-color-green\">+" + DiabloCalc.formatNumber(100 * (frames / fpa - 1), 1) + "%</span>";
+                    return "<span class=\"d3-color-green\">+" + DC.formatNumber(100 * (frames / fpa - 1), 1) + "%</span>";
                   } else if (fpa > frames) {
-                    return "<span class=\"d3-color-red\">-" + DiabloCalc.formatNumber(100 * (1 - frames / fpa), 1) + "%</span>";
+                    return "<span class=\"d3-color-red\">-" + DC.formatNumber(100 * (1 - frames / fpa), 1) + "%</span>";
                   } else {
                     return "<span class=\"d3-color-gray\">+0%</span>";
                   }
                 }
-                var _aps = "<span class=\"d3-color-white\">" + DiabloCalc.formatNumber(aps, 2, 10000) + "</span>";
+                var _aps = "<span class=\"d3-color-white\">" + DC.formatNumber(aps, 2, 10000) + "</span>";
                 tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>";
                 if (!frames) {
                   tip += _L("Speed: {0}").format(_aps);
@@ -836,7 +837,7 @@
                   if (!data.nobp) {
                     bpValues.push(frames);
                     bpTip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("{0}: {1} frames ({2} APS)").format(
-                      _L(data.name || src), fmtValue(frames, 0, "white"), "<span class=\"d3-color-white\">" + DiabloCalc.formatNumber(aps, 2, 10000) + "</span>");
+                      _L(data.name || src), fmtValue(frames, 0, "white"), "<span class=\"d3-color-white\">" + DC.formatNumber(aps, 2, 10000) + "</span>");
                     if (data.speed) {
                       if (framesmh && framesoh) {
                         if (framesmh > 1 && framesoh > 1) {
@@ -846,8 +847,8 @@
                           nextmh = next * stats.info.mainhand.speed;
                           nextoh = next * stats.info.offhand.speed;
                           bpTip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Next breakpoint: {0} APS ({1} DPS)").format(
-                            "<span class=\"d3-color-white\">" + DiabloCalc.formatNumber(nextmh, 4, 10000) + "</span>/" +
-                            "<span class=\"d3-color-white\">" + DiabloCalc.formatNumber(nextoh, 4, 10000) + "</span>",
+                            "<span class=\"d3-color-white\">" + DC.formatNumber(nextmh, 4, 10000) + "</span>/" +
+                            "<span class=\"d3-color-white\">" + DC.formatNumber(nextoh, 4, 10000) + "</span>",
                             fpaDelta(nextmh, nextoh));
                           if (data.speed) {
                             var iasneed = Math.ceil(10 * (next * (100 + (stats.ias || 0)) - 100 - (stats.ias || 0))) / 10;
@@ -861,14 +862,14 @@
                         prevmh = prev * stats.info.mainhand.speed;
                         prevoh = prev * stats.info.offhand.speed;
                         bpTip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Previous breakpoint: {0} APS ({1} DPS)").format(
-                          "<span class=\"d3-color-white\">" + DiabloCalc.formatNumber(prevmh, 4, 10000) + "</span>/" +
-                          "<span class=\"d3-color-white\">" + DiabloCalc.formatNumber(prevoh, 4, 10000) + "</span>",
+                          "<span class=\"d3-color-white\">" + DC.formatNumber(prevmh, 4, 10000) + "</span>/" +
+                          "<span class=\"d3-color-white\">" + DC.formatNumber(prevoh, 4, 10000) + "</span>",
                           fpaDelta(prevmh, prevoh));
                       } else {
                         if (frames > 1) {
                           var next = data.fpa / (frames - fpadelta) / dspeed + 0.00005;
                           bpTip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Next breakpoint: {0} APS ({1} DPS)").format(
-                            "<span class=\"d3-color-white\">" + DiabloCalc.formatNumber(next, 4, 10000) + "</span>", fpaDelta(next));
+                            "<span class=\"d3-color-white\">" + DC.formatNumber(next, 4, 10000) + "</span>", fpaDelta(next));
                           if (data.speed) {
                             var basemh = basespeed / (1 + 0.01 * (stats.ias || 0));
                             var iasneed = Math.ceil(10 * (100 * next / basemh - 100 - (stats.ias || 0))) / 10;
@@ -878,7 +879,7 @@
                         }
                         var prev = data.fpa / (frames + 1 - fpadelta) / dspeed - 0.00005;
                         bpTip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Previous breakpoint: {0} APS ({1} DPS)").format(
-                          "<span class=\"d3-color-white\">" + DiabloCalc.formatNumber(prev, 4, 10000) + "</span>", fpaDelta(prev));
+                          "<span class=\"d3-color-white\">" + DC.formatNumber(prev, 4, 10000) + "</span>", fpaDelta(prev));
                       }
                       if (!sequence) {
                         bpTip += "</p><table class=\"col2\"><tr>" + _L("<th>FPA</th><th>APS</th>") + "<th></th>" +
@@ -941,7 +942,7 @@
                         ticks = Math.ceil(data.total / frames);
                       }
                       tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Total ticks: {0} ({1} damage)").format(
-                        fmtValue(ticks, 1, "white"), "<span class=\"d3-color-green\">" + DiabloCalc.formatNumber(theValue * mul * ticks, 0, 10000) + "</span>");
+                        fmtValue(ticks, 1, "white"), "<span class=\"d3-color-green\">" + DC.formatNumber(theValue * mul * ticks, 0, 10000) + "</span>");
                     }
                   }
                 }
@@ -986,7 +987,7 @@
         }
         if (okay) {
           result[stat].value = sum;
-          result[stat].text = DiabloCalc.formatNumber(sum, 0, 10000);
+          result[stat].text = DC.formatNumber(sum, 0, 10000);
           result[stat].tip = tipHeader(_L(stat).replace("DPS", _L("Damage Per Second")), result[stat].text);
           result[stat].tip += fmtTip(lines[stat].tip);
           result[stat].tip += tip + "</p></div>";
@@ -1023,30 +1024,30 @@
     return result;
   }
 
-  DiabloCalc.skill_formatObject = formatObject;
-  DiabloCalc.skill_processInfo = processInfo;
+  DC.skill_formatObject = formatObject;
+  DC.skill_processInfo = processInfo;
 
   var kanaiCache = {};
 
-  DiabloCalc.SkillBox = function(type, options) {
+  DC.SkillBox = function(type, options) {
     var self = this;
 
     this.getInfo = function() {
       if (this.buff) return this.buff;
       if (!this[this.type]) {
         if (this.type === "skill" && this.index !== undefined && this.index <= 1) {
-          var mh = DiabloCalc.itemSlots.mainhand.item;
-          mh = (mh && DiabloCalc.itemById[mh.id] && DiabloCalc.itemById[mh.id].type);
-          mh = (mh && DiabloCalc.itemTypes[mh].attack || "hand");
-          return DiabloCalc.skills.attack[mh];
+          var mh = DC.itemSlots.mainhand.item;
+          mh = (mh && DC.itemById[mh.id] && DC.itemById[mh.id].type);
+          mh = (mh && DC.itemTypes[mh].attack || "hand");
+          return DC.skills.attack[mh];
         }
         return;
       }
       switch (this.type) {
-      case "skill": return DiabloCalc.skills[DiabloCalc.charClass][this.skill[0]];
-      case "passive": return DiabloCalc.passives[DiabloCalc.charClass][this.passive];
-      case "gem": return DiabloCalc.legendaryGems[this.gem];
-      case "affix": return DiabloCalc.itemaffixes[this.affix];
+      case "skill": return DC.skills[DC.charClass][this.skill[0]];
+      case "passive": return DC.passives[DC.charClass][this.passive];
+      case "gem": return DC.legendaryGems[this.gem];
+      case "affix": return DC.itemaffixes[this.affix];
       case "kanai":
         var id = this.namebox.val();
         return kanaiCache[id];
@@ -1090,7 +1091,7 @@
     };
     this.setPassive = function(passive) {
       this.passive = passive;
-      var info = (passive && DiabloCalc.passives[DiabloCalc.charClass][passive]);
+      var info = (passive && DC.passives[DC.charClass][passive]);
       if (info) {
         this.applybox.prop("checked", info.active !== false);
         this.icon.removeClass("empty");
@@ -1104,12 +1105,12 @@
     };
     this.onChangeItem = function() {
       var id = this.namebox.val();
-      var item = DiabloCalc.itemById[id];
+      var item = DC.itemById[id];
       var box = this.namebox;
-      if (!DiabloCalc.noChosen) box = box.next();
+      if (!DC.noChosen) box = box.next();
       box.toggleClass("empty", !item);
       if (item) {
-        this.icon.css("background-image", "url(" + DiabloCalc.getItemIcon(id) + ")");
+        this.icon.css("background-image", "url(" + DC.getItemIcon(id) + ")");
         this.icon.show();
       } else {
         this.icon.hide();
@@ -1118,15 +1119,15 @@
         return;
       }
       var affix = (item.required && item.required.custom);
-      if (affix && DiabloCalc.itemaffixes[affix.id]) {
-        this.apply.toggle(DiabloCalc.itemaffixes[affix.id].active !== undefined);
+      if (affix && DC.itemaffixes[affix.id]) {
+        this.apply.toggle(DC.itemaffixes[affix.id].active !== undefined);
       }
       var info = kanaiCache[id];
       if (!info) {
         info = {};
-        if (affix && DiabloCalc.itemaffixes[affix.id]) {
-          //info = $.extend(info, DiabloCalc.itemaffixes[affix.id]);
-          info = DiabloCalc.itemaffixes[affix.id];
+        if (affix && DC.itemaffixes[affix.id]) {
+          //info = $.extend(info, DC.itemaffixes[affix.id]);
+          info = DC.itemaffixes[affix.id];
           info.affixid = affix.id;
         }
         /*if (affix.args === undefined || affix.args === 1) {
@@ -1149,7 +1150,7 @@
     };
     this.getItemPair = function() {
       var id = this.namebox.val();
-      if (!DiabloCalc.itemById[id]) return;
+      if (!DC.itemById[id]) return;
       return id;//[id, this.getItemAffixValue()];
     };
     this.setItemPair = function(ip) {
@@ -1158,7 +1159,7 @@
       } else {
         this.setItemEffect(ip);
       }
-      /*var item = DiabloCalc.itemById[this.namebox.val()];
+      /*var item = DC.itemById[this.namebox.val()];
       var args = item.required.custom.args;
       if (args === undefined) args = 1;
       if (args === 1 && ip.length >= 2) {
@@ -1166,11 +1167,11 @@
       }*/
     };
     this.getItemAffix = function() {
-      var item = DiabloCalc.itemById[this.namebox.val()];
+      var item = DC.itemById[this.namebox.val()];
       return item && item.required && item.required.custom && item.required.custom.id;
     };
     this.getItemAffixValue = function() {
-      var item = DiabloCalc.itemById[this.namebox.val()];
+      var item = DC.itemById[this.namebox.val()];
       var args = item.required.custom.args;
       if (args === undefined) args = 1;
       if (args === 1) {
@@ -1202,14 +1203,14 @@
           slide: function(event, ui) {
             param.val = ui.value;
             value.text(ui.value + (param.percent ? "%" : ""));
-            DiabloCalc.trigger("updateSkills");
-            if (self.buff && self.buff.type === "affix" && DiabloCalc.tooltip.getNode() === self.header[0]) {
-              DiabloCalc.tooltip.showItem(self.header[0], self.buff.item, [ui.value]);
+            DC.trigger("updateSkills");
+            if (self.buff && self.buff.type === "affix" && DC.tooltip.getNode() === self.header[0]) {
+              DC.tooltip.showItem(self.header[0], self.buff.item, [ui.value]);
             }
-            /*if (self.type === "kanai" && DiabloCalc.tooltip.getNode() === self.header[0]) {
+            /*if (self.type === "kanai" && DC.tooltip.getNode() === self.header[0]) {
               var id = self.namebox.val();
-              if (DiabloCalc.itemById[id]) {
-                DiabloCalc.tooltip.showItem(self.header[0], id, [ui.value]);
+              if (DC.itemById[id]) {
+                DC.tooltip.showItem(self.header[0], id, [ui.value]);
               }
             }*/
           },
@@ -1245,7 +1246,7 @@
         return;
       }
 
-      var stats = DiabloCalc.getStats();
+      var stats = DC.getStats();
       var noBuffs = false;
 
       if (this.type === "skill") {
@@ -1274,11 +1275,11 @@
       } else if (this.type === "affix") {
         this.applybox.prop("checked", info.active === true);
 
-        var itemid = DiabloCalc.getSlotId(stats.affixes[this.affix].slot);
-        var item = DiabloCalc.itemById[itemid];
-        if (item) this.icon.css("background-image", "url(" + DiabloCalc.getItemIcon(item.id) + ")");
+        var itemid = DC.getSlotId(stats.affixes[this.affix].slot);
+        var item = DC.itemById[itemid];
+        if (item) this.icon.css("background-image", "url(" + DC.getItemIcon(item.id) + ")");
         if (stats.affixes[this.affix].set) {
-          var title = DiabloCalc.itemSets[stats.affixes[this.affix].set].name;
+          var title = DC.itemSets[stats.affixes[this.affix].set].name;
           if (stats.affixes[this.affix].pieces) {
             title += " <span class=\"gem-rank\">&#x2013; " + _L("{0} pieces").format(stats.affixes[this.affix].pieces) + "</span>";
           }
@@ -1348,7 +1349,7 @@
 
       var effects, curInfo;
 
-      var elites = (DiabloCalc.options.showElites ? 1 + 0.01 * (stats.edmg || 0) : 1);
+      var elites = (DC.options.showElites ? 1 + 0.01 * (stats.edmg || 0) : 1);
 
       if (typeof info.info === "function") {
         switch (this.type) {
@@ -1362,7 +1363,7 @@
           curInfo = $.extend({}, curInfo);
           for (var stat in curInfo) {
             if (typeof curInfo[stat] === "number") {
-              curInfo[stat] = DiabloCalc.formatNumber(curInfo[stat] * elites, 0, 10000);
+              curInfo[stat] = DC.formatNumber(curInfo[stat] * elites, 0, 10000);
             }
           }
         }
@@ -1391,7 +1392,7 @@
               if (unmod == "%") {
                 curInfo[stat] = Math.floor(expr) + "%";
               } else {
-                curInfo[stat] = DiabloCalc.formatNumber(expr, 0, 10000);
+                curInfo[stat] = DC.formatNumber(expr, 0, 10000);
               }
             } else {
               curInfo[stat] = expr;
@@ -1418,10 +1419,10 @@
           var out = $("<span><b>" + _L(stat) + ":</b> " + value.text + "</span>");
           if (value.tip) {
             out.mouseover(function() {
-              DiabloCalc.tooltip.showHtml(this, value.tip);
+              DC.tooltip.showHtml(this, value.tip);
               return false;
             }).mouseleave(function() {
-              DiabloCalc.tooltip.hide();
+              DC.tooltip.hide();
             });
           }
           self.info.append($("<li></li>").append(out));
@@ -1481,31 +1482,32 @@
 
     if (type === "gem") {
       this.gem = options.gem;
-      var info = DiabloCalc.legendaryGems[this.gem];
+      var info = DC.legendaryGems[this.gem];
       this.applybox.prop("disabled", !!info.always);
       this.apply.toggleClass("always", !!info.always);
       this.apply.toggle(info.always || info.active !== undefined);
-      this.icon.css("background-image", "url(" + DiabloCalc.getItemIcon(this.gem) + ")");
+      this.icon.css("background-image", "url(" + DC.getItemIcon(this.gem) + ")");
     } else if (type === "affix") {
       this.affix = options.affix;
-      var info = DiabloCalc.itemaffixes[this.affix];
+      var info = DC.itemaffixes[this.affix];
       this.apply.toggle(info.active !== undefined);
     } else if (type === "kanai") {
       this.fillnames = function() {
         var self = this;
         var prev = this.namebox.val();
         this.namebox.empty();
-        this.namebox.append("<option value=\"\">" + (DiabloCalc.noChosen ?
+        this.namebox.append("<option value=\"\">" + (DC.noChosen ?
           _L("Choose {0}").format(kanaiTypes[this.kanai].name) : "") + "</option>");
         var groups = {};
-        $.each(DiabloCalc.items, function(index, item) {
+        $.each(DC.items, function(index, item) {
           if (!item.required || !item.required.custom) return;
+          if (DC.options.hideLegacy && item.suffix === _L("Legacy")) return;
           var customId = item.required.custom.id;
-          if (item.classes && item.classes.indexOf(DiabloCalc.charClass) < 0) return;
-          var type = DiabloCalc.itemTypes[item.type];
-          if (type.classes && type.classes.indexOf(DiabloCalc.charClass) < 0) return;
-          if (DiabloCalc.itemPowerClasses && DiabloCalc.itemPowerClasses[customId] &&
-            DiabloCalc.itemPowerClasses[customId] !== DiabloCalc.charClass) return;
+          if (item.classes && item.classes.indexOf(DC.charClass) < 0) return;
+          var type = DC.itemTypes[item.type];
+          if (type.classes && type.classes.indexOf(DC.charClass) < 0) return;
+          if (DC.itemPowerClasses && DC.itemPowerClasses[customId] &&
+            DC.itemPowerClasses[customId] !== DC.charClass) return;
           if (!kanaiTypes[self.kanai].filter(item.type)) return;
           if (item.required.custom.args < 0) return;
           if (!groups[item.type]) {
@@ -1514,7 +1516,7 @@
           groups[item.type].push(item)
         });
         for (var type in groups) {
-          var grp = "<optgroup label=\"" + DiabloCalc.itemTypes[type].name + "\">";
+          var grp = "<optgroup label=\"" + DC.itemTypes[type].name + "\">";
           groups[type].sort(function(a, b) {return a.name.localeCompare(b.name);});
           for (var i = 0; i < groups[type].length; ++i) {
             var item = groups[type][i];
@@ -1543,12 +1545,12 @@
         populate_func: function() {self.fillnames();},
       }).change().change(function() {
         self.onChangeItem();
-        DiabloCalc.trigger("updateSkills");
+        DC.trigger("updateSkills");
       });
-      DiabloCalc.chosenTips(this.namebox, function(id) {
-        if (DiabloCalc.itemById[id]) {
+      DC.chosenTips(this.namebox, function(id) {
+        if (DC.itemById[id]) {
           self.onInner = true;
-          var item = DiabloCalc.itemById[id];
+          var item = DC.itemById[id];
           var args = item.required.custom.args;
           if (args === undefined) args = 1;
           if (args === 1) {
@@ -1560,13 +1562,13 @@
           } else {
             args = undefined;
           }
-          DiabloCalc.tooltip.showItem(this, id, args);
+          DC.tooltip.showItem(this, id, args);
         }
       });
-      DiabloCalc.chosen_addIcons(this.namebox, function(id) {
-        var item = DiabloCalc.itemById[id];
+      DC.chosen_addIcons(this.namebox, function(id) {
+        var item = DC.itemById[id];
         if (!item) return;
-        var icons = DiabloCalc.itemIcons;
+        var icons = DC.itemIcons;
         var icon = (icons ? icons[id] : undefined);
         if (icon !== undefined) {
           return "<span style=\"background: url(css/items/" + item.type + ".png) 0 -" + (24 * icon[0]) + "px no-repeat\"></span>";
@@ -1577,63 +1579,63 @@
     if (type === "skill") {
       this.setSkill();
       this.header.mouseover(function() {
-        if (self.skill && DiabloCalc.skills[DiabloCalc.charClass][self.skill[0]]) {
-          DiabloCalc.tooltip.showSkill(this, DiabloCalc.charClass, self.skill[0], self.skill[1]);
+        if (self.skill && DC.skills[DC.charClass][self.skill[0]]) {
+          DC.tooltip.showSkill(this, DC.charClass, self.skill[0], self.skill[1]);
         } else {
           var info = self.getInfo();
           if (info) {
-            DiabloCalc.tooltip.showAttack(this, info);
+            DC.tooltip.showAttack(this, info);
           }
         }
       });
       this.applybox.change(function() {
-        var info = (self.skill && DiabloCalc.skills[DiabloCalc.charClass][self.skill[0]]);
+        var info = (self.skill && DC.skills[DC.charClass][self.skill[0]]);
         if (info) {
           info.active = this.checked;
-          DiabloCalc.trigger("updateSkills");
+          DC.trigger("updateSkills");
         }
       });
     } else if (type === "passive") {
       this.setPassive();
       this.header.mouseover(function() {
-        if (self.passive && DiabloCalc.passives[DiabloCalc.charClass][self.passive]) {
-          DiabloCalc.tooltip.showSkill(this, DiabloCalc.charClass, self.passive);
+        if (self.passive && DC.passives[DC.charClass][self.passive]) {
+          DC.tooltip.showSkill(this, DC.charClass, self.passive);
         }
       });
       this.applybox.click(function(evt) {
-        var info = (self.passive && DiabloCalc.passives[DiabloCalc.charClass][self.passive]);
+        var info = (self.passive && DC.passives[DC.charClass][self.passive]);
         if (info) {
           info.active = this.checked;
-          DiabloCalc.trigger("updateSkills");
+          DC.trigger("updateSkills");
         }
         evt.stopPropagation();
       });
     } else if (type === "gem") {
       this.header.mouseover(function() {
         if (self.gem) {
-          DiabloCalc.tooltip.showGem(this, self.gem, DiabloCalc.getStats().gems[self.gem]);
+          DC.tooltip.showGem(this, self.gem, DC.getStats().gems[self.gem]);
         }
       });
       this.applybox.click(function(evt) {
-        var info = (self.gem && DiabloCalc.legendaryGems[self.gem]);
+        var info = (self.gem && DC.legendaryGems[self.gem]);
         if (info) {
           info.active = this.checked;
-          DiabloCalc.trigger("updateSkills");
+          DC.trigger("updateSkills");
         }
         evt.stopPropagation();
       });
     } else if (type === "affix") {
       this.header.mouseover(function() {
-        var stats = DiabloCalc.getStats();
+        var stats = DC.getStats();
         if (stats.affixes[self.affix]) {
-          DiabloCalc.tooltip.showItem(this, stats.affixes[self.affix].slot);
+          DC.tooltip.showItem(this, stats.affixes[self.affix].slot);
         }
       });
       this.applybox.click(function(evt) {
-        var info = (self.affix && DiabloCalc.itemaffixes[self.affix]);
+        var info = (self.affix && DC.itemaffixes[self.affix]);
         if (info) {
           info.active = this.checked;
-          DiabloCalc.trigger("updateSkills");
+          DC.trigger("updateSkills");
         }
         evt.stopPropagation();
       });
@@ -1645,8 +1647,8 @@
           return true;
         }
         var id = self.namebox.val();
-        if (DiabloCalc.itemById[id]) {
-          var item = DiabloCalc.itemById[id];
+        if (DC.itemById[id]) {
+          var item = DC.itemById[id];
           var args = item.required.custom.args;
           if (args === undefined) args = 1;
           if (args === 1) {
@@ -1658,21 +1660,21 @@
           } else {
             args = undefined;
           }
-          DiabloCalc.tooltip.showItem(this, id, args);
+          DC.tooltip.showItem(this, id, args);
         }
       });
       this.applybox.click(function(evt) {
         var info = self.getInfo();
         if (info) {
           info.active = this.checked;
-          DiabloCalc.trigger("updateSkills");
+          DC.trigger("updateSkills");
         }
         evt.stopPropagation();
       });
     } else if (this.buff) {
       var onInner = false;
       if (this.buff.type === "skill") {
-        var skill = DiabloCalc.skills[this.buff.charClass][this.buff.id];
+        var skill = DC.skills[this.buff.charClass][this.buff.id];
         this.icon.removeClass("empty");
         this.icon.css("background-position", (-skill.col * 42) + "px " + (-skill.row * 84) + "px");
         this.desc.append("<span class=\"skill-name\">" + skill.name + "</span>");
@@ -1683,15 +1685,15 @@
           for (var rune in this.buff.runes) {
             this.runebox[rune] = $("<input type=\"checkbox\"></input>").click((function(rune) {return function() {
               self.buff.runevals[rune] = $(this).prop("checked");
-              DiabloCalc.trigger("updateSkills");
+              DC.trigger("updateSkills");
             };})(rune));
             this.desc.append($("<label class=\"rune-box\"></label>").append(this.runebox[rune],
                 "<span class=\"skill-rune\"><span class=\"skill-rune-" + this.buff.runelist + "\"></span> " + this.buff.runes[rune] + "</span>")
               .mouseover((function(rune) {return function() {
-                DiabloCalc.tooltip.showSkill(this, self.buff.charClass, self.buff.id, rune, true);
+                DC.tooltip.showSkill(this, self.buff.charClass, self.buff.id, rune, true);
                 return false;
               };})(rune)).mouseleave(function() {
-                DiabloCalc.tooltip.hide();
+                DC.tooltip.hide();
               })
             );
           }
@@ -1714,12 +1716,12 @@
             span.addClass("skill-rune-option " + prevRune);
           }).change().change(function() {
             self.buff.runevals = $(this).val();
-            DiabloCalc.trigger("updateSkills");
+            DC.trigger("updateSkills");
           });
-          DiabloCalc.chosenTips(this.runebox, function(rune) {
+          DC.chosenTips(this.runebox, function(rune) {
             if (rune != "*") {
               onInner = true;
-              DiabloCalc.tooltip.showSkill(this, self.buff.charClass, self.buff.id, rune, true);
+              DC.tooltip.showSkill(this, self.buff.charClass, self.buff.id, rune, true);
             }
           });
         } else if (this.buff.runelist !== "x") {
@@ -1731,44 +1733,44 @@
               onInner = false;
               return true;
             }
-            DiabloCalc.tooltip.showSkill(this, self.buff.charClass, self.buff.id, self.runebox ? self.runebox.val() : self.buff.runelist);
+            DC.tooltip.showSkill(this, self.buff.charClass, self.buff.id, self.runebox ? self.runebox.val() : self.buff.runelist);
           } else {
-            DiabloCalc.tooltip.showSkill(this, self.buff.charClass, self.buff.id);
+            DC.tooltip.showSkill(this, self.buff.charClass, self.buff.id);
           }
         });
       } else if (this.buff.type === "passive") {
-        var skill = DiabloCalc.passives[this.buff.charClass][this.buff.id];
+        var skill = DC.passives[this.buff.charClass][this.buff.id];
         this.icon.removeClass("empty");
         this.icon.css("background-position", (-skill.index * 42) + "px 0");
         this.name.removeClass().addClass("skill-name").text(skill.name);
         this.header.mouseover(function() {
-          DiabloCalc.tooltip.showSkill(this, self.buff.charClass, self.buff.id);
+          DC.tooltip.showSkill(this, self.buff.charClass, self.buff.id);
         });
       } else if (this.buff.type === "affix") {
-        var item = DiabloCalc.itemById[this.buff.item];
+        var item = DC.itemById[this.buff.item];
         if (item) {
-          this.icon.css("background-image", "url(" + DiabloCalc.getItemIcon(item.id) + ")");
+          this.icon.css("background-image", "url(" + DC.getItemIcon(item.id) + ")");
           this.name.text(item.name);
           this.header.mouseover(function() {
             var custom = undefined;
             if (self.buff.params) {
               custom = [self.buff.params[0].val];
             }
-            DiabloCalc.tooltip.showItem(this, item.id, custom);
+            DC.tooltip.showItem(this, item.id, custom);
           });
         }
       } else if (this.buff.type === "gem") {
-        this.icon.css("background-image", "url(" + DiabloCalc.getItemIcon(this.buff.id) + ")");
-        this.name.text(DiabloCalc.legendaryGems[this.buff.id].name);
+        this.icon.css("background-image", "url(" + DC.getItemIcon(this.buff.id) + ")");
+        this.name.text(DC.legendaryGems[this.buff.id].name);
         this.header.mouseover(function() {
-          DiabloCalc.tooltip.showGem(this, self.buff.id, 25);
+          DC.tooltip.showGem(this, self.buff.id, 25);
         });
       } else if (this.buff.type === "custom") {
         this.icon.removeClass("empty");
         this.icon.css("background-position", (-this.buff.icon * 42) + "px 0");
         this.name.removeClass().addClass("skill-name").text(this.buff.name);
         this.header.mouseover(function() {
-          DiabloCalc.tooltip.showCustomSkill(this, self.buff);
+          DC.tooltip.showCustomSkill(this, self.buff);
         });
       }
       this.applybox.prop("checked", this.buff.active);
@@ -1782,7 +1784,7 @@
         if (self.buff.params) {
           self.params.toggle(this.checked);
         }
-        DiabloCalc.trigger("updateSkills");
+        DC.trigger("updateSkills");
       });
       if (this.buff.boxnames) {
         this.boxes = [];
@@ -1796,7 +1798,7 @@
           boxlabel.toggle(this.buff.active !== false || this.buff.multiple);
           box.click((function(i) {return function() {
             self.buff.boxvals[i] = $(this).prop("checked");
-            DiabloCalc.trigger("updateSkills");
+            DC.trigger("updateSkills");
           };})(i));
         }
       }
@@ -1835,7 +1837,7 @@
       this.updateParams();
     };
     this.header.mouseleave(function() {
-      DiabloCalc.tooltip.hide();
+      DC.tooltip.hide();
     });
     //this.info.hide();
     this.apply.click(function(evt) {
@@ -1847,7 +1849,7 @@
       this.accept = function(skill) {
         if (!skill) return true;
         if (this.type === "skill" && this.index === 0) {
-          var info = DiabloCalc.skills[DiabloCalc.charClass][skill[0]];
+          var info = DC.skills[DC.charClass][skill[0]];
           if (!info || info.nolmb) return false;
         }
         return true;
@@ -1870,15 +1872,15 @@
               return false;
             }
             hide(true);
-            if (DiabloCalc.tooltip) DiabloCalc.tooltip.disable();
+            if (DC.tooltip) DC.tooltip.disable();
           },
           revert: function(valid) {
-            if (DiabloCalc.tooltip) DiabloCalc.tooltip.enable();
+            if (DC.tooltip) DC.tooltip.enable();
             return !valid;
             if (!valid) {
               if (!window.event) return true;
               reverting = true;
-              DiabloCalc.popupMenu(window.event, _L.fixkey({
+              DC.popupMenu(window.event, _L.fixkey({
                 "Delete": function() {
                   var obj = elem1.draggable("instance");
                   reverting = false;
@@ -1886,7 +1888,7 @@
                     obj._clear();
                   }
                   self._set();
-                  DiabloCalc.trigger("updateSkills", true);
+                  DC.trigger("updateSkills", true);
                 },
               }), function() {
                 var obj = elem1.draggable("instance");
@@ -1922,20 +1924,20 @@
             if (!data || !self.accept(data) || !box.accept(self[self.type])) return;
             box._set(self[self.type]);
             self._set(data);
-            DiabloCalc.trigger("updateSkills", true);
+            DC.trigger("updateSkills", true);
           },
         });
       }
       makeDraggable(this.header, this.line, function() {
-        return self.header.clone().addClass("class-" + DiabloCalc.charClass);
+        return self.header.clone().addClass("class-" + DC.charClass);
       }, function(flag) {
         self.header.css("visibility", flag ? "hidden" : "");
       });
-      var doll = (this.type === "skill" ? DiabloCalc.getDollSkill : DiabloCalc.getDollPassive);
+      var doll = (this.type === "skill" ? DC.getDollSkill : DC.getDollPassive);
       if (doll) doll = doll(this.index);
       if (doll) {
         makeDraggable(doll, doll, function() {
-          var outer = $("<div class=\"class-" + DiabloCalc.charClass + "\" style=\"width: 42px; height: 42px; position: absolute\"></div>");
+          var outer = $("<div class=\"class-" + DC.charClass + "\" style=\"width: 42px; height: 42px; position: absolute\"></div>");
           return outer.append(doll.clone().css("left", 0));
         }, function(flag) {
           doll.toggleClass("empty", flag || !self[self.type]);
@@ -1943,7 +1945,7 @@
       }
     }
 
-    DiabloCalc.enableTouch(this.header);
+    DC.enableTouch(this.header);
   };
 
 })();

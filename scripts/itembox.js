@@ -580,14 +580,14 @@
           slotType = (DC.itemTypes[slotType] ? DC.itemTypes[slotType].slot : null);
           var leggems = 0;
           for (var id in DC.legendaryGems) {
-            if (DC.legendaryGems[id].types.indexOf(slotType) >= 0) {
+            if (DC.legendaryGems[id].types && DC.legendaryGems[id].types.indexOf(slotType) >= 0) {
               ++leggems;
             }
           }
           if (leggems) {
             var optgroup = "<optgroup label=\"" + _L("Legendary Gems") + "\">";
             for (var id in DC.legendaryGems) {
-              if (DC.legendaryGems[id].types.indexOf(slotType) >= 0) {
+              if (DC.legendaryGems[id].types && DC.legendaryGems[id].types.indexOf(slotType) >= 0) {
                 optgroup += "<option class=\"quality-legendary\" value=\"" + id + "\">" + DC.legendaryGems[id].name + "</option>";
               }
             }

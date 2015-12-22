@@ -1179,9 +1179,12 @@
   };
   affixes.leg_thetwistedsword = function(amount) {
     var buffname;
-    Sim.watchBuff("energytwister", function(data) {
-      buffname = Sim.setBuffStacks(buffname, {dmgmul: {skills: ["energytwister"], percent: amount}}, data.stacks);
-    });
+    function update() {
+      var stacks = Sim.getBuff("energytwister") + 2 * Sim.getBuff("ragingstorm");
+      buffname = Sim.setBuffStacks(buffname, {dmgmul: {skills: ["energytwister"], percent: amount}}, stacks);
+    }
+    Sim.watchBuff("energytwister", update);
+    Sim.watchBuff("ragingstorm", update);
   };
   affixes.leg_deathwish = function(amount) {
     Sim.register("updatestats", function(data) {
