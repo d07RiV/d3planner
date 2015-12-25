@@ -344,7 +344,7 @@ DiabloCalc.addItems([
     type: "bracers",
     quality: "legendary",
     required: {
-      custom: {id: "leg_skularssalvation", name: "Boulder Toss Damage Bonus", format: "Increase the damage of Ancient Spear - Boulder Toss by 100%%. When your Boulder Toss hits 5 or fewer enemies, the damage is increased by %d%%.", min: 150, max: 200},
+      custom: {id: "leg_skularssalvation", name: "Boulder Toss Damage Bonus", format: "Increase the damage of Ancient Spear - Boulder Toss by 100%%. When your Boulder Toss hits 5 or fewer enemies, the damage is increased by %d%%.", min: 120, max: 150},
     },
     preset: ["mainstat", "chc"],
   },
@@ -383,7 +383,7 @@ DiabloCalc.addItems([
     type: "bracers",
     quality: "legendary",
     required: {
-      custom: {id: "leg_braceroffury", name: "Heaven's Fury Damage on Blinded", format: "Heaven's Fury deals %d%% increased damage to enemies that are Blinded.", min: 150, max: 200},
+      custom: {id: "leg_braceroffury", name: "Heaven's Fury Damage on Blinded", format: "Heaven's Fury deals %d%% increased damage to enemies that are Blinded, Immobilized, or Stunned.", min: 150, max: 200},
     },
     preset: ["mainstat", "chc"],
   },
@@ -449,6 +449,18 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       custom: {id: "leg_drakonslesson_p2", name: "Increased Shield Bash Damage", format: "When your Shield Bash hits 3 or fewer enemies, its damage is increased by %d%% and 25%% of its Wrath Cost is refunded.", min: 300, max: 400},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P4_Unique_Bracer_004",
+    name: "Ashnagarr’s Blood Bracer",
+    suffix: _L("PTR"),
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_ashnagarrsblood", name: "Shield Increase", format: "Increases the potency of your shields by %d%%.", min: 75, max: 100},
     },
     preset: ["mainstat", "chc"],
   },

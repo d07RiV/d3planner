@@ -1448,7 +1448,7 @@ DiabloCalc.webglItems = {
     type: "chestarmor",
   },
   ChestArmor_208: {
-    armortype: 5,
+    armortype: 9,
     look: 74,
     name: "Ascended Armor",
     type: "chestarmor",
@@ -2654,6 +2654,9 @@ DiabloCalc.webglItems = {
   P4_Unique_Dagger_002: {
     actor: 192579,
   },
+  P4_Unique_Fist_009_x1: {
+    actor: 175937,
+  },
   P4_Unique_Fist_102: {
     actor: 271963,
   },
@@ -2710,6 +2713,9 @@ DiabloCalc.webglItems = {
   P4_Unique_Mighty_1H_104: {
     actor: 272009,
   },
+  P4_Unique_Mighty_2H_006: {
+    actor: 195138,
+  },
   P4_Unique_Mighty_2H_101: {
     actor: 322776,
   },
@@ -2730,6 +2736,9 @@ DiabloCalc.webglItems = {
   },
   P4_Unique_Orb_003: {
     actor: 195325,
+  },
+  P4_Unique_Orb_004: {
+    actor: 399319,
   },
   P4_Unique_Pants_002: {
     armortype: 3,
@@ -2809,6 +2818,9 @@ DiabloCalc.webglItems = {
   },
   P4_Unique_Sword_1H_01: {
     actor: 328591,
+  },
+  P4_Unique_Wand_010: {
+    actor: 181995,
   },
   P4_Unique_XBow_001: {
     actor: 221760,
@@ -3836,6 +3848,25 @@ DiabloCalc.webglItems = {
     promo: true,
     type: "helm",
   },
+  TransmogHelm_Illidan: {
+    actor: {
+      "238284": 450056,
+      "238286": 450055,
+      "3285": 449884,
+      "3301": 449960,
+      "4717": 449964,
+      "4721": 449966,
+      "6481": 449968,
+      "6485": 449971,
+      "6526": 449973,
+      "6544": 449989,
+      "74706": 449958,
+      "75207": 449962,
+    },
+    name: "Visage of the Betrayer",
+    promo: true,
+    type: "helm",
+  },
   TransmogShield_313: {
     actor: 445356,
     name: "Lachdanan's Stormshield",
@@ -4264,7 +4295,7 @@ DiabloCalc.webglItems = {
     look: 2190352796,
   },
   Unique_Chest_Set_13_x1: {
-    armortype: 5,
+    armortype: 9,
     look: 2190352770,
   },
   Unique_Chest_Set_14_x1: {
@@ -4403,9 +4434,6 @@ DiabloCalc.webglItems = {
     actor: 175939,
   },
   Unique_Fist_009_x1: {
-    actor: 175937,
-  },
-  P4_Unique_Fist_009_x1: {
     actor: 175937,
   },
   Unique_Fist_010_x1: {
@@ -15608,7 +15636,7 @@ DiabloCalc.webglActors = {
   "395303": {
     animation: 423246,
     enable: {
-      "2": 0,
+      "0": 0,
     },
   },
   "395304": {
@@ -15631,6 +15659,11 @@ DiabloCalc.webglActors = {
     enable: {
       "1": 0,
       "2": 0,
+    },
+  },
+  "399319": {
+    enable: {
+      "1": 0,
     },
   },
   "402266": {
@@ -15933,7 +15966,7 @@ DiabloCalc.webglActors = {
     enable: {
       "0": 0,
     },
-    hair: 0,
+    hair: 3,
   },
   "426885": {
     enable: {
@@ -15963,7 +15996,7 @@ DiabloCalc.webglActors = {
     enable: {
       "0": 0,
     },
-    hair: 2,
+    hair: 3,
   },
   "426916": {
     enable: {
@@ -17089,6 +17122,90 @@ DiabloCalc.webglActors = {
   "4478": {
     enable: {
       "0": 0,
+    },
+    hair: 0,
+  },
+  "449884": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 0,
+  },
+  "449958": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 0,
+  },
+  "449960": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 0,
+  },
+  "449962": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 0,
+  },
+  "449964": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 0,
+  },
+  "449966": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 0,
+  },
+  "449968": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 0,
+  },
+  "449971": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 0,
+  },
+  "449973": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 0,
+  },
+  "449989": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 0,
+  },
+  "450055": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 0,
+  },
+  "450056": {
+    enable: {
+      "0": 0,
+      "1": 0,
     },
     hair: 0,
   },

@@ -277,7 +277,7 @@
     offensive: true,
     speed: 58.666656,
     cost: function(rune) {
-      return (rune === "c" ? 22 : 30) * (1 - 0.01 * (Sim.stats.leg_furyofthevanishedpeak || 0));
+      return (rune === "c" ? 22 : 30) * (1 - 0.01 * (Sim.stats.leg_furyofthevanishedpeak || Sim.stats.leg_furyofthevanishedpeak_p2 || 0));
     },
     oncast: function(rune) {
       var dmg = {type: "cone", width: 50, range: 50, coeff: 6.2};

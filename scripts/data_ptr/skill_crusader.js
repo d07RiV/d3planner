@@ -448,7 +448,7 @@ DiabloCalc.skills.crusader = {
       e: "Draw and Quarter",
     },
     info: {
-      "*": {"Uptime": {duration: "2*(leg_swiftmount?2:1)", cooldown: 16, cdr: "passives.lordcommander?25:0"}},
+      "*": {"Uptime": {duration: "2*(leg_swiftmount?2:1)+(set_norvald_2pc?2:0)", cooldown: 16, cdr: "passives.lordcommander?25:0"}},
       a: {"DPS": {elem: "phy", coeff: 5, thorns: "full"}},
       d: {"DPS": {elem: "fir", aps: true, coeff: 5.5, total: true}},
       b: {"Uptime": {duration: "3*(leg_swiftmount?2:1)", cooldown: 16, cdr: "passives.lordcommander?25:0"}},

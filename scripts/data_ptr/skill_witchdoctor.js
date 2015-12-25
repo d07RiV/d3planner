@@ -218,7 +218,8 @@ DiabloCalc.skills.witchdoctor = {
         res = {"DPS": {sum: true, "Damage": {divide: (stats.leg_quetzalcoatl ? 6 : 12)}}, "Damage": damage};
       }
       if (stats.set_jadeharvester_2pc) {
-        res["Reapplication Damage"] = {sum: true, "DPS": {factor: 60}};
+        res["Reapplication Damage"] = {elem: damage.elem, coeff: 40, divide: {"Base Duration": (stats.leg_quetzalcoatl ? 6 : 12)},
+          factors: {"Duration": 60}};
         res["Spam DPS"] = {sum: true, "DPS": {}, "Reapplication Damage": {speed: 1, fpa: 57.5, round: "up"}};
       }
       return $.extend({"Cost": {cost: 50}}, res);
@@ -693,7 +694,7 @@ DiabloCalc.skills.witchdoctor = {
       var res;
       switch (rune) {
       case "x": res = {"Damage": $.extend(base, {elem: "phy", coeff: 4.5})}; break;
-      case "b": res = {"Damage": $.extend(base, {elem: "col", coeff: 1.3})}; break;
+      case "b": res = {"Damage": $.extend(base, {elem: "col", coeff: 5.85})}; break;
       case "a": res = {"Damage": $.extend(true, base, {elem: "phy", coeff: 4.5, percent: {"Enrage": 200}})}; break;
       case "d": res = {"Damage": $.extend(base, {elem: "fir", coeff: 5.75})}; break;
       case "c": res = {"Damage": $.extend(base, {elem: "psn", coeff: 4.5}), "Poison DPS": $.extend(base, {elem: "psn", coeff: 1.35, total: true})}; break;

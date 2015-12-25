@@ -573,10 +573,9 @@
         params.ontick = {targets: 5, coeff: 0.925};
         break;
       }
-      if (Sim.stats.leg_swiftmount) {
-        params.duration *= 2;
-      }
+      if (Sim.stats.leg_swiftmount) params.duration *= 2;
       if (Sim.stats.set_norvald_2pc) {
+        params.duration += 120;
         Sim.addBuff("norvald", {dmgmul: 100}, {duration: params.duration + 300});
       }
       Sim.addBuff("steedcharge", {extrams: 50}, params);
@@ -869,7 +868,7 @@
 
   function hf_ontick(data) {
     var coeff = data.coeff;
-    if (Sim.stats.leg_braceroffury && Sim.stats.blinded) {
+    if (Sim.stats.leg_braceroffury && (Sim.stats.blinded || Sim.stats.immobilized || Sim.stats.stunned)) {
       coeff *= 1 + 0.01 * Sim.stats.leg_braceroffury;
     }
     Sim.damage({type: "area", range: data.range, coeff: coeff});

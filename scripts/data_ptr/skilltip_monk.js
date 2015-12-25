@@ -99,7 +99,7 @@ DiabloCalc.skilltips.monk = {
   },
   epiphany: {
     a: "<p>Infuse yourself with sand, reducing damage taken by <span class=\"d3-color-green\">50%</span>.</p> <p class=\"subtle\">Unlocked at level <em>62</em>.</p>",
-    b: "<p>Imbue yourself with water, causing your abilities to heal yourself and allies within <span class=\"d3-color-green\">30</span> yards for <span class=\"d3-color-green\">40232</span> Life.</p><p>Heal amount is increased by <span class=\"d3-color-green\">25%</span> of your Health Globe Healing Bonus.</p> <p class=\"subtle\">Unlocked at level <em>65</em>.</p>",
+    b: "<p>Imbue yourself with water, causing your abilities to heal yourself and allies within <span class=\"d3-color-green\">30</span> yards for <span class=\"d3-color-green\">40232</span> Life.</p><p>Heal amount is increased by <span class=\"d3-color-green\">10%</span> of your Health Globe Healing Bonus.</p> <p class=\"subtle\">Unlocked at level <em>65</em>.</p>",
     c: "<p>Increases the bonus Spirit regeneration from Epiphany to <span class=\"d3-color-green\">45</span>.</p> <p class=\"subtle\">Unlocked at level <em>67</em>.</p>",
     d: "<p>Engulf yourself in flames, causing your attacks to assault enemies for <span class=\"d3-color-green\">353%</span> weapon damage as Fire.</p> <p class=\"subtle\">Unlocked at level <em>69</em>.</p>",
     e: "<p>Charge yourself with Lightning, causing your next attack after moving <span class=\"d3-color-green\">10</span> yards to Stun enemies for <span class=\"d3-color-green\">1.5</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>63</em>.</p>",
@@ -132,7 +132,7 @@ DiabloCalc.skilltips.monk = {
   fistsofthunder: {
     a: "<p>Release an electric shockwave with every punch that hits all enemies within <span class=\"d3-color-green\">6</span> yards of your primary enemy for <span class=\"d3-color-green\">120%</span> weapon damage as Lightning and causes knockback with every third hit.</p> <p class=\"subtle\">Unlocked at level <em>6</em>.</p>",
     b: "<p>Every third hit also releases arcs of holy power, dealing <span class=\"d3-color-green\">240%</span> weapon damage as Holy to up to <span class=\"d3-color-green\">3</span> additional enemies.</p> <p class=\"subtle\">Unlocked at level <em>52</em>.</p>",
-    c: "<p>Fists of Thunder applies Static Charge to enemies hit for <span class=\"d3-color-green\">6</span> seconds. Each time an enemy with Static Charge gets hit by you, there is a chance that every other enemy with Static Charge within <span class=\"d3-color-green\">40</span> yards takes <span class=\"d3-color-green\">180%</span> weapon damage as Lightning.</p> <p class=\"subtle\">Unlocked at level <em>30</em>.</p>",
+    c: "<p>Fists of Thunder applies Static Charge to enemies hit for <span class=\"d3-color-green\">6</span> seconds. Each time an enemy with Static Charge gets hit by you, there is a chance that every other enemy with Static Charge within <span class=\"d3-color-green\">40</span> yards takes <span class=\"d3-color-green\">40%</span> weapon damage as Lightning.</p> <p class=\"subtle\">Unlocked at level <em>30</em>.</p>",
     d: "<p>Increase Spirit generated to <span class=\"d3-color-green\">20</span>.</p><p>Fists of Thunder's damage turns into Physical.</p> <p class=\"subtle\">Unlocked at level <em>42</em>.</p>",
     e: "<p>Every third hit Freezes enemies for <span class=\"d3-color-green\">2</span> seconds.</p><p>Fists of Thunder's damage turns into Cold.</p> <p class=\"subtle\">Unlocked at level <em>14</em>.</p>",
     elements: {

@@ -507,8 +507,8 @@ DiabloCalc.legendaryGems = {
       {
         format: "Adds %d Thorns.",
         stat: "thorns",
-        value: [30000],
-        delta: [1500],
+        value: [16000],
+        delta: [800],
       },
       {
         format: "Taunt the first enemy hit by your Primary skills for 2 seconds.",

@@ -39,7 +39,7 @@ DiabloCalc.statLimits = {
     areaLarge: {min: 14, max: 20},
     gfSmall: {min: 26, max: 31},
     gfLarge: {min: 61, max: 70},
-    thornsSmall: {min: 2015, max: 2907},
+    thornsSmall: {min: 2015, max: 2400},
     thornsLarge: {min: 3758, max: 5724},
     healbonusNormal: {min: 14231, max: 20000},
     skillNormal: {min: 8, max: 15},
@@ -141,7 +141,7 @@ DiabloCalc.statLimits = {
     areaLarge: {min: 16, max: 24},
     gfSmall: {min: 32, max: 35},
     gfLarge: {min: 71, max: 80},
-    thornsSmall: {min: 2593, max: 3600},
+    thornsSmall: {min: 2401, max: 2880},
     thornsLarge: {min: 5334, max: 7696},
     healbonusNormal: {min: 20001, max: 29713},
     skillNormal: {min: 10, max: 15},
@@ -220,8 +220,8 @@ DiabloCalc.statLimits = {
     lphVeryLarge: {min: 30408, max: 35940}, //!
     damageJewelry: {min: 88, max: 105, min2: 168, max2: 210}, //!
     damageOffhand: {min: 407, max: 485, min2: 495, max2: 600}, //!
-    thornsSmall: {min: 4180, max: 5200}, //!
-    thornsLarge: {min: 9232, max: 12000}, //!
+    thornsSmall: {min: 2881, max: 3500}, //!
+    thornsLarge: {min: 7697, max: 9500}, //!
     healbonusNormal: {min: 32684, max: 38625}, //!
     expaddNormal: {min: 220, max: 260}, //!
     lvlNormal: {min: 30, max: 40}, //!

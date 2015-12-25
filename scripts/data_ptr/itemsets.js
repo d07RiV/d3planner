@@ -123,7 +123,7 @@ DiabloCalc.itemSets = {
         {format: "Your Thorns damage now hits all enemies in a 15 yard radius around you. Each time you hit an enemy with Punish, Slash, or block an attack your Thorns is increased by 25% for 2 seconds."},
       ],
       "4": [
-        {format: "You take 50%% less damage for 20 seconds after casting Bombardment."},
+        {format: "You take 50%% less damage for 20 seconds after damaging an enemy with Bombardment."},
       ],
       "6": [
         {format: "The attack speed of Punish and Slash are increased by 50%% and deal 600%% of your Thorns damage to the first enemy hit."},
@@ -319,7 +319,7 @@ DiabloCalc.itemSets = {
         {format: "Dealing Fire damage causes the enemy to take the same amount of damage over 3 seconds, stacking up to 3000%% weapon damage as Fire per second. After reaching 3000%% damage per second, the enemy will burn until they die."},
       ],
       "6": [
-        {format: "Your damage is increased by 100%% for each enemy that is burning. Elites that are burning increase your damage by 300%%."},
+        {format: "Your damage is increased by 25%% for each enemy that is burning. Elites that are burning increase your damage by 600%%. You can only have one Elite damage bonus active at a time."},
       ],
     },
   },
@@ -347,7 +347,7 @@ DiabloCalc.itemSets = {
     tclass: "demonhunter",
     bonuses: {
       "2": [
-        {format: "While equipped with a melee weapon, all damage is increased by 1000%%."},
+        {format: "While equipped with a melee weapon, your damage is increased by 600%%."},
       ],
       "4": [
         {format: "Shadow Power gains the effect of every rune and lasts forever."},
@@ -452,7 +452,7 @@ DiabloCalc.itemSets = {
         {format: "Reduce the cooldown of Earthquake, Avalanche, Leap, and Ground Stomp by 1 second for every 30 Fury you spend with an attack."},
       ],
       "4": [
-        {format: "Leap causes an Earthquake when you land. Additionally, Leap gains the effect of the Iron Impact rune and its duration is doubled."},
+        {format: "Leap causes an Earthquake when you land. Additionally, Leap gains the effect of the Iron Impact rune and the rune's effect and duration are increased by 150%%."},
       ],
       "6": [
         {format: "Increase the damage of Earthquake, Avalanche, Leap, Ground Stomp, Ancient Spear and Seismic Slam by 1000%%."},
@@ -517,7 +517,7 @@ DiabloCalc.itemSets = {
     order: ["boots", "gloves", "chestarmor", "shoulders", "helm", "pants"],
     bonuses: {
       "2": [
-        {format: "Your Spirit Generators have 25%% increased attack speed and 300%% increased damage."},
+        {format: "Your Spirit Generators have 25%% increased attack speed and 100%% increased damage."},
       ],
       "4": [
         {format: "Dashing Strike now spends 75 Spirit, but refunds a Charge when it does."},
@@ -554,7 +554,7 @@ DiabloCalc.itemSets = {
         {format: "Every use of Shield Bash and Sweep Attack reduces the cooldown of your Laws and Defensive Skills by 1 second."},
       ],
       "4": [
-        {format: "Increase the damage of Shield Bash and Sweep Attack by 500%%."},
+        {format: "Increase the damage of Shield Bash and Sweep Attack by 600%%."},
       ],
       "6": [
         {format: "Every use of Shield Bash or Sweep Attack that hits an enemy grants 50%% increased Attack Speed and 10%% damage reduction for 5 seconds. This effect stacks up to 5 times."},
@@ -568,13 +568,13 @@ DiabloCalc.itemSets = {
     order: ["gloves", "boots", "pants", "helm", "shoulders", "chestarmor"],
     bonuses: {
       "2": [
-        {format: "Casting Arcane Orb, Energy Twister, Magic Missile or Shock Pulse reduces the cooldown of Slow Time by 2 seconds."},
+        {format: "Casting Arcane Orb, Energy Twister, Explosive Blast, Magic Missile, Shock Pulse, Spectral Blade, or Wave of Force reduces the cooldown of Slow Time by 2 seconds."},
       ],
       "4": [
         {format: "You take 50%% reduced damage while inside your Slow Time. Allies gain half benefit."},
       ],
       "6": [
-        {format: "Enemies affected by your Slow Time take 2000%% more damage from your Arcane Orb, Energy Twister, Magic Missile, and Shock Pulse abilities."},
+        {format: "Enemies affected by your Slow Time take 2000%% more damage from your Arcane Orb, Energy Twister, Explosive Blast, Magic Missile, Shock Pulse, Spectral Blade, and Wave of Force abilities."},
       ],
     },
   },
@@ -585,7 +585,7 @@ DiabloCalc.itemSets = {
     order: ["helm", "boots", "pants", "shoulders", "chestarmor", "gloves"],
     bonuses: {
       "2": [
-        {format: "Your generators also generate 1 Discipline."},
+        {format: "Your generators generate 2 additional Hatred and 1 Discipline."},
       ],
       "4": [
         {format: "Gain 60%% damage reduction and deal 60%% increased damage for 8 seconds if no enemy is within 10 yards of you."},
@@ -656,7 +656,7 @@ DiabloCalc.itemSets = {
         {format: "Summon a permanent Spider Queen who leaves behind webs that deal 4000%% weapon damage over 5 seconds and Slows enemies. The Spider Queen is commanded to move to where you cast your Corpse Spiders."},
       ],
       "4": [
-        {format: "Hex gains the effect of the Toad of Hugeness rune. While Toad of Hugeness is active, you take 50%% reduced damage. After Toad of Hugeness licks an enemy, you will heal for 10%% of your maximum Life per second for 15 seconds."},
+        {format: "Hex gains the effect of the Toad of Hugeness rune. After summoning a Toad of Hugeness is active, you gain 50%% damage reduction and heal for 10%% of your maximum Life per second for 15 seconds."},
       ],
       "6": [
         {format: "The damage of your creature skills is increased by 1200%%. Creature skills are Corpse Spiders, Plague of Toads, Firebats, Locust Swarm, Hex, and Piranhas."},
@@ -670,7 +670,7 @@ DiabloCalc.itemSets = {
     order: ["flail2h", "crusadershield"],
     bonuses: {
       "2": [
-        {format: "Every enemy killed while Steed Charge is active extends the duration by 0.5 seconds."},
+        {format: "Increases the duration of Steed Charge by 2 seconds. In addition, killing an enemy reduces the cooldown of Steed Charge by 1 second."},
         {format: "Gain 100%% increased damage while using Steed Charge and for 5 seconds after it ends."},
       ],
     },

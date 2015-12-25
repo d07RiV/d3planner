@@ -547,7 +547,7 @@ DiabloCalc.addItems([
 
   {
     id: "P3_Unique_Belt_02",
-    local: true,
+    suffix: _L("Legacy"),
     name: "Fazula’s Improbable Chain",
     type: "belt",
     quality: "legendary",
@@ -645,6 +645,18 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       custom: {id: "leg_hergbrashsbinding", name: "Channeling Cost Reduction", format: "Reduces the Arcane Power cost of Arcane Torrent, Disintegrate, and Ray of Frost by %d%%.", min: 50, max: 65},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P4_Unique_Belt_07",
+    suffix: _L("PTR"),
+    name: "Fazula’s Improbable Chain",
+    type: "belt",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_fazulasimprobablechain_p2", name: "Archon Stacks Extra Bonuses", format: "You automatically start with %d Archon stacks when entering Archon form.", min: 40, max: 50},
     },
     preset: ["mainstat"],
   },

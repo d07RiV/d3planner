@@ -387,7 +387,7 @@ DiabloCalc.itemaffixes = {
     buffs: {dmgmul: {pet: false, skills: ["lashingtailkick", "tempestrush", "waveoflight"], percent: 1500}},
   },
   set_roland_4pc: {
-    buffs: {dmgmul: {skills: ["sweepattack", "shieldbash"], percent: 500}},
+    buffs: {dmgmul: {skills: ["sweepattack", "shieldbash"], percent: 600}},
   },
   set_roland_6pc: {
     params: [{min: 0, max: 5, val: 0, name: "Stacks"}],
@@ -566,7 +566,7 @@ DiabloCalc.itemaffixes = {
 
   set_magnumopus_6pc: {
     active: true,
-    buffs: {dmgmul: {skills: ["arcaneorb", "energytwister", "magicmissile", "shockpulse", "spectralblade", "explosiveblast", "waveofforce"], percent: 2000}},
+    buffs: {dmgmul: {skills: ["arcaneorb", "energytwister", "explosiveblast", "magicmissile", "shockpulse", "spectralblade", "waveofforce"], percent: 2000}},
   },
 
   set_unhallowed_4pc: {
@@ -607,7 +607,7 @@ DiabloCalc.itemaffixes = {
     },
   },*/
   set_storms_2pc: {
-    buffs: {dmgmul: {skills: ["fistsofthunder", "deadlyreach", "cripplingwave", "wayofthehundredfists"], percent: 300}},
+    buffs: {dmgmul: {skills: ["fistsofthunder", "deadlyreach", "cripplingwave", "wayofthehundredfists"], percent: 100}},
   },
   set_storms_6pc: {
     active: true,
@@ -756,7 +756,8 @@ DiabloCalc.itemaffixes = {
     check: true,
     active: true,
     params: [(DiabloCalc.skills&&DiabloCalc.skills.wizard&&DiabloCalc.skills.wizard.archon.params[0]||
-      {min: "leg_fazulasimprobablechain", max: "leg_fazulasimprobablechain+50", val: "min", name: "Stacks", inf: true})],
+      {min: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)",
+       max: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)+50", val: "min", name: "Stacks", inf: true})],
     buffs: function(value, stats) {
       if (stats.skills.archon && !DiabloCalc.skills.wizard.archon.active) {
         var stacks = this.params[0].val;
@@ -906,7 +907,7 @@ DiabloCalc.itemaffixes = {
     buffs: function(value, stats) {
       var mh = stats.info.mainhand.type;
       if (mh && mh !== "bow" && mh !== "crossbow" && mh !== "handcrossbow") {
-        return {dmgmul: 1000};
+        return {dmgmul: 600};
       }
     },
   },
@@ -1088,6 +1089,18 @@ DiabloCalc.itemaffixes = {
         }
       }
       return res;
+    },
+  },
+
+  leg_orbofinfinitedepth: {
+    params: [{min: 0, max: 4, name: "Stacks"}],
+    buffs: function(value, stats) {
+      return {dmgmul: this.params[0].val * value[0], dmgred: 15 * this.params[0].val};
+    },
+  },
+  leg_fragmentofdestiny: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["spectralblade"], percent: value[0]}};
     },
   },
 

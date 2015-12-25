@@ -368,6 +368,7 @@ DiabloCalc.addItems([
     type: "wand",
     quality: "legendary",
     required: {
+      skill_wizard_explosiveblast: {min: 75, max: 100},
       custom: {id: "leg_wandofwoh", name: "Quadruple Explosive Blast", format: "3 additional Explosive Blasts are triggered after casting Explosive Blast.", args: 0},
     },
     preset: ["mainstat"],
@@ -376,6 +377,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Wand_010_x1",
     name: "Fragment of Destiny",
+    suffix: _L("Legacy"),
     type: "wand",
     quality: "legendary",
     required: {
@@ -572,11 +574,23 @@ DiabloCalc.addItems([
     type: "crossbow",
     quality: "legendary",
     required: {
-      skill_demonhunter_clusterarrow: {min: 75, max: 100},
+      skill_demonhunter_clusterarrow: {min: 60, max: 80},
       custom: {id: "leg_manticore", name: "Cluster Arrow Cost Reduction", format: "Reduces the Hatred cost of Cluster Arrow by %d%%.", min: 40, max: 50},
     },
     preset: ["mainstat", "wpnpsn"],
     primary: 5,
+  },
+
+  {
+    id: "P4_Unique_Wand_010",
+    name: "Fragment of Destiny",
+    suffix: _L("PTR"),
+    type: "wand",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_fragmentofdestiny", name: "Spectral Blade Damage Increase", format: "Spectral Blade attacks 50%% faster and deals %d%% increased damage.", min: 150, max: 200},
+    },
+    preset: ["mainstat"],
   },
 
 ]);

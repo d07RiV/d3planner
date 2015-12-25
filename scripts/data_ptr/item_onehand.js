@@ -1270,7 +1270,7 @@ DiabloCalc.addItems([
     type: "sword",
     quality: "legendary",
     required: {
-      custom: {id: "leg_thetwistedsword", name: "Energy Twister Damage Bonus", format: "Energy Twister damage is increased by %d%% for each Energy Twister you have out.", min: 75, max: 100},
+      custom: {id: "leg_thetwistedsword", name: "Energy Twister Damage Bonus", format: "Energy Twister damage is increased by %d%% for each Energy Twister you have out.", min: 125, max: 150},
     },
     preset: ["mainstat"],
   },
@@ -1282,7 +1282,7 @@ DiabloCalc.addItems([
     type: "sword",
     quality: "legendary",
     required: {
-      custom: {id: "leg_deathwish", name: "Damage Increase While Channeling", format: "While channeling Arcane Torrent, Disintegrate, or Ray of Frost, all damage is increased by %d%%.", min: 60, max: 80},
+      custom: {id: "leg_deathwish", name: "Damage Increase While Channeling", format: "While channeling Arcane Torrent, Disintegrate, or Ray of Frost, all damage is increased by %d%%.", min: 30, max: 35},
     },
     preset: ["mainstat"],
   },

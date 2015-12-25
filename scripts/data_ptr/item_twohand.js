@@ -584,7 +584,7 @@ DiabloCalc.addItems([
     quality: "set",
     set: "inna",
     affixes: {
-      skill_monk_mystically: {min: 75, max: 100},
+      skill_monk_mystically: {min: 90, max: 120},
     },
     preset: ["mainstat", "skill_monk_mystically"],
     primary: 5,
@@ -676,6 +676,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Mighty_2H_006_x1",
     name: "Fury of the Vanished Peak",
+    suffix: _L("Legacy"),
     type: "mightyweapon2h",
     quality: "legendary",
     required: {
@@ -714,7 +715,7 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       custom: {id: "leg_gavelofjudgment", name: "Fury Returned", format: "Hammer of the Ancients returns %d Fury if it hits 3 or fewer enemies.", min: 20, max: 25},
-      skill_barbarian_hammeroftheancients: {min: 30, max: 40},
+      skill_barbarian_hammeroftheancients: {min: 75, max: 100},
     },
     preset: ["wpnhol", "mainstat"],
     primary: 5,
@@ -851,9 +852,11 @@ DiabloCalc.addItems([
     type: "staff",
     quality: "legendary",
     required: {
+      skill_witchdoctor_firebats: {min: 45, max: 60},
       custom: {id: "leg_staffofchiroptera", name: "Firebats Cost Reduction", format: "Firebats attacks 100%% faster and costs %d%% less Mana.", min: 70, max: 75},
     },
     preset: ["mainstat"],
+    primary: 5,
   },
 
   {
@@ -866,6 +869,22 @@ DiabloCalc.addItems([
       custom: {id: "leg_akkhansleniency", name: "Blessed Shield Damage Bonus", format: "Each enemy hit by your Blessed Shield increases the damage of your Blessed Shield by %d%% for 3 seconds.", min: 15, max: 20},
     },
     preset: ["mainstat"],
+  },
+
+  {
+    id: "P4_Unique_Mighty_2H_006",
+    name: "Fury of the Vanished Peak",
+    suffix: _L("PTR"),
+    type: "mightyweapon2h",
+    quality: "legendary",
+    required: {
+      skill_barbarian_seismicslam: {min: 100, max: 125},
+      lifefury: {min: 2500, max: 3000},
+      custom: {id: "leg_furyofthevanishedpeak_p2", name: "Seismic Slam Cost Reduction", format: "Reduces the Fury cost of Seismic Slam by %d%%.", min: 40, max: 50},
+    },
+    preset: ["mainstat"],
+    primary: 6,
+    secondary: 2,
   },
 
 ]);

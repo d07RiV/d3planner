@@ -329,6 +329,7 @@ DiabloCalc.simMapping = {
     invoker_2pc: {name: "Thorns of the Invoker (2)", category: "Item Sets", set: ["invoker", 2]},
     invoker_4pc: {name: "Thorns of the Invoker (4)", category: "Item Sets", set: ["invoker", 4]},
     norvald: {name: "Norvald's Fervor", category: "Item Sets", set: ["norvald", 4]},
+    arachyr_4pc: {name: "Spirit of Arachyr (4)", category: "Item Sets", set: ["arachyr", 4]},
 
     triumvirate: {name: "Triumvirate", category: "Items", stat: "leg_triumvirate"},
     coe_arc: {name: "Convention of Elements - Arcane", category: "Items", classes: ["wizard"], stat: "leg_conventionofelements"},
@@ -368,6 +369,7 @@ DiabloCalc.simMapping = {
     lefebvressoliloquy: {name: "Lefebvre’s Soliloquy", category: "Items", stat: "leg_lefebvressoliloquy"},
     akkhansleniency: {name: "Akkhan’s Leniency", category: "Items", stat: "leg_akkhansleniency"},
     lordgreenstonesfan: {name: "Lord Greenstone's Fan", category: "Items", stat: "leg_lordgreenstonesfan"},
+    orbofinfinitedepth: {name: "Orb of Infinite Depth", category: "Items", stat: "leg_orbofinfinitedepth"},
   },
   nyi: {
     "Unique_Ring_006_p2": true,

@@ -567,6 +567,7 @@ DiabloCalc.addItems([
       custom: {id: "leg_bombadiersrucksack", name: "Extra Sentries", format: "You may have 2 additional Sentries.", args: 0},
     },
     preset: ["dex", "chc"],
+    primary: 6,
   },
 
   {
@@ -767,6 +768,18 @@ DiabloCalc.addItems([
       custom: {id: "leg_shieldoffury", name: "Heaven's Fury Ramp Up", format: "Each time an enemy takes damage from your Heaven's Fury, it increases the damage they take from your Heaven's Fury by %d%%.", min: 15, max: 20},
     },
     preset: ["mainstat"],
+  },
+
+  {
+    id: "P4_Unique_Orb_004",
+    name: "Orb of Infinite Depth",
+    suffix: _L("PTR"),
+    type: "source",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_orbofinfinitedepth", name: "Damage Bonus", format: "Each time you hit an enemy with Explosive Blast your damage is increased by %d%% and your damage reduction is increased by 15%% for 6 seconds. This effect can stack up to 4 times.", min: 4, max: 5},
+    },
+    preset: ["mainstat", "chc"],
   },
 
 ]);

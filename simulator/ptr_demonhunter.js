@@ -893,8 +893,8 @@
             } else if (rune === "a") {
               Sim.damage({delay: 15, coeff: 1.2 * factor, onhit: Sim.apply_effect("frozen", 180)});
             } else {
-              Sim.damage({delay: Math.floor(18 + 0.6 * Sim.target.distance), targets: 4,
-                coeff: 0.4 * (Sim.stats.passives.ballistics ? 2 : 1) * factor, count: 4});
+              Sim.damage({delay: Math.floor(18 + 0.6 * Sim.target.distance), targets: 2,
+                coeff: 0.8 * (Sim.stats.passives.ballistics ? 2 : 1) * factor});
             }
           } else {
             Sim.damage({type: "line", pierce: true, coeff: 2.25 * factor, count: 2});
@@ -968,14 +968,14 @@
       switch (rune) {
       case "b":
         dmg.onhit = function() {
-          Sim.addBuff("windchill", {chctaken: 10}, {duration: 180});
+          Sim.addBuff("windchill", {chctaken: 15}, {duration: 180});
         };
         break;
       case "e":
         if (!Sim.target.boss) dmg.onhit = Sim.apply_effect("knockback", 30);
         break;
       case "a":
-        dmg.coeff = 4.6;
+        dmg.coeff = 5;
         break;
       case "c":
         Sim.damage({targets: 3, coeff: 3 * (Sim.stats.passives.ballistics ? 2 : 1)});
@@ -1000,35 +1000,35 @@
     },
     speed: 58.064510,
     oncast: function(rune) {
-      var dmg = {type: "area", range: 15, coeff: 5.5};
+      var dmg = {type: "area", range: 15, coeff: 6.5};
       var gr_dmg = (Sim.stats.passives.grenadier ? 1.1 : 1);
       var gr_aoe = (Sim.stats.passives.greandier ? 1.2 : 1);
       var rk_dmg = (Sim.stats.passives.ballistics ? 2 : 1);
       switch (rune) {
       case "x":
-        Sim.damage({type: "area", radius: 8, inner: 4, range: 5 * gr_aoe, coeff: 2.2 * gr_dmg});
+        Sim.damage({type: "area", radius: 8, inner: 4, range: 5 * gr_aoe, coeff: 2.5 * gr_dmg});
         break;
       case "e":
-        Sim.damage({type: "area", radius: 8, inner: 4, range: 5 * gr_aoe, coeff: 2.2 * gr_dmg});
+        Sim.damage({type: "area", radius: 8, inner: 4, range: 5 * gr_aoe, coeff: 2.5 * gr_dmg});
         dmg.onhit = Sim.apply_effect("stunned", 90);
         break;
       case "b":
-        Sim.damage({delay: 48, targets: 3, coeff: 6 * rk_dmg});
+        Sim.damage({delay: 48, targets: 2, coeff: 6 * rk_dmg});
         break;
       case "d":
-        Sim.damage({delay: 48, targets: 5, coeff: 4.5 * rk_dmg});
+        Sim.damage({delay: 48, targets: 3, coeff: 4.5 * rk_dmg});
         break;
       case "c":
-        Sim.damage({delay: 10, type: "area", origin: Sim.target.distance - 15, range: 5 * gr_aoe, coeff: 5.25 * gr_dmg});
-        Sim.damage({delay: 20, type: "area", origin: Sim.target.distance - 20, range: 5 * gr_aoe, coeff: 5.25 * gr_dmg});
-        Sim.damage({delay: 30, type: "area", origin: Sim.target.distance - 24, range: 5 * gr_aoe, coeff: 5.25 * gr_dmg});
-        Sim.damage({delay: 40, type: "area", origin: Sim.target.distance - 26.5, range: 5 * gr_aoe, coeff: 5.25 * gr_dmg});
-        Sim.damage({delay: 50, type: "area", origin: Sim.target.distance - 27.5, range: 5 * gr_aoe, coeff: 5.25 * gr_dmg});
+        Sim.damage({delay: 10, type: "area", origin: Sim.target.distance - 15, range: 5 * gr_aoe, coeff: 6.5 * gr_dmg});
+        Sim.damage({delay: 20, type: "area", origin: Sim.target.distance - 20, range: 5 * gr_aoe, coeff: 6.5 * gr_dmg});
+        Sim.damage({delay: 30, type: "area", origin: Sim.target.distance - 24, range: 5 * gr_aoe, coeff: 6.5 * gr_dmg});
+        Sim.damage({delay: 40, type: "area", origin: Sim.target.distance - 26.5, range: 5 * gr_aoe, coeff: 6.5 * gr_dmg});
+        Sim.damage({delay: 50, type: "area", origin: Sim.target.distance - 27.5, range: 5 * gr_aoe, coeff: 6.5 * gr_dmg});
         dmg.delay = 60;
         dmg.origin = Sim.target.distance - 35;
         break;
       case "a":
-        dmg.coeff = 7.7;
+        dmg.coeff = 8.5;
         break;
       }
       return dmg;

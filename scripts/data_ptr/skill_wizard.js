@@ -77,7 +77,7 @@ DiabloCalc.skills.wizard = {
       c: "Ice Blades",
     },
     info: {
-      "*": {"DPS": {sum: true, "Damage": {count: 3, fpa: 56.25, round: "up", speed: "leg_theshameofdelsere?1.5:1"}}},
+      "*": {"DPS": {sum: true, "Damage": {count: 3, fpa: 56.25, round: "up", speed: "(leg_theshameofdelsere?1.5:1)*(leg_fragmentofdestiny?1.5:1)"}}},
       x: {"Damage": {elem: "arc", coeff: 0.56}},
       a: {"Damage": {elem: "fir", coeff: 0.56}},
       d: {"Damage": {elem: "arc", coeff: 0.56}},
@@ -86,7 +86,7 @@ DiabloCalc.skills.wizard = {
       c: {"Damage": {elem: "col", coeff: 0.56}},
     },
     active: true,
-    params: [{rune: "a", name: "Stacks", min: 0, max: 50, val: 0, inf: true}],
+    params: [{rune: "a", name: "Stacks", min: 0, max: 30, val: 0}],
     buffs: function(rune, stats) {
       if (rune === "a") {
         return {dmgfir: this.params[0].val};
@@ -741,7 +741,8 @@ DiabloCalc.skills.wizard = {
     },
     active: false,
     params: [(DiabloCalc.itemaffixes&&DiabloCalc.itemaffixes.leg_theswami.params[0]||
-      {min: "leg_fazulasimprobablechain", max: "leg_fazulasimprobablechain+50", val: "min", name: "Stacks", inf: true, buffs: false}),
+      {min: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)",
+       max: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)+50", val: "min", name: "Stacks", inf: true, buffs: false}),
       {min: 0, max: 20, val: 20, name: "Chantodo's", buffs: false, show: function(rune, stats) {
         return !!stats.set_chantodo_2pc;
       }}],

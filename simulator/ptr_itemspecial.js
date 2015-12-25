@@ -189,7 +189,7 @@
     }
   };
   gems.boyarsky = function(level) {
-    Sim.addBaseStats({thorns: 30000 + 1500 * level});
+    Sim.addBaseStats({thorns: 16000 + 800 * level});
   };
 
   affixes.leg_wandofwoh = function() {
@@ -1192,6 +1192,20 @@
         data.stats.add("dmgmul", amount);
       }
     });
+  };
+
+  affixes.leg_orbofinfinitedepth = function(amount) {
+    Sim.register("onhit", function(data) {
+      if (data.castInfo && data.castInfo.skill === "explosiveblast") {
+        var stacks = Sim.random("orbofinfinitedepth", 1, data.targets, true);
+        if (stacks) {
+          Sim.addBuff("orbofinfinitedepth", {dmgmul: amount, dmgred: 15}, {maxstacks: 4, stacks: stacks, duration: 360});
+        }
+      }
+    });
+  };
+  affixes.leg_fragmentofdestiny = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["spectralblade"], percent: amount}});
   };
 
 /*

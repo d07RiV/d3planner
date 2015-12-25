@@ -744,7 +744,7 @@ DiabloCalc.skills.demonhunter = {
       case "d": res = {"Damage": {elem: "lit", coeff: 3.6}}; break;
       case "b": res = {"Damage": {elem: "col", coeff: 3.6}}; break;
       case "e": res = {"Damage": {elem: "phy", coeff: 3.6}}; break;
-      case "a": res = {"Damage": {elem: "phy", coeff: 4.6}}; break;
+      case "a": res = {"Damage": {elem: "phy", coeff: 5}}; break;
       case "c": res = {"Damage": {elem: "fir", coeff: 3.6}, "Rocket Damage": {elem: "fir", coeff: 3, passives: {ballistics: 100}}}; break;
       }
       res = $.extend({"Cost": {cost: (rune === "d" ? 18 : 25)}}, res);
@@ -776,7 +776,7 @@ DiabloCalc.skills.demonhunter = {
     },
     active: true,
     buffs: {
-      b: {chc_taken: 10},
+      b: {chc_taken: 15},
     },
   },
   clusterarrow: {
@@ -795,12 +795,12 @@ DiabloCalc.skills.demonhunter = {
     info: function(rune, stats) {
       var res;
       switch (rune) {
-      case "x": res = {"Damage": {elem: "fir", coeff: 5.5}, "Grenade Damage": {elem: "fir", coeff: 2.2, passives: {grenadier: 10}}}; break;
-      case "e": res = {"Damage": {elem: "lit", coeff: 5.5}, "Grenade Damage": {elem: "lit", coeff: 2.2, passives: {grenadier: 10}}}; break;
-      case "b": res = {"Damage": {elem: "phy", coeff: 5.5}, "Rocket Damage": {elem: "phy", coeff: 6, passives: {ballistics: 100}}}; break;
-      case "d": res = {"Damage": {elem: "col", coeff: 5.5}, "Rocket Damage": {elem: "col", coeff: 4.5, passives: {ballistics: 100}}}; break;
-      case "c": res = {"Damage": {elem: "fir", coeff: 5.25}, "Grenade Damage": {elem: "fir", coeff: 5.25, passives: {grenadier:10}}}; break;
-      case "a": res = {"Damage": {elem: "fir", coeff: 7.7}, "Grenade Damage": {elem: "fir", coeff: 2.2, passives: {grenadier:10}}}; break;
+      case "x": res = {"Damage": {elem: "fir", coeff: 6.5}, "Grenade Damage": {elem: "fir", coeff: 2.5, passives: {grenadier: 10}}}; break;
+      case "e": res = {"Damage": {elem: "lit", coeff: 6.5}, "Grenade Damage": {elem: "lit", coeff: 2.5, passives: {grenadier: 10}}}; break;
+      case "b": res = {"Damage": {elem: "phy", coeff: 6.5}, "Rocket Damage": {elem: "phy", coeff: 6, passives: {ballistics: 100}}}; break;
+      case "d": res = {"Damage": {elem: "col", coeff: 6.5}, "Rocket Damage": {elem: "col", coeff: 4.5, passives: {ballistics: 100}}}; break;
+      case "c": res = {"Damage": {elem: "fir", coeff: 6.5}, "Grenade Damage": {elem: "fir", coeff: 6.5, passives: {grenadier:10}}}; break;
+      case "a": res = {"Damage": {elem: "fir", coeff: 8.5}, "Grenade Damage": {elem: "fir", coeff: 2.5, passives: {grenadier:10}}}; break;
       }
       res = $.extend({"Cost": {cost: 40}}, res);
       if (stats.leg_manticore) {

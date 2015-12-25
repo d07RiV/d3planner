@@ -86,13 +86,15 @@
   skills.spectralblade = {
     signature: true,
     offensive: true,
-    speed: SignatureSpeed(56.249996),
+    speed: function(rune) {
+      return 56.249996 / (Sim.stats.leg_theshameofdelsere ? 1.5 : 1) / (Sim.stats.leg_fragmentofdestiny ? 1.5 : 1);
+    },
     generate: SignatureGen,
     oncast: function(rune) {
       switch (rune) {
       case "x": return {type: "cone", coeff: 0.56, count: 3, range: 15};
       case "a": return {type: "cone", coeff: 0.56, count: 3, range: 15, onhit: function(event) {
-        Sim.addBuff("flameblades", {dmgfir: 1}, {maxstacks: 999, stacks: Sim.random("flameblades", 1, event.targets / 3, true), duration: 600, refresh: false});
+        Sim.addBuff("flameblades", {dmgfir: 1}, {maxstacks: 30, stacks: Sim.random("flameblades", 1, event.targets / 3, true), duration: 300, refresh: false});
       }};
       case "d": return {type: "cone", coeff: 0.56, count: 3, range: 15, onhit: function(event) {
         Sim.addResource(event.targets * 2 / 3);
@@ -919,14 +921,15 @@
     },
     oncast: function(rune) {
       Sim.removeBuff("archon_stacks");
-      if (Sim.stats.leg_fazulasimprobablechain) {
+      if (Sim.stats.leg_fazulasimprobablechain || Sim.stats.leg_fazulasimprobablechain_p2) {
         var buffs = {damage: 6};
         if (Sim.stats.set_vyr_4pc) {
           buffs.ias = 1;
           buffs.armor_percent = 1;
           buffs.resist_percent = 1;
         }
-        Sim.addBuff("archon_stacks", buffs, {maxstacks: 9999, stacks: Sim.stats.leg_fazulasimprobablechain});
+        Sim.addBuff("archon_stacks", buffs, {maxstacks: 9999, stacks:
+          Sim.stats.leg_fazulasimprobablechain || Sim.stats.leg_fazulasimprobablechain_p2});
       }
       if (rune === "e" || Sim.stats.set_vyr_2pc) {
         Sim.damage({delay: 1, type: "area", range: 15, coeff: 36.8, elem: this.default_elem[rune]});

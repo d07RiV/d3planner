@@ -378,7 +378,7 @@ DiabloCalc.addItems([
     type: "ring",
     quality: "set",
     set: "nightmares",
-    preset: ["mainstat", "ias"],
+    preset: ["mainstat", "sockets"],
   },
 
   {
@@ -387,7 +387,7 @@ DiabloCalc.addItems([
     type: "ring",
     quality: "set",
     set: "nightmares",
-    preset: ["mainstat", "chc"],
+    preset: ["mainstat", "sockets"],
   },
 
   {
@@ -519,7 +519,7 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       block: "blockRelic",
-      custom: {id: "leg_justicelantern", name: "Block to Damage Reduction", format: "Gain damage reduction equal to %d%% of your Block Chance.", min: 50, max: 65},
+      custom: {id: "leg_justicelantern", name: "Block to Damage Reduction", format: "Gain damage reduction equal to %d%% of your Block Chance.", min: 45, max: 55},
       ccr: {min: 35, max: 50},
     },
     preset: ["mainstat", "sockets"],
@@ -536,18 +536,6 @@ DiabloCalc.addItems([
       custom: {id: "leg_bandofmight", name: "Damage Reduction on Movement Skills", format: "After casting Furious Charge, Ground Stomp, or Leap, take %d%% reduced damage for 8 seconds.", min: 50, max: 60},
     },
     preset: ["mainstat", "chc"],
-  },
-
-  {
-    id: "P4_Unique_Ring_04",
-    name: "Ashnagarr’s Blood",
-    suffix: _L("PTR"),
-    type: "ring",
-    quality: "legendary",
-    required: {
-      custom: {id: "leg_ashnagarrsblood", name: "Shield Increase", format: "Increases the potency of your shields by %d%%.", min: 75, max: 100},
-    },
-    preset: ["mainstat", "sockets"],
   },
 
   {

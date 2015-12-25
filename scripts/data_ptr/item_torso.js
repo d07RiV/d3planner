@@ -415,7 +415,7 @@ DiabloCalc.addItems([
     type: "chestarmor",
     quality: "legendary",
     required: {
-      custom: {id: "leg_heartofiron", name: "Thorns From Vitality", format: "Gain Thorns equal to %d%% of your Vitality.", min: 400, max: 500},
+      custom: {id: "leg_heartofiron", name: "Thorns From Vitality", format: "Gain Thorns equal to %d%% of your Vitality.", min: 250, max: 300},
     },
     preset: ["mainstat", "vit", "thorns"],
   },

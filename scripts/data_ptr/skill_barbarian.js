@@ -274,7 +274,7 @@ DiabloCalc.skills.barbarian = {
         res["Damage"].percent = {};
         res["Damage"].percent[DiabloCalc.itemById.P3_Unique_Bracer_104.name] = stats.leg_bracersofdestruction;
       }
-      return $.extend({"Cost": {cost: 30, rcr: "leg_furyofthevanishedpeak"}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58.666656, round: "up"}}}, res);
+      return $.extend({"Cost": {cost: 30, rcr: "leg_furyofthevanishedpeak||leg_furyofthevanishedpeak_p2"}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58.666656, round: "up"}}}, res);
     },
   },
   whirlwind: {
@@ -402,7 +402,7 @@ DiabloCalc.skills.barbarian = {
     },
     active: false,
     buffs: function(rune, stats) {
-      if (rune === "d" || stats.set_earth_4pc) return {armor_percent: 150};
+      if (rune === "d" || stats.set_earth_4pc) return {armor_percent: 150 * (stats.set_earth_4pc ? 2.5 : 1)};
     },
   },
   sprint: {

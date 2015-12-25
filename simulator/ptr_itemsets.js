@@ -130,7 +130,7 @@ asheara's: todo
   };
 
   affixes.set_magnumopus_2pc = function() {
-    var skills = ["arcaneorb", "energytwister", "magicmissile", "shockpulse"];
+    var skills = ["arcaneorb", "energytwister", "explosiveblast", "magicmissile", "shockpulse", "spectralblade", "waveofforce"];
     Sim.register("oncast", function(data) {
       if (skills.indexOf(data.skill) >= 0) {
         Sim.reduceCooldown("slowtime", 120);
@@ -142,8 +142,8 @@ asheara's: todo
     var buffname;
     Sim.watchBuff("slowtime", function(data) {
       if (data.stacks) {
-        buffname = Sim.addBuff(buffname, {dmgmul: {skills: ["arcaneorb", "energytwister", "magicmissile", "shockpulse",
-          "spectralblade", "explosiveblast", "waveofforce"], percent: 2000}});
+        buffname = Sim.addBuff(buffname, {dmgmul: {skills: ["arcaneorb", "energytwister", "explosiveblast", "magicmissile",
+          "shockpulse", "spectralblade", "waveofforce"], percent: 2000}});
       } else if (buffname) {
         Sim.removeBuff(buffname);
       }
@@ -230,6 +230,7 @@ asheara's: todo
   affixes.set_unhallowed_2pc = function() {
     Sim.register("oncast", function(data) {
       if (Sim.skills[data.skill] && Sim.skills[data.skill].signature) {
+        Sim.addResource(2, "hatred");
         Sim.addResource(1, "disc");
       }
     });
@@ -386,7 +387,7 @@ asheara's: todo
   };
 
   affixes.set_storms_2pc = function() {
-    Sim.addBaseStats({dmgmul: {skills: ["fistsofthunder", "deadlyreach", "cripplingwave", "wayofthehundredfists"], percent: 300}});
+    Sim.addBaseStats({dmgmul: {skills: ["fistsofthunder", "deadlyreach", "cripplingwave", "wayofthehundredfists"], percent: 100}});
   };
   affixes.set_storms_6pc = function() {
     if (Sim.stats.charClass !== "monk") return;
@@ -452,7 +453,7 @@ asheara's: todo
     });
   };
   affixes.set_roland_4pc = function() {
-    Sim.addBaseStats({dmgmul: {skills: ["shieldbash", "sweepattack"], percent: 500}});
+    Sim.addBaseStats({dmgmul: {skills: ["shieldbash", "sweepattack"], percent: 600}});
   };
   affixes.set_roland_6pc = function() {
     Sim.register("onhit", function(data) {
@@ -591,7 +592,7 @@ asheara's: todo
   affixes.set_shadow_2pc = function() {
     var mh = Sim.stats.info.mainhand.type;
     if (mh && mh !== "bow" && mh !== "crossbow" && mh !== "handcrossbow") {
-      Sim.addBaseStats({dmgmul: 1000});
+      Sim.addBaseStats({dmgmul: 600});
     }
   };
 
@@ -604,8 +605,8 @@ asheara's: todo
     });
   };
   affixes.set_invoker_4pc = function() {
-    Sim.register("oncast", function(data) {
-      if (data.skill === "bombardment" && !data.triggered) {
+    Sim.register("onhit", function(data) {
+      if (data.castInfo && data.castInfo.skill === "bombardment") {
         Sim.addBuff("invoker_4pc", {dmgred: 50}, {duration: 1200});
       }
     });
@@ -615,6 +616,13 @@ asheara's: todo
       if (data.castInfo && (data.castInfo.skill === "punish" || data.castInfo.skill === "slash") && data.castInfo.user && !data.castInfo.user.invoker_6pc) {
         Sim.damage({thorns: "normal", coeff: 6});
         data.castInfo.user.invoker_6pc = true;
+      }
+    });
+  };
+  affixes.set_arachyr_4pc = function() {
+    Sim.register("oncast", function(data) {
+      if (data.skill === "hex") {
+        Sim.addBuff("arachyr_4pc", {dmgred: 50}, {duration: 900});
       }
     });
   };

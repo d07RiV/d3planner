@@ -222,8 +222,14 @@ _L.patch.add({
     P4_Unique_Belt_06: {
       flavor: "“Truly understanding the depth and chaos of the untamed Arcane realm can easily lead to madness — or enlightenment. Which will you choose… or, which will choose you?” — Hergbrash the Mad",
     },
+    P4_Unique_Belt_07: {
+      flavor: "“Fazula, like many wizards, was obsessed with power. She claimed this belt was crafted by Vyr himself, but I doubt that. Like many, she wanted to benefit from another’s notoriety. What cannot be denied, however, was its effectiveness.” -Abd al-Hazir",
+    },
     P4_Unique_Boots_001: {
       flavor: "Everyone wishes they were as cool as the person wearing these boots.",
+    },
+    P4_Unique_Bracer_004: {
+      flavor: "“Demon blood is a very important tool in the wizard’s arsenal. I infused this bracer with it, as a matter of fact. The extraction method was agonizing, to be sure, just thinking about it brings a smile to my face.” - Ashnagarr, First Wizard of the Accursed Multitude",
     },
     P4_Unique_Bracer_101: {
       flavor: "Skular was one of the few Barbarians to survive Baal's destruction of Sescheron. These bracers are the reason.",
@@ -300,6 +306,9 @@ _L.patch.add({
     P4_Unique_Mighty_1H_104: {
       flavor: "Betrayed by his kin, robbed of his birthright, Andar Kul-Vagas spent more than a year in isolation forging this blade. The Tribe of Thunder records that he returned to reclaim his clan, and before they died, his traitorous brothers did finally uphold their broken oaths.",
     },
+    P4_Unique_Mighty_2H_006: {
+      flavor: "Korr took all his anger and despair and poured them into the creation of a weapon that would speak to the majesty of Arreat for ages to come.",
+    },
     P4_Unique_Mighty_2H_101: {
       flavor: "Every tribe tells tales of their greatest weapons, capable of moving mountains or terrifying enemies, each one different. But every tribe claims this blade as their own.",
     },
@@ -321,6 +330,9 @@ _L.patch.add({
     P4_Unique_Orb_003: {
       flavor: "The Triumvirate is composed of the three basic elements of creation.",
     },
+    P4_Unique_Orb_004: {
+      flavor: "“There were three - Borax the barbarian, Patel the wizard, and Zatheria the demon hunter. They drew on their unwavering bond to each other to keep from falling to the twisted lord and his minions. Tired, cornered, and near death, they readied themselves for their final assault.” - Chronicles of the North\n",
+    },
     P4_Unique_Pants_002: {
       flavor: "Stop! Hammer time.",
     },
@@ -339,14 +351,11 @@ _L.patch.add({
     P4_Unique_Ring_03: {
       flavor: "Once worn by the self-appointed guardians of Sanctuary, who were said to feel no fear.",
     },
-    P4_Unique_Ring_04: {
-      flavor: "“Demon blood is a very important tool in the wizard’s arsenal. I infused this ring with it, as a matter of fact. The extraction method was agonizing, to be sure, just thinking about it brings a smile to my face.” - Ashnagarr, First Wizard of the Accursed Multitude",
-    },
     P4_Unique_Ring_05: {
       flavor: "“Seems designed to reduce damage, but I’m not sure how it works. Obviously, it failed its previous owner. Hopefully it will work better for you.”  -Haedrig",
     },
     P4_Unique_Shield_Set_01_x1: {
-      flavor: "\"My master used to claim a flail and a horse are all that is needed to see the crusade to it's conclusion. I'd bring along a shield as well, just to be safe.\" -Norvald the Crusader ",
+      flavor: "\"My master used to claim a flail and a horse are all that is needed to see the crusade to its conclusion. I'd bring along a shield as well, just to be safe.\" -Norvald the Crusader",
     },
     P4_Unique_Shoulder_101: {
       flavor: "The monk Lefebvre was famous for delivering soliloquies in battle. If they were eloquent, no one knows, for all who heard them died.",
@@ -362,6 +371,9 @@ _L.patch.add({
     },
     P4_Unique_Sword_1H_01: {
       flavor: "Hate is a powerful weapon that can destroy even the best of us. So tread lightly.",
+    },
+    P4_Unique_Wand_010: {
+      flavor: "Thought to contain a shard of the Worldstone itself.",
     },
     P4_Unique_XBow_001: {
       flavor: "The flying quills of the manticore's tail are filled with lethal toxin.",

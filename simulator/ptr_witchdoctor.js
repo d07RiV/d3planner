@@ -454,9 +454,6 @@
     oncast: function(rune) {
       if (rune === "a" || Sim.stats.set_arachyr_4pc) {
         var buffs = {dmgtaken: 25};
-        if (Sim.stats.set_arachyr_4pc) {
-          buffs.dmgred = 50;
-        }
         Sim.addBuff("toadofhugeness", buffs, {
           duration: 301,
           tickrate: 30,
@@ -844,7 +841,7 @@
         ontick: garg_ontick,
       };
       switch (rune) {
-      case "b": params.data.coeff = 1.3; break;
+      case "b": params.data.coeff = 5.85; break;
       case "d": params.data.coeff = 5.75; params.duration = 900; break;
       }
       if (Sim.stats.leg_theshortmansfinger) {
