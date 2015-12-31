@@ -348,6 +348,7 @@ _L.add({
         {
           name: "Damage Reduction",
           stat: "dmgred",
+          decimal: 2,
           percent: true,
           collapse: true,
           tooltip: "Damage Reduction: $1\n* Increased by skills and items.",

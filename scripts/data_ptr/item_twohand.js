@@ -417,11 +417,13 @@ DiabloCalc.addItems([
     name: "Blade of Prophecy",
     type: "sword2h",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_crusader_condemn: {min: 75, max: 100},
+    },
+    required: {
       custom: {id: "leg_bladeofprophecy", name: "Condemn Explosions Chain", format: "Two Condemned enemies also trigger Condemn's explosion.", args: 0},
     },
-    preset: ["mainstat"],
+    preset: ["mainstat", "skill_crusader_condemn"],
     primary: 5,
   },
 
@@ -520,10 +522,10 @@ DiabloCalc.addItems([
     name: "Staff of Kyro",
     type: "daibo",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_monk_deadlyreach: {min: 40, max: 50},
     },
-    preset: ["mainstat", "sockets"],
+    preset: ["mainstat", "sockets", "skill_monk_deadlyreach"],
   },
 
   {
@@ -542,11 +544,13 @@ DiabloCalc.addItems([
     name: "Incense Torch of the Grand Temple",
     type: "daibo",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_monk_waveoflight: {min: 25, max: 30},
+    },
+    required: {
       custom: {id: "leg_incensetorchofthegrandtemple", name: "Wave of Light Cost Reduction", format: "Reduces the Spirit cost of Wave of Light by %d%%.", min: 40, max: 50},
     },
-    preset: ["mainstat"],
+    preset: ["mainstat", "skill_monk_waveoflight"],
     primary: 5,
   },
 
@@ -632,11 +636,13 @@ DiabloCalc.addItems([
     name: "Golden Flense",
     type: "flail2h",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_crusader_sweepattack: {min: 150, max: 200},
+    },
+    required: {
       custom: {id: "leg_goldenflense_p2", name: "Sweep Attack Restores Wrath", format: "Sweep Attack restores %d Wrath for each enemy hit.", min: 4, max: 6},
     },
-    preset: ["mainstat"],
+    preset: ["mainstat", "skill_crusader_sweepattack"],
     primary: 5,
   },
 
@@ -679,11 +685,13 @@ DiabloCalc.addItems([
     suffix: _L("Legacy"),
     type: "mightyweapon2h",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_barbarian_seismicslam: {min: 25, max: 30},
+    },
+    required: {
       custom: {id: "leg_furyofthevanishedpeak", name: "Seismic Slam Cost Reduction", format: "Reduces the Fury cost of Seismic Slam by %d%%.", min: 40, max: 50},
     },
-    preset: ["mainstat"],
+    preset: ["mainstat", "skill_barbarian_seismicslam"],
     primary: 5,
   },
 
@@ -713,11 +721,13 @@ DiabloCalc.addItems([
     name: "The Gavel of Judgment",
     type: "mightyweapon2h",
     quality: "legendary",
-    required: {
-      custom: {id: "leg_gavelofjudgment", name: "Fury Returned", format: "Hammer of the Ancients returns %d Fury if it hits 3 or fewer enemies.", min: 20, max: 25},
+    affixes: {
       skill_barbarian_hammeroftheancients: {min: 75, max: 100},
     },
-    preset: ["wpnhol", "mainstat"],
+    required: {
+      custom: {id: "leg_gavelofjudgment", name: "Fury Returned", format: "Hammer of the Ancients returns %d Fury if it hits 3 or fewer enemies.", min: 20, max: 25},
+    },
+    preset: ["wpnhol", "mainstat", "skill_barbarian_hammeroftheancients"],
     primary: 5,
     secondary: 2,
   },
@@ -736,10 +746,10 @@ DiabloCalc.addItems([
     type: "mightyweapon2h",
     quality: "set",
     set: "immortalking",
-    required: {
+    affixes: {
       skill_barbarian_calloftheancients: {min: 45, max: 60},
     },
-    preset: ["mainstat", "dura"],
+    preset: ["mainstat", "dura", "skill_barbarian_calloftheancients"],
     primary: 5,
   },
 
@@ -775,11 +785,13 @@ DiabloCalc.addItems([
     name: "SuWong Diviner",
     type: "staff",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_witchdoctor_acidcloud: {min: 75, max: 100},
+    },
+    required: {
       custom: {id: "leg_suwongdiviner", name: "Acid Cloud Gains Lob Blob Bomb", format: "Acid Cloud gains the effect of the Lob Blob Bomb rune.", args: 0},
     },
-    preset: ["wpnfir", "mainstat", "damage"],
+    preset: ["wpnfir", "mainstat", "damage", "skill_witchdoctor_acidcloud"],
     primary: 5,
   },
 
@@ -789,11 +801,13 @@ DiabloCalc.addItems([
     suffix: _L("PTR"),
     type: "daibo",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_monk_tempestrush: {min: 150, max: 200},
+    },
+    required: {
       custom: {id: "leg_balance", name: "Tempest Rush Crit", format: "When your Tempest Rush hits 3 or fewer enemies, it gains 100%% Critical Hit Chance.", args: 0},
     },
-    preset: ["mainstat", "wpnhol"],
+    preset: ["mainstat", "wpnhol", "skill_monk_tempestrush"],
     primary: 5,
   },
 
@@ -815,11 +829,13 @@ DiabloCalc.addItems([
     suffix: _L("PTR"),
     type: "mightyweapon2h",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_barbarian_earthquake: {min: 150, max: 200},
+    },
+    required: {
       custom: {id: "leg_bladeofthetribes", name: "Warcries Cause Avalanche and Earthquake", format: "War Cry and Threatening Shout cause an Avalanche and Earthquake.", args: 0},
     },
-    preset: ["mainstat"],
+    preset: ["mainstat", "skill_barbarian_earthquake"],
     primary: 5,
   },
 
@@ -851,11 +867,13 @@ DiabloCalc.addItems([
     suffix: _L("PTR"),
     type: "staff",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_witchdoctor_firebats: {min: 45, max: 60},
+    },
+    required: {
       custom: {id: "leg_staffofchiroptera", name: "Firebats Cost Reduction", format: "Firebats attacks 100%% faster and costs %d%% less Mana.", min: 70, max: 75},
     },
-    preset: ["mainstat"],
+    preset: ["mainstat", "skill_witchdoctor_firebats"],
     primary: 5,
   },
 
@@ -877,14 +895,15 @@ DiabloCalc.addItems([
     suffix: _L("PTR"),
     type: "mightyweapon2h",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_barbarian_seismicslam: {min: 100, max: 125},
+    },
+    required: {
       lifefury: {min: 2500, max: 3000},
       custom: {id: "leg_furyofthevanishedpeak_p2", name: "Seismic Slam Cost Reduction", format: "Reduces the Fury cost of Seismic Slam by %d%%.", min: 40, max: 50},
     },
-    preset: ["mainstat"],
+    preset: ["mainstat", "skill_barbarian_seismicslam"],
     primary: 6,
-    secondary: 2,
   },
 
 ]);

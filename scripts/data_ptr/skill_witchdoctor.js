@@ -475,7 +475,7 @@ DiabloCalc.skills.witchdoctor = {
     buffs: function(rune, stats) {
       var stacks = this.params[0].val;
       var res = {int_percent: stacks * 3};
-      if (stats.leg_lakumbasornament) res.dmgred = stacks * 6;
+      if (stats.leg_lakumbasornament) res.dmgred = 100 * (1 - Math.pow(0.94, stacks));
       if (rune === "d" || stats.set_jadeharvester_4pc) res.maxmana_percent = stacks * 5;
       if (rune === "c" || stats.set_jadeharvester_4pc) res.armor_percent = stacks * 10;
       if (rune === "b" || stats.set_jadeharvester_4pc) res.extrams = stacks * 5;

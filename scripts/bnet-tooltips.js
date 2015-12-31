@@ -512,16 +512,21 @@
           return (index >= values.length ? "0" : fmtValue(values[index++], arg[1]));
         }
       }).replace(/([0-9])-([0-9])/g, "$1&#x2013;$2");
-      var reqClass;
-      if (stat && DiabloCalc.stats[stat] && DiabloCalc.stats[stat].class) {
-        reqClass = DiabloCalc.stats[stat].class;
-      } else if (stat && DiabloCalc.itemPowerClasses[stat]) {
-        reqClass = DiabloCalc.itemPowerClasses[stat];
-      }
-      if (reqClass && DiabloCalc.charClass !== reqClass) {
-        format += " <span class=\"d3-color-red\">" + _L("({0} Only)").format(DiabloCalc.classes[reqClass].name) + "</span>";
-      } else if (reqClass && DiabloCalc.stats[stat]) {
-        format += " " + _L("({0} Only)").format(DiabloCalc.classes[reqClass].name);
+      if (spans) {
+        var reqClass;
+        if (stat && DiabloCalc.stats[stat] && DiabloCalc.stats[stat].class) {
+          reqClass = DiabloCalc.stats[stat].class;
+        } else if (stat && DiabloCalc.itemPowerClasses[stat]) {
+          reqClass = DiabloCalc.itemPowerClasses[stat];
+        }
+        if (reqClass && DiabloCalc.charClass !== reqClass) {
+          format += " <span class=\"d3-color-red\">" + _L("({0} Only)").format(DiabloCalc.classes[reqClass].name) + "</span>";
+        } else if (reqClass && DiabloCalc.stats[stat]) {
+          format += " " + _L("({0} Only)").format(DiabloCalc.classes[reqClass].name);
+        }
+        if (stat && DiabloCalc.stats[stat] && DiabloCalc.stats[stat].caldesanns) {
+          format += " <span class=\"d3-color-orange\">" + _L("(Caldesann's Despair Rank {0})").format((values[0] / 5).toFixed(0)) + "</span>";
+        }
       }
       return format;
     }

@@ -161,6 +161,11 @@
     hitimmobilize: {name: "Immobilize on Hit", format: "%.1f%% Chance to Immobilize on Hit", secondary: true, utility: true, dr: true, id: "On_Hit_Immobilize_Proc_Chance", srcs: ["On_Hit_Immobilize_Proc_Chance", "Weapon_On_Hit_Immobilize_Proc_Chance"], percent: true},
     hitknockback: {name: "Knockback on Hit", format: "%.1f%% Chance to Knockback on Hit", secondary: true, utility: true, dr: true, id: "On_Hit_Knockback_Proc_Chance", srcs: ["On_Hit_Knockback_Proc_Chance", "Weapon_On_Hit_Knockback_Proc_Chance"], percent: true},
 
+    caldesanns_str: {name: "Bonus Strength", format: "+%d Strength", classes: ["barbarian", "crusader", "templar"], caldesanns: true},
+    caldesanns_dex: {name: "Bonus Dexterity", format: "+%d Dexterity", classes: ["demonhunter", "monk", "scoundrel"], caldesanns: true},
+    caldesanns_int: {name: "Bonus Intelligence", format: "+%d Intelligence", classes: ["wizard", "witchdoctor", "enchantress"], caldesanns: true},
+    caldesanns_vit: {name: "Bonus Vitality", format: "+%d Vitality", caldesanns: true},
+
     petias: {name: "Pet Attack Speed"},
     rcrint: {name: "Resource Cost Reduction"},
 
@@ -197,6 +202,7 @@
     "resource": ["apregen", "apoc", "hatredregen", "manaregen", "lifespirit", "spiritregen",
                  "lifefury", "furyregen", "lifewrath", "wrathregen", "manaperkill",
                  "maxap", "maxdisc", "maxmana", "maxspirit", "maxfury", "maxwrath"],
+    "caldesanns": ["caldesanns_str", "caldesanns_dex", "caldesanns_int", "caldesanns_vit"],
     "skill_wizard_head": [
       "skill_wizard_disintegrate",
       "skill_wizard_arcanetorrent",
@@ -347,10 +353,11 @@
     ],
   };
   DiabloCalc.statExclusiveGroups = [
-    "weapon", "elemental", "resistany", "mainstat", "skill", "onhit", "lifeper",
+    "weapon", "elemental", "resistany", "mainstat", "skill", "onhit", "lifeper", "caldesanns",
   ];
   DiabloCalc.statList = {
     primary: {
+      "Caldesann's Despair": ["caldesanns"],
       "Sockets": ["sockets"],
       "Weapon Damage": ["weapon"],
       "Attributes": ["mainstat", "vit"],

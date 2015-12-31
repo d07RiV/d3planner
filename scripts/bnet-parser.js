@@ -77,6 +77,7 @@
     function parseAttribute(text) {
       function testStat(stat) {
         if (stat.base) return null;
+        if (stat.caldesanns) return null;
         if (!stat.regex) {
           stat.regex = buildRegEx(stat.format, stat.class);
         }

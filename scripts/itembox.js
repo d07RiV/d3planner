@@ -172,6 +172,11 @@
     var itemSlot = DC.itemTypes[type].slot;
     var limits = getLimits(id, ancient);
     var stats = {};
+    if (ancient && required !== "only") {
+      mergeStats(stats, limits, {
+        caldesanns: {step: 5, min: 5, max: 1000},
+      });
+    }
     if (DC.metaSlots[itemSlot]) {
       mergeStatsSub(stats, limits, DC.metaSlots[itemSlot], required);
     } else {
@@ -1059,11 +1064,13 @@
     var emptyPrimary = [];
     var emptySecondary = [];
     var emptySocket = [];
+    //var emptyCaldesanns = [];
     for (var i = 0; i < this.stats.length; ++i) {
       var stat = this.stats[i].list.val();
       if (DC.stats[stat] && DC.stats[stat].base) continue;
       var weight = 1;
       if (this.stats[i].merged) ++weight;
+      if (DC.stats[stat] && DC.stats[stat].caldesanns) weight = 0;
       if (DC.stats[stat] ? DC.stats[stat].secondary : this.stats[i].type === "secondary") {
         usedSecondary += weight;
       } else if (DC.stats[stat] || this.stats[i].type !== "socket") {
@@ -1076,6 +1083,8 @@
           emptySocket.push(this.stats[i]);
         } else if (this.stats[i].type === "primary") {
           emptyPrimary.push(this.stats[i]);
+        //} else if (this.stats[i].type === "caldesanns") {
+        //  emptyCaldesanns.push(this.stats[i]);
         }
       }
       if (stat === "sockets") {
@@ -1097,6 +1106,9 @@
         this.stats.splice(index, 1);
       }
     }
+    //if (this.ancient.prop("checked") && emptyCaldesanns.length === 0) {
+    //  this.onAddStat("caldesanns");
+    //}
     while (usedPrimary < numStats[0]) {
       this.onAddStat("primary");
       ++usedPrimary;
@@ -1145,6 +1157,7 @@
       if (!DC.stats[stat] || DC.stats[stat].base) continue;
       var weight = 1;
       if (this.stats[i].merged) ++weight;
+      if (DC.stats[stat].caldesanns) weight = 0;
       if (DC.stats[stat].secondary) {
         usedSecondary += weight;
       } else {
@@ -1268,13 +1281,21 @@
   };
   // triggered when item quality changes (ancient checkbox)
   DC.ItemBox.prototype.updateLimits = function() {
+    var ancient = this.ancient.prop("checked");
+    debugger;
     for (var i = 0; i < this.stats.length; ++i) {
-      this.stats[i].updateLimits();
+      var stat = this.stats[i].list.val();
+      if (!ancient && DC.stats[stat] && DC.stats[stat].caldesanns) {
+        this.removeStat(i--);
+      } else {
+        this.stats[i].updateLimits();
+      }
     }
+    this.updateStatCounts();
   };
   // add stat line
   DC.ItemBox.prototype.onAddStat = function(type, required, current) {
-    if (type !== "primary" && type !== "secondary" && type !== "socket" && (required || current)) {
+    if (type !== "primary" && type !== "secondary" && type !== "socket" && type !== "caldesanns" && (required || current)) {
       current = required;
       required = type;
       type = undefined;
@@ -1284,6 +1305,7 @@
         slotType = (DC.itemTypes[slotType] ? DC.itemTypes[slotType].slot : null);
         if ((slotType === "onehand" || slotType === "twohand") && stat === "sockets") type = "socket";
         else if (DC.stats[stat].secondary) type = "secondary";
+        //else if (DC.stats[stat].caldesanns) type = "caldesanns";
         else type = "primary";
       }
     }

@@ -205,11 +205,13 @@ DiabloCalc.addItems([
     name: "Jekangbord",
     type: "crusadershield",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_crusader_blessedshield: {min: 150, max: 200},
+    },
+    required: {
       custom: {id: "leg_jekangbord", name: "Extra Blessed Shield Ricochets", format: "Blessed Shield ricochets to %d additional enemies.", min: 4, max: 6},
     },
-    preset: ["mainstat"],
+    preset: ["mainstat", "skill_crusader_blessedshield"],
     primary: 5,
   },
 
@@ -240,11 +242,13 @@ DiabloCalc.addItems([
     name: "Frydehr's Wrath",
     type: "crusadershield",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_crusader_condemn: {min: 150, max: 200},
+    },
+    required: {
       custom: {id: "leg_frydehrswrath", name: "Remove Condemn Cooldown", format: "Condemn has no cooldown but instead costs 40 Wrath.", args: 0},
     },
-    preset: ["mainstat"],
+    preset: ["mainstat", "skill_crusader_condemn"],
     primary: 5,
   },
 
@@ -253,11 +257,13 @@ DiabloCalc.addItems([
     name: "Unrelenting Phalanx",
     type: "crusadershield",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_crusader_phalanx: {min: 45, max: 60},
+    },
+    required: {
       custom: {id: "leg_unrelentingphalanx", name: "Phalanx now casts twice", format: "Phalanx now casts twice.", args: 0},
     },
-    preset: ["mainstat"],
+    preset: ["mainstat", "skill_crusader_phalanx"],
     primary: 5,
   },
 
@@ -488,7 +494,7 @@ DiabloCalc.addItems([
     quality: "set",
     set: "talrasha",
     affixes: {
-      skill_wizard_meteor: {min: 20, max: 25},
+      skill_wizard_meteor: {min: 20, max: 25}, // enchantable to support legacy items
     },
     preset: ["mainstat", "chc", "skill_wizard_meteor"],
     primary: 6,
@@ -559,14 +565,16 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Quiver_102_x1",
-    name: "Bombadier's Rucksack",
+    name: "Bombardier's Rucksack",
     type: "quiver",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_demonhunter_sentry: {min: 75, max: 100},
+    },
+    required: {
       custom: {id: "leg_bombadiersrucksack", name: "Extra Sentries", format: "You may have 2 additional Sentries.", args: 0},
     },
-    preset: ["dex", "chc"],
+    preset: ["dex", "chc", "skill_demonhunter_sentry"],
     primary: 6,
   },
 
@@ -618,11 +626,13 @@ DiabloCalc.addItems([
     name: "Dead Man's Legacy",
     type: "quiver",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_demonhunter_multishot: {min: 75, max: 100},
+    },
+    required: {
       custom: {id: "leg_deadmanslegacy", name: "Double Multishot Threshold", format: "Multishot hits enemies below %d%% health twice.", min: 50, max: 60},
     },
-    preset: ["mainstat", "chc"],
+    preset: ["mainstat", "chc", "skill_demonhunter_multishot"],
     primary: 6,
   },
 
@@ -690,11 +700,13 @@ DiabloCalc.addItems([
     suffix: _L("PTR"),
     type: "mojo",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_witchdoctor_graspofthedead: {min: 45, max: 60},
+    },
+    required: {
       custom: {id: "leg_wilkensreach", name: "Grasp of the Dead Has no Cooldown", format: "Grasp of the Dead no longer has a cooldown.", args: 0},
     },
-    preset: ["mainstat", "chc", "maxmana"],
+    preset: ["mainstat", "chc", "maxmana", "skill_witchdoctor_graspofthedead"],
     primary: 6,
   },
 
@@ -740,11 +752,13 @@ DiabloCalc.addItems([
     suffix: _L("PTR"),
     type: "quiver",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_demonhunter_rapidfire: {min: 45, max: 60},
+    },
+    required: {
       custom: {id: "leg_sinseekers", name: "Rapid Fire Has no Channel Cost", format: "Rapid Fire no longer has a channel cost.", args: 0},
     },
-    preset: ["mainstat", "chc"],
+    preset: ["mainstat", "chc", "skill_demonhunter_rapidfire"],
     primary: 6,
   },
 

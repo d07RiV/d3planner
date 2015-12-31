@@ -1034,11 +1034,20 @@
                 index = (index + 1) % list.length;
                 var id = list[index];
                 if (Sim.time >= (curcd[id] || 0)) {
-                  //TODO: ugly hax
+                  // fix to get the latest castId for channeled spells
                   var source = (Sim.buffs.rayoffrost || Sim.buffs.arcanetorrent || Sim.buffs.disintegrate);
                   if (source && source.castInfo) data.buff.castInfo.castId = source.castInfo.castId;
 
                   Sim.cast(id);
+
+                  // fix for wand of woh
+                  if (id === "explosiveblast" && Sim.stats.leg_wandofwoh) {
+                    function docast() {Sim.cast("explosiveblast");}
+                    Sim.after(30, docast, {rune: data.rune});
+                    Sim.after(60, docast, {rune: data.rune});
+                    Sim.after(90, docast, {rune: data.rune});
+                  }
+
                   curcd[id] = Sim.time + (cds[id] * (1 - 0.01 * (Sim.stats.cdr || 0)) || 60);
                   break;
                 }
@@ -1197,10 +1206,7 @@
   affixes.leg_orbofinfinitedepth = function(amount) {
     Sim.register("onhit", function(data) {
       if (data.castInfo && data.castInfo.skill === "explosiveblast") {
-        var stacks = Sim.random("orbofinfinitedepth", 1, data.targets, true);
-        if (stacks) {
-          Sim.addBuff("orbofinfinitedepth", {dmgmul: amount, dmgred: 15}, {maxstacks: 4, stacks: stacks, duration: 360});
-        }
+        Sim.addBuff("orbofinfinitedepth", {dmgmul: amount, dmgred: 15}, {maxstacks: 4, duration: 360});
       }
     });
   };

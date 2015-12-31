@@ -521,11 +521,13 @@ DiabloCalc.addItems([
     name: "Deadly Rebirth",
     type: "ceremonialknife",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_witchdoctor_graspofthedead: {min: 45, max: 60},
+    },
+    required: {
       custom: {id: "leg_deadlyrebirth", name: "Grasp of the Dead Gains Rain of Corpses", format: "Grasp of the Dead gains the effect of the Rain of Corpses rune.", args: 0},
     },
-    preset: ["wpnarc", "mainstat"],
+    preset: ["wpnarc", "mainstat", "skill_witchdoctor_graspofthedead"],
     primary: 5,
   },
 
@@ -581,11 +583,13 @@ DiabloCalc.addItems([
     name: "The Spider Queen's Grasp",
     type: "ceremonialknife",
     quality: "legendary",
-    required: {
-      custom: {id: "leg_thespiderqueensgrasp", name: "Corpse Spiders Slow Enemies", format: "Corpse Spiders releases a web on impact that Slows enemies by %d%%.", min: 60, max: 80},
+    affixes: {
       skill_witchdoctor_corpsespiders: {min: 45, max: 60},
     },
-    preset: ["mainstat"],
+    required: {
+      custom: {id: "leg_thespiderqueensgrasp", name: "Corpse Spiders Slow Enemies", format: "Corpse Spiders releases a web on impact that Slows enemies by %d%%.", min: 60, max: 80},
+    },
+    preset: ["mainstat", "skill_witchdoctor_corpsespiders"],
     primary: 5,
     secondary: 1,
   },
@@ -1120,11 +1124,13 @@ DiabloCalc.addItems([
     name: "Scrimshaw",
     type: "spear",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_witchdoctor_zombiecharger: {min: 60, max: 80},
+    },
+    required: {
       custom: {id: "leg_scrimshaw", name: "Zombie Charger Cost Reduction", format: "Reduces the Mana cost of Zombie Charger by %d%%.", min: 40, max: 50},
     },
-    preset: ["wpnphy", "mainstat", "damage"],
+    preset: ["wpnphy", "mainstat", "damage", "skill_witchdoctor_zombiecharger"],
     primary: 5,
   },
 
@@ -1159,11 +1165,13 @@ DiabloCalc.addItems([
     suffix: _L("PTR"),
     type: "dagger",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_witchdoctor_spiritbarrage: {min: 45, max: 60},
+    },
+    required: {
       custom: {id: "leg_voosjuicer", name: "Spirit Barrage Gains Extra Runes", format: "Spirit Barrage gains the effects of the Phlebotomize and The Spirit is Willing runes.", args: 0},
     },
-    preset: ["mainstat", "wpncol"],
+    preset: ["mainstat", "wpncol", "skill_witchdoctor_spiritbarrage"],
     primary: 5,
   },
 

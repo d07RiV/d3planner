@@ -232,6 +232,10 @@
     this.addAbsolute("chc", "extrachc");
     this.chc = Math.min(100, this.chc);
 
+    this.addAbsolute("str", "caldesanns_str");
+    this.addAbsolute("dex", "caldesanns_dex");
+    this.addAbsolute("int", "caldesanns_int");
+    this.addAbsolute("vit", "caldesanns_vit");
     this.addPercent("str", "str_percent");
     this.addPercent("dex", "dex_percent");
     this.addPercent("int", "int_percent");

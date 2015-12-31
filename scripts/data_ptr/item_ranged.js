@@ -247,11 +247,13 @@ DiabloCalc.addItems([
     name: "K'mar Tenclip",
     type: "handcrossbow",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_demonhunter_strafe: {min: 75, max: 100},
+    },
+    required: {
       custom: {id: "leg_kmartenclip", name: "Strafe Gains Drifting Shadow", format: "Strafe gains the effect of the Drifting Shadow rune.", args: 0},
     },
-    preset: ["mainstat", "sockets"],
+    preset: ["mainstat", "sockets", "skill_demonhunter_strafe"],
     primary: 5,
   },
 
@@ -367,11 +369,14 @@ DiabloCalc.addItems([
     name: "Wand of Woh",
     type: "wand",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_wizard_explosiveblast: {min: 75, max: 100},
+    },
+    required: {
       custom: {id: "leg_wandofwoh", name: "Quadruple Explosive Blast", format: "3 additional Explosive Blasts are triggered after casting Explosive Blast.", args: 0},
     },
-    preset: ["mainstat"],
+    preset: ["mainstat", "skill_wizard_explosiveblast"],
+    primary: 5,
   },
 
   {
@@ -495,11 +500,13 @@ DiabloCalc.addItems([
     name: "Valla's Bequest",
     type: "handcrossbow",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_demonhunter_strafe: {min: 75, max: 100},
+    },
+    required: {
       custom: {id: "leg_vallasbequest", name: "Strafe Pierce", format: "Strafe projectiles pierce.", args: 0},
     },
-    preset: ["mainstat", "maxdisc"],
+    preset: ["mainstat", "maxdisc", "skill_demonhunter_strafe"],
     primary: 5,
   },
 
@@ -573,11 +580,13 @@ DiabloCalc.addItems([
     suffix: _L("PTR"),
     type: "crossbow",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_demonhunter_clusterarrow: {min: 60, max: 80},
+    },
+    required: {
       custom: {id: "leg_manticore", name: "Cluster Arrow Cost Reduction", format: "Reduces the Hatred cost of Cluster Arrow by %d%%.", min: 40, max: 50},
     },
-    preset: ["mainstat", "wpnpsn"],
+    preset: ["mainstat", "wpnpsn", "skill_demonhunter_clusterarrow"],
     primary: 5,
   },
 
