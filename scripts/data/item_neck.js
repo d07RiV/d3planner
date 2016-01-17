@@ -223,7 +223,7 @@ DiabloCalc.addItems([
     required: {
       custom: {id: "leg_halcyonsascent", name: "Mesmerize Enemies", format: "When you use Vengeance, you mesmerize nearby enemies with your skill, causing them to jump uncontrollably for %d seconds.", min: 6, max: 8},
     },
-    preset: ["mainstat", "cdr"],
+    preset: ["mainstat", "sockets"],
   },
 
   {
@@ -241,7 +241,7 @@ DiabloCalc.addItems([
     type: "amulet",
     quality: "set",
     set: "talrasha",
-    preset: ["mainstat", "vit", "chd"],
+    preset: ["mainstat", "chd"],
   },
 
   {

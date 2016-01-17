@@ -207,6 +207,7 @@ DiabloCalc.addItems([
     id: "P2_Unique_Bracer_110",
     ids: ["ptr_DrakonsLesson"],
     name: "Drakon's Lesson",
+    suffix: _L("Legacy"),
     type: "bracers",
     quality: "legendary",
     required: {
@@ -273,19 +274,6 @@ DiabloCalc.addItems([
     preset: ["mainstat", "chc"],
   },
 
-/*  {
-    id: "P3_Unique_Bracer_102",
-    local: true,
-    name: "Bindings of the Lesser Gods",
-    suffix: _L("PTR"),
-    type: "bracers",
-    quality: "legendary",
-    required: {
-      custom: {id: "leg_gabrielsvambraces", name: "Blessed Hammer Cost Refund", format: "When your Blessed Hammer hits 3 or fewer enemies, %d%% of its Wrath Cost is refunded.", min: 75, max: 100},
-    },
-    preset: ["mainstat", "chc"],
-  },*/
-
   {
     id: "P3_Unique_Bracer_103",
     local: true,
@@ -341,11 +329,130 @@ DiabloCalc.addItems([
     type: "bracers",
     quality: "legendary",
     required: {
-      custom: {id: "leg_coilsofthefirstspider", name: "Firebats Life on Hit", format: "While channeling Firebats, you take 30%% reduced damage and gain %d Life per Hit.", min: 60000, max: 80000},
+      custom: {id: "leg_coilsofthefirstspider", name: "Firebats Life on Hit", format: "While channeling Firebats, you gain 30%% damage reduction and %d Life per Hit.", min: 60000, max: 80000},
     },
     preset: ["mainstat", "chc", "regen"],
     primary: 5,
     secondary: 1,
+  },
+
+  {
+    id: "P4_Unique_Bracer_101",
+    local: true,
+    name: "Skular's Salvation",
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_skularssalvation", name: "Boulder Toss Damage Bonus", format: "Increase the damage of Ancient Spear - Boulder Toss by 100%%. When your Boulder Toss hits 5 or fewer enemies, the damage is increased by %d%%.", min: 120, max: 150},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P4_Unique_Bracer_102",
+    local: true,
+    name: "Lakumba’s Ornament",
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_lakumbasornament", name: "Soul Harvest Damage Reduction", format: "Reduce all damage taken by 6%% for each stack of Soul Harvest you have.", args: 0},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P4_Unique_Bracer_103",
+    local: true,
+    name: "Akkhan’s Manacles",
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_akkhansmanacles", name: "Blessed Shield Damage on First Target", format: "Blessed Shield damage is increased by %d%% for the first enemy it hits.", min: 400, max: 500},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P4_Unique_Bracer_104",
+    local: true,
+    name: "Bracer of Fury",
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_braceroffury", name: "Heaven's Fury Damage on Blinded", format: "Heaven's Fury deals %d%% increased damage to enemies that are Blinded, Immobilized, or Stunned.", min: 150, max: 200},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P4_Unique_Bracer_105",
+    local: true,
+    name: "Pinto's Pride",
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_pintospride", name: "Wave of Light Damage Bonus", format: "Wave of Light also Slows enemies by 80%% for 3 seconds and deals %d%% increased damage.", min: 125, max: 150},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P4_Unique_Bracer_106",
+    local: true,
+    name: "Vambraces of Sescheron",
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_vambracesofsescheron", name: "Primary Skills Heal", format: "Your primary skills heal you for %.1f%% of your missing Life.", min: 5, max: 6, step: 0.1},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P4_Unique_Bracer_107",
+    local: true,
+    name: "Cesar’s Memento",
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_cesarsmemento", name: "Tempest Rush Damage Bonus", format: "Enemies take %d%% increased damage from your Tempest Rush for 5 seconds after you hit them with a Blind, Freeze, or Stun.", min: 300, max: 400},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P4_Unique_Bracer_108",
+    local: true,
+    name: "Bindings of the Lesser Gods",
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_bindingsofthelessergods", name: "Mystic Ally Damage Bonus", format: "Enemies hit by your Cyclone Strike take %d%% more damage from your Mystic Ally for 5 seconds.", min: 150, max: 200},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P4_Unique_Bracer_110",
+    local: true,
+    name: "Drakon's Lesson",
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_drakonslesson_p2", name: "Increased Shield Bash Damage", format: "When your Shield Bash hits 3 or fewer enemies, its damage is increased by %d%% and 25%% of its Wrath Cost is refunded.", min: 300, max: 400},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P4_Unique_Bracer_004",
+    name: "Ashnagarr’s Blood Bracer",
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_ashnagarrsblood", name: "Shield Increase", format: "Increases the potency of your shields by %d%%.", min: 75, max: 100},
+    },
+    preset: ["mainstat", "chc"],
   },
 
 ]);

@@ -175,7 +175,9 @@
   skills.hungeringarrow = {
     signature: true,
     offensive: true,
-    generate: {x: 3, d: 3, a: 6, b: 3, c: 3, e: 3},
+    generate: function(rune) {
+      return (rune === "a" ? 7 : 4) + (Sim.stats.set_unhallowed_2pc ? 2 : 0);
+    },
     speed: GenSpeed(VarSpeed),
     oncast: function(rune) {
       var data = ha_compute(rune);
@@ -213,7 +215,9 @@
   skills.entanglingshot = {
     signature: true,
     offensive: true,
-    generate: {x: 3, b: 3, c: 3, a: 3, d: 6, e: 3},
+    generate: function(rune) {
+      return (rune === "d" ? 7 : 4) + (Sim.stats.set_unhallowed_2pc ? 2 : 0);
+    },
     speed: GenSpeed(VarSpeed),
     oncast: function(rune) {
       var pierce = _buriza();
@@ -238,7 +242,9 @@
   skills.bolas = {
     signature: true,
     offensive: true,
-    generate: {x: 3, a: 3, c: 6, b: 3, d: 3, e: 3},
+    generate: function(rune) {
+      return (rune === "c" ? 7 : 4) + (Sim.stats.set_unhallowed_2pc ? 2 : 0);
+    },
     speed: GenSpeed(56.666666),
     oncast: function(rune) {
       var delay = (Sim.stats.leg_emimeisduffel ? 0 : 60);
@@ -259,7 +265,9 @@
   skills.evasivefire = {
     signature: true,
     offensive: true,
-    generate: {x: 4, a: 4, c: 4, b: 4, e: 7, d: 4},
+    generate: function(rune) {
+      return (rune === "e" ? 7 : 4) + (Sim.stats.set_unhallowed_2pc ? 2 : 0);
+    },
     speed: GenSpeed(VarSpeed),
     oncast: function(rune) {
       switch (rune) {
@@ -288,7 +296,9 @@
   skills.grenade = {
     signature: true,
     offensive: true,
-    generate: {x: 3, d: 6, b: 3, c: 3, e: 3, a: 3},
+    generate: function(rune) {
+      return (rune === "d" ? 7 : 4) + (Sim.stats.set_unhallowed_2pc ? 2 : 0);
+    },
     speed: GenSpeed(56.470554),
     oncast: function(rune) {
       var mod_damage = (Sim.stats.passives.grenadier ? 1.1 : 1);
@@ -326,6 +336,9 @@
     speed: 58.064510,
     oncast: function(rune) {
       var pierce = (rune !== "a" && _buriza());
+      if (Sim.stats.set_shadow_6pc) {
+        Sim.damage({type: "line", speed: 2, coeff: 400, proc: 0});
+      }
       switch (rune) {
       case "x": return {pierce: pierce, type: "line", speed: 2, coeff: 7.5};
       case "b": return {pierce: pierce, type: "line", speed: 2, coeff: 7.5, onhit: impale_impact_onhit};
@@ -367,7 +380,9 @@
     offensive: true,
     initialcost: {x: 20, d: 10, e: 20, c: 20, b: 20, a: 20},
     cost: 6,
-    channeling: {x: 10, d: 10, e: 10, c: 10, b: 10, a: 20},
+    channeling: function(rune) {
+      if (!Sim.stats.leg_sinseekers) return (rune === "a" ? 20 : 10);
+    },
     speed: 8,
     oncast: function(rune) {
       var fs;
@@ -399,6 +414,7 @@
     generate: function(rune) {
       return Sim.stats.leg_spinesofseethinghatred;
     },
+    cooldown: {e: 10},
     speed: 56.470554,
     oncast: function(rune) {
       switch (rune) {
@@ -409,7 +425,7 @@
       case "b": return {type: "line", speed: 1, coeff: 4, radius: 5};
       case "e":
         Sim.addBuff("shurikencloud", undefined, {
-          duration: 7200,
+          duration: 600 * 60,
           tickrate: 30,
           ontick: {type: "area", range: 8, self: true, coeff: 1},
         });
@@ -494,7 +510,7 @@
     secondary: true,
     weapon: "mainhand",
     speed: 34,
-    cost: {x: 14, e: 14, b: 14, c: 14, d: 10},
+    cost: {x: 14, e: 14, b: 14, c: 14, d: 8},
     resource: "disc",
     cooldown: {x: 1.5, e: 1.5, b: 1.5, c: 1.5, d: 1.5, a: 6},
     duration: {x: 60, e: 60, b: 90, c: 60, d: 60, a: 60},
@@ -508,25 +524,32 @@
     secondary: true,
     weapon: "mainhand",
     speed: 34,
-    cost: {x: 14, a: 14, e: 14, d: 10, c: 14, b: 14},
+    cost: {x: 14, a: 14, e: 14, d: 8, c: 14, b: 14},
     resource: "disc",
+    cooldown: function(rune) {
+      if (Sim.stats.leg_liannaswings) return 1.5;
+    },
+    duration: function(rune) {
+      if (Sim.stats.leg_liannaswings) {
+        return skills.smokescreen.duration[Sim.stats.skills.smokescreen || "x"];
+      }
+    },
     oncast: function(rune) {
-      var buff = {lph: 16093};
+      var buff = {lph: 26821 + (Sim.stats.laek || 0) * 0.25};
+      var params = {duration: 300};
       if (rune === "a" || Sim.stats.set_shadow_4pc) {
-        if (Sim.getTargets(30, Sim.target.distance)) {
-          buff.status = "slowed";
-        }
+        if (Sim.getTargets(30, Sim.target.distance)) buff.status = "slowed";
       }
-      if (rune === "e" || Sim.stats.set_shadow_4pc) {
-        buff.lph = 32185;
+      if (rune === "e" || Sim.stats.set_shadow_4pc) buff.lph *= 2;
+      if (rune === "c" || Sim.stats.set_shadow_4pc) buff.dmgred = 35;
+      if (rune === "b" || Sim.stats.set_shadow_4pc) buff.extrams = 30;
+      if (Sim.stats.set_shadow_4pc) delete params.duration;
+      Sim.addBuff("shadowpower", buff, params);
+    },
+    oninit: function(rune) {
+      if (Sim.stats.set_shadow_4pc) {
+        this.oncast(rune);
       }
-      if (rune === "c" || Sim.stats.set_shadow_4pc) {
-        buff.dmgred = 35;
-      }
-      if (rune === "b" || Sim.stats.set_shadow_4pc) {
-        buff.extrams = 30;
-      }
-      Sim.addBuff("shadowpower", buff, {duration: 300});
     },
     elem: "phy",
   };
@@ -535,6 +558,7 @@
     weapon: "mainhand",
     speed: 17.999996,
     cost: function(rune) {
+      if (Sim.getBuff("chainofshadows")) return;
       if (rune === "b") return;
       return (rune === "d" && Sim.getBuff("tumble") ? 4 : 8);
     },
@@ -590,7 +614,7 @@
     },
     oninit: function(rune) {
       if (rune === "b") {
-        Sim.addBaseStats({maxdisc: 15});
+        Sim.addBaseStats({maxdisc: 20});
       }
     },
     elem: "phy",
@@ -829,7 +853,7 @@
         }
         break;
       case "e":
-        params.dmgred = 15;
+        params.dmgred = 25;
         break;
       }
       Sim.petattack("sentry", buffs, params);
@@ -841,31 +865,39 @@
     weapon: "mainhand",
     secondary: true,
     speed: 34,
-    cooldown: 90,
+    cooldown: function(rune) {
+      return 90 * (1 - 0.01 * (Sim.stats.leg_dawn || 0));
+    },
     oncast: function(rune) {
-      var params = {duration: 900};
-      if (rune === "b") {
+      var params = {duration: 1200};
+      /*if (rune === "b") {
         params.tickrate = 15;
         params.ontick = {type: "area", range: 10, self: true, coeff: 3.25 / 4};
-      }
-      Sim.addBuff("vengeance", rune === "e" && {hatredregen: 10}, params);
+      }*/
+      var buffs = {damage: 40};
+      if (rune === "e") buffs.hatredregen = 10;
+      if (rune === "b" || Sim.stats.leg_visageofgunes) buffs.dmgred = 50;
+      Sim.addBuff("vengeance", buffs, params);
     },
     oninit: function(rune) {
       var next = 0;
       Sim.trigger("oncast", function(data) {
         if (Sim.time >= next && data.offensive && Sim.getBuff("vengeance")) {
+          var factor = 1;
+          if (Sim.stats.set_unhallowed_6pc) factor *= 1 + 0.15 * (Sim.resources.disc || 0);
           if (rune !== "d") {
-            Sim.damage({type: "line", pierce: true, coeff: 0.6, count: 4});
+            Sim.damage({type: "line", pierce: true, coeff: 0.6 * factor, count: 4});
             if (rune === "c") {
-              Sim.damage({type: "line", speed: 1, coeff: 1.5 * (Sim.stats.passives.grenadier ? 1.1 : 1), area: 6 * (Sim.stats.passives.grenadier ? 1.2 : 1), count: 2});
+              Sim.damage({type: "line", speed: 1, coeff: 1.5 * (Sim.stats.passives.grenadier ? 1.1 : 1) * factor,
+                area: 6 * (Sim.stats.passives.grenadier ? 1.2 : 1), count: 2});
             } else if (rune === "a") {
-              Sim.damage({delay: 15, coeff: 1.2, onhit: Sim.apply_effect("frozen", 120)});
+              Sim.damage({delay: 15, coeff: 1.2 * factor, onhit: Sim.apply_effect("frozen", 180)});
             } else {
-              Sim.damage({delay: Math.floor(18 + 0.6 * Sim.target.distance), targets: 4,
-                coeff: 0.4 * (Sim.stats.passives.ballistics ? 2 : 1), count: 4});
+              Sim.damage({delay: Math.floor(18 + 0.6 * Sim.target.distance), targets: 2,
+                coeff: 0.8 * (Sim.stats.passives.ballistics ? 2 : 1) * factor});
             }
           } else {
-            Sim.damage({type: "line", pierce: true, coeff: 2.25, count: 2});
+            Sim.damage({type: "line", pierce: true, coeff: 2.25 * factor, count: 2});
           }
           next = Sim.time + Math.floor(54 / Sim.stats.info.aps);
         }
@@ -877,6 +909,8 @@
 
   function strafe_ontick(data) {
     var dmg = {type: "line", pierce: data.rune !== "a" && _buriza(), coeff: 6.75 / 4};
+    var info = Sim.castInfo();
+    var multi = Sim.stats.info[info && info.weapon || "mainhand"].speed;
     switch (data.rune) {
     case "e": dmg.chd = 1.4; break;
     case "a":
@@ -888,7 +922,7 @@
       if (data.rocket) {
         delete data.rocket;
       } else {
-        Sim.damage({delay: Math.floor(21 + 0.06 * Sim.target.distance), coeff: 0.65 * (Sim.stats.passives.ballistics ? 2 : 1)});
+        Sim.damage({delay: Math.floor(21 + 0.06 * Sim.target.distance), coeff: multi * 0.65 * (Sim.stats.passives.ballistics ? 2 : 1)});
         data.rocket = true;
       }
       break;
@@ -896,11 +930,16 @@
     if (Sim.stats.leg_vallasbequest) {
       dmg.pierce = true;
     }
+    dmg.coeff *= multi;
     Sim.damage(dmg);
   }
   skills.strafe = {
     offensive: true,
-    cost: 12,
+    cost: function(rune) {
+      var info = Sim.castInfo();
+      return 12 * Sim.stats.info[(info && info.skill === "strafe" && info.weapon) || Sim.curweapon || "mainhand"].speed;
+    },
+    noias: true,
     channeling: {x: 15, b: 15, d: 15, e: 15, c: 15, a: 30},
     speed: 59.999996,
     oncast: function(rune) {
@@ -928,13 +967,15 @@
       var dmg = {delay: Math.floor(Sim.target.distance / 2), type: "cone", width: 80, range: 75, coeff: 3.6};
       switch (rune) {
       case "b":
-        Sim.damage({type: "area", range: 15, self: true, coeff: 2});
+        dmg.onhit = function() {
+          Sim.addBuff("windchill", {chctaken: 15}, {duration: 180});
+        };
         break;
       case "e":
         if (!Sim.target.boss) dmg.onhit = Sim.apply_effect("knockback", 30);
         break;
       case "a":
-        dmg.coeff = 4.6;
+        dmg.coeff = 5;
         break;
       case "c":
         Sim.damage({targets: 3, coeff: 3 * (Sim.stats.passives.ballistics ? 2 : 1)});
@@ -954,38 +995,40 @@
 
   skills.clusterarrow = {
     offensive: true,
-    cost: 40,
+    cost: function(rune) {
+      return 40 * (1 - 0.01 * (Sim.stats.leg_manticore || 0));
+    },
     speed: 58.064510,
     oncast: function(rune) {
-      var dmg = {type: "area", range: 15, coeff: 5.5};
+      var dmg = {type: "area", range: 15, coeff: 6.5};
       var gr_dmg = (Sim.stats.passives.grenadier ? 1.1 : 1);
       var gr_aoe = (Sim.stats.passives.greandier ? 1.2 : 1);
       var rk_dmg = (Sim.stats.passives.ballistics ? 2 : 1);
       switch (rune) {
       case "x":
-        Sim.damage({type: "area", radius: 8, inner: 4, range: 5 * gr_aoe, coeff: 2.2 * gr_dmg});
+        Sim.damage({type: "area", radius: 8, inner: 4, range: 5 * gr_aoe, coeff: 2.5 * gr_dmg});
         break;
       case "e":
-        Sim.damage({type: "area", radius: 8, inner: 4, range: 5 * gr_aoe, coeff: 2.2 * gr_dmg});
+        Sim.damage({type: "area", radius: 8, inner: 4, range: 5 * gr_aoe, coeff: 2.5 * gr_dmg});
         dmg.onhit = Sim.apply_effect("stunned", 90);
         break;
       case "b":
-        Sim.damage({delay: 48, targets: 3, coeff: 6 * rk_dmg});
+        Sim.damage({delay: 48, targets: 2, coeff: 6 * rk_dmg});
         break;
       case "d":
-        Sim.damage({delay: 48, targets: 5, coeff: 4.5 * rk_dmg});
+        Sim.damage({delay: 48, targets: 3, coeff: 4.5 * rk_dmg});
         break;
       case "c":
-        Sim.damage({delay: 10, type: "area", origin: Sim.target.distance - 15, range: 5 * gr_aoe, coeff: 5.25 * gr_dmg});
-        Sim.damage({delay: 20, type: "area", origin: Sim.target.distance - 20, range: 5 * gr_aoe, coeff: 5.25 * gr_dmg});
-        Sim.damage({delay: 30, type: "area", origin: Sim.target.distance - 24, range: 5 * gr_aoe, coeff: 5.25 * gr_dmg});
-        Sim.damage({delay: 40, type: "area", origin: Sim.target.distance - 26.5, range: 5 * gr_aoe, coeff: 5.25 * gr_dmg});
-        Sim.damage({delay: 50, type: "area", origin: Sim.target.distance - 27.5, range: 5 * gr_aoe, coeff: 5.25 * gr_dmg});
+        Sim.damage({delay: 10, type: "area", origin: Sim.target.distance - 15, range: 5 * gr_aoe, coeff: 6.5 * gr_dmg});
+        Sim.damage({delay: 20, type: "area", origin: Sim.target.distance - 20, range: 5 * gr_aoe, coeff: 6.5 * gr_dmg});
+        Sim.damage({delay: 30, type: "area", origin: Sim.target.distance - 24, range: 5 * gr_aoe, coeff: 6.5 * gr_dmg});
+        Sim.damage({delay: 40, type: "area", origin: Sim.target.distance - 26.5, range: 5 * gr_aoe, coeff: 6.5 * gr_dmg});
+        Sim.damage({delay: 50, type: "area", origin: Sim.target.distance - 27.5, range: 5 * gr_aoe, coeff: 6.5 * gr_dmg});
         dmg.delay = 60;
         dmg.origin = Sim.target.distance - 35;
         break;
       case "a":
-        dmg.coeff = 7.7;
+        dmg.coeff = 8.5;
         break;
       }
       return dmg;
@@ -1029,9 +1072,9 @@
         duration = 120;
         break;
       case "d":
-        dmg = {type: "area", range: 30, coeff: 4.75, onhit: Sim.apply_effect("frozen", 120)};
+        dmg = {type: "area", range: 30, coeff: 3.8, onhit: Sim.apply_effect("frozen", 120)};
         tickrate = 30;
-        duration = 240;
+        duration = 300;
         break;
       }
       Sim.addBuff(name, undefined, {
@@ -1048,21 +1091,15 @@
   Sim.passives = {
     thrillofthehunt: function() {
       var next = 0;
-      Sim.register("oncast", function(data) {
-        if (data.cost && data.resource === "hatred" && data.user) {
-          data.user.thrillofthehunt = true;
-        }
-      });
       Sim.register("onhit", function(data) {
-        if (data.castInfo && data.castInfo.user && data.castInfo.user.thrillofthehunt) {
-          Sim.addBuff("rooted", undefined, 120);
-          delete data.castInfo.user.thrillofthehunt;
+        if (data.castInfo && data.castInfo.cost && data.castInfo.resource === "hatred") {
+          Sim.addBuff("slowed", undefined, 120);
         }
       });
     },
     tacticaladvantage: function() {
       Sim.register("oncast", function(data) {
-        if (data.skill === "vault" || data.skill === "smokescreen") {
+        if (data.skill === "vault" || data.skill === "smokescreen" || data.skill === "shadowpower") {
           Sim.addBuff("tacticaladvantage", {extrams: 60}, {duration: 120});
         }
       });

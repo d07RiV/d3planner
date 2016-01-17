@@ -3,6 +3,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Chest_012_x1",
     name: "Aquila Cuirass",
+    suffix: _L("Legacy"),
     type: "chestarmor",
     quality: "legendary",
     preset: ["mainstat", "vit"],
@@ -11,6 +12,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Chest_018_x1",
     name: "Heart of Iron",
+    suffix: _L("Legacy"),
     type: "chestarmor",
     quality: "legendary",
     preset: ["mainstat", "resall"],
@@ -18,7 +20,6 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Chest_010_x1",
-    //local: true,
     name: "Chaingmail",
     type: "chestarmor",
     quality: "legendary",
@@ -30,7 +31,6 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Chest_006_x1",
-    //local: true,
     name: "Cindercoat",
     type: "chestarmor",
     quality: "legendary",
@@ -305,7 +305,7 @@ DiabloCalc.addItems([
     required: {
       custom: {id: "leg_thecloakofgarwulf", name: "Extra Wolves", format: "Companion - Wolf Companion now summons 3 wolves.", args: 0},
     },
-    preset: ["mainstat"],
+    preset: ["mainstat", "sockets"],
   },
 
   {
@@ -393,6 +393,46 @@ DiabloCalc.addItems([
     type: "chestarmor",
     quality: "set",
     set: "light",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P4_Unique_Chest_012",
+    name: "Aquila Cuirass",
+    type: "chestarmor",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_aquilacuirass", name: "Damage Reduction Threshold", format: "While above %d%% primary resource, all damage taken is reduced by 50%%.", min: 90, max: 95, best: "min"},
+    },
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P4_Unique_Chest_018",
+    name: "Heart of Iron",
+    type: "chestarmor",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_heartofiron", name: "Thorns From Vitality", format: "Gain Thorns equal to %d%% of your Vitality.", min: 250, max: 300},
+    },
+    preset: ["mainstat", "vit", "thorns"],
+  },
+
+  {
+    id: "Unique_Chest_Set_11_x1",
+    name: "Sunwuko's Soul",
+    type: "chestarmor",
+    quality: "set",
+    set: "sunwuko",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "Unique_Chest_Set_15_x1",
+    name: "Spirit of the Earth",
+    type: "chestarmor",
+    quality: "set",
+    set: "earth",
     preset: ["mainstat", "sockets"],
   },
 

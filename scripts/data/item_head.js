@@ -493,9 +493,11 @@ DiabloCalc.addItems([
     type: "spiritstone",
     quality: "legendary",
     required: {
+      skill_monk_lashingtailkick: {min: 75, max: 100},
       custom: {id: "leg_gyananakashu", name: "Fireball Damage", format: "Lashing Tail Kick releases a piercing fireball that deals %d%% weapon damage as Fire to enemies within 10 yards on impact.", min: 525, max: 700},
     },
     preset: ["mainstat", "sockets"],
+    primary: 5,
   },
 
   {
@@ -596,7 +598,7 @@ DiabloCalc.addItems([
     type: "spiritstone",
     quality: "legendary",
     affixes: {
-      skill_monk_waveoflight: {min: 20, max: 25},
+      skill_monk_waveoflight: {min: 125, max: 150},
     },
     required: {
       custom: {id: "leg_tzokrinsgaze", name: "Wave of Light Cast at Enemy", format: "Wave of Light is now cast at your enemy.", args: 0},
@@ -705,6 +707,37 @@ DiabloCalc.addItems([
     type: "helm",
     quality: "set",
     set: "vyr",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P4_Unique_Helm_102",
+    name: "Warhelm of Kassar",
+    type: "helm",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_warhelmofkassar", name: "Phalanx Damage and Cooldown", format: "Reduce the cooldown and increase the damage of Phalanx by %d%%.", min: 45, max: 60},
+    },
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P4_Unique_Helm_103",
+    name: "Visage of Gunes",
+    type: "helm",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_visageofgunes", name: "Vengeance Gains Dark Heart Rune", format: "Vengeance gains the effect of the Dark Heart rune.", args: 0},
+    },
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "Unique_Helm_Set_14_x1",
+    name: "The Shadow's Mask",
+    type: "helm",
+    quality: "set",
+    set: "shadow",
     preset: ["mainstat", "sockets"],
   },
 

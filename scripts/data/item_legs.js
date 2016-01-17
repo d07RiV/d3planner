@@ -26,6 +26,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Pants_002_x1",
     name: "Hammer Jammers",
+    suffix: _L("Legacy"),
     type: "pants",
     quality: "legendary",
     affixes: {
@@ -56,7 +57,8 @@ DiabloCalc.addItems([
       dmgpsn: "elementalDamage",
       ccr: "ccrNormal",
     },
-    preset: ["mainstat", "dmgpsn", "ccr"],
+    preset: ["mainstat", "dmgpsn", "ccr", "sockets"],
+    primary: 5,
   },
 
   {
@@ -335,6 +337,35 @@ DiabloCalc.addItems([
     quality: "set",
     set: "light",
     preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P4_Unique_Pants_002",
+    name: "Hammer Jammers",
+    type: "pants",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_hammerjammers", name: "Blessed Hammer Damage Bonus", format: "Enemies take %d%% increased damage from your Blessed Hammers for 10 seconds after you hit them with a Blind, Immobilize, or Stun.", min: 300, max: 400},
+    },
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "Unique_Pants_Set_11_x1",
+    name: "Sunwuko's Leggings",
+    type: "pants",
+    quality: "set",
+    set: "sunwuko",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "Unique_Pants_Set_12_x1",
+    name: "Renewal of the Invoker",
+    type: "pants",
+    quality: "set",
+    set: "invoker",
+    preset: ["mainstat", "sockets", "thorns"],
   },
 
 ]);

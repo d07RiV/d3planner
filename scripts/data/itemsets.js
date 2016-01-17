@@ -17,7 +17,8 @@ DiabloCalc.itemSets = {
     tclass: "demonhunter",
     bonuses: {
       "2": [
-        {format: "Vault now costs 8 Hatred instead of Discipline."},
+        {format: "Vault costs 8 Hatred instead of Discipline."},
+        {format: "Vault deals 800%% increased damage."},
       ],
     },
   },
@@ -56,8 +57,8 @@ DiabloCalc.itemSets = {
     order: ["ring", "amulet"],
     bonuses: {
       "2": [
-        {stat: "vit", value: [250]},
-        {stat: "chd", value: [50]},
+        {format: "While moving, damage taken is reduced by up to 50%%."},
+        {format: "While standing still, damage dealt is increased by up to 100%%."},
       ],
     },
   },
@@ -66,9 +67,7 @@ DiabloCalc.itemSets = {
     name: "Legacy of Nightmares",
     bonuses: {
       "2": [
-        {stat: "gf", value: [15]},
-        {stat: "mf", value: [15]},
-        {format: "This ring sometimes summons a Skeleton when you attack."},
+        {format: "While this is your only Item Set bonus every Ancient item you have equipped increases your damage dealt by 100%% and reduces your damage taken by 4%%."},
       ],
     },
   },
@@ -79,7 +78,7 @@ DiabloCalc.itemSets = {
     tclass: "witchdoctor",
     bonuses: {
       "2": [
-        {format: "Your Hex - Angry Chicken explosion damage is increased by 200%% and slain enemies trigger an additional explosion."},
+        {format: "Your Hex - Angry Chicken explosion damage is increased by 400%% and slain enemies trigger an additional explosion."},
         {format: "Your Hex - Angry Chicken lasts 15 seconds and movement speed as a chicken is increased by an additional 100%."},
       ],
     },
@@ -110,20 +109,24 @@ DiabloCalc.itemSets = {
     name: "Istvan's Paired Blades",
     bonuses: {
       "2": [
-        {format: "Every time you spend primary resource, you gain 6%% increased attack speed for 5 seconds. This effect stacks up to 5 times."},
+        {format: "Every time you spend primary resource, gain 6%% increased Attack Speed, Damage, and Armor for 5 seconds. This effect stacks up to 5 times."},
       ],
     },
   },
 
   invoker: {
     name: "Thorns of the Invoker",
+    class: "crusader",
     order: ["shoulders", "helm", "gloves", "bracers"],
     bonuses: {
       "2": [
-        {stat: "thorns", value: [4000]},
+        {format: "Your Thorns damage now hits all enemies in a 15 yard radius around you. Each time you hit an enemy with Punish, Slash, or block an attack your Thorns is increased by 25% for 2 seconds."},
       ],
       "4": [
-        {format: "Your Thorns damage now hits all enemies in a 15 yard radius."},
+        {format: "You take 50%% less damage for 20 seconds after damaging an enemy with Bombardment."},
+      ],
+      "6": [
+        {format: "The attack speed of Punish and Slash are increased by 50%% and deal 600%% of your Thorns damage to the first enemy hit."},
       ],
     },
   },
@@ -279,10 +282,10 @@ DiabloCalc.itemSets = {
         {format: "Damaging enemies with Arcane, Cold, Fire or Lightning will cause a Meteor of the same damage type to fall from the sky. There is an 8 second cooldown for each damage type."},
       ],
       "4": [
-        {format: "Attacks increase your resistance to that element by 100%% for 6 seconds."},
+        {format: "Arcane, Cold, Fire, and Lightning attacks each increase all of your resistances by 25%% for 8 seconds."},
       ],
       "6": [
-        {format: "Attacks increase your damage by 150%% for 6 seconds. Arcane, Cold, Fire, and Lightning attacks each add one stack. Adding a stack refreshes the duration."},
+        {format: "Attacks increase your damage by 500%% for 8 seconds. Arcane, Cold, Fire, and Lightning attacks each add one stack. At 4 stacks, each different elemental attack extends the duration by 2 seconds, up to a maximum of 8 seconds."},
       ],
     },
   },
@@ -296,7 +299,7 @@ DiabloCalc.itemSets = {
         {format: "Archon gains the effect of every rune."},
       ],
       "4": [
-        {format: "Archon stacks also increase your Attack Speed, Armor and Resistances by 1%%."},
+        {format: "Archon stacks also increase your Attack Speed, Armor, and Resistances by 1%%."},
       ],
       "6": [
         {format: "You also gain Archon stacks when you hit with an Archon ability."},
@@ -310,13 +313,13 @@ DiabloCalc.itemSets = {
     order: ["chestarmor", "pants", "source", "shoulders", "helm", "gloves", "boots"],
     bonuses: {
       "2": [
-        {format: "When you die, a meteor falls from the sky and revives you. This effect has a 300 second cooldown."},
+        {format: "When you die, a meteor falls from the sky and revives you. This effect has a 60 second cooldown."},
       ],
       "4": [
-        {format: "Your Fire Spells cause up to 3 enemies to explode, dealing 400%% weapon damage as Fire to enemies within 10 yards."},
+        {format: "Dealing Fire damage causes the enemy to take the same amount of damage over 3 seconds, stacking up to 3000%% weapon damage as Fire per second. After reaching 3000%% damage per second, the enemy will burn until they die."},
       ],
       "6": [
-        {format: "Dealing Fire damage causes the enemy to take the same amount of damage over 3 seconds, stacking up to 3000%% weapon damage as Fire per second. After reaching 3000%% damage per second, the enemy will burn until they die."},
+        {format: "Your damage is increased by 25%% for each enemy that is burning. Elites that are burning increase your damage by 600%%. You can only have one Elite damage bonus active at a time."},
       ],
     },
   },
@@ -327,27 +330,30 @@ DiabloCalc.itemSets = {
     order: ["helm", "cloak", "boots", "gloves", "handcrossbow", "pants", "ring"],
     bonuses: {
       "2": [
-        {format: "Reduce the cooldown of Rain of Vengeance by 2 seconds when you hit with a Hatred-generating attack or Hatred-spending attack."},
+        {format: "Reduce the cooldown of Rain of Vengeance by 4 seconds when you hit with a Hatred-generating attack or Hatred-spending attack."},
       ],
       "4": [
         {format: "Rain of Vengeance deals 100% increased damage."},
       ],
       "6": [
-        {format: "After casting Rain of Vengenace, deal 400%% increased damage and take 30%% reduced damage for 5 seconds."},
+        {format: "After casting Rain of Vengenace, deal 400%% increased damage and take 60%% reduced damage for 10 seconds."},
       ],
     },
   },
 
   shadow: {
-    name: "The Shadow\u2019s Mantle",
+    name: "The Shadow’s Mantle",
     order: ["chestarmor", "pants", "gloves", "boots"],
     tclass: "demonhunter",
     bonuses: {
       "2": [
-        {format: "When receiving fatal damage, you instead automatically cast Smoke Screen and are healed to 25%% Life. This effect may occur once every 120 seconds."},
+        {format: "While equipped with a melee weapon, your damage is increased by 600%%."},
       ],
       "4": [
-        {format: "Shadow Power gains the effect of every rune."},
+        {format: "Shadow Power gains the effect of every rune and lasts forever."},
+      ],
+      "6": [
+        {format: "Impale deals an additional 40000% weapon damage to the first enemy hit."},
       ],
     },
   },
@@ -361,10 +367,10 @@ DiabloCalc.itemSets = {
         {format: "Companion calls all companion types to your side."},
       ],
       "4": [
-        {format: "Sentries cast Elemental Arrow, Chakram, Impale, Multishot, and Cluster Arrow when you do."},
+        {format: "Sentries deal 300% increased damage and cast Elemental Arrow, Chakram, Impale, Multishot, and Cluster Arrow when you do."},
       ],
       "6": [
-        {format: "Your generators, Chakram, Cluster Arrow, Elemental Arrow, Impale and Multishot deal 100%% increased damage for every active Sentry."},
+        {format: "Your primary skills, Elemental Arrow, Chakram, Impale, Multishot, Cluster Arrow, Companions, and Vengeance deal 600%% increased damage for every active Sentry."},
       ],
     },
   },
@@ -381,7 +387,7 @@ DiabloCalc.itemSets = {
         {format: "You and your pets take 2% less damage for every Fetish you have alive."},
       ],
       "6": [
-        {format: "Enemies hit by your Mana spenders take 275%% more damage from your pets for 4 seconds."},
+        {format: "Enemies hit by your Mana spenders take 800%% more damage from your pets for 8 seconds."},
       ],
     },
   },
@@ -409,13 +415,13 @@ DiabloCalc.itemSets = {
     tclass: "witchdoctor",
     bonuses: {
       "2": [
-        {format: "When Haunt lands on an enemy already affected by Haunt, it instantly deals 10 seconds worth of Haunt damage."},
+        {format: "When Haunt lands on an enemy already affected by Haunt, it instantly deals 60 seconds worth of Haunt damage."},
       ],
       "4": [
-        {format: "Soul Harvest gains the effect of every rune."},
+        {format: "Soul Harvest gains the effect of every rune and has its cooldown reduced by 1 second every time you cast Haunt or Locust Swarm."},
       ],
       "6": [
-        {format: "Soul Harvest consumes your damage over time effects on enemies, instantly dealing their remaining damage."},
+        {format: "Soul Harvest consumes your damage over time effects on enemies, instantly dealing 300 seconds worth of remaining damage."},
       ],
     },
   },
@@ -443,10 +449,13 @@ DiabloCalc.itemSets = {
     tclass: "barbarian",
     bonuses: {
       "2": [
-        {format: "Reduce the cooldown of Earthquake by 2 seconds every time it kills an enemy."},
+        {format: "Reduce the cooldown of Earthquake, Avalanche, Leap, and Ground Stomp by 1 second for every 30 Fury you spend with an attack."},
       ],
       "4": [
-        {format: "Cause an Earthquake when you land after using Leap."},
+        {format: "Leap causes an Earthquake when you land. Additionally, Leap gains the effect of the Iron Impact rune and the rune's effect and duration are increased by 150%%."},
+      ],
+      "6": [
+        {format: "Increase the damage of Earthquake, Avalanche, Leap, Ground Stomp, Ancient Spear and Seismic Slam by 1000%%."},
       ],
     },
   },
@@ -457,13 +466,13 @@ DiabloCalc.itemSets = {
     order: ["pants", "shoulders", "chestarmor", "boots", "helm", "gloves"],
     bonuses: {
       "2": [
-        {format: "The first enemy hit by Furious Charge takes 100%% additional damage."},
+        {format: "Furious Charge refunds a charge if it hits only 1 enemy."},
       ],
       "4": [
-        {format: "Furious Charge gains the effect of every rune."},
+        {format: "Furious Charge gains the effect of every rune and deals 300%% increased damage."},
       ],
-      "5": [
-        {format: "Enemies hit by Furious Charge take 3000%% weapon damage over 3 seconds."},
+      "6": [
+        {format: "Every use of Furious Charge increases the damage of your next Fury-spending attack by 300%%. This effect stacks. Every use of a Fury-spending attack consumes up to 5 stacks."},
       ],
     },
   },
@@ -480,7 +489,7 @@ DiabloCalc.itemSets = {
         {format: "Gain the base effect of all four Mantras at all times."},
       ],
       "6": [
-        {format: "Mystic Ally casts Cyclone Strike, Exploding Palm, Lashing Tail Kick, Seven-Sided Strike, and Wave of Light when you do."},
+        {format: "Gain the five runed Mystic Allies at all times and your damage is increased by 50%% for each Mystic Ally you have out."},
       ],
     },
   },
@@ -491,10 +500,13 @@ DiabloCalc.itemSets = {
     tclass: "monk",
     bonuses: {
       "2": [
-        {format: "Casting Cyclone Strike, Exploding Palm, Lashing Tail Kick, Tempest Rush or Wave of Light causes a decoy to spawn that taunts nearby enemies and then explodes for 1000%% damage."},
+        {format: "Your damage taken is reduced by 50%% while Sweeping Wind is active."},
       ],
       "4": [
-        {format: "When your Decoy explodes, you gain a buff that increases the damage of Cyclone Strike, Exploding Palm, Lashing Tail Kick, Tempest Rush and Wave of Light by 500%% for 3 seconds."},
+        {format: "Every second Sweeping Wind spawns a decoy next to the last enemy you hit that taunts nearby enemies and then explodes for 500%% weapon damage for each stack of Sweeping Wind you have."},
+      ],
+      "6": [
+        {format: "Lashing Tail Kick, Tempest Rush, and Wave of Light consume a stack of Sweeping Wind to deal 1500%% increased damage."},
       ],
     },
   },
@@ -505,7 +517,7 @@ DiabloCalc.itemSets = {
     order: ["boots", "gloves", "chestarmor", "shoulders", "helm", "pants"],
     bonuses: {
       "2": [
-        {format: "Your Spirit Generators have 25%% increased attack speed and 300%% increased damage."},
+        {format: "Your Spirit Generators have 25%% increased attack speed and 100%% increased damage."},
       ],
       "4": [
         {format: "Dashing Strike now spends 75 Spirit, but refunds a Charge when it does."},
@@ -522,13 +534,13 @@ DiabloCalc.itemSets = {
     order: ["chestarmor", "pants", "gloves", "helm", "shoulders", "boots"],
     bonuses: {
       "2": [
-        {stat: "str", value: [500]},
-      ],
-      "4": [
         {format: "Reduce the cost of all abilities by 50%% while Akarat's Champion is active."},
       ],
-      "6": [
+      "4": [
         {format: "Reduce the cooldown of Akarat's Champion by 50%%."},
+      ],
+      "6": [
+        {format: "While Akarat's Champion is active, you deal 450%% increased damage."},
       ],
     },
   },
@@ -542,10 +554,10 @@ DiabloCalc.itemSets = {
         {format: "Every use of Shield Bash and Sweep Attack reduces the cooldown of your Laws and Defensive Skills by 1 second."},
       ],
       "4": [
-        {format: "Increase the damage of Shield Bash and Sweep Attack by 500%%."},
+        {format: "Increase the damage of Shield Bash and Sweep Attack by 600%%."},
       ],
       "6": [
-        {format: "Every use of Shield Bash or Sweep Attack that hits an enemy grants 30%% increased Attack Speed for 3 seconds. This effect stacks up to 5 times."},
+        {format: "Every use of Shield Bash or Sweep Attack that hits an enemy grants 50%% increased Attack Speed and 10%% damage reduction for 5 seconds. This effect stacks up to 5 times."},
       ],
     },
   },
@@ -556,13 +568,13 @@ DiabloCalc.itemSets = {
     order: ["gloves", "boots", "pants", "helm", "shoulders", "chestarmor"],
     bonuses: {
       "2": [
-        {format: "Casting Arcane Orb, Energy Twister, Magic Missile or Shock Pulse reduces the cooldown of Slow Time by 2 seconds."},
+        {format: "Casting Arcane Orb, Energy Twister, Explosive Blast, Magic Missile, Shock Pulse, Spectral Blade, or Wave of Force reduces the cooldown of Slow Time by 2 seconds."},
       ],
       "4": [
-        {format: "Enemies affected by your Slow Time take 2000%% weapon damage every second."},
+        {format: "You take 50%% reduced damage while inside your Slow Time. Allies gain half benefit."},
       ],
       "6": [
-        {format: "Enemies affected by your Slow Time take 750%% more damage from your Arcane Orb, Energy Twister, Magic Missile, and Shock Pulse abilities."},
+        {format: "Enemies affected by your Slow Time take 2000%% more damage from your Arcane Orb, Energy Twister, Explosive Blast, Magic Missile, Shock Pulse, Spectral Blade, and Wave of Force abilities."},
       ],
     },
   },
@@ -573,13 +585,13 @@ DiabloCalc.itemSets = {
     order: ["helm", "boots", "pants", "shoulders", "chestarmor", "gloves"],
     bonuses: {
       "2": [
-        {format: "Your generators also generate 1 Discipline."},
+        {format: "Your generators generate 2 additional Hatred and 1 Discipline."},
       ],
       "4": [
-        {format: "Gain 20%% damage reduction and deal 20%% increased damage for 4 seconds if no enemy is within 10 yards of you."},
+        {format: "Gain 60%% damage reduction and deal 60%% increased damage for 8 seconds if no enemy is within 10 yards of you."},
       ],
       "6": [
-        {format: "Your generators and Multishot deal 15%% increased damage for every point of Discipline you have."},
+        {format: "Your generators, Multishot and Vengeance deal 20%% increased damage for every point of Discipline you have."},
       ],
     },
   },
@@ -613,7 +625,7 @@ DiabloCalc.itemSets = {
         {format: "You take 50%% less damage for 8 seconds after landing with Falling Sword."},
       ],
       "6": [
-        {format: "Increase the damage of Blessed Hammer by 750%% and Falling Sword by 500%%."},
+        {format: "Increase the damage of Blessed Hammer by 1250%% and Falling Sword by 500%%."},
       ],
     },
   },
@@ -644,10 +656,22 @@ DiabloCalc.itemSets = {
         {format: "Summon a permanent Spider Queen who leaves behind webs that deal 4000%% weapon damage over 5 seconds and Slows enemies. The Spider Queen is commanded to move to where you cast your Corpse Spiders."},
       ],
       "4": [
-        {format: "Hex gains the effect of the Toad of Hugeness rune. While Toad of Hugeness is active, you take 40%% reduced damage. After Toad of Hugeness finishes his meal, you will heal for 10%% of your maximum Life per second for 10 seconds."},
+        {format: "Hex gains the effect of the Toad of Hugeness rune. After summoning a Toad of Hugeness is active, you gain 50%% damage reduction and heal for 10%% of your maximum Life per second for 15 seconds."},
       ],
       "6": [
-        {format: "The damage of your creature skills is increased by 800%%. Creature skills are Corpse Spiders, Plague of Toads, Firebats, Locust Swarm, Hex, and Piranhas."},
+        {format: "The damage of your creature skills is increased by 1200%%. Creature skills are Corpse Spiders, Plague of Toads, Firebats, Locust Swarm, Hex, and Piranhas."},
+      ],
+    },
+  },
+
+  norvald: {
+    name: "Norvald's Fervor",
+    class: "crusader",
+    order: ["flail2h", "crusadershield"],
+    bonuses: {
+      "2": [
+        {format: "Increases the duration of Steed Charge by 2 seconds. In addition, killing an enemy reduces the cooldown of Steed Charge by 1 second."},
+        {format: "Gain 100%% increased damage while using Steed Charge and for 5 seconds after it ends."},
       ],
     },
   },

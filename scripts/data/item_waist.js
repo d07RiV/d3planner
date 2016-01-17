@@ -37,6 +37,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Belt_008_x1",
     name: "String of Ears",
+    suffix: _L("Legacy"),
     type: "belt",
     quality: "legendary",
     affixes: {
@@ -501,9 +502,11 @@ DiabloCalc.addItems([
     type: "mightybelt",
     quality: "legendary",
     required: {
+      skill_barbarian_avalanche: {min: 150, max: 200},
       custom: {id: "leg_dreadiron", name: "Ground Stomp Causes Avalance", format: "Ground Stomp causes an Avalanche.", args: 0},
     },
     preset: ["mainstat", "vit"],
+    primary: 5,
   },
 
   {
@@ -544,7 +547,7 @@ DiabloCalc.addItems([
 
   {
     id: "P3_Unique_Belt_02",
-    local: true,
+    suffix: _L("Legacy"),
     name: "Fazula’s Improbable Chain",
     type: "belt",
     quality: "legendary",
@@ -562,6 +565,91 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       custom: {id: "leg_bindingofthelost", name: "Damage Reduction", format: "Each hit with Seven-Sided Strike grants %.1f%% damage reduction for 7 seconds.", min: 3, max: 3.5, step: 0.1},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P4_Unique_Belt_01",
+    local: true,
+    name: "Chain of Shadows",
+    type: "belt",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_chainofshadows", name: "Free Impale After Vault", format: "After using Impale, Vault costs no resource for 2 seconds.", args: 0},
+    },
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "P4_Unique_Belt_02",
+    local: true,
+    name: "The Shame of Delsere",
+    type: "belt",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_theshameofdelsere", name: "Arcane Power Gain", format: "Your Signature Spells attack 50% faster and restore %d Arcane Power.", min: 9, max: 12},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P4_Unique_Belt_03",
+    local: true,
+    name: "String of Ears",
+    type: "belt",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_stringofears", name: "Melee Damage Reduction", format: "Reduces damage from melee attacks by %d%%.", min: 25, max: 30},
+    },
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "P4_Unique_Belt_04",
+    local: true,
+    name: "Zoey's Secret",
+    type: "belt",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_zoeyssecret", name: "Damage Reduction Per Companion", format: "You take %.1f%% less damage for every Companion you have active.", min: 8, max: 9, step: 0.1},
+    },
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "P4_Unique_Belt_05",
+    local: true,
+    name: "Kyoshiro's Soul",
+    type: "belt",
+    quality: "legendary",
+    required: {
+      skill_monk_sweepingwind: {min: 100, max: 125},
+      custom: {id: "leg_kyoshirossoul", name: "Sweeping Wind Gains Stacks", format: "Sweeping Wind gains 2 stacks every second it does not deal damage to any enemies.", args: 0},
+    },
+    preset: ["mainstat"],
+    primary: 5,
+  },
+
+  {
+    id: "P4_Unique_Belt_06",
+    local: true,
+    name: "Hergbrash’s Binding",
+    type: "belt",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_hergbrashsbinding", name: "Channeling Cost Reduction", format: "Reduces the Arcane Power cost of Arcane Torrent, Disintegrate, and Ray of Frost by %d%%.", min: 50, max: 65},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P4_Unique_Belt_07",
+    name: "Fazula’s Improbable Chain",
+    type: "belt",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_fazulasimprobablechain_p2", name: "Archon Stacks Extra Bonuses", format: "You automatically start with %d Archon stacks when entering Archon form.", min: 40, max: 50},
     },
     preset: ["mainstat"],
   },

@@ -67,7 +67,8 @@ DiabloCalc.addItems([
       dmgcol: {min: 10, max: 15},
       custom: {id: "leg_frostburn", name: "Chance to Freeze", format: "Your Cold damage has up to a %d%% chance to Freeze enemies.", min: 34, max: 45},
     },
-    preset: ["mainstat"],
+    preset: ["mainstat", "chc"],
+    primary: 5,
   },
 
   {
@@ -105,7 +106,7 @@ DiabloCalc.addItems([
     type: "gloves",
     quality: "set",
     set: "firebird",
-    preset: ["mainstat", "ias"],
+    preset: ["mainstat", "chc"],
   },
 
   {
@@ -159,7 +160,7 @@ DiabloCalc.addItems([
     type: "gloves",
     quality: "set",
     set: "invoker",
-    preset: ["mainstat", "chc", "thorns"],
+    preset: ["mainstat", "thorns"],
   },
 
   {

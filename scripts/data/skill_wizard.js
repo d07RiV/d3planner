@@ -27,13 +27,16 @@ DiabloCalc.skills.wizard = {
     },
     info: function(rune, stats) {
       var mm = (stats.leg_mirrorball || 0) + 1;
+      var dps = {sum: true, "Damage": {speed: 1, fpa: 57.6, round: "up", count: mm + (rune === "b" ? 2 : 0)}};
+      if (stats.leg_theshameofdelsere) dps["Damage"].speed *= 1.5;
+      if (rune === "c") dps["Burn Damage"] = {factor: Math.min(1, stats.info.aps * dps["Damage"].speed * (1 + mm))};
       switch (rune) {
-      case "x": return {"DPS": {sum: true, "Damage": {speed: 1, fpa: 57.6, round: "up", count: mm}}, "Damage": {elem: "arc", coeff: 2.3}};
-      case "a": return {"DPS": {sum: true, "Damage": {speed: 1, fpa: 57.6, round: "up", count: mm}}, "Damage": {elem: "arc", coeff: 3.25}};
-      case "d": return {"DPS": {sum: true, "Damage": {speed: 1, fpa: 57.6, round: "up", count: mm}}, "Damage": {elem: "col", coeff: 1.75}};
-      case "b": return {"DPS": {sum: true, "Damage": {speed: 1, fpa: 57.6, round: "up", count: 2 + mm}}, "Damage": {elem: "arc", coeff: 0.8}};
-      case "e": return {"DPS": {sum: true, "Damage": {speed: 1, fpa: 57.6, round: "up", count: mm}}, "Damage": {elem: "arc", coeff: 2.85}};
-      case "c": return {"DPS": {sum: true, "Damage": {speed: 1, fpa: 57.6, round: "up", count: mm}, "Burn Damage": {factor: Math.min(1, stats.info.aps * (1 + mm))}}, "Damage": {elem: "fir", coeff: 2.3}, "Burn Damage": {elem: "fir", coeff: 1.3, total: true}};
+      case "x": return {"DPS": dps, "Damage": {elem: "arc", coeff: 2.3}};
+      case "a": return {"DPS": dps, "Damage": {elem: "arc", coeff: 3.25}};
+      case "d": return {"DPS": dps, "Damage": {elem: "col", coeff: 1.75}};
+      case "b": return {"DPS": dps, "Damage": {elem: "arc", coeff: 0.8}};
+      case "e": return {"DPS": dps, "Damage": {elem: "arc", coeff: 2.85}};
+      case "c": return {"DPS": dps, "Damage": {elem: "fir", coeff: 2.3}, "Burn Damage": {elem: "fir", coeff: 1.3, total: true}};
       }
     },
   },
@@ -51,7 +54,7 @@ DiabloCalc.skills.wizard = {
       b: "Living Lightning",
     },
     info: {
-      "*": {"DPS": {sum: true, "Damage": {count: 3, fpa: 57.142834, round: "up", speed: 1}}},
+      "*": {"DPS": {sum: true, "Damage": {count: 3, fpa: 57.142834, round: "up", speed: "leg_theshameofdelsere?1.5:1"}}},
       x: {"Damage": {elem: "lit", coeff: 1.94}},
       e: {"Damage": {elem: "col", coeff: 1.94}},
       a: {"Damage": {elem: "fir", coeff: 2.74}},
@@ -74,7 +77,7 @@ DiabloCalc.skills.wizard = {
       c: "Ice Blades",
     },
     info: {
-      "*": {"DPS": {sum: true, "Damage": {count: 3, fpa: 56.25, round: "up", speed: 1}}},
+      "*": {"DPS": {sum: true, "Damage": {count: 3, fpa: 56.25, round: "up", speed: "(leg_theshameofdelsere?1.5:1)*(leg_fragmentofdestiny?1.5:1)"}}},
       x: {"Damage": {elem: "arc", coeff: 0.56}},
       a: {"Damage": {elem: "fir", coeff: 0.56}},
       d: {"Damage": {elem: "arc", coeff: 0.56}},
@@ -83,7 +86,7 @@ DiabloCalc.skills.wizard = {
       c: {"Damage": {elem: "col", coeff: 0.56}},
     },
     active: true,
-    params: [{rune: "a", name: "Stacks", min: 0, max: 50, val: 0, inf: true}],
+    params: [{rune: "a", name: "Stacks", min: 0, max: 30, val: 0}],
     buffs: function(rune, stats) {
       if (rune === "a") {
         return {dmgfir: this.params[0].val};
@@ -104,7 +107,7 @@ DiabloCalc.skills.wizard = {
       c: "Arc Lightning",
     },
     info: {
-      "*": {"DPS": {sum: true, "Damage": {speed: 1, fpa: 30}}},
+      "*": {"DPS": {sum: true, "Damage": {speed: "leg_theshameofdelsere?1.5:1", fpa: 30}}},
       x: {"Damage": {elem: "lit", coeff: 1.38, divide: {"Base Speed": 2}}},
       b: {"Damage": {elem: "lit", coeff: 1.38, divide: {"Base Speed": 2}}},
       e: {"Damage": {elem: "fir", coeff: 1.38, divide: {"Base Speed": 2}}, "Spark Damage": {elem: "fir", coeff: 0.44}},
@@ -128,8 +131,8 @@ DiabloCalc.skills.wizard = {
     },
     params: [{min: 0, max: 2, val: 2, name: "Channeled for", buffs: false}],
     info: {
-      "*": {"Cost": {cost: 16, fpa: 30}, "DPS": {elem: "col", aps: true, coeff: 4.3, addcoeff: [[4.05, "$1"]], total: true}},
-      d: {"Cost": {cost: 11, fpa: 30}},
+      "*": {"Cost": {cost: 16, fpa: 30, rcr: "leg_hergbrashsbinding"}, "DPS": {elem: "col", aps: true, coeff: 4.3, addcoeff: [[4.05, "$1"]], total: true}},
+      d: {"Cost": {cost: 11, fpa: 30, rcr: "leg_hergbrashsbinding"}},
       e: {"Patch Damage": {elem: "col", coeff: 16.25, total: true}},
       b: {"DPS": {elem: "col", aps: true, coeff: 3, addcoeff: [[2.2, "$1"]], total: true}},
     },
@@ -151,14 +154,27 @@ DiabloCalc.skills.wizard = {
       d: "Scorch",
       e: "Frozen Orb",
     },
-    info: {
-      "*": {"Cost": {cost: 30}},
-      x: {"Damage": {elem: "arc", coeff: 4.35}},
-      a: {"Damage": {elem: "arc", coeff: 7}},
-      c: {"Damage": {elem: "arc", coeff: 2.65}},
-      b: {"Damage": {elem: "lit", coeff: 3.49}},
-      d: {"Damage": {elem: "fir", coeff: 2.21}, "Burn Damage": {elem: "fir", coeff: 7.34, total: true}},
-      e: {"Explosion Damage": {elem: "col", coeff: 3.93}, "Projectile Damage": {elem: "col", coeff: 2.62}, "Shard Damage": {elem: "col", coeff: 1.28}},
+    info: function(rune, stats) {
+      var res;
+      switch (rune) {
+      case "x": res = {"Damage": {elem: "arc", coeff: 4.35}}; break;
+      case "a": res = {"Damage": {elem: "arc", coeff: 7}}; break;
+      case "c": res = {"Damage": {elem: "arc", coeff: 2.65}}; break;
+      case "b": res = {"Damage": {elem: "lit", coeff: 3.49}}; break;
+      case "d": res = {"Damage": {elem: "fir", coeff: 2.21}, "Burn Damage": {elem: "fir", coeff: 7.34, total: true}}; break;
+      case "e": res = {"Explosion Damage": {elem: "col", coeff: 3.93}, "Projectile Damage": {elem: "col", coeff: 2.62}, "Shard Damage": {elem: "col", coeff: 1.28}}; break;
+      }
+      if (stats.leg_unstablescepter) {
+        var factor = {};
+        factor[DiabloCalc.itemById.P1_Wand_norm_unique_02.name] = 2;
+        if (rune === "e") {
+          res["Explosion Damage"].factors = factor;
+        } else {
+          res["Damage"].factors = factor;
+        }
+      }
+      res = $.extend({"Cost": {cost: 30}}, res);
+      return res;
     },
     active: false,
     params: [{rune: "b", min: 0, max: 20, val: 0, name: "Enemies Hit", inf: true}],
@@ -183,11 +199,11 @@ DiabloCalc.skills.wizard = {
     },
     params: [{min: 0, max: 2, val: 2, name: "Channeled for", buffs: false}],
     info: {
-      "*": {"Cost": {cost: 16, fpa: 20}},
+      "*": {"Cost": {cost: 16, fpa: 20, rcr: "leg_hergbrashsbinding"}},
       x: {"Tick Damage": {elem: "arc", coeff: 4, addcoeff: [[3.05, "$1"]], divide: {"Base Speed": 3}}, "DPS": {sum: true, "Tick Damage": {speed: 1, fpa: 20}}},
       a: {"Tick Damage": {elem: "fir", coeff: 4, addcoeff: [[3.05, "$1"]], divide: {"Base Speed": 3}}, "DPS": {sum: true, "Tick Damage": {speed: 1, fpa: 20}}},
-      e: {"Cost": {cost: 16, fpa: 30}, "Tick Damage": {elem: "arc", coeff: 12.15, addcoeff: [[6.4, "$1"]], divide: {"Base Speed": 2}}, "DPS": {sum: true, "Tick Damage": {speed: 1, fpa: 30}}},
-      c: {"Cost": {cost: 16, fpa: 40}, "Damage": {elem: "arc", coeff: 8.25}},
+      e: {"Cost": {cost: 16, fpa: 30, rcr: "leg_hergbrashsbinding"}, "Tick Damage": {elem: "arc", coeff: 12.15, addcoeff: [[6.4, "$1"]], divide: {"Base Speed": 2}}, "DPS": {sum: true, "Tick Damage": {speed: 1, fpa: 30}}},
+      c: {"Cost": {cost: 16, fpa: 40, rcr: "leg_hergbrashsbinding"}, "Damage": {elem: "arc", coeff: 8.25}},
       d: {"Tick Damage": {elem: "lit", coeff: 4, addcoeff: [[3.05, "$1"]], divide: {"Base Speed": 3}}, "DPS": {sum: true, "Tick Damage": {speed: 1, fpa: 20}}, "Bolt Damage": {elem: "lit", coeff: 1.5}},
       b: {"Tick Damage": {elem: "arc", coeff: 4, addcoeff: [[3.05, "$1"]], divide: {"Base Speed": 3}}, "DPS": {sum: true, "Tick Damage": {speed: 1, fpa: 20}}, "Secondary Damage": {elem: "arc", coeff: 5.82}},
     },
@@ -213,7 +229,7 @@ DiabloCalc.skills.wizard = {
     },
     params: [{min: 0, max: 2, val: 2, name: "Channeled for", buffs: false}],
     info: {
-      "*": {"Cost": {cost: 18, fpa: 20}},
+      "*": {"Cost": {cost: 18, fpa: 20, rcr: "leg_hergbrashsbinding"}},
       x: {"DPS": {elem: "arc", aps: true, coeff: 3.9, addcoeff: [[2.5, "$1"]], total: true}},
       b: {"DPS": {elem: "fir", aps: true, coeff: 3.9, addcoeff: [[2.5, "$1"]], total: true}},
       e: {"DPS": {elem: "arc", aps: true, coeff: 3.9, addcoeff: [[2.5, "$1"]], total: true}, "Explosion Damage": {elem: "arc", coeff: 7.5}},
@@ -288,21 +304,18 @@ DiabloCalc.skills.wizard = {
     },
     info: function(rune, stats) {
       var res = {"Cooldown": {cooldown: (rune === "c" ? 12 : 15), rcr: (stats.leg_gestureoforpheus || stats.leg_gestureoforpheus_p2 || 0)}};
-      if (stats.set_magnumopus_4pc) {
-        res["DPS"] = {elem: "max", coeff: 20, total: true};
-      }
+      //if (stats.set_magnumopus_4pc) {
+      //  res["DPS"] = {elem: "max", coeff: 20, total: true};
+      //}
       return res;
     },
     active: false,
     buffs: function(rune, stats) {
-      if (stats.leg_crownoftheprimus) {
-        return {dmgtaken: 15, ias: 10};
-      } else {
-        switch (rune) {
-        case "a": return {dmgtaken: 15};
-        case "e": return {ias: 10};
-        }
-      }
+      var res = {};
+      if (rune === "a" || stats.leg_crownoftheprimus) res.dmgtaken = 15;
+      if (rune === "e" || stats.leg_crownoftheprimus) res.ias = 10;
+      if (stats.set_magnumopus_4pc) res.dmgred = 50;
+      return res;
     },
   },
   teleport: {
@@ -728,7 +741,8 @@ DiabloCalc.skills.wizard = {
     },
     active: false,
     params: [(DiabloCalc.itemaffixes&&DiabloCalc.itemaffixes.leg_theswami.params[0]||
-      {min: "leg_fazulasimprobablechain", max: "leg_fazulasimprobablechain+50", val: "min", name: "Stacks", inf: true, buffs: false}),
+      {min: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)",
+       max: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)+50", val: "min", name: "Stacks", inf: true, buffs: false}),
       {min: 0, max: 20, val: 20, name: "Chantodo's", buffs: false, show: function(rune, stats) {
         return !!stats.set_chantodo_2pc;
       }}],
@@ -957,19 +971,11 @@ DiabloCalc.passives.wizard = {
     active: true,
     buffs: function(stats) {
       var elems = DiabloCalc.passives.wizard.elementalexposure.getElems(stats, "ee");
-      var sum = 0;
-      for (var e in elems) {
-        sum += 5;
-      }
-      return {dmgtaken: sum};
+      return {dmgtaken: Object.keys(elems).length * (stats.leg_primordialsoul ? 10 : 5)};
     },
     info: function(stats) {
       var elems = DiabloCalc.passives.wizard.elementalexposure.getElems(stats, "ee");
-      var sum = 0;
-      for (var e in elems) {
-        sum += 5;
-      }
-      return {"Damage Bonus": sum + "%"};
+      return {"Damage Bonus": (Object.keys(elems).length * (stats.leg_primordialsoul ? 10 : 5)) + "%"};
     },
   },
 };
@@ -985,7 +991,15 @@ DiabloCalc.partybuffs.wizard = {
   },
   slowtime: {
     runelist: "ae",
+    boxnames: ["Delsere's Magnum Opus (4pc)"],
     multiple: true,
+    buffs: function(stats) {
+      var buffs = {};
+      if (this.runevals.a) buffs.damage = 15;
+      if (this.runevals.e) buffs.ias = 10;
+      if (this.boxvals[0]) buffs.dmgred = 25;
+      return buffs;
+    },
   },
   energytwister: {
     runelist: "a",
@@ -998,7 +1012,10 @@ DiabloCalc.partybuffs.wizard = {
   conflagration: {},
   elementalexposure: {
     params: [{min: 0, max: 4, val: 0, name: "Stacks"}],
-    buffs: function(stats) {return {dmgtaken: this.params[0].val * 5};},
+    boxnames: ["Primordial Soul"],
+    buffs: function(stats) {
+      return {dmgtaken: this.params[0].val * (this.boxvals[0] ? 10 : 5)};
+    },
   },
 };
 DiabloCalc.extraskills.wizard = {

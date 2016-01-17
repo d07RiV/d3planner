@@ -37,6 +37,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Shoulder_101_x1",
     name: "Profane Pauldrons",
+    suffix: _L("Legacy"),
     type: "shoulders",
     quality: "legendary",
     affixes: {
@@ -82,6 +83,10 @@ DiabloCalc.addItems([
     name: "Corruption",
     type: "shoulders",
     quality: "legendary",
+    affixes: {
+      pickup: {min: 6, max: 7},
+    },
+    preset: ["pickup", "healbonus"],
   },
 
   {
@@ -294,6 +299,37 @@ DiabloCalc.addItems([
     type: "shoulders",
     quality: "set",
     set: "vyr",
+    preset: ["mainstat", "resall"],
+  },
+
+  {
+    id: "P4_Unique_Shoulder_101",
+    name: "Lefebvre’s Soliloquy",
+    type: "shoulders",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_lefebvressoliloquy", name: "Cyclone Strike Damage Reduction", format: "Cyclone Strike reduces your damage taken by %d%% for 5 seconds.", min: 40, max: 50},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P4_Unique_Shoulder_103",
+    name: "Mantle of Channeling",
+    type: "shoulders",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_mantleofchanneling", name: "Bonus Damage While Channeling", format: "While channeling Whirlwind, Rapid Fire, Strafe, Tempest Rush, Firebats, Arcane Torrent, Disintegrate, or Ray of Frost, you deal %d%% increased damage and take 25%% reduced damage.", min: 20, max: 25},
+    },
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "Unique_Shoulder_Set_14_x1",
+    name: "The Shadow's Burden",
+    type: "shoulders",
+    quality: "set",
+    set: "shadow",
     preset: ["mainstat", "resall"],
   },
 

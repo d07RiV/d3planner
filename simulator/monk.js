@@ -73,7 +73,7 @@
         Sim.register("onhit_proc", function(data) {
           var stacks = Sim.getBuff("staticcharge");
           if (stacks > 1) {
-            var coeff = 1.8;
+            var coeff = 0.3;
             if (Sim.stats.set_shenlong_2pc) {
               // dirty fix
               coeff *= 1 + 0.015 * (Sim.resources.spirit || 0);
@@ -300,7 +300,9 @@
   skills.lashingtailkick = {
     offensive: true,
     cost: 50,
-    speed: 57.391300,
+    speed: function(rune) {
+      return 57.391300 / (Sim.stats.leg_riveradancers ? 1.5 : 1);
+    },
     oncast: {
       x: {type: "cone", width: 180, range: 10, coeff: 7.55},
       a: {type: "cone", width: 180, range: 10, coeff: 7.55, onhit: ltk_vulture_onhit},
@@ -313,6 +315,11 @@
     elem: {x: "phy", a: "fir", d: "phy", b: "fir", e: "lit", c: "col"},
   };
 
+  function tr_balance_fix() {
+    if (Sim.stats.leg_balance && this.targets <= 3) {
+      this.chc = 100;
+    }
+  }
   function tr_ontick(data) {
     data.dmg.factor = Sim.stats.info.aps * data.buff.params.tickrate / 60;
     Sim.damage(data.dmg);
@@ -321,7 +328,7 @@
     var stacks = Sim.getBuff("flurry");
     if (stacks) {
       Sim.removeBuff("flurry");
-      Sim.damage({type: "area", range: 15, self: true, coeff: 0.9 * stacks});
+      Sim.damage({type: "area", range: 15, self: true, coeff: 0.9 * stacks, fix: tr_balance_fix});
     }
   }
   skills.tempestrush = {
@@ -343,13 +350,14 @@
       if (rune === "e") {
         Sim.addBuff("flurry", undefined, {maxstacks: 100});
       }
+      if (Sim.stats.leg_balance) dmg.fix = tr_balance_fix;
       return Sim.channeling("tempestrush", this.channeling, tr_ontick, {dmg: dmg}, params);
     },
     oninit: function(rune) {
       if (rune === "c") {
         Sim.after(15, function zap() {
           if (Sim.getBuff("tempestrush")) {
-            Sim.damage({type: "area", range: 20, self: true, coeff: 1.35 / 4, proc: 0});
+            Sim.damage({type: "area", range: 20, self: true, coeff: 1.35 / 4, proc: 0, fix: tr_balance_fix});
           }
           Sim.after(15, zap);
         });
@@ -359,6 +367,15 @@
     elem: {x: "phy", d: "hol", b: "phy", e: "col", c: "lit", a: "fir"},
   };
 
+  function wol_kyoshiros_fix() {
+    if (Sim.stats.leg_kyoshirosblade) {
+      if (this.targets <= 3) {
+        this.factor = 1 + 0.01 * Sim.stats.leg_kyoshirosblade;
+      } else {
+        this.factor = 2.5;
+      }
+    }
+  }
   skills.waveoflight = {
     offensive: true,
     cost: function(rune) {
@@ -402,6 +419,7 @@
         });
         break;
       }
+      if (Sim.stats.leg_kyoshirosblade) dmg.fix = wol_kyoshiros_fix;
       return dmg;
     },
     proctable: {x: 0.111, a: 0.111, b: 0.25, d: 0.111, e: 0.111, c: 0.2},
@@ -646,10 +664,10 @@
         ontick: sw_ontick,
         onexpire: sw_onexpire,
       };
-      if (Sim.stats.leg_vengefulwind) {
-        params.maxstacks += 3;
-      }
-      Sim.addBuff("sweepingwind", undefined, params);
+      if (Sim.stats.leg_vengefulwind) params.maxstacks += 3;
+      if (Sim.stats.leg_vengefulwind_p2) params.maxstacks += Sim.stats.leg_vengefulwind_p2;
+      var buffs = undefined;
+      Sim.addBuff("sweepingwind", buffs, params);
     },
     oninit: function(rune) {
       var nextStack = 0;
@@ -759,45 +777,43 @@
     },
     distance: 5,
     oncast: function(rune) {
-      var count = Sim.getBuff("mystically");
-      switch (rune) {
-      case "x":
-        Sim.addBuff("mystically_active", {dmgmul: {skills: ["mystically"], percent: 50}}, {duration: 600});
-        break;
-      case "b":
-        Sim.addBuff("waterally", undefined, {
+      if (rune === "x" && !Sim.stats.set_inna_6pc) {
+        Sim.addBuff("basically_active", {dmgmul: {skills: ["mystically"], percent: 50}}, {duration: 600});
+      }
+      if (rune === "b" || Sim.stats.set_inna_6pc) {
+        Sim.addBuff("waterally_active", undefined, {
           duration: 90,
           tickrate: 12,
-          ontick: {count: count, type: "line", origin: 5, range: 10, radius: 5, pierce: true, coeff: 6.25, onhit: Sim.apply_effect("frozen", 180)},
+          ontick: {count: Sim.getBuff("waterally"), type: "line", origin: 5, range: 10, radius: 5, pierce: true, coeff: 6.25, onhit: Sim.apply_effect("frozen", 180)},
         });
-        Sim.delayBuff("mystically", 90);
-        break;
-      case "a":
-        Sim.addBuff("fireally", undefined, {
+        Sim.delayBuff("waterally", 90);
+      }
+      if (rune === "a" || Sim.stats.set_inna_6pc) {
+        Sim.addBuff("fireally_active", undefined, {
           duration: 301,
           tickrate: 30,
-          ontick: {count: count, type: "area", range: 4, coeff: 2.9},
+          ontick: {count: Sim.getBuff("fireally"), type: "area", range: 4, coeff: 2.9},
         });
-        Sim.delayBuff("mystically", 330);
-        break;
-      case "d":
-        Sim.addResource(100 * count);
-        break;
-      case "e":
-        Sim.removeBuff("mystically", 1);
-        break;
-      case "c":
-        Sim.addBuff("earthally", undefined, {
+        Sim.delayBuff("fireally", 330);
+      }
+      if (rune === "d" || Sim.stats.set_inna_6pc) {
+        Sim.addResource(100 * Sim.getBuff("airally"));
+      }
+      if (rune === "e" || Sim.stats.set_inna_6pc) {
+        Sim.removeBuff("enduringally", 1);
+      }
+      if (rune === "c" || Sim.stats.set_inna_6pc) {
+        Sim.addBuff("earthally_active", undefined, {
           duration: 481,
           tickrate: 12,
-          ontick: {count: count, type: "area", range: 7, coeff: 0.76, onhit: Sim.apply_effect("knockback", 30)},
+          ontick: {count: Sim.getBuff("earthally"), type: "area", range: 7, coeff: 0.76, onhit: Sim.apply_effect("knockback", 30)},
         });
-        Sim.delayBuff("mystically", 492);
-        break;
+        Sim.delayBuff("earthally", 492);
       }
     },
     spawn: function(rune, count) {
-      var stacks = Sim.getBuff("mystically");
+      var name = {x: "basically", b: "waterally", a: "fireally", d: "airally", e: "enduringally", c: "earthally"}[rune];
+      var stacks = Sim.getBuff(name);
       var buffs;
       var params = {
         maxstacks: (Sim.stats.leg_thecrudestboots ? 2 : 1),
@@ -821,15 +837,21 @@
       case "b": params.ontick.onhit = Sim.apply_effect("chilled", 180); break;
       case "c": buffs = {damage: 10 * mul}; break;
       case "d": buffs = {spiritregen: 4 * mul}; break;
-      case "e": buffs = {regen: 10728 * mul}; break;
+      case "e": buffs = {regen: (10728 + (Sim.stats.regen || 0) * 0.07) * mul}; break;
       case "c": buffs = {life: 20 * mul}; break;
       }
-      Sim.petattack("mystically", buffs, params);
+      Sim.petattack(name, buffs, params);
     },
     oninit: function(rune) {
-      this.spawn(rune);
+      if (rune === "x" && !Sim.stats.set_inna_6pc) this.spawn("x");
+      if (rune === "b" || Sim.stats.set_inna_6pc) this.spawn("b");
+      if (rune === "a" || Sim.stats.set_inna_6pc) this.spawn("a");
+      if (rune === "d" || Sim.stats.set_inna_6pc) this.spawn("d");
+      if (rune === "e" || Sim.stats.set_inna_6pc) this.spawn("e");
+      if (rune === "c" || Sim.stats.set_inna_6pc) this.spawn("c");
+      Sim.metaBuff("mystically", ["basically", "waterally", "fireally", "airally", "enduringally", "earthally"]);
     },
-    elem: {x: "phy", b: "col", c: "fir", d: "phy", e: "phy", c: "phy"},
+    elem: {x: "phy", b: "col", a: "fir", d: "phy", e: "phy", c: "phy"},
   };
 
   skills.epiphany = {
@@ -917,12 +939,12 @@
       Sim.addBuff("mantraofhealing_active", undefined, {duration: 180});
     },
     oninit: function(rune) {
-      var buffs = {regen: 10728.42};
+      var buffs = {regen: 10728.42 + (Sim.stats.regen || 0) * 0.07};
       if (Sim.stats.set_inna_2pc) {
-        buffs.regen += 10728.42;
+        buffs.regen *= 2;
       }
       switch (rune) {
-      case "a": buffs.regen += 10728.42; break;
+      case "a": buffs.regen *= 2; break;
       case "d": buffs.spiritregen = 3; break;
       case "c": buffs.life = 20; break;
       }

@@ -10,12 +10,17 @@
   function PrimarySpeed(rune) {
     return 57.777767 / (Sim.stats.passives.fanaticism ? 1.15 : 1);
   }
+  function PrimarySpeedInvoker(rune) {
+    var speed = 57.777767 / (Sim.stats.passives.fanaticism ? 1.15 : 1);
+    if (Sim.stats.set_invoker_6pc) speed /= 1.5;
+    return speed;
+  }
 
   skills.punish = {
     signature: true,
     offensive: true,
     generate: PrimaryGenerate,
-    speed: PrimarySpeed,
+    speed: PrimarySpeedInvoker,
     oncast: function(rune) {
       Sim.addBuff("hardenedsenses", {block: 15}, {duration: 300});
       return {coeff: 3.35};
@@ -34,7 +39,7 @@
     signature: true,
     offensive: true,
     generate: PrimaryGenerate,
-    speed: PrimarySpeed,
+    speed: PrimarySpeedInvoker,
     oncast: function(rune) {
       var dmg = {type: "cone", width: 40, range: 12, coeff: 2.3};
       switch (rune) {
@@ -118,7 +123,7 @@
 
   function bash_drakons_fix() {
     if (this.targets <= 3) {
-      this.factor = 1 + 0.01 * Sim.stats.leg_drakonslesson;
+      this.factor = 1 + 0.01 * (Sim.stats.leg_drakonslesson || Sim.stats.leg_drakonslesson_p2 || 0);
       var cost = Sim.castInfo().cost;
       if (cost) Sim.addResource(cost * 0.25);
     }
@@ -132,6 +137,9 @@
     oncast: function(rune) {
       var dmg = {type: "cone", range: 17, width: 30, coeff: 7 + 0.03 * (Sim.stats.block || 0)};
       switch (rune) {
+      case "a":
+        dmg.coeff = 8.75 + 0.03 * (Sim.stats.block || 0);
+        break;
       case "b":
         dmg.coeff = 7.4 + 0.0335 * (Sim.stats.block || 0);
         dmg.range += 10;
@@ -150,7 +158,7 @@
         dmg.width = 5;
         break;
       }
-      if (Sim.stats.leg_drakonslesson) dmg.fix = bash_drakons_fix;
+      if (Sim.stats.leg_drakonslesson || Sim.stats.leg_drakonslesson_p2) dmg.fix = bash_drakons_fix;
       return dmg;
     },
     proctable: {x: 0.59, b: 0.333, e: 0.333, c: 0.333, a: 0.333, d: 1},
@@ -170,9 +178,6 @@
       if (Sim.random("tripattack", 0.5, data.targets / Sim.target.count)) {
         Sim.addBuff("stunned", null, 120);
       }
-      break;
-    case "e":
-      Sim.addBuff("chilled", null, 180);
       break;
     }
     if (Sim.stats.leg_goldenflense) {
@@ -196,10 +201,13 @@
         Sim.removeBuff("denial");
         dmg.coeff *= 1 + 0.01 * stacks * Sim.stats.leg_denial;
       }
+      if (rune === "e") {
+        Sim.addBuff("inspiringsweep", {armor_percent: 20}, {duration: 180, maxstacks: 100, refresh: false});
+      }
       return dmg;
     },
     proctable: 0.25,
-    elem: {x: "phy", b: "fir", d: "lit", c: "phy", a: "hol", e: "col"},
+    elem: {x: "phy", b: "fir", d: "lit", c: "phy", a: "hol", e: "phy"},
   };
 
   function hammer_fix() {
@@ -233,8 +241,8 @@
     }
   }
   function hammer_ih_onhit(event) {
-    var count = Sim.random("iceboundhammer", 0.1, event.targets, true);
-    if (count) Sim.damage({type: "area", range: 6, coeff: 3.8, count: count, onhit: Sim.apply_effect("frozen", 120)});
+    var count = Sim.random("crushingblow", 0.35, event.targets, true);
+    if (count) Sim.damage({type: "area", range: 6, coeff: 4.6, count: count, onhit: Sim.apply_effect("stunned", 60)});
   }
   Sim.cast_hammer = function(self, clone) {
     var rune = (Sim.stats.skills.blessedhammer || "x");
@@ -270,7 +278,7 @@
       Sim.cast_hammer(true);
     },
     proctable: 0.1,
-    elem: {x: "hol", a: "fir", b: "lit", c: "hol", d: "col", e: "hol"},
+    elem: {x: "hol", a: "fir", b: "lit", c: "hol", d: "phy", e: "hol"},
   };
 
   function bs_combust_onhit(event) {
@@ -283,6 +291,9 @@
       duration: 240,
       stacks: Sim.random("divineaegis", 1, event.targets, true),
     });
+  }
+  function bs_akkhans_fix() {
+    this.factor = 1 + 0.01 * (Sim.stats.leg_akkhansmanacles || 0) / this.targets;
   }
   skills.blessedshield = {
     offensive: true,
@@ -313,6 +324,7 @@
         dmg.onhit = Sim.apply_effect("knockback", 30, 0.5);
         break;
       }
+      if (Sim.stats.leg_akkhansmanacles) dmg.fix = bs_akkhans_fix;
       return dmg;
     },
     proctable: {x: 0.333, a: 0.333, b: 0.333, c: 0.333, d: 0.1, e: 0.333},
@@ -442,7 +454,7 @@
       var params = {duration: 240};
       var buffs = {dmgred: 50};
       switch (rune) {
-      case "d": buffs.thorns_percent = 100; break;
+      case "d": buffs.thorns_percent = 300; break;
       case "b": params.duration = 420; break;
       case "c": params.onexpire = ironskin_onexpire; break;
       case "a":
@@ -456,12 +468,6 @@
     elem: {x: "phy", d: "phy", b: "phy", c: "phy", a: "lit", e: "lit"},
   };
 
-  function consecration_frozen_onhit(data) {
-    Sim.addBuff("chilled", undefined, 60);
-    if (Sim.random("frozenground", 0.4, data.targets / Sim.target.count)) {
-      Sim.addBuff("frozen", undefined, 120);
-    }
-  }
   skills.consecration = {
     offensive: true,
     secondary: true,
@@ -474,7 +480,7 @@
       case "c": buffs.regen = 48278; break;
       case "b":
         params.tickrate = 30;
-        params.ontick = {type: "area", self: true, range: 20, coeff: 0, onhit: consecration_frozen_onhit};
+        params.ontick = {type: "area", self: true, range: 20, coeff: 0.5, thorns: true};
         break;
       case "a": params.duration = 300; break;
       case "d":
@@ -489,7 +495,7 @@
       Sim.addBuff("consecration", buffs, params);
     },
     proctable: {b: 0.1, d: 0.1, e: 0.25},
-    elem: {x: "hol", c: "hol", b: "col", a: "hol", d: "fir", e: "hol"},
+    elem: {x: "hol", c: "hol", b: "phy", a: "hol", d: "fir", e: "hol"},
   };
 
   function judgment_onhit(data) {
@@ -514,13 +520,18 @@
 
   function provoke_onhit(data) {
     Sim.addResource(5 * data.targets);
+    var duration = (data.castInfo.rune === "b" ? 480 : 240);
+    var buffs = {};
+    if (Sim.stats.leg_votoyiasspiker) buffs.thorns_taken = 100;
+    if (data.castInfo.rune === "e") buffs.block = 50;
+    Sim.addBuff("provoke", buffs, {duration: duration});
     switch (data.castInfo.rune) {
     case "a": Sim.addBuff("cleanse", {lph: 1073}, {maxstacks: 999, refresh: false,
       stacks: Sim.random("cleanse", 1, data.targets, true), duration: 300}); break;
     case "b": Sim.addBuff("feared", undefined, {duration: 480}); break;
     case "c": Sim.addBuff("slowed", undefined, {duration: 240}); break;
-    case "d": Sim.addBuff("chargedup", undefined, {duration: 240}); break;
-    case "e": Sim.addBuff("hitme", {block: 50}, {duration: 240}); break;
+    //case "d": Sim.addBuff("chargedup", undefined, {duration: 240}); break;
+    //case "e": Sim.addBuff("hitme", {block: 50}, {duration: 240}); break;
     }
   }
   skills.provoke = {
@@ -544,6 +555,7 @@
   skills.steedcharge = {
     offensive: true,
     secondary: true,
+    speed: 60,
     cooldown: function(rune) {
       return 16 * (Sim.stats.passives.lordcommander ? 0.75 : 1);
     },
@@ -552,7 +564,7 @@
       switch (rune) {
       case "a":
         params.tickrate = 20;
-        params.ontick = {type: "area", self: true, range: 6.5, coeff: 5.15/3, onhit: Sim.apply_effect("knockback", 30)};
+        params.ontick = {type: "area", self: true, range: 6.5, coeff: 5/3, thorns: true};
         break;
       case "d":
         params.tickrate = 30;
@@ -566,8 +578,10 @@
         params.ontick = {targets: 5, coeff: 0.925};
         break;
       }
-      if (Sim.stats.leg_swiftmount) {
-        params.duration *= 2;
+      if (Sim.stats.leg_swiftmount) params.duration *= 2;
+      if (Sim.stats.set_norvald_2pc) {
+        params.duration += 120;
+        Sim.addBuff("norvald", {dmgmul: 100}, {duration: params.duration + 300});
       }
       Sim.addBuff("steedcharge", {extrams: 50}, params);
     },
@@ -618,8 +632,9 @@
     offensive: true,
     speed: 58.06451,
     cooldown: function(rune) {
-      if (rune === "a" || rune === "d") return 15;
-      if (rune === "e") return 30;
+      var base = 15 * (1 - 0.01 * (Sim.stats.leg_warhelmofkassar || 0));
+      if (rune === "a" || rune === "d") return base;
+      if (rune === "e") return base * 2;
     },
     cost: function(rune) {
       if (rune === "a" || rune === "d" || rune === "e") return 0;
@@ -820,25 +835,22 @@
     secondary: true,
     speed: 36,
     cooldown: function(rune) {
-      return 90 * (Sim.stats.set_akkhan_6pc ? 0.5 : 1);
+      return 90 * (Sim.stats.set_akkhan_4pc ? 0.5 : 1);
     },
     oncast: function(rune) {
       var buffs = {damage: 35, wrathregen: 5};
-      if (Sim.stats.set_akkhan_4pc) {
-        buffs.rcr = 50;
-      }
-      switch (rune) {
-      case "b": buffs.wrathregen = 10; break;
-      case "c":
+      if (Sim.stats.set_akkhan_2pc) buffs.rcr = 50;
+      if (Sim.stats.set_akkhan_6pc) buffs.dmgmul = 450;
+      if (rune === "b" || Sim.stats.leg_akkhansaddendum) buffs.wrathregen = 10;
+      if (rune === "c") {
         for (var id in skills) {
           if (id !== "akaratschampion" && skills[id].cooldown) {
             Sim.reduceCooldown(id, 12 * 60);
           }
         }
-        break;
-      case "d": buffs.armor_percent = 150; break;
-      case "e": buffs.ias = 15; break;
       }
+      if (rune === "d" || Sim.stats.leg_akkhansaddendum) buffs.armor_percent = 150;
+      if (rune === "e") buffs.ias = 15;
       Sim.addBuff("akaratschampion", buffs, {duration: 1200});
     },
     oninit: function(rune) {
@@ -860,8 +872,17 @@
   };
 
   function hf_ontick(data) {
-    Sim.damage({type: "area", range: data.range, coeff: data.coeff});
-    if (data.count > 1) Sim.damage({type: "area", count: data.count - 1, origin: data.range * 2, range: data.range, coeff: data.coeff});
+    var coeff = data.coeff;
+    if (Sim.stats.leg_braceroffury && (Sim.stats.blinded || Sim.stats.immobilized || Sim.stats.stunned)) {
+      coeff *= 1 + 0.01 * Sim.stats.leg_braceroffury;
+    }
+    Sim.damage({type: "area", range: data.range, coeff: coeff});
+    if (data.count > 1) Sim.damage({type: "area", count: data.count - 1, origin: data.range * 2, range: data.range, coeff: coeff});
+  }
+  function hf_fix() {
+    if (Sim.stats.leg_braceroffury && Sim.stats.blinded) {
+      this.factor = 1 + 0.01 * Sim.stats.leg_braceroffury;
+    }
   }
   skills.heavensfury = {
     offensive: true,
@@ -885,7 +906,7 @@
         Sim.addBuff("blessedground", undefined, {
           duration: 301,
           tickrate: 30,
-          ontick: {type: "area", range: 8, coeff: 1.55},
+          ontick: {type: "area", range: 8, coeff: 1.55, fix: hf_fix},
         });
         break;
       case "a":
@@ -917,7 +938,11 @@
   function bombardment_ontick(data) {
     var dmg = {type: "area", range: 12, coeff: 5.7};
     switch (data.buff.castInfo.rune) {
-    case "a": dmg.onhit = Sim.apply_effect("slowed", 300); break;
+    case "a":
+      dmg.onhit = function(data) {
+        Sim.damage({targets: data.targets, coeff: 2, thorns: true});
+      };
+      break;
     case "b": dmg.chc = 100; break;
     case "c": Sim.damage({delay: 30, type: "area", range: 10, spread: 30, count: 2, coeff: 1.6}); break;
     case "d":
@@ -973,9 +998,9 @@
       Sim.addBaseStats({armor_percent: Sim.stats.block});
     },
     lordcommander: {skill_crusader_phalanx: 20},
-    holdyourground: {block: 15},
+    holdyourground: {block: 30},
     longarmofthelaw: function() {},
-    ironmaiden: {thorns_percent: 50},
+    ironmaiden: {thorns_multiply: 50},
     renewal: function() {},
     finery: function() {
       Sim.addBaseStats({str_percent: Sim.stats.info.gems * 1.5});

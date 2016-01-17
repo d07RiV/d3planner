@@ -144,9 +144,9 @@
     laek: {name: "Life per Kill", format: "+%d Life after Each Kill", secondary: true, id: "Hitpoints_On_Kill"},
     healbonus: {name: "Health Globe Healing Bonus", format: "Health Globes and Potions Grant +%d Life.", secondary: true, id: "Health_Globe_Bonus_Health"}, 
     firethorns: {name: "Fire Thorns", format: "Ranged and melee attackers take %d Fire damage per hit", secondary: true, utility: true, id: "Thorns_Fixed#Fire"},
-    thorns: {name: "Thorns", format: "Ranged and melee attackers take %d damage per hit", secondary: true, utility: true, id: "Thorns_Fixed#Physical"},
+    thorns: {name: "Thorns", format: "+%d Thorns Damage", secondary: true, utility: true, id: "Thorns_Fixed#Physical"},
     ccr: {name: "Crowd Control Reduction", format: "Reduces duration of control impairing effects by %d%%", dr: true, secondary: true, utility: true, id: "CrowdControl_Reduction", percent: true},
-    expmul: {name: "Bonus Experience", format: "Increases Bonus Experience by %d%%", secondary: true, utility: true, id: "Experience_Bonus_Percent", percent: true},
+    expmul: {name: "Bonus Experience", format: "+%d%% Experience.", secondary: true, utility: true, id: "Experience_Bonus_Percent", percent: true},
     expadd: {name: "Bonus Experience per Kill", format: "Monster kills grant +%d experience.", secondary: true, utility: true, id: "Experience_Bonus"},
     pickup: {name: "Bonus to Gold/Globe Radius", format: "Increases Gold and Health Pickup by %d Yards.", secondary: true, utility: true, id: "Gold_PickUp_Radius"},
     lvlreq: {name: "Level Reduction", format: "Level Requirement Reduced by %d", secondary: true, utility: true, id: "Item_Level_Requirement_Reduction"},
@@ -160,6 +160,11 @@
     hitslow: {name: "Slow on Hit", format: "%.1f%% Chance to Slow on Hit", secondary: true, utility: true, dr: true, id: "On_Hit_Slow_Proc_Chance", srcs: ["On_Hit_Slow_Proc_Chance", "Weapon_On_Hit_Slow_Proc_Chance"], percent: true},
     hitimmobilize: {name: "Immobilize on Hit", format: "%.1f%% Chance to Immobilize on Hit", secondary: true, utility: true, dr: true, id: "On_Hit_Immobilize_Proc_Chance", srcs: ["On_Hit_Immobilize_Proc_Chance", "Weapon_On_Hit_Immobilize_Proc_Chance"], percent: true},
     hitknockback: {name: "Knockback on Hit", format: "%.1f%% Chance to Knockback on Hit", secondary: true, utility: true, dr: true, id: "On_Hit_Knockback_Proc_Chance", srcs: ["On_Hit_Knockback_Proc_Chance", "Weapon_On_Hit_Knockback_Proc_Chance"], percent: true},
+
+    caldesanns_str: {name: "Bonus Strength", format: "+%d Strength", classes: ["barbarian", "crusader", "templar"], caldesanns: true},
+    caldesanns_dex: {name: "Bonus Dexterity", format: "+%d Dexterity", classes: ["demonhunter", "monk", "scoundrel"], caldesanns: true},
+    caldesanns_int: {name: "Bonus Intelligence", format: "+%d Intelligence", classes: ["wizard", "witchdoctor", "enchantress"], caldesanns: true},
+    caldesanns_vit: {name: "Bonus Vitality", format: "+%d Vitality", caldesanns: true},
 
     petias: {name: "Pet Attack Speed"},
     rcrint: {name: "Resource Cost Reduction"},
@@ -197,6 +202,7 @@
     "resource": ["apregen", "apoc", "hatredregen", "manaregen", "lifespirit", "spiritregen",
                  "lifefury", "furyregen", "lifewrath", "wrathregen", "manaperkill",
                  "maxap", "maxdisc", "maxmana", "maxspirit", "maxfury", "maxwrath"],
+    "caldesanns": ["caldesanns_str", "caldesanns_dex", "caldesanns_int", "caldesanns_vit"],
     "skill_wizard_head": [
       "skill_wizard_disintegrate",
       "skill_wizard_arcanetorrent",
@@ -347,10 +353,11 @@
     ],
   };
   DiabloCalc.statExclusiveGroups = [
-    "weapon", "elemental", "resistany", "mainstat", "skill", "onhit", "lifeper",
+    "weapon", "elemental", "resistany", "mainstat", "skill", "onhit", "lifeper", "caldesanns",
   ];
   DiabloCalc.statList = {
     primary: {
+      "Caldesann's Despair": ["caldesanns"],
       "Sockets": ["sockets"],
       "Weapon Damage": ["weapon"],
       "Attributes": ["mainstat", "vit"],

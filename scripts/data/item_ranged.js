@@ -93,7 +93,7 @@ DiabloCalc.addItems([
     type: "bow",
     quality: "legendary",
     required: {
-      custom: {id: "leg_leoninebowofhashir", name: "Chance to Pull Enemies", format: "Bola Shot has a %d%% chance on explosion to pull in all enemies within 24 yards.", min: 15, max: 20},
+      custom: {id: "leg_leoninebowofhashir", name: "Chance to Pull Enemies", format: "Bolas have a %d%% chance on explosion to pull in all enemies within 24 yards.", min: 15, max: 20},
     },
     preset: ["mainstat"],
   },
@@ -169,12 +169,13 @@ DiabloCalc.addItems([
     required: {
       custom: {id: "leg_hellrack", name: "Chance to Root Enemies", format: "Chance to root enemies to the ground when you hit them.", args: 0},
     },
-    preset: ["wpnfir", "sockets"],
+    preset: ["wpnfir", "sockets", "mainstat"],
   },
 
   {
     id: "Unique_XBow_003_x1",
     name: "Manticore",
+    suffix: _L("Legacy"),
     type: "crossbow",
     quality: "legendary",
     preset: ["wpnpsn", "mainstat", "sockets"],
@@ -200,7 +201,7 @@ DiabloCalc.addItems([
     required: {
       custom: {id: "leg_wojahnniassaulter", name: "Rapid Fire Ramp-Up", format: "Rapid Fire deals %d%% more damage for every second that you channel. Stacks up to 4 times.", min: 30, max: 40},
     },
-    preset: ["sockets"],
+    preset: ["mainstat"],
   },
 
   {
@@ -246,15 +247,20 @@ DiabloCalc.addItems([
     name: "K'mar Tenclip",
     type: "handcrossbow",
     quality: "legendary",
+    affixes: {
+      skill_demonhunter_strafe: {min: 75, max: 100},
+    },
     required: {
       custom: {id: "leg_kmartenclip", name: "Strafe Gains Drifting Shadow", format: "Strafe gains the effect of the Drifting Shadow rune.", args: 0},
     },
-    preset: ["mainstat", "sockets"],
+    preset: ["mainstat", "sockets", "skill_demonhunter_strafe"],
+    primary: 5,
   },
 
   {
     id: "Unique_HandXBow_007_x1",
     name: "Dawn",
+    suffix: _L("Legacy"),
     type: "handcrossbow",
     quality: "legendary",
     affixes: {
@@ -363,15 +369,20 @@ DiabloCalc.addItems([
     name: "Wand of Woh",
     type: "wand",
     quality: "legendary",
+    affixes: {
+      skill_wizard_explosiveblast: {min: 75, max: 100},
+    },
     required: {
       custom: {id: "leg_wandofwoh", name: "Quadruple Explosive Blast", format: "3 additional Explosive Blasts are triggered after casting Explosive Blast.", args: 0},
     },
-    preset: ["mainstat"],
+    preset: ["mainstat", "skill_wizard_explosiveblast"],
+    primary: 5,
   },
 
   {
     id: "Unique_Wand_010_x1",
     name: "Fragment of Destiny",
+    suffix: _L("Legacy"),
     type: "wand",
     quality: "legendary",
     required: {
@@ -489,10 +500,14 @@ DiabloCalc.addItems([
     name: "Valla's Bequest",
     type: "handcrossbow",
     quality: "legendary",
+    affixes: {
+      skill_demonhunter_strafe: {min: 75, max: 100},
+    },
     required: {
       custom: {id: "leg_vallasbequest", name: "Strafe Pierce", format: "Strafe projectiles pierce.", args: 0},
     },
-    preset: ["mainstat", "maxdisc"],
+    preset: ["mainstat", "maxdisc", "skill_demonhunter_strafe"],
+    primary: 5,
   },
 
   {
@@ -507,6 +522,78 @@ DiabloCalc.addItems([
     },
     preset: ["mainstat", "damage"],
     primary: 5,
+  },
+
+  {
+    id: "P1_Wand_norm_unique_02",
+    name: "Unstable Scepter",
+    type: "wand",
+    quality: "legendary",
+    required: {
+      skill_wizard_arcaneorb: {min: 50, max: 65},
+      custom: {id: "leg_unstablescepter", name: "Double Arcane Orb Explosion", format: "Arcane Orb's explosion triggers an additional time.", args: 0},
+    },
+    preset: ["mainstat"],
+    primary: 5,
+  },
+
+  {
+    id: "P4_Unique_HandXBow_001",
+    name: "Dawn",
+    type: "handcrossbow",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_dawn", name: "Vengeance Cooldown Reduction", format: "Reduce the cooldown of Vengeance by %d%%.", min: 50, max: 65},
+    },
+    preset: ["mainstat", "wpnhol"],
+  },
+
+  {
+    id: "P4_Unique_HandXBow_01",
+    name: "Lianna's Wings",
+    type: "handcrossbow",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_liannaswings", name: "Smoke Screen on Shadow Power", format: "Shadow Power also triggers Smoke Screen.", args: 0},
+    },
+    preset: ["mainstat", "wpnhol"],
+  },
+
+  {
+    id: "P4_Unique_HandXBow_02",
+    name: "Fortress Ballista",
+    type: "handcrossbow",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_fortressballista", name: "Attacks Grant Absorb Shield", format: "Attacks grant you an absorb shield for %.1f%% of your maximum Life. Stacks up to 10 times.", min: 2, max: 3, step: 0.1},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P4_Unique_XBow_001",
+    name: "Manticore",
+    type: "crossbow",
+    quality: "legendary",
+    affixes: {
+      skill_demonhunter_clusterarrow: {min: 60, max: 80},
+    },
+    required: {
+      custom: {id: "leg_manticore", name: "Cluster Arrow Cost Reduction", format: "Reduces the Hatred cost of Cluster Arrow by %d%%.", min: 40, max: 50},
+    },
+    preset: ["mainstat", "wpnpsn", "skill_demonhunter_clusterarrow"],
+    primary: 5,
+  },
+
+  {
+    id: "P4_Unique_Wand_010",
+    name: "Fragment of Destiny",
+    type: "wand",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_fragmentofdestiny", name: "Spectral Blade Damage Increase", format: "Spectral Blade attacks 50%% faster and deals %d%% increased damage.", min: 150, max: 200},
+    },
+    preset: ["mainstat"],
   },
 
 ]);

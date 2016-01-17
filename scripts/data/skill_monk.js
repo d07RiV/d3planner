@@ -34,7 +34,7 @@ DiabloCalc.skills.monk = {
       case "x": res = {"Damage": {elem: "lit", coeff: 2}, "Third Hit Damage": {elem: "lit", coeff: 4}}; break;
       case "a": res = {"Damage": {elem: "lit", coeff: 2}, "Third Hit Damage": {elem: "lit", coeff: 4}, "Shockwave Damage": {elem: "lit", coeff: 1.2}}; break;
       case "e": res = {"Damage": {elem: "col", coeff: 2}, "Third Hit Damage": {elem: "col", coeff: 4}}; break;
-      case "c": res = {"Damage": {elem: "lit", coeff: 2}, "Third Hit Damage": {elem: "lit", coeff: 4}, "Static Charge Damage": {elem: "lit", coeff: 1.8}}; break;
+      case "c": res = {"Damage": {elem: "lit", coeff: 2}, "Third Hit Damage": {elem: "lit", coeff: 4}, "Static Charge Damage": {elem: "lit", coeff: 0.3}}; break;
       case "d": res = {"Damage": {elem: "phy", coeff: 2}, "Third Hit Damage": {elem: "phy", coeff: 4}}; break;
       case "b": res = {"Damage": {elem: "hol", coeff: 2}, "Third Hit Damage": {elem: "hol", coeff: 4}, "Arc Damage": {elem: "hol", coeff: 2.4}}; break;
       }
@@ -232,19 +232,8 @@ DiabloCalc.skills.monk = {
       case "e": res = {"Damage": {elem: "lit", coeff: 7.55}}; break;
       case "c": res = {"Damage": {elem: "col", coeff: 7.55}}; break;
       }
-      if (stats.set_inna_6pc) {
-        var ext = {pet: true, weapon: "mainhand", percent: {"Ally %": stats.skill_monk_mystically}};
-        res["Ally Damage"] = $.extend({}, res["Damage"], ext);
-        if (res["Burn Damage"]) res["Ally Burn Damage"] = $.extend({}, res["Burn Damage"], ext);
-        var count = (stats.leg_thecrudestboots ? 2 : 1);
-        var total = {sum: true, "Damage": {}, "Ally Damage": {count: count}};
-        if (res["Burn Damage"]) {
-          total["Burn Damage"] = {};
-          total["Ally Burn Damage"] = {count: count};
-        }
-        res["Total Damage"] = total;
-      }
-      return $.extend({"Cost": {cost: 50}}, res);
+      return $.extend({"Cost": {cost: 50}, "DPS": {sum: true,
+        "Damage": {fpa: 57.3913, speed: (stats.leg_riveradancers ? 1.5 : 1)}}}, res);
     },
   },
   tempestrush: {
@@ -260,6 +249,11 @@ DiabloCalc.skills.monk = {
       c: "Electric Field",
       a: "Bluster",
     },
+    active: true,
+    activetip: "3 or fewer targets",
+    activeshow: function(rune, stats) {
+      return !!stats.leg_balance;
+    },
     params: [{rune: "e", min: 1, max: 100, name: "Flurry Stacks", buffs: false}],
     info: function(rune, stats) {
       var res;
@@ -272,6 +266,9 @@ DiabloCalc.skills.monk = {
       case "a": res = {"Tick Damage": {elem: "fir", coeff: 3.9}}; break;
       }
       res["Tick Damage"].divide = {"Speed Factor": 3};
+      if (stats.leg_balance && this.active) {
+        res["Tick Damage"].chc = 100;
+      }
       return $.extend({"Cost": {cost: (rune === "d" ? 25 : 30), fpa: 20}, "DPS": {sum: true, "Tick Damage": {fpa: 20, speed: 1}}}, res);
     },
   },
@@ -288,6 +285,11 @@ DiabloCalc.skills.monk = {
       e: "Shattering Light",
       c: "Pillar of the Ancients",
     },
+    active: true,
+    activetip: "3 or fewer targets",
+    activeshow: function(rune, stats) {
+      return !!stats.leg_kyoshirosblade;
+    },
     info: function(rune, stats) {
       var res;
       switch (rune) {
@@ -298,22 +300,10 @@ DiabloCalc.skills.monk = {
       case "e": res = {"Damage": {elem: "col", coeff: 8.35}, "Wave Damage": {elem: "col", coeff: 8.2}}; break;
       case "c": res = {"Damage": {elem: "lit", coeff: 6.35}, "Residual Damage": {elem: "lit", coeff: 7.85, total: true}}; break;
       }
-      if (stats.set_inna_6pc) {
-        var ext = {pet: true, weapon: "mainhand", percent: {"Ally %": stats.skill_monk_mystically}};
-        res["Ally Damage"] = $.extend({}, res["Damage"], ext);
-        if (res["Wave Damage"]) res["Ally Wave Damage"] = $.extend({}, res["Wave Damage"], ext);
-        if (res["Residual Damage"]) res["Ally Residual Damage"] = $.extend({}, res["Residual Damage"], ext);
-        var count = (stats.leg_thecrudestboots ? 2 : 1);
-        var total = {sum: true, "Damage": {}, "Ally Damage": {count: count}};
-        if (res["Wave Damage"]) {
-          total["Wave Damage"] = {};
-          total["Ally Wave Damage"] = {count: count};
-        }
-        if (res["Residual Damage"]) {
-          total["Residual Damage"] = {};
-          total["Ally Residual Damage"] = {count: count};
-        }
-        res["Total Damage"] = total;
+      if (stats.leg_kyoshirosblade) {
+        var pct = {};
+        pct[DiabloCalc.itemById.P4_Unique_Fist_102.name] = (this.active ? stats.leg_kyoshirosblade : 150);
+        for (var id in res) res["Damage"].percent = pct;
       }
       return $.extend({"Cost": {cost: 75, rcr: "leg_incensetorchofthegrandtemple"}}, res);
     },
@@ -328,7 +318,7 @@ DiabloCalc.skills.monk = {
       d: "Self Reflection",
       c: "Mystifying Light",
       b: "Replenishing Light",
-      e: "Soothing Light",
+      e: "Crippling Light",
       a: "Faith in the Light",
     },
     info: {
@@ -342,7 +332,6 @@ DiabloCalc.skills.monk = {
     active: false,
     buffs: function(rune, stats) {
       if (rune === "a") return {damage: 29};
-      if (rune === "e") return {post_regen: 26821.05, post_regen_bonus: 90};
     },
   },
   breathofheaven: {
@@ -482,6 +471,9 @@ DiabloCalc.skills.monk = {
       if (stats.leg_thefistofazturrasq) {
         expl[DiabloCalc.itemById.Unique_Fist_009_x1.name] = stats.leg_thefistofazturrasq;
       }
+      if (stats.leg_thefistofazturrasq_p2) {
+        expl[DiabloCalc.itemById.P4_Unique_Fist_009_x1.name] = stats.leg_thefistofazturrasq_p2;
+      }
       var res;
       switch (rune) {
       case "x": res = {"Damage": {elem: "phy", coeff: 12, total: true}, "Explosion Damage": {elem: "phy", coeff: 27.7, percent: expl}}; break;
@@ -490,15 +482,6 @@ DiabloCalc.skills.monk = {
       case "b": res = {"Explosion Damage": {elem: "col", coeff: 63.05, percent: expl}}; break;
       case "a": res = {"Damage": {elem: "lit", coeff: 12, total: true}, "Explosion Damage": {elem: "lit", coeff: 27.7, percent: expl}}; break;
       case "e": res = {"Damage": {elem: "fir", coeff: 18.75, total: true}, "Explosion Damage": {elem: "fir", coeff: 32.6, percent: expl, total: true}}; break;
-      }
-      if (stats.set_inna_6pc) {
-        var ext = {pet: true, weapon: "mainhand", percent: {"Ally %": stats.skill_monk_mystically}};
-        if (res["Damage"]) {
-          res["Ally Damage"] = $.extend({}, res["Damage"], ext);
-          res["Total Damage"] = {sum: true, "Damage": {}, "Ally Damage": {count: (stats.leg_thecrudestboots ? 2 : 1)}};
-        }
-        res["Ally Explosion Damage"] = $.extend({}, res["Explosion Damage"], ext);
-        res["Total Explosion Damage"] = {sum: true, "Explosion Damage": {}, "Ally Explosion Damage": {count: (stats.leg_thecrudestboots ? 2 : 1)}};
       }
       return $.extend({"Cost": {cost: 40}}, res);
     },
@@ -521,7 +504,7 @@ DiabloCalc.skills.monk = {
       d: "Inner Storm",
       c: "Cyclone",
     },
-    params: [{min: 1, max: "leg_vengefulwind?6:3", name: "Stacks", buffs: false}],
+    params: [{min: 1, max: "3+(leg_vengefulwind?3:1)+leg_vengefulwind_p2", name: "Stacks", buffs: false}],
     info: {
       "*": {"Cost": {cost: 75}},
       x: {"DPS": {elem: "phy", aps: true, coeff: 1.05, factors: {"Stacks": "$1"}, total: true}},
@@ -558,11 +541,6 @@ DiabloCalc.skills.monk = {
       case "e": res = {"Damage": {elem: "col", coeff: 2.61}}; break;
       case "c": res = {"Damage": {elem: "hol", coeff: 2.61}, "Healing": DiabloCalc.formatNumber(31036 + (stats.healbonus || 0) * 0.17, 0, 1000)}; break;
       }
-      if (stats.set_inna_6pc) {
-        var ext = {pet: true, weapon: "mainhand", percent: {"Ally %": stats.skill_monk_mystically}};
-        res["Ally Damage"] = $.extend({}, res["Damage"], ext);
-        res["Total Damage"] = {sum: true, "Damage": {}, "Ally Damage": {count: (stats.leg_thecrudestboots ? 2 : 1)}};
-      }
       return $.extend({"Cost": {cost: (rune === "d" ? 26 : 50)}}, res);
     },
   },
@@ -598,16 +576,6 @@ DiabloCalc.skills.monk = {
           res["Damage"].factor[DiabloCalc.itemSets.uliana.name] = 7;
         }
       }
-      if (stats.set_inna_6pc) {
-        var ext = {pet: true, weapon: "mainhand", percent: {"Ally %": stats.skill_monk_mystically}};
-        res["Ally Damage"] = $.extend({}, res["Damage"], ext);
-        if (rune == "e") {
-          res["Ally Damage"].factors = {"Hits": 7};
-        } else {
-          res["Ally Damage"].divide = undefined;
-        }
-        res["Total Damage"]["Ally Damage"] = {count: (stats.leg_thecrudestboots ? 2 : 1)};
-      }
       if (stats.leg_gungdogear && stats.set_uliana_6pc) {
         var ep_rune = (stats.skills.explodingpalm || "x");
         var ep_info = DiabloCalc.skills.monk.explodingpalm.info(ep_rune, stats);
@@ -641,23 +609,56 @@ DiabloCalc.skills.monk = {
       e: "Enduring Ally",
       c: "Earth Ally",
     },
-    info: {
-      "*": {"Cooldown": {cooldown: 30}},
-      x: {"Damage": {elem: "phy", pet: true, coeff: 1.3, percent: {"Inna's Mantra": "set_inna_2pc?100:0"}}, "DPS": {sum: true, "Damage": {pet: 42, speed: 1, count: "leg_thecrudestboots?2:1"}}, "Activated Damage": {elem: "phy", pet: true, aps: true, coeff: 1.3, percent: {"Activation": 50, "Inna's Mantra": "set_inna_2pc?100:0"}}, "Activated DPS": {sum: true, "Activated Damage": {pet: 42, count: "leg_thecrudestboots?2:1"}}},
-      b: {"Damage": {elem: "col", pet: true, coeff: 1.3, percent: {"Inna's Mantra": "set_inna_2pc?100:0"}}, "DPS": {sum: true, "Damage": {pet: 42, speed: 1, count: "leg_thecrudestboots?2:1"}}, "Activation Damage": {elem: "col", pet: true, coeff: 6.25}, "Total Activation Damage": {sum: true, "Activation Damage": {count: "7*(leg_thecrudestboots?2:1)"}}},
-      a: {"Damage": {elem: "fir", pet: true, coeff: 1.3, percent: {"Inna's Mantra": "set_inna_2pc?100:0"}}, "DPS": {sum: true, "Damage": {pet: 42, speed: 1, count: "leg_thecrudestboots?2:1"}}, "Explosion Damage": {elem: "fir", pet: true, coeff: 2.9}},
-      d: {"Damage": {elem: "hol", pet: true, coeff: 1.3, percent: {"Inna's Mantra": "set_inna_2pc?100:0"}}, "DPS": {sum: true, "Damage": {pet: 42, speed: 1, count: "leg_thecrudestboots?2:1"}}},
-      e: {"Damage": {elem: "phy", pet: true, coeff: 1.3, percent: {"Inna's Mantra": "set_inna_2pc?100:0"}}, "DPS": {sum: true, "Damage": {pet: 42, speed: 1, count: "leg_thecrudestboots?2:1"}}},
-      c: {"Damage": {elem: "phy", pet: true, coeff: 1.3, percent: {"Inna's Mantra": "set_inna_2pc?100:0"}}, "DPS": {sum: true, "Damage": {pet: 42, speed: 1, count: "leg_thecrudestboots?2:1"}}, "Boulder DPS": {elem: "phy", pet: true, aps: true, coeff: 3.8, total: true}},
+    info: function(rune, stats) {
+      var res = {"Cooldown": {cooldown: 30}};
+      var runes = this.runes;
+      if (!stats.set_inna_6pc) {
+        runes = {};
+        runes[rune] = "Damage";
+      }
+      var pct = {};
+      if (stats.set_inna_2pc) pct[DiabloCalc.itemSets.inna.name] = 100;
+      var count = (stats.leg_thecrudestboots ? 2 : 1);
+      var nobp = false;
+      var highest = undefined, highestValue = 0;
+      var dps = {sum: true};
+      for (var x in runes) {
+        var info = {};
+        info[runes[x]] = {elem: DiabloCalc.skilltips.monk.mystically.elements[x],
+          pet: true, coeff: 1.3 * (stats.set_inna_2pc ? 2 : 1)};
+        var pci = DiabloCalc.skill_processInfo(info, {skill: ["mystically", x]})[runes[x]];
+        dps[runes[x]] = {pet: 42, speed: 1, count: count, value: pci.value, nobp: nobp};
+        nobp = true;
+        if (pci.value > highestValue) {
+          highest = info[runes[x]];
+          highestValue = pci.value;
+        }
+      }
+      if (highest) res["Damage"] = highest;
+      res["DPS"] = dps;
+      if ("x" in runes) {
+        res["Activated Damage"] = {elem: "phy", pet: true, aps: true, coeff: 1.3,
+          percent: $.extend({"Activation": 50}, pct)};
+      }
+      if ("b" in runes) {
+        res["Wave Damage"] = {elem: "col", pet: true, coeff: 6.25, factors: {"Count": 7 * count}};
+      }
+      if ("a" in runes) {
+        res["Explosion Damage"] = {elem: "fir", pet: true, coeff: 4.8, factors: {"Count": 5 * count}};
+      }
+      if ("c" in runes) {
+        res["Boulder DPS"] = {elem: "phy", pet: true, aps: true, coeff: 3.8, total: true, factors: {"Count": count}};
+      }
+      return res;
     },
     passive: function(rune, stats) {
       var count = (stats.leg_thecrudestboots ? 2 : 1) * (stats.set_inna_2pc ? 2 : 1);
-      switch (rune) {
-      case "a": return {damage: 10 * count};
-      case "d": return {spiritregen: 4 * count};
-      case "e": return {regen: (10728.42 + stats.regen * 0.3) * count};
-      case "c": return {life: 20 * count};
-      }
+      var res = {};
+      if (rune === "a" || stats.set_inna_6pc) res.damage = 10 * count;
+      if (rune === "d" || stats.set_inna_6pc) res.spiritregen = 4 * count;
+      if (rune === "e" || stats.set_inna_6pc) res.regen = (10728.42 + stats.regen * 0.07) * count;
+      if (rune === "c" || stats.set_inna_6pc) res.life = 20 * count;
+      return res;
     },
   },
   epiphany: {
@@ -775,7 +776,7 @@ DiabloCalc.skills.monk = {
     },
     passive: function(rune, stats) {
       var regen = 10728.42;
-      regen += (stats.regen || 0) * 0.3;
+      regen += (stats.regen || 0) * 0.07;
       regen *= (stats.set_inna_2pc ? 2 : 1);
       switch (rune) {
       case "x": return {regen: regen};

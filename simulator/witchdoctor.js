@@ -118,6 +118,9 @@
   skills.firebomb = {
     signature: true,
     offensive: true,
+    generate: function(rune) {
+      return Sim.stats.leg_mordulluspromise;
+    },
     speed: 58,
     oncast: function(rune) {
       switch (rune) {
@@ -152,13 +155,15 @@
     offensive: true,
     speed: 57.142853,
     cost: {x: 150, a: 150, e: 150, d: 150, b: 150},
-    cooldown: {x: 8, c: 8, a: 8, e: 8, d: 4, b: 8},
+    cooldown: function(rune) {
+      if (!Sim.stats.leg_wilkensreach) return (rune === "d" ? 4 : 8);
+    },
     oncast: function(rune) {
       if (rune === "b" || Sim.stats.leg_deadlyrebirth) {
         Sim.addBuff(undefined, undefined, {
-          duration: 481,
-          tickrate: 120,
-          ontick: {type: "area", range: 8, radius: 45, coeff: 1.05},
+          duration: 181,
+          tickrate: 90,
+          ontick: {type: "area", range: 8, radius: 45, coeff: 2.1},
         });
       }
       Sim.addBuff("graspofthedead", undefined, {
@@ -177,8 +182,12 @@
     offensive: true,
     channeling: {x: 30, a: 60, d: 30, c: 30, b: 30, e: 30},
     speed: 87.804871,
-    initialcost: {d: 250},
-    cost: {x: 125, a: 125, c: 125, b: 125, e: 125},
+    initialcost: function(rune) {
+      if (rune === "d") return 250 * (1 - 0.01 * (Sim.stats.leg_staffofchiroptera || 0));
+    },
+    cost: function(rune) {
+      if (rune !== "d") return 125 * (1 - 0.01 * (Sim.stats.leg_staffofchiroptera || 0));
+    },
     oncast: function(rune) {
       var dmg = {type: "cone", width: 40, range: 28, coeff: 4.75 / 2};
       switch (rune) {
@@ -198,7 +207,7 @@
       case "e":
         dmg = function(data) {
           var coeff = 4.25 * (1 + 0.2 * Math.min(5, data.buff.ticks)) / 2;
-          Sim.damage({type: "area", range: 12, self: true, coeff: coeff});
+          Sim.damage({type: "area", range: 15, self: true, coeff: coeff});
         };
         break;
       }
@@ -206,7 +215,7 @@
       if (Sim.stats.leg_coilsofthefirstspider) {
         base = {buffs: {lph: Sim.stats.leg_coilsofthefirstspider, dmgred: 30}};
       }
-      Sim.channeling("firebats", this.channeling[rune], dmg, undefined, base);
+      Sim.channeling("firebats", this.channeling[rune] / (Sim.stats.leg_staffofchiroptera ? 2 : 1), dmg, undefined, base);
     },
     proctable: {x: 0.1667, a: 0.333, d: 0.2, c: 0.2, b: 0.5, e: 0.25},
     elem: {x: "fir", a: "fir", d: "phy", c: "psn", b: "fir", e: "fir"},
@@ -219,7 +228,7 @@
     }
   }
   function jade2_onrefresh(data) {
-    Sim.damage({coeff: data.coeff * 50});
+    Sim.damage({coeff: data.coeff * 300});
   }
   function haunt_onhit(data) {
     var params = {
@@ -233,7 +242,7 @@
       ontick: haunt_ontick,
     };
     if (Sim.stats.passives.creepingdeath) {
-      params.duration = 18000;
+      params.duration = 3600 * 60;
     }
     if (Sim.stats.leg_quetzalcoatl) {
       params.duration /= 2;
@@ -260,7 +269,7 @@
       Sim.damage({delay: Math.floor(Sim.target.distance / 2), count: count, coeff: 0, onhit: haunt_onhit});
     },
     proctable: 1,
-    elem: {x: "col", a: "fir", e: "col", b: "col", c: "psn", d: "col"},
+    elem: {x: "col", a: "fir", e: "col", b: "col", c: "psn", d: "phy"},
   };
 
   function swarm_ontick(data) {
@@ -288,7 +297,7 @@
       params.data.coeff = 1.85 / 5;
     }
     if (Sim.stats.passives.creepingdeath) {
-      params.duration = 18000;
+      params.duration = 3600 * 60;
     }
     if (Sim.stats.leg_quetzalcoatl) {
       params.duration /= 2;
@@ -302,7 +311,7 @@
       if (!data.castInfo.user) data.castInfo.user = {};
       data.castInfo.user.spread = true;
       var spread = data.targets;
-      if (data.castInfo.rune === "b") {
+      if (data.castInfo.rune === "b" || Sim.stats.leg_vilehive) {
         spread *= 2;
       }
       spread = Math.min(Sim.target.count - Sim.getBuff("locustswarm"), spread);
@@ -326,7 +335,7 @@
     Sim.addBuff(undefined, undefined, {
       duration: 181,
       tickrate: 60,
-      ontick: {pet: true, coeff: 0.1 * Sim.stats.info.aps, count: data.targets},
+      ontick: {pet: true, coeff: 0.4 * Sim.stats.info.aps, count: data.targets},
     });
   }
   function dogs_chilled_onhit(data) {
@@ -347,7 +356,7 @@
         maxstacks: 3,
         tickrate: [52, 58],
         refresh: false,
-        data: {coeff: 0.3},
+        data: {coeff: 1.2},
         ontick: dogs_ontick,
       };
       if (Sim.stats.passives.zombiehandler) params.maxstacks += 1;
@@ -376,7 +385,7 @@
         Sim.after(30, function burning() {
           var stacks = Sim.getBuff("zombiedogs");
           if (stacks) {
-            Sim.damage({type: "area", range: 8, origin: 5, coeff: 0.05 * Sim.stats.info.aps, pet: true, count: stacks});
+            Sim.damage({type: "area", range: 8, origin: 5, coeff: 0.2 * Sim.stats.info.aps, pet: true, count: stacks});
           }
           Sim.after(30, burning);
         });
@@ -388,9 +397,7 @@
   skills.horrify = {
     secondary: true,
     speed: 57.692299,
-    cooldown: function(rune) {
-      return 12 - (Sim.stats.passives.spiritvessel ? 2 : 0);
-    },
+    cooldown: 10,
     oncast: function(rune) {
       var duration = 180;
       var range = 18;
@@ -398,7 +405,7 @@
       case "c": duration = 300; break;
       case "e": Sim.addBuff("stalker", {extrams: 20}, {duration: 240}); break;
       case "b": range = 24; break;
-      case "a": Sim.addBuff("frighteningaspect", {armor_percent: 35}, {duration: 480}); break;
+      case "a": Sim.addBuff("frighteningaspect", {armor_percent: 50}, {duration: 480}); break;
       }
       var targets = Sim.getTargets(range, Sim.target.distance);
       if (targets) {
@@ -421,9 +428,7 @@
   skills.spiritwalk = {
     secondary: true,
     speed: 43.902412,
-    cooldown: function(rune) {
-      return 12 - (Sim.stats.passives.spiritvessel ? 2 : 0);
-    },
+    cooldown: 10,
     duration: {x: 120, b: 180, d: 120, c: 120, a: 120, e: 120},
     oncast: function(rune) {
       var buffs = {extrams: 50};
@@ -432,10 +437,7 @@
       case "b": duration = 180; break;
       case "d": Sim.addResource(0.2 * (Sim.stats.maxmana || 0)); break;
       case "c": params.onexpire = sw_shock; break;
-      case "a":
-        params.tickrate = 15;
-        params.ontick = {type: "area", range: 5, self: true, coeff: 2.25 / 4};
-        break;
+      case "a": buffs.extrams += 100; break;
       }
       Sim.addBuff("spiritwalk", buffs, params);
     },
@@ -452,9 +454,6 @@
     oncast: function(rune) {
       if (rune === "a" || Sim.stats.set_arachyr_4pc) {
         var buffs = {dmgtaken: 25};
-        if (Sim.stats.set_arachyr_4pc) {
-          buffs.dmgred = 40;
-        }
         Sim.addBuff("toadofhugeness", buffs, {
           duration: 301,
           tickrate: 30,
@@ -464,7 +463,7 @@
       }
       if (rune === "b") {
         var mj = (Sim.stats.set_manajuma_2pc ? 1 : 0);
-        Sim.addBuff("angrychicken", {shift: "angrychicken", extrams: 50 + mj * 100}, {
+        Sim.addBuff("angrychicken", {shift: "angrychicken", extrams: 50 + mj * 200}, {
           duration: mj ? 900 : 120,
           onexpire: function(data) {
             Sim.damage({type: "area", range: 12, self: true, coeff: 13.5 * (1 + 2 * mj)});
@@ -505,7 +504,7 @@
       Sim.pushCastInfo(stack.castInfo);
       var event = Sim.calcDamage({coeff: stack.data.coeff});
       Sim.popCastInfo();
-      total += event.damage * Sim.reduceStackDuration(id, stack, 2400) / tickrate;
+      total += event.damage * Sim.reduceStackDuration(id, stack, 150 * 60) / tickrate;
       --targets;
     }
     return total;
@@ -513,9 +512,7 @@
   skills.soulharvest = {
     secondary: true,
     speed: 58.536537,
-    cooldown: function(rune) {
-      return 15 - (Sim.stats.passives.spiritvessel ? 2 : 0);
-    },
+    cooldown: 12,
     oncast: function(rune) {
       Sim.removeBuff("soulharvest");
       var targets = Math.ceil(Sim.getTargets(18, Sim.target.distance));
@@ -525,11 +522,14 @@
         buffs.maxmana_percent = 5;
       }
       if (rune === "c" || Sim.stats.set_jadeharvester_4pc) {
-        Sim.addBuff("languish", {armor_percent: 30}, {duration: 300, status: "slowed"});
+        buffs.armor_percent = 10;
       }
       var duration = 1800;
       if (rune === "b" || Sim.stats.set_jadeharvester_4pc) {
         buffs.extrams = 5;
+      }
+      if (Sim.stats.leg_lakumbasornament) {
+        buffs.dmgred = 6;
       }
       Sim.addBuff("soulharvest", buffs, {duration: duration, stacks: targets, maxstacks: Sim.stats.leg_sacredharvester ? 10 : 5});
       if (rune === "e" || Sim.stats.set_jadeharvester_4pc) {
@@ -590,7 +590,7 @@
     },
     oncast: function(rune) {
       if (rune === "a") {
-        Sim.addBuff("paranoia", {dmgtaken: 20}, {duration: 720});
+        Sim.addBuff("paranoia", {dmgtaken: 30}, {duration: 720});
       }
       if (rune === "c") {
         Sim.addBuff(undefined, undefined, {
@@ -629,8 +629,10 @@
     elem: {x: "psn", c: "phy", d: "psn", b: "col", e: "fir", a: "psn"},
   };
 
-  function sb_siw_onhit(data) {
-    Sim.addResource(12 * data.targets);
+  function sb_onhit(data) {
+    if (data.castInfo.rune === "d" || Sim.stats.leg_voosjuicer) {
+      Sim.addResource(12 * data.targets);
+    }
   }
   skills.spiritbarrage = {
     offensive: true,
@@ -638,11 +640,11 @@
     cost: 100,
     oncast: function(rune) {
       switch (rune) {
-      case "x": return {delay: 30, count: 4, coeff: 4.25 / 4};
-      case "d": return {delay: 30, count: 4, coeff: 4.25 / 4, onhit: sb_siw_onhit};
+      case "x": return {delay: 30, count: 4, coeff: 1.5, onhit: sb_onhit};
+      case "d": return {delay: 30, count: 4, coeff: 1.5, onhit: sb_onhit};
       case "b":
         Sim.damage({delay: 30, count: 3, coeff: 0.65});
-        return {delay: 30, count: 4, coeff: 4.25 / 4, onhit: sb_siw_onhit};
+        return {delay: 30, count: 4, coeff: 1.5, onhit: sb_onhit};
       case "c":
         Sim.addBuff("phantasm", undefined, {
           maxstacks: 3,
@@ -652,12 +654,12 @@
           ontick: {type: "area", range: 10, coeff: 1.35 / 2},
         });
         break;
-      case "a": return {delay: 30, count: 4, coeff: 4.25 / 4, onhit: Sim.apply_effect("charmed", 240, 0.04)};
+      case "a": return {delay: 30, count: 4, coeff: 1.5, onhit: sb_onhit};
       case "e":
         Sim.addBuff("manitou", undefined, {
-          duration: 1200,
-          tickrate: 36,
-          ontick: {coeff: 0.87},
+          duration: 1201,
+          tickrate: 30,
+          ontick: {coeff: 1.5},
         });
         break;
       }
@@ -727,7 +729,7 @@
         duration: 360,
         tickrate: 12,
         tickinitial: 1,
-        ontick: {type: "line", origin: 14, range: 28, radius: 5, pierce: true, coeff: 10 / 30},
+        ontick: {type: "line", origin: 14, range: 28, radius: 5, pierce: true, coeff: 0.4},
       };
       switch (rune) {
       case "b":
@@ -740,7 +742,7 @@
         if (!Sim.target.boss) Sim.addBuff("knockback", undefined, 30);
         break;
       case "a":
-        params.duration = 240;
+        params.duration = 300;
         params.ontick = {type: "area", range: 15, coeff: 0.5};
         break;
       case "e":
@@ -763,7 +765,7 @@
     }
     var duration = 60;
     if (data.castInfo.rune === "d") duration = 480;
-    if (Sim.stats.passives.creepingdeath) duration = 18000;
+    if (Sim.stats.passives.creepingdeath) duration = 3600 * 60;
     Sim.addBuff("piranhas", {dmgtaken: 15}, {duration: duration});
   }
   skills.piranhas = {
@@ -809,7 +811,7 @@
     case "a":
       if (Sim.time >= nextEnrage) {
         Sim.addBuff("restlessgiant", {dmgmul: {skills: ["gargantuan"], percent: 200}}, {duration: 900});
-        nextEnrage = Sim.time + 7200;
+        nextEnrage = Sim.time + 45 * 60;
       }
       data.ias = (Sim.getBuff("restlessgiant" ? 35 : 0));
       break;
@@ -835,11 +837,11 @@
       var params = {
         tickrate: 84,
         refresh: false,
-        data: {coeff: 1},
+        data: {coeff: 4.5},
         ontick: garg_ontick,
       };
       switch (rune) {
-      case "b": params.data.coeff = 1.3; break;
+      case "b": params.data.coeff = 5.85; break;
       case "d": params.data.coeff = 5.75; params.duration = 900; break;
       }
       if (Sim.stats.leg_theshortmansfinger) {
@@ -852,7 +854,7 @@
         Sim.after(60, function poison() {
           var stacks = Sim.getBuff("gargantuan");
           if (stacks) {
-            Sim.damage({type: "area", range: 12, origin: 5, coeff: 0.45 * Sim.stats.info.aps, pet: true, count: stacks});
+            Sim.damage({type: "area", range: 12, origin: 5, coeff: 1.35 * Sim.stats.info.aps, pet: true, count: stacks});
           }
           Sim.after(60, poison);
         });

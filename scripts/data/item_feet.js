@@ -6,7 +6,7 @@ DiabloCalc.addItems([
     type: "boots",
     quality: "legendary",
     required: {
-      custom: {id: "leg_lutsocks", name: "Leap can be cast multiple times", format: "Leap can be cast again within 2 seconds before the cooldown begins.", args: 0},
+      custom: {id: "leg_lutsocks", name: "Leap can be cast multiple times", format: "Leap can be cast up to three times within 2 seconds before the cooldown begins.", args: 0},
     },
     preset: ["mainstat"],
   },
@@ -334,6 +334,36 @@ DiabloCalc.addItems([
     type: "boots",
     quality: "set",
     set: "light",
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "P4_Unique_Boots_001",
+    local: true,
+    name: "Rivera Dancers",
+    type: "boots",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_riveradancers", name: "Lashing Tail Kick Damage", format: "Lashing Tail Kick attacks 50%% faster and deals %d%% increased damage.", min: 250, max: 300},
+    },
+    preset: ["mainstat", "resall"],
+  },
+
+  {
+    id: "Unique_Boots_Set_12_x1",
+    name: "Zeal of the Invoker",
+    type: "boots",
+    quality: "set",
+    set: "invoker",
+    preset: ["mainstat", "thorns"],
+  },
+
+  {
+    id: "Unique_Boots_Set_15_x1",
+    name: "Foundation of the Earth",
+    type: "boots",
+    quality: "set",
+    set: "earth",
     preset: ["mainstat", "vit"],
   },
 

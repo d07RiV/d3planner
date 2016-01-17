@@ -177,9 +177,13 @@ DiabloCalc.skills.demonhunter = {
       var sentries = (stats.skills.sentry || stats.leg_helltrapper ? DiabloCalc.skills.demonhunter.sentry.params[0].val : 0);
       if (stats.set_marauder_4pc && sentries) {
         var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
+        ext.percent[DiabloCalc.itemSets.marauder.name] = 200;
         res["Sentry Damage"] = $.extend({}, res["Damage"], ext);
         DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Damage"], stats);
         if (res["Burn Damage"]) res["Sentry Burn Damage"] = $.extend({}, res["Burn Damage"], ext);
+      }
+      if (stats.set_shadow_6pc) {
+        res["First Target Bonus"] = {elem: res["Damage"].elem, coeff: 400};
       }
       var total = {};
       if (res["Sentry Damage"]) total["Sentry Damage"] = {count: sentries};
@@ -216,7 +220,9 @@ DiabloCalc.skills.demonhunter = {
       case "b": res = {"Tick Damage": {elem: "lit", coeff: 6.85}}; break;
       case "a": res = {"Tick Damage": {elem: "fir", coeff: 5.45, passives: {grenadier: 10}}}; break;
       }
-      res = $.extend({"Cost": {cost: (rune === "d" ? 10 : 20)}, "Channeling Cost": {cost: 6, slowest: true, fpa: (rune === "a" ? 20 : 10)}}, res);
+      var cost = {"Cost": {cost: (rune === "d" ? 10 : 20)}};
+      if (!stats.leg_sinseekers) cost["Channeling Cost"] = {cost: 6, slowest: true, fpa: (rune === "a" ? 20 : 10)};
+      res = $.extend(cost, res);
       res["Tick Damage"].divide = {"Base Speed": (rune === "a" ? 3 : 6)};
       res["DPS"] = {sum: true, tip: ["Snapshots the speed of your current weapon", "Calculations are based on your slowest weapon"],
         "Tick Damage": {speed: 1, slowest: true, fpa: (rune === "a" ? 20 : 10)}};
@@ -237,6 +243,9 @@ DiabloCalc.skills.demonhunter = {
       b: "Boomerang",
       e: "Shuriken Cloud",
     },
+    params: [{min: 0, max: "maxhatred", name: "Hatred", show: function(rune, stats) {
+               return !!stats.leg_swordofillwill;
+             }}],
     info: function(rune, stats) {
       var res;
       switch (rune) {
@@ -245,15 +254,22 @@ DiabloCalc.skills.demonhunter = {
       case "c": res = {"Damage": {elem: "col", coeff: 5}}; break;
       case "d": res = {"Damage": {elem: "phy", coeff: 3.8}}; break;
       case "b": res = {"Damage": {elem: "lit", coeff: 4}}; break;
-      case "e": res = {"DPS": {elem: "phy", aps: true, coeff: 2, total: true}}; break;
+      case "e": res = {"DPS": {elem: "phy", coeff: 2, total: true}}; break;
       }
       if (!stats.leg_spinesofseethinghatred) {
         res = $.extend({"Cost": {cost: 10}}, res);;
+      }
+      if (stats.leg_swordofillwill) {
+        var pct = {};
+        pct[DiabloCalc.itemById.P4_Unique_Sword_1H_01.name] = stats.leg_swordofillwill * this.params[0].val;
+        if (res["Damage"]) res["Damage"].percent = pct;
+        if (res["DPS"]) res["DPS"].percent = pct;
       }
       if (rune !== "e") {
         var sentries = (stats.skills.sentry || stats.leg_helltrapper ? DiabloCalc.skills.demonhunter.sentry.params[0].val : 0);
         if (stats.set_marauder_4pc && sentries) {
           var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
+          ext.percent[DiabloCalc.itemSets.marauder.name] = 200;
           res["Sentry Damage"] = $.extend({}, res["Damage"], ext);
           DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Damage"], stats);
         }
@@ -302,6 +318,7 @@ DiabloCalc.skills.demonhunter = {
       var sentries = (stats.skills.sentry || stats.leg_helltrapper ? DiabloCalc.skills.demonhunter.sentry.params[0].val : 0);
       if (stats.set_marauder_4pc && sentries) {
         var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
+        ext.percent[DiabloCalc.itemSets.marauder.name] = 200;
         res["Sentry Damage"] = $.extend({}, res["Damage"], ext);
         DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Damage"], stats);
         if (res["Explosion Damage"]) {
@@ -370,7 +387,7 @@ DiabloCalc.skills.demonhunter = {
       e: {"Cost": {cost: 14, resource: "disc"}, "Uptime": {cooldown: 1.5, duration: 1, after: true}},
       b: {"Cost": {cost: 14, resource: "disc"}, "Uptime": {cooldown: 1.5, duration: 1.5, after: true}},
       c: {"Cost": {cost: 14, resource: "disc"}, "Uptime": {cooldown: 1.5, duration: 1, after: true}},
-      d: {"Cost": {cost: 10, resource: "disc"}, "Uptime": {cooldown: 1.5, duration: 1, after: true}},
+      d: {"Cost": {cost: 8, resource: "disc"}, "Uptime": {cooldown: 1.5, duration: 1, after: true}},
       a: {"Uptime": {cooldown: 6, duration: 1, after: true}},
     },
     active: false,
@@ -392,22 +409,24 @@ DiabloCalc.skills.demonhunter = {
       c: "Gloom",
       b: "Shadow Glide",
     },
-    info: {
-      "*": {"Cost": {cost: 14, resource: "disc"}},
-      "d": {"Cost": {cost: 10, resource: "disc"}},
+    info: function(rune, stats) {
+      if (!stats.set_shadow_4pc) {
+        return {"Cost": {cost: (rune === "d" ? 8 : 14), resource: "disc"}};
+      }
     },
-    active: false,
+    active: true,
     buffs: function(rune, stats) {
+      var lph = 26821 + (stats.laek || 0) * 0.25;
       if (stats.set_shadow_4pc) {
-        return {lph: 32185, dmgred: 35, extrams: 30};
+        return {lph: lph * 2, dmgred: 35, extrams: 30};
       } else {
         switch (rune) {
-        case "x": return {lph: 16093};
-        case "a": return {lph: 16093};
-        case "e": return {lph: 32185};
-        case "d": return {lph: 16093};
-        case "c": return {lph: 16093, dmgred: 35};
-        case "b": return {lph: 16093, extrams: 30};
+        case "x": return {lph: lph};
+        case "a": return {lph: lph};
+        case "e": return {lph: lph * 2};
+        case "d": return {lph: lph};
+        case "c": return {lph: lph, dmgred: 35};
+        case "b": return {lph: lph, extrams: 30};
         }
       }
     },
@@ -427,6 +446,10 @@ DiabloCalc.skills.demonhunter = {
     },
     info: function(rune, stats) {
       var res = {"Cost": {cost: 8, resource: (stats.set_danetta_2pc ? "hatred" : "disc")}};
+      if (rune === "b") {
+        delete res["Cost"];
+        res["Cooldown"] = {cooldown: 6};
+      }
       if (rune === "d") res["Tumble Cost"] = {cost: 4, resource: res["Cost"].resource};
       if (rune === "c") {
         res["Damage"] = {elem: "phy", weapon: "mainhand", coeff: 0.75, chc: 100/*, tip: ["Uses currently active weapon", "@Does not switch weapons"]*/};
@@ -461,7 +484,7 @@ DiabloCalc.skills.demonhunter = {
       e: {"Cooldown": {cooldown: 45}},
     },
     passive: {
-      b: {maxdisc: 15},
+      b: {maxdisc: 20},
     },
   },
   companion: {
@@ -640,7 +663,7 @@ DiabloCalc.skills.demonhunter = {
     },
     active: true,
     buffs: {
-      e: {dmgred: 15},
+      e: {dmgred: 25},
     },
   },
   vengeance: {
@@ -657,16 +680,20 @@ DiabloCalc.skills.demonhunter = {
       a: "From the Shadows",
     },
     info: {
-      x: {"Side Guns Damage": {elem: "phy", weapon: "mainhand", coeff: 0.6}, "Homing Rockets Damage": {elem: "phy", weapon: "mainhand", coeff: 0.4, passives: {ballistics: 100}}, "Total Damage per Attack": {sum: true, "Side Guns Damage": {count: 4}, "Homing Rockets Damage": {count: 4}}, "Uptime": {duration: 15, cooldown: 90}},
-      c: {"Side Guns Damage": {elem: "fir", weapon: "mainhand", coeff: 0.6}, "Grenades Damage": {elem: "fir", weapon: "mainhand", coeff: 1.5, passives: {grenadier: 10}}, "Total Damage per Attack": {sum: true, "Side Guns Damage": {count: 4}, "Grenades Damage": {count: 2}}, "Uptime": {duration: 15, cooldown: 90}},
-      b: {"Side Guns Damage": {elem: "lit", weapon: "mainhand", coeff: 0.6}, "Homing Rockets Damage": {elem: "lit", weapon: "mainhand", coeff: 0.4, passives: {ballistics: 100}}, "Total Damage per Attack": {sum: true, "Side Guns Damage": {count: 4}, "Homing Rockets Damage": {count: 4}}, "Vengeance DPS": {elem: "lit", weapon: "mainhand", aps: true, coeff: 3.25, total: true}, "Uptime": {duration: 15, cooldown: 90}},
-      d: {"Cannon Damage": {elem: "phy", weapon: "mainhand", coeff: 2.25}, "Uptime": {duration: 15, cooldown: 90}},
-      e: {"Side Guns Damage": {elem: "phy", weapon: "mainhand", coeff: 0.6}, "Homing Rockets Damage": {elem: "phy", weapon: "mainhand", coeff: 0.4, passives: {ballistics: 100}}, "Total Damage per Attack": {sum: true, "Side Guns Damage": {count: 4}, "Homing Rockets Damage": {count: 4}}, "Uptime": {duration: 15, cooldown: 90}},
-      a: {"Side Guns Damage": {elem: "col", weapon: "mainhand", coeff: 0.6}, "Shadow Clone Damage": {elem: "col", weapon: "mainhand", coeff: 1.2}, "Total Damage per Attack": {sum: true, "Side Guns Damage": {count: 4}, "Shadow Clone Damage": {}}, "Uptime": {duration: 15, cooldown: 90}},
+      "*": {"Uptime": {duration: 20, cooldown: 90, cdr: "leg_dawn"}},
+      x: {"Side Guns Damage": {elem: "phy", weapon: "mainhand", coeff: 0.6}, "Homing Rockets Damage": {elem: "phy", weapon: "mainhand", coeff: 0.4, passives: {ballistics: 100}}, "Total Damage per Attack": {sum: true, "Side Guns Damage": {count: 4}, "Homing Rockets Damage": {count: 4}}},
+      c: {"Side Guns Damage": {elem: "fir", weapon: "mainhand", coeff: 0.6}, "Grenades Damage": {elem: "fir", weapon: "mainhand", coeff: 1.5, passives: {grenadier: 10}}, "Total Damage per Attack": {sum: true, "Side Guns Damage": {count: 4}, "Grenades Damage": {count: 2}}},
+      b: {"Side Guns Damage": {elem: "lit", weapon: "mainhand", coeff: 0.6}, "Homing Rockets Damage": {elem: "lit", weapon: "mainhand", coeff: 0.4, passives: {ballistics: 100}}, "Total Damage per Attack": {sum: true, "Side Guns Damage": {count: 4}, "Homing Rockets Damage": {count: 4}}},
+      d: {"Cannon Damage": {elem: "phy", weapon: "mainhand", coeff: 2.25}},
+      e: {"Side Guns Damage": {elem: "phy", weapon: "mainhand", coeff: 0.6}, "Homing Rockets Damage": {elem: "phy", weapon: "mainhand", coeff: 0.4, passives: {ballistics: 100}}, "Total Damage per Attack": {sum: true, "Side Guns Damage": {count: 4}, "Homing Rockets Damage": {count: 4}}},
+      a: {"Side Guns Damage": {elem: "col", weapon: "mainhand", coeff: 0.6}, "Shadow Clone Damage": {elem: "col", weapon: "mainhand", coeff: 1.2}, "Total Damage per Attack": {sum: true, "Side Guns Damage": {count: 4}, "Shadow Clone Damage": {}}},
     },
     active: false,
-    buffs: {
-      e: {hatredregen: 10},
+    buffs: function(rune, stats) {
+      var res = {damage: 40};
+      if (rune === "b" || stats.leg_visageofgunes) res.dmgred = 50;
+      if (rune === "e") res.hatredregen = 10;
+      return res;
     },
   },
   strafe: {
@@ -685,19 +712,19 @@ DiabloCalc.skills.demonhunter = {
     info: function(rune, stats) {
       var res;
       switch (rune) {
-      case "x": res = {"Tick Damage": {elem: "phy", coeff: 6.75}}; break;
-      case "b": res = {"Tick Damage": {elem: "col", coeff: 6.75}, "Trail DPS": {elem: "col", coeff: 1, total: true}}; break;
-      case "d": res = {"Tick Damage": {elem: "lit", coeff: 6.75}}; break;
-      case "e": res = {"Tick Damage": {elem: "phy", coeff: 6.75, chd: 140}}; break;
-      case "c": res = {"Tick Damage": {elem: "fir", coeff: 6.75}, "Rocket Damage": {elem: "fir", coeff: 1.3, passives: {ballistics: 100}}}; break;
-      case "a": res = {"Grenade Damage": {elem: "fir", coeff: 4.6, passives: {grenadier: 10}}}; break;
+      case "x": res = {"Tick Damage": {elem: "phy", aps: true, coeff: 6.75}}; break;
+      case "b": res = {"Tick Damage": {elem: "col", aps: true, coeff: 6.75}, "Trail DPS": {elem: "col", aps: true, coeff: 1, total: true}}; break;
+      case "d": res = {"Tick Damage": {elem: "lit", aps: true, coeff: 6.75}}; break;
+      case "e": res = {"Tick Damage": {elem: "phy", aps: true, coeff: 6.75, chd: 140}}; break;
+      case "c": res = {"Tick Damage": {elem: "fir", aps: true, coeff: 6.75}, "Rocket Damage": {elem: "fir", aps: true, coeff: 1.3, passives: {ballistics: 100}}}; break;
+      case "a": res = {"Grenade Damage": {elem: "fir", aps: true, coeff: 4.6, passives: {grenadier: 10}}}; break;
       }
-      res = $.extend({"Cost": {cost: 12, slowest: true, fpa: (rune === "a" ? 30 : 15)}}, res);
+      res = $.extend({"Cost": {cost: 12 * stats.info.aps, persecond: true}}, res);
       if (res["Tick Damage"]) res["Tick Damage"].divide = {"Base Speed": 4};
-      res["DPS"] = {sum: true, tip: ["Snapshots the speed of your current weapon", "Calculations are based on your slowest weapon"]};
-      if (res["Tick Damage"]) res["DPS"]["Tick Damage"] = {speed: 1, slowest: true, fpa: 15};
-      if (res["Rocket Damage"]) res["DPS"]["Rocket Damage"] = {speed: 1, slowest: true, fpa: 30};
-      if (res["Grenade Damage"]) res["DPS"]["Grenade Damage"] = {speed: 1, slowest: true, fpa: 30};
+      res["DPS"] = {sum: true};
+      if (res["Tick Damage"]) res["DPS"]["Tick Damage"] = {aps: 4};
+      if (res["Rocket Damage"]) res["DPS"]["Rocket Damage"] = {aps: 2};
+      if (res["Grenade Damage"]) res["DPS"]["Grenade Damage"] = {aps: 2};
       return res;
     },
   },
@@ -709,7 +736,7 @@ DiabloCalc.skills.demonhunter = {
     col: 1,
     runes: {
       d: "Fire at Will",
-      b: "Burst Fire",
+      b: "Wind Chill",
       e: "Suppression Fire",
       a: "Full Broadside",
       c: "Arsenal",
@@ -719,21 +746,18 @@ DiabloCalc.skills.demonhunter = {
       switch (rune) {
       case "x": res = {"Damage": {elem: "phy", coeff: 3.6}}; break;
       case "d": res = {"Damage": {elem: "lit", coeff: 3.6}}; break;
-      case "b": res = {"Damage": {elem: "col", coeff: 3.6}, "Burst Damage": {elem: "col", coeff: 2}}; break;
+      case "b": res = {"Damage": {elem: "col", coeff: 3.6}}; break;
       case "e": res = {"Damage": {elem: "phy", coeff: 3.6}}; break;
-      case "a": res = {"Damage": {elem: "phy", coeff: 4.6}}; break;
+      case "a": res = {"Damage": {elem: "phy", coeff: 5}}; break;
       case "c": res = {"Damage": {elem: "fir", coeff: 3.6}, "Rocket Damage": {elem: "fir", coeff: 3, passives: {ballistics: 100}}}; break;
       }
       res = $.extend({"Cost": {cost: (rune === "d" ? 18 : 25)}}, res);
       var sentries = (stats.skills.sentry || stats.leg_helltrapper ? DiabloCalc.skills.demonhunter.sentry.params[0].val : 0);
       if (stats.set_marauder_4pc && sentries) {
         var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
+        ext.percent[DiabloCalc.itemSets.marauder.name] = 200;
         res["Sentry Damage"] = $.extend({}, res["Damage"], ext);
         DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Damage"], stats);
-        if (res["Burst Damage"]) {
-          res["Sentry Burst Damage"] = $.extend({}, res["Burst Damage"], ext);
-          DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Burst Damage"], stats);
-        }
         if (res["Rocket Damage"]) {
           res["Sentry Rocket Damage"] = $.extend({}, res["Rocket Damage"], ext);
           DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Rocket Damage"], stats);
@@ -741,8 +765,6 @@ DiabloCalc.skills.demonhunter = {
       }
       var total = {};
       if (res["Sentry Damage"]) total["Sentry Damage"] = {count: sentries};
-      if (res["Burst Damage"]) total["Burst Damage"] = {};
-      if (res["Sentry Burst Damage"]) total["Sentry Burst Damage"] = {count: sentries};
       if (res["Rocket Damage"]) total["Rocket Damage"] = {};
       if (res["Sentry Rocket Damage"]) total["Sentry Rocket Damage"] = {count: sentries};
       if (!$.isEmptyObject(total)) {
@@ -753,64 +775,12 @@ DiabloCalc.skills.demonhunter = {
       } else {
         res["DPS"] = {sum: true, "Damage": {speed: 1, ias: (stats.leg_yangsrecurve ? 50 : 0), fpa: 56.666664, round: "up"}};
       }
-/*
-      var regen = (stats.hatredregen || 5);
-      var gen_table = {hungeringarrow: "a", entanglingshot: "d", bolas: "c", evasivefire: "e", grenade: "d"};
-      var gen = 0, genid;
-      if (stats.leg_kridershot && stats.skills.elementalarrow) {
-        gen = stats.leg_kridershot;
-        genid = "elementalarrow";
-      }
-      for (var id in gen_table) {
-        if (stats.skills[id]) {
-          var cur = (id == "evasivefire" ? 4 : 3);
-          if (stats.skills[id] == gen_table[id]) {
-            cur += 3;
-          }
-          if (stats.passives.nightstalker) {
-            cur += 4;
-          }
-          if (cur > gen) {
-            gen = cur;
-            genid = id;
-          }
-        }
-      }
-      var rg = 1 + 0.01 * (stats.resourcegen || 0);
-      var cdr = 1 - 0.01 * (stats.cdr || 0);
-      var gen_comp = 0, gen_prep = 0;
-      if (stats.skills.companion && (stats.set_marauder_2pc || stats.skills.companion === "d")) {
-        gen_comp = Math.min(stats.maxhatred, rg * 50) / (30 * cdr);
-      }
-      if (stats.skills.preparation === "a") {
-        gen_prep = Math.min(stats.maxhatred, rg * 75) / (20 * cdr);
-      }
-      gen *= rg;
-      var cost = (rune === "d" ? 18 : 25) * (1 - 0.01 * (stats.rcr_hatred || 0));
-      if (stats.leg_cindercoat && res["Damage"].elem == "fir") {
-        cost *= 1 - 0.01 * stats.leg_cindercoat;
-      }
-      var freq = Math.min(stats.info.aps, (regen + gen_comp + gen_prep + stats.info.aps * gen) / (gen + cost));
-      
-      res["Uses per Minute"] = {value: DiabloCalc.formatNumber(freq * 60, 2, 10000), tip: [
-        "Estimated number of Multishots used every minute", "@when alternating between it and generators",
-        "Hatred regeneration: <span class=\"d3-color-white\">" + parseFloat(regen.toFixed(2)) + "</span>",
-      ]};
-      if (genid) {
-        res["Uses per Minute"].tip.push("Hatred per " + DiabloCalc.skills.demonhunter[genid].name + ": <span class=\"d3-color-white\">" + parseFloat(gen.toFixed(2)) + "</span>");
-      }
-      if (gen_comp) {
-        res["Uses per Minute"].tip.push("Hatred/sec from Companion: <span class=\"d3-color-white\">" + parseFloat(gen_comp.toFixed(2)) + "</span>");
-      }
-      if (gen_prep) {
-        res["Uses per Minute"].tip.push("Hatred/sec from Preparation: <span class=\"d3-color-white\">" + parseFloat(gen_prep.toFixed(2)) + "</span>");
-      }
-      res["Uses per Minute"].tip.push("Hatred cost: <span class=\"d3-color-white\">" + parseFloat(cost.toFixed(2)) + "</span>");
-
-      res["Estimated DPS"] = {sum: true, tip: ["Estimated damage from Multishot (with Sentries)", "@based on hatred generation"]};
-      res["Estimated DPS"][res["Total Damage"] ? "Total Damage" : "Damage"] = {aps: freq};*/
 
       return res;
+    },
+    active: true,
+    buffs: {
+      b: {chc_taken: 15},
     },
   },
   clusterarrow: {
@@ -829,17 +799,21 @@ DiabloCalc.skills.demonhunter = {
     info: function(rune, stats) {
       var res;
       switch (rune) {
-      case "x": res = {"Damage": {elem: "fir", coeff: 5.5}, "Grenade Damage": {elem: "fir", coeff: 2.2, passives: {grenadier: 10}}}; break;
-      case "e": res = {"Damage": {elem: "lit", coeff: 5.5}, "Grenade Damage": {elem: "lit", coeff: 2.2, passives: {grenadier: 10}}}; break;
-      case "b": res = {"Damage": {elem: "phy", coeff: 5.5}, "Rocket Damage": {elem: "phy", coeff: 6, passives: {ballistics: 100}}}; break;
-      case "d": res = {"Damage": {elem: "col", coeff: 5.5}, "Rocket Damage": {elem: "col", coeff: 4.5, passives: {ballistics: 100}}}; break;
-      case "c": res = {"Damage": {elem: "fir", coeff: 5.25}, "Grenade Damage": {elem: "fir", coeff: 5.25, passives: {grenadier:10}}}; break;
-      case "a": res = {"Damage": {elem: "fir", coeff: 7.7}, "Grenade Damage": {elem: "fir", coeff: 2.2, passives: {grenadier:10}}}; break;
+      case "x": res = {"Damage": {elem: "fir", coeff: 6.5}, "Grenade Damage": {elem: "fir", coeff: 2.5, passives: {grenadier: 10}}}; break;
+      case "e": res = {"Damage": {elem: "lit", coeff: 6.5}, "Grenade Damage": {elem: "lit", coeff: 2.5, passives: {grenadier: 10}}}; break;
+      case "b": res = {"Damage": {elem: "phy", coeff: 6.5}, "Rocket Damage": {elem: "phy", coeff: 6, passives: {ballistics: 100}}}; break;
+      case "d": res = {"Damage": {elem: "col", coeff: 6.5}, "Rocket Damage": {elem: "col", coeff: 4.5, passives: {ballistics: 100}}}; break;
+      case "c": res = {"Damage": {elem: "fir", coeff: 6.5}, "Grenade Damage": {elem: "fir", coeff: 6.5, passives: {grenadier:10}}}; break;
+      case "a": res = {"Damage": {elem: "fir", coeff: 8.5}, "Grenade Damage": {elem: "fir", coeff: 2.5, passives: {grenadier:10}}}; break;
       }
       res = $.extend({"Cost": {cost: 40}}, res);
+      if (stats.leg_manticore) {
+        res["Cost"].rcr = stats.leg_manticore;
+      }
       var sentries = (stats.skills.sentry || stats.leg_helltrapper ? DiabloCalc.skills.demonhunter.sentry.params[0].val : 0);
       if (stats.set_marauder_4pc && sentries) {
         var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
+        ext.percent[DiabloCalc.itemSets.marauder.name] = 200;
         res["Sentry Damage"] = $.extend({}, res["Damage"], ext);
         DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Damage"], stats);
         if (res["Grenade Damage"]) {
@@ -950,12 +924,10 @@ DiabloCalc.skills.demonhunter = {
       if (stats.set_natalya_2pc) {
         var ecd;
         if (stats.skills.strafe) {
-          var fpa = stats.skills.strafe === "a" ? 30 : 15;
-          var frames = DiabloCalc.calcFrames(fpa, undefined, true);
-          var reduction = 2 * fpa / frames;
+          var reduction = 4;
           if (stats.skills.evasivefire) {
             var ef_fpa = DiabloCalc.demonhunter.varSpeed(stats);
-            reduction += 2 * 60 / DiabloCalc.calcFrames(ef_fpa, undefined, undefined, "up");
+            reduction += 4 * 60 / DiabloCalc.calcFrames(ef_fpa, undefined, undefined, "up");
           }
           var cooldown = 30 * (1 - 0.01 * (stats.cdr || 0)) / (reduction + 1);
           res["Effective Cooldown (Strafe)"] = parseFloat(cooldown.toFixed(2)) + " seconds";
@@ -964,7 +936,7 @@ DiabloCalc.skills.demonhunter = {
         if (stats.skills.rapidfire) {
           var fpa = stats.skills.rapidfire === "a" ? 20 : 10;
           var frames = DiabloCalc.calcFrames(fpa, undefined, true);
-          var reduction = 2 * fpa / frames;
+          var reduction = 4 * fpa / frames;
           var cooldown = 30 * (1 - 0.01 * (stats.cdr || 0)) / (reduction + 1);
           res["Effective Cooldown (Rapid Fire)"] = parseFloat(cooldown.toFixed(2)) + " seconds";
           ecd = (ecd ? Math.min(ecd, cooldown) : cooldown);

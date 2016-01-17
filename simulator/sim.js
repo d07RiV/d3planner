@@ -124,7 +124,7 @@
     if (!this.target.count) this.target.count = 1;
     this.target.distance = (data.params.targetDistance || 0);
     this.target.elite = ((data.params.targetElites || 0) + (data.params.targetBosses || 0)) / this.target.count;
-    this.target.boss = (data.params.targetBoss || 0) / this.target.count;
+    this.target.boss = (data.params.targetBosses || 0) / this.target.count;
     this.target.type = (data.params.targetType || "");
     this.target.density = this.target.count / this.target.area;
     this.target.maxdr = 0.95;

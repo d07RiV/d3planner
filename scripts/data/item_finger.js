@@ -229,6 +229,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Ring_008_x1",
     name: "Justice Lantern",
+    suffix: _L("Legacy"),
     type: "ring",
     quality: "legendary",
     affixes: {
@@ -305,6 +306,7 @@ DiabloCalc.addItems([
     id: "Unique_Ring_017_p2",
     ids: ["ptr_Oculus"],
     name: "Oculus Ring",
+    suffix: _L("Legacy"),
     type: "ring",
     quality: "legendary",
     required: {
@@ -376,7 +378,7 @@ DiabloCalc.addItems([
     type: "ring",
     quality: "set",
     set: "nightmares",
-    preset: ["mainstat", "ias"],
+    preset: ["mainstat", "sockets"],
   },
 
   {
@@ -385,7 +387,7 @@ DiabloCalc.addItems([
     type: "ring",
     quality: "set",
     set: "nightmares",
-    preset: ["mainstat", "chc"],
+    preset: ["mainstat", "sockets"],
   },
 
   {
@@ -483,6 +485,64 @@ DiabloCalc.addItems([
       custom: {id: "leg_theshortmansfinger", name: "Baby Gargantuans", format: "Gargantuan instead summons three smaller gargantuans each more powerful than before.", args: 0},
     },
     preset: ["mainstat", "chd"],
+  },
+
+  {
+    id: "P4_Unique_Ring_01",
+    name: "Ring of Emptiness",
+    type: "ring",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_ringofemptiness", name: "Bonus Damage on Afflicted Targets", format: "You deal %d%% increased damage to enemies affected by both your Haunt and Locust Swarm.", min: 75, max: 100},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P4_Unique_Ring_02",
+    name: "Elusive Ring",
+    type: "ring",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_elusivering", name: "Damage Reduction on Defensive Skills", format: "After casting Shadow Power, Smoke Screen, or Vault, take %d%% reduced damage for 8 seconds.", min: 50, max: 60},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P4_Unique_Ring_03",
+    name: "Justice Lantern",
+    type: "ring",
+    quality: "legendary",
+    required: {
+      block: "blockRelic",
+      custom: {id: "leg_justicelantern", name: "Block to Damage Reduction", format: "Gain damage reduction equal to %d%% of your Block Chance.", min: 45, max: 55},
+      ccr: {min: 35, max: 50},
+    },
+    preset: ["mainstat", "sockets"],
+    primary: 5,
+  },
+
+  {
+    id: "P4_Unique_Ring_05",
+    name: "Band of Might",
+    type: "ring",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_bandofmight", name: "Damage Reduction on Movement Skills", format: "After casting Furious Charge, Ground Stomp, or Leap, take %d%% reduced damage for 8 seconds.", min: 50, max: 60},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "Unique_Ring_017_p4",
+    name: "Oculus Ring",
+    type: "ring",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_oculusring_p2", name: "Damage Bonus", format: "Chance to create an area of focused power on killing a monster. Damage is increased by %d%% while standing in the area.", min: 70, max: 85},
+    },
+    preset: ["sockets"],
   },
 
 ]);

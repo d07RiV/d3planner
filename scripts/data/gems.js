@@ -21,7 +21,7 @@ DiabloCalc.gemColors = {
     name: "Amethyst",
     weapon: {
       stat: "lph",
-      amount: [6, 10, 35, 65, 300, 700, 3000, 6400, 8800, 11200],
+      amount: [6, 10, 35, 65, 300, 1750, 7500, 16000, 20000, 25000],
     },
     head: {
       stat: "life",
@@ -89,7 +89,7 @@ DiabloCalc.gemColors = {
     name: "Topaz",
     weapon: {
       stat: "thorns",
-      amount: [6, 10, 50, 100, 600, 2500, 3100, 3725, 4350, 4975],
+      amount: [6, 10, 50, 100, 600, 4000, 8000, 14000, 26000, 38000],
     },
     head: {
       stat: "mf",
@@ -165,6 +165,7 @@ DiabloCalc.legendaryGems = {
     effects: [
       {
         format: "Increase the damage of your pets by %.2f%%.",
+        stat: "petdamage",
         value: [15],
         delta: [0.3],
       },
@@ -172,9 +173,6 @@ DiabloCalc.legendaryGems = {
         format: "Your pets take 25%% less damage.",
       },
     ],
-    buffs: function(level, stats) {
-      return {petdamage: 15 + level * 0.3};
-    },
   },
   esoteric: {
     id: "Unique_Gem_016_x1",
@@ -312,7 +310,7 @@ DiabloCalc.legendaryGems = {
     types: ["finger", "neck"],
     effects: [
       {
-        format: "25%% of all damage taken is instead staggered and dealt to you over %.2f seconds.",
+        format: "35%% of all damage taken is instead staggered and dealt to you over %.2f seconds.",
         value: [3],
         delta: [0.1],
       },
@@ -476,7 +474,7 @@ DiabloCalc.legendaryGems = {
         delta: [0.4],
       },
       {
-        format: "You gain 10%% increased chance to critically strike Chilled or Frozen enemies.",
+        format: "Enemies you Chill have a 10%% increased chance to be Critically Hit.",
         stat: "chctaken",
         value: [10],
       },
@@ -495,7 +493,25 @@ DiabloCalc.legendaryGems = {
         delta: [0.5],
       },
       {
-        format: "While below 30%% life, you may move through enemies unhindered.",
+        format: "While below 50%% life, you may move through enemies unhindered.",
+      },
+    ],
+  },
+  boyarsky: {
+    id: "Unique_Gem_020_x1",
+    name: "Boyarsky's Chip",
+    types: ["finger", "neck"],
+    always: true,
+    active: true,
+    effects: [
+      {
+        format: "Adds %d Thorns.",
+        stat: "thorns",
+        value: [16000],
+        delta: [800],
+      },
+      {
+        format: "Taunt the first enemy hit by your Primary skills for 2 seconds.",
       },
     ],
   },

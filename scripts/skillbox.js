@@ -260,7 +260,6 @@
     if (tmp && fmt.thorns !== "normal") {
       bonuses["Debuffs"] = tmp;
     }
-
     if (!$.isEmptyObject(bonuses)) {
       factors.push({
         name: (fmt.pet ? "Buffs/debuffs" : "Damage increased by skills"),
@@ -272,6 +271,13 @@
       factors.push({
         name: DC.stats.dmgtaken.name,
         percent: tmp,
+      });
+    }
+
+    if (fmt.thorns === "normal" && stats.thorns_taken) {
+      factors.push({
+        name: DC.itemById.Unique_Shield_104_x1.name,
+        percent: stats.thorns_taken,
       });
     }
 

@@ -401,10 +401,20 @@
 
     .date-saved {
       float: right;
+      position: relative;
+      display: block;
+      width: 0;
+      span {
+        display: block;
+        position: absolute;
+        right: 0;
+        white-space: nowrap;
+      }
     }
 
     .profile-name {
-      position: absolute;
+      position: relative;
+      z-index: 2;
       .sliding & {
         position: static;
       }

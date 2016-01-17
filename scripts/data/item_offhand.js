@@ -205,10 +205,14 @@ DiabloCalc.addItems([
     name: "Jekangbord",
     type: "crusadershield",
     quality: "legendary",
+    affixes: {
+      skill_crusader_blessedshield: {min: 150, max: 200},
+    },
     required: {
       custom: {id: "leg_jekangbord", name: "Extra Blessed Shield Ricochets", format: "Blessed Shield ricochets to %d additional enemies.", min: 4, max: 6},
     },
-    preset: ["mainstat"],
+    preset: ["mainstat", "skill_crusader_blessedshield"],
+    primary: 5,
   },
 
   {
@@ -238,10 +242,14 @@ DiabloCalc.addItems([
     name: "Frydehr's Wrath",
     type: "crusadershield",
     quality: "legendary",
+    affixes: {
+      skill_crusader_condemn: {min: 150, max: 200},
+    },
     required: {
       custom: {id: "leg_frydehrswrath", name: "Remove Condemn Cooldown", format: "Condemn has no cooldown but instead costs 40 Wrath.", args: 0},
     },
-    preset: ["mainstat"],
+    preset: ["mainstat", "skill_crusader_condemn"],
+    primary: 5,
   },
 
   {
@@ -249,10 +257,14 @@ DiabloCalc.addItems([
     name: "Unrelenting Phalanx",
     type: "crusadershield",
     quality: "legendary",
+    affixes: {
+      skill_crusader_phalanx: {min: 45, max: 60},
+    },
     required: {
       custom: {id: "leg_unrelentingphalanx", name: "Phalanx now casts twice", format: "Phalanx now casts twice.", args: 0},
     },
-    preset: ["mainstat"],
+    preset: ["mainstat", "skill_crusader_phalanx"],
+    primary: 5,
   },
 
   {
@@ -316,6 +328,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Mojo_009_x1",
     name: "Thing of the Deep",
+    suffix: _L("Legacy"),
     type: "mojo",
     quality: "legendary",
     required: {
@@ -446,6 +459,7 @@ DiabloCalc.addItems([
     id: "P2_Unique_Orb_003",
     ids: ["ptr_Triumvirate"],
     name: "Triumvirate",
+    suffix: _L("Legacy"),
     type: "source",
     quality: "legendary",
     required: {
@@ -480,7 +494,7 @@ DiabloCalc.addItems([
     quality: "set",
     set: "talrasha",
     affixes: {
-      skill_wizard_meteor: {min: 20, max: 25},
+      skill_wizard_meteor: {min: 20, max: 25}, // enchantable to support legacy items
     },
     preset: ["mainstat", "chc", "skill_wizard_meteor"],
     primary: 6,
@@ -512,6 +526,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Quiver_002_x1",
     name: "Sin Seekers",
+    suffix: _L("Legacy"),
     type: "quiver",
     quality: "legendary",
     preset: ["mainstat", "chc"],
@@ -550,13 +565,17 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Quiver_102_x1",
-    name: "Bombadier's Rucksack",
+    name: "Bombardier's Rucksack",
     type: "quiver",
     quality: "legendary",
+    affixes: {
+      skill_demonhunter_sentry: {min: 75, max: 100},
+    },
     required: {
       custom: {id: "leg_bombadiersrucksack", name: "Extra Sentries", format: "You may have 2 additional Sentries.", args: 0},
     },
-    preset: ["dex", "chc"],
+    preset: ["dex", "chc", "skill_demonhunter_sentry"],
+    primary: 6,
   },
 
   {
@@ -607,10 +626,14 @@ DiabloCalc.addItems([
     name: "Dead Man's Legacy",
     type: "quiver",
     quality: "legendary",
+    affixes: {
+      skill_demonhunter_multishot: {min: 75, max: 100},
+    },
     required: {
       custom: {id: "leg_deadmanslegacy", name: "Double Multishot Threshold", format: "Multishot hits enemies below %d%% health twice.", min: 50, max: 60},
     },
-    preset: ["mainstat", "chc"],
+    preset: ["mainstat", "chc", "skill_demonhunter_multishot"],
+    primary: 6,
   },
 
   {
@@ -645,6 +668,122 @@ DiabloCalc.addItems([
       custom: {id: "leg_guardofjohanna", name: "Increased Blessed Hammer Damage", format: "Blessed Hammer damage is increased by %d%% for the first 3 enemies it hits.", min: 200, max: 250},
     },
     preset: ["mainstat"],
+  },
+
+  {
+    id: "P4_Unique_Mojo_001",
+    name: "Vile Hive",
+    type: "mojo",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_vilehive", name: "Locust Swarm Damage Bonus", format: "Locust Swarm gains the effect of the Pestilence rune and deals %d%% increased damage.", min: 45, max: 60},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P4_Unique_Mojo_002",
+    name: "Thing of the Deep",
+    type: "mojo",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_thingofthedeep", name: "Pickup Radius", format: "Increases Gold and Health Pickup by 20 yards.", args: 0},
+    },
+    preset: ["mainstat", "chc", "maxmana"],
+  },
+
+  {
+    id: "P4_Unique_Mojo_003",
+    name: "Wilken's Reach",
+    type: "mojo",
+    quality: "legendary",
+    affixes: {
+      skill_witchdoctor_graspofthedead: {min: 45, max: 60},
+    },
+    required: {
+      custom: {id: "leg_wilkensreach", name: "Grasp of the Dead Has no Cooldown", format: "Grasp of the Dead no longer has a cooldown.", args: 0},
+    },
+    preset: ["mainstat", "chc", "maxmana", "skill_witchdoctor_graspofthedead"],
+    primary: 6,
+  },
+
+  {
+    id: "P4_Unique_Orb_001",
+    name: "Primordial Soul",
+    type: "source",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_primordialsoul", name: "Elemental Exposure Upgrade", format: "Elemental Exposure's damage bonus per stack is increased to 10%%.", args: 0},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P4_Unique_Orb_002",
+    name: "Etched Sigil",
+    type: "source",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_etchedsigil", name: "Channeling Skills Cast Other Skills", format: "Your Arcane Torrent, Disintegrate, and Ray of Frost also cast one of your other damaging Arcane Power Spenders every second.", args: 0},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P4_Unique_Orb_003",
+    name: "Triumvirate",
+    type: "source",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_triumvirate_p2", name: "Arcane Orb Damage Increase", format: "Your Signature Spells increase the damage of Arcane Orb by %d%% for 6 seconds, stacking up to 3 times.", min: 150, max: 200},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P4_Unique_Quiver_001",
+    name: "Sin Seekers",
+    type: "quiver",
+    quality: "legendary",
+    affixes: {
+      skill_demonhunter_rapidfire: {min: 45, max: 60},
+    },
+    required: {
+      custom: {id: "leg_sinseekers", name: "Rapid Fire Has no Channel Cost", format: "Rapid Fire no longer has a channel cost.", args: 0},
+    },
+    preset: ["mainstat", "chc", "skill_demonhunter_rapidfire"],
+    primary: 6,
+  },
+
+  {
+    id: "P4_Unique_Shield_Set_01_x1",
+    name: "Shield of the Steed",
+    type: "crusadershield",
+    quality: "set",
+    set: "norvald",
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "Unique_Shield_106_x1",
+    name: "Shield of Fury",
+    type: "crusadershield",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_shieldoffury", name: "Heaven's Fury Ramp Up", format: "Each time an enemy takes damage from your Heaven's Fury, it increases the damage they take from your Heaven's Fury by %d%%.", min: 15, max: 20},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P4_Unique_Orb_004",
+    name: "Orb of Infinite Depth",
+    type: "source",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_orbofinfinitedepth", name: "Damage Bonus", format: "Each time you hit an enemy with Explosive Blast your damage is increased by %d%% and your damage reduction is increased by 15%% for 6 seconds. This effect can stack up to 4 times.", min: 4, max: 5},
+    },
+    preset: ["mainstat", "chc"],
   },
 
 ]);

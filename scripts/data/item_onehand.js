@@ -28,7 +28,7 @@ DiabloCalc.addItems([
     required: {
       custom: {id: "leg_hack", name: "Apply Thorns on Hit", format: "%d%% of your Thorns damage is applied on every attack.", min: 75, max: 100},
     },
-    preset: ["sockets"],
+    preset: ["mainstat"],
   },
 
   {
@@ -182,7 +182,8 @@ DiabloCalc.addItems([
     required: {
       custom: {id: "leg_jaceshammerofvigilance", name: "Increases Blessed Hammers Size", format: "Increase the size of your Blessed Hammers.", args: 0},
     },
-    preset: ["wpnhol", "skill_crusader_blessedhammer"],
+    preset: ["wpnhol", "mainstat", "skill_crusader_blessedhammer"],
+    primary: 5,
   },
 
   {
@@ -277,6 +278,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Spear_002_x1",
     name: "The Three Hundredth Spear",
+    suffix: _L("Legacy"),
     type: "spear",
     quality: "legendary",
     required: {
@@ -491,7 +493,7 @@ DiabloCalc.addItems([
     type: "sword",
     quality: "set",
     set: "istvan",
-    preset: ["weaponias"],
+    preset: ["mainstat"],
   },
 
   {
@@ -500,7 +502,7 @@ DiabloCalc.addItems([
     type: "sword",
     quality: "set",
     set: "istvan",
-    preset: ["mainstat", "sockets"],
+    preset: ["mainstat"],
   },
 
   {
@@ -519,11 +521,13 @@ DiabloCalc.addItems([
     name: "Deadly Rebirth",
     type: "ceremonialknife",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_witchdoctor_graspofthedead: {min: 45, max: 60},
+    },
+    required: {
       custom: {id: "leg_deadlyrebirth", name: "Grasp of the Dead Gains Rain of Corpses", format: "Grasp of the Dead gains the effect of the Rain of Corpses rune.", args: 0},
     },
-    preset: ["wpnarc", "mainstat", "manaregen"],
+    preset: ["wpnarc", "mainstat", "skill_witchdoctor_graspofthedead"],
     primary: 5,
   },
 
@@ -563,6 +567,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_CeremonialDagger_008_x1",
     name: "Last Breath",
+    suffix: _L("Legacy"),
     type: "ceremonialknife",
     quality: "legendary",
     required: {
@@ -578,11 +583,13 @@ DiabloCalc.addItems([
     name: "The Spider Queen's Grasp",
     type: "ceremonialknife",
     quality: "legendary",
-    required: {
-      custom: {id: "leg_thespiderqueensgrasp", name: "Corpse Spiders Slow Enemies", format: "Corpse Spiders releases a web on impact that Slows enemies by %d%%.", min: 60, max: 80},
+    affixes: {
       skill_witchdoctor_corpsespiders: {min: 45, max: 60},
     },
-    preset: ["mainstat"],
+    required: {
+      custom: {id: "leg_thespiderqueensgrasp", name: "Corpse Spiders Slow Enemies", format: "Corpse Spiders releases a web on impact that Slows enemies by %d%%.", min: 60, max: 80},
+    },
+    preset: ["mainstat", "skill_witchdoctor_corpsespiders"],
     primary: 5,
     secondary: 1,
   },
@@ -720,6 +727,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Fist_009_x1",
     name: "The Fist of Az'Turrasq",
+    suffix: _L("Legacy"),
     type: "fistweapon",
     quality: "legendary",
     required: {
@@ -744,6 +752,7 @@ DiabloCalc.addItems([
   {
     id: "P1_fistWeapon_norm_unique_02",
     name: "Vengeful Wind",
+    suffix: _L("Legacy"),
     type: "fistweapon",
     quality: "legendary",
     required: {
@@ -895,6 +904,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Mighty_1H_005_x1",
     name: "Blade of the Warlord",
+    suffix: _L("Legacy"),
     type: "mightyweapon",
     quality: "legendary",
     preset: ["wpnhol", "mainstat", "sockets"],
@@ -1114,12 +1124,173 @@ DiabloCalc.addItems([
     name: "Scrimshaw",
     type: "spear",
     quality: "legendary",
-    required: {
+    affixes: {
       skill_witchdoctor_zombiecharger: {min: 60, max: 80},
+    },
+    required: {
       custom: {id: "leg_scrimshaw", name: "Zombie Charger Cost Reduction", format: "Reduces the Mana cost of Zombie Charger by %d%%.", min: 40, max: 50},
     },
-    preset: ["wpnphy", "mainstat", "damage"],
+    preset: ["wpnphy", "mainstat", "damage", "skill_witchdoctor_zombiecharger"],
     primary: 5,
+  },
+
+  {
+    id: "P4_Unique_Axe_1H_102",
+    local: true,
+    name: "Mordullu's Promise",
+    type: "axe",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_mordulluspromise", name: "Firebomb Mana Generation", format: "Firebomb generates %d Mana.", min: 100, max: 125},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P4_Unique_CeremonialDagger_008",
+    name: "Last Breath",
+    type: "ceremonialknife",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_lastbreath", name: "Mass Confusion Cooldown", format: "Reduces cooldown of Mass Confusion by %d seconds.", min: 15, max: 20},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P4_Unique_Dagger_002",
+    name: "Voo's Juicer",
+    type: "dagger",
+    quality: "legendary",
+    affixes: {
+      skill_witchdoctor_spiritbarrage: {min: 45, max: 60},
+    },
+    required: {
+      custom: {id: "leg_voosjuicer", name: "Spirit Barrage Gains Extra Runes", format: "Spirit Barrage gains the effects of the Phlebotomize and The Spirit is Willing runes.", args: 0},
+    },
+    preset: ["mainstat", "wpncol", "skill_witchdoctor_spiritbarrage"],
+    primary: 5,
+  },
+
+  {
+    id: "P4_Unique_Fist_102",
+    name: "Kyoshiro's Blade",
+    type: "fistweapon",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_kyoshirosblade", name: "Wave of Light Damage Bonus", format: "Increase the damage of Wave of Light by 150%%. When the initial impact of your Wave of Light hits 3 or fewer enemies, the damage is increased by %d%%.", min: 200, max: 250},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P4_Unique_Mighty_1H_005",
+    name: "Blade of the Warlord",
+    type: "mightyweapon",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_bladeofthewarlord", name: "Bash Damage Bonus", format: "Bash consumes up to 40 Fury to deal up to %d%% increased damage.", min: 400, max: 500},
+    },
+    preset: ["mainstat", "wpnhol"],
+  },
+
+  {
+    id: "P4_Unique_Mighty_1H_104",
+    name: "Oathkeeper",
+    type: "mightyweapon",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_oathkeeper", name: "Primary Skill Damage Bonus", format: "Your primary skills attack 50%% faster and deal %d%% increased damage.", min: 150, max: 200},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P4_Unique_Spear_002",
+    name: "The Three Hundredth Spear",
+    type: "spear",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_thethreehundredthspear", name: "Thrown Damage Bonus", format: "Increase the damage of Weapon Throw and Ancient Spear by %d%%.", min: 45, max: 60},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P4_Unique_Sword_1H_01",
+    name: "Sword of Ill Will",
+    type: "sword",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_swordofillwill", name: "Chakram Damage Bonus", format: "Chakram deals %.1f%% increased damage for every point of Hatred you have.", min: 1.0, max: 1.4, step: 0.1},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P4_fistWeapon_norm_unique_02",
+    name: "Vengeful Wind",
+    type: "fistweapon",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_vengefulwind_p2", name: "Extra Sweeping Wind Stacks", format: "Increases the maximum stack count of Sweeping Wind by %d.", min: 6, max: 7},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "Unique_Dagger_101_x1",
+    name: "Karlei's Point",
+    type: "dagger",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_karleispoint", name: "Impale Hatred Refund", format: "Impale returns %d Hatred if it hits an enemy already Impaled.", min: 10, max: 15},
+    },
+    preset: ["mainstat", "wpncol"],
+  },
+
+  {
+    id: "Unique_Dagger_102_x1",
+    name: "Lord Greenstone's Fan",
+    type: "dagger",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_lordgreenstonesfan", name: "Fan of Knives Damage Bonus", format: "Every second, gain %d%% increased damage for your next Fan of Knives. Stacks up to 30 times.", min: 80, max: 100},
+    },
+    preset: ["mainstat", "wpncol"],
+  },
+
+  {
+    id: "Unique_Sword_1H_107_x1",
+    name: "The Twisted Sword",
+    type: "sword",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_thetwistedsword", name: "Energy Twister Damage Bonus", format: "Energy Twister damage is increased by %d%% for each Energy Twister you have out.", min: 125, max: 150},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "Unique_Sword_1H_112_x1",
+    name: "Deathwish",
+    type: "sword",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_deathwish", name: "Damage Increase While Channeling", format: "While channeling Arcane Torrent, Disintegrate, or Ray of Frost, all damage is increased by %d%%.", min: 30, max: 35},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P4_Unique_Fist_009_x1",
+    name: "The Fist of Az'Turrasq",
+    type: "fistweapon",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_thefistofazturrasq_p2", name: "Exploding Palm Explosion Damage", format: "Exploding Palm's on-death explosion damage is increased by %d%%.", min: 250, max: 300},
+    },
+    preset: ["mainstat"],
   },
 
 ]);

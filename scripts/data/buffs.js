@@ -16,6 +16,9 @@ DiabloCalc.partybuffs.items = {
   leg_oculusring: {
     stat: "damage",
   },
+  leg_oculusring_p2: {
+    stat: "damage",
+  },
   toxin: {
     buffs: function() {return {dmgtaken: 10};},
   },
@@ -208,7 +211,7 @@ DiabloCalc.partybuffs.shrines = {
     icon: 18,
     desc: ["Greatly increased movement speed. Can pass through enemies, damaging and knocking them up into the air. Can burst through walls summoned by Waller elites.", "60 seconds left"],
     buffs: function(stats) {
-      return {extrams: 80};
+      return {extrams: 80, ias: 30};
     },
   },
 };

@@ -37,6 +37,11 @@ DiabloCalc.skills.barbarian = {
       d: "Instigation",
       e: "Pulverize",
     },
+    active: true,
+    params: [{rune: "b", min: 0, max: 3, val: 3, name: "Stacks"},
+             {min: 0, max: 40, name: "Fury", buffs: false, show: function(rune, stats) {
+               return !!stats.leg_bladeofthewarlord;
+             }}],
     info: function(rune, stats) {
       var fpa = DiabloCalc.barbarian.varSpeed(stats);
       var res;
@@ -48,10 +53,14 @@ DiabloCalc.skills.barbarian = {
       case "d": res = {"Damage": {elem: "fir", coeff: 3.2}}; break;
       case "e": res = {"Damage": {elem: "fir", coeff: 3.2}, "Shockwave Damage": {elem: "fir", coeff: 1}}; break;
       }
-      return $.extend({"DPS": {sum: true, "Damage": {speed: 1, fpa: fpa, round: "up"}}}, res);
+      if (stats.leg_bladeofthewarlord) {
+        var pct = {};
+        pct[DiabloCalc.itemById.P4_Unique_Mighty_1H_005.name] = stats.leg_bladeofthewarlord * this.params[1].val / 40;
+        res["Damage"].percent = pct;
+        if (rune === "e") res["Shockwave Damage"].percent = pct;
+      }
+      return $.extend({"DPS": {sum: true, "Damage": {speed: (stats.leg_oathkeeper ? 1.5 : 1), fpa: fpa, round: "up"}}}, res);
     },
-    active: true,
-    params: [{rune: "b", min: 0, max: 3, val: 3, name: "Stacks"}],
     buffs: function(rune, stats) {
       if (rune === "a") return {chctaken: 10};
       if (rune === "b") return {damage: this.params[0].val * 4};
@@ -101,9 +110,9 @@ DiabloCalc.skills.barbarian = {
           res[k].percent = percent;
         }
       }
-      var dps = {"DPS": {sum: true, "Damage": {speed: 1, fpa: fpa, round: "up"}}};
+      var dps = {"DPS": {sum: true, "Damage": {speed: (stats.leg_oathkeeper ? 1.5 : 1), fpa: fpa, round: "up"}}};
       if (rune === "c") {
-        dps["DPS"]["Critical Damage"] = {speed: 1, fpa: fpa, round: "up", nobp: true, factor: "0.01*final.chc"};
+        dps["DPS"]["Critical Damage"] = $.extend({nobp: true, factor: 0.01 * stats.final.chc}, dps["DPS"]["Damage"]);
       }
       return $.extend(dps, res);
     },
@@ -142,9 +151,9 @@ DiabloCalc.skills.barbarian = {
         case "a": res = {"Damage": {elem: "fir", coeff: 2.2}}; break;
         }
       }
-      var dps = {"DPS": {sum: true, "Damage": {speed: 1, ias: stacks * 15, fpa: fpa, round: "up"}}};
+      var dps = {"DPS": {sum: true, "Damage": {speed: (stats.leg_oathkeeper ? 1.5 : 1), ias: stacks * 15, fpa: fpa, round: "up"}}};
       if (rune === "b" || stats.leg_theundisputedchampion) {
-        dps["DPS"]["Sidearm Damage"] = {speed: 1, ias: stacks * 15, fpa: fpa, round: "up", nobp: true, count: 0.25};
+        dps["DPS"]["Sidearm Damage"] = $.extend({nobp: true, count: 0.25}, dps["DPS"]["Damage"]);
       }
       return $.extend(dps, res);
     },
@@ -171,7 +180,7 @@ DiabloCalc.skills.barbarian = {
       d: "Balanced Weapon",
     },
     info: {
-      "*": {"DPS": {sum: true, "Damage": {speed: 1, fpa: 57.777767, round: "up"}}},
+      "*": {"DPS": {sum: true, "Damage": {speed: "leg_oathkeeper?1.5:1", fpa: 57.777767, round: "up"}}},
       x: {"Damage": {elem: "phy", coeff: 2.75}},
       a: {"Damage": {elem: "lit", coeff: 4}},
       b: {"Damage": {elem: "fir", coeff: 2.75}},
@@ -265,7 +274,7 @@ DiabloCalc.skills.barbarian = {
         res["Damage"].percent = {};
         res["Damage"].percent[DiabloCalc.itemById.P3_Unique_Bracer_104.name] = stats.leg_bracersofdestruction;
       }
-      return $.extend({"Cost": {cost: 30, rcr: "leg_furyofthevanishedpeak"}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58.666656, round: "up"}}}, res);
+      return $.extend({"Cost": {cost: 30, rcr: "leg_furyofthevanishedpeak||leg_furyofthevanishedpeak_p2"}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58.666656, round: "up"}}}, res);
     },
   },
   whirlwind: {
@@ -284,27 +293,23 @@ DiabloCalc.skills.barbarian = {
     info: function(rune, stats) {
       var res;
       switch (rune) {
-      case "x": res = {"Tick Damage": {elem: "phy", coeff: 3.4}}; break;
-      case "b": res = {"Tick Damage": {elem: "phy", coeff: 3.4}}; break;
-      case "c": res = {"Tick Damage": {elem: "col", coeff: 3.4}}; break;
-      case "e": res = {"Tick Damage": {elem: "phy", coeff: 3.4}}; break;
-      case "d": res = {"Tick Damage": {elem: "lit", coeff: 3.4}}; break;
-      case "a": res = {"Tick Damage": {elem: "fir", coeff: 4}}; break;
+      case "x": res = {"Tick Damage": {elem: "phy", aps: true, coeff: 3.4}}; break;
+      case "b": res = {"Tick Damage": {elem: "phy", aps: true, coeff: 3.4}}; break;
+      case "c": res = {"Tick Damage": {elem: "col", aps: true, coeff: 3.4}}; break;
+      case "e": res = {"Tick Damage": {elem: "phy", aps: true, coeff: 3.4}}; break;
+      case "d": res = {"Tick Damage": {elem: "lit", aps: true, coeff: 3.4}}; break;
+      case "a": res = {"Tick Damage": {elem: "fir", aps: true, coeff: 4}}; break;
       }
-      res = $.extend({"Cost": {cost: 10, fpa: 20}}, res);
+      res = $.extend({"Cost": {cost: 10 * stats.info.aps, persecond: true}}, res);
       res["Tick Damage"].divide = {"Base Speed": 3};
       if (stats.leg_skullgrasp) {
         res["Tick Damage"].addcoeff = [stats.leg_skullgrasp / 100];
       }
       if (rune == "b" || stats.set_wastes_6pc) {
-        res["Tornado Damage"] = {elem: res["Tick Damage"].elem, coeff: (stats.set_wastes_6pc ? 25 : 1.2)};
+        res["Tornado Damage"] = {elem: res["Tick Damage"].elem, aps: true, coeff: (stats.set_wastes_6pc ? 25 : 1.2)};
       }
-      res["DPS"] = {sum: true, "Tick Damage": {speed: 1, fpa: 20}};
-      if (res["Tornado Damage"]) res["DPS"]["Tornado Damage"] = {speed: 1, fpa: 30};
-      if (stats.set_bulkathos_2pc) {
-        res["DPS"]["Tick Damage"].speed = 1.3;
-        if (res["Tornado Damage"]) res["DPS"]["Tornado Damage"].speed = 1.3;
-      }
+      res["DPS"] = {sum: true, "Tick Damage": {aps: 3}};
+      if (res["Tornado Damage"]) res["DPS"]["Tornado Damage"] = {aps: 2};
       return res;
     },
     active: true,
@@ -312,6 +317,7 @@ DiabloCalc.skills.barbarian = {
       var res = {};
       if (stats.set_bulkathos_2pc) {
         res.extrams = 30;
+        res.ias = 30;
       }
       if (stats.set_wastes_4pc) {
         res.dmgred = 40;
@@ -334,15 +340,28 @@ DiabloCalc.skills.barbarian = {
       b: "Boulder Toss",
       e: "Rage Flip",
     },
+    active: true,
+    activetip: "3 or fewer targets",
+    activeshow: function(rune, stats) {
+      return !!(rune === "b" && stats.leg_skularssalvation);
+    },
     params: [{rune: "b", min: "25*(1-0.01*rcr_fury)-rcrint", max: "maxfury", name: "Fury", buffs: false}],
-    info: {
-      "*": {"Cost": {cost: 25}},
-      x: {"Damage": {elem: "phy", coeff: 5}},
-      d: {"Damage": {elem: "phy", coeff: 5}},
-      a: {"Damage": {elem: "phy", coeff: 5}},
-      c: {"Damage": {elem: "fir", coeff: 6.4}},
-      b: {"Damage": {elem: "phy", coeff: 5, addcoeff: [[0.2, "$1-25*(1-0.01*rcr_fury)+rcrint"]]}},
-      e: {"Damage": {elem: "phy", coeff: 5}},
+    info: function(rune, stats) {
+      var res;
+      switch (rune) {
+      case "x": res = {"Damage": {elem: "phy", coeff: 5}}; break;
+      case "d": res = {"Damage": {elem: "phy", coeff: 5}}; break;
+      case "a": res = {"Damage": {elem: "phy", coeff: 5}}; break;
+      case "c": res = {"Damage": {elem: "fir", coeff: 6.4}}; break;
+      case "b": res = {"Damage": {elem: "phy", coeff: 5, addcoeff: [[0.2, this.params[0].val - 25 * (1 - 0.01 * (stats.rcr_fury || 0)) + (stats.rcrint || 0)]]}}; break;
+      case "e": res = {"Damage": {elem: "phy", coeff: 5}}; break;
+      }
+      if (rune === "b" && stats.leg_skularssalvation) {
+        res["Damage"].percent = {};
+        res["Damage"].percent[DiabloCalc.itemById.P4_Unique_Bracer_101.name] = (this.active ? stats.leg_skularssalvation : 100);
+      }
+      res = $.extend({"Cost": {cost: 25}}, res);
+      return res;
     },
   },
   groundstomp: {
@@ -361,6 +380,7 @@ DiabloCalc.skills.barbarian = {
     info: {
       "*": {"Cooldown": {cooldown: 12}},
       a: {"Damage": {weapon: "mainhand", elem: "fir", coeff: 5.75}},
+      e: {"Cooldown": {cooldown: 8}},
     },
   },
   leap: {
@@ -381,11 +401,8 @@ DiabloCalc.skills.barbarian = {
       b: {"Damage": {weapon: "mainhand", elem: "phy", coeff: 4.5}},
     },
     active: false,
-    params: [{rune: "d", min: 0, max: 20, val: 0, name: "Enemies Hit", inf: true}],
     buffs: function(rune, stats) {
-      if (rune === "d") {
-        return {armor_percent: 50 * this.params[0].val};
-      }
+      if (rune === "d" || stats.set_earth_4pc) return {armor_percent: 150 * (stats.set_earth_4pc ? 2.5 : 1)};
     },
   },
   sprint: {
@@ -523,14 +540,14 @@ DiabloCalc.skills.barbarian = {
       }
       var coeff = (rune == "a" || stats.set_raekor_4pc ? 10.5 : 6);
       var res = {"Cooldown": {cooldown: 10}, "Damage": {elem: elem, weapon: "mainhand", coeff: coeff}};
-      if (stats.set_raekor_2pc) {
-        res["Damage to First Target"] = {elem: elem, coeff: coeff, percent: {"First Target": 100}};
-      }
       if (stats.leg_vileward) {
-        res["Extra Damage per Enemy"] = {elem: elem, coeff: coeff, percent: {"Vile Ward": stats.leg_vileward}, total: true};
+        res["Extra Damage per Enemy"] = {elem: elem, coeff: coeff, factors: {"Vile Ward": stats.leg_vileward * 0.01}, total: true};
       }
-      if (stats.set_raekor_5pc) {
-        res["DoT Damage"] = {elem: "max", coeff: 30, total: true};
+      if (stats.leg_standoff) {
+        var pct = {};
+        pct[DiabloCalc.itemById.P4_Unique_Polearm_01.name] = (stats.ms || 0) * 0.01 * stats.leg_standoff;
+        res["Damage"].percent = pct;
+        if (stats.leg_vileward) res["Extra Damage per Enemy"].percent = pct;
       }
       return res;
     },
@@ -551,12 +568,12 @@ DiabloCalc.skills.barbarian = {
     },
     info: {
       "*": {"Cooldown": {cooldown: 30}},
-      x: {"Damage": {weapon: "mainhand", elem: "phy", coeff: 16}},
-      c: {"Damage": {weapon: "mainhand", elem: "fir", coeff: 44, total: true}},
-      d: {"Damage": {weapon: "mainhand", elem: "phy", coeff: 16}},
-      b: {"Damage": {weapon: "mainhand", elem: "col", coeff: 18}},
-      e: {"Damage": {weapon: "mainhand", elem: "phy", coeff: 16}},
-      a: {"Damage": {weapon: "mainhand", elem: "col", coeff: 16}},
+      x: {"Damage": {weapon: "mainhand", elem: "phy", coeff: 24}},
+      c: {"Damage": {weapon: "mainhand", elem: "fir", coeff: 66, total: true}},
+      d: {"Damage": {weapon: "mainhand", elem: "phy", coeff: 24}},
+      b: {"Damage": {weapon: "mainhand", elem: "col", coeff: 28}},
+      e: {"Damage": {weapon: "mainhand", elem: "phy", coeff: 24}},
+      a: {"Damage": {weapon: "mainhand", elem: "col", coeff: 24}},
     },
   },
   threateningshout: {
@@ -604,7 +621,7 @@ DiabloCalc.skills.barbarian = {
     buffs: function(rune, stats) {
       var res = {damage: 10, chc: 3};
       if (rune === "a") res.damage = 15;
-      if (rune === "b") res.extrams = 10;
+      if (rune === "b") res.extrams = 15;
       if (rune === "d") res.chc += this.params[0].val;
       return res;
     },
@@ -628,9 +645,9 @@ DiabloCalc.skills.barbarian = {
     active: true,
     buffs: {
       x: {armor_percent: 20},
-      a: {armor_percent: 40},
+      a: {armor_percent: 80},
       d: {armor_percent: 20},
-      e: {armor_percent: 20, life: 10, regen: 8315},
+      e: {armor_percent: 20, life: 10, regen: 13411},
       b: {armor_percent: 20, dodge: 30},
       c: {armor_percent: 20, resist_percent: 20},
     },
@@ -650,12 +667,12 @@ DiabloCalc.skills.barbarian = {
     },
     info: {
       "*": {"Cooldown": {cooldown: 60}},
-      x: {"Damage": {weapon: "mainhand", elem: "fir", coeff: 42, total: true}},
-      b: {"Damage": {weapon: "mainhand", elem: "fir", coeff: 42, total: true}, "Tremor Damage": {weapon: "mainhand", elem: "fir", coeff: 2}, "Total Damage": {sum: true, "Damage": {}, "Tremor Damage": {count: 30}}},
-      c: {"Damage": {weapon: "mainhand", elem: "col", coeff: 42, total: true}},
-      d: {"Damage": {weapon: "mainhand", elem: "lit", coeff: 42, total: true}},
-      a: {"Damage": {weapon: "mainhand", elem: "fir", coeff: 51, total: true}},
-      e: {"Damage": {weapon: "mainhand", elem: "phy", coeff: 42, total: true}},
+      x: {"Damage": {weapon: "mainhand", elem: "fir", coeff: 48, total: true}},
+      b: {"Damage": {weapon: "mainhand", elem: "fir", coeff: 48, total: true}, "Tremor Damage": {weapon: "mainhand", elem: "fir", coeff: 3}, "Total Damage": {sum: true, "Damage": {}, "Tremor Damage": {count: 30}}},
+      c: {"Damage": {weapon: "mainhand", elem: "col", coeff: 48, total: true}},
+      d: {"Cooldown": {cooldown: 30}, "Damage": {weapon: "mainhand", elem: "lit", coeff: 48, total: true}},
+      a: {"Damage": {weapon: "mainhand", elem: "fir", coeff: 60, total: true}},
+      e: {"Damage": {weapon: "mainhand", elem: "phy", coeff: 48, total: true}},
     },
   },
   calloftheancients: {
@@ -750,6 +767,8 @@ DiabloCalc.passives.barbarian = {
     id: "pound-of-flesh",
     name: "Pound of Flesh",
     index: 0,
+    params: [{min: 0, max: 5, val: 0, name: "Stacks"}],
+    buffs: function(stats) {return {regen_percent: this.params[0].val * 2, extrams: this.params[0].val * 4};},
   },
   ruthless: {
     id: "ruthless",
@@ -790,7 +809,7 @@ DiabloCalc.passives.barbarian = {
     index: 4,
     buffs: function(stats) {
       if (stats.skills.battlerage || stats.skills.threateningshout || stats.skills.warcry) {
-        return {regen_percent: 2};
+        return {regen_percent: 3};
       }
     },
   },
@@ -826,7 +845,7 @@ DiabloCalc.passives.barbarian = {
     name: "Tough as Nails",
     index: 9,
     buffs: function(stats) {
-      return {armor_percent: 25/*, thorns: ((0 || stats.thorns) + (0 || stats.firethorns)) * 0.5*/};
+      return {armor_percent: 25, thorns_percent: 50};
     },
   },
   noescape: {
@@ -834,7 +853,7 @@ DiabloCalc.passives.barbarian = {
     name: "No Escape",
     index: 10,
     active: true,
-    buffs: {dmgmul: {skills: ["weaponthrow", "ancientspear", "avalanche"], percent: 30}},
+    buffs: {dmgmul: {skills: ["weaponthrow", "ancientspear", "avalanche", "seismicslam"], percent: 30}},
   },
   relentless: {
     id: "relentless",
@@ -852,7 +871,7 @@ DiabloCalc.passives.barbarian = {
     id: "juggernaut",
     name: "Juggernaut",
     index: 13,
-    buffs: {ccr: 30},
+    buffs: {ccr: 50},
   },
   unforgiving: {
     id: "unforgiving",
@@ -878,6 +897,11 @@ DiabloCalc.passives.barbarian = {
     id: "sword-and-board",
     name: "Sword and Board",
     index: 17,
+    buffs: function(stats) {
+      if (stats.info.ohtype === "shield") {
+        return {dmgred: 30, rcr_fury: 20};
+      }
+    },
   },
   rampage: {
     id: "rampage",

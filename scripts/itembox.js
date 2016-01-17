@@ -733,13 +733,20 @@
       args = DC.stats[stat].args;
     }
 
+    var statDiff = (!this.prevStat || !limits);
+    if (this.prevStat && limits) {
+      if (this.prevStat.min !== limits.min) statDiff = true;
+      if (this.prevStat.max !== limits.max) statDiff = true;
+      if (this.prevStat.step !== limits.step) statDiff = true;
+    }
+
     if (args >= 1) {
       this.value.show();
       setValueRange(this.value,
         limits ? limits.min : undefined,
         limits ? limits.max : undefined,
         limits ? limits.step : 1,
-        this.prevStat !== limits && !nosetvalue && (limits.best || "max"));
+        statDiff && !nosetvalue && (limits.best || "max"));
       this.value.blur();
     } else {
       this.value.hide();
@@ -750,7 +757,7 @@
         limits ? limits.min2 : undefined,
         limits ? limits.max2 : undefined,
         limits ? limits.step2 : 1,
-        this.prevStat !== limits && !nosetvalue && (limits.best || "max"));
+        statDiff && !nosetvalue && (limits.best || "max"));
       this.value2.blur();
     } else {
       this.value2.hide();
@@ -1282,7 +1289,6 @@
   // triggered when item quality changes (ancient checkbox)
   DC.ItemBox.prototype.updateLimits = function() {
     var ancient = this.ancient.prop("checked");
-    debugger;
     for (var i = 0; i < this.stats.length; ++i) {
       var stat = this.stats[i].list.val();
       if (!ancient && DC.stats[stat] && DC.stats[stat].caldesanns) {

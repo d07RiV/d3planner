@@ -16,6 +16,14 @@
     }
   }
 
+  function OathKeeper(func) {
+    return function(rune) {
+      var base = func;
+      if (typeof base === "function") base = func.call(this, rune);
+      return base / (Sim.stats.leg_oathkeeper ? 1.5 : 1);
+    };
+  }
+
   var _fb_prev = 0;
   function bash_frostbite_onhit(data) {
     if (Sim.time >= _fb_prev) {
@@ -32,7 +40,12 @@
     generate: function(rune) {
       return (rune === "d" ? 9 : 6);
     },
-    speed: VarSpeed,
+    cost: function(rune) {
+      if (Sim.stats.leg_bladeofthewarlord) {
+        return Math.min(40, Sim.getResource("fury"));
+      }
+    },
+    speed: OathKeeper(VarSpeed),
     oncast: function(rune) {
       var dmg = {coeff: 3.2};
       switch (rune) {
@@ -71,7 +84,7 @@
     signature: true,
     offensive: true,
     generate: 6,
-    speed: function(rune) {
+    speed: OathKeeper(function(rune) {
       switch (Sim.stats.info.weaponClass) {
       case "swing": return 57.857117;
       case "thrust": return 57.857121;
@@ -81,7 +94,7 @@
       case "dualwield": return 57.857124;
       default: return 57.857117;
       }
-    },
+    }),
     oncast: function(rune) {
       var dmg = {type: "cone", angle: 180, range: 10, coeff: 2};
       if (Sim.stats.leg_dishonoredlegacy) {
@@ -107,9 +120,9 @@
   skills.frenzy = {
     signature: true,
     offensive: true,
-    speed: function(rune) {
+    speed: OathKeeper(function(rune) {
       return VarSpeed(rune) / (1 + 0.15 * Sim.getBuff("frenzy"));
-    },
+    }),
     generate: function(rune) {
       return (rune === "e" || Sim.stats.leg_theundisputedchampion ? 6 : 4);
     },
@@ -163,7 +176,7 @@
     signature: true,
     offensive: true,
     generate: {x: 6, a: 6, b: 6, c: 6, e: 6, d: 9},
-    speed: 57.777767,
+    speed: OathKeeper(57.777767),
     oncast: function(rune) {
       var dmg = {type: "line", speed: 2, coeff: 2.75};
       if (Sim.stats.passives.noescape && Sim.target.distance > 15) {
@@ -255,16 +268,16 @@
     elem: {x: "phy", b: "fir", d: "phy", a: "lit", c: "col", e: "phy"},
   };
 
-  function ss_bod_fix(data) {
+  function ss_bod_fix() {
     if (Sim.stats.leg_bracersofdestruction) {
-      this.factor = 1 + 0.01 * Sim.stats.leg_bracersofdestruction * Math.min(5, this.targets) / this.targets;
+      this.factor = (this.factor || 1) * (1 + 0.01 * Sim.stats.leg_bracersofdestruction * Math.min(5, this.targets) / this.targets);
     }
   }
   skills.seismicslam = {
     offensive: true,
     speed: 58.666656,
     cost: function(rune) {
-      return (rune === "c" ? 22 : 30) * (1 - 0.01 * (Sim.stats.leg_furyofthevanishedpeak || 0));
+      return (rune === "c" ? 22 : 30) * (1 - 0.01 * (Sim.stats.leg_furyofthevanishedpeak || Sim.stats.leg_furyofthevanishedpeak_p2 || 0));
     },
     oncast: function(rune) {
       var dmg = {type: "cone", width: 50, range: 50, coeff: 6.2};
@@ -279,6 +292,9 @@
         break;
       case "e": dmg.coeff = 7.55; dmg.onhit = Sim.apply_effect("chilled", 60); break;
       }
+      if (Sim.stats.passives.noescape && Sim.target.distance > 15) {
+        dmg.factor = 1.3;
+      }
       if (Sim.stats.leg_bracersofdestruction) {
         dmg.fix = ss_bod_fix;
       }
@@ -290,11 +306,11 @@
 
   var _devils_angle = 0;
   function ww_devils_ontick(data) {
-    var coeff = (Sim.stats.set_wastes_6pc ? 25 : 1.2);
+    var info = Sim.castInfo();
+    var coeff = (Sim.stats.set_wastes_6pc ? 25 : 1.2) * Sim.stats.info[info && info.weapon || "mainhand"].speed;
     Sim.damage({type: "line", range: 30, speed: 1, pierce: true, radius: 3, angle: _devils_angle, coeff: coeff});
     _devils_angle = (_devils_angle + 60) % 360;
-    var info = Sim.castInfo();
-    data.buff.params.tickrate = Math.floor(30 / Sim.stats.info[info && info.weapon || "mainhand"].speed);
+    //data.buff.params.tickrate = Math.floor(30 / Sim.stats.info[info && info.weapon || "mainhand"].speed);
   }
   function ww_devils_onexpire(data) {
     if (data.buffid) Sim.removeBuff(data.buffid);
@@ -311,13 +327,19 @@
     if (Sim.stats.leg_skullgrasp) {
       dmg.coeff += Sim.stats.leg_skullgrasp / 3;
     }
+    var info = Sim.castInfo();
+    dmg.coeff *= Sim.stats.info[info && info.weapon || "mainhand"].speed;
     Sim.damage(dmg);
   }
   skills.whirlwind = {
     offensive: true,
     speed: 26.66666,
+    noias: true,
     channeling: 20,
-    cost: 10,
+    cost: function(rune) {
+      var info = Sim.castInfo();
+      return 10 * Sim.stats.info[(info && info.skill === "whirlwind" && info.weapon) || Sim.curweapon || "mainhand"].speed;
+    },
     oncast: function(rune) {
       var data = {rune: rune};
       var base = {buffs: {}};
@@ -343,6 +365,15 @@
     elem: {x: "phy", b: "phy", c: "col", e: "phy", d: "lit", a: "fir"},
   };
 
+  function bouldertoss_fix(data) {
+    if (Sim.stats.leg_skularssalvation) {
+      if (this.targets <= 5) {
+        this.factor = 1 + 0.01 * Sim.stats.leg_skularssalvation;
+      } else {
+        this.factor = 2;
+      }
+    }
+  }
   skills.ancientspear = {
     offensive: true,
     speed: 57.777767,
@@ -355,6 +386,9 @@
       case "c": dmg.coeff = 6.4; break;
       case "b":
         dmg = {type: "area", range: 9, coeff: 5 + 0.2 * (Sim.resources.fury || 0)};
+        if (Sim.stats.leg_skularssalvation) {
+          dmg.fix = bouldertoss_fix;
+        }
         if (!Sim.castInfo().triggered) {
           Sim.spendResource(Sim.resources.fury);
         }
@@ -390,7 +424,7 @@
     generate: function(rune) {
       return (rune === "d" ? 30 : 15);
     },
-    cooldown: 12,
+    cooldown: {x: 12, e: 8, b: 12, a: 12, d: 12, c: 12},
     speed: 56.666664,
     oncast: function(rune) {
       var dmg = {type: "area", self: true, range: 14, coeff: 0, onhit: gs_onhit};
@@ -404,16 +438,10 @@
 
   function leap_onhit(data) {
     var status = "slowed";
-    switch (data.castInfo.rune) {
-    case "d":
-      Sim.removeBuff("ironimpact");
-      Sim.addBuff("ironimpact", {armor_percent: 50}, {duration: 180, stacks:
-        Sim.random("ironimpact", 1, data.targets, true)});
-      break;
-    case "e":
-      status = "stunned";
-      break;
+    if (data.castInfo.rune === "d" || Sim.stats.set_earth_4pc) {
+      Sim.addBuff("ironimpact", {armor_percent: 150 * (Sim.stats.set_earth_4pc ? 2.5 : 1)}, {duration: 240 * (Sim.stats.set_earth_4pc ? 2.5 : 1)});
     }
+    if (data.castInfo.rune === "e") status = "stunned";
     Sim.addBuff(status, undefined, {duration: 180});
   }
   skills.leap = {
@@ -565,16 +593,12 @@
   };
 
   function fc_onhit(data) {
+    if (Sim.stats.set_raekor_2pc && data.targets <= 1.1) {
+      Sim.reduceCooldown("furiouscharge");
+    }
     if (Sim.stats.set_raekor_4pc || data.castInfo.rune === "e") {
       var hits = Sim.random("furiouscharge", 1, data.targets, true);
       if (hits) Sim.reduceCooldown("furiouscharge", 120 * Math.min(hits, 10));
-    }
-    if (Sim.stats.set_raekor_5pc) {
-      Sim.addBuff("raekor_5pc", undefined, {
-        duration: 181,
-        tickrate: 30,
-        ontick: {targets: data.targets, coeff: 5},
-      });
     }
     if (Sim.stats.set_raekor_4pc || data.castInfo.rune === "d") {
       Sim.addResource(10 * data.targets);
@@ -586,9 +610,6 @@
   function fc_fix() {
     if (!this.targets) return;
     this.factor = 1;
-    if (Sim.stats.set_raekor_2pc) {
-      this.factor += 1 / this.targets;
-    }
     if (Sim.stats.leg_vileward && this.targets > 1) {
       this.factor += 0.01 * Sim.stats.leg_vileward * this.targets;
     }
@@ -600,14 +621,12 @@
     speed: 15.48387,
     cooldown: 10,
     charges: function(rune) {
-      return (rune === "b" || Sim.stats.set_raekor_4pc ? 2 : 1);
+      return (rune === "b" || Sim.stats.set_raekor_4pc ? 3 : 1);
     },
     oncast: function(rune) {
       var dmg = {type: "line", pierce: true, range: 20, radius: 7, coeff: 6, onhit: fc_onhit};
       if (rune === "a" || Sim.stats.set_raekor_4pc) dmg.coeff = 10.5;
-      if (Sim.stats.set_raekor_2pc || Sim.stats.leg_vileward) {
-        dmg.fix = fc_fix;
-      }
+      if (Sim.stats.leg_vileward) dmg.fix = fc_fix;
       return dmg;
     },
     proctable: 0.5,
@@ -615,13 +634,13 @@
   };
 
   function avalanche_ontick(data) {
-    var dmg = {type: "area", range: 15, coeff: 1.6};
+    var dmg = {type: "area", range: 15, coeff: 2.4};
     if (Sim.stats.passives.noescape && Sim.target.distance > 15) {
       dmg.factor = 1.3;
     }
     switch (data.rune) {
     case "c":
-      dmg.coeff = 1.76;
+      dmg.coeff = 2.64;
       dmg.range = 5;
       if (Sim.random("volcano", 0.5)) {
         dmg.spread = 20;
@@ -629,7 +648,7 @@
       break;
     case "b":
       dmg.range = 20;
-      dmg.coeff = 6;
+      dmg.coeff = 28 / 3;
       dmg.onhit = Sim.apply_effect("chilled", 180);
       break;
     case "a":
@@ -719,7 +738,7 @@
       var params = {duration: 120 * 60};
       switch (rune) {
       case "a": buffs.damage = 15; break;
-      case "b": buffs.extrams = 10; break;
+      case "b": buffs.extrams = 15; break;
       case "d":
         buffs.tickrate = 60;
         buffs.tickinitial = 1;
@@ -764,10 +783,12 @@
     },
     oncast: function(rune) {
       var buffs = {armor_percent: 20};
-      var params = {duration: 60 * 60};
+      var params = {duration: 120 * 60};
       switch (rune) {
-      case "a": buffs.armor_percent = 40; break;
-      case "e": buffs.life = 10; buffs.regen = 8315; break;
+      case "a":
+        Sim.addBuff("hardenedwrath", {armor_percent: 60}, {duration: 300});
+        break;
+      case "e": buffs.life = 10; buffs.regen = 13411; break;
       case "b": buffs.dodge = 30; break;
       case "c": buffs.resist_percent = 20; break;
       }
@@ -783,12 +804,12 @@
   };
 
   function eq_ontick(data) {
-    var dmg = {type: "area", range: 18, self: true, coeff: 2.1};
-    if (data.rune === "a") dmg.coeff = 2.55;
+    var dmg = {type: "area", range: 18, self: true, coeff: 2.4};
+    if (data.rune === "a") dmg.coeff = 3;
     if (data.rune === "c") dmg.onhit = Sim.apply_effect("frozen", 90);
     Sim.damage(dmg);
     if (data.rune === "b") {
-      Sim.damage({type: "area", range: 8, self: true, coeff: 2});
+      Sim.damage({type: "area", range: 8, self: true, coeff: 3});
     }
   }
   skills.earthquake = {
@@ -799,7 +820,7 @@
       return (rune === "d" ? 0 : 25);
     },
     cooldown: function(rune) {
-      return (rune === "d" ? 50 : 60) - (Sim.stats.passives.boonofbulkathos ? 15 : 0);
+      return (rune === "d" ? 30 : 60) - (Sim.stats.passives.boonofbulkathos ? 15 : 0);
     },
     oncast: function(rune) {
       if (Sim.stats.passives.earthenmight) {
@@ -896,7 +917,11 @@
   };
 
   Sim.passives = {
-    poundofflesh: function() {},
+    poundofflesh: function() {
+      Sim.register("onglobe", function() {
+        Sim.addBuff("poundofflesh", {regen_percent: 2, extrams: 4}, {duration: 900, refresh: false, maxstacks: 5});
+      });
+    },
     ruthless: function() {
       var id;
       Sim.register("update", function(data) {
@@ -941,7 +966,7 @@
     inspiringpresence: function() {
       Sim.register("oncast", function(data) {
         if (data.skill === "battlerage" || data.skill === "threateningshout" || data.skill === "warcry") {
-          Sim.addBuff("inspiringpresence", {regen_percent: 2}, {duration: 60});
+          Sim.addBuff("inspiringpresence", {regen_percent: 3}, {duration: 60});
         }
       });
     },
@@ -975,11 +1000,15 @@
         Sim.after(60, check);
       });
     },
-    juggernaut: {ccr: 30},
+    juggernaut: {ccr: 50},
     unforgiving: {furyregen: 2},
     boonofbulkathos: function() {},
     earthenmight: function() {},
-    swordandboard: function() {},
+    swordandboard: function() {
+      if (Sim.stats.info.ohtype === "shield") {
+        Sim.addBaseStats({dmgred: 30, rcr_fury: 20});
+      }
+    },
     rampage: function() {
       // todo
     },

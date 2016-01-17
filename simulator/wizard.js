@@ -4,6 +4,15 @@
   var skills = {};
   Sim.skills = skills;
 
+  function SignatureSpeed(base) {
+    return function(rune) {
+      return base / (Sim.stats.leg_theshameofdelsere ? 1.5 : 1);
+    };
+  }
+  function SignatureGen(rune) {
+    return Sim.stats.leg_theshameofdelsere;
+  }
+
   var mm_glacial_next = undefined;
   function mm_glacial_onhit(event) {
     if (!mm_glacial_next || event.time >= mm_glacial_next) {
@@ -38,7 +47,8 @@
   skills.magicmissile = {
     signature: true,
     offensive: true,
-    speed: 57.599991,
+    speed: SignatureSpeed(57.599991),
+    generate: SignatureGen,
     oncast: function(rune) {
       var count = 1 + (Sim.stats.leg_mirrorball || 0);
       switch (rune) {
@@ -57,7 +67,8 @@
   skills.shockpulse = {
     signature: true,
     offensive: true,
-    speed: 57.142834,
+    speed: SignatureSpeed(57.142834),
+    generate: SignatureGen,
     oncast: {
       x: {type: "line", coeff: 1.94, speed: 0.65, fan: 45, count: 3, range: 40},
       e: {type: "line", coeff: 1.94, speed: 0.65, fan: 45, count: 3, range: 40},
@@ -75,12 +86,15 @@
   skills.spectralblade = {
     signature: true,
     offensive: true,
-    speed: 56.249996,
+    speed: function(rune) {
+      return 56.249996 / (Sim.stats.leg_theshameofdelsere ? 1.5 : 1) / (Sim.stats.leg_fragmentofdestiny ? 1.5 : 1);
+    },
+    generate: SignatureGen,
     oncast: function(rune) {
       switch (rune) {
       case "x": return {type: "cone", coeff: 0.56, count: 3, range: 15};
       case "a": return {type: "cone", coeff: 0.56, count: 3, range: 15, onhit: function(event) {
-        Sim.addBuff("flameblades", {dmgfir: 1}, {maxstacks: 999, stacks: Sim.random("flameblades", 1, event.targets / 3, true), duration: 600, refresh: false});
+        Sim.addBuff("flameblades", {dmgfir: 1}, {maxstacks: 30, stacks: Sim.random("flameblades", 1, event.targets / 3, true), duration: 300, refresh: false});
       }};
       case "d": return {type: "cone", coeff: 0.56, count: 3, range: 15, onhit: function(event) {
         Sim.addResource(event.targets * 2 / 3);
@@ -110,9 +124,14 @@
 
   skills.electrocute = {
     signature: true,
-    channeling: 30,
+    channeling: function(rune) {
+      return (Sim.stats.leg_theshameofdelsere ? 20 : 30);
+    },
     offensive: true,
-    speed: 58.064510,
+    speed: SignatureSpeed(58.064510),
+    generate: function(rune) {
+      return (Sim.stats.leg_theshameofdelsere || 0) / 2;
+    },
     oncast: function(rune) {
       var dmg;
       switch (rune) {
@@ -159,7 +178,9 @@
     channeling: 30,
     offensive: true,
     speed: 58.064510,
-    cost: {x: 16, d: 11, c: 16, e: 16, b: 16, a: 16},
+    cost: function(rune) {
+      return (rune === "d" ? 11 : 16) * (1 - 0.01 * (Sim.stats.leg_hergbrashsbinding || 0));
+    },
     oncast: function(rune) {
       var dmg;
       switch (rune) {
@@ -187,19 +208,20 @@
     offensive: true,
     cost: 30,
     oncast: function(rune) {
+      var count = (Sim.stats.leg_unstablescepter ? 2 : 1);
       switch (rune) {
-      case "x": return {type: "line", coeff: 4.35, area: 15, speed: 0.5};
-      case "a": return {type: "line", coeff: 7, area: 8, speed: 1.5};
-      case "c": return {delay: 60, type: "area", self: true, range: 8, coeff: 2.65, count: 4};
+      case "x": return {type: "line", coeff: 4.35, area: 15, speed: 0.5, count: count};
+      case "a": return {type: "line", coeff: 7, area: 8, speed: 1.5, count: count};
+      case "c": return {delay: 60, type: "area", self: true, range: 8, coeff: 2.65, count: 4, count: count};
       case "b": return {type: "line", coeff: 1.745, count: 2, range: 45, radius: 15, pierce: true, speed: 0.5, onhit: function(event) {
         var stacks = Math.ceil(event.targets);
         Sim.addBuff("spark", undefined, {stacks: stacks, maxstacks: stacks});
       }};
       case "d":
         Sim.addBuff("scorch", undefined, {duration: 300, tickrate: 6, ontick: ao_scorch_ontick});
-        return {type: "line", coeff: 2.21, range: 50, radius: 6, pierce: true, speed: 1};
+        return {type: "line", coeff: 2.21, range: 50, radius: 6, pierce: true, speed: 1, count: count};
       case "e":
-        Sim.damage({type: "area", origin: Sim.target.distance - 30, coeff: 3.93, range: 15, delay: 30 / 0.6});
+        Sim.damage({type: "area", origin: Sim.target.distance - 30, coeff: 3.93, range: 15, delay: 30 / 0.6, count: count});
         Sim.damage({type: "line", coeff: 2.62, pierce: true, range: 30, speed: 0.6, radius: 15});
         Sim.damage({type: "line", coeff: 1.28, pierce: true, range: 30, radius: 15, delay: 30 / 0.6 + 0.6, proc: 0.013});
       }
@@ -252,7 +274,9 @@
     channeling: {x: 20, a: 20, e: 30, c: 40, d: 20, b: 20},
     offensive: true,
     speed: 58.064510,
-    cost: 16,
+    cost: function(rune) {
+      return 16 * (1 - 0.01 * (Sim.stats.leg_hergbrashsbinding || 0));
+    },
     oncast: function(rune) {
       var dmg;
       switch (rune) {
@@ -261,17 +285,17 @@
       case "e": dmg = {delay: 24, type: "area", self: true, spread: 7, inner: 35,
         coeff_base: 12.15, coeff_delta: 6.4, range: 6}; break;
       case "c":
-        Sim.channeling("arcanetorrent", this.speed[rune], at_mines_ontick);
+        Sim.channeling("arcanetorrent", this.channeling[rune], at_mines_ontick);
         return;
       case "d": dmg = {delay: 24, type: "area", coeff_base: 4, coeff_delta: 3.05, range: 6,
         onhit: at_static_onhit}; break;
       case "b": dmg = {delay: 24, type: "area", coeff_base: 4, coeff_delta: 3.05, range: 6,
         onhit: at_cascade_onhit}; break;
       }
-      var factor = this.speed[rune] / 60;
+      var factor = this.channeling[rune] / 60;
       dmg.coeff_base *= factor;
       dmg.coeff_delta *= factor;
-      return dmg;
+      Sim.channeling("arcanetorrent", this.channeling[rune], at_ontick, {dmg: dmg, rune: rune});
     },
     proctable: {x: 0.2, a: 0.2, e: 0.6, c: 0.5, d: 0.2, b: 0.16},
     elem: {x: "arc", a: "fir", e: "arc", c: "arc", d: "lit", b: "arc"},
@@ -294,7 +318,9 @@
     offensive: true,
     channeling: 20,
     speed: 58.064510,
-    cost: 18,
+    cost: function(rune) {
+      return 18 * (1 - 0.01 * (Sim.stats.leg_hergbrashsbinding || 0));
+    },
     oncast: function(rune) {
       var dmg;
       switch (rune) {
@@ -371,31 +397,20 @@
     elem: {x: "arc", c: "arc", d: "arc", a: "arc", b: "arc", e: "arc"},
   };
 
-  function st_dmo_ontick(data) {
-    Sim.damage({type: "area", range: 21, coeff: 10});
-  }
   skills.slowtime = {
     speed: 56.249996,
-    offensive: function(rune) {return !!Sim.stats.set_magnumopus_4pc;},
     cooldown: function(rune) {
       var cd = (rune === "c" ? 12 : 15);
       return cd * (1 - 0.01 * (Sim.stats.leg_gestureoforpheus || Sim.stats.leg_gestureoforpheus_p2 || 0));
     },
     oncast: function(rune) {
       var params = {duration: 900, status: "slowed"};
-      if (Sim.stats.set_magnumopus_4pc) {
-        params.tickrate = 30;
-        params.ontick = st_dmo_ontick;
-      }
-      if (Sim.stats.leg_crownoftheprimus) {
-        Sim.addBuff("slowtime", {dmgtaken: 15, ias: 10}, params);
-      } else {
-        switch (rune) {
-        case "a": Sim.addBuff("slowtime", {dmgtaken: 15}, params); break;
-        case "e": Sim.addBuff("slowtime", {ias: 10}, params); break;
-        default: Sim.addBuff("slowtime", undefined, params); break;
-        }
-      }
+      var buffs = {};
+      if (Sim.stats.set_magnumopus_4pc) buffs.dmgred = 50;
+      if (rune === "a" || Sim.stats.leg_crownoftheprimus) buffs.dmgtaken = 15;
+      if (rune === "e" || Sim.stats.leg_crownoftheprimus) buffs.ias = 10;
+      if (rune === "b" || Sim.stats.leg_crownoftheprimus) Sim.addBuff("stunned", undefined, 300);
+      Sim.addBuff("slowtime", buffs, params);
     },
     elem: function(rune) {
       return (Sim.stats.set_magnumopus_4pc ? Sim.stats.info.maxelem : "arc");
@@ -471,7 +486,7 @@
       dmg.onhit = et_gale_onhit;
     }
     if (data.rune !== "e") {
-      dmg.origin = (Sim.time - data.buff.start) * 0.25;
+      dmg.origin = (Sim.time - data.stack.start) * 0.25;
     }
     Sim.damage(dmg);
   }
@@ -481,20 +496,15 @@
     cost: {x: 35, d: 25, a: 35, b: 35, e: 35, c: 35},
     oncast: function(rune) {
       var base = 15.25;
-      if (rune === "e") {
-        base = 8.35;
+      if (rune === "e") base = 8.35;
+      if (rune === "b" && Sim.getBuff("energytwister")) {
+        Sim.removeBuff("energytwister", 1);
+        Sim.addBuff("ragingstorm", undefined, {maxstacks: 99, duration: 360, tickrate: 30, tickinitial: 1,
+          ontick: et_ontick, data: {rune: rune, base: 32}, refresh: false, proc: this.proctable[rune]});
+        return;
       }
-      var id = undefined;
-      if (rune === "b") {
-        if (Sim.getBuff("ragingstorm")) {
-          Sim.removeBuff("ragingstorm");
-          base = 32;
-        } else {
-          id = "ragingstorm";
-        }
-      }
-      Sim.addBuff(id, undefined, {duration: 360, tickrate: 30, tickinitial: 1,
-        ontick: et_ontick, data: {rune: rune, base: base}});
+      Sim.addBuff("energytwister", undefined, {maxstacks: 99, duration: 360, tickrate: 30, tickinitial: 1,
+        ontick: et_ontick, data: {rune: rune, base: base}, refresh: false});
       if (rune === "c") {
         Sim.addBuff("stormchaser", undefined, {duration: 900, maxstacks: 3});
       }
@@ -638,8 +648,9 @@
       case "x": dmg = {delay: 75, type: "area", range: 12, coeff: 7.4}; break;
       case "e": dmg = {type: "area", range: 12, coeff: 7.4}; break;
       case "d":
-        dmg = {delay: 75, type: "area", range: 12, coeff: 7.4 + 0.2 * Sim.resources.ap};
+        dmg = {delay: 75, type: "area", range: 12, coeff: 7.4};
         if (!Sim.castInfo().triggered) {
+          dmg.coeff += 0.2 * Sim.resources.ap;
           Sim.spendResource(Sim.resources.ap);
         }
         break;
@@ -910,14 +921,15 @@
     },
     oncast: function(rune) {
       Sim.removeBuff("archon_stacks");
-      if (Sim.stats.leg_fazulasimprobablechain) {
+      if (Sim.stats.leg_fazulasimprobablechain || Sim.stats.leg_fazulasimprobablechain_p2) {
         var buffs = {damage: 6};
         if (Sim.stats.set_vyr_4pc) {
           buffs.ias = 1;
           buffs.armor_percent = 1;
           buffs.resist_percent = 1;
         }
-        Sim.addBuff("archon_stacks", buffs, {maxstacks: 9999, stacks: Sim.stats.leg_fazulasimprobablechain});
+        Sim.addBuff("archon_stacks", buffs, {maxstacks: 9999, stacks:
+          Sim.stats.leg_fazulasimprobablechain || Sim.stats.leg_fazulasimprobablechain_p2});
       }
       if (rune === "e" || Sim.stats.set_vyr_2pc) {
         Sim.damage({delay: 1, type: "area", range: 15, coeff: 36.8, elem: this.default_elem[rune]});
@@ -1166,7 +1178,7 @@
       function trigger(elem) {
         var name = stacks[elem];
         if (!name) return;
-        Sim.addBuff(name, {dmgtaken: 5}, {duration: 300});
+        Sim.addBuff(name, {dmgtaken: (Sim.stats.leg_primordialsoul ? 10 : 5)}, {duration: 300});
       }
       Sim.register("onhit", function(data) {
         if (data.elem) trigger(data.elem);
