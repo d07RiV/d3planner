@@ -985,7 +985,7 @@
     },
     animosity: {resourcegen: 10, maxfury: 20},
     superstition: {nonphys: 20},
-    toughasnails: {armor_percent: 25},
+    toughasnails: {armor_percent: 25, thorns_multiply: 50},
     noescape: function() {},
     relentless: function() {
       // todo?

@@ -614,7 +614,7 @@ asheara's: todo
   affixes.set_invoker_6pc = function() {
     Sim.register("onhit_proc", function(data) {
       if (data.castInfo && (data.castInfo.skill === "punish" || data.castInfo.skill === "slash") && data.castInfo.user && !data.castInfo.user.invoker_6pc) {
-        Sim.damage({thorns: "normal", coeff: 6});
+        Sim.damage({thorns: "normal", coeff: 6, skill: data.castInfo.skill, elem: "phy"});
         data.castInfo.user.invoker_6pc = true;
       }
     });

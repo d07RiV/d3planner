@@ -379,9 +379,11 @@
   skills.rapidfire = {
     offensive: true,
     initialcost: {x: 20, d: 10, e: 20, c: 20, b: 20, a: 20},
-    cost: 6,
+    cost: function(rune) {
+      if (!Sim.stats.leg_sinseekers) return 6;
+    },
     channeling: function(rune) {
-      if (!Sim.stats.leg_sinseekers) return (rune === "a" ? 20 : 10);
+      return (rune === "a" ? 20 : 10);
     },
     speed: 8,
     oncast: function(rune) {

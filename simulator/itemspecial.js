@@ -971,7 +971,7 @@
     });
   };
   affixes.leg_heartofiron = function(amount) {
-    Sim.addBaseStats({thorns: Sim.stats.vit * amount * 0.01});
+    Sim.addBaseStats({vit_to_thorns: amount});
   };
   affixes.leg_liannaswings = function(amount) {
     Sim.register("oncast", function(data) {

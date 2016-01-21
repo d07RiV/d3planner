@@ -883,7 +883,7 @@
   };
 
   function fetish_dagger_ontick(data) {
-    Sim.damage({pet: true, distance: 5, coeff: 1.8 * Sim.stats.info.aps});
+    Sim.damage({pet: true, distance: 5, coeff: 1.8 * Sim.stats.info.aps, skill: "fetisharmy"});
   }
   function fetish_shaman_ontick(data) {
     Sim.damage({pet: true, type: "cone", width: 45, range: 20, origin: 10, coeff: 0.85 * Sim.stats.info.aps});

@@ -240,9 +240,10 @@
     this.addPercent("dex", "dex_percent");
     this.addPercent("int", "int_percent");
 
-    this.thorns = ((this.thorns || 0) + (this.firethorns || 0)) * (1 + this[this.primary] / 400);
-    this.info.thorns = this.thorns * (1 + 0.01 * (this.thorns_multiply || 0));
-    this.info.thorns = this.thorns * (1 + 0.01 * (this.thorns_percent || 0));
+    this.thorns = ((this.thorns || 0) + (this.firethorns || 0));
+    this.addPercent("thorns", "vit_to_thorns", this.vit);
+    this.addPercent("thorns", "thorns_multiply");
+    this.addPercent("thorns", "thorns_percent");
 
     this.calcWeapon = function(info) {
       info.speed += (this.weaponaps || 0);
