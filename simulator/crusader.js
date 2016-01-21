@@ -630,6 +630,9 @@
   }
   skills.phalanx = {
     offensive: true,
+    secondary: function(rune) {
+      return rune === "a" || rune === "d" || rune === "e";
+    },
     speed: 58.06451,
     cooldown: function(rune) {
       var base = 15 * (1 - 0.01 * (Sim.stats.leg_warhelmofkassar || 0));

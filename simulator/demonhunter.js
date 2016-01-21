@@ -410,6 +410,9 @@
 
   skills.chakram = {
     offensive: true,
+    secondary: function(rune) {
+      return rune === "e";
+    },
     cost: function(rune) {
       if (!Sim.stats.leg_spinesofseethinghatred) return 10;
     },

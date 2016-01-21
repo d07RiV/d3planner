@@ -207,6 +207,9 @@
     speed: 57.857109,
     offensive: true,
     cost: 30,
+    secondary: function(rune) {
+      return rune === "c";
+    },
     oncast: function(rune) {
       var count = (Sim.stats.leg_unstablescepter ? 2 : 1);
       switch (rune) {
