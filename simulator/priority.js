@@ -73,7 +73,7 @@
     for (var i = 0; i < list.length; ++i) {
       var id = list[i].skill;
       if (!id || !Sim.skills[id]) continue;
-      if (Sim.getProp(Sim.skills[id], "secondary", Sim.skills[id])) {
+      if (Sim.getProp(Sim.skills[id], "secondary", Sim.stats.skills[id] || "x")) {
         result.push([list[i]]);
       } else {
         main.push(list[i]);
