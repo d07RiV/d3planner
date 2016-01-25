@@ -173,15 +173,16 @@
   gems.stricken = function(level) {
     var next = 0;
     var counter = 0;
-    Sim.register("onhit", function(data) {
+    Sim.register("onhit_proc", function(data) {
       if (Sim.time >= next) {
         if (--counter < 0) {
           Sim.addBuff("stricken", {dmgmul: 0.8 + level * 0.01}, {
             maxstacks: 9999,
           });
-          counter = Sim.target.count;
+          counter = Sim.target.count - 1;
         }
-        next = Sim.time + Math.floor(54 / Sim.stats.info.aps);
+        var aps = (data.castInfo && data.castInfo.speed || 1);
+        next = Sim.time + Math.floor(54 / aps);
       }
     });
     if (level >= 25) {
@@ -1142,7 +1143,7 @@
     Sim.register("onhit_proc", function(data) {
       if (data.castInfo && data.castInfo.skill === "blessedshield") {
         Sim.addBuff("akkhansleniency", {dmgmul: {skills: ["blessedshield"], percent: amount}},
-          {maxstacks: 99, stacks: Sim.random("akkhansleniency", 1, data.targets, true), duration: 180, refresh: false});
+          {maxstacks: 10, stacks: Sim.random("akkhansleniency", 1, data.targets, true), duration: 180, refresh: false});
       }
     });
   };

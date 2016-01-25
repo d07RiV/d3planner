@@ -4,7 +4,7 @@
   var skills = {};
   Sim.skills = skills;
 
-  function VarSpeed(rune) {
+  function VarFrames(rune) {
     switch (Sim.stats.info.weaponClass) {
     case "swing": return 57.142834;
     case "thrust": return 56.842068;
@@ -16,12 +16,8 @@
     }
   }
 
-  function OathKeeper(func) {
-    return function(rune) {
-      var base = func;
-      if (typeof base === "function") base = func.call(this, rune);
-      return base / (Sim.stats.leg_oathkeeper ? 1.5 : 1);
-    };
+  function OathKeeper(rune, aps) {
+    return aps * (Sim.stats.leg_oathkeeper ? 1.5 : 1);
   }
 
   var _fb_prev = 0;
@@ -45,7 +41,8 @@
         return Math.min(40, Sim.getResource("fury"));
       }
     },
-    speed: OathKeeper(VarSpeed),
+    frames: VarFrames,
+    speed: OathKeeper,
     oncast: function(rune) {
       var dmg = {coeff: 3.2};
       switch (rune) {
@@ -84,7 +81,7 @@
     signature: true,
     offensive: true,
     generate: 6,
-    speed: OathKeeper(function(rune) {
+    frames: function(rune) {
       switch (Sim.stats.info.weaponClass) {
       case "swing": return 57.857117;
       case "thrust": return 57.857121;
@@ -94,7 +91,8 @@
       case "dualwield": return 57.857124;
       default: return 57.857117;
       }
-    }),
+    },
+    speed: OathKeeper,
     oncast: function(rune) {
       var dmg = {type: "cone", angle: 180, range: 10, coeff: 2};
       if (Sim.stats.leg_dishonoredlegacy) {
@@ -120,9 +118,10 @@
   skills.frenzy = {
     signature: true,
     offensive: true,
-    speed: OathKeeper(function(rune) {
-      return VarSpeed(rune) / (1 + 0.15 * Sim.getBuff("frenzy"));
-    }),
+    frames: VarSpeed,
+    speed: function(rune, aps) {
+      return aps * (1 + 0.15 * Sim.getBuff("frenzy")) * (Sim.stats.leg_oathkeeper ? 1.5 : 1);
+    },
     generate: function(rune) {
       return (rune === "e" || Sim.stats.leg_theundisputedchampion ? 6 : 4);
     },
@@ -176,7 +175,8 @@
     signature: true,
     offensive: true,
     generate: {x: 6, a: 6, b: 6, c: 6, e: 6, d: 9},
-    speed: OathKeeper(57.777767),
+    frames: 57.777767,
+    speed: OathKeeper,
     oncast: function(rune) {
       var dmg = {type: "line", speed: 2, coeff: 2.75};
       if (Sim.stats.passives.noescape && Sim.target.distance > 15) {
@@ -208,8 +208,9 @@
   }
   skills.hammeroftheancients = {
     offensive: true,
-    speed: function(rune) {
-      return 56.666664 / (1 + (Sim.stats.leg_bracersofthefirstmen ? 0.5 : 0));
+    frames: 56.666664,
+    speed: function(rune, aps) {
+      return aps * (Sim.stats.leg_bracersofthefirstmen ? 1.5 : 1);
     },
     cost: 20,
     oncast: function(rune) {
@@ -258,7 +259,7 @@
   }
   skills.rend = {
     offensive: true,
-    speed: 57.931034,
+    frames: 57.931034,
     cost: 20,
     weapon: "mainhand",
     oncast: function(rune) {
@@ -275,7 +276,7 @@
   }
   skills.seismicslam = {
     offensive: true,
-    speed: 58.666656,
+    frames: 58.666656,
     cost: function(rune) {
       return (rune === "c" ? 22 : 30) * (1 - 0.01 * (Sim.stats.leg_furyofthevanishedpeak || Sim.stats.leg_furyofthevanishedpeak_p2 || 0));
     },
@@ -327,19 +328,13 @@
     if (Sim.stats.leg_skullgrasp) {
       dmg.coeff += Sim.stats.leg_skullgrasp / 3;
     }
-    var info = Sim.castInfo();
-    dmg.coeff *= Sim.stats.info[info && info.weapon || "mainhand"].speed;
     Sim.damage(dmg);
   }
   skills.whirlwind = {
     offensive: true,
-    speed: 26.66666,
-    noias: true,
+    frames: 26.66666,
     channeling: 20,
-    cost: function(rune) {
-      var info = Sim.castInfo();
-      return 10 * Sim.stats.info[(info && info.skill === "whirlwind" && info.weapon) || Sim.curweapon || "mainhand"].speed;
-    },
+    cost: 10,
     oncast: function(rune) {
       var data = {rune: rune};
       var base = {buffs: {}};
@@ -376,7 +371,7 @@
   }
   skills.ancientspear = {
     offensive: true,
-    speed: 57.777767,
+    frames: 57.777767,
     cost: 25,
     oncast: function(rune) {
       var dmg = {type: "line", range: 60, pierce: true, speed: 3, coeff: 5};
@@ -425,7 +420,7 @@
       return (rune === "d" ? 30 : 15);
     },
     cooldown: {x: 12, e: 8, b: 12, a: 12, d: 12, c: 12},
-    speed: 56.666664,
+    frames: 56.666664,
     oncast: function(rune) {
       var dmg = {type: "area", self: true, range: 14, coeff: 0, onhit: gs_onhit};
       if (rune === "b") dmg.range = 24;
@@ -454,7 +449,7 @@
         return [120, 2];
       }
     },
-    speed: 24.999998,
+    frames: 24.999998,
     oncast: function(rune) {
       var dmg = {type: "area", range: 8, self: true, coeff: 1.8, onhit: leap_onhit};
       switch (rune) {
@@ -510,7 +505,7 @@
   skills.ignorepain = {
     secondary: true,
     weapon: "mainhand",
-    speed: 40,
+    frames: 40,
     cooldown: 30,
     oncast: function(rune) {
       var buffs = {dmgred: 50};
@@ -535,7 +530,7 @@
     offensive: true,
     secondary: true,
     weapon: "mainhand",
-    speed: 32,
+    frames: 32,
     cooldown: 12,
     oncast: function(rune) {
       var dmg = {type: "area", range: 9, self: true, coeff: 3.8};
@@ -571,7 +566,7 @@
     offensive: true,
     secondary: true,
     weapon: "mainhand",
-    speed: 56.470577,
+    frames: 56.470577,
     charges: 0,
     oncast: function(rune) {
       var dmg = {type: "area", range: 11, self: true, coeff: 3};
@@ -618,7 +613,7 @@
     offensive: true,
     weapon: "mainhand",
     generate: 15,
-    speed: 15.48387,
+    frames: 15.48387,
     cooldown: 10,
     charges: function(rune) {
       return (rune === "b" || Sim.stats.set_raekor_4pc ? 3 : 1);
@@ -660,7 +655,7 @@
   skills.avalanche = {
     offensive: true,
     weapon: "mainhand",
-    speed: 56.666664,
+    frames: 56.666664,
     cooldown: 30,
     charges: function(rune) {
       return (rune === "e" ? 3 : undefined);
@@ -692,7 +687,7 @@
   skills.threateningshout = {
     secondary: true,
     weapon: "mainhand",
-    speed: 40,
+    frames: 40,
     cooldown: 10,
     generate: 15,
     oncast: function(rune) {
@@ -731,7 +726,7 @@
     offensive: true,
     secondary: true,
     weapon: "mainhand",
-    speed: 57.142845,
+    frames: 57.142845,
     cost: 20,
     oncast: function(rune) {
       var buffs = {damage: 10, chc: 3};
@@ -776,7 +771,7 @@
   skills.warcry = {
     secondary: true,
     weapon: "mainhand",
-    speed: 40,
+    frames: 40,
     cooldown: 20,
     generate: function(rune) {
       return (rune === "d" ? 50 : 20);
@@ -814,7 +809,7 @@
   }
   skills.earthquake = {
     offensive: true,
-    speed: 24.999998,
+    frames: 24.999998,
     weapon: "mainhand",
     cost: function(rune) {
       return (rune === "d" ? 0 : 25);
@@ -859,7 +854,7 @@
     cooldown: function(rune) {
       return 120 - (Sim.stats.passives.boonofbulkathos ? 30 : 0);
     },
-    speed: 57.142845,
+    frames: 57.142845,
     weapon: "mainhand",
     oncast: function(rune) {
       Sim.removeBuff("calloftheancients");
@@ -886,7 +881,7 @@
     offensive: true,
     secondary: true,
     weapon: "mainhand",
-    speed: 57.142845,
+    frames: 57.142845,
     cooldown: function(rune) {
       return 120 - (Sim.stats.passives.boonofbulkathos ? 30 : 0);
     },

@@ -150,7 +150,7 @@
     }
   }     
 
-  function VarSpeed(rune) {
+  function VarFrames(rune) {
     switch (Sim.stats.info.weaponClass) {
     case "bow": return 57.777767;
     case "crossbow": return 57.391285;
@@ -160,16 +160,8 @@
     }
   }
 
-  function GenSpeed(data) {
-    if (typeof data === "function") {
-      return function(rune) {
-        return data(rune) / (Sim.stats.leg_hunterswrath ? 1.3 : 1);
-      };
-    } else {
-      return function(rune) {
-        return data / (Sim.stats.leg_hunterswrath ? 1.3 : 1);
-      };
-    }
+  function GenSpeed(rune, aps) {
+    return aps * (Sim.stats.leg_hunterswrath ? 1.3 : 1);
   }
 
   skills.hungeringarrow = {
@@ -178,7 +170,8 @@
     generate: function(rune) {
       return (rune === "a" ? 7 : 4) + (Sim.stats.set_unhallowed_2pc ? 2 : 0);
     },
-    speed: GenSpeed(VarSpeed),
+    frames: VarFrames,
+    speed: GenSpeed,
     oncast: function(rune) {
       var data = ha_compute(rune);
       if (data.count) {
@@ -218,7 +211,8 @@
     generate: function(rune) {
       return (rune === "d" ? 7 : 4) + (Sim.stats.set_unhallowed_2pc ? 2 : 0);
     },
-    speed: GenSpeed(VarSpeed),
+    frames: VarFrames,
+    speed: GenSpeed,
     oncast: function(rune) {
       var pierce = _buriza();
       switch (rune) {
@@ -245,7 +239,8 @@
     generate: function(rune) {
       return (rune === "c" ? 7 : 4) + (Sim.stats.set_unhallowed_2pc ? 2 : 0);
     },
-    speed: GenSpeed(56.666666),
+    frames: 56.666666,
+    speed: GenSpeed,
     oncast: function(rune) {
       var delay = (Sim.stats.leg_emimeisduffel ? 0 : 60);
       var pierce = _buriza();
@@ -268,7 +263,8 @@
     generate: function(rune) {
       return (rune === "e" ? 7 : 4) + (Sim.stats.set_unhallowed_2pc ? 2 : 0);
     },
-    speed: GenSpeed(VarSpeed),
+    frames: VarFrames,
+    speed: GenSpeed,
     oncast: function(rune) {
       switch (rune) {
       case "x": Sim.damage({coeff: 2}); Sim.damage({coeff: 1, targets: Math.min(2, Sim.target.count - 1)}); break;
@@ -299,7 +295,8 @@
     generate: function(rune) {
       return (rune === "d" ? 7 : 4) + (Sim.stats.set_unhallowed_2pc ? 2 : 0);
     },
-    speed: GenSpeed(56.470554),
+    frames: 56.470554,
+    speed: GenSpeed,
     oncast: function(rune) {
       var mod_damage = (Sim.stats.passives.grenadier ? 1.1 : 1);
       var mod_range = (Sim.stats.passives.grenadier ? 1.2 : 1);
@@ -333,7 +330,7 @@
   skills.impale = {
     offensive: true,
     cost: 20,
-    speed: 58.064510,
+    frames: 58.064510,
     oncast: function(rune) {
       var pierce = (rune !== "a" && _buriza());
       if (Sim.stats.set_shadow_6pc) {
@@ -385,7 +382,7 @@
     channeling: function(rune) {
       return (rune === "a" ? 20 : 10);
     },
-    speed: 8,
+    frames: 8,
     oncast: function(rune) {
       var fs;
       if (rune === "c") {
@@ -420,7 +417,7 @@
       return Sim.stats.leg_spinesofseethinghatred;
     },
     cooldown: {e: 10},
-    speed: 56.470554,
+    frames: 56.470554,
     oncast: function(rune) {
       switch (rune) {
       case "x": return {type: "line", speed: 1, coeff: 3.8, radius: 5};
@@ -468,7 +465,7 @@
     generate: function(rune) {
       return Sim.stats.leg_kridershot;
     },
-    speed: 56.666664,
+    frames: 56.666664,
     oncast: function(rune) {
       switch (rune) {
       case "x": return {type: "line", pierce: true, speed: 1.3, coeff: 3};
@@ -486,7 +483,7 @@
   skills.caltrops = {
     secondary: true,
     weapon: "mainhand",
-    speed: 52.499996,
+    frames: 52.499996,
     cost: {x: 6, b: 6, c: 6, a: 6, d: 3, e: 6},
     resource: "disc",
     oncast: function(rune) {
@@ -514,7 +511,7 @@
   skills.smokescreen = {
     secondary: true,
     weapon: "mainhand",
-    speed: 34,
+    frames: 34,
     cost: {x: 14, e: 14, b: 14, c: 14, d: 8},
     resource: "disc",
     cooldown: {x: 1.5, e: 1.5, b: 1.5, c: 1.5, d: 1.5, a: 6},
@@ -528,7 +525,7 @@
   skills.shadowpower = {
     secondary: true,
     weapon: "mainhand",
-    speed: 34,
+    frames: 34,
     cost: {x: 14, a: 14, e: 14, d: 8, c: 14, b: 14},
     resource: "disc",
     cooldown: function(rune) {
@@ -561,7 +558,7 @@
 
   skills.vault = {
     weapon: "mainhand",
-    speed: 17.999996,
+    frames: 17.999996,
     cost: function(rune) {
       if (Sim.getBuff("chainofshadows")) return;
       if (rune === "b") return;
@@ -602,7 +599,7 @@
 
   skills.preparation = {
     weapon: "mainhand",
-    speed: 34,
+    frames: 34,
     cooldown: {x: 45, b: 45, a: 20, d: 45, c: 45, e: 45},
     oncast: function(rune) {
       switch (rune) {
@@ -630,7 +627,7 @@
     secondary: true,
     weapon: "mainhand",
     pet: true,
-    speed: 52,
+    frames: 52,
     cooldown: 30,
     oncast: function(rune) {
       if (rune === "x" || Sim.stats.set_marauder_2pc) {
@@ -706,7 +703,7 @@
 
   skills.markedfordeath = {
     weapon: "mainhand",
-    speed: 57.857140,
+    frames: 57.857140,
     cost: 3,
     resource: "disc",
     oncast: function(rune) {
@@ -730,7 +727,7 @@
     secondary: true,
     offensive: true,
     weapon: "mainhand",
-    speed: 56,
+    frames: 56,
     cost: {a: 30},
     cooldown: {x: 10, d: 15, e: 10, a: 0.1, c: 10, b: 10},
     oncast: function(rune) {
@@ -757,7 +754,7 @@
   skills.spiketrap = {
     offensive: true,
     //weapon: "mainhand",
-    speed: 57.142845,
+    frames: 57.142845,
     cost: 30,
     oncast: function(rune) {
       var params = {
@@ -806,7 +803,7 @@
     offensive: true,
     weapon: "mainhand",
     pet: true,
-    speed: 28,
+    frames: 28,
     cost: 20,
     cooldown: 8,
     charges: function(rune) {
@@ -869,7 +866,7 @@
   skills.vengeance = {
     weapon: "mainhand",
     secondary: true,
-    speed: 34,
+    frames: 34,
     cooldown: function(rune) {
       return 90 * (1 - 0.01 * (Sim.stats.leg_dawn || 0));
     },
@@ -914,8 +911,6 @@
 
   function strafe_ontick(data) {
     var dmg = {type: "line", pierce: data.rune !== "a" && _buriza(), coeff: 6.75 / 4};
-    var info = Sim.castInfo();
-    var multi = Sim.stats.info[info && info.weapon || "mainhand"].speed;
     switch (data.rune) {
     case "e": dmg.chd = 1.4; break;
     case "a":
@@ -927,7 +922,7 @@
       if (data.rocket) {
         delete data.rocket;
       } else {
-        Sim.damage({delay: Math.floor(21 + 0.06 * Sim.target.distance), coeff: multi * 0.65 * (Sim.stats.passives.ballistics ? 2 : 1)});
+        Sim.damage({delay: Math.floor(21 + 0.06 * Sim.target.distance), coeff: 0.65 * (Sim.stats.passives.ballistics ? 2 : 1)});
         data.rocket = true;
       }
       break;
@@ -935,18 +930,14 @@
     if (Sim.stats.leg_vallasbequest) {
       dmg.pierce = true;
     }
-    dmg.coeff *= multi;
     Sim.damage(dmg);
   }
   skills.strafe = {
     offensive: true,
-    cost: function(rune) {
-      var info = Sim.castInfo();
-      return 12 * Sim.stats.info[(info && info.skill === "strafe" && info.weapon) || Sim.curweapon || "mainhand"].speed;
-    },
-    noias: true,
+    cost: 12,
     channeling: {x: 15, b: 15, d: 15, e: 15, c: 15, a: 30},
-    speed: 59.999996,
+    frames: 59.999996,
+//    speed: 1,
     oncast: function(rune) {
       if (rune === "b") {
         Sim.addBuff("icytrail", undefined, {
@@ -965,8 +956,9 @@
   skills.multishot = {
     offensive: true,
     cost: {x: 25, d: 18, b: 25, e: 25, a: 25, c: 25},
-    speed: function(rune) {
-      return 56.666664 / (Sim.stats.leg_yangsrecurve ? 1.5 : 1);
+    frames: 56.666664,
+    speed: function(rune, aps) {
+      return aps * (Sim.stats.leg_yangsrecurve ? 1.5 : 1);
     },
     oncast: function(rune) {
       var dmg = {delay: Math.floor(Sim.target.distance / 2), type: "cone", width: 80, range: 75, coeff: 3.6};
@@ -1003,7 +995,7 @@
     cost: function(rune) {
       return 40 * (1 - 0.01 * (Sim.stats.leg_manticore || 0));
     },
-    speed: 58.064510,
+    frames: 58.064510,
     oncast: function(rune) {
       var dmg = {type: "area", range: 15, coeff: 6.5};
       var gr_dmg = (Sim.stats.passives.grenadier ? 1.1 : 1);
@@ -1046,7 +1038,7 @@
     weapon: "mainhand",
     offensive: true,
     cooldown: 30,
-    speed: 57.391293,
+    frames: 57.391293,
     oncast: function(rune) {
       if (Sim.stats.leg_crashingrain) {
         Sim.damage({type: "area", range: 30, coeff: 0.01 * Sim.stats.leg_crashingrain});

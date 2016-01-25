@@ -7,18 +7,17 @@
   function PrimaryGenerate(rune) {
     return 5 + (Sim.stats.passives.righteousness ? 3 : 0);
   }
-  function PrimarySpeed(rune) {
-    return 57.777767 / (Sim.stats.passives.fanaticism ? 1.15 : 1);
+  function PrimarySpeed(rune, aps) {
+    return aps * (Sim.stats.passives.fanaticism ? 1.15 : 1);
   }
-  function PrimarySpeedInvoker(rune) {
-    var speed = 57.777767 / (Sim.stats.passives.fanaticism ? 1.15 : 1);
-    if (Sim.stats.set_invoker_6pc) speed /= 1.5;
-    return speed;
+  function PrimarySpeedInvoker(rune, aps) {
+    return aps * (Sim.stats.passives.fanaticism ? 1.15 : 1) * (Sim.stats.set_invoker_6pc ? 1.5 : 1);
   }
 
   skills.punish = {
     signature: true,
     offensive: true,
+    frames: 57.777767,
     generate: PrimaryGenerate,
     speed: PrimarySpeedInvoker,
     oncast: function(rune) {
@@ -38,6 +37,7 @@
   skills.slash = {
     signature: true,
     offensive: true,
+    frames: 57.777767,
     generate: PrimaryGenerate,
     speed: PrimarySpeedInvoker,
     oncast: function(rune) {
@@ -63,6 +63,7 @@
   skills.smite = {
     signature: true,
     offensive: true,
+    frames: 57.777767,
     generate: PrimaryGenerate,
     speed: PrimarySpeed,
     oncast: function(rune) {
@@ -95,6 +96,7 @@
   skills.justice = {
     signature: true,
     offensive: true,
+    frames: 57.777767,
     generate: PrimaryGenerate,
     speed: PrimarySpeed,
     oncast: function(rune) {
@@ -130,7 +132,7 @@
   }
   skills.shieldbash = {
     offensive: true,
-    speed: 37.714279,
+    frames: 37.714279,
     cost: function(rune) {
       return 30 * (1 - 0.01 * (Sim.stats.leg_piromarella || 0));
     },
@@ -192,7 +194,7 @@
   }
   skills.sweepattack = {
     offensive: true,
-    speed: 57.777767,
+    frames: 57.777767,
     cost: 20,
     oncast: function(rune) {
       var dmg = {type: "cone", range: 18, width: 180, coeff: 4.8, onhit: sweep_onhit};
@@ -271,8 +273,9 @@
   skills.blessedhammer = {
     offensive: true,
     cost: 10,
-    speed: function(rune) {
-      return 57.777767 / 1.2 / (Sim.stats.leg_johannasargument ? 2 : 1);
+    frames: 57.777767,
+    speed: function(rune, aps) {
+      return aps * 1.2 * (Sim.stats.leg_johannasargument ? 2 : 1);
     },
     oncast: function(rune) {
       Sim.cast_hammer(true);
@@ -297,7 +300,7 @@
   }
   skills.blessedshield = {
     offensive: true,
-    speed: 58.06451,
+    frames: 58.06451,
     cost: function(rune) {
       return (Sim.stats.leg_gyrfalconsfoote ? 0 : 20);
     },
@@ -396,7 +399,7 @@
   }
   skills.fistoftheheavens = {
     offensive: true,
-    speed: 58.181816,
+    frames: 58.181816,
     cost: 30,
     oncast: function(rune) {
       foh_cast(rune, 0);
@@ -425,7 +428,7 @@
   }
   skills.shieldglare = {
     offensive: true,
-    speed: 57.49995,
+    frames: 57.49995,
     cooldown: function(rune) {
       return 12 * (Sim.stats.passives.toweringshield ? 0.7 : 1);
     },
@@ -448,7 +451,7 @@
   skills.ironskin = {
     offensive: true,
     secondary: true,
-    speed: 36,
+    frames: 36,
     cooldown: 30,
     oncast: function(rune) {
       var params = {duration: 240};
@@ -471,7 +474,7 @@
   skills.consecration = {
     offensive: true,
     secondary: true,
-    speed: 57.777767,
+    frames: 57.777767,
     cooldown: 30,
     oncast: function(rune) {
       var buffs = {regen: 32185};
@@ -510,7 +513,7 @@
   }
   skills.judgment = {
     offensive: true,
-    speed: 57.777767,
+    frames: 57.777767,
     cooldown: 20,
     oncast: function(rune) {
       return {type: "area", self: true, range: 20, coeff: 0, onhit: judgment_onhit};
@@ -536,7 +539,7 @@
   }
   skills.provoke = {
     offensive: true,
-    speed: 56.842068,
+    frames: 56.842068,
     cooldown: 20,
     generate: 30,
     oncast: function(rune) {
@@ -555,7 +558,7 @@
   skills.steedcharge = {
     offensive: true,
     secondary: true,
-    speed: 60,
+    frames: 60,
     cooldown: function(rune) {
       return 16 * (Sim.stats.passives.lordcommander ? 0.75 : 1);
     },
@@ -599,7 +602,7 @@
   skills.condemn = {
     offensive: true,
     secondary: true,
-    speed: 36,
+    frames: 36,
     cooldown: function(rune) {
       return (Sim.stats.leg_frydehrswrath ? 0 : 15);
     },
@@ -633,7 +636,7 @@
     secondary: function(rune) {
       return rune === "a" || rune === "d" || rune === "e";
     },
-    speed: 58.06451,
+    frames: 58.06451,
     cooldown: function(rune) {
       var base = 15 * (1 - 0.01 * (Sim.stats.leg_warhelmofkassar || 0));
       if (rune === "a" || rune === "d") return base;
@@ -700,7 +703,7 @@
   skills.lawsofvalor = {
     offensive: true,
     secondary: true,
-    speed: 36,
+    frames: 36,
     cooldown: 30,
     oncast: function(rune) {
       var buffs = {ias: 7};
@@ -722,7 +725,7 @@
   skills.lawsofjustice = {
     offensive: true,
     secondary: true,
-    speed: 36,
+    frames: 36,
     cooldown: 30,
     oncast: function(rune) {
       var buffs = {resall: 350};
@@ -745,7 +748,7 @@
   skills.lawsofhope = {
     offensive: true,
     secondary: true,
-    speed: 36,
+    frames: 36,
     cooldown: 30,
     oncast: function(rune) {
       var buffs = {};
@@ -808,10 +811,10 @@
   skills.fallingsword = {
     offensive: true,
     //speed: 57.142834,
-    speed: 54,
+    frames: 54,
     duration: 78,
-    noias: true,
     cost: 25,
+    speed: 1,
     cooldown: 30,
     grace: function(rune) {
       if (Sim.stats.leg_camsrebuttal) {
@@ -836,7 +839,7 @@
   skills.akaratschampion = {
     offensive: true,
     secondary: true,
-    speed: 36,
+    frames: 36,
     cooldown: function(rune) {
       return 90 * (Sim.stats.set_akkhan_4pc ? 0.5 : 1);
     },
@@ -889,7 +892,7 @@
   }
   skills.heavensfury = {
     offensive: true,
-    speed: 57.777767,
+    frames: 57.777767,
     cooldown: function(rune) {
       if (rune !== "e") return 20 * (1 - 0.01 * (Sim.stats.leg_eberlicharo || 0));
     },
@@ -962,7 +965,7 @@
   }
   skills.bombardment = {
     offensive: true,
-    speed: 57.777767,
+    frames: 57.777767,
     cooldown: function(rune) {
       return 60 * (Sim.stats.passives.lordcommander ? 0.65 : 1);
     },

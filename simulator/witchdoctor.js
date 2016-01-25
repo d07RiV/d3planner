@@ -28,7 +28,7 @@
   skills.poisondart = {
     signature: true,
     offensive: true,
-    speed: 58,
+    frames: 58,
     oncast: function(rune) {
       var pierce = !!Sim.stats.leg_thedaggerofdarts;
       switch (rune) {
@@ -53,7 +53,7 @@
   skills.corpsespiders = {
     signature: true,
     offensive: true,
-    speed: 58,
+    frames: 58,
     oncast: function(rune) {
       var params = {duration: 240, tickrate: 60, tickinitial: 70, ontick: {count: 4, coeff: 0.48, pet: true}};
       switch (rune) {
@@ -84,7 +84,10 @@
   skills.plagueoftoads = {
     signature: true,
     offensive: true,
-    speed: {x: 57.5, a: 57.5, c: 57.5, b: 55.384609 / 1.4, e: 57.5, d: 57.5},
+    frames: {x: 57.5, a: 57.5, c: 57.5, b: 55.384609, e: 57.5, d: 57.5},
+    speed: function(rune, aps) {
+      return aps * (rune === "b" ? 1.4 : 1);
+    },
     oncast: function(rune) {
       var fan = (Sim.stats.leg_rhenhoflayer ? undefined : 40);
       var pierce = (Sim.stats.leg_rhenhoflayer ? 1 : undefined);
@@ -121,7 +124,7 @@
     generate: function(rune) {
       return Sim.stats.leg_mordulluspromise;
     },
-    speed: 58,
+    frames: 58,
     oncast: function(rune) {
       switch (rune) {
       case "x": return {delay: Math.floor(Sim.target.distance), type: "area", range: 8, coeff: 1.55};
@@ -153,7 +156,7 @@
 
   skills.graspofthedead = {
     offensive: true,
-    speed: 57.142853,
+    frames: 57.142853,
     cost: {x: 150, a: 150, e: 150, d: 150, b: 150},
     cooldown: function(rune) {
       if (!Sim.stats.leg_wilkensreach) return (rune === "d" ? 4 : 8);
@@ -181,7 +184,7 @@
   skills.firebats = {
     offensive: true,
     channeling: {x: 30, a: 60, d: 30, c: 30, b: 30, e: 30},
-    speed: 87.804871,
+    frames: 87.804871,
     initialcost: function(rune) {
       if (rune === "d") return 250 * (1 - 0.01 * (Sim.stats.leg_staffofchiroptera || 0));
     },
@@ -260,7 +263,7 @@
   }
   skills.haunt = {
     offensive: true,
-    speed: 57.499966,
+    frames: 57.499966,
     cost: 50,
     oncast: function(rune) {
       var count = 1;
@@ -322,7 +325,7 @@
   }
   skills.locustswarm = {
     offensive: true,
-    speed: 56,
+    frames: 56,
     cost: 300,
     oncast: function(rune) {
       Sim.damage({coeff: 0, onhit: swarm_onhit});
@@ -347,7 +350,7 @@
   skills.summonzombiedogs = {
     offensive: true,
     pet: true,
-    speed: 56.249996,
+    frames: 56.249996,
     cooldown: function(rune) {
       return 45 * (Sim.stats.passives.tribalrites ? 0.75 : 1);
     },
@@ -396,7 +399,7 @@
 
   skills.horrify = {
     secondary: true,
-    speed: 57.692299,
+    frames: 57.692299,
     cooldown: 10,
     oncast: function(rune) {
       var duration = 180;
@@ -427,7 +430,7 @@
   }
   skills.spiritwalk = {
     secondary: true,
-    speed: 43.902412,
+    frames: 43.902412,
     cooldown: 10,
     duration: {x: 120, b: 180, d: 120, c: 120, a: 120, e: 120},
     oncast: function(rune) {
@@ -447,7 +450,7 @@
 
   skills.hex = {
     secondary: true,
-    speed: 56.249996,
+    frames: 56.249996,
     cooldown: function(rune) {
       return 15 * (Sim.stats.passives.tribalrites ? 0.75 : 1);
     },
@@ -485,7 +488,7 @@
   };
   skills.hex_explode = {
     secondary: true,
-    speed: 60,
+    frames: 60,
     shift: "angrychicken",
     oncast: function(rune) {
       Sim.removeBuff("angrychicken");
@@ -511,7 +514,7 @@
   }
   skills.soulharvest = {
     secondary: true,
-    speed: 58.536537,
+    frames: 58.536537,
     cooldown: 12,
     oncast: function(rune) {
       Sim.removeBuff("soulharvest");
@@ -553,7 +556,7 @@
 
   skills.sacrifice = {
     offensive: true,
-    speed: 57.499966,
+    frames: 57.499966,
     precast: function(rune, dry) {
       if (!Sim.getBuff("zombiedogs")) return false;
     },
@@ -584,7 +587,7 @@
   };
 
   skills.massconfusion = {
-    speed: 57.142853,
+    frames: 57.142853,
     cooldown: function(rune) {
       return (rune === "d" ? 30 : 60) * (Sim.stats.passives.tribalrites ? 0.75 : 1);
     },
@@ -607,7 +610,7 @@
 
   skills.zombiecharger = {
     offensive: true,
-    speed: 54.999996,
+    frames: 54.999996,
     cost: function(rune) {
       return 150 * (1 - 0.01 * (Sim.stats.leg_scrimshaw || 0));
     },
@@ -636,7 +639,8 @@
   }
   skills.spiritbarrage = {
     offensive: true,
-    speed: 57.142834 / 1.2,
+    frames: 57.142834,
+    speed: 1.2,
     cost: 100,
     oncast: function(rune) {
       switch (rune) {
@@ -670,7 +674,7 @@
 
   skills.acidcloud = {
     offensive: true,
-    speed: 55.384609,
+    frames: 55.384609,
     cost: 175,
     oncast: function(rune) {
       var dmg = {delay: 15, type: "area", range: 12, coeff: 3};
@@ -717,7 +721,7 @@
 
   skills.wallofdeath = {
     offensive: true,
-    speed: 56.249996,
+    frames: 56.249996,
     cooldown: 8,
     grace: function(rune) {
       if (Sim.stats.leg_jeramsbracers) {
@@ -770,7 +774,7 @@
   }
   skills.piranhas = {
     offensive: true,
-    speed: 58.536537,
+    frames: 58.536537,
     cost: 250,
     cooldown: {x: 8, a: 8, b: 8, c: 16, d: 8, e: 8},
     oncast: function(rune) {
@@ -829,7 +833,7 @@
   skills.gargantuan = {
     offensive: true,
     pet: true,
-    speed: 56.249996,
+    frames: 56.249996,
     cooldown: function(rune) {
       return 60 * (Sim.stats.passives.tribalrites ? 0.75 : 1);
     },
@@ -864,7 +868,7 @@
   };
 
   skills.bigbadvoodoo = {
-    speed: 57.499962,
+    frames: 57.499962,
     cooldown: function(rune) {
       return 120 * (Sim.stats.passives.tribalrites ? 0.75 : 1);
     },
@@ -894,7 +898,7 @@
   skills.fetisharmy = {
     offensive: true,
     pet: true,
-    speed: 60,
+    frames: 60,
     cooldown: function(rune) {
       return (rune === "d" ? 90 : 120) * (Sim.stats.passives.tribalrites ? 0.75 : 1) * (Sim.stats.set_zunimassa_2pc ? 0.2 : 1);
     },

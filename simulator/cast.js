@@ -1,13 +1,22 @@
 (function() {
   var Sim = Simulator;
 
-  Sim.getProp = function(obj, name, param, extend) {
+  Sim.getProp = function(obj, name, param) {
     var res = obj[name];
     if (typeof res === "function") {
-      return res.call(obj, param);
+      return res.apply(obj, Array.prototype.slice.call(arguments, 2));
     } else if (typeof res === "object") {
-      if (extend) return this.extend({}, res[param]);
       return res[param];
+    } else {
+      return res;
+    }
+  };
+  Sim.getPropExtend = function(obj, name, param, extend) {
+    var res = obj[name];
+    if (typeof res === "function") {
+      return res.apply(obj, Array.prototype.slice.call(arguments, 2));
+    } else if (typeof res === "object") {
+      return this.extend({}, res[param]);
     } else {
       return res;
     }
@@ -406,10 +415,12 @@
       castInfo.proc = this.getProp(skill, "proctable", rune);
       castInfo.offensive = this.getProp(skill, "offensive", rune);
       castInfo.melee = this.getProp(skill, "melee", rune);
-      castInfo.speed = this.getProp(skill, "speed", rune);
-      castInfo.noias = this.getProp(skill, "noias", rune);
-      castInfo.pause = this.getProp(skill, "pause", rune);
+      castInfo.frames = this.getProp(skill, "frames", rune);
       castInfo.channeling = this.getProp(skill, "channeling", rune);
+      var aps = this.stats.info[castInfo.weapon || "mainhand"].speed;
+      castInfo.speed = this.getProp(skill, "speed", rune, aps);
+      if (!castInfo.speed) castInfo.speed = aps;
+      castInfo.pause = this.getProp(skill, "pause", rune);
       var buffs = Sim.trigger("oncast", castInfo);
       for (var i = 0; i < buffs.length; ++i) {
         if (buffs[i]) {
@@ -433,11 +444,10 @@
     if (castInfo.generate) {
       Sim.addResource(castInfo.generate, rctype);
     }
-    var oncast = this.getProp(skill, "oncast", rune, true);
+    var oncast = this.getPropExtend(skill, "oncast", rune);
     if (oncast instanceof Object) {
-      var channeling = this.getProp(skill, "channeling", rune);
-      if (channeling) {
-        Sim.channeling(id, channeling, oncast);
+      if (castInfo.channeling) {
+        Sim.channeling(id, castInfo.channeling, oncast);
       } else {
         this.damage(oncast);
       }
@@ -449,20 +459,15 @@
   };
 
   Sim.castDelay = function(info) {
-    if (info.noias) {
-      return Math.ceil(info.speed) + (info.pause || 0);
-    }
-    var aps = this.stats.info[info.weapon || "mainhand"].speed;
-    if (aps === 1) {
-      return Math.ceil(info.speed) + (info.pause || 0);
+    if (info.speed === 1) {
+      return Math.ceil(info.frames) + (info.pause || 0);
     } else {
-      return Math.floor(info.speed / aps) + 1 + (info.pause || 0);
+      return Math.floor(info.frames / info.speed) + 1 + (info.pause || 0);
     }
   };
   Sim.channelDelay = function(info) {
     if (info.channeling) {
-      var aps = this.stats.info[info.weapon || "mainhand"].speed;
-      return Math.floor(info.channeling / aps);
+      return Math.floor(info.channeling / info.speed);
     }
   };
 

@@ -28,8 +28,8 @@
     return amount * (1 + 0.01 * (Sim.stats.leg_bandofruechambers || 0));
   }
   function GenSpeed(speed) {
-    if (Sim.stats.passives.alacrity) speed /= 1.15;
-    if (Sim.stats.set_storms_2pc) speed /= 1.25;
+    if (Sim.stats.passives.alacrity) speed *= 1.15;
+    if (Sim.stats.set_storms_2pc) speed *= 1.25;
     return speed;
   }
 
@@ -47,8 +47,11 @@
     generate: function(rune) {
       return GenSpirit(rune === "d" ? 20 : 14);
     },
-    speed: function(rune) {
-      return GenSpeed([57 / 1.55, 57.391289 / 1.55, 58.064510][this.sequence.next()]);
+    frames: function(rune) {
+      return [57, 57.391289, 58.064510][this.sequence.next()];
+    },
+    speed: function(rune, aps) {
+      return GenSpeed(aps * [1.55, 1.55, 1][this.sequence.next()]);
     },
     oncast: function(rune) {
       var index = this.sequence.step();
@@ -120,8 +123,11 @@
     generate: function(rune) {
       return GenSpirit(12);
     },
-    speed: function(rune) {
-      return GenSpeed([55.384609 / 1.5, 57.391300 / 1.5, (rune === "c" ? 57.857132 : 58.064510)][this.sequence.next()]);
+    frames: function(rune) {
+      return [55.384609, 57.391300, (rune === "c" ? 57.857132 : 58.064510)][this.sequence.next()];
+    },
+    speed: function(rune, aps) {
+      return GenSpeed(aps * [1.5, 1.5, 1][this.sequence.next()]);
     },
     oncast: function(rune) {
       var index = this.sequence.step();
@@ -193,8 +199,11 @@
     generate: function(rune) {
       return GenSpirit(12);
     },
-    speed: function(rune) {
-      return GenSpeed([56.842102 / 1.45, 56.842102 / 1.45, 58][this.sequence.next()]);
+    frames: function(rune) {
+      return [56.842102, 56.842102, 58][this.sequence.next()];
+    },
+    speed: function(rune, aps) {
+      return GenSpeed(aps * [1.45, 1.45, 1][this.sequence.next()]);
     },
     oncast: function(rune) {
       var index = this.sequence.step();
@@ -258,8 +267,11 @@
     generate: function(rune) {
       return GenSpirit(12);
     },
-    speed: function(rune) {
-      return GenSpeed([57 / 1.275, 42 / 1.175, 57.599998][this.sequence.next()]);
+    frames: function(rune) {
+      return [57, 42, 57.599998][this.sequence.next()];
+    },
+    speed: function(rune, aps) {
+      return GenSpeed(aps * [1.275, 1.175, 1][this.sequence.next()]);
     },
     oncast: function(rune) {
       var onhit = (rune === "c" && wothf_blazing_onhit);
@@ -300,8 +312,9 @@
   skills.lashingtailkick = {
     offensive: true,
     cost: 50,
-    speed: function(rune) {
-      return 57.391300 / (Sim.stats.leg_riveradancers ? 1.5 : 1);
+    frames: 57.391300,
+    speed: function(rune, aps) {
+      return aps * (Sim.stats.leg_riveradancers ? 1.5 : 1);
     },
     oncast: {
       x: {type: "cone", width: 180, range: 10, coeff: 7.55},
@@ -335,7 +348,7 @@
     offensive: true,
     channeling: 30,
     cost: {x: 30, d: 25, b: 30, e: 30, c: 30, a: 30},
-    speed: 57.391300,
+    frames: 57.391300,
     oncast: function(rune) {
       var dmg = {type: "area", self: true, range: 7, coeff: 3.9};
       var params = {};
@@ -381,7 +394,7 @@
     cost: function(rune) {
       return 75 * (1 - 0.01 * (Sim.stats.leg_incensetorchofthegrandtemple || 0));
     },
-    speed: 58.823528,
+    frames: 58.823528,
     oncast: function(rune) {
       var dmg = {delay: 18, type: "area", front: true, range: 10, coeff: 8.35 / 3, count: 3};
       if (Sim.stats.leg_tzokrinsgaze) {
@@ -430,7 +443,7 @@
     secondary: true,
     cooldown: 15,
     weapon: "mainhand",
-    speed: 40,
+    frames: 40,
     oncast: function(rune) {
       var duration = 3;
       if (Sim.target.elite || Sim.target.boss) duration /= 3;
@@ -457,7 +470,7 @@
     cooldown: function(rune) {
       return 15 * (1 - 0.01 * (Sim.stats.leg_eyeofpeshkov || 0));
     },
-    speed: 30,
+    frames: 30,
     oncast: function(rune) {
       switch (rune) {
       case "a":
@@ -481,7 +494,7 @@
     secondary: true,
     cooldown: 16,
     duration: {x: 180, a: 180, e: 180, d: 180, c: 240, b: 180},
-    speed: 57.857136,
+    frames: 57.857136,
     oncast: function(rune) {
       var params = {duration: this.duration[rune]};
       if (rune === "e") {
@@ -497,7 +510,7 @@
 
   skills.innersanctuary = {
     cooldown: 20,
-    speed: 57.599991,
+    frames: 57.599991,
     weapon: "mainhand",
     oncast: function(rune) {
       var buffs = {dmgred: 55};
@@ -530,7 +543,7 @@
     offensive: true,
     cooldown: 8,
     charges: {x: 2, b: 2, c: 2, d: 3, e: 2, a: 2},
-    speed: 20,
+    frames: 20,
     cost: function(rune) {
       return (Sim.stats.set_storms_4pc ? 75 : 0);
     },
@@ -608,7 +621,7 @@
   skills.explodingpalm = {
     offensive: true,
     cost: 40,
-    speed: function(rune) {
+    frames: function(rune) {
       return (Sim.stats.info.weaponClass === "fist" ? 57.142849 : 57);
     },
     oncast: function(rune) {
@@ -647,7 +660,7 @@
     offensive: true,
     secondary: true,
     cost: 75,
-    speed: function(rune) {
+    frames: function(rune) {
       return (Sim.stats.info.weaponClass === "dualwield_sf" ? 54 : 58);
     },
     oncast: function(rune) {
@@ -701,7 +714,7 @@
   skills.cyclonestrike = {
     offensive: true,
     cost: {x: 50, d: 26, b: 50, a: 50, e: 50, c: 50},
-    speed: 57.599995,
+    frames: 57.599995,
     oncast: function(rune) {
       if (!Sim.target.boss) {
         Sim.addBuff("knockback", undefined, 30);
@@ -739,9 +752,9 @@
   }
   skills.sevensidedstrike = {
     offensive: true,
-    speed: 78,
+    frames: 78,
     duration: 78,
-    noias: true,
+    speed: 1,
     cost: {x: 50, a: 50, b: 50, d: 50, e: 50},
     cooldown: function(rune) {
       return (rune === "d" ? 14 : 30) * (1 - 0.01 * (Sim.stats.leg_theflowofeternity || 0));
@@ -769,7 +782,7 @@
   skills.mystically = {
     offensive: true,
     weapon: "mainhand",
-    speed: 40,
+    frames: 40,
     pet: true,
     cooldown: {x: 30, b: 30, a: 30, d: 30, e: 50, c: 30},
     precast: function(rune) {
@@ -856,7 +869,7 @@
 
   skills.epiphany = {
     secondary: true,
-    speed: 56.666664,
+    frames: 56.666664,
     cooldown: 60,
     oncast: function(rune) {
       var params = {duration: 900};
@@ -885,7 +898,7 @@
   skills.mantraofsalvation = {
     secondary: true,
     weapon: "mainhand",
-    speed: 40,
+    frames: 40,
     cost: function(rune) {
       return 50 * (Sim.stats.passives.chantofresonance ? 0.5 : 1);
     },
@@ -911,7 +924,7 @@
   skills.mantraofretribution = {
     secondary: true,
     weapon: "mainhand",
-    speed: 40,
+    frames: 40,
     cost: function(rune) {
       return 50 * (Sim.stats.passives.chantofresonance ? 0.5 : 1);
     },
@@ -931,7 +944,7 @@
   skills.mantraofhealing = {
     secondary: true,
     weapon: "mainhand",
-    speed: 40,
+    frames: 40,
     cost: function(rune) {
       return 50 * (Sim.stats.passives.chantofresonance ? 0.5 : 1);
     },
@@ -956,7 +969,7 @@
   skills.mantraofconviction = {
     secondary: true,
     weapon: "mainhand",
-    speed: 40,
+    frames: 40,
     cost: function(rune) {
       return 50 * (Sim.stats.passives.chantofresonance ? 0.5 : 1);
     },

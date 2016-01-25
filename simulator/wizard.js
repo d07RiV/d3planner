@@ -4,10 +4,8 @@
   var skills = {};
   Sim.skills = skills;
 
-  function SignatureSpeed(base) {
-    return function(rune) {
-      return base / (Sim.stats.leg_theshameofdelsere ? 1.5 : 1);
-    };
+  function SignatureSpeed(rune, aps) {
+    return aps * (Sim.stats.leg_theshameofdelsere ? 1.5 : 1);
   }
   function SignatureGen(rune) {
     return Sim.stats.leg_theshameofdelsere;
@@ -47,7 +45,8 @@
   skills.magicmissile = {
     signature: true,
     offensive: true,
-    speed: SignatureSpeed(57.599991),
+    frames: 57.599991,
+    speed: SignatureSpeed,
     generate: SignatureGen,
     oncast: function(rune) {
       var count = 1 + (Sim.stats.leg_mirrorball || 0);
@@ -67,7 +66,8 @@
   skills.shockpulse = {
     signature: true,
     offensive: true,
-    speed: SignatureSpeed(57.142834),
+    frames: 57.142834,
+    speed: SignatureSpeed,
     generate: SignatureGen,
     oncast: {
       x: {type: "line", coeff: 1.94, speed: 0.65, fan: 45, count: 3, range: 40},
@@ -86,8 +86,9 @@
   skills.spectralblade = {
     signature: true,
     offensive: true,
-    speed: function(rune) {
-      return 56.249996 / (Sim.stats.leg_theshameofdelsere ? 1.5 : 1) / (Sim.stats.leg_fragmentofdestiny ? 1.5 : 1);
+    frames: 56.249996,
+    speed: function(rune, aps) {
+      return aps * (Sim.stats.leg_theshameofdelsere ? 1.5 : 1) * (Sim.stats.leg_fragmentofdestiny ? 1.5 : 1);
     },
     generate: SignatureGen,
     oncast: function(rune) {
@@ -124,11 +125,10 @@
 
   skills.electrocute = {
     signature: true,
-    channeling: function(rune) {
-      return (Sim.stats.leg_theshameofdelsere ? 20 : 30);
-    },
+    channeling: 30,
     offensive: true,
-    speed: SignatureSpeed(58.064510),
+    frames: 58.064510,
+    speed: SignatureSpeed,
     generate: function(rune) {
       return (Sim.stats.leg_theshameofdelsere || 0) / 2;
     },
@@ -177,7 +177,7 @@
   skills.rayoffrost = {
     channeling: 30,
     offensive: true,
-    speed: 58.064510,
+    frames: 58.064510,
     cost: function(rune) {
       return (rune === "d" ? 11 : 16) * (1 - 0.01 * (Sim.stats.leg_hergbrashsbinding || 0));
     },
@@ -204,7 +204,7 @@
     Sim.damage({type: "line", coeff: 0.1468, radius: 6, range: Math.min(50, event.time - event.buff.start), proc: 0.003});
   }
   skills.arcaneorb = {
-    speed: 57.857109,
+    frames: 57.857109,
     offensive: true,
     cost: 30,
     secondary: function(rune) {
@@ -276,7 +276,7 @@
   skills.arcanetorrent = {
     channeling: {x: 20, a: 20, e: 30, c: 40, d: 20, b: 20},
     offensive: true,
-    speed: 58.064510,
+    frames: 58.064510,
     cost: function(rune) {
       return 16 * (1 - 0.01 * (Sim.stats.leg_hergbrashsbinding || 0));
     },
@@ -320,7 +320,7 @@
     channeling: true,
     offensive: true,
     channeling: 20,
-    speed: 58.064510,
+    frames: 58.064510,
     cost: function(rune) {
       return 18 * (1 - 0.01 * (Sim.stats.leg_hergbrashsbinding || 0));
     },
@@ -347,7 +347,7 @@
   skills.frostnova = {
     secondary: true,
     offensive: {c: true},
-    speed: 57.142834,
+    frames: 57.142834,
     cooldown: {x: 11, b: 11, d: 7.5, c: 11, e: 11, a: 11},
     oncast: function(rune) {
       switch (rune) {
@@ -384,7 +384,7 @@
   skills.diamondskin = {
     secondary: true,
     offensive: {e: true},
-    speed: 56.249996,
+    frames: 56.249996,
     cooldown: 15,
     oncast: function(rune) {
       switch (rune) {
@@ -401,7 +401,7 @@
   };
 
   skills.slowtime = {
-    speed: 56.249996,
+    frames: 56.249996,
     cooldown: function(rune) {
       var cd = (rune === "c" ? 12 : 15);
       return cd * (1 - 0.01 * (Sim.stats.leg_gestureoforpheus || Sim.stats.leg_gestureoforpheus_p2 || 0));
@@ -421,8 +421,8 @@
   };
 
   skills.teleport = {
-    speed: 51.428570 / 2.5,
-    noias: true,
+    frames: 51.428570,
+    speed: 2.5,
     offensive: {a: true},
     cost: function(rune) {
       if (Sim.stats.leg_aetherwalker) return 25;
@@ -446,7 +446,7 @@
   };
 
   skills.waveofforce = {
-    speed: 58.181816,
+    frames: 58.181816,
     offensive: true,
     cooldown: {a: 5},
     cost: 25,
@@ -494,7 +494,7 @@
     Sim.damage(dmg);
   }
   skills.energytwister = {
-    speed: 57.599991,
+    frames: 57.599991,
     offensive: true,
     cost: {x: 35, d: 25, a: 35, b: 35, e: 35, c: 35},
     oncast: function(rune) {
@@ -589,7 +589,7 @@
   }
   skills.hydra = {
     offensive: true,
-    speed: 56.249996,
+    frames: 56.249996,
     cost: 15,
     pet: true,
     oncast: function(rune) {
@@ -640,7 +640,7 @@
   }
   skills.meteor = {
     offensive: true,
-    speed: 57.142834,
+    frames: 57.142834,
     cost: function(rune) {
       return 40 * (1 - 0.01 * (Sim.stats.leg_thegrandvizier || 0));
     },
@@ -683,7 +683,7 @@
   }
   skills.blizzard = {
     offensive: true,
-    speed: 57.692265,
+    frames: 57.692265,
     cost: {x: 40, c: 40, e: 40, d: 10, b: 40, a: 40},
     oncast: function(rune) {
       var data = {duration: (rune === "a" ? 480 : 360), tickrate: 15, tickinitial: 1, ontick: blizzard_ontick, rune: rune};
@@ -700,7 +700,7 @@
     Sim.damage({type: "area", self: true, range: 15, coeff: 0.4});
   }
   skills.icearmor = {
-    speed: 56.249996,
+    frames: 56.249996,
     cost: 25,
     oncast: function(rune) {
       var params = {};
@@ -729,7 +729,7 @@
     Sim.damage({coeff: 4.25, count: data.targets * data.proc * 0.01 * Sim.stats.final.chc, proc: 0});
   }
   skills.stormarmor = {
-    speed: 56.249996,
+    frames: 56.249996,
     cost: 25,
     oncast: function(rune) {
       var params = {tickrate: this.rate, ontick: sa_ontick, rune: rune};
@@ -779,7 +779,7 @@
     Sim.damage({count: data.count * data.proc, coeff: 3});
   }
   skills.magicweapon = {
-    speed: 56.249996,
+    frames: 56.249996,
     cost: 25,
     oncast: function(rune) {
       var params;
@@ -827,7 +827,7 @@
     }
   }
   skills.familiar = {
-    speed: 56.249996,
+    frames: 56.249996,
     cost: 20,
     oncast: function(rune) {
       var buffs = undefined;
@@ -854,7 +854,7 @@
   };
 
   skills.energyarmor = {
-    speed: 56.249996,
+    frames: 56.249996,
     cost: 20,
     oncast: function(rune) {
       var buffs = {armor_percent: 35, maxap: -20};
@@ -874,7 +874,7 @@
   skills.explosiveblast = {
     offensive: true,
     secondary: true,
-    speed: 56.249996,
+    frames: 56.249996,
     cost: 20,
     cooldown: {x: 6, d: 6, c: 3, a: 6, b: 6, e: 6},
     oncast: function(rune) {
@@ -895,7 +895,7 @@
   };
 
   skills.mirrorimage = {
-    speed: 57.692265,
+    frames: 57.692265,
     cooldown: 15,
     oncast: function(rune) {
       Sim.addBuff("mirrorimage", undefined, {duration: (rune === "d" ? 10 : 7)});
@@ -918,7 +918,7 @@
     Sim.removeBuff("archon_stacks");
   }
   skills.archon = {
-    speed: 57.391354,
+    frames: 57.391354,
     cooldown: function(rune) {
       return (rune === "d" || Sim.stats.set_vyr_2pc ? 100 : 120);
     },
@@ -951,7 +951,7 @@
 
   skills.archon_arcanestrike = {
     offensive: true,
-    speed: 57.599954,
+    frames: 57.599954,
     shift: "archon",
     oncast: function(rune) {
       var improved = (Sim.stats.skills.archon === "a" || Sim.stats.set_vyr_2pc);
@@ -968,7 +968,7 @@
   };
   skills.archon_arcaneblast = {
     offensive: true,
-    speed: 100,
+    frames: 100,
     secondary: true,
     cooldown: 2,
     shift: "archon",
@@ -991,7 +991,7 @@
   skills.archon_disintegrationwave = {
     offensive: true,
     channeling: 20,
-    speed: 58.064510,
+    frames: 58.064510,
     shift: "archon",
     oncast: function(rune) {
       var improved = (Sim.stats.skills.archon === "a" || Sim.stats.set_vyr_2pc);
@@ -1006,7 +1006,7 @@
     precast: function(rune) {
       return !!(Sim.stats.skills.archon === "b" || Sim.stats.set_vyr_2pc);
     },
-    speed: 57.391296,
+    frames: 57.391296,
     secondary: true,
     shift: "archon",
     oncast: function(rune) {
@@ -1020,7 +1020,10 @@
     precast: function(rune) {
       return !!(Sim.stats.skills.archon === "c" || Sim.stats.set_vyr_2pc);
     },
-    speed: 57.391296 / 1.5,
+    frames: 57.391296,
+    speed: function(rune, aps) {
+      return aps * 1.5;
+    },
     cooldown: function(rune) {
       return Sim.stats.leg_aetherwalker ? 0.5 : 3;
     },
@@ -1065,7 +1068,7 @@
   }
   skills.blackhole = {
     offensive: true,
-    speed: 56.842068,
+    frames: 56.842068,
     cost: 20,
     cooldown: 12,
     oncast: function(rune) {
