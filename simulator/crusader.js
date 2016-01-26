@@ -586,7 +586,7 @@
         params.duration += 120;
         Sim.addBuff("norvald", {dmgmul: 100}, {duration: params.duration + 300});
       }
-      Sim.addBuff("steedcharge", {extrams: 50}, params);
+      Sim.addBuff("steedcharge", {extrams: 150}, params);
     },
     proctable: {x: 0.5, a: 0.1, d: 0.02, c: 0.5, b: 0.5, e: 0.04},
     elem: {x: "phy", a: "phy", d: "fir", c: "phy", b: "phy", e: "hol"},

@@ -7,6 +7,8 @@
     var stats = Sim.stats;
     var triggered = (data.castInfo && data.castInfo.triggered);
 
+    debugger;
+
     var base = stats.info[data.weapon || "mainhand"].wpnbase;
     var avg;
     if (data.thorns) {
