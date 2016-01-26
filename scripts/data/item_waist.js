@@ -428,6 +428,7 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       custom: {id: "leg_beltofthetrove", name: "Bombardment Rate", format: "Every %d seconds, call down Bombardment on a random nearby enemy.", min: 6, max: 8, best: "min"},
+      basearmor: "basearmorMightyBelt",
     },
     affixes: {
       meleedef: "defNormal",

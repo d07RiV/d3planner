@@ -457,6 +457,9 @@ DiabloCalc.skills.crusader = {
       b: {"Uptime": {duration: "3*(leg_swiftmount?2:1)", cooldown: 16, cdr: "passives.lordcommander?25:0"}},
       e: {"DPS": {elem: "hol", aps: true, coeff: 1.85, total: true}},
     },
+    buffs: function(rune, stats) {
+      return {extrams: 150};
+    },
   },
   condemn: {
     id: "condemn",
