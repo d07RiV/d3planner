@@ -7,7 +7,7 @@ DiabloCalc.itemaffixes = {
     info: {"Damage": {elem: "psn", coeff: "$1/100"}},
   },
   leg_sanguinaryvambraces: {
-    info: {"Damage": "thorns*10"},
+    info: {"Damage": {thorns: "normal", coeff: 10}},
   },
   leg_bootsofdisregard: {
     params: [{min: 0, max: 4, name: "Stacks"}],
@@ -131,7 +131,7 @@ DiabloCalc.itemaffixes = {
     info: {"Damage": {elem: "phy", coeff: 5}},
   },
   leg_balefulremnant: {
-    info: {"Avatar Damage": {elem: "phy", pet: true, coeff: 1}, "Avatar DPS": {sum: true, "Avatar Damage": {pet: 60, speed: 1}}},
+    info: {"Avatar Damage": {elem: "phy", pet: true, coeff: 1, skill: "phalanx"}, "Avatar DPS": {sum: true, "Avatar Damage": {pet: 60, speed: 1}}},
   },
   leg_deathwatchmantle_p2: {
     info: {"Min Damage": {elem: "phy", coeff: 7.5},
@@ -547,7 +547,7 @@ DiabloCalc.itemaffixes = {
         var count = DiabloCalc.skills.demonhunter.sentry.params[0].val;
         return {dmgmul: {list: [
           {pet: false, skills: ["hungeringarrow", "entanglingshot", "bolas", "evasivefire", "grenade",
-            "chakram", "clusterarrow", "elementalarrow", "impale", "multishot", "vengeance"], percent: 400 * count},
+            "chakram", "clusterarrow", "elementalarrow", "impale", "multishot", "vengeance"], percent: 600 * count},
           {skills: ["companion"], percent: 600 * count},
         ]}};
       }
@@ -971,7 +971,7 @@ DiabloCalc.itemaffixes = {
   },
   leg_heartofiron: {
     buffs: function(value, stats) {
-      return {thorns: stats.vit * value[0] * 0.01};
+      return {vit_to_thorns: value[0]};
     },
   },
   leg_warhelmofkassar: {
@@ -1044,7 +1044,7 @@ DiabloCalc.itemaffixes = {
     },
   },
   leg_akkhansleniency: {
-    params: [{min: 0, max: 20, inf: true, name: "Stacks"}],
+    params: [{min: 0, max: 10, val: 0, name: "Stacks"}],
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["blessedshield"], percent: this.params[0].val * value[0]}};
     },

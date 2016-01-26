@@ -616,6 +616,7 @@ DiabloCalc.skills.crusader = {
     },
     active: false,
     buffs: {
+      a: {extrams: 50},
       b: {life: 10},
       d: {lifewrath: 1073},
       e: {nonphys: 25},

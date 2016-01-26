@@ -416,7 +416,7 @@ DiabloCalc.skills.wizard = {
     },
     params: [{min: 1, max: "leg_serpentssparker?2:1", name: "Hydras", buffs: false},
              {min: 0, max: 50, val: 5, name: "Distance", buffs: false, show: function(rune, stats) {
-               return rune === "d" || stats.gems.zei;
+               return rune === "d" || (stats.gems.zei !== undefined);
              }}],
     info: function(rune, stats) {
       var res;
@@ -430,16 +430,18 @@ DiabloCalc.skills.wizard = {
       }
       if (rune !== "d") {
         var key = (rune === "c" ? "Burn Damage" : "Damage");
-        if (stats.gems.zei) {
+        if (stats.gems.zei !== undefined) {
           res[key].exclude = ["zei"];
-          res[key].percent = {"Zei's Stone of Vengeance": this.params[1].val * (4 + 0.05 * stats.gems.zei) / 10};
+          res[key].percent = {};
+          res[key].percent[DiabloCalc.legendaryGems.zei.name] = this.params[1].val * (4 + 0.05 * stats.gems.zei) / 10;
         }
         res["DPS"] = {sum: true};
         res["DPS"][key] = {pet: (rune === "a" ? 86 : 76.300583), area: false, speed: 1, count: 3 * this.params[0].val};
       } else {
-        if (stats.gems.zei) {
+        if (stats.gems.zei !== undefined) {
           res["Tick Damage"].exclude = ["zei"];
-          res["Tick Damage"].percent = {"Zei's Stone of Vengeance": this.params[1].val * (4 + 0.05 * stats.gems.zei) / 10};
+          res["Tick Damage"].percent = {};
+          res["Tick Damage"].percent[DiabloCalc.legendaryGems.zei.name] = this.params[1].val * (4 + 0.05 * stats.gems.zei) / 10;
         }
         var duration = 5 - this.params[1].val * 1.8 / 50;
         res["Layer Damage"] = {sum: true, "Tick Damage": {count: Math.floor(duration / 0.3)}};

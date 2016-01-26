@@ -159,11 +159,14 @@ DiabloCalc.skills.barbarian = {
     },
     active: true,
     buffs: function(rune, stats) {
-      if (rune == "a" || stats.leg_theundisputedchampion) {
-        return {damage: this.params[0].val * 2.5};
-      } else if (rune === "c") {
-        return {extrams: this.params[0].val * 5};
+      var res = {};
+      if (rune === "a" || stats.leg_theundisputedchampion) {
+        res.damage = this.params[0].val * 2.5;
       }
+      if (rune === "a" || stats.leg_theundisputedchampion) {
+        res.extrams = this.params[0].val * 5;
+      }
+      return res;
     },
   },
   weaponthrow: {
