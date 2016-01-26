@@ -379,9 +379,7 @@
     cost: function(rune) {
       if (!Sim.stats.leg_sinseekers) return 6;
     },
-    channeling: function(rune) {
-      return (rune === "a" ? 20 : 10);
-    },
+    channeling: {x: 10, d: 10, e: 10, c: 10, b: 10, a: 20},
     frames: 8,
     oncast: function(rune) {
       var fs;
