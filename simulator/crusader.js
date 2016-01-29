@@ -296,7 +296,7 @@
     });
   }
   function bs_akkhans_fix() {
-    this.factor = 1 + 0.01 * (Sim.stats.leg_akkhansmanacles || 0) / this.targets;
+    this.factor = 1 + 0.01 * (Sim.stats.leg_akkhansmanacles || 0) / Math.min(this.targets, Sim.target.count);
   }
   skills.blessedshield = {
     offensive: true,
