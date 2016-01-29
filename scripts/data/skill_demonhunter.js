@@ -691,7 +691,7 @@ DiabloCalc.skills.demonhunter = {
     },
     active: false,
     buffs: function(rune, stats) {
-      var res = {damage: 40};
+      var res = {dmgmul: 40};
       if (rune === "b" || stats.leg_visageofgunes) res.dmgred = 50;
       if (rune === "e") res.hatredregen = 10;
       return res;

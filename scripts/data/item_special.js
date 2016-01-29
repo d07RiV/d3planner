@@ -107,6 +107,9 @@ DiabloCalc.itemaffixes = {
   leg_azurewrath: {
     info: {"DPS": {coeff: "$1/100", total: true}},
   },
+  leg_azurewrath_p3: {
+    info: {"DPS": {coeff: "$1/100", elem: "hol", total: true}},
+  },
   leg_shardofhate: {
     info: {"Freezing Skull Damage": {elem: "col", coeff: "$1/100"},
            "Poison Nova Damage": {elem: "psn", coeff: "$1/100"},
@@ -151,12 +154,11 @@ DiabloCalc.itemaffixes = {
   },
   leg_wormwood: {
     info: function(value, stats) {
-      var res = {"DPS": {elem: "psn", coeff: 10.4, divide: {"Duration": 8}, skill: "locustswarm"}};
-      if (stats.leg_quetzalcoatl) {
-        var pct = {};
-        pct[DiabloCalc.itemById.Unique_VoodooMask_005_x1.name] = 100;
-        res["DPS"].percent = pct;
-      }
+      var rune = (stats.skills.locustswarm || "x");
+      var res = DiabloCalc.skills.witchdoctor.locustswarm.info(rune, stats);
+      delete res["Cost"];
+      if (res["Damage"]) res["Damage"].skill = "locustswarm";
+      if (res["Cloud Damage"]) res["Cloud Damage"].skill = "locustswarm";
       return res;
     },
   },
@@ -1044,7 +1046,7 @@ DiabloCalc.itemaffixes = {
     },
   },
   leg_akkhansleniency: {
-    params: [{min: 0, max: 10, val: 0, name: "Stacks"}],
+    params: [{min: 0, max: 50, inf: true, name: "Stacks"}],
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["blessedshield"], percent: this.params[0].val * value[0]}};
     },

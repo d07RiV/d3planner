@@ -1,6 +1,7 @@
 <?php
 $unset_session = TRUE;
-require_once("php/session.php");
+error_reporting(E_ALL ^ E_WARNING);
+include_once("php/session.php");
 function mklink($path, $src = NULL) {
   echo $path . "?" . filemtime($_SERVER['DOCUMENT_ROOT'] . ($src ? $src : $path));
 }

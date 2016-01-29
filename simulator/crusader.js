@@ -945,9 +945,10 @@
     var dmg = {type: "area", range: 12, coeff: 5.7};
     switch (data.buff.castInfo.rune) {
     case "a":
-      dmg.onhit = function(data) {
-        Sim.damage({targets: data.targets, coeff: 2, thorns: true});
-      };
+      dmg.addthorns = 2;
+      //dmg.onhit = function(data) {
+      //  Sim.damage({targets: data.targets, coeff: 2, thorns: true});
+      //};
       break;
     case "b": dmg.chc = 100; break;
     case "c": Sim.damage({delay: 30, type: "area", range: 10, spread: 30, count: 2, coeff: 1.6}); break;
@@ -977,7 +978,7 @@
         ontick: bombardment_ontick,
       };
       var hits = 1;
-      if (rune !== "d") hits = 4;
+      if (rune !== "d") hits = 5;
       if (Sim.stats.leg_themortaldrama) hits *= 2;
       params.duration += params.tickrate * (hits - 1);
       Sim.addBuff(undefined, undefined, params);

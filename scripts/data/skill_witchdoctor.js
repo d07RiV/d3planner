@@ -726,12 +726,12 @@ DiabloCalc.skills.witchdoctor = {
     },
     active: false,
     buffs: {
-      x: {ias: 20, petias: 20, extrams: 20},
-      b: {ias: 20, petias: 20, extrams: 20},
-      d: {ias: 20, petias: 20, extrams: 20, manaregen: 250},
-      a: {ias: 20, petias: 20, extrams: 20, damage: 30},
-      c: {ias: 20, petias: 20, extrams: 20, dmgred: 20},
-      e: {ias: 20, petias: 20, extrams: 20},
+      x: {ias: 20, extrams: 20},
+      b: {ias: 20, extrams: 20},
+      d: {ias: 20, extrams: 20, manaregen: 250},
+      a: {ias: 20, extrams: 20, damage: 30},
+      c: {ias: 20, extrams: 20, dmgred: 20},
+      e: {ias: 20, extrams: 20},
     },
   },
   fetisharmy: {
@@ -834,7 +834,7 @@ DiabloCalc.passives.witchdoctor = {
     info: function(stats) {
       return {"Fetish Damage": {elem: "max", pet: true, aps: true, coeff: 1.8, percent: {"Army %": stats.skill_witchdoctor_fetisharmy}},
               "Fetish DPS": {sum: true, "Fetish Damage": {pet: 48}},
-              "Total DPS": {sum: true, "Fetish Damage": {pet: 48, count: this.params[0].val}},
+              "Total DPS": {sum: true, "Fetish DPS": {count: this.params[0].val}},
       };
     },
   },

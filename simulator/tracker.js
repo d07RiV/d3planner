@@ -56,7 +56,7 @@
   var CastCounters = {};
   Sim.register("onhit", function(data) {
     var source = (data.skill || data.triggered || "unknown");
-    if (data.pet || (data.castInfo && data.castInfo.pet)) {
+    if (data.pet || (data.castInfo && (data.castInfo.pet || data.castInfo.trigExplicit))) {
       source = (data.triggered || data.skill || "unknown");
     }
     //var source = ((data.skill ? (!data.pet && data.triggered) || data.skill : data.triggered) || "unknown");

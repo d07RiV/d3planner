@@ -874,7 +874,7 @@
         params.tickrate = 15;
         params.ontick = {type: "area", range: 10, self: true, coeff: 3.25 / 4};
       }*/
-      var buffs = {damage: 40};
+      var buffs = {dmgmul: 40};
       if (rune === "e") buffs.hatredregen = 10;
       if (rune === "b" || Sim.stats.leg_visageofgunes) buffs.dmgred = 50;
       Sim.addBuff("vengeance", buffs, params);

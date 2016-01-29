@@ -1147,9 +1147,16 @@
 
         if (value.count) {
           self.sectCounters.append("<li><span>" + _L("Uses") + "</span><span>" + value.count + "</span></li>");
+          var permin = value.count / self.results.time * 3600;
+          if (permin > 60) {
+            self.sectCounters.append("<li><span>" + _L("Uses/second") + "</span><span>" + DC.formatNumber(permin / 60, 2) + "</span></li>");
+          } else {
+            self.sectCounters.append("<li><span>" + _L("Uses/minute") + "</span><span>" + DC.formatNumber(permin, 2) + "</span></li>");
+          }
         }
         if (value.damage) {
           self.sectCounters.append("<li><span>" + _L("Damage") + "</span><span>" + FmtNumber(value.damage) + "</span></li>");
+          self.sectCounters.append("<li><span>" + _L("DPS") + "</span><span>" + FmtNumber(value.damage / self.results.time * 60) + "</span></li>");
           self.sectCounters.append("<li><span>" + _L("% Damage") + "</span><span>" + DC.formatNumber(100 * value.damage / self.results.damage, 2) + "%</span></li>");
         }
         if (value.rc) {

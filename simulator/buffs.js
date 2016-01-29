@@ -593,4 +593,8 @@
     var pos = (buff.stackstart + buff.stacks - 1) % buff.params.maxstacks;
     return buff.stacklist[pos];
   };
+  Sim.getBuffCastInfo = function(id) {
+    var buff = this.buffs[id];
+    return (buff && buff.castInfo);
+  };
 })();

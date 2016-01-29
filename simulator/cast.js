@@ -351,7 +351,9 @@
     var rune = rune || this.stats.skills[id] || "x";
     if (!rune) return false;
     var prevInfo = this.castInfo();
-    if (prevInfo && !triggered) triggered = (prevInfo.triggered || prevInfo.skill);
+    var trigExplicit = !!triggered;
+    if (prevInfo && (!triggered || triggered === true)) triggered = (prevInfo.triggered || prevInfo.skill);
+    if (triggered === true) triggered = undefined;
     var rc = {};
     if (!triggered) {
       rc = this.canCast(id, rune);
@@ -400,7 +402,11 @@
         }
         var dist = this.getProp(tsk, "distance", this.stats.skills[triggered]);
         if (dist) castInfo.distance = dist;
+      } else if (castInfo.pet) {
+        // summoning pets should not display the trigger item
+        castInfo.triggered = triggered = id;
       }
+      castInfo.trigExplicit = trigExplicit;
     } else {
       castInfo.buffs = [];
       castInfo.user = {};
@@ -478,18 +484,20 @@
       Sim.damage(data.func);
     }
     var info = Sim.castInfo();
-    data.buff.params.tickrate = (info.noias ? Math.round(data.speed) : Math.floor(data.speed / Sim.stats.info[info && info.weapon || "mainhand"].speed));
+    data.buff.params.tickrate = Math.floor(data.speed / info.speed);
   }
   Sim.channeling = function(name, speed, dmg, data, base) {
     var info = this.castInfo();
-    var rate = (info.noias ? Math.round(speed) : Math.floor(speed / Sim.stats.info[info && info.weapon || "mainhand"].speed));
-    Sim.addBuff(name, Sim.extend({channeling: 1}, base && base.buffs), Sim.extend({
+    var rate = Math.floor(speed / info.speed);
+    name = Sim.addBuff(name, Sim.extend({channeling: 1}, base && base.buffs), Sim.extend({
       duration: rate + 1,
       tickrate: rate,
       tickinitial: 1,
       ontick: channeling_ontick,
       data: Sim.extend({func: dmg, speed: speed}, data),
     }, base));
+    var curInfo = Sim.getBuffCastInfo(name);
+    if (curInfo) curInfo.speed = info.speed;
   };
   function pet_ontick(data) {
     var rate = data.tickrate;

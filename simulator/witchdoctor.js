@@ -185,6 +185,9 @@
     offensive: true,
     channeling: {x: 30, a: 60, d: 30, c: 30, b: 30, e: 30},
     frames: 87.804871,
+    speed: function(rune, aps) {
+      return aps * (Sim.stats.leg_staffofchiroptera ? 2 : 1);
+    },
     initialcost: function(rune) {
       if (rune === "d") return 250 * (1 - 0.01 * (Sim.stats.leg_staffofchiroptera || 0));
     },
@@ -218,7 +221,7 @@
       if (Sim.stats.leg_coilsofthefirstspider) {
         base = {buffs: {lph: Sim.stats.leg_coilsofthefirstspider, dmgred: 30}};
       }
-      Sim.channeling("firebats", this.channeling[rune] / (Sim.stats.leg_staffofchiroptera ? 2 : 1), dmg, undefined, base);
+      Sim.channeling("firebats", this.channeling[rune], dmg, undefined, base);
     },
     proctable: {x: 0.1667, a: 0.333, d: 0.2, c: 0.2, b: 0.5, e: 0.25},
     elem: {x: "fir", a: "fir", d: "phy", c: "psn", b: "fir", e: "fir"},
@@ -331,7 +334,7 @@
       Sim.damage({coeff: 0, onhit: swarm_onhit});
     },
     proctable: 0.333,
-    elem: {x: "col", a: "fir", e: "col", b: "col", c: "psn", d: "col"},
+    elem: {x: "psn", b: "psn", d: "col", c: "phy", e: "psn", a: "fir"},
   };
 
   function dogs_rabid_onhit(data) {
@@ -505,7 +508,8 @@
     for (var i = 0; i < buff.stacks && targets; ++i) {
       var stack = buff.stacklist[(buff.stackstart + i) % buff.stacklist.length];
       Sim.pushCastInfo(stack.castInfo);
-      var event = Sim.calcDamage({coeff: stack.data.coeff});
+      var event = Sim.calcDamage({coeff: stack.data.coeff,
+        elem: stack.castInfo.elem, skill: stack.castInfo.skill, weapon: stack.castInfo.weapon});
       Sim.popCastInfo();
       total += event.damage * Sim.reduceStackDuration(id, stack, 150 * 60) / tickrate;
       --targets;
@@ -873,7 +877,7 @@
       return 120 * (Sim.stats.passives.tribalrites ? 0.75 : 1);
     },
     oncast: function(rune) {
-      var buffs = {ias: 20, petias: 20, extrams: 20};
+      var buffs = {ias: 20, extrams: 20};
       var params = {duration: 1200};
       switch (rune) {
       case "b": params.duration = 1800; break;

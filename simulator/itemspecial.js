@@ -844,7 +844,7 @@
 
   affixes.leg_beltofthetrove = function(amount) {
     Sim.after(amount * 60, function impact() {
-      Sim.cast("bombardment");
+      Sim.cast("bombardment", undefined, true);
       Sim.after(amount * 60, impact);
     });
   };
@@ -1143,7 +1143,7 @@
     Sim.register("onhit_proc", function(data) {
       if (data.castInfo && data.castInfo.skill === "blessedshield") {
         Sim.addBuff("akkhansleniency", {dmgmul: {skills: ["blessedshield"], percent: amount}},
-          {maxstacks: 10, stacks: Sim.random("akkhansleniency", 1, data.targets, true), duration: 180, refresh: false});
+          {maxstacks: 99, stacks: Sim.random("akkhansleniency", 1, data.targets, true), duration: 180, refresh: false});
       }
     });
   };

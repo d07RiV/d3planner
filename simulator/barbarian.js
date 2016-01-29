@@ -118,7 +118,7 @@
   skills.frenzy = {
     signature: true,
     offensive: true,
-    frames: VarSpeed,
+    frames: VarFrames,
     speed: function(rune, aps) {
       return aps * (1 + 0.15 * Sim.getBuff("frenzy")) * (Sim.stats.leg_oathkeeper ? 1.5 : 1);
     },
@@ -326,7 +326,7 @@
     case "a": dmg.coeff = 4 / 3; break;
     }
     if (Sim.stats.leg_skullgrasp) {
-      dmg.coeff += Sim.stats.leg_skullgrasp / 3;
+      dmg.coeff += Sim.stats.leg_skullgrasp / 300;
     }
     Sim.damage(dmg);
   }

@@ -252,6 +252,7 @@
     }
 
     var elem = (fmt.elem == "max" ? stats.info.maxelem : fmt.elem);
+    if (fmt.thorns === "normal") elem = "phy";
     // DIBS
     var tmp = stats.getTotalSpecial("damage", elem, fmt.pet, skillid, fmt.exclude);
     if (tmp) bonuses["Buffs"] = tmp;

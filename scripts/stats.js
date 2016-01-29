@@ -490,6 +490,8 @@
     this.addAbsolute("chc", "extrachc");
     this.chc = Math.min(100, this.chc);
 
+    if (this.expmul) this.expmul *= 0.1;
+
     this.addAbsolute("str", "caldesanns_str");
     this.addAbsolute("dex", "caldesanns_dex");
     this.addAbsolute("int", "caldesanns_int");
@@ -572,6 +574,7 @@
     }
 
     this.addAbsolute("thorns", "firethorns");
+    this.addPercent("thorns", "vit_to_thorns", this.vit);
     this.addPercent("thorns", "thorns_multiply");
     this.addPercent("thorns", "thorns_percent");
     this.info.thorns = (this.thorns || 0) * (1 + this[this.primary] / 100);

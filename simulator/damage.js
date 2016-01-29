@@ -7,21 +7,22 @@
     var stats = Sim.stats;
     var triggered = (data.castInfo && data.castInfo.triggered);
 
-    debugger;
-
     var base = stats.info[data.weapon || "mainhand"].wpnbase;
     var avg;
     if (data.thorns) {
-      avg = Sim.stats.thorns;
+      avg = (0 || Sim.stats.thorns);
     } else if (data.castInfo && data.castInfo.pet === "min") {
       avg = base.min;
     } else {
       avg = (base.min + base.max) * 0.5;
     }
+    avg *= (data.coeff === undefined ? 1 : data.coeff);
+    if (data.addthorns) {
+      avg += data.addthorns * (0 || Sim.stats.thorns);
+    }
 
     var factor = 1 + 0.01 * stats.info.primary;
     if (data.fix) data.fix.call(data);
-    factor *= (data.coeff === undefined ? 1 : data.coeff);
     factor *= (data.factor || 1);
 
     var dibs = (data.dibs || 0);
@@ -56,6 +57,7 @@
     }
 
     var elem = (data.elem === "max" ? stats.info.maxelem : data.elem);
+    if (data.thorns === "normal") elem = "phy";
     if (!orphan) dibs += stats.getSpecial("damage", elem, ispet, data.skill, data.exclude);
     var dmgtaken = stats.getSpecial("dmgtaken", elem, ispet, data.skill, data.exclude);
     if (data.thorns === "normal") {
@@ -67,7 +69,6 @@
 
     factor *= 1 + 0.01 * dibs;
 
-    if (data.thorns === "normal") elem = "phy";
     var elemental = (elem && stats["dmg" + elem] || 0);
     if (ispet) elemental += (stats.petdamage || 0);
     factor *= 1 + 0.01 * elemental;
