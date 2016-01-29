@@ -316,7 +316,7 @@
         break;
       case "d":
         dmg.targets = 1;
-        Sim.damage({delay: dmg.delay, targets: 3 * (4 + (Sim.stats.leg_jekangbord || 0)), coeff: 1.7});
+        Sim.damage({delay: dmg.delay, targets: Math.min(3 * (4 + (Sim.stats.leg_jekangbord || 0)), Sim.target.count - 1), coeff: 1.7});
         break;
       case "e":
         delete dmg.delay;
