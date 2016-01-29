@@ -296,23 +296,23 @@ DiabloCalc.skills.barbarian = {
     info: function(rune, stats) {
       var res;
       switch (rune) {
-      case "x": res = {"Tick Damage": {elem: "phy", aps: true, coeff: 3.4}}; break;
-      case "b": res = {"Tick Damage": {elem: "phy", aps: true, coeff: 3.4}}; break;
-      case "c": res = {"Tick Damage": {elem: "col", aps: true, coeff: 3.4}}; break;
-      case "e": res = {"Tick Damage": {elem: "phy", aps: true, coeff: 3.4}}; break;
-      case "d": res = {"Tick Damage": {elem: "lit", aps: true, coeff: 3.4}}; break;
-      case "a": res = {"Tick Damage": {elem: "fir", aps: true, coeff: 4}}; break;
+      case "x": res = {"Tick Damage": {elem: "phy", coeff: 3.4}}; break;
+      case "b": res = {"Tick Damage": {elem: "phy", coeff: 3.4}}; break;
+      case "c": res = {"Tick Damage": {elem: "col", coeff: 3.4}}; break;
+      case "e": res = {"Tick Damage": {elem: "phy", coeff: 3.4}}; break;
+      case "d": res = {"Tick Damage": {elem: "lit", coeff: 3.4}}; break;
+      case "a": res = {"Tick Damage": {elem: "fir", coeff: 4}}; break;
       }
-      res = $.extend({"Cost": {cost: 10 * stats.info.aps, persecond: true}}, res);
+      res = $.extend({"Cost": {cost: 10, fpa: 20}}, res);
       res["Tick Damage"].divide = {"Base Speed": 3};
       if (stats.leg_skullgrasp) {
         res["Tick Damage"].addcoeff = [stats.leg_skullgrasp / 100];
       }
       if (rune == "b" || stats.set_wastes_6pc) {
-        res["Tornado Damage"] = {elem: res["Tick Damage"].elem, aps: true, coeff: (stats.set_wastes_6pc ? 25 : 1.2)};
+        res["Tornado Damage"] = {elem: res["Tick Damage"].elem, coeff: (stats.set_wastes_6pc ? 25 : 1.2)};
       }
-      res["DPS"] = {sum: true, "Tick Damage": {aps: 3}};
-      if (res["Tornado Damage"]) res["DPS"]["Tornado Damage"] = {aps: 2};
+      res["DPS"] = {sum: true, "Tick Damage": {speed: 1, fpa: 20}};
+      if (res["Tornado Damage"]) res["DPS"]["Tornado Damage"] = {speed: 1, fpa: 30};
       return res;
     },
     active: true,

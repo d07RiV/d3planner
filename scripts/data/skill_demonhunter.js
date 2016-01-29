@@ -713,19 +713,19 @@ DiabloCalc.skills.demonhunter = {
     info: function(rune, stats) {
       var res;
       switch (rune) {
-      case "x": res = {"Tick Damage": {elem: "phy", aps: true, coeff: 6.75}}; break;
-      case "b": res = {"Tick Damage": {elem: "col", aps: true, coeff: 6.75}, "Trail DPS": {elem: "col", aps: true, coeff: 1, total: true}}; break;
-      case "d": res = {"Tick Damage": {elem: "lit", aps: true, coeff: 6.75}}; break;
-      case "e": res = {"Tick Damage": {elem: "phy", aps: true, coeff: 6.75, chd: 140}}; break;
-      case "c": res = {"Tick Damage": {elem: "fir", aps: true, coeff: 6.75}, "Rocket Damage": {elem: "fir", aps: true, coeff: 1.3, passives: {ballistics: 100}}}; break;
-      case "a": res = {"Grenade Damage": {elem: "fir", aps: true, coeff: 4.6, passives: {grenadier: 10}}}; break;
+      case "x": res = {"Tick Damage": {elem: "phy", coeff: 6.75}}; break;
+      case "b": res = {"Tick Damage": {elem: "col", coeff: 6.75}, "Trail DPS": {elem: "col", coeff: 1, total: true}}; break;
+      case "d": res = {"Tick Damage": {elem: "lit", coeff: 6.75}}; break;
+      case "e": res = {"Tick Damage": {elem: "phy", coeff: 6.75, chd: 140}}; break;
+      case "c": res = {"Tick Damage": {elem: "fir", coeff: 6.75}, "Rocket Damage": {elem: "fir", coeff: 1.3, passives: {ballistics: 100}}}; break;
+      case "a": res = {"Grenade Damage": {elem: "fir", coeff: 4.6, passives: {grenadier: 10}}}; break;
       }
-      res = $.extend({"Cost": {cost: 12 * stats.info.aps, persecond: true}}, res);
+      res = $.extend({"Cost": {cost: 12, slowest: true, fpa: (rune === "a" ? 30 : 15)}}, res);
       if (res["Tick Damage"]) res["Tick Damage"].divide = {"Base Speed": 4};
-      res["DPS"] = {sum: true};
-      if (res["Tick Damage"]) res["DPS"]["Tick Damage"] = {aps: 4};
-      if (res["Rocket Damage"]) res["DPS"]["Rocket Damage"] = {aps: 2};
-      if (res["Grenade Damage"]) res["DPS"]["Grenade Damage"] = {aps: 2};
+      res["DPS"] = {sum: true, tip: ["Snapshots the speed of your current weapon", "Calculations are based on your slowest weapon"]};
+      if (res["Tick Damage"]) res["DPS"]["Tick Damage"] = {speed: 1, slowest: true, fpa: 15};
+      if (res["Rocket Damage"]) res["DPS"]["Rocket Damage"] = {speed: 1, slowest: true, fpa: 30};
+      if (res["Grenade Damage"]) res["DPS"]["Grenade Damage"] = {speed: 1, slowest: true, fpa: 30};
       return res;
     },
   },
