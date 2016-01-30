@@ -177,7 +177,7 @@
       if (Sim.time >= next) {
         if (--counter < 0) {
           Sim.addBuff("stricken", {dmgmul: 0.8 + level * 0.01}, {
-            maxstacks: 9999,
+            maxstacks: 360,
           });
           counter = Sim.target.count - 1;
         }
