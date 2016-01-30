@@ -94,7 +94,12 @@
     var cnt = _counter(data.skill);
     cnt.count = (cnt.count || 0) + 1;
     if (Sample /*&& Sample.length < 50*/) {
-      var evt = [data.time, data.skill, Sim.resources[Sim.rcTypes[0]], 0, {}];
+      var buffs = {};
+      for (var id in this.buffs) {
+        if (id.indexOf("uniq_") === 0) continue;
+        buffs[id] = this.buffs[id].stacks;
+      }
+      var evt = [data.time, data.skill, Sim.resources[Sim.rcTypes[0]], 0, {}, buffs];
       if (data.castId) CastCounters[data.castId] = evt;
       Sample.push(evt);
     }

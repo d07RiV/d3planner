@@ -346,6 +346,25 @@ asheara's: todo
       }
     }
   };
+  affixes.set_inna_6pc = function() {
+    if (!Sim.stats.skills.mystically && Sim.skills.mystically) {
+      var skill = Sim.skills.mystically;
+      Sim.pushCastInfo({
+        skill: "mystically",
+        rune: "x",
+        buffs: [],
+        elem: Sim.getProp(skill, "elem", "x"),
+        proc: Sim.getProp(skill, "proctable", "x"),
+      });
+      Sim.getProp(skill, "oninit", "x");
+      Sim.popCastInfo();
+    }
+    var buffname;
+    Sim.watchBuff("mystically", function(data) {
+      buffname = Sim.setBuffStacks(buffname, {dmgmul: 50}, data.stacks);
+    });
+  };
+
   /*affixes.set_inna_6pc = function() {
     var list = ["cyclonestrike", "explodingpalm", "lashingtailkick", "sevensidedstrike", "waveoflight"];
     Sim.register("oncast", function(data) {
@@ -566,13 +585,6 @@ asheara's: todo
 
   affixes.set_danetta_2pc = function() {
     Sim.addBaseStats({dmgmul: {skills: ["vault"], percent: 800}});
-  };
-
-  affixes.set_inna_6pc = function() {
-    var buffname;
-    Sim.watchBuff("mystically", function(data) {
-      buffname = Sim.setBuffStacks(buffname, {dmgmul: 50}, data.stacks);
-    });
   };
 
   affixes.set_endlesswalk_2pc = function() {
