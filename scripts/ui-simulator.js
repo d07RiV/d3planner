@@ -947,16 +947,29 @@
             var line = $("<li><span><span>" + time + "</span>" + icon + "<span>" + skill.name +
               "</span></span><span>" + value[2].toFixed(0) + "</span></li>");
             //self.sectSample.append(line);
-            var tip = "<div xmlns=\"http://www.w3.org/1999/xhtml\" class=\"profile-tooltip\"><p><span class=\"d3-color-gold\">" + _L("Damage") +
-               ": <span class=\"d3-color-green\">" + DC.formatNumber(value[3], 0, 10000) + "</span></span>";
-            for (var id in value[4]) {
-              var name = self.sourceName(id);
-              if (name) {
-                tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + name + ": <span class=\"d3-color-green\">" + DC.formatNumber(value[4][id], 0, 10000) + "</span>";
-              }
-            }
-            tip += "</p></div>";
             line.hover(function() {
+              var tip = "<div xmlns=\"http://www.w3.org/1999/xhtml\" class=\"profile-tooltip\"><p><span class=\"d3-color-gold\">" + _L("Damage") +
+                 ": <span class=\"d3-color-green\">" + DC.formatNumber(value[3], 0, 10000) + "</span></span>";
+              for (var id in value[4]) {
+                var name = self.sourceName(id);
+                if (name) {
+                  tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + name + ": <span class=\"d3-color-green\">" + DC.formatNumber(value[4][id], 0, 10000) + "</span>";
+                }
+              }
+              if (value.length > 5 && !$.isEmptyObject(value[5])) {
+                tip += "<br/><span class=\"tooltip-icon-bullet\"></span>Buffs:";
+                var ids = [];
+                for (var id in value[5]) ids.push([id, DC.simMapping.buffs[id] && DC.simMapping.buffs[id].name || id]);
+                ids.sort(function(x, y) {return x[1].localeCompare(y[1]);});
+                for (var i = 0; i < ids.length; ++i) {
+                  var id = ids[i][0];
+                  var name = (DC.simMapping.buffs[id] && DC.simMapping.buffs[id].name);
+                  tip += "<br/><span class=\"tooltip-icon-nobullet\"></span><span class=\"d3-color-" + (name ? "gold" : "gray") + "\">" +
+                    (name || id) + "</span>: <span class=\"d3-color-white\">" + value[5][id] + "</span>";
+                }
+              }
+              tip += "</p></div>";
+
               DC.tooltip.showHtml(this, tip);
             }, function() {
               DC.tooltip.hide();

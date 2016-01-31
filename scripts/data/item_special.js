@@ -873,8 +873,24 @@ DiabloCalc.itemaffixes = {
     buffs: {dmgmul: {skills: ["vault"], percent: 800}},
   },
   set_inna_6pc: {
+    info: function(value, stats) {
+      if (!stats.skills.mystically && DiabloCalc.charClass === "monk") {
+        var res = DiabloCalc.skills.monk.mystically.info("x", stats);
+        for (var id in res) {
+          if (res[id].elem) {
+            res[id].skill = "mystically";
+          }
+        }
+        return res;
+      }
+    },
     buffs: function(value, stats) {
-      return {dmgmul: {pet: false, percent: 50 * 5 * (stats.leg_thecrudestboots ? 2 : 1)}};
+      if (DiabloCalc.charClass !== "monk") return;
+      var res = {dmgmul: {pet: false, percent: 50 * 5 * (stats.leg_thecrudestboots ? 2 : 1)}};
+      if (!stats.skills.mystically) {
+        $.extend(res, DiabloCalc.skills.monk.mystically.passive("x", stats));
+      }
+      return res;
     },
   },
   set_endlesswalk_2pc: {

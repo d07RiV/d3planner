@@ -240,16 +240,18 @@
     }
   }
   function wothf_fury_onhit(data) {
+    var limit = 9 * Sim.stats.info[data.castInfo.weapon || "mainhand"].speed;
     Sim.addBuff("fistsoffury", undefined, {
       duration: 179,
       tickrate: 12,
-      maxstacks: Math.ceil(9 * Sim.stats.info.aps),
-      data: {targets: Math.min(Sim.target.count, data.targets / data.hits), proc: data.proc},
+      stacks: data.hits,
+      maxstacks: Math.ceil(limit),
+      data: {targets: Math.min(Sim.target.count, data.targets / data.hits), proc: data.proc, limit: limit},
       onrefresh: function(data, newdata) {
         data.targets = Math.max(data.targets, newdata.targets);
       },
       ontick: function(data) {
-        Sim.damage({count: data.targets * data.stacks, coeff: 0.04, proc: data.proc});
+        Sim.damage({targets: data.targets, coeff: 0.04 * Math.min(data.stacks, data.limit), proc: data.proc});
       },
     });
   }
