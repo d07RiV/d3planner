@@ -127,6 +127,7 @@
     this.target.boss = (data.params.targetBosses || 0) / this.target.count;
     this.target.type = (data.params.targetType || "");
     this.target.density = this.target.count / this.target.area;
+    this.target.health = (data.params.targetHealth < 0 ? -1 : data.params.targetHealth * this.target.count);
     this.target.maxdr = 0.95;
     this.target.mincc = 0.65;
     if (this.target.elite) {

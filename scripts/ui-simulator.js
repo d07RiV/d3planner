@@ -825,25 +825,66 @@
     var line = $("<div class=\"option-row\"></div>");
     optDiv.append(line);
     line.append("<span class=\"option-name\">" + info.name + ":</span>");
-    var value = $("<span class=\"option-value\">" + info.val + "</span>");
-    line.append(value);
-    var slider = $("<div></div>").slider({
-      value: info.val,
-      min: info.min,
-      max: info.max,
-      step: info.step || 1,
-      slide: function(event, ui) {
-        info.val = ui.value;
-        value.text(ui.value);
-      },
-    });
-    DC.addTip(slider, info.tip);
-    line.append($("<span class=\"option-slider\"></span>").append(slider));
-    DC.addOption(info.var, function() {return info.val;}, function(x) {
-      info.val = x;
-      value.text(x);
-      slider.slider("value", x);
-    }, info.profile);
+    line.append("<span class=\"option-setting\"><span class=\"option-subtable\"></span></span>");
+    var subline = line.find(".option-subtable");
+
+    if (info.health) {
+      var box = $("<span class=\"option-box\"><label><input type=\"checkbox\" checked=\"checked\"></input>" + _L("Adaptive") + "</label></span>");
+      DC.addTip(box.find("label"), _L("Total health equals to 10 times the damage dealt in the first minute."));
+      var input = $("<input type=\"text\" class=\"option-health\" value=\"1,000,000,000,000\"></input>").hide();
+      var prevValue = "1,000,000,000,000";
+      input.on("input", function() {
+        var val = $(this).val();
+        if (!val) {prevValue = val; return;}
+        var num = parseInt(val.replace(/,/g, ""));
+        if (isNaN(num)) {
+          $(this).val(prevValue);
+        } else {
+          $(this).val(prevValue = DC.formatNumber(num, 0, 10000));
+          info.val = num;
+        }
+      });
+      DC.addTip(input, info.tip);
+      subline.append(box, $("<span class=\"option-slider\"></span>").append(input));
+      box.find("input").click(function() {
+        input.toggle(!$(this).prop("checked"));
+        if ($(this).prop("checked")) {
+          info.val = -1;
+        } else {
+          info.val = parseInt(input.val().replace(/,/g, ""));
+        }
+      });
+      DC.addOption(info.var, function() {return info.val;}, function(x) {
+        info.val = x;
+        if (x < 0) {
+          box.find("input").prop("checked", true);
+          input.hide();
+        } else {
+          box.find("input").prop("checked", false);
+          input.show().val(prevVal = DC.formatNumber(x, 0, 10000));
+        }
+      }, info.profile);
+    } else {
+      var value = $("<span class=\"option-value\">" + info.val + "</span>");
+      subline.append(value);
+      var slider = $("<div></div>").slider({
+        value: info.val,
+        min: info.min,
+        max: info.max,
+        step: info.step || 1,
+        slide: function(event, ui) {
+          info.val = ui.value;
+          value.text(ui.value);
+        },
+      });
+      DC.addTip(slider, info.tip);
+      subline.append($("<span class=\"option-slider\"></span>").append(slider));
+      DC.addOption(info.var, function() {return info.val;}, function(x) {
+        info.val = x;
+        value.text(x);
+        slider.slider("value", x);
+      }, info.profile);
+    }
   });
 
   var nyiSection = $("<div><p>" + _L("The following equipped items are not implemented in the simulation:") + "</p></div>");

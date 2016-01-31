@@ -34,10 +34,14 @@
       BucketBase += BucketSize;
       Sim.after(BucketSize, SendReport);
     });
-    this.after(3600, function() {
-      MaxHealth = TotalDamage * 10;
-      Sim.targetHealth = 0.9;
-    });
+    if (this.target.health > 0) {
+      MaxHealth = this.target.health;
+    } else {
+      this.after(3600, function() {
+        MaxHealth = TotalDamage * 10;
+        Sim.targetHealth = 0.9;
+      });
+    }
     if (this.params.globeRate) {
       var delay = Math.ceil(3600 / Sim.params.globeRate);
       this.after(delay, function globes() {

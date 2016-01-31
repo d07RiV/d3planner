@@ -18,6 +18,7 @@ DiabloCalc.simMapping = {
     whites: {var: "targetCount", name: "Whites", tip: "Number of regular monsters in the cluster.", min: 0, max: 100, val: 1},
     elites: {var: "targetElites", name: "Elites", tip: "Number of elite monsters in the cluster.", min: 0, max: 20, val: 0},
     bosses: {var: "targetBosses", name: "Boss", tip: "Number of bosses in the cluster.", min: 0, max: 1, val: 0},
+    health: {var: "targetHealth", name: "Health", tip: "Monster health.", health: true, val: -1},
   },
   opts: {
     buff: "Buff stacks",
