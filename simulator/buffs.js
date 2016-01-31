@@ -329,6 +329,8 @@
     if (typeof params === "number") {
       params = {duration: params};
     }
+    if (params && params.stacks) params.stacks = Math.round(params.stacks);
+    if (params && params.maxstacks) params.maxstacks = Math.round(params.maxstacks);
     params = this.extend({
       stacks: 1,
       refresh: true,
