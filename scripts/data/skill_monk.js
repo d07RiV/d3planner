@@ -999,7 +999,9 @@ DiabloCalc.partybuffs.monk = {
   mantraofretribution: {
     runelist: "b",
     boxnames: ["Inna's Mantra"],
-    buffs: {b: {ias: 10 * (this.boxvals[0] ? 2 : 1)}}
+    buffs: function(rune, stats) {
+      if (rune === "b") return {ias: 10 * (this.boxvals[0] ? 2 : 1)};
+    },
   },
   mantraofhealing: {
     runelist: "*",
