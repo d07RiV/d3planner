@@ -936,7 +936,7 @@
     oninit: function(rune) {
       var buffs = {};
       switch (rune) {
-      case "b": buffs.ias = 10; break;
+      case "b": buffs.ias = 10 * (Sim.stats.set_inna_2pc ? 2 : 1); break;
       }
       Sim.addBuff("mantraofretribution", buffs);
     },

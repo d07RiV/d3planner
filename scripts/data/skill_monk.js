@@ -754,7 +754,7 @@ DiabloCalc.skills.monk = {
       e: {"Damage": {elem: "hol", coeff: "1.01*(set_inna_2pc?2:1)"}, "Activated Damage": {elem: "hol", coeff: "1.01*(set_inna_2pc?2:1)*2"}},
     },
     passive: {
-      b: {ias: 10},
+      b: {ias: 10 * (set_inna_2pc ? 2 : 1)},
     },
   },
   mantraofhealing: {
@@ -998,6 +998,8 @@ DiabloCalc.partybuffs.monk = {
   },
   mantraofretribution: {
     runelist: "b",
+    boxnames: ["Inna's Mantra"],
+    buffs: {b: {ias: 10 * (this.boxvals[0] ? 2 : 1)}}
   },
   mantraofhealing: {
     runelist: "*",
