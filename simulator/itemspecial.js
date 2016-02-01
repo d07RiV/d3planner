@@ -402,6 +402,15 @@
       }
     });
   };
+  affixes.leg_sashofknives_p2 = function(amount) {
+    var next = 0;
+    Sim.register("onhit_proc", function(data) {
+      if (Sim.time >= next) {
+        Sim.damage({range: 50, self: true, elem: "phy", coeff: 0.01 * amount});
+        next = Sim.time + Math.floor(54 / Sim.stats.info.aps);
+      }
+    });
+  };
   affixes.leg_scourge = function(amount) {
     var next = 0;
     Sim.register("oncast", function(data) {
