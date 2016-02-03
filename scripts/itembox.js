@@ -578,7 +578,7 @@
             type: $("<select class=\"item-info-gem-type\"></select>"),
             colorSpan: $("<span></span>"),
             color: $("<select class=\"item-info-gem-color\"></select>"),
-            level: $("<input class=\"item-info-gem-level\" type=\"number\" min=\"0\" max=\"100\"></input>"),
+            level: $("<input class=\"item-info-gem-level\" type=\"number\" min=\"0\" max=\"200\"></input>"),
           };
           sock.type.append("<option value=\"\">" + (DC.noChosen ? _L("Empty Socket") : "") + "</option>");
           var slotType = self.box.type.val();
