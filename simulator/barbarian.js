@@ -749,9 +749,9 @@
       if (rune === "e") {
         Sim.register("onhit_proc", function(data) {
           if (Sim.getBuff("battlerage")) {
-            var targets = Sim.getTargets(15, 0);
-            Sim.trigger("onhit", {
-              targets: targets,
+            var targets = Sim.getTargets(15, 0) - 1;
+            if (targets > 0) Sim.trigger("onhit", {
+              targets: targets * data.targets * data.chc,
               damage: data.damage * 0.2,
               elem: "phy",
               castInfo: Sim.castInfo(),
@@ -759,7 +759,7 @@
               chc: 0,
               distance: 0,
               dmgmul: data.dmgmul,
-              hits: 1,
+              hits: data.targets * data.chc,
             });
           }
         });
