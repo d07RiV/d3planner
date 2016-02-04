@@ -36,9 +36,11 @@
     generate: function(rune) {
       return (rune === "d" ? 9 : 6);
     },
-    cost: function(rune) {
+    precast: function(rune, dry) {
       if (Sim.stats.leg_bladeofthewarlord) {
-        return Math.min(40, Sim.getResource("fury"));
+        var fury = Math.min(40, Sim.getResource("fury"));
+        if (!dry) Sim.spendResource(fury, "fury");
+        return {cost: fury};
       }
     },
     frames: VarFrames,
