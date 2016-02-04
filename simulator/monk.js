@@ -799,7 +799,8 @@
         Sim.addBuff("waterally_active", undefined, {
           duration: 90,
           tickrate: 12,
-          ontick: {count: Sim.getBuff("waterally"), type: "line", origin: 5, range: 10, radius: 5, pierce: true, coeff: 6.25, onhit: Sim.apply_effect("frozen", 180)},
+          ontick: {count: Sim.getBuff("waterally"), type: "line", origin: 5, range: 10, radius: 5,
+            elem: this.elem.b, pierce: true, coeff: 6.25, onhit: Sim.apply_effect("frozen", 180)},
         });
         Sim.delayBuff("waterally", 90);
       }
@@ -807,7 +808,7 @@
         Sim.addBuff("fireally_active", undefined, {
           duration: 301,
           tickrate: 30,
-          ontick: {count: Sim.getBuff("fireally"), type: "area", range: 4, coeff: 2.9},
+          ontick: {count: Sim.getBuff("fireally"), type: "area", range: 4, coeff: 2.9, elem: this.elem.a},
         });
         Sim.delayBuff("fireally", 330);
       }
@@ -821,7 +822,8 @@
         Sim.addBuff("earthally_active", undefined, {
           duration: 481,
           tickrate: 12,
-          ontick: {count: Sim.getBuff("earthally"), type: "area", range: 7, coeff: 0.76, onhit: Sim.apply_effect("knockback", 30)},
+          ontick: {count: Sim.getBuff("earthally"), type: "area", range: 7, coeff: 0.76,
+            elem: this.elem.c, onhit: Sim.apply_effect("knockback", 30)},
         });
         Sim.delayBuff("earthally", 492);
       }
@@ -835,7 +837,7 @@
         refresh: false,
         tickrate: 40,
         speed: true,
-        ontick: {coeff: 1.3, pet: true},
+        ontick: {coeff: 1.3, pet: true, elem: this.elem[rune]},
         onexpire: function(data) {
           Sim.after(300, function() {
             skills.mystically.spawn(rune, 1);
