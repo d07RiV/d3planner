@@ -781,6 +781,46 @@
     elem: {x: "phy", a: "lit", b: "fir", c: "col", d: "phy", e: "hol"},
   };
 
+  var ma_tick = {};
+  ma_tick.x = function(data) {
+    Sim.damage({coeff: 1.3 * Sim.stats.info.aps, pet: true, elem: data.elem});
+  };
+  ma_tick.b = function(data) {
+    Sim.damage({coeff: 1.3 * Sim.stats.info.aps, pet: true, elem: data.elem, onhit: Sim.apply_effect("chilled", 180)});
+  };
+  ma_tick.a = function(data) {
+    data.counter = (data.counter || 0) + 1;
+    if (data.counter >= 8) {
+      data.counter = 0;
+      Sim.damage({type: "area", range: 5, elem: "fir", pet: true, coeff: 0.8 * Sim.stats.info.aps});
+      Sim.addBuff(undefined, undefined, {
+        duration: 121,
+        tickrate: 60,
+        ontick: {type: "area", range: 5, elem: "fir", pet: true, coeff: 0.4 * Sim.stats.info.aps},
+      });
+    } else {
+      return ma_tick.x(data);
+    }
+  };
+  ma_tick.d = function(data) {
+    data.counter = (data.counter || 0) + 1;
+    if (data.counter >= 8) {
+      data.counter = 0;
+      // whiff
+    } else {
+      return ma_tick.x(data);
+    }
+  };
+  ma_tick.e = ma_tick.x;
+  ma_tick.c = function(data) {
+    data.counter = (data.counter || 0) + 1;
+    if (data.counter >= 8) {
+      data.counter = 0;
+      Sim.damage({delay: 30, coeff: 0.6, elem: "phy", pet: true});
+    } else {
+      return ma_tick.x(data);
+    }
+  };
   skills.mystically = {
     offensive: true,
     weapon: "mainhand",
@@ -793,6 +833,7 @@
     distance: 5,
     oncast: function(rune) {
       if (rune === "x" && !Sim.stats.set_inna_6pc) {
+        // does that even work?
         Sim.addBuff("basically_active", {dmgmul: {skills: ["mystically"], percent: 50}}, {duration: 600});
       }
       if (rune === "b" || Sim.stats.set_inna_6pc) {
@@ -800,7 +841,7 @@
           duration: 90,
           tickrate: 12,
           ontick: {count: Sim.getBuff("waterally"), type: "line", origin: 5, range: 10, radius: 5,
-            elem: this.elem.b, pierce: true, coeff: 6.25, onhit: Sim.apply_effect("frozen", 180)},
+            elem: this.elem.b, pierce: true, coeff: 6.25 * Sim.stats.info.aps, onhit: Sim.apply_effect("frozen", 180)},
         });
         Sim.delayBuff("waterally", 90);
       }
@@ -832,12 +873,14 @@
       var name = {x: "basically", b: "waterally", a: "fireally", d: "airally", e: "enduringally", c: "earthally"}[rune];
       var stacks = Sim.getBuff(name);
       var buffs;
+      var elem = this.elem[rune];
       var params = {
         maxstacks: (Sim.stats.leg_thecrudestboots ? 2 : 1),
         refresh: false,
         tickrate: 40,
         speed: true,
-        ontick: {coeff: 1.3, pet: true, elem: this.elem[rune]},
+        data: {rune: rune, elem: this.elem[rune]},
+        ontick: ma_tick[rune],
         onexpire: function(data) {
           Sim.after(300, function() {
             skills.mystically.spawn(rune, 1);
@@ -851,7 +894,6 @@
       }
       var mul = (Sim.stats.set_inna_2pc ? 2 : 1);
       switch (rune) {
-      case "b": params.ontick.onhit = Sim.apply_effect("chilled", 180); break;
       case "c": buffs = {damage: 10 * mul}; break;
       case "d": buffs = {spiritregen: 4 * mul}; break;
       case "e": buffs = {regen: (10728 + (Sim.stats.regen || 0) * 0.07) * mul}; break;
@@ -866,6 +908,11 @@
       if (rune === "d" || Sim.stats.set_inna_6pc) this.spawn("d");
       if (rune === "e" || Sim.stats.set_inna_6pc) this.spawn("e");
       if (rune === "c" || Sim.stats.set_inna_6pc) this.spawn("c");
+      Sim.after(30, function checkair() {
+        var stacks = Sim.getBuff("airally");
+        if (stacks) Sim.damage({type: "area", range: 10, coeff: 0.1, pet: true, elem: "phy"});
+        Sim.after(30, checkair);
+      });
       Sim.metaBuff("mystically", ["basically", "waterally", "fireally", "airally", "enduringally", "earthally"]);
     },
     elem: {x: "phy", b: "col", a: "fir", d: "phy", e: "phy", c: "phy"},

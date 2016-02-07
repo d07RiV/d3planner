@@ -625,23 +625,23 @@ DiabloCalc.skills.monk = {
       for (var x in runes) {
         var info = {};
         info[runes[x]] = {elem: DiabloCalc.skilltips.monk.mystically.elements[x],
-          pet: true, coeff: 1.3 * (stats.set_inna_2pc ? 2 : 1)};
+          pet: true, aps: true, coeff: 1.3/* * (stats.set_inna_2pc ? 2 : 1)*/};
         var pci = DiabloCalc.skill_processInfo(info, {skill: ["mystically", x]})[runes[x]];
-        dps[runes[x]] = {pet: 42, speed: 1, count: count, value: pci.value, nobp: nobp};
+        dps[runes[x]] = {pet: 40, speed: 1, count: count, value: pci.value, nobp: nobp};
         nobp = true;
         if (pci.value > highestValue) {
           highest = info[runes[x]];
           highestValue = pci.value;
         }
       }
-      if (highest) res["Damage"] = highest;
+      if (highest) res[stats.set_inna_6pc ? "Damage (highest)" : "Damage"] = highest;
       res["DPS"] = dps;
-      if ("x" in runes) {
+      /*if ("x" in runes) {
         res["Activated Damage"] = {elem: "phy", pet: true, aps: true, coeff: 1.3,
           percent: $.extend({"Activation": 50}, pct)};
-      }
+      }*/ // NOT WORKING
       if ("b" in runes) {
-        res["Wave Damage"] = {elem: "col", pet: true, coeff: 6.25, factors: {"Count": 7 * count}};
+        res["Wave Damage"] = {elem: "col", pet: true, aps: true, coeff: 6.25, factors: {"Count": 7 * count}};
       }
       if ("a" in runes) {
         res["Explosion Damage"] = {elem: "fir", pet: true, coeff: 4.8, factors: {"Count": 5 * count}};

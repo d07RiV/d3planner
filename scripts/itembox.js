@@ -1541,6 +1541,7 @@
     this.updateItem();
     if (!data || !DC.itemById[data.id]) {
       this.type.val("");
+      this.item.val("");
       this.type.trigger("chosen:updated");
       this.onChangeType();
       return false;
