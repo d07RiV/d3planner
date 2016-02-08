@@ -303,7 +303,7 @@ DiabloCalc.skills.barbarian = {
       case "d": res = {"Tick Damage": {elem: "lit", coeff: 3.4}}; break;
       case "a": res = {"Tick Damage": {elem: "fir", coeff: 4}}; break;
       }
-      res = $.extend({"Cost": {cost: 10, fpa: 20}}, res);
+      res = $.extend({"Cost": {cost: 7 / stats.info.aps + 3, fpa: 20}}, res);
       res["Tick Damage"].divide = {"Base Speed": 3};
       if (stats.leg_skullgrasp) {
         res["Tick Damage"].addcoeff = [stats.leg_skullgrasp / 100];

@@ -336,7 +336,10 @@
     offensive: true,
     frames: 26.66666,
     channeling: 20,
-    cost: 10,
+    cost: function(rune) {
+      var speed = Sim.stats.info[Sim.curweapon || "mainhand"].speed;
+      return 7 / speed + 3;
+    },
     oncast: function(rune) {
       var data = {rune: rune};
       var base = {buffs: {}};
