@@ -840,7 +840,8 @@
   };
 
   function ancient_ontick(data) {
-    if ((data.castInfo && data.castInfo.rune === "c") || Sim.stats.leg_furyoftheancients) {
+    var info = Sim.castInfo();
+    if ((info && info.rune === "c") || Sim.stats.leg_furyoftheancients) {
       Sim.addResource(4);
     }
     if (data.user && (!data.user.ability || data.user.ability <= Sim.time)) {
@@ -849,7 +850,7 @@
     } else {
       Sim.damage({coeff: data.coeff, pet: true});
     }
-    if (data.castInfo && data.castInfo.rune === "c") {
+    if (info && info.rune === "c") {
       Sim.addBuff("dutytotheclan", {chctaken: 10}, {duration: 120, status: "chilled"});
     }
   }
