@@ -117,6 +117,7 @@
     this.target = {};
     this.params = data.params || {};
     this.time = 0;
+    this.initresource = data.params.startResource;
     this.target.radius = Math.max(data.params.targetRadius || 0, 1);
     this.target.area = Math.PI * Math.pow(this.target.radius, 2);
     this.target.size = (data.params.targetSize || 0);
@@ -221,12 +222,15 @@
     }
     return castInfo;
   };
-  Sim.getCastId = function() {
+  Sim.getCastInfo = function(field) {
     for (var i = this.castInfoStack.length - 1; i >= 0; --i) {
-      if (this.castInfoStack[i] && this.castInfoStack[i].castId) {
-        return this.castInfoStack[i].castId;
+      if (this.castInfoStack[i] && this.castInfoStack[i][field]) {
+        return this.castInfoStack[i][field];
       }
     }
+  };
+  Sim.getCastId = function() {
+    return this.getCastInfo("castId");
   };
 
   Sim.postMessage = function(data) {

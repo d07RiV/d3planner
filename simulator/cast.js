@@ -49,12 +49,10 @@
   Sim.getResource = function(type) {
     if (!type) type = rcTypes[this.stats.charClass][0];
     if (this.resources[type] !== undefined) return this.resources[type];
-    if (this.stats.charClass === "barbarian" && !this.stats.passives.unforgiving) {
-      return 0;
-    } else if (this.stats.set_shenlong_2pc) {
-      return 0;
-    } else {
+    if (this.initresource === "max" || this.initresource === undefined) {
       return this.stats["max" + type] || 0;
+    } else {
+      return Math.min(this.initresource, this.stats["max" + type] || 0);
     }
   };
   Sim.hasResource = function(amount, type) {
@@ -83,12 +81,10 @@
       var regen = this.stats[type + "regen"];
       regen *= 1 + 0.01 * (this.stats.resourcegen || 0);
       if (this.resources[type] === undefined) {
-        if (this.stats.charClass === "barbarian" && !this.stats.passives.unforgiving) {
-          this.resources[type] = 0;
-        } else if (this.stats.set_shenlong_2pc) {
-          this.resources[type] = 0;
-        } else {
+        if (this.initresource === "max" || this.initresource === undefined) {
           this.resources[type] = maxval;
+        } else {
+          this.resources[type] = Math.min(this.initresource, maxval);
         }
       }
       if (regen) {

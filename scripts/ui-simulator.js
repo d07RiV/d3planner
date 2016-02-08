@@ -873,6 +873,17 @@
         max: info.max,
         step: info.step || 1,
         slide: function(event, ui) {
+          if (info.resource) {
+            var resource = (info.resource === true ? DC.classes[DC.charClass].resources[0] : info.resource);
+            var mx = (DC.getStats()["max" + resource] || 100);
+            if (ui.value >= mx) {
+              info.val = "max";
+            } else {
+              info.val = ui.value;
+            }
+          } else {
+            info.val = ui.value;
+          }
           info.val = ui.value;
           value.text(ui.value);
         },
@@ -880,10 +891,34 @@
       DC.addTip(slider, info.tip);
       subline.append($("<span class=\"option-slider\"></span>").append(slider));
       DC.addOption(info.var, function() {return info.val;}, function(x) {
-        info.val = x;
+        if (info.resource) {
+          var resource = (info.resource === true ? DC.classes[DC.charClass].resources[0] : info.resource);
+          var mx = (DC.getStats()["max" + resource] || 100);
+          if (x === "max" || x >= mx) {
+            x = mx;
+            info.val = "max";
+          } else {
+            info.val = x;
+          }
+        } else {
+          info.val = x;
+        }
         value.text(x);
         slider.slider("value", x);
       }, info.profile);
+      if (info.resource) {
+        DC.register("updateStats", function() {
+          var resource = (info.resource === true ? DC.classes[DC.charClass].resources[0] : info.resource);
+          var mx = (DC.getStats()["max" + resource] || 100);
+          var data = {max: mx};
+          if (info.val === "max" || info.val >= mx) {
+            info.val = "max";
+            data.value = mx;
+            value.text(mx);
+          }
+          slider.slider(data);
+        });
+      }
     }
   });
 
