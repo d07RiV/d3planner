@@ -181,7 +181,7 @@
           });
           counter = Sim.target.count - 1;
         }
-        var aps = (data.castInfo && data.castInfo.speed || 1);
+        var aps = (Sim.getCastInfo("speed") || 1);
         next = Sim.time + Math.floor(54 / aps);
       }
     });

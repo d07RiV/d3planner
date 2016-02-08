@@ -756,7 +756,7 @@
           if (Sim.getBuff("battlerage")) {
             var targets = Sim.getTargets(15, 0) - 1;
             if (targets > 0) Sim.trigger("onhit", {
-              targets: targets * data.targets * data.chc,
+              targets: targets * data.targets * data.chc * data.proc,
               damage: data.damage * 0.2,
               elem: "phy",
               castInfo: Sim.castInfo(),
@@ -764,7 +764,7 @@
               chc: 0,
               distance: 0,
               dmgmul: data.dmgmul,
-              hits: data.targets * data.chc,
+              hits: data.targets * data.chc * data.proc,
             });
           }
         });
