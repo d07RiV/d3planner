@@ -150,7 +150,9 @@
         crusader: "sim/crusader",
       };
       importScripts(scripts[data.stats.charClass]);
-    } catch(e) {}
+    } catch(e) {
+      throw e;
+    }
     this.stats = new this.Stats(this.baseStats, this.buffs);
     this.trigger("init");
     this.trigger("update");

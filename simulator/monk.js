@@ -336,21 +336,25 @@
     }
   }
   function tr_ontick(data) {
-    data.dmg.factor = Sim.stats.info.aps * data.buff.params.tickrate / 60;
+    var ci = Sim.castInfo();
+    data.dmg.factor = Sim.stats.info[ci && ci.weapon || "mainhand"].speed * data.buff.params.tickrate / 60;
     Sim.damage(data.dmg);
   }
   function tr_flurry_onexpire(data) {
     var stacks = Sim.getBuff("flurry");
     if (stacks) {
       Sim.removeBuff("flurry");
-      Sim.damage({type: "area", range: 15, self: true, coeff: 0.9 * stacks, fix: tr_balance_fix});
+      Sim.damage({type: "area", range: 15, self: true, coeff: 0.9 * Sim.stats.info.aps * stacks, fix: tr_balance_fix});
     }
   }
   skills.tempestrush = {
     offensive: true,
-    channeling: 30,
-    cost: {x: 30, d: 25, b: 30, e: 30, c: 30, a: 30},
+    channeling: 12,
+    cost: function(rune) {
+      return (rune === "d" ? 25 : 30) * Sim.stats.info[Sim.curweapon || "mainhand"].speed;
+    },
     frames: 57.391300,
+    speed: 1,
     oncast: function(rune) {
       var dmg = {type: "area", self: true, range: 7, coeff: 3.9};
       var params = {};
@@ -363,7 +367,7 @@
       case "a": dmg.onhit = Sim.apply_effect("knockback", 30); break;
       }
       if (rune === "e") {
-        Sim.addBuff("flurry", undefined, {maxstacks: 100});
+        Sim.addBuff("flurry", undefined, {maxstacks: 9999});
       }
       if (Sim.stats.leg_balance) dmg.fix = tr_balance_fix;
       return Sim.channeling("tempestrush", this.channeling, tr_ontick, {dmg: dmg}, params);
@@ -372,7 +376,7 @@
       if (rune === "c") {
         Sim.after(15, function zap() {
           if (Sim.getBuff("tempestrush")) {
-            Sim.damage({type: "area", range: 20, self: true, coeff: 1.35 / 4, proc: 0, fix: tr_balance_fix});
+            Sim.damage({type: "area", range: 20, self: true, coeff: 1.35 / 4 * Sim.stats.info.aps, proc: 0, fix: tr_balance_fix});
           }
           Sim.after(15, zap);
         });

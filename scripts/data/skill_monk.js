@@ -254,22 +254,22 @@ DiabloCalc.skills.monk = {
     activeshow: function(rune, stats) {
       return !!stats.leg_balance;
     },
-    params: [{rune: "e", min: 1, max: 100, name: "Flurry Stacks", buffs: false}],
+    params: [{rune: "e", min: 1, max: 100, name: "Flurry Stacks", buffs: false, inf: true}],
     info: function(rune, stats) {
       var res;
       switch (rune) {
-      case "x": res = {"Tick Damage": {elem: "phy", coeff: 3.9}}; break;
-      case "d": res = {"Tick Damage": {elem: "hol", coeff: 5}}; break;
-      case "b": res = {"Tick Damage": {elem: "phy", coeff: 3.9}}; break;
-      case "e": res = {"Tick Damage": {elem: "col", coeff: 3.9}, "Flurry Damage": {elem: "col", coeff: 0.9, addcoeff: [[0.9, this.params[0].val]]}}; break;
-      case "c": res = {"Tick Damage": {elem: "lit", coeff: 3.9}, "Field DPS": {elem: "lit", coeff: 1.35, total: true}}; break;
-      case "a": res = {"Tick Damage": {elem: "fir", coeff: 3.9}}; break;
+      case "x": res = {"Tick Damage": {elem: "phy", aps: true, coeff: 3.9}}; break;
+      case "d": res = {"Tick Damage": {elem: "hol", aps: true, coeff: 5}}; break;
+      case "b": res = {"Tick Damage": {elem: "phy", aps: true, coeff: 3.9}}; break;
+      case "e": res = {"Tick Damage": {elem: "col", aps: true, coeff: 3.9}, "Flurry Damage": {elem: "col", coeff: 0.9, aps: true, addcoeff: [[0.9, this.params[0].val]]}}; break;
+      case "c": res = {"Tick Damage": {elem: "lit", aps: true, coeff: 3.9}, "Field DPS": {elem: "lit", coeff: 1.35, aps: true, total: true}}; break;
+      case "a": res = {"Tick Damage": {elem: "fir", aps: true, coeff: 3.9}}; break;
       }
-      res["Tick Damage"].divide = {"Speed Factor": 3};
+      res["Tick Damage"].divide = {"Speed Factor": 5};
       if (stats.leg_balance && this.active) {
         res["Tick Damage"].chc = 100;
       }
-      return $.extend({"Cost": {cost: (rune === "d" ? 25 : 30), fpa: 20}, "DPS": {sum: true, "Tick Damage": {fpa: 20, speed: 1}}}, res);
+      return $.extend({"Cost": {cost: (rune === "d" ? 25 : 30), speed: 1}, "DPS": {sum: true, "Tick Damage": {aps: 5}}}, res);
     },
   },
   waveoflight: {
