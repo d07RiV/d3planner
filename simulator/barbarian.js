@@ -850,7 +850,7 @@
     } else {
       Sim.damage({coeff: data.coeff, pet: true});
     }
-    if (info && info.rune === "c") {
+    if (info && info.rune === "d") {
       Sim.addBuff("dutytotheclan", {chctaken: 10}, {duration: 120, status: "chilled"});
     }
   }
