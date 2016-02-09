@@ -740,7 +740,7 @@
           },
         }));
       }));
-      li.append("<span class=\"date-saved\">" + (new Date(1000 * item.date)).toLocaleString() + "</span>");
+      li.append("<span class=\"date-saved\"><span>" + (new Date(1000 * item.date)).toLocaleString() + "</span></span>");
     }
     return li;
   }, _L("No preset lists found."));
