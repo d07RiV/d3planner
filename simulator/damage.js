@@ -57,7 +57,7 @@
     }
 
     var elem = (data.elem === "max" ? stats.info.maxelem : data.elem);
-    if (data.thorns === "normal") elem = "phy";
+    //if (data.thorns === "normal") elem = "phy";
     if (!orphan) dibs += stats.getSpecial("damage", elem, ispet, data.skill, data.exclude);
     var dmgtaken = stats.getSpecial("dmgtaken", elem, ispet, data.skill, data.exclude);
     if (data.thorns === "normal") {
@@ -91,10 +91,10 @@
     factor *= dmgmul;
 
     var value = avg * factor;
-    if (!orphan && data.thorns !== "normal") {
+    if (!orphan && !data.thorns/* !== "normal"*/ && !data.addthorns) {
       value *= 1 + chc * chd;
     }
-    if (data.nocrit || orphan || data.thorns === "normal") chc = 0;
+    if (data.nocrit || orphan || data.thorns/* === "normal"*/ || data.addthorns) chc = 0;
 
     var count = (data.count || 1);
     if (data.targets) {

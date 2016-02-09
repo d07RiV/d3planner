@@ -252,7 +252,7 @@
     }
 
     var elem = (fmt.elem == "max" ? stats.info.maxelem : fmt.elem);
-    if (fmt.thorns === "normal") elem = "phy";
+    //if (fmt.thorns === "normal") elem = "phy";
     // DIBS
     var tmp = stats.getTotalSpecial("damage", elem, fmt.pet, skillid, fmt.exclude);
     if (tmp) bonuses["Buffs"] = tmp;
@@ -350,7 +350,7 @@
     var bonus_chd = execString(fmt.chd);
     var chc = Math.min(1, 0.01 * (stats.final.chc + bonus_chc * (1 + 0.01 * (stats.chctaken_percent || 0))));
     var chd = 0.01 * (stats.chd + bonus_chd);
-    if (fmt.thorns === "normal") {
+    if (fmt.thorns/* === "normal"*/) {
       chc = chd = bonus_chc = 0;
     }
 

@@ -34,7 +34,7 @@ DiabloCalc.skills.crusader = {
         res["Retaliate Damage"] = {elem: elem, coeff: 1.4};
       }
       if (stats.set_invoker_6pc) {
-        res["Thorns Damage"] = {thorns: "normal", coeff: 6, elem: elem};
+        res["Thorns Damage"] = {thorns: "normal", coeff: 6};
         res["DPS"]["Damage"].speed *= 1.5;
         res["DPS"]["Thorns Damage"] = $.extend({nobp: true}, res["DPS"]["Damage"]);
       }
@@ -74,7 +74,7 @@ DiabloCalc.skills.crusader = {
         "Damage": {elem: DiabloCalc.skilltips.crusader.slash.elements[rune], coeff: 2.3}};
       if (rune === "c") res["Damage"].chc = 20;
       if (stats.set_invoker_6pc) {
-        res["Thorns Damage"] = {thorns: "normal", coeff: 6, elem: res["Damage"].elem};
+        res["Thorns Damage"] = {thorns: "normal", coeff: 6};
         res["DPS"]["Damage"].speed *= 1.5;
         res["DPS"]["Thorns Damage"] = $.extend({nobp: true}, res["DPS"]["Damage"]);
       }

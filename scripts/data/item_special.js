@@ -84,7 +84,7 @@ DiabloCalc.itemaffixes = {
     info: {"Damage": {elem: "phy", coeff: "$1/100"}},
   },
   leg_hack: {
-    info: {"Damage": {thorns: "normal", coeff: "$1/100"}},
+    info: {"Damage": {thorns: "normal", coeff: "$1/100", elem: "phy"}},
   },
   leg_wizardspike: {
     info: {"Explosion Damage": {elem: "col", coeff: 3.93, skill: "arcaneorb"}, "Projectile Damage": {elem: "col", coeff: 2.62, skill: "arcaneorb"}, "Shard Damage": {elem: "col", coeff: 1.28, skill: "arcaneorb"}},
