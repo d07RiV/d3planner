@@ -69,11 +69,11 @@ asheara's: todo
           Sim.addBuff("tal_6pc", {dmgmul: 500}, {maxstacks: 4, duration: 480});
         } else if (Sim.getBuff("tal_6pc") === 4 && !Sim.getBuff(elems2[data.elem])) {
           var dur = Sim.getBuffDuration("tal_6pc") + 120;
-          Sim.addBuff(elems2[data.elem], undefined, {duration: dur});
           for (var id in elems) {
             Sim.refreshBuff(elems[id], dur);
-            Sim.refreshBuff(elems2[id], dur);
+            Sim.removeBuff(elems2[id]);
           }
+          Sim.addBuff(elems2[data.elem], undefined, {duration: dur});
           Sim.refreshBuff("tal_6pc", dur);
         }
       }
