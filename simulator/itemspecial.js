@@ -1233,6 +1233,30 @@
     Sim.addBaseStats({dmgmul: {skills: ["spectralblade"], percent: amount}});
   };
 
+  affixes.leg_remorseless = function(amount) {
+    function ancient_ontick(data) {
+      if (data.user && (!data.user.ability || data.user.ability <= Sim.time)) {
+        Sim.damage({type: "area", range: 8, coeff: 2.7, pet: true, elem: "phy"});
+        data.user.ability = Sim.time + 240;
+      } else {
+        Sim.damage({coeff: 2.7, pet: true, elem: "phy"});
+      }
+    }
+    Sim.register("oncast", function(data) {
+      if (data.skill === "hammeroftheancients" && Sim.random("remorseless", 0.01 * amount)) {
+        Sim.petattack("remorseless", undefined, {
+          maxstacks: 3,
+          stacks: 1,
+          duration: 1200,
+          refresh: false,
+          tickrate: 57.142834,
+          speed: true,
+          ontick: ancient_ontick,
+        });
+      }
+    });
+  };
+
 /*
   affixes.leg_thegrinreaper = function(amount) {
     var skills = {};

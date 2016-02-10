@@ -123,7 +123,7 @@
     }
     Sim.trigger("onhit", event);
 
-    if (event.proc) {
+    if (event.proc || event.pet) {
       if (Sim.target.area_coeff === undefined) {
         var area = Math.PI * Math.pow(Sim.target.size + 10, 2);
         Sim.target.area_coeff = (Sim.target.count - 1) * Math.min(1, area / Sim.target.area);

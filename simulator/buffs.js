@@ -213,6 +213,7 @@
   Sim.reduceStackDuration = function(id, stack, amount) {
     var buff = this.buffs[id];
     if (!buff) return 0;
+    updateUptime(id);
     if (stack.time - this.time <= amount) {
       var remains = stack.time - this.time;
       removeStack(buff);
@@ -485,6 +486,7 @@
   Sim.removeBuff = function(id, stacks) {
     var buff = this.buffs[id];
     if (buff) {
+      updateUptime(id);
       if (stacks === undefined || stacks >= buff.stacks) {
         var stack;
         if (buff.stacklist) {
@@ -514,6 +516,7 @@
   };
   Sim.setBuffStacks = function(id, buffs, stacks) {
     if (!id) return Sim.addBuff(id, buffs, {maxstacks: 999, stacks: stacks});
+    updateUptime(id);
     var cur = Sim.getBuff(id);
     if (cur < stacks) Sim.addBuff(id, buffs, {maxstacks: 999, stacks: stacks - cur});
     else if (cur > stacks) Sim.removeBuff(id, cur - stacks);

@@ -373,6 +373,7 @@ DiabloCalc.simMapping = {
     akkhansleniency: {name: "Akkhan’s Leniency", category: "Items", stat: "leg_akkhansleniency"},
     lordgreenstonesfan: {name: "Lord Greenstone's Fan", category: "Items", stat: "leg_lordgreenstonesfan"},
     orbofinfinitedepth: {name: "Orb of Infinite Depth", category: "Items", stat: "leg_orbofinfinitedepth"},
+    remorseless: {name: "Remorseless", category: "Items", stat: "leg_remorseless"},
   },
   nyi: {
     "Unique_Ring_006_p2": true,
@@ -392,6 +393,5 @@ DiabloCalc.simMapping = {
     "Unique_Fist_101_x1": true,
     "Unique_Helm_004_x1": true,
     "Unique_Mighty_1H_006_x1": true,
-    "Unique_Mighty_1H_102_x1": true,
   },
 };
