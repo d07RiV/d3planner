@@ -862,6 +862,8 @@ DiabloCalc.passives.barbarian = {
     id: "relentless",
     name: "Relentless",
     index: 11,
+    active: false,
+    buffs: {rcr_fury: 50, lpfs_percent: 100, dmgred: 50},
   },
   brawler: {
     id: "brawler",

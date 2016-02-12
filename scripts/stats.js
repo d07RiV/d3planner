@@ -695,6 +695,7 @@
       break;
     case "barbarian":
       this.addPercent("furyregen", "resourcegen");
+      this.addPercent("lifefury", "lpfs_percent");
       this.addAbsolute("rcr_fury", "rcr");
       break;
     case "monk":
