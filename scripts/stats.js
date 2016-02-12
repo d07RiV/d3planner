@@ -665,6 +665,15 @@
       this.info.dpsperchd = this.info.elementaldps * 0.0001 * this.chc / this.info.critfactor;
       this.info.dpsperias = this.info.elementaldps * 0.01 / (1 + 0.01 * this.ias);
       this.info.dpsperelem = this.info.elementaldps * 0.01 / (1 + 0.01 * this.info.elemental);
+      var mhbase = (this.info.mainhand.wpnbase.min + this.info.mainhand.wpnbase.max) * 0.5;
+      if (this.info.offhand) {
+        var mhdph = this.info.mainhand.dph;
+        var ohdph = this.info.offhand.dph;
+        var ohbase = (this.info.offhand.wpnbase.min + this.info.offhand.wpnbase.max) * 0.5;
+        this.info.dpsperdmg = this.info.elementaldps * (mhdph / mhbase + ohdph / ohbase) / (mhdph + ohdph);
+      } else {
+        this.info.dpsperdmg = this.info.elementaldps / mhbase;
+      }
     }
 
     switch (this.charClass) {

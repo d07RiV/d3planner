@@ -221,6 +221,11 @@ _L.add({
           stat: "info.dpsperelem",
           tooltip: "Damage per Elemental Damage: $1\n* Elemental Damage per Second gained per one percent of Elemental Damage.",
         },
+        {
+          name: "DPS per Weapon Damage",
+          stat: "info.dpsperdmg",
+          tooltip: "Damage per Weapon Damage: $1\n* Elemental Damage per Second gained per one point of Weapon Damage.",
+        },
 
         {
           separator: true,
