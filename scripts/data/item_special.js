@@ -281,8 +281,8 @@ DiabloCalc.itemaffixes = {
       }
       if (elems.arc) {
         res["Arcane Damage"] = {elem: "arc", coeff: 7.4, addcoeff: [2.35], total: 0, skill: "meteor"};
-        res["Maximum Arcane Damage"] = {elem: "arc", coeff: 7.4, addcoeff: [[0.2, stats.maxap], 2.35], total: 1, skill: "meteor"};
-        total["Maximum Arcane Damage"] = {};
+        //res["Maximum Arcane Damage"] = {elem: "arc", coeff: 7.4, addcoeff: [[0.2, stats.maxap], 2.35], total: 1, skill: "meteor"};
+        total["Arcane Damage"] = {};
       }
       if (!$.isEmptyObject(total)) {
         for (var e in total) {
