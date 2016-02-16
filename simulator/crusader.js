@@ -229,13 +229,14 @@
       duration: 121,
       refresh: false,
       tickrate: 30,
-      ontick: {type: "area", range: 8, coeff: 1.65},
+      ontick: {type: "area", range: 8, coeff: 1.65, skill: "blessedhammer", elem: skills.blessedhammer.elem.a},
     });
   }
   function hammer_ts_ontick(data) {
     var angle = ((Sim.time - data.buff.start) * 6) % 360;
     var range = (Sim.time - data.buff.start) * 15 / 240 + 10;
-    Sim.damage({type: "line", origin: (data.self ? Sim.target.distance : 0), range: range, angle: angle, coeff: 0.6});
+    Sim.damage({type: "line", origin: (data.self ? Sim.target.distance : 0),
+      range: range, angle: angle, coeff: 0.6, skill: "blessedhammer", elem: skills.blessedhammer.elem.b});
   }
   function hammer_ll_onhit(event) {
     if (Sim.random("limitless", 0.25, event.targets)) {
@@ -244,11 +245,12 @@
   }
   function hammer_ih_onhit(event) {
     var count = Sim.random("crushingblow", 0.35, event.targets, true);
-    if (count) Sim.damage({type: "area", range: 6, coeff: 4.6, count: count, onhit: Sim.apply_effect("stunned", 60)});
+    if (count) Sim.damage({type: "area", range: 6, coeff: 4.6,
+      count: count, onhit: Sim.apply_effect("stunned", 60), skill: "blessedhammer", elem: skills.blessedhammer.elem.d});
   }
   Sim.cast_hammer = function(self, clone) {
     var rune = (Sim.stats.skills.blessedhammer || "x");
-    var dmg = {type: "area", self: self, range: 25, coeff: 3.2};
+    var dmg = {type: "area", self: self, range: 25, coeff: 3.2, skill: "blessedhammer", elem: skills.blessedhammer.elem[rune]};
     switch (rune) {
     case "a": dmg.onhit = hammer_bw_onhit; break;
     case "b":
