@@ -52,6 +52,8 @@
     font-size: 12px;
     height: 16px;
     cursor: pointer;
+    position: relative;
+    z-index: 1;
     &:hover {
       background: url(images/plus_green.png) no-repeat;
     }
@@ -98,13 +100,16 @@
 .sim-condition-list {
   display: block;
   list-style-type: none;
-  padding: 0 0 0 20px;
-  margin: 0;//0 0 0 20px;
+  padding: 0 0 0 5px;
+  margin: 0 0 0 15px;
+  border-left: 1px solid;
   &:empty {
     height: 10px;
     margin-bottom: -15px;
+    border-left: 0;
   }
 }
+
 .sim-condition, .sim-priority-line {
   position: relative;
   .btn-remove {
@@ -139,6 +144,26 @@
 }
 .sim-condition {
   margin: -2px 0;
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: -6px;
+    width: 8px;
+    border-top: 1px solid;
+    height: 0;
+    top: 13px;
+  }
+  &:last-child:before {
+    .theme-light & {
+      background-color: #fff;
+    }
+    .theme-dark & {
+      background-color: #121212;
+    }
+    height: auto;
+    bottom: 0;
+  }
   .chosen-container {
     font-size: 11px !important;
   }
