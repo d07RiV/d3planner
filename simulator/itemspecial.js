@@ -1088,6 +1088,7 @@
       Sim.addBuff("hammerjammers", {dmgmul: {skills: ["blessedhammer"], percent: amount}}, {duration: 600});
     }
     Sim.watchStatus("blinded", trigger);
+    Sim.watchStatus("rooted", trigger);
     Sim.watchStatus("frozen", trigger);
     Sim.watchStatus("stunned", trigger);
   };

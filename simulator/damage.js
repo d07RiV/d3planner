@@ -338,11 +338,11 @@
     data.castInfo = this.castInfo();
     if (data.castInfo && !data.skill) {
       data.skill = data.castInfo.skill;
-      if (data.castInfo.proc && data.proc === undefined) {
-        data.proc = data.castInfo.proc;
-        data.castInfo = this.extend({}, data.castInfo);
-        delete data.castInfo.proc;
-      }
+    }
+    if (data.castInfo && data.castInfo.proc && data.proc === undefined) {
+      data.proc = data.castInfo.proc;
+      data.castInfo = this.extend({}, data.castInfo);
+      delete data.castInfo.proc;
     }
     if (data.castInfo && data.elem === undefined) {
       data.elem = data.castInfo.elem;
