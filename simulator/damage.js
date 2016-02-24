@@ -21,7 +21,7 @@
       avg += data.addthorns * (0 || Sim.stats.thorns);
     }
 
-    var factor = 1 + 0.01 * stats.info.primary;
+    var factor = 1 + 0.01 * stats.info.primary * (data.thorns === "bad" ? 0.25 : 1);
     if (data.fix) data.fix.call(data);
     factor *= (data.factor || 1);
 
@@ -60,7 +60,7 @@
     //if (data.thorns === "normal") elem = "phy";
     if (!orphan) dibs += stats.getSpecial("damage", elem, ispet, data.skill, data.exclude);
     var dmgtaken = stats.getSpecial("dmgtaken", elem, ispet, data.skill, data.exclude);
-    if (data.thorns === "normal") {
+    if (data.thorns === "normal" || data.thorns === "bad") {
       factor *= 1 + 0.01 * dmgtaken;
       factor *= 1 + 0.01 * (stats.thorns_taken || 0);
     } else {

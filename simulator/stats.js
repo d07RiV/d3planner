@@ -245,6 +245,11 @@
     this.addPercent("thorns", "thorns_multiply");
     this.addPercent("thorns", "thorns_percent");
 
+    this.block = Math.min(75, (this.baseblock || 0) + (this.block || 0));
+    this.addAbsolute("block", "extra_block");
+    this.addPercent("block", "block_percent");
+    this.block = Math.min(100, this.block);
+
     this.calcWeapon = function(info) {
       info.speed += (this.weaponaps || 0);
       info.speed *= 1 + 0.01 * (this.weaponaps_percent || 0);

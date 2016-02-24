@@ -79,6 +79,7 @@
       var type = types[i];
       var maxval = this.stats["max" + type];
       var regen = this.stats[type + "regen"];
+      if (type === "fury") regen += (this.params.furyGen || 0);
       regen *= 1 + 0.01 * (this.stats.resourcegen || 0);
       if (this.resources[type] === undefined) {
         if (this.initresource === "max" || this.initresource === undefined) {
@@ -205,7 +206,8 @@
     cooldown = fixCooldown(data.id, cooldown);
     var cd = Sim.cooldowns[data.id];
     if (!cd) cd = Sim.cooldowns[data.id] = {};
-    var charges = Sim.getProp(skill, "charges", data.rune);
+    var charges = Sim.getProp(skill, "maxcharges", data.rune);
+    if (charges === undefined) charges = Sim.getProp(skill, "charges", data.rune);
     if (cd.charges < charges) ++cd.charges;
     if (cd.charges < charges) {
       cd.chargeEvent = Sim.after(cooldown, onCharge, data);
@@ -287,9 +289,14 @@
     if (typeof grace === "number") {
       grace = [grace, 1];
     }
-    var charges = this.getProp(skill, "charges", rune);
+    var charges = this.getProp(skill, "maxcharges", rune);
+    if (charges === undefined) charges = this.getProp(skill, "charges", rune);
     if (charges) {
-      if (!cd.chargeEvent) return false;
+      if (!cd.chargeEvent) {
+        if (cd.charges >= charges) return false;
+        ++cd.charges;
+        return true;
+      }
       var next = cd.chargeEvent.time;
       this.removeEvent(cd.chargeEvent);
       delete cd.chargeEvent;

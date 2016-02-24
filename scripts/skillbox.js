@@ -115,7 +115,7 @@
     // primary attribute
     factors.push({
       name: DC.stats[DC.classes[DC.charClass].primary].name,
-      percent: stats.info.primary,
+      percent: (fmt.thorns === "bad" ? 0.25 : 1) * stats.info.primary,
     });
     // attack speed scaling
     if (fmt.aps) {
@@ -258,7 +258,7 @@
     if (tmp) bonuses["Buffs"] = tmp;
     // debuffs
     var tmp = stats.getTotalSpecial("dmgtaken", elem, fmt.pet, skillid, fmt.exclude);
-    if (tmp && fmt.thorns !== "normal") {
+    if (tmp && (fmt.thorns !== "normal" && fmt.thorns !== "bad")) {
       bonuses["Debuffs"] = tmp;
     }
     if (!$.isEmptyObject(bonuses)) {
@@ -268,14 +268,14 @@
       });
     }
 
-    if (tmp && fmt.thorns === "normal") {
+    if (tmp && (fmt.thorns === "normal" || fmt.thorns === "bad")) {
       factors.push({
         name: DC.stats.dmgtaken.name,
         percent: tmp,
       });
     }
 
-    if (fmt.thorns === "normal" && stats.thorns_taken) {
+    if ((fmt.thorns === "normal" || fmt.thorns === "bad") && stats.thorns_taken) {
       factors.push({
         name: DC.itemById.Unique_Shield_104_x1.name,
         percent: stats.thorns_taken,

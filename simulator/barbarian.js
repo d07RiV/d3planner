@@ -573,6 +573,9 @@
     weapon: "mainhand",
     frames: 56.470577,
     charges: 0,
+    maxcharges: function(rune) {
+      return (rune === "b" ? 3 : 2);
+    },
     oncast: function(rune) {
       var dmg = {type: "area", range: 11, self: true, coeff: 3};
       switch (rune) {
@@ -587,6 +590,11 @@
         break;
       }
       return dmg;
+    },
+    oninit: function(rune) {
+      Sim.register("ongethit", function() {
+        if (Sim.random("revenge", 0.15)) Sim.reduceCooldown("revenge");
+      });
     },
     proctable: 0.333,
     elem: {x: "phy", d: "phy", e: "col", a: "fir", c: "lit", b: "phy"},

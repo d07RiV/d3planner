@@ -819,10 +819,32 @@
 
   var targetOptions = DC.simMapping.targetOptions;
 
+  var optSection = $("<div></div>");
+  Section.append(optSection);
+  DC.register("changeClass", function() {
+    optSection.removeClass().addClass("table-" + DC.charClass);
+  });
   var optDiv = $("<div class=\"target-options\"></div>");
-  Section.append(optDiv);
+  optDiv.css("margin-top", 8);
+  optSection.append(optDiv);
+  var optCatIndex = {};
+  var optCatCount = 0;
   $.each(targetOptions, function(opt, info) {
+    if (info.hidden) return;
     var line = $("<div class=\"option-row\"></div>");
+    if (info.class) line.addClass("option-" + info.class);
+    if (info.category) {
+      if (!optCatIndex[info.category]) {
+        optDiv = $("<div class=\"target-options\"></div>");
+        optSection.append(optDiv);
+        optCatIndex[info.category] = ++optCatCount;
+        var btn = $("<span class=\"option-category\">" + info.category + "</span>");
+        btn.click(function() {
+          $(this).parent().toggleClass("collapsed");
+        });
+        optDiv.append($("<div class=\"option-row collapsed\"></div>").append(btn));
+      }
+    }
     optDiv.append(line);
     line.append("<span class=\"option-name\">" + info.name + ":</span>");
     line.append("<span class=\"option-setting\"><span class=\"option-subtable\"></span></span>");
@@ -921,6 +943,7 @@
       }
     }
   });
+  optDiv.css("margin-bottom", 8);
 
   var nyiSection = $("<div><p>" + _L("The following equipped items are not implemented in the simulation:") + "</p></div>");
   var nyiList = $("<ul class=\"nyi-list\"></ul>");
@@ -946,7 +969,7 @@
 
   var SimButton = $("<button class=\"button-start\">" + _L("Start") + "</button>").button({
     icons: {primary: "ui-icon-play"},
-  });;
+  });
   Section.append(SimButton);
 
   var FmtNumber = DC.formatDamage;

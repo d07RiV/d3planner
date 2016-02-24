@@ -38,6 +38,20 @@
       });
       Sim.popCastInfo();
     }
+
+    Sim.pushCastInfo({triggered: "thorns"});
+    Sim.register("ongethit", function() {
+      var targets = 1;
+      if (Sim.stats.set_invoker_2pc) {
+        targets = Math.max(targets, Sim.getTargets(15, Sim.target.distance));
+      }
+      var coeff = 1;
+      if (Sim.stats.leg_votoyiasspiker && Sim.getBuff("provoke")) {
+        coeff *= 2;
+      }
+      Sim.damage({thorns: "normal", coeff: coeff, count: targets});
+    });
+    Sim.popCastInfo();
   });
 
   gems.powerful = function(level) {
@@ -300,7 +314,15 @@
     });
   };
   affixes.leg_pridesfall = function(amount) {
-    Sim.addBaseStats({rcr: 30});
+    Sim.addBuff("pridesfall", {rcr: 30});
+    var rem;
+    Sim.register("ongethit", function() {
+      Sim.removeBuff("pridesfall");
+      if (rem) Sim.removeEvent(rem);
+      rem = Sim.after(300, function() {
+        Sim.addBuff("pridesfall", {rcr: 30});
+      });
+    });
   };
   affixes.leg_hexingpantsofmryan = function(amount) {
     if (Sim.params.leg_hexingpantsofmryan && Sim.params.leg_hexingpantsofmryan[0]) {
@@ -311,6 +333,15 @@
   };
   affixes.leg_bloodbrother = function(amount) {
     Sim.addBaseStats({block: amount});
+    Sim.register("onblock", function() {
+      Sim.addBuff("bloodbrother");
+    });
+    Sim.register("oncast", function() {
+      if (Sim.getBuff("bloodbrother")) {
+        Sim.removeBuff("bloodbrother");
+        return {percent: 30};
+      }
+    });
   };
   affixes.leg_andarielsvisage = affixes.leg_andarielsvisage_p2 = function(amount) {
     var next = 0;
@@ -436,6 +467,17 @@
         Sim.damage({type: "line", pierce: true, speed: 1, elem: "phy", coeff: amount * 0.01});
         next = Sim.time + Math.floor(54 / Sim.stats.info.aps);
       }
+    });
+  };
+  affixes.leg_schaefershammer = function(amount) {
+    Sim.register("ongethit", function(data) {
+      Sim.addBuff("schaefershammer", undefined, {
+        duration: 300,
+        tickrate: 60,
+        ontick: function(data) {
+          Sim.damage({type: "area", range: 20, self: true, elem: "lit", coeff: amount * 0.01});
+        },
+      });
     });
   };
   affixes.leg_schaefershammer_p2 = function(amount) {
@@ -1254,6 +1296,140 @@
           speed: true,
           ontick: ancient_ontick,
         });
+      }
+    });
+  };
+
+  affixes.leg_haloofarlyse = function(amount) {
+    Sim.register("ongethit", function() {
+      Sim.cast("frostnova");
+    });
+  };
+  affixes.leg_deathseerscowl = function(amount) {
+    if (Sim.target.type === "undead") {
+      Sim.register("ongethit", function() {
+        if (Sim.random("deathseerscowl", 0.01 * amount / Sim.target.count)) {
+          Sim.addBuff("charmed", undefined, {duration: 120});
+        }
+      });
+    }
+  };
+  affixes.leg_defenderofwestmarch = function(amount) {
+    Sim.register("onblock", function() {
+      Sim.damage({type: "line", pierce: true, radius: 5, speed: 0.5, range: 40, coeff: amount, elem: Sim.stats.info.mhelement || "phy"});
+    });
+  };
+  affixes.leg_defenderofwestmarch_p2 = function(amount) {
+    Sim.register("onblock", function() {
+      Sim.damage({type: "line", pierce: true, radius: 5, speed: 0.5, range: 50, coeff: amount, elem: Sim.stats.info.mhelement || "phy"});
+    });
+  };
+  affixes.leg_sanguinaryvambraces = function(amount) {
+    Sim.register("ongethit", function() {
+      if (Sim.random("sanguinaryvambraces", 0.1)) {
+        Sim.damage({type: "area", range: 15, self: true, coeff: 10, thorns: "bad"});
+      }
+    });
+  };
+  affixes.leg_freezeofdeflection = function(amount) {
+    Sim.register("onblock", function() {
+      if (Sim.random("freezeofdeflection", 1 / Sim.target.count)) {
+        Sim.addBuff("frozen", undefined, {duration: Math.round(60 * amount)});
+      }
+    });
+  };
+  affixes.leg_ivorytower = function(amount) {
+    if (Sim.stats.charClass === "crusader") Sim.register("onblock", function() {
+      Sim.cast("heavensfury", "e");
+    });
+  };
+  affixes.leg_wallofman = function(amount) {
+    var next = 0;
+    Sim.register("ongethit", function() {
+      if (Sim.time >= next && Sim.random("wallofman", 0.01 * amount)) {
+        Sim.addBuff("wallofman", {dmgred: 25}, {duration: 480});
+        next = Sim.time + 1200;
+      }
+    });
+  };
+  affixes.leg_akaratsawakening = function(amount) {
+    Sim.register("onblock", function() {
+      if (Sim.random("akaratsawakening", 0.01 * amount)) {
+        for (var id in Sim.stats.skills) {
+          Sim.reduceCooldown(id, 60);
+        }
+      }
+    });
+  };
+  affixes.leg_sublimeconviction = function(amount) {
+    Sim.register("onblock", function() {
+      if (Sim.random("sublimeconviction", 0.01 * amount * Sim.getResource("wrath") / (Sim.stats.maxwrath || 1) / Sim.target.count)) {
+        Sim.addBuff("stunned", undefined, {duration: 90});
+      }
+    });
+  };
+  affixes.leg_theoculus = function(amount) {
+    Sim.register("ongethit", function() {
+      if (Sim.random("theoculus", 0.01 * amount)) {
+        Sim.reduceCooldown("teleport");
+      }
+    });
+  };
+  affixes.leg_theburningaxeofsankis = function(amount) {
+    var next = 0;
+    Sim.register("ongethit", function() {
+      if (Sim.time >= next && Sim.random("theburningaxeofsankis", 0.15)) {
+        Sim.addBuff("theburningaxeofsankis", {dmgred: 35}, {duration: 240});
+        next = Sim.time + 240;
+      }
+    });
+  };
+  affixes.leg_deathwatchmantle = function(amount) {
+    var next = 0;
+    Sim.register("ongethit", function() {
+      if (Sim.time >= next && Sim.random("deathwatchmantle", 0.01 * amount)) {
+        Sim.damage({type: "area", range: 10, self: true, coeff: 2, elem: "phy"});
+        next = Sim.time + 120;
+      }
+    });
+  };
+  affixes.leg_deathwatchmantle_p2 = function(amount) {
+    var next = 0;
+    Sim.register("ongethit", function() {
+      if (Sim.time >= next && Sim.random("deathwatchmantle", 0.01 * amount)) {
+        Sim.damage({type: "area", range: 10, self: true, coeff: 8.5, elem: "phy"});
+        next = Sim.time + 120;
+      }
+    });
+  };
+  affixes.leg_thecapeofthedarknight = function(amount) {
+    var next = 0;
+    if (Sim.stats.charClass === "demonhunter") Sim.register("ongethit", function() {
+      if (Sim.time >= next) {
+        Sim.cast("caltrops");
+        next = Sim.time + 360;
+      }
+    });
+  };
+  affixes.leg_vigilance = function(amount) {
+    var next = 0;
+    Sim.register("ongethit", function() {
+      if (Sim.time >= next) {
+        if (Sim.stats.charClass === "monk") {
+          Sim.cast("innersanctuary");
+        } else {
+          Sim.addBuff(undefined, {dmgred: 55}, {duration: 360});
+        }
+        next = Sim.time + 600;
+      }
+    });
+  };
+  affixes.leg_thundergodsvigor = function(amount) {
+    var next = 0;
+    Sim.register("ongethit", function() {
+      if (Sim.time >= next) {
+        Sim.damage({coeff: amount * 0.01});
+        next = Sim.time + 30;
       }
     });
   };

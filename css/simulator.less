@@ -230,11 +230,48 @@
 }
 .target-options {
   display: table;
-  margin: 8px 0;
+  //margin: 8px 0;
   width: 100%;
+  .option-category {
+    position: absolute;
+    font-weight: bold;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    &:before {
+      content: "-";
+      font-family: monospace;
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      line-height: 12px;
+      font-size: 16px;
+      font-weight: normal;
+      border: 1px solid black;
+      text-align: center;
+      margin-right: 6px;
+    }
+  }
   .option-row {
+    &.option-barbarian { display: none; .table-barbarian & { display: table-row; } }
+    &.option-wizard { display: none; .table-wizard & { display: table-row; } }
+    &.option-demonhunter { display: none; .table-demonhunter & { display: table-row; } }
+    &.option-witchdoctor { display: none; .table-witchdoctor & { display: table-row; } }
+    &.option-crusader { display: none; .table-crusader & { display: table-row; } }
+    &.option-monk { display: none; .table-monk & { display: table-row; } }
     display: table-row;
     height: 20px;
+    &.collapsed ~ .option-row { display: none; }
+    &.collapsed .option-category:before {
+      content: "+";
+    }
+  }
+  .cat .option-name {
+    padding-left: 10px;
   }
   .option-name {
     display: table-cell;
@@ -259,7 +296,7 @@
     padding: 0 16px 0 0;
     white-space: nowrap;
     input {
-      margin: 0 4px;
+      margin: 0 4px 0 11px;
     }
   }
   .option-slider {
@@ -268,6 +305,10 @@
     input {
       width: 100%;
     }
+  }
+  .option-health {
+    display: inline-block;
+    margin: -1px 0;
   }
 }
 .button-start {

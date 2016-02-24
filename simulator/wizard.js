@@ -717,6 +717,16 @@
     },
     oninit: function(rune) {
       this.oncast(rune);
+      Sim.register("ongethit", function() {
+        if (!Sim.getBuff("icearmor")) return;
+        if (rune === "d") {
+          Sim.addBuff("crystallize", {armor_percent: 20}, {duration: 1800, maxstacks: 3});
+        } else if (rune === "a") {
+          Sim.damage({coeff: 1.89});
+        } else if (rune === "e") {
+          if (Sim.random("icereflect", 0.4)) Sim.damage({type: "area", range: 12.5, damage: 0.75, onhit: Sim.apply_effect("frozen", 180)});
+        }
+      });
     },
     elem: "col",
     proctable: {c: 0.125},
@@ -732,7 +742,7 @@
     frames: 56.249996,
     cost: 25,
     oncast: function(rune) {
-      var params = {tickrate: this.rate, ontick: sa_ontick, rune: rune};
+      var params = {tickrate: Math.round(this.rate), ontick: sa_ontick, rune: rune};
       switch (rune) {
       case "b": params.status = "chilled"; break;
       case "c":
@@ -757,6 +767,14 @@
       } while (chance < 1);
       this.rate = sum * 12;
       this.oncast(rune);
+      Sim.register("ongethit", function() {
+        if (!Sim.getBuff("stormarmor")) return;
+        if (rune === "c") {
+          Sim.damage({coeff: 1.89});
+        } else if (rune === "b") {
+          Sim.addBuff("scramble", {extrams: 25}, {duration: 180});
+        }
+      });
     },
     elem: "lit",
     proctable: {x: 0.1, c: 0.1, d: 0.1, a: 0.1, b: 0.1, e: 0.1},

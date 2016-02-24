@@ -7,7 +7,7 @@ DiabloCalc.itemaffixes = {
     info: {"Damage": {elem: "psn", coeff: "$1/100"}},
   },
   leg_sanguinaryvambraces: {
-    info: {"Damage": {thorns: "normal", coeff: 10}},
+    info: {"Damage": {thorns: "bad", coeff: 10}},
   },
   leg_bootsofdisregard: {
     params: [{min: 0, max: 4, name: "Stacks"}],
@@ -674,7 +674,7 @@ DiabloCalc.itemaffixes = {
     active: false,
     activetip: "Include damage bonus",
     buffs: function(value, stats) {
-      return {damage: 30, block: value[0]};
+      return {dmgmul: 30, block: value[0]};
     },
     inactive: function(value, stats) {
       return {block: value[0]};

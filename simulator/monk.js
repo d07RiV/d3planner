@@ -992,6 +992,21 @@
       case "b": buffs.ias = 10 * (Sim.stats.set_inna_2pc ? 2 : 1); break;
       }
       Sim.addBuff("mantraofretribution", buffs);
+      Sim.register("ongethit", function() {
+        var amount = 1.01;
+        if (Sim.getBuff("mantraofretribution_active")) amount += 1.01;
+        if (Sim.stats.set_inna_2pc) amount += 1.01;
+        if (rune === "a") amount += 1.01;
+
+        Sim.damage({coeff: amount});
+        if (rune === "c") {
+          if (Sim.random("indignation", 0.2)) Sim.addBuff("stunned", undefined, {duration: 180});
+        } else if (rune === "d") {
+          Sim.addResource(3);
+        } else if (rune === "d") {
+          if (Sim.random("collateraldamage", 0.75)) Sim.damage({type: "area", range: 8, coeff: 1.01});
+        }
+      });
     },
     elem: {x: "hol", a: "fir", b: "hol", c: "hol", d: "hol", e: "hol"},
   };

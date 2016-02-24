@@ -24,6 +24,34 @@
       Sim.addBuff("hardenedsenses", {block: 15}, {duration: 300});
       return {coeff: 3.35};
     },
+    oninit: function(rune) {
+      Sim.register("onblock", function() {
+        if (!Sim.getBuff("hardenedsenses")) return;
+        if (rune === "d" || Sim.stats.leg_angelhairbraid) {
+          Sim.damage({type: "area", self: true, coeff: 0.75});
+        }
+        if (rune === "b" || Sim.stats.leg_angelhairbraid) {
+          Sim.addBuff("celerity", {ias: 15}, {duration: 180});
+        }
+        if (rune === "c" || Sim.stats.leg_angelhairbraid) {
+          Sim.addBuff("rebirth", {regen: 12874}, {duration: 120});
+        }
+        if (rune === "a" || Sim.stats.leg_angelhairbraid) {
+          Sim.damage({coeff: 1.4});
+        }
+        if (rune === "e" || Sim.stats.leg_angelhairbraid) {
+          Sim.addBuff("fury");
+        }
+      });
+      if (rune === "e" || Sim.stats.leg_angelhairbraid) {
+        Sim.register("oncast", function() {
+          if (Sim.getBuff("fury")) {
+            Sim.removeBuff("fury");
+            return {chc: 15};
+          }
+        });
+      }
+    },
     proctable: 1,
     elem: {x: "phy", d: "fir", b: "phy", c: "phy", a: "hol", e: "lit"},
   };
@@ -468,6 +496,15 @@
         break;
       }
       Sim.addBuff("ironskin", buffs, params);
+    },
+    oninit: function(rune) {
+      if (rune === "e") {
+        Sim.register("ongethit", function() {
+          if (Sim.getBuff("ironskin")) {
+            Sim.addBuff("flash", {extrams: 60}, {duration: 300});
+          }
+        });
+      }
     },
     proctable: {c: 0.1, a: 0.333},
     elem: {x: "phy", d: "phy", b: "phy", c: "phy", a: "lit", e: "lit"},
@@ -998,7 +1035,11 @@
     },
     vigilant: {regen: 2682, nonphys: 20},
     righteousness: {maxwrath: 30},
-    insurmountable: function() {},
+    insurmountable: function() {
+      Sim.register("onblock", function() {
+        Sim.addResource(6);
+      });
+    },
     fanaticism: function() {},
     indestructible: function() {},
     holycause: {damage: 10},
