@@ -368,7 +368,7 @@
   function bouldertoss_fix(data) {
     if (Sim.stats.leg_skularssalvation) {
       if (this.targets <= 5) {
-        this.factor = 1 + 0.01 * Sim.stats.leg_skularssalvation;
+        this.factor = 2 + 0.02 * Sim.stats.leg_skularssalvation;
       } else {
         this.factor = 2;
       }
@@ -454,7 +454,8 @@
         return [120, 2];
       }
     },
-    frames: 24.999998,
+    frames: 45,
+    speed: 0.8,
     oncast: function(rune) {
       var dmg = {type: "area", range: 8, self: true, coeff: 1.8, onhit: leap_onhit};
       switch (rune) {

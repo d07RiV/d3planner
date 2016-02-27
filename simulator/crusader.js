@@ -850,7 +850,7 @@
   skills.fallingsword = {
     offensive: true,
     //speed: 57.142834,
-    frames: 54,
+    frames: 78,
     duration: 78,
     cost: 25,
     speed: 1,

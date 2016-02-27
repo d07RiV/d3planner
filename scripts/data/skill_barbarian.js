@@ -361,7 +361,7 @@ DiabloCalc.skills.barbarian = {
       }
       if (rune === "b" && stats.leg_skularssalvation) {
         res["Damage"].percent = {};
-        res["Damage"].percent[DiabloCalc.itemById.P4_Unique_Bracer_101.name] = (this.active ? stats.leg_skularssalvation : 100);
+        res["Damage"].percent[DiabloCalc.itemById.P4_Unique_Bracer_101.name] = 100 + (this.active ? 2 * stats.leg_skularssalvation : 0);
       }
       res = $.extend({"Cost": {cost: 25}}, res);
       return res;
