@@ -13,6 +13,7 @@ In order to test an existing profile from the main website, open `http://www.d3p
 
 * [Main page - http://www.d3planner.com](http://www.d3planner.com)
 * [PTR page - http://ptr.d3planner.com](http://ptr.d3planner.com)
+* [Chinese version - http://db.178.com/d3/s/](http://db.178.com/d3/s/)
 
 * [Old issue tracker](http://www.d3planner.com/mantisbt/view_all_bug_page.php)
 * [Translations homepage](http://www.d3planner.com/translate/)
