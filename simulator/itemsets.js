@@ -551,7 +551,7 @@ asheara's: todo
     });
   };
   affixes.set_earth_6pc = function() {
-    Sim.addBaseStats({dmgmul: {skills: ["earthquake", "avalanche", "leap", "groundstomp", "ancientspear", "seismicslam"], percent: 1000}});
+    Sim.addBaseStats({dmgmul: {skills: ["earthquake", "avalanche", "leap", "groundstomp", "ancientspear", "seismicslam"], percent: 800}});
   };
 
   affixes.set_wastes_2pc = function() {
