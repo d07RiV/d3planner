@@ -160,7 +160,7 @@
   }
   skills.shieldbash = {
     offensive: true,
-    frames: 37.714279,
+    frames: 55.3846,
     cost: function(rune) {
       return 30 * (1 - 0.01 * (Sim.stats.leg_piromarella || 0));
     },

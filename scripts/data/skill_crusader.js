@@ -176,7 +176,7 @@ DiabloCalc.skills.crusader = {
           res[k].percent[DiabloCalc.itemById.P2_Unique_Bracer_110.name] = (stats.leg_drakonslesson || stats.leg_drakonslesson_p2);
         }
       }
-      return $.extend({"DPS": {sum: true, "Damage": {speed: 1, fpa: 37.714279, round: "up"}}, "Cost": {cost: 30, rcr: (stats.leg_piromarella || 0)}}, res);
+      return $.extend({"DPS": {sum: true, "Damage": {speed: 1, fpa: 55.3846, round: "up"}}, "Cost": {cost: 30, rcr: (stats.leg_piromarella || 0)}}, res);
     },
   },
   sweepattack: {
