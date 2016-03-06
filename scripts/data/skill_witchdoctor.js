@@ -246,7 +246,7 @@ DiabloCalc.skills.witchdoctor = {
       var damage;
       switch (rune) {
       case "a": damage = {elem: "fir", coeff: 14.8, total: true}; break;
-      case "c": damage = {elem: "phy", coeff: 10.4, total: true};
+      case "c": damage = {elem: "phy", coeff: 10.4, total: true}; break;
       default: damage = {elem: "psn", coeff: 10.4, total: true};
       }
       var dur = (stats.leg_quetzalcoatl ? 0.5 : 1) * 8;
