@@ -672,12 +672,17 @@
     /*
     var exportRes = {};
     var exportList = [
-    "itemById.*.type",
-    "itemTypes.*.slot",
-    "itemTypes.*.generic",
-    "legendaryGems.*.id",
-    "gemQualities",
-    "gemColors.*.id",
+"webglDyes.*.name",
+"webglItems.*.name",
+"legendaryGems.*.id",
+"legendaryGems.*.effects.*.format",
+"itemById.*.name",
+"itemById.*.required.custom.id",
+"itemById.*.required.custom.format",
+"itemById.*.required.custom.name",
+"itemSets.*.name",
+"itemSets.*.bonuses.*.*.format",
+"simMapping.buffs",
     ];
     for (var i = 0; i < exportList.length; ++i) {
       $.extend(true, exportRes, DiabloCalc.exportData(exportList[i]));

@@ -2630,6 +2630,37 @@ DiabloCalc.webglItems = {
       "6544": 181609,
     },
   },
+  P41_Unique_Boots_01: {
+    armortype: 5,
+    look: 2190352632,
+  },
+  P41_Unique_CombatStaff_2H_005: {
+    actor: 197072,
+  },
+  P41_Unique_Dagger_102_x1: {
+    actor: 271731,
+  },
+  P41_Unique_Fist_007: {
+    actor: 145850,
+  },
+  P41_Unique_Fist_008: {
+    actor: 175939,
+  },
+  P41_Unique_Gloves_002: {
+    armortype: 1,
+    look: 2190352667,
+  },
+  P41_Unique_Gloves_014: {
+    armortype: 1,
+    look: 2190352668,
+  },
+  P41_Unique_Pants_001: {
+    armortype: 3,
+    look: 2190352704,
+  },
+  P41_Unique_Xbow_102: {
+    actor: 271889,
+  },
   P4_Unique_Axe_1H_102: {
     actor: 271597,
   },
@@ -2662,6 +2693,9 @@ DiabloCalc.webglItems = {
   },
   P4_Unique_Flail_2H_001: {
     actor: 395228,
+  },
+  P4_Unique_Flail_2H_002: {
+    actor: 403860,
   },
   P4_Unique_Flail_2H_Set_01_x1: {
     actor: 395227,
