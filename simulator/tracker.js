@@ -97,7 +97,7 @@
         source = (data.triggered || data.skill || "unknown");
       }*/
       var evt = CastCounters[castId];
-      if (data.triggered) {
+      if (data.triggered && data.triggered !== evt[1]) {
         evt[4][source] = (evt[4][source] || 0) + amount;
       } else {
         evt[3] += amount;

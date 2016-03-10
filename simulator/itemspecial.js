@@ -956,16 +956,11 @@
     Sim.addBaseStats({petdamage: amount});
   };
   affixes.leg_depthdiggers = function(amount) {
-    if (Sim.stats.charClass === "witchdoctor") return;
-    if (Sim.stats.charClass === "wizard" && !Sim.stats.leg_theshameofdelsere) return;
-    var stats = {};
-    for (var id in Sim.skills) {
-      var skill = Sim.skills[id];
-      if (Sim.skills[id].signature) {
-        stats["skill_" + Sim.stats.charClass + "_" + id] = amount;
+    Sim.register("oncast", function(data) {
+      if (Sim.skills[data.skill] && Sim.skills[data.skill].signature && data.generate) {
+        return {dibs: amount};
       }
-    }
-    Sim.addBaseStats(stats);
+    });
   };
 
   affixes.leg_chainofshadows = function(amount) {

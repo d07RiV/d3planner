@@ -86,17 +86,17 @@ asheara's: todo
       Sim.damage({targets: data.targets, elem: "fir", coeff: data.coeff / 4});
     }
     function fb_onapply(data) {
-      if (Sim.stats.set_firebird_6pc) {
-        Sim.removeBuff("firebird_6pc");
-        var stacks = Math.round(data.targets);
-        if (stacks) {
-          var elites = (Sim.target.elite ? 1 : 0);
-          stacks -= elites;
-          Sim.addBuff("firebird_6pc", {dmgmul: 50}, {stacks: stacks + elites * 12});
-        }
-      }
       if (data.coeff >= 30) {
         Sim.refreshBuff("firebird_4pc", "infinite");
+        if (Sim.stats.set_firebird_6pc) {
+          Sim.removeBuff("firebird_6pc");
+          var stacks = Math.round(data.targets);
+          if (stacks) {
+            var elites = (Sim.target.elite ? 1 : 0);
+            stacks -= elites;
+            Sim.addBuff("firebird_6pc", {dmgmul: 25}, {stacks: stacks + elites * 24});
+          }
+        }
       }
     }
     function fb_onrefresh(data, newdata) {
@@ -223,7 +223,7 @@ asheara's: todo
     // pet=false, but then companion would have to be in a separate buff anyway).
     var buffname = undefined;
     Sim.watchBuff("sentry", function(data) {
-      buffname = Sim.setBuffStacks(buffname, {dmgmul: {skills: ["companion", "vengeance"], percent: 400}}, data.stacks);
+      buffname = Sim.setBuffStacks(buffname, {dmgmul: {skills: ["companion", "vengeance"], percent: 600}}, data.stacks);
     });
   };
 

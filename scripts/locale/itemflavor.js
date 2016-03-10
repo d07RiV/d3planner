@@ -2343,4 +2343,143 @@ _L.patch.add({
       flavor: "Legend says this gem was crafted by Zei to torment fleeing enemies. Other legends claim that Zei never existed.\n",
     },
   },
+  webglDyes: {
+    Dye_01: {
+      flavor: "Leatherworkers use a variety of oils to seal their skins with a rich, natural brown pigment.",
+    },
+    Dye_03: {
+      flavor: "Jars of crushed Veilwood petals are buried in the snow throughout the winter to create this soft white hue.",
+    },
+    Dye_04: {
+      flavor: "Sailors from Lut Gholein distill the waters of the Twin Seas and apply the bright blue mixture to their sails in order to blend in and avoid detection by pirates.",
+    },
+    Dye_05: {
+      flavor: "Once reserved only for nobility, this rich red pigment is now donned by both the influential and the courageous.",
+    },
+    Dye_06: {
+      flavor: "Hunters and bandits alike use the bark of the Gorsenna plant to blend in with the rustic green shadows of the forest. ",
+    },
+    Dye_08: {
+      flavor: "Sandy brown pigment is carried by the merchant caravans of the Dry Steppes to reflect the sun and hide dust.",
+    },
+    Dye_09: {
+      flavor: "The monks from the Order of Yir crush the first orange leaves of autumn into tea, and apply it to their robes during the Ceremony of the Harvest Moon.",
+    },
+    Dye_10: {
+      flavor: "Named for the beauty of Queen Asylla, who once had a thousand gowns created in this beautiful pink color as a gift from King Leoric.",
+    },
+    Dye_11: {
+      flavor: "This bright yellow dye is extracted from spices shipped from Kurast at great expense. ",
+    },
+    Dye_12: {
+      flavor: "Bright green garb is traditionally worn during the Hearth Festival in Bramwell to celebrate the first thaw of springtime. ",
+    },
+    Dye_13: {
+      flavor: "The bright magenta colors of the Hezna flower are always a favorite amongst the fashionable elite of Caldeum. ",
+    },
+    Dye_14: {
+      flavor: "The Wardens of Duncraig wear coats of rich green velvet while patrolling the woods for poachers and wolves. ",
+    },
+    Dye_15: {
+      flavor: "Officers of vessels navigating the Skovos Isles wear deep blue garments to indicate seniority. ",
+    },
+    Dye_16: {
+      flavor: "Flecks of gold are melted into boiling oil to create a rare pigment used strictly by nobility.",
+    },
+    Dye_17: {
+      flavor: "For many years the color purple was forbidden to all citizens of Kingsport outside of the Royal Family.",
+    },
+    Dye_18: {
+      flavor: "The bottle is warm to the touch, seeming to flicker with bright red liquid fire. ",
+    },
+    Dye_19: {
+      flavor: "This mysterious mixture seems to make any material it is applied to impossible to soil, swirling and coalescing like a perfect white cloud. ",
+    },
+    Dye_20: {
+      flavor: "The inky blackness seems to grow even darker when exposed to the sun, as though it were drinking in the very light that touches it.",
+    },
+    Dye_CE_01: {
+      flavor: "The gentle wind of the heavens cools the air, infusing the area with a soft glow.",
+    },
+    Dye_CE_02: {
+      flavor: "An eerie howl emanates from within as creeping shadows spill forth.",
+    },
+    Dye_Vanishing: {
+      flavor: "Causes materials to vanish before your very eyes! Be sure not to apply this to your undergarments.",
+    },
+  },
+  webglItems: {
+    Helm_console_promo: {
+      flavor: "At the height of his madness, Zoltun Kulle’s pride knew no bounds. He raised vast halls filled with arcane beings to serve at his whim and created magical artifacts to amplify his power beyond the limits of imagination.\n",
+    },
+    TransmogFist_241_001: {
+      flavor: "Fills its victims with an overwhelming despair that makes them pray for the sweet release of death.",
+    },
+    TransmogFist_241_002: {
+      flavor: "“Brother Fyntana commissioned this weapon to replace the hand he lost in his storied quest to rid the Aranoch of the Lacuni. It is said that bits of the panther men he killed were incorporated in its construction.” - Poldamyr's Histories of the Veradani",
+    },
+    TransmogFlail_241_001: {
+      flavor: "Khalim, the Que-Hegan of Travincal, was incorruptible, and his spirit will never rest until the Lord of Terror is vanquished for all time.",
+    },
+    TransmogFlail_241_002: {
+      flavor: "Its dark metal shape reveals the evil within.",
+    },
+    TransmogFlail_241_003: {
+      flavor: "“If the purity of the Zakarum runs through your veins, the spirits of the fallen will stiffen your resolve.” - Elder Crusader Drakon",
+    },
+    TransmogFlail_241_004: {
+      flavor: "“Before they were led astray by their Grand Maester, the Templars embodied all that Akarat intended.” - Diadra the Scholar",
+    },
+    TransmogHelm_001: {
+      flavor: "This helmet fell from the sky, as if a gift from the heavens.",
+    },
+    TransmogHelm_002: {
+      flavor: "Wear this and you will be mistaken for a mindless zombie — amuse your friends, fool your enemies!",
+    },
+    TransmogHelm_Illidan: {
+      flavor: "Others think you blind, but your eyes see what they cannot.",
+    },
+    TransmogMace_241_001: {
+      flavor: "Ideal for bashing cranial crustaceans on the attack.",
+    },
+    TransmogShoulders_001: {
+      flavor: "These pauldrons portray a type of demon never before seen. Perhaps they exist in some far off place.",
+    },
+    TransmogStaff_241_001: {
+      flavor: "Crafted in the High Heavens, but wielded with a hatred as dark as the Burning Hells.",
+    },
+    TransmogSword_241_003: {
+      flavor: "After slaying many a traveler, the Ghoul King was at last dethroned by an adventurer in search of hidden nephalem artifacts. The monster's sword vanished after the fatal encounter, but it was recently discovered tangled in the roots of a sickly tree in the Festering Woods. The wicked blade still shares its late master's hunger for living flesh.",
+    },
+    TransmogXbow_241_001: {
+      flavor: "“This crossbow is said to have been recovered from the depths of the ruins of Corvus. What wonderful foolishness! Corvus, much like the nephalem said to have lived there, is a myth. It represents nostalgia for a ‘pure humanity’, a golden age that never existed.” - Abd al-Hazir",
+    },
+    Unique_CeremonialDagger_Promo_01_x1: {
+      flavor: "\"The more subjects from whom I extract souls, the easier the process becomes.\" —Author Unknown, Armis Mortem",
+    },
+    Unique_Fist_Promo_01_x1: {
+      flavor: "\"It occurs to me that human souls might be alloyed with more than base metal. Their essence could likely be contained within energy matrices as well... or perhaps even within the light and harmony that makes up angelic forms. If those energies could be controlled, they would prove a source of immense power.\" —Author Unknown, Armis Mortem",
+    },
+    Unique_Flail_1H_Promo_01_x1: {
+      flavor: "\"I discovered I might bind the darkness of the human soul into metal armaments as they are being forged. Evil intent literally roils off the metal, and I've never wielded anything so wickedly sharp.\" —Author Unknown, Armis Mortem",
+    },
+    Unique_HandXBow_Promo_01_x1: {
+      flavor: "\"I believe that just being in close proximity to the dark power within human souls induces an entropic effect in other materials. To be certain, though, I must test my theory by exposing material to the aura of the soulmetal I’ve forged and then inserting the exposed material into a living subject. A ranged weapon would make the ideal delivery system.\" —Author Unknown, Armis Mortem",
+    },
+    Unique_Helm_Promo_01_x1: {
+      flavor: "\"Years ago, one of my subordinates went missing in Caldeum. It was presumed by most that he'd run afoul of a demonic ambush. I myself suspected Zoltun Kulle's involvement in the disappearance, as his egotism and madness had begun to evince itself in his imperious and dismissive manner. I suppose we’ll never know the truth.\" —Archangel Tyrael",
+    },
+    Unique_Helm_Promo_02_x1: {
+      flavor: "\"I argue that humans, not angels, are the true inheritors of Anu. It was only when the god rejected the part of himself that all mortals possess, the darkness within, that true evil and suffering was born. Unlike Anu, we must embrace our inner demons... and become all the stronger for it.\" —Zoltun Kulle",
+    },
+    Unique_Mighty_2H_Promo_01_x1: {
+      flavor: "\"I realize now I’ve made a terrible mistake. The knowledge that the power of human souls might be extracted and used to empower the angelic Host would immediately escalate the Eternal Conflict. And if demons were to learn these methods, too... I daresay the war would end in our mutually assured destruction. All life would be extinguished. No one must ever know what I’ve discovered.\" —Author Unknown, Armis Mortem",
+    },
+    Unique_Orb_Promo_01_x1: {
+      flavor: "\"Within the breast of every human on Sanctuary lies a mote of pure darkness, proof of the breed’s demonic parentage. I suspect there may be a way to draw out that evil and contain it. Of course, the process is fatal, but I propose death is infinitely preferable to the life of doubt, rage, and confusion this darkness engenders.\" —Author Unknown, Armis Mortem",
+    },
+    Unique_Sword_1H_Promo_01_x1: {
+      flavor: "\"The malleability of mortal soulstuff is remarkable. I wonder to what other ends I might put it.\" —Author Unknown, Armis Mortem",
+    },
+  },
 });

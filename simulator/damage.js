@@ -85,7 +85,7 @@
       dmgmul = stats.getSpecial("dmgmul", elem, ispet, data.skill, data.exclude);
       if (stats.gems.zei) {
         var dist = ((data.castInfo && data.castInfo.distance) || data.distance || data.origin || Sim.target.distance);
-        dmgmul *= 1 + 0.01 * dist * (4 + 0.05 * stats.gems.zei) / 10;
+        dmgmul *= 1 + 0.01 * dist * (4 + 0.08 * stats.gems.zei) / 10;
       }
     }
     factor *= dmgmul;

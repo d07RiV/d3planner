@@ -421,7 +421,7 @@ DiabloCalc.itemSets = {
         {format: "Soul Harvest gains the effect of every rune and has its cooldown reduced by 1 second every time you cast Haunt or Locust Swarm."},
       ],
       "6": [
-        {format: "Soul Harvest consumes your damage over time effects on enemies, instantly dealing 300 seconds worth of remaining damage."},
+        {format: "Soul Harvest consumes your damage over time effects on enemies, instantly dealing 150 seconds worth of remaining damage."},
       ],
     },
   },

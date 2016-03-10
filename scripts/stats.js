@@ -406,6 +406,11 @@
                       statInfo[id] = leg.effects[0];
                     }
                     this.add(id, getGemValue(leg.effects[0], data.gems[i][1]), factor, data.gems[i][0]);
+                  } else if (leg.inactive) {
+                    var list = leg.inactive(data.gems[i][1], this);
+                    for (var stat in list) {
+                      this.add(stat, list[stat], factor, data.gems[i][0]);
+                    }
                   }
 
                   if (data.gems[i][1] >= 25 && (active || data.gems[i][0] == "powerful")) {

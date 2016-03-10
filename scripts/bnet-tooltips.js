@@ -546,6 +546,56 @@
       else result += ">";
       return result + parseFloat((value * 100).toFixed(1)) + "%" + (cls ? ")" : "") + "</span>";
     }
+    function showExtraItem(node, id) {
+      if(tooltipWrapper == null) {
+        initialize();
+      }
+      var item = DiabloCalc.webglItems[id];
+      if (!item) item = DiabloCalc.webglDyes[id];
+      if (!item) return;
+      tooltipWrapper.css("max-width", "");
+      tooltipContent.removeClass().addClass("d3-tooltip-wrapper-inner");
+
+      var html = "<div class=\"d3-tooltip d3-tooltip-item\">";
+      html += "<div class=\"tooltip-head tooltip-head-white\"><h3 class=\"d3-color-white\">" + (item.name || "Unknown item") + "</h3></div>";
+
+      var iconType = "square";
+      if (item.type && DiabloCalc.itemTypes[item.type]) {
+        iconType = (slotSize[DiabloCalc.itemTypes[item.type].slot] || "square");
+      }
+
+      html += "<div class=\"tooltip-body\">";
+      html +=   "<span class=\"d3-icon d3-icon-item d3-icon-item-large d3-icon-item-white\">";
+      html +=     "<span class=\"icon-item-gradient\">";
+      html +=       "<span class=\"icon-item-inner icon-item-" + iconType + "\" style=\"background-image: url(" + DiabloCalc.getItemIcon(id) + ");\"></span>";
+      html +=     "</span>";
+      html +=   "</span>";
+
+      html += "<div class=\"d3-item-properties\">";
+      if (DiabloCalc.webglDyes[id]) {
+        html += "<ul class=\"item-type\"><li><span class=\"d3-color-default\">" + _L("Dye") + "</span></li></ul>";
+        html += "<div class=\"item-description d3-color-white\"><p>" + _L("Changes the color of a single piece of armor. ") + "</p></div>";
+        html += "<div class=\"item-before-effects\"></div>";
+      } else if (item.type && DiabloCalc.itemTypes[item.type]) {
+        var type = DiabloCalc.itemTypes[item.type];
+        var slot = (DiabloCalc.itemSlots[type.slot] || DiabloCalc.metaSlots[type.slot]);
+        var classSpecific = "";
+        if (item.class || type.class) {
+          classSpecific = "<li class=\"item-class-specific d3-color-white\">" + DiabloCalc.classes[item.class || type.class].name + "</li>";
+        }
+        html += "<ul class=\"item-type-right\"><li class=\"item-slot\">" + slot.name + "</li>" + classSpecific + "</ul>";
+        html += "<ul class=\"item-type\"><li class=\"d3-color-white\">" + type.name + "</li></ul>";
+      }
+      html += "<span class=\"clear\"><!-- --></span>";
+      html += "</div>";
+      html += "</div>";
+      if (item.flavor) {
+        html += "<div class=\"tooltip-extension\"><div class=\"flavor\">" + item.flavor + "</div></div>";
+      }
+
+      tooltipContent.html(html);
+      show(node);
+    }
     function showItem(node, slot, _side) {
       var data;
       var compare = false;
@@ -1225,6 +1275,7 @@
     this.showCustomSkill = showCustomSkill;
     this.showGem = showGem;
     this.showAttack = showAttack;
+    this.showExtraItem = showExtraItem;
     this.getNode = function() {
       return curNode;
     };

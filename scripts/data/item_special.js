@@ -361,13 +361,13 @@ DiabloCalc.itemaffixes = {
     active: true,
     activetip: "Elites burning",
     buffs: function(value, stats) {
-      return {dmgmul: this.params[0].val * 50 + 600};
+      return {dmgmul: this.params[0].val * 25 + 600};
     },
     inactive: function(value, stats) {
-      return {dmgmul: this.params[0].val * 50};
+      return {dmgmul: this.params[0].val * 25};
     },
     info: function(value, stats) {
-      return {"Damage": (this.params[0].val * 50 + (this.active ? 600 : 0)) + "%"};
+      return {"Damage": (this.params[0].val * 25 + (this.active ? 600 : 0)) + "%"};
     },
   },
   set_sunwuko_2pc: {

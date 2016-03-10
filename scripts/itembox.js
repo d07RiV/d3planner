@@ -993,6 +993,16 @@
         DC.tooltip.showItem(this, id, self.slot);
       }
     });
+    DC.chosenTips(this.transmogs, function(id) {
+      if (DC.tooltip && DC.webglItems[id]) {
+        DC.tooltip.showExtraItem(this, id);
+      }
+    });
+    DC.chosenTips(this.dyes, function(id) {
+      if (DC.tooltip && DC.webglDyes[id]) {
+        DC.tooltip.showExtraItem(this, id);
+      }
+    });
   };
 
   DC.ItemBox.prototype.removeStat = function(index, merged) {

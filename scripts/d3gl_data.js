@@ -2420,7 +2420,7 @@ DiabloCalc.webglItems = {
   },
   Mojo_206: {
     actor: 367195,
-    name: "Thing That Should Not Be",
+    name: "Hollow Gaze",
     type: "mojo",
   },
   Orb_001: {
@@ -3829,6 +3829,66 @@ DiabloCalc.webglItems = {
     name: "Kingslayer",
     type: "sword2h",
   },
+  TransmogAxe_241_001: {
+    actor: 271587,
+    name: "Aidan's Revenge",
+    promo: true,
+    type: "axe",
+  },
+  TransmogAxe_241_002: {
+    actor: 234473,
+    name: "King Maker",
+    promo: true,
+    type: "axe2h",
+  },
+  TransmogAxe_241_004: {
+    actor: 271600,
+    name: "Sungjae's Fury",
+    promo: true,
+    type: "axe2h",
+  },
+  TransmogFist_241_001: {
+    actor: {
+      "4717": 395330,
+      "4721": 395330,
+    },
+    name: "Hand of Despair",
+    promo: true,
+    type: "fistweapon",
+  },
+  TransmogFist_241_002: {
+    actor: {
+      "4717": 408775,
+      "4721": 408775,
+    },
+    name: "Pantherâ€™s Claw",
+    promo: true,
+    type: "fistweapon",
+  },
+  TransmogFlail_241_001: {
+    actor: 395210,
+    name: "The Que-Heganâ€™s Will",
+    promo: true,
+    type: "flail",
+  },
+  TransmogFlail_241_002: {
+    actor: 403819,
+    name: "Flail of Carnage",
+    promo: true,
+    type: "flail",
+  },
+  TransmogFlail_241_003: {
+    actor: 403860,
+    name: "The Spirit of the Zakarum",
+    promo: true,
+    type: "flail2h",
+  },
+  TransmogFlail_241_004: {
+    actor: 424257,
+    name: "Templar's Chain",
+    promo: true,
+    type: "flail",
+  },
   TransmogHelm_001: {
     actor: {
       "238284": 428475,
@@ -3845,6 +3905,25 @@ DiabloCalc.webglItems = {
       "75207": 428528,
     },
     name: "Star Helm",
+    promo: true,
+    type: "helm",
+  },
+  TransmogHelm_002: {
+    actor: {
+      "238284": 450207,
+      "238286": 450206,
+      "3285": 450191,
+      "3301": 450188,
+      "4717": 450197,
+      "4721": 450205,
+      "6481": 450210,
+      "6485": 450211,
+      "6526": 450209,
+      "6544": 450208,
+      "74706": 450193,
+      "75207": 450195,
+    },
+    name: "Helm of the Cranial Crustacean",
     promo: true,
     type: "helm",
   },
@@ -3866,6 +3945,18 @@ DiabloCalc.webglItems = {
     name: "Visage of the Betrayer",
     promo: true,
     type: "helm",
+  },
+  TransmogMace_241_001: {
+    actor: 450124,
+    name: "Mace of the Crows",
+    promo: true,
+    type: "mace",
+  },
+  TransmogPolearm_241_001: {
+    actor: 272057,
+    name: "Man Prodder",
+    promo: true,
+    type: "polearm",
   },
   TransmogShield_313: {
     actor: 445356,
@@ -3905,6 +3996,54 @@ DiabloCalc.webglItems = {
     name: "Star Pauldrons",
     promo: true,
     type: "shoulders",
+  },
+  TransmogSpear_241_001: {
+    actor: 272047,
+    name: "Steffon's Heavy Lance",
+    promo: true,
+    type: "spear",
+  },
+  TransmogStaff_241_001: {
+    actor: 450340,
+    name: "The Reaper's Kiss",
+    promo: true,
+    type: "staff",
+  },
+  TransmogSword_241_001: {
+    actor: 271632,
+    name: "God Butcher",
+    promo: true,
+    type: "sword",
+  },
+  TransmogSword_241_002: {
+    actor: 331905,
+    name: "Amberwing",
+    promo: true,
+    type: "sword",
+  },
+  TransmogSword_241_003: {
+    actor: 271633,
+    name: "Ghoul King's Blade",
+    promo: true,
+    type: "sword",
+  },
+  TransmogSword_241_004: {
+    actor: 271635,
+    name: "Quinquennial Sword",
+    promo: true,
+    type: "sword",
+  },
+  TransmogSword_241_005: {
+    actor: 271637,
+    name: "Second Quinquennial Sword",
+    promo: true,
+    type: "sword",
+  },
+  TransmogXbow_241_001: {
+    actor: 395324,
+    name: "Crossbow of Corvus",
+    promo: true,
+    type: "crossbow",
   },
   Unique_Axe_1H_001_x1: {
     actor: 116388,
@@ -6979,13 +7118,13 @@ DiabloCalc.webglItems = {
   },
   p1_Mace_norm_promo_01: {
     actor: 403366,
-    name: "Deadeye’s Mace",
+    name: "Deadeyeâ€™s Mace",
     promo: true,
     type: "mace",
   },
   p1_Staff_norm_promo_01: {
     actor: 402266,
-    name: "Ner’zhul’s Staff of Shadowmoon",
+    name: "Nerâ€™zhulâ€™s Staff of Shadowmoon",
     promo: true,
     type: "staff",
   },
@@ -7009,7 +7148,7 @@ DiabloCalc.webglItems = {
   },
   p1_orb_norm_promo_01: {
     actor: 403401,
-    name: "Gul’dan’s Secret",
+    name: "Gulâ€™danâ€™s Secret",
     promo: true,
     type: "source",
   },
@@ -8027,11 +8166,7 @@ DiabloCalc.webglActors = {
       "2": 0,
     },
   },
-  "139070": {
-    enable: {
-      "2": 0,
-    },
-  },
+  "139070": null,
   "139071": {
     enable: {
       "2": 0,
@@ -9134,12 +9269,7 @@ DiabloCalc.webglActors = {
       "2": 0,
     },
   },
-  "192887": {
-    enable: {
-      "2": 0,
-      "3": 0,
-    },
-  },
+  "192887": null,
   "193066": {
     enable: {
       "2": 0,
@@ -11298,6 +11428,12 @@ DiabloCalc.webglActors = {
       "2": 0,
     },
   },
+  "234473": {
+    enable: {
+      "2": 0,
+      "3": 0,
+    },
+  },
   "238575": {
     enable: {
       "0": 0,
@@ -11834,12 +11970,22 @@ DiabloCalc.webglActors = {
       "3": 0,
     },
   },
+  "271587": {
+    enable: {
+      "2": 0,
+    },
+  },
   "271597": {
     enable: {
       "2": 0,
     },
   },
   "271598": {
+    enable: {
+      "2": 0,
+    },
+  },
+  "271600": {
     enable: {
       "2": 0,
     },
@@ -11866,12 +12012,32 @@ DiabloCalc.webglActors = {
       "2": 0,
     },
   },
+  "271632": {
+    enable: {
+      "2": 0,
+    },
+  },
+  "271633": {
+    enable: {
+      "2": 0,
+    },
+  },
   "271634": {
     enable: {
       "2": 0,
     },
   },
+  "271635": {
+    enable: {
+      "2": 0,
+    },
+  },
   "271636": {
+    enable: {
+      "2": 0,
+    },
+  },
+  "271637": {
     enable: {
       "2": 0,
     },
@@ -12070,9 +12236,20 @@ DiabloCalc.webglActors = {
       "2": 0,
     },
   },
+  "272047": {
+    enable: {
+      "2": 0,
+      "3": 0,
+    },
+  },
   "272056": {
     enable: {
       "1": 0,
+      "2": 0,
+    },
+  },
+  "272057": {
+    enable: {
       "2": 0,
     },
   },
@@ -13043,6 +13220,11 @@ DiabloCalc.webglActors = {
       "2": 0,
     },
   },
+  "331905": {
+    enable: {
+      "2": 0,
+    },
+  },
   "331908": {
     enable: {
       "2": 0,
@@ -13434,11 +13616,7 @@ DiabloCalc.webglActors = {
       "2": 0,
     },
   },
-  "3449": {
-    enable: {
-      "2": 0,
-    },
-  },
+  "3449": null,
   "3450": {
     enable: {
       "2": 0,
@@ -15619,6 +15797,13 @@ DiabloCalc.webglActors = {
       "1": 0,
     },
   },
+  "395210": {
+    animation: 431091,
+    enable: {
+      "2": 0,
+    },
+    physics: 431310,
+  },
   "395227": {
     animation: 415005,
     enable: {
@@ -15645,6 +15830,17 @@ DiabloCalc.webglActors = {
     },
   },
   "395305": {
+    enable: {
+      "2": 0,
+    },
+  },
+  "395324": {
+    animation: 415045,
+    enable: {
+      "2": 0,
+    },
+  },
+  "395330": {
     enable: {
       "2": 0,
     },
@@ -15732,7 +15928,21 @@ DiabloCalc.webglActors = {
     },
     physics: 236298,
   },
+  "403819": {
+    animation: 403823,
+    enable: {
+      "2": 0,
+    },
+    physics: 236298,
+  },
   "403846": {
+    animation: 403850,
+    enable: {
+      "2": 0,
+    },
+    physics: 236298,
+  },
+  "403860": {
     animation: 403850,
     enable: {
       "2": 0,
@@ -15786,6 +15996,11 @@ DiabloCalc.webglActors = {
     },
   },
   "405514": {
+    enable: {
+      "2": 0,
+    },
+  },
+  "408775": {
     enable: {
       "2": 0,
     },
@@ -15904,6 +16119,13 @@ DiabloCalc.webglActors = {
     enable: {
       "0": 0,
     },
+  },
+  "424257": {
+    animation: 429638,
+    enable: {
+      "2": 0,
+    },
+    physics: 236298,
   },
   "425719": {
     enable: {
@@ -16212,7 +16434,7 @@ DiabloCalc.webglActors = {
     enable: {
       "0": 0,
     },
-    hair: 1,
+    hair: 3,
   },
   "428504": {
     enable: {
@@ -16276,7 +16498,7 @@ DiabloCalc.webglActors = {
     enable: {
       "0": 0,
     },
-    hair: 1,
+    hair: 2,
   },
   "428600": {
     enable: {
@@ -17208,6 +17430,88 @@ DiabloCalc.webglActors = {
       "1": 0,
     },
     hair: 0,
+  },
+  "450124": {
+    enable: {
+      "2": 0,
+    },
+  },
+  "450188": {
+    enable: {
+      "0": 0,
+    },
+    hair: 1,
+  },
+  "450191": {
+    enable: {
+      "0": 0,
+    },
+    hair: 1,
+  },
+  "450193": {
+    enable: {
+      "0": 0,
+    },
+    hair: 3,
+  },
+  "450195": {
+    enable: {
+      "0": 0,
+    },
+    hair: 3,
+  },
+  "450197": {
+    enable: {
+      "0": 0,
+    },
+    hair: 3,
+  },
+  "450205": {
+    enable: {
+      "0": 0,
+    },
+    hair: 0,
+  },
+  "450206": {
+    enable: {
+      "0": 0,
+    },
+    hair: 3,
+  },
+  "450207": {
+    enable: {
+      "0": 0,
+    },
+    hair: 1,
+  },
+  "450208": {
+    enable: {
+      "0": 0,
+    },
+    hair: 3,
+  },
+  "450209": {
+    enable: {
+      "0": 0,
+    },
+    hair: 3,
+  },
+  "450210": {
+    enable: {
+      "0": 0,
+    },
+    hair: 3,
+  },
+  "450211": {
+    enable: {
+      "0": 0,
+    },
+    hair: 3,
+  },
+  "450340": {
+    enable: {
+      "2": 0,
+    },
   },
   "4645": {
     enable: {
