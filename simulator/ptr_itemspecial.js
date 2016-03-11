@@ -267,10 +267,10 @@
     });
   };
   affixes.leg_magefist = function(amount) {
-    Sim.addBaseStats({dmgmul: {elems: ["fir"], percent: amount}});
+    Sim.addBaseStats({dmgfir: amount});
   };
   affixes.leg_frostburn_p2 = function(amount) {
-    Sim.addBaseStats({dmgmul: {elems: ["col"], percent: amount}});
+    Sim.addBaseStats({dmgcol: amount});
     Sim.register("onhit_proc", function(data) {
       if (data.elem === "col" && Sim.random("frostburn", 0.5 * data.proc, data.targets / Sim.target.count)) {
         Sim.addBuff("frozen", undefined, 36);

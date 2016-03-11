@@ -1149,12 +1149,12 @@ DiabloCalc.itemaffixes = {
 
   leg_magefist: {
     buffs: function(value, stats) {
-      return {dmgmul: {elems: ["fir"], percent: value[0]}};
+      return {dmgfir: value[0]};
     },
   },
   leg_frostburn_p2: {
     buffs: function(value, stats) {
-      return {dmgmul: {elems: ["col"], percent: value[0]}};
+      return {dmgcol: value[0]};
     },
   },
   leg_skullgrasp_p2: {
