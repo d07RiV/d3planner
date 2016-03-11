@@ -1479,7 +1479,7 @@
   affixes.leg_fleshrake = function(amount) {
     Sim.register("oncast", function(data) {
       if (data.skill === "dashingstrike") {
-        Sim.addBuff("fleshrake", undefined, {maxstacks: 5, duration: 60, refresh: false});
+        Sim.addBuff("fleshrake", undefined, {maxstacks: 5, duration: 60});
         return {percent: Sim.getBuff("fleshrake") * amount};
       }
     });
