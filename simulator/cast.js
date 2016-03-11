@@ -78,7 +78,7 @@
     for (var i = 0; i < types.length; ++i) {
       var type = types[i];
       var maxval = this.stats["max" + type];
-      var regen = this.stats[type + "regen"];
+      var regen = (this.stats[type + "regen"] || 0);
       if (type === "fury") regen += (this.params.furyGen || 0);
       regen *= 1 + 0.01 * (this.stats.resourcegen || 0);
       if (this.resources[type] === undefined) {
