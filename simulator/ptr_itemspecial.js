@@ -1261,7 +1261,7 @@
   affixes.leg_thetwistedsword = function(amount) {
     var buffname;
     function update() {
-      var stacks = Math.min(5, Sim.getBuff("energytwister") + 2 * Sim.getBuff("ragingstorm"));
+      var stacks = Math.min(8, Sim.getBuff("energytwister") + 2 * Sim.getBuff("ragingstorm"));
       buffname = Sim.setBuffStacks(buffname, {dmgmul: {skills: ["energytwister"], percent: amount}}, stacks);
     }
     Sim.watchBuff("energytwister", update);

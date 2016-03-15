@@ -753,7 +753,7 @@ DiabloCalc.skills.wizard = {
         return !!stats.set_chantodo_2pc;
       }}],
     buffs: function(rune, stats) {
-      var res = {dmgmul: 20, dmgmul: 6 * this.params[0].val, armor_percent: 150, resist_percent: 150};
+      var res = {dmgmul: {list: [30, 6 * this.params[0].val]}, armor_percent: 150, resist_percent: 150};
       if (stats.set_vyr_4pc) {
         res.ias = this.params[0].val * 1.5;
         res.armor_percent += this.params[0].val * 1.5;

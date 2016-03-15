@@ -118,7 +118,7 @@ DiabloCalc.skilltips.witchdoctor = {
     b: "<p>Corpses also fall from the sky, dealing <span class=\"d3-color-green\">420%</span> weapon damage as Physical over <span class=\"d3-color-green\">3</span> seconds to nearby enemies.</p> <p class=\"subtle\">Unlocked at level <em>53</em>.</p>",
     c: "<p>Removes the Mana cost and increases the amount enemies are Slowed to <span class=\"d3-color-green\">80%</span>.</p><p>Damage type is changed to Cold.</p> <p class=\"subtle\">Unlocked at level <em>7</em>.</p>",
     d: "<p>Reduce the cooldown of Grasp of the Dead to <span class=\"d3-color-green\">4</span> seconds.</p><p>Damage type is changed to Poison.</p> <p class=\"subtle\">Unlocked at level <em>28</em>.</p>",
-    e: "<p>Enemies who die while in the area of Grasp of the Dead have a <span class=\"d3-color-green\">10%</span> chance to drop a health globe or summon a Zombie Dog.</p><p>Damage type is changed to Poison.</p> <p class=\"subtle\">Unlocked at level <em>25</em>.</p>",
+    e: "<p>Enemies who die while in the area of Grasp of the Dead have a <span class=\"d3-color-green\">70%</span> chance to summon a Zombie Dog.</p><p>Damage type is changed to Poison.</p> <p class=\"subtle\">Unlocked at level <em>25</em>.</p>",
     elements: {
       a: "phy",
       b: "phy",

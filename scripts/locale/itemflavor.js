@@ -201,6 +201,42 @@ _L.patch.add({
     P3_Unique_WizardHat_003: {
       flavor: "Bestows upon the wearer both formidable power and an unsurpassed statement of fashion.",
     },
+    P41_Unique_Belt_007: {
+      flavor: "\"Unbearable creatures of the night plagued the Bakuli Jungle region. They were dangerous and not easily seen. It was a wonder that we all survived.\" -Account of Tapeks, Krum, Astraelly, Tanooki, Franklin, Kuan, and Tiget, the last known group of adventurers to pass through alive.",
+    },
+    P41_Unique_Boots_01: {
+      flavor: "The Horadrim Nilfur was so accurate in her spellcasting that she could call meteors to land at her feet.",
+    },
+    P41_Unique_CombatStaff_2H_005: {
+      flavor: "\"When one's mind floats along the unseen trails that pulse through the world, one’s movements become effortless.\" —Dvorak, Sage of the Many",
+    },
+    P41_Unique_Dagger_102_x1: {
+      flavor: "Legend has it that on hot days, Lord Greenstone enjoyed cooling himself with the wind of hurled knives.",
+    },
+    P41_Unique_Fist_007: {
+      flavor: "The very sight of this weapon is enough to settle disputes that would otherwise lead to war.",
+    },
+    P41_Unique_Fist_008: {
+      flavor: "Indestructible, pure and clear. So the body follows the mind.",
+    },
+    P41_Unique_Gloves_002: {
+      flavor: "These gauntlets drain the warmth from anything they touch.",
+    },
+    P41_Unique_Gloves_014: {
+      flavor: "You hold the power of true magic within your hands.",
+    },
+    P41_Unique_Pants_001: {
+      flavor: "Specially crafted to withstand the rigors of the swamp lands.",
+    },
+    P41_Unique_Quiver_001: {
+      flavor: "The demon hunter Augustine liked to use the right projectile for every occasion. She was thrilled to discover this quiver in an ancient barrow.",
+    },
+    P41_Unique_Ring_02: {
+      flavor: "Unscrupulous merchants have often duplicated this much sought-after ring to sell to the unwary.",
+    },
+    P41_Unique_Xbow_102: {
+      flavor: "Because of the consummate skill required to construct them, Wojahnni heavy crossbows are reserved for the officer class. As the Assaulter's effectiveness is essential to the nation's military superiority, they are seldom found intact outside of Wojahn since there is a simple peg inserted in the weapon that, when pulled, causes it to fall to pieces.",
+    },
     P4_Unique_Axe_1H_102: {
       flavor: "\"When I move to the unformed land, you may throw my skull at the unwise, and I will return long enough to invigorate you.\" -Mordullu's promise to his heirs.",
     },
@@ -281,6 +317,9 @@ _L.patch.add({
     },
     P4_Unique_Flail_2H_001: {
       flavor: "\"The best armor in the world is of little use without a good weapon.\" -Akkhan",
+    },
+    P4_Unique_Flail_2H_002: {
+      flavor: "The Ascended turned his gaze from his people, but left behind his flail, that we may remember him. In the fullness of time, he shall return. -the Inquisitor",
     },
     P4_Unique_Flail_2H_Set_01_x1: {
       flavor: "\"Give me a flail and a horse, and I will save the zakarum faith.\" -Norvald the Crusader",

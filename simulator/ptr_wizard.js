@@ -955,7 +955,7 @@
       if (rune === "e" || Sim.stats.set_vyr_2pc) {
         Sim.damage({delay: 1, type: "area", range: 15, coeff: 36.8, elem: this.default_elem[rune]});
       }
-      Sim.addBuff("archon", {shift: "archon", dmgmul: 300, armor_percent: 150, resist_percent: 150}, {
+      Sim.addBuff("archon", {shift: "archon", dmgmul: 30, armor_percent: 150, resist_percent: 150}, {
         duration: 1200,
         onexpire: archon_onexpire,
       });

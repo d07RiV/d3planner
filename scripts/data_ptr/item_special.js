@@ -1098,7 +1098,7 @@ DiabloCalc.itemaffixes = {
     },
   },
   leg_thetwistedsword: {
-    params: [{min: 0, max: 5, val: 0, name: "Stacks"}],
+    params: [{min: 0, max: 8, val: 0, name: "Stacks"}],
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["energytwister"], percent: this.params[0].val * value[0]}};
     },
