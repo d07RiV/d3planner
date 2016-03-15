@@ -13,14 +13,16 @@ In order to test an existing profile from the main website, open `http://www.d3p
 
 * [Main page - http://www.d3planner.com](http://www.d3planner.com)
 * [PTR page - http://ptr.d3planner.com](http://ptr.d3planner.com)
-* [Chinese version - http://db.178.com/d3/s/](http://db.178.com/d3/s/)
+* [Official Chinese version - http://db.178.com/d3/s/](http://db.178.com/d3/s/)
 
-* [Old issue tracker](http://www.d3planner.com/mantisbt/view_all_bug_page.php)
-* [Translations homepage](http://www.d3planner.com/translate/)
+* [Old issue tracker (read-only)](http://www.d3planner.com/mantisbt/view_all_bug_page.php)
+* [Translation status & information](http://www.d3planner.com/translate/)
 
 # Unofficial Game Resources
 
 **Skills**
+
+These pages list skills from the same data that is used in the planner:
 
 * Barbarian: [Live](http://www.d3planner.com/skills/barbarian), [PTR](http://ptr.d3planner.com/skills/barbarian)
 * Demon Hunter: [Live](http://www.d3planner.com/skills/demonhunter), [PTR](http://ptr.d3planner.com/skills/demonhunter)
@@ -30,7 +32,11 @@ In order to test an existing profile from the main website, open `http://www.d3p
 * Crusader: [Live](http://www.d3planner.com/skills/crusader), [PTR](http://ptr.d3planner.com/skills/crusader)
 
 **Data**  
-*Note that Live can sometimes refer to previous PTR builds instead of the actual live game.*
+
+This information is datamined from the game files, and is often updated for current or upcoming PTR builds.
+*Note that 'Live' information can sometimes refer to previous PTR builds for comparison, instead of the actual Live game version.*
+*Current Live version: 2.4.1.35989*
+*Current PTR version: 2.4.1.36239*
 
 * Items: [Live](http://www.d3planner.com/game/items), [PTR](http://ptr.d3planner.com/game/items), [Changes](http://www.d3planner.com/diff/items)
 * Item sets: [Live](http://www.d3planner.com/game/itemsets), [PTR](http://ptr.d3planner.com/game/itemsets), [Changes](http://www.d3planner.com/diff/itemsets)
