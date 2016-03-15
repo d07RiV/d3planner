@@ -33,9 +33,9 @@ These pages list skills from the same data that is used in the planner:
 
 **Data**  
 
-This information is datamined from the game files, and is often updated for current or upcoming PTR builds.
-*Note that 'Live' information can sometimes refer to previous PTR builds for comparison, instead of the actual Live game version.*
-*Current Live version: 2.4.1.35989*
+This information is datamined from the game files, and is often updated for current or upcoming PTR builds.  
+*Note that 'Live' information can sometimes refer to previous PTR builds for comparison, instead of the actual Live game version.*  
+*Current Live version: 2.4.1.35989*  
 *Current PTR version: 2.4.1.36239*
 
 * Items: [Live](http://www.d3planner.com/game/items), [PTR](http://ptr.d3planner.com/game/items), [Changes](http://www.d3planner.com/diff/items)
