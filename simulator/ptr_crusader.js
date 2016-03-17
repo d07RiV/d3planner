@@ -813,8 +813,9 @@
       case "a": buffs.extrams = 50; break;
       case "b": buffs.life = 10; break;
       case "c":
-        params.tickrate = 30;
-        params.ontick = lawsofhope_hopefulcry_ontick;
+        buffs.physdef = 25;
+        //params.tickrate = 30;
+        //params.ontick = lawsofhope_hopefulcry_ontick;
         break;
       case "d": buffs.lifewrath = 1073; break;
       case "e": buffs.nonphys = 25; break;
@@ -900,9 +901,9 @@
       return 90 * (Sim.stats.set_akkhan_4pc ? 0.5 : 1);
     },
     oncast: function(rune) {
-      var buffs = {damage: 35, wrathregen: 5};
+      var buffs = {dmgmul: 35, wrathregen: 5};
       if (Sim.stats.set_akkhan_2pc) buffs.rcr = 50;
-      if (Sim.stats.set_akkhan_6pc) buffs.dmgmul = 450;
+      if (Sim.stats.set_akkhan_6pc) buffs.dmgmul = {list: [35, 450]};
       if (rune === "b" || Sim.stats.leg_akkhansaddendum) buffs.wrathregen = 10;
       if (rune === "c") {
         for (var id in skills) {

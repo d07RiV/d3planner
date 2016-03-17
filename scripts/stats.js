@@ -553,6 +553,7 @@
       this.info.resavg = (this.resphy + this.resfir + this.rescol + this.reslit + this.respsn + this.resarc) / 6;
       this.info.defavg = 1 - 0.01 * ((this.meleedef || 0) + (this.rangedef || 0)) * 0.333333;
       var nonphys = (this.nonphys || 0) * 0.01;
+      this.info.defavg *= 1 - 0.01 * (this.physdef || 0) * 0.16663;
       this.info.defavg *= 1 - (1 - (1 - nonphys) * (1 - 0.01 * (this.colddef || 0))) * 0.16663;
       this.info.defavg *= 1 - nonphys * 0.16663;
       this.info.defavg *= 1 - nonphys * 0.16663;

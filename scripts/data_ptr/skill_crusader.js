@@ -629,6 +629,7 @@ DiabloCalc.skills.crusader = {
     buffs: {
       a: {extrams: 50},
       b: {life: 10},
+      c: {physdef: 25},
       d: {lifewrath: 1073},
       e: {nonphys: 25},
     },
@@ -687,12 +688,12 @@ DiabloCalc.skills.crusader = {
     },
     active: false,
     buffs: function(rune, stats) {
-      var res = {damage: 35, wrathregen: 5};
+      var res = {dmgmul: 35, wrathregen: 5};
       if (rune === "b" || stats.leg_akkhansaddendum) res.wrathregen = 10;
       if (rune === "d" || stats.leg_akkhansaddendum) res.armor_percent = 150;
       if (rune === "e") res.ias = 15;
       if (stats.set_akkhan_2pc) res.rcr = 50;
-      if (stats.set_akkhan_6pc) res.dmgmul = 450;
+      if (stats.set_akkhan_6pc) res.dmgmul = {list: [35, 450]};
       return res;
     },
   },
