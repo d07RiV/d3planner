@@ -327,6 +327,7 @@
         if (icon[idxClass + idxGender] !== undefined) return base + icon[idxClass + idxGender];
         if (icon[idxClass] !== undefined) return base + icon[idxClass];
         if (icon[idxGender] !== undefined) return base + icon[idxGender];
+        return base + icon[0];
       }
     }
     return "";

@@ -304,7 +304,7 @@
   var ImportDiv = $("<div></div>");
   Sections.append(ImportDiv);
 
-  ImportDiv.append("<p>" + _L("Imported data does not contain Paragon point distribution.") + "</p>");
+  ImportDiv.append("<p>" + _L("BNImportNotice") + "</p>");
   //ImportDiv.append("<p><b>" + _L("The US and CN battle.net APIs are having issues, see these topics: " +
   //  "<a href=\"http://us.battle.net/en/forum/topic/19022402648\">US</a>, " +
   //  "<a href=\"http://us.battle.net/en/forum/topic/19288408739\">CN</a>.") + "</b></p>");
