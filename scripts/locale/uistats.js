@@ -1,5 +1,8 @@
 // this is the only file that is required for the english version to work
 _L.add({
+  "ui-import.js": {
+    BNImportNotice: "The battle.net import is missing some information that needs to be corrected manually after import:\n<ul><li>Paragon point distribution</li>\n<li>Caldesann's Despair enchants</li>\n<li>Ancient offhand damage rolls</li></ul>",
+  },
   uiStats: [
     {
       name: "Attributes",
