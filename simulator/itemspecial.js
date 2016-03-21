@@ -49,7 +49,7 @@
       if (Sim.stats.leg_votoyiasspiker && Sim.getBuff("provoke")) {
         coeff *= 2;
       }
-      Sim.damage({thorns: "normal", coeff: coeff, count: targets});
+      Sim.damage({thorns: "normal", coeff: coeff, count: targets, elem: "phy"});
     });
     Sim.popCastInfo();
   });
@@ -526,7 +526,7 @@
         if (Sim.stats.leg_votoyiasspiker && Sim.getBuff("provoke")) {
           coeff *= 2;
         }
-        Sim.damage({thorns: "normal", coeff: coeff, count: targets});
+        Sim.damage({thorns: "normal", coeff: coeff, count: targets, elem: "phy"});
       }
     });
   };

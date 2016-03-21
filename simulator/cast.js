@@ -430,7 +430,10 @@
       castInfo.speed = this.getProp(skill, "speed", rune, aps);
       if (!castInfo.speed) castInfo.speed = aps;
       castInfo.pause = this.getProp(skill, "pause", rune);
+      // experimental!
+      this.pushCastInfo(castInfo);
       var buffs = Sim.trigger("oncast", castInfo);
+      this.popCastInfo();
       for (var i = 0; i < buffs.length; ++i) {
         if (buffs[i]) {
           castInfo.buffs.push(buffs[i]);

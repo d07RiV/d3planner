@@ -90,14 +90,14 @@
     if (MaxHealth) {
       Sim.targetHealth = (MaxHealth - TotalDamage) / MaxHealth;
     }
-    var castId = (data.castInfo && data.castInfo.castId);
+    var castId = data.castId || (data.castInfo && data.castInfo.castId);
     if (castId && CastCounters[castId]) {
       /*var source = (data.skill || data.triggered || "unknown");
       if (data.pet || (data.castInfo && data.castInfo.pet)) {
         source = (data.triggered || data.skill || "unknown");
       }*/
       var evt = CastCounters[castId];
-      if (data.triggered && data.triggered !== evt[1]) {
+      if ((data.triggered && data.triggered !== evt[1]) || !data.castInfo || data.castInfo.castId !== castId) {
         evt[4][source] = (evt[4][source] || 0) + amount;
       } else {
         evt[3] += amount;

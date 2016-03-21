@@ -115,6 +115,7 @@
       distance: data.distance,
       dmgmul: dmgmul,
       hits: (data.count || 1),
+      castId: data.castId,
     };
   };
   Sim.dealDamage = function(event) {
@@ -347,6 +348,7 @@
     if (data.castInfo && data.elem === undefined) {
       data.elem = data.castInfo.elem;
     }
+    data.castId = this.getCastId();
 
     data.weapon = (data.castInfo && data.castInfo.weapon || this.curweapon);
 
