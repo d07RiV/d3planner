@@ -670,10 +670,12 @@
     charges: function(rune) {
       return (rune === "e" ? 3 : undefined);
     },
-    oncast: function(rune) {
+    generate: function(rune) {
       if (Sim.stats.passives.earthenmight) {
-        Sim.addResource(30);
+        return 30;
       }
+    },
+    oncast: function(rune) {
       Sim.addBuff(undefined, undefined, {
         duration: (rune === "c" ? 300 : 180),
         tickrate: (rune === "c" ? 12 : (rune === "b" ? 60 : 18)),
@@ -827,10 +829,12 @@
     cooldown: function(rune) {
       return (rune === "d" ? 30 : 60) - (Sim.stats.passives.boonofbulkathos ? 15 : 0);
     },
-    oncast: function(rune) {
+    generate: function(rune) {
       if (Sim.stats.passives.earthenmight) {
-        Sim.addResource(30);
+        return 30;
       }
+    },
+    oncast: function(rune) {
       var params = {
         duration: 480,
         tickrate: 24,
