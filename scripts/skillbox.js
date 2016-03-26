@@ -258,7 +258,7 @@
     if (tmp) bonuses["Buffs"] = tmp;
     // debuffs
     var tmp = stats.getTotalSpecial("dmgtaken", elem, fmt.pet, skillid, fmt.exclude);
-    if (tmp && (fmt.thorns !== "normal" && fmt.thorns !== "bad")) {
+    if (tmp && (fmt.thorns !== "normal" && fmt.thorns !== "bad" && fmt.thorns !== "special")) {
       bonuses["Debuffs"] = tmp;
     }
     if (!$.isEmptyObject(bonuses)) {
@@ -268,14 +268,14 @@
       });
     }
 
-    if (tmp && (fmt.thorns === "normal" || fmt.thorns === "bad")) {
+    if (tmp && (fmt.thorns === "normal" || fmt.thorns === "bad" || fmt.thorns === "special")) {
       factors.push({
         name: DC.stats.dmgtaken.name,
         percent: tmp,
       });
     }
 
-    if ((fmt.thorns === "normal" || fmt.thorns === "bad") && stats.thorns_taken) {
+    if ((fmt.thorns === "normal" || fmt.thorns === "bad" || fmt.thorns === "special") && stats.thorns_taken) {
       factors.push({
         name: DC.itemById.Unique_Shield_104_x1.name,
         percent: stats.thorns_taken,
@@ -283,7 +283,7 @@
     }
 
     // elemental/pet damage
-    if ((elem && stats["dmg" + elem]) || (fmt.pet && stats.petdamage)) {
+    if (((elem && stats["dmg" + elem]) || (fmt.pet && stats.petdamage)) && fmt.thorns !== "special") {
       var bonuses = {};
       if (elem && stats["dmg" + elem]) {
         bonuses[DC.elements[elem]] = stats["dmg" + elem];

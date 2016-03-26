@@ -60,7 +60,7 @@
     //if (data.thorns === "normal") elem = "phy";
     if (!orphan) dibs += stats.getSpecial("damage", elem, ispet, data.skill, data.exclude);
     var dmgtaken = stats.getSpecial("dmgtaken", elem, ispet, data.skill, data.exclude);
-    if (data.thorns === "normal" || data.thorns === "bad") {
+    if (data.thorns === "normal" || data.thorns === "bad" || data.thorns === "special") {
       factor *= 1 + 0.01 * dmgtaken;
       factor *= 1 + 0.01 * (stats.thorns_taken || 0);
     } else {
@@ -69,7 +69,7 @@
 
     factor *= 1 + 0.01 * dibs;
 
-    var elemental = (elem && stats["dmg" + elem] || 0);
+    var elemental = (data.thorns !== "special" && elem && stats["dmg" + elem] || 0);
     if (ispet) elemental += (stats.petdamage || 0);
     factor *= 1 + 0.01 * elemental;
 
