@@ -793,7 +793,7 @@ DiabloCalc.addItems([
     type: "quiver",
     quality: "legendary",
     required: {
-      custom: {id: "leg_augustinespanacea", name: "Elemental Arrow Bonuses", format: "Elemental Arrow gains an effect based on the rune:\r\n   Ball Lightning now travels at 30%% speed.\r\n   Frost Arrow damage and Chilled duration increased by %d%%.\r\n   Immolation Arrow ground damage over time increased by %d%%.\r\n   Lightning Bolts damage and Stun duration increased by %d%%.\r\n   Nether Tentacles damage and healing amount increased by %d%%.", min: 200, max: 250},
+      custom: {id: "leg_augustinespanacea", name: "Elemental Arrow Bonuses", format: "Elemental Arrow gains an effect based on the rune:\r\n   Ball Lightning now travels at 30%% speed.\r\n   Frost Arrow damage and Chilled duration increased by %{0}d%%.\r\n   Immolation Arrow ground damage over time increased by %{0}d%%.\r\n   Lightning Bolts damage and Stun duration increased by %{0}d%%.\r\n   Nether Tentacles damage and healing amount increased by %{0}d%%.", min: 200, max: 250},
     },
     preset: ["mainstat", "chc"],
   },

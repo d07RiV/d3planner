@@ -480,7 +480,7 @@
       var hasSpan = (format.indexOf("%d-%d") >= 0);
       if (spans) {
         format = format.replace(/%d-%d/g, "%d&#x2013;%d");
-        format = format.replace(/\+?(?:%d|%\.[0-9]f)(?:%%)?/g,
+        format = format.replace(/\+?(?:%(?:\{[0-9]+\})?(?:d|\.[0-9]f))(?:%%)?/g,
           spans > 1 ? "<span class=\"d3-color-blue\"><span class=\"value\">$&</span></span>" : "<span class=\"value\">$&</span>");
         format = format.replace(/[0-9]+(?:\.[0-9]+)?(?:-[0-9]+)?%%/g, "<span class=\"value\">$&</span>");
         format = format.replace(/\n\*|\r\n/g, "<br/><span class=\"tooltip-icon-bullet\"/>");
@@ -499,17 +499,22 @@
           return "0";
         }
       }
-      format = format.replace(/%(d|p|\.[0-9]f|%)/g, function(m, arg) {
+      format = format.replace(/%(?:\{([0-9]+)\})?(d|p|\.[0-9]f|%)/g, function(m, idx, arg) {
         if (arg == "%") {
           return "%";
-        } else if (arg == "d") {
-          return (index >= values.length ? "0" : fmtValue(values[index++], 0));
-        } else if (arg == "p") {
-          if (index >= values.length) return "unknown";
-          var passive = DiabloCalc.allPassives[values[index++]];
-          return (passive ? passive.name : "unknown");
         } else {
-          return (index >= values.length ? "0" : fmtValue(values[index++], arg[1]));
+          if (!idx) idx = index++;
+          else idx = parseInt(idx);
+          var val = (idx >= values.length ? 0 : values[idx]);
+
+          if (arg === "d") {
+            return fmtValue(val, 0);
+          } else if (arg === "p") {
+            var passive = DiabloCalc.allPassives[val];
+            return (passive && passive.name || "unknown");
+          } else {
+            return fmtValue(val, arg[1]);
+          }
         }
       }).replace(/([0-9])-([0-9])/g, "$1&#x2013;$2");
       if (spans) {

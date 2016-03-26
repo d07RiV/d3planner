@@ -314,7 +314,7 @@ DiabloCalc.skills.demonhunter = {
       }
       if (stats.leg_augustinespanacea) {
         var pct = {};
-        pct[DiabloCalc.itemById[P41_Unique_Quiver_001].name] = stats.leg_augustinespanacea;
+        pct[DiabloCalc.itemById.P41_Unique_Quiver_001.name] = stats.leg_augustinespanacea;
         if (rune === "a") res["Damage"].percent = pct;
         if (rune === "c") res["Explosion Damage"].percent = pct;
         if (rune === "e") res["Damage"].percent = pct;
