@@ -6,6 +6,7 @@ GetDocs(array(
   "scripts/bnet-tooltips.js",
   "scripts/stats.js",
   "scripts/itembox.js",
+  "scripts/skilldata.js",
   "scripts/skillbox.js",
   "scripts/account.js",
   "scripts/ui-paperdoll.js",

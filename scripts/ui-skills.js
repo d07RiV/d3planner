@@ -362,7 +362,7 @@
     for (var id in stats.gems) {
       var gem = DiabloCalc.legendaryGems[id];
       if (!gem.line) {
-        gem.line = new DiabloCalc.SkillBox("gem", {gem: id, parent: gemSection});
+        gem.line = new DiabloCalc.SkillBox.gem(gemSection, id);
       }
       gem.line.update();
     }
@@ -399,7 +399,7 @@
       var affix = DiabloCalc.itemaffixes[id];
       if (!affix) continue;
       if (!affix.line && isAffixShown(id)) {
-        affix.line = new DiabloCalc.SkillBox("affix", {affix: id, parent: itemSection});
+        affix.line = new DiabloCalc.SkillBox.affix(itemSection, id);
       }
       if (affix.line) {
         hasAffixes = true;
@@ -451,7 +451,7 @@
     }
 
     for (var i = 0; i < 6; ++i) {
-      skills.push(new DiabloCalc.SkillBox("skill", {index: i, level: [1, 2, 4, 9, 14, 19][i], parent: skillSection}));
+      skills.push(new DiabloCalc.SkillBox.skill(skillSection, i));
       skills[i].header.click((function(line) {return function(evt) {
         skillPopup.show(line, evt);
       };})(skills[i])).contextmenu((function(line) {return function() {
@@ -464,7 +464,7 @@
     skillSection.append("<h3 class=\"skill-category\">" + _L("Passives") + "</h3>");
 
     for (var i = 0; i < 4; ++i) {
-      passives.push(new DiabloCalc.SkillBox("passive", {index: i, level: [10, 20, 30, 70][i], parent: skillSection}));
+      passives.push(new DiabloCalc.SkillBox.passive(skillSection, i));
       passives[i].header.click((function(line) {return function(evt) {
         passivePopup.show(line, evt);
       };})(passives[i])).contextmenu((function(line) {return function() {
@@ -476,7 +476,7 @@
 
     var extraSection = $("<div><h3 class=\"skill-category\" style=\"margin-top: 10px\">" + _L("Granted by Hellfire Amulet") + "</h3></div>").hide();
     skillSection.append(extraSection);
-    extraPassive = new DiabloCalc.SkillBox("passive", {index: -1, parent: extraSection, readonly: true});
+    extraPassive = new DiabloCalc.SkillBox.passive(extraSection, -1);
     extraPassive.section = extraSection;
 
     gemSection = $("<div><h3 class=\"skill-category\">" + _L("Legendary Gems") + "</h3></div>").hide();
@@ -490,9 +490,9 @@
     kanaiSection.append("<h3 class=\"skill-category\">" + _L("Kanai's Cube") + "</h3>");
 
     kanai = {
-      weapon: new DiabloCalc.SkillBox("kanai", {kanai: "weapon", parent: kanaiSection}),
-      armor: new DiabloCalc.SkillBox("kanai", {kanai: "armor", parent: kanaiSection}),
-      jewelry: new DiabloCalc.SkillBox("kanai", {kanai: "jewelry", parent: kanaiSection}),
+      weapon: new DiabloCalc.SkillBox.kanai(kanaiSection, "weapon"),
+      armor: new DiabloCalc.SkillBox.kanai(kanaiSection, "armor"),
+      jewelry: new DiabloCalc.SkillBox.kanai(kanaiSection, "jewelry"),
     };
 
     skillPopup.setClass(charClass);
@@ -774,7 +774,7 @@
             prevCat = info.category;
             tab.tab.append("<h3>" + prevCat + "</h3>");
           }
-          info.skillbox = new DiabloCalc.SkillBox("buff", {buff: info, parent: tab.tab});
+          info.skillbox = new DiabloCalc.SkillBox.buff(tab.tab, info);
         }
         info.skillbox.updateBoxes();
       });
@@ -835,7 +835,7 @@
     $.each(DiabloCalc.partybuffs[tab.index].items, function(id, info) {
       if (!info.classes || info.classes.indexOf(cls) >= 0) {
         if (!info.skillbox) {
-          info.skillbox = new DiabloCalc.SkillBox("buff", {buff: info, parent: tab.tab});
+          info.skillbox = new DiabloCalc.SkillBox.buff(tab.tab, info);
         } else {
           tab.tab.append(info.skillbox.line);
         }
@@ -845,7 +845,7 @@
     if (cls) {
       $.each(DiabloCalc.partybuffs[tab.index][cls], function(id, info) {
         if (!info.skillbox) {
-          info.skillbox = new DiabloCalc.SkillBox("buff", {buff: info, parent: tab.tab});
+          info.skillbox = new DiabloCalc.SkillBox.buff(tab.tab, info);
         } else {
           tab.tab.append(info.skillbox.line);
         }
