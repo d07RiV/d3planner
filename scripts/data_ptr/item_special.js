@@ -384,7 +384,7 @@ DiabloCalc.itemaffixes = {
     info: function(value, stats) {
       if (!DiabloCalc.skills || !DiabloCalc.skills.monk) return;
       var stacks = DiabloCalc.skills.monk.sweepingwind.params[0].val;
-      return {elem: "max", coeff: 10 * stacks};
+      return {"Damage": {elem: "max", coeff: 10 * stacks}};
     },
   },
   set_sunwuko_6pc: {
