@@ -758,6 +758,17 @@
   kanaiSection = $("<div style=\"margin: 0 47px\"></div>");
   DiabloCalc.stashHeader.before(kanaiSection);
 
+  $(".editframe").on("tabsactivate", function(event, ui) {
+    var id = ui.newPanel.attr("id");
+    if (id == "tab-skills") {
+      skillSection.after(kanaiSection);
+      kanaiSection.css("margin", "0");
+    } else if (id == "tab-equipment") {
+      DiabloCalc.stashHeader.before(kanaiSection);
+      kanaiSection.css("margin", "0 47px");
+    }
+  });
+
   tab.append("<h3 class=\"skill-category\" style=\"margin-bottom: 5px\">" + _L("Group Buffs") + "</h3>");
   tab.append("<p class=\"change-note\"><i>" + _L("The calculator does not check for correct buff stacking.") + "</i></p>");
   var buffSection = $("<div class=\"buff-tabs ui-helper-clearfix\"></div>");
