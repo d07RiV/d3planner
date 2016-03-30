@@ -392,6 +392,7 @@ DiabloCalc.simMapping = {
     crystalfist: {name: "Crystal Fist", category: "Items", stat: "leg_crystalfist"},
     haloofkarini: {name: "Halo of Karini", category: "Items", stat: "leg_haloofkarini"},
     flailoftheascended: {name: "Flail of the Ascended", category: "Items", stat: "leg_flailoftheascended"},
+    ingeom: {name: "In-geom", category: "Items", stat: "leg_ingeom"},
   },
   nyi: {
     "Unique_Ring_006_p2": true,

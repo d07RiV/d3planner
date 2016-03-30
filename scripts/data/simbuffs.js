@@ -387,6 +387,7 @@ DiabloCalc.simMapping = {
     wallofman: {name: "Wall of Man", category: "Items", stat: "leg_wallofman"},
     theburningaxeofsankis: {name: "The Burning Axe of Sankis", category: "Items", stat: "leg_theburningaxeofsankis"},
     bloodbrother: {name: "Blood Brother", category: "Items", stat: "leg_bloodbrother"},
+    ingeom: {name: "In-geom", category: "Items", stat: "leg_ingeom"},
   },
   nyi: {
     "Unique_Ring_006_p2": true,

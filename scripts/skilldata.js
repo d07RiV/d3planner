@@ -421,6 +421,7 @@
         if (skill) {
           cooldown -= (stats["skill_" + DC.charClass + "_" + skill + "_cooldown"] || 0);
         }
+        cooldown -= (stats.cdrint || 0);
         if (fmt.cdr) {
           cooldown *= 1 - 0.01 * execString(fmt.cdr);
         }
@@ -461,6 +462,7 @@
         if (skill) {
           cooldown -= (stats["skill_" + DC.charClass + "_" + skill + "_cooldown"] || 0);
         }
+        cooldown -= (stats.cdrint || 0);
         if (fmt.cdr) {
           cooldown *= 1 - 0.01 * execString(fmt.cdr);
         }

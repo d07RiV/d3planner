@@ -1128,5 +1128,11 @@ DiabloCalc.itemaffixes = {
       return {dmgmul: {skills: ["spectralblade"], percent: value[0]}};
     },
   },
+  leg_ingeom: {
+    active: false,
+    buffs: function(value, stats) {
+      return {cdrint: value[0]};
+    },
+  },
 
 };

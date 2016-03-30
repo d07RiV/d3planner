@@ -247,7 +247,7 @@
   };
   affixes.leg_ingeom = function(amount) {
     if (Sim.params.leg_ingeom && Sim.params.leg_ingeom[0]) {
-      Sim.addBaseStats({cdrint: amount});
+      Sim.addBuff("ingeom", {cdrint: amount});
     }
   };
   affixes.leg_eunjangdo = function(amount) {
