@@ -26,6 +26,9 @@ DiabloCalc.statLimits = {
     sockets1: {min: 1, max: 1},
     sockets2: {min: 1, max: 2},
     sockets3: {min: 1, max: 3},
+    sockets4: {min: 1, max: 4},
+    sockets5: {min: 1, max: 5},
+    sockets6: {min: 1, max: 6},
     pickupNormal: {min: 1, max: 2},
     regenSmall: {min: 2753, max: 4642},
     regenLarge: {min: 3824, max: 6447},
@@ -128,6 +131,9 @@ DiabloCalc.statLimits = {
     sockets1: {min: 1, max: 1},
     sockets2: {min: 1, max: 2},
     sockets3: {min: 1, max: 3},
+    sockets4: {min: 1, max: 4},
+    sockets5: {min: 1, max: 5},
+    sockets6: {min: 1, max: 6},
     pickupNormal: {min: 1, max: 2},
     regenSmall: {min: 4643, max: 5528}, //!
     regenLarge: {min: 6448, max: 7678}, //!

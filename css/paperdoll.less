@@ -114,6 +114,66 @@
 
   div, img, span {position: absolute;}
 
+  // d2 stuff
+  .slot-torso .sockets-align, .slot-mainhand .sockets-align, .slot-offhand .sockets-align {
+    position: absolute !important;
+    display: block !important;
+    left: 50%; top: 50%;
+    width: 0 !important;
+    height: 0 !important;
+    .socket {
+      position: absolute !important;
+      display: block !important;
+    }
+    // 1
+    .socket:nth-of-type(1):nth-last-of-type(1) {left: -16px; top: -16px;}
+    // 2
+    .socket:nth-of-type(1):nth-last-of-type(2) {left: -16px; top: -36px;}
+    .socket:nth-of-type(2):nth-last-of-type(1) {left: -16px; top: 4px;}
+    // 3
+    .socket:nth-of-type(1):nth-last-of-type(3) {left: -16px; top: -56px;}
+    .socket:nth-of-type(2):nth-last-of-type(2) {left: -16px; top: -16px;}
+    .socket:nth-of-type(3):nth-last-of-type(1) {left: -16px; top: 24px;}
+    // 4
+    .socket:nth-of-type(1):nth-last-of-type(4) {left: -36px; top: -36px;}
+    .socket:nth-of-type(2):nth-last-of-type(3) {left: 4px; top: 4px;}
+    .socket:nth-of-type(3):nth-last-of-type(2) {left: -36px; top: 4px;}
+    .socket:nth-of-type(4):nth-last-of-type(1) {left: 4px; top: -36px;}
+    // 5
+    .socket:nth-of-type(1):nth-last-of-type(5) {left: -16px; top: -16px;}
+    .socket:nth-of-type(2):nth-last-of-type(4) {left: -36px; top: -56px;}
+    .socket:nth-of-type(3):nth-last-of-type(3) {left: 4px; top: 24px;}
+    .socket:nth-of-type(4):nth-last-of-type(2) {left: -36px; top: 24px;}
+    .socket:nth-of-type(5):nth-last-of-type(1) {left: 4px; top: -56px;}
+    // 6
+    .socket:nth-of-type(1):nth-last-of-type(6) {left: -36px; top: -56px;}
+    .socket:nth-of-type(2):nth-last-of-type(5) {left: -36px; top: -16px;}
+    .socket:nth-of-type(3):nth-last-of-type(4) {left: -36px; top: 24px;}
+    .socket:nth-of-type(4):nth-last-of-type(3) {left: 4px; top: -56px;}
+    .socket:nth-of-type(5):nth-last-of-type(2) {left: 4px; top: -16px;}
+    .socket:nth-of-type(6):nth-last-of-type(1) {left: 4px; top: 24px;}
+  }
+  .slot-head .sockets-align {
+    position: absolute !important;
+    display: block !important;
+    left: 50%; top: 50%;
+    width: 0 !important;
+    height: 0 !important;
+    .socket {
+      position: absolute !important;
+      display: block !important;
+    }
+    // 1
+    .socket:nth-of-type(1):nth-last-of-type(1) {left: -16px; top: -16px;}
+    // 2
+    .socket:nth-of-type(1):nth-last-of-type(2) {left: -16px; top: -36px;}
+    .socket:nth-of-type(2):nth-last-of-type(1) {left: -16px; top: 4px;}
+    // 3
+    .socket:nth-of-type(1):nth-last-of-type(3) {left: -36px; top: -36px;}
+    .socket:nth-of-type(2):nth-last-of-type(2) {left: 4px; top: -36px;}
+    .socket:nth-of-type(3):nth-last-of-type(1) {left: -16px; top: 4px;}
+  }
+
   div {
     border: 1px solid black;
     background: no-repeat 50% 100%;
@@ -269,12 +329,14 @@
 
   .slot-mainhand {
     left: 27px; top: 297px; width: 64px; height: 128px;
+    overflow: visible; // d2!
     & > img {left: 0px; top: 0px;}
     .sockets-align {width: 66px; height: 130px;}
   }
 
   .slot-offhand {
     left: 243px; top: 297px; width: 64px; height: 128px;
+    overflow: visible; // d2!
     & > img {left: 0px; top: 0px;}
     .sockets-align {width: 66px; height: 130px;}
     &.disabled-offhand {

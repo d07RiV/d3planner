@@ -836,7 +836,7 @@ DiabloCalc.passives.barbarian = {
     id: "animosity",
     name: "Animosity",
     index: 7,
-    buffs: {maxfury: 20, resourcegen: 20},
+    buffs: {maxfury: 20, resourcegen: 10},
   },
   superstition: {
     id: "superstition",

@@ -676,6 +676,12 @@
       }
     },
     oncast: function(rune) {
+      var ci = Sim.getCastInfo();
+      if (!ci || ci.skill !== "avalanche" || !ci.generate) {
+        Sim.pushCastInfo({triggered: "earthenmight"});
+        Sim.addResource(30);
+        Sim.popCastInfo();
+      }
       Sim.addBuff(undefined, undefined, {
         duration: (rune === "c" ? 300 : 180),
         tickrate: (rune === "c" ? 12 : (rune === "b" ? 60 : 18)),
@@ -835,6 +841,12 @@
       }
     },
     oncast: function(rune) {
+      var ci = Sim.getCastInfo();
+      if (!ci || ci.skill !== "earthquake" || !ci.generate) {
+        Sim.pushCastInfo({triggered: "earthenmight"});
+        Sim.addResource(30);
+        Sim.popCastInfo();
+      }
       var params = {
         duration: 480,
         tickrate: 24,

@@ -674,9 +674,17 @@
     charges: function(rune) {
       return (rune === "e" ? 3 : undefined);
     },
-    oncast: function(rune) {
+    generate: function(rune) {
       if (Sim.stats.passives.earthenmight) {
+        return 30;
+      }
+    },
+    oncast: function(rune) {
+      var ci = Sim.getCastInfo();
+      if (!ci || ci.skill !== "avalanche" || !ci.generate) {
+        Sim.pushCastInfo({triggered: "earthenmight"});
         Sim.addResource(30);
+        Sim.popCastInfo();
       }
       Sim.addBuff(undefined, undefined, {
         duration: (rune === "c" ? 300 : 180),
@@ -831,9 +839,17 @@
     cooldown: function(rune) {
       return (rune === "d" ? 30 : 60) - (Sim.stats.passives.boonofbulkathos ? 15 : 0);
     },
-    oncast: function(rune) {
+    generate: function(rune) {
       if (Sim.stats.passives.earthenmight) {
+        return 30;
+      }
+    },
+    oncast: function(rune) {
+      var ci = Sim.getCastInfo();
+      if (!ci || ci.skill !== "earthquake" || !ci.generate) {
+        Sim.pushCastInfo({triggered: "earthenmight"});
         Sim.addResource(30);
+        Sim.popCastInfo();
       }
       var params = {
         duration: 480,

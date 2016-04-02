@@ -1162,7 +1162,9 @@ $.ajaxTransport("+binary", function(options, originalOptions, jqXHR){
   function onUpdateSlot(slot) {
     if (DC.d3gl.character) {
       var data = DC.getSlot(slot);
-      DC.d3gl.character.equip(slot, data && (data.transmog || data.id), data && data.dye);
+      var id = data && (data.transmog || (data.rwbase && (data.rwbase.transmog || data.rwbase.id)) || data.id);
+      var dye = data && ((data.rwbase && data.rwbase.dye) || data.dye);
+      DC.d3gl.character.equip(slot, id, dye);
     }
   }
 

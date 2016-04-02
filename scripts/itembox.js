@@ -23,7 +23,7 @@
       DC.tooltip.hide();
     });
   }
-  function setValueRange(input, min, max, step, force) {
+  function setValueRange(input, min, max, step, force, sox) {
     if (min !== undefined) {
       input.attr("min", min);
       if (force === "min") {
@@ -35,11 +35,12 @@
     if (max !== undefined) {
       input.attr("max", max);
       if (force && force !== "min") {
-        input.val(max);
+        input.val(sox || max); // d2!
       }
     } else {
       input.removeAttr("max");
     }
+    input.prop("disabled", min === max);
     input.attr("step", step || 1);
   }
   function smartListStats(src, affixes, charClass) {
@@ -109,10 +110,71 @@
       sock.level.hide();
       sock.colorSpan.show();
       return sock.color;
+    } else if (DC.runes && DC.runes[type]) {
+      sock.level.hide();
+      sock.colorSpan.hide();
+      return "rune";
     } else {
       sock.level.hide();
       sock.colorSpan.hide();
     }
+  }
+
+  function getRuneword(data) {
+    if (!DC.itemById[data.id]) return;
+    var type = DC.itemById[data.id].type;
+    if (!data.stats.sockets) return;
+    var sox = data.stats.sockets[0];
+    if (!data.gems || data.gems.length != sox) return;
+    var word = "";
+    for (var i = 0; i < sox; ++i) {
+      if (!DC.runes || !DC.runes[data.gems[i][0]]) return;
+      word += data.gems[i][0];
+    }
+    if (!DC.rwlist || !DC.rwlist[word]) return;
+    for (var i = 0; i < DC.rwlist[word].length; ++i) {
+      if (DC.rwlist[word][i].type === type) {
+        return DC.rwlist[word][i];
+      }
+    }
+  }
+
+  function checkRuneword(slot) {
+    var data = DC.getSlot(slot);
+    if (!data || !DC.itemById[data.id]) return;
+    var item = DC.itemById[data.id];
+    var rw = getRuneword(data);
+    if (rw && data.id !== rw.id) {
+      if (data.rwbase) data = data.rwbase;
+      var stats = {
+        sockets: data.stats.sockets
+      };
+      for (var id in rw.required) {
+        stats[id] = [];
+        var r = rw.required[id];
+        function _rng(a, b) {return Math.round(a + (b - a) * Math.random());}
+        if (DC.stats[id] && DC.stats[id].args >= 1) stats[id].push(_rng(r.min || 0, r.max || 0));
+        if (DC.stats[id] && DC.stats[id].args >= 2) stats[id].push(_rng(r.min2 || 0, r.max2 || 0));
+      }
+      setTimeout(function() {
+        DC.setSlot(slot, {
+          id: rw.id,
+          ancient: false,
+          rwbase: data,
+          gems: data.gems,
+          stats: stats,
+        });
+      }, 0);
+    } else if (!rw && data.rwbase) {
+      data.rwbase.stats.sockets = data.stats.sockets;
+      data.rwbase.gems = data.gems;
+      setTimeout(function() {
+        DC.setSlot(slot, data.rwbase);
+      }, 0);
+    }
+  }
+  if (DC.runes) {
+    DC.register("updateSlotItem", checkRuneword);
   }
 
   function getLimits(id, ancient) {
@@ -567,7 +629,7 @@
       }
       var count = parseInt(this.value.val());
       count = Math.max(count, 1);
-      count = Math.min(count, 3);
+      count = Math.min(count, 6); // d2!
       while (this.sockets.length > count) {
         this.sockets.pop().line.remove();
       }
@@ -589,18 +651,34 @@
               ++leggems;
             }
           }
-          if (leggems) {
-            var optgroup = "<optgroup label=\"" + _L("Legendary Gems") + "\">";
-            for (var id in DC.legendaryGems) {
-              if (DC.legendaryGems[id].types && DC.legendaryGems[id].types.indexOf(slotType) >= 0) {
-                optgroup += "<option class=\"quality-legendary\" value=\"" + id + "\">" + DC.legendaryGems[id].name + "</option>";
+          var runes = false;
+          if (DiabloCalc.runes && ["head", "torso", "onehand", "offhand", "twohand"].indexOf(slotType) >= 0) {
+            runes = true;
+          }
+          if (leggems || runes) {
+            var optgroup = "";
+            if (leggems) {
+              optgroup += "<optgroup label=\"" + _L("Legendary Gems") + "\">";
+              for (var id in DC.legendaryGems) {
+                if (DC.legendaryGems[id].types && DC.legendaryGems[id].types.indexOf(slotType) >= 0) {
+                  optgroup += "<option class=\"quality-legendary\" value=\"" + id + "\">" + DC.legendaryGems[id].name + "</option>";
+                }
               }
+              optgroup += "</optgroup>";
             }
-            optgroup += "</optgroup><optgroup label=\"" + _L("Normal Gems") + "\">";
+            if (runes) {
+              optgroup += "<optgroup label=\"" + _L("Runes") + "\">";
+              for (var id in DC.runes) {
+                optgroup += "<option class=\"quality-legendary\" value=\"" + id + "\">" + DC.runes[id].name + "</option>";
+              }
+              optgroup += "</optgroup>";
+            }
+            optgroup += "<optgroup label=\"" + _L("Normal Gems") + "\">";
             for (var i = DC.gemQualities.length - 1; i >= 0; --i) {
               optgroup += "<option value=\"" + i + "\">" + DC.gemQualities[i] + "</option>";
             }
-            sock.type.append(optgroup + "</optgroup>");
+            optgroup += "</optgroup>";
+            sock.type.append(optgroup);
           } else {
             for (var i = DC.gemQualities.length - 1; i >= 0; --i) {
               sock.type.append("<option value=\"" + i + "\">" + DC.gemQualities[i] + "</option>");
@@ -629,12 +707,19 @@
             if (DC.tooltip && DC.legendaryGems[id]) {
               DC.tooltip.showGem(this, id);
             }
+            if (DC.tooltip && DC.runes && DC.runes[id]) {
+              DC.tooltip.showGem(this, id);
+            }
           });
           chosen_addIcons(sock.type, function(id) {
             if (isNaN(id)) {
               var gem = DC.legendaryGems[id];
               if (gem && (gem.id in DC.itemIcons)) {
                 return "<span style=\"background: url(css/items/gemleg.png) 0 -" + (24 * DC.itemIcons[gem.id][0]) + "px no-repeat\"></span>";
+              }
+              var rune = (DC.runes && DC.runes[id]);
+              if (rune) {
+                return "<span style=\"background: url(css/items/runes.png) 0 -" + (24 * rune.index) + "px no-repeat\"></span>";
               }
             } else {
               id = parseInt(id);
@@ -742,11 +827,21 @@
 
     if (args >= 1) {
       this.value.show();
+      // d2!
+      var sox;
+      if (stat === "sockets") {
+        sox = (limits && limits.max || 1);
+        if (this.box.slot === "torso") {
+          sox = Math.min(sox, 3);
+        } else {
+          sox = Math.min(sox, 1);
+        }
+      }
       setValueRange(this.value,
         limits ? limits.min : undefined,
         limits ? limits.max : undefined,
         limits ? limits.step : 1,
-        statDiff && !nosetvalue && (limits.best || "max"));
+        statDiff && !nosetvalue && (limits.best || "max"), sox);
       this.value.blur();
     } else {
       this.value.hide();
@@ -1556,13 +1651,14 @@
       this.onChangeType();
       return false;
     }
+    this.rwbase = data.rwbase;
     var item = DC.itemById[data.id];
     this.type.val(item.type);
     if (this.type.val() !== item.type) {
       return false;
     }
     this.type.trigger("chosen:updated");
-    this.onChangeType();
+    this.onChangeType(data.id);
     this.item.val(data.id);
     if (this.item.val() !== data.id) {
       return false;
@@ -1581,6 +1677,12 @@
     var required = this.getItemAffixes("only");
     if (required.basearmor && !data.stats.basearmor) {
       data.stats.basearmor = [required.basearmor.max];
+    }
+    if (required.baseblock && !data.stats.baseblock) {
+      data.stats.baseblock = [required.baseblock.max];
+    }
+    if (required.blockamount && !data.stats.blockamount) {
+      data.stats.blockamount = [required.blockamount.max, required.blockamount.max2];
     }
     this.nonRecursive = true;
     var empty = (data.empty || 0);
@@ -1652,6 +1754,9 @@
       id: id,
       stats: {},
     };
+    if (item.runeword) {
+      data.rwbase = this.rwbase;
+    }
     if (DC.qualities[item.quality].ancient) {
       data.ancient = this.ancient.prop("checked");
     }
@@ -1685,7 +1790,7 @@
             } else if (DC.gemQualities[gem[0]]) {
               gem[0] = parseInt(gem[0]);
               gem[1] = socket.color.val();
-            } else {
+            } else if (!DC.runes || !DC.runes[gem[0]]) {
               gem = null;
             }
             if (gem) {
@@ -1845,6 +1950,7 @@
 
   DC.ItemBox.prototype.addItemToList = function(item, selected) {
     if (this.charClass && item.classes && item.classes.indexOf(this.charClass) < 0) return;
+    if (item.runeword && !selected) return;
     if (!selected) {
       if (DC.options.hideLegacy && item.suffix === _L("Legacy")) return;
       if (DC.options.hideCrossClass && this.charClass && DC.itemPowerClasses) {
@@ -1864,9 +1970,9 @@
       "\">" + item.name + (item.suffix ? " (" + item.suffix + ")" : "") + "</option>";
     this.item.append(option);
   };
-  DC.ItemBox.prototype.populateItems = function() {
+  DC.ItemBox.prototype.populateItems = function(id) {
     var type = this.type.val();
-    var itemid = this.item.val();
+    var itemid = (id || this.item.val());
     this.item.empty();
     this.item.append("<option value=\"\">" + (DC.noChosen ? _L("Empty Slot") : "") + "</option>");
     if (type && DC.itemTypes[type]) {
@@ -1901,9 +2007,9 @@
       }
     }
   };
-  DC.ItemBox.prototype.refreshItems = function() {
+  DC.ItemBox.prototype.refreshItems = function(id) {
     //if (DC.noChosen) {
-    this.populateItems();
+    this.populateItems(id);
     /*} else {
       var itemid = this.item.val();
       this.item.empty();
@@ -1915,7 +2021,7 @@
     }*/
   };
 
-  DC.ItemBox.prototype.onChangeType = function() {
+  DC.ItemBox.prototype.onChangeType = function(id) {
     var type = this.type.val();
     if (DC.itemTypes[type]) {
       this.itemSpan.show();
@@ -1926,7 +2032,7 @@
       this.statsDiv.hide();
       this.add.hide();
     }
-    this.refreshItems();
+    this.refreshItems(id);
 
     this.item.trigger("chosen:updated");
     this.onChangeItem();

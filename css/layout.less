@@ -1108,3 +1108,49 @@
     text-decoration: underline;
   }
 }
+
+.item-info-stat-value[disabled] {
+  .theme-light & {
+    color: #888;
+  }
+  .theme-dark & {
+    background: #121212;
+  }
+}
+.d2tip {
+  background: rgba(0, 0, 0, 0.85) !important;
+  font: normal 14px "Exocet Blizzard", "Palatino Linotype", "Times", serif !important;
+  text-align: center;
+  padding: 2px 2px;
+  border: none !important;
+  min-width: 400px;
+  max-width: none !important;
+  color: #FFFFFF;
+  div {
+    white-space: nowrap;
+  }
+
+  ul {
+    list-style-type: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .tooltip-icon-bullet {display: none;}
+
+  .d3-color-gold {color: #C7B377 !important;}
+  .d3-color-red {color: #FF4D4D !important;}
+  .d3-color-green {color: #00FF00 !important;}
+
+  .d3-tooltip-wrapper-inner {
+    background: none !important;
+  }
+
+  .d2-white {color: #FFFFFF;}
+  .d2-orange {color: #C7B377;}
+  .d2-blue {color: #6969FF;}
+  .d2-red {color: #FF4D4D;}
+  .d2-green {color: #00FF00;}
+  .d2-yellow {color: #FFFF64;}
+  .d2-crafted {color: #FFA800;}
+  .d2-gray {color: #696969;}
+}

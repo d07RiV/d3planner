@@ -7,6 +7,7 @@
         return DiabloCalc.getItemIcon(DiabloCalc.itemTypes[type].generic);
       }
     }
+    if (data.rwbase) return DiabloCalc.getItemIcon(data.transmog || data.rwbase.id);
     return DiabloCalc.getItemIcon(data.id);
   }
   var skills = [];
@@ -94,14 +95,17 @@
     if (slotData.dollSockets) {
       slotData.dollSockets.empty();
       var sockets = (data.stats.sockets && data.stats.sockets[0]) || 0;
+      var gems = data.gems;
       for (var i = 0; i < sockets; ++i) {
         var socket = $("<span></span>").addClass("socket");
-        if (data.gems && i < data.gems.length) {
+        if (gems && i < gems.length) {
           var path;
-          if (DiabloCalc.legendaryGems[data.gems[i][0]]) {
-            path = DiabloCalc.getItemIcon(data.gems[i][0], "small");
-          } else if (DiabloCalc.gemQualities[data.gems[i][0]]) {
-            path = DiabloCalc.getItemIcon(data.gems[i], "small");
+          if (DiabloCalc.legendaryGems[gems[i][0]]) {
+            path = DiabloCalc.getItemIcon(gems[i][0], "small");
+          } else if (DiabloCalc.runes && DiabloCalc.runes[gems[i][0]]) {
+            path = DiabloCalc.getItemIcon(gems[i][0], "small");
+          } else if (DiabloCalc.gemQualities[gems[i][0]]) {
+            path = DiabloCalc.getItemIcon(gems[i], "small");
           }
           if (path) {
             socket.append($("<img></img>").attr("src", path));

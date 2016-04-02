@@ -39,6 +39,33 @@
   DiabloCalc.addTip(limitStats, _L("Only list stats useful to your class."));
   DiabloCalc.addTip(hideLegacy, _L("Do not list legacy items."));
 
+  if (DiabloCalc.runes) {
+    var cowLevel = $("<input></input>").attr("type", "checkbox").prop("checked", true);
+    DiabloCalc.addOption("cowLevel", function() {return cowLevel.prop("checked");}, function(x) {
+      cowLevel.prop("checked", x);
+    });
+    var chatGem = $("<input></input>").attr("type", "checkbox").prop("checked", false).change(function() {
+      if ($(this).prop("checked")) {
+        if (Math.random() < 0.01) {
+          console.log("Perfect Gem Activated.");
+        } else if (Math.random() < 0.01) {
+          console.log("Moooo.");
+        } else {
+          console.log("Gem Activated.");
+        }
+      } else {
+        console.log("Gem Deactivated.");
+      }
+    });
+    DiabloCalc.addOption("chatGem", function() {return chatGem.prop("checked");}, function(x) {
+      chatGem.prop("checked", x);
+    });
+    tab.append($("<label class=\"option-box\"></label>").append(cowLevel).append(_L("There is no cow level")));
+    tab.append($("<label class=\"option-box\"></label>").append(chatGem).append(_L("Chat gem activated")));
+    DiabloCalc.addTip(cowLevel, _L("Or is there?"));
+    DiabloCalc.addTip(chatGem, _L("The chat gem is working as intended."));
+  }
+
   //tab.append("<p class=\"change-note\">This is an experimental replacement for the old equipment editor. It should also be significantly faster when loading or switching between profiles. " +
   //  "If you prefer the old editor, please leave feedback in the <a href=\"/mantisbt/bug_report_page.php\">issue tracker</a>.</p>");
 
@@ -338,7 +365,11 @@
       this.item = data;
       this.box.addClass("quality-" + item.quality);
       this.icon.removeClass().addClass("stash-icon").addClass("slot-" + itemSlot);
-      this.icon.css("background-image", "url(" + DiabloCalc.getItemIcon(icon) + ")").show();
+      if (data.rwbase) {
+        this.icon.css("background-image", "url(" + DiabloCalc.getItemIcon(data.transmog || data.rwbase.id) + ")").show();
+      } else {
+        this.icon.css("background-image", "url(" + DiabloCalc.getItemIcon(icon) + ")").show();
+      }
       this.icon.toggleClass("ancient", !!data.ancient);
 
       if (DiabloCalc.tooltip && DiabloCalc.tooltip.getNode() == this.box[0]) {
@@ -758,7 +789,9 @@
   }
 
   var saveTip = $("<span class=\"status\"></span>").hide();
-  var header = $("<div class=\"stash-header\">" + _L("Drag items between paperdoll and stash.<br/>Hold shift to clone items.") + "</div>");
+  var header = $("<div class=\"stash-header\"><i>" +
+    _L("The stash is a place to store items you created; it is not connected to your in-game stash.") +
+    "</i><br/>" + _L("Drag items between paperdoll and stash.<br/>Hold shift to clone items.") + "</div>");
   DiabloCalc.stashHeader = header;
   tab.append(header.prepend(saveTip));
   header.append(DiabloCalc.account.makeLine(_L(" to access your personal stash"), function(okay) {
