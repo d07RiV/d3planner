@@ -309,17 +309,14 @@
   }
 
   DiabloCalc.getItemIcon = function(id, size) {
-    var base = location.protocol + "//" + location.hostname + DiabloCalc.relPath + "webgl/icons/";
     if (typeof id !== "string") {
       id = DiabloCalc.gemColors[id[1]].id + i2s2(id[0] + 1);
     }
     if (DiabloCalc.legendaryGems[id]) {
       id = DiabloCalc.legendaryGems[id].id;
     }
-    if (DiabloCalc.runes && DiabloCalc.runes[id]) {
-      return base + DiabloCalc.runes[id].icon;
-    }
     var icon = DiabloCalc.itemIcons[id];
+    var base = location.protocol + "//" + location.hostname + DiabloCalc.relPath + "webgl/icons/";
     if (icon && icon[1]) {
       if (typeof icon[1] === "number") {
         return base + icon[1];
@@ -668,52 +665,6 @@
     return new RegExp("^" + format + "$", "i");
   }
   function onDataLoaded() {
-    var _date = new Date();
-    DiabloCalc.d2 = true;//(_date.getUTCMonth() == 3 && _date.getUTCDate() == 1);
-    if (DiabloCalc.d2) {
-      DiabloCalc.itemSlots.head.affixes.sockets = "sockets3";
-      DiabloCalc.itemSlots.torso.affixes.sockets = "sockets6";
-      DiabloCalc.metaSlots.onehand.affixes.sockets = "sockets6";
-      DiabloCalc.metaSlots.twohand.affixes.sockets = "sockets6";
-      DiabloCalc.itemTypes.dagger.affixes.sockets = "sockets3";
-      DiabloCalc.itemTypes.ceremonialknife.affixes.sockets = "sockets3";
-      DiabloCalc.itemTypes.fistweapon.affixes.sockets = "sockets3";
-      DiabloCalc.itemTypes.wand.affixes.sockets = "sockets3";
-      DiabloCalc.itemTypes.handcrossbow.affixes.sockets = "sockets3";
-      DiabloCalc.itemTypes.shield.affixes.sockets = "sockets4";
-      DiabloCalc.itemTypes.crusadershield.affixes.sockets = "sockets4";
-      DiabloCalc.itemTypes.mojo.affixes.sockets = "sockets4";
-
-      DiabloCalc.rwlist = {};
-      for (var id in DiabloCalc.d2stats) {
-        DiabloCalc.stats[id] = DiabloCalc.d2stats[id];
-      }
-      for (var id in DiabloCalc.runewords) {
-        var rw = DiabloCalc.runewords[id];
-        rw.primary += 1;
-        for (var i = 0; i < rw.types.length; ++i) {
-          var it = $.extend({
-            id: id + rw.types[i],
-            type: rw.types[i],
-            quality: "legendary",
-            runeword: rw.runes.join(""),
-          }, rw);
-          delete it.types;
-          //delete it.runes;
-          DiabloCalc.rwlist[it.runeword] = (DiabloCalc.rwlist[it.runeword] || []);
-          DiabloCalc.rwlist[it.runeword].push(it);
-          DiabloCalc.items.push(it);
-        }
-      }
-      for (var i = 0; i < DiabloCalc.d2items.length; ++i) {
-        DiabloCalc.items.push(DiabloCalc.d2items[i]);
-      }
-    } else {
-      delete DiabloCalc.runes;
-      delete DiabloCalc.runewords;
-      delete DiabloCalc.d2stats;
-      delete DiabloCalc.d2prio;
-    }
     DiabloCalc.itemById = {};
     for (var i = 0; i < DiabloCalc.items.length; ++i) {
       DiabloCalc.itemById[DiabloCalc.items[i].id] = DiabloCalc.items[i];
@@ -794,11 +745,6 @@
     for (var stat in DiabloCalc.stats) {
       if (DiabloCalc.stats[stat].skill) {
         DiabloCalc.stats[stat].prio = DiabloCalc.stats.skill_wizard_teleport_cooldown.prio - 5;
-      }
-    }
-    if (DiabloCalc.d2stats && DiabloCalc.d2prio) {
-      for (var i = 0; i < DiabloCalc.d2prio.length; ++i) {
-        DiabloCalc.stats[DiabloCalc.d2prio[i]].prio = ++statId;
       }
     }
     for (var i = 0; i < DiabloCalc.statExclusiveGroups.length; ++i) {
