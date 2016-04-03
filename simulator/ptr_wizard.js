@@ -902,6 +902,7 @@
       case "a": dmg.delay = 6; dmg.coeff = 9.09; break;
       case "b": dmg.range = 18; dmg.coeff = 9.9; break;
       case "e":
+        dmg.coeff = 5.2;
         var delay = Math.floor(60 / Sim.stats.info.aps);
         Sim.damage(Sim.extend({}, dmg, {delay: 90 + delay}));
         Sim.damage(Sim.extend({}, dmg, {delay: 90 + 2 * delay}));
