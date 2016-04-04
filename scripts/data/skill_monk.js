@@ -707,7 +707,7 @@ DiabloCalc.skills.monk = {
       a: "Agility",
     },
     info: {
-      "*": {"Cost": {cost: 50}},
+      "*": {"Cost": {cost: 50, rcr: "passives.chantofresonance?50:0"}},
     },
     active: false,
     buffs: {
@@ -745,7 +745,7 @@ DiabloCalc.skills.monk = {
       e: "Collateral Damage",
     },
     info: {
-      "*": {"Cost": {cost: 50}},
+      "*": {"Cost": {cost: 50, rcr: "passives.chantofresonance?50:0"}},
       x: {"Damage": {elem: "hol", coeff: "1.01*(set_inna_2pc?2:1)"}, "Activated Damage": {elem: "hol", coeff: "1.01*(set_inna_2pc?2:1)*2"}},
       a: {"Damage": {elem: "fir", coeff: "1.01*(set_inna_2pc?2:1)+1.01"}, "Activated Damage": {elem: "fir", coeff: "1.01*(set_inna_2pc?2:1)*2+2.02"}},
       b: {"Damage": {elem: "hol", coeff: "1.01*(set_inna_2pc?2:1)"}, "Activated Damage": {elem: "hol", coeff: "1.01*(set_inna_2pc?2:1)*2"}},
@@ -772,7 +772,7 @@ DiabloCalc.skills.monk = {
       e: "Time of Need",
     },
     info: {
-      "*": {"Cost": {cost: 50}, "Shield": "@62064+healbonus*0.15"},
+      "*": {"Cost": {cost: 50, rcr: "passives.chantofresonance?50:0"}, "Shield": "@62064+healbonus*0.15"},
     },
     passive: function(rune, stats) {
       var regen = 10728.42;
@@ -803,7 +803,7 @@ DiabloCalc.skills.monk = {
       b: "Submission",
     },
     info: {
-      "*": {"Cost": {cost: 50}},
+      "*": {"Cost": {cost: 50, rcr: "passives.chantofresonance?50:0"}},
       b: {"DPS": {elem: "hol", weapon: "mainhand", coeff: 0.38, total: true}},
     },
     active: false,
