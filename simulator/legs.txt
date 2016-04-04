@@ -1,6 +1,5 @@
 Not for a while:
 leg_brokenpromises Unique_Ring_006_p2
-leg_bootsofdisregard ~
 leg_deathsbargain Unique_Pants_102_x1
 leg_theessofjohan Unique_Amulet_104_x1
 leg_sunder Unique_Mace_2H_006_x1

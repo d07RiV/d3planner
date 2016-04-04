@@ -1428,6 +1428,12 @@
       }
     });
   };
+  affixes.leg_bootsofdisregard = function(amount) {
+    Sim.after(60, function stack() {
+      Sim.addBuff("bootsofdisregard", {regen: 10000}, {maxstacks: 4});
+      Sim.after(60, stack);
+    });
+  };
 
 /*
   affixes.leg_thegrinreaper = function(amount) {

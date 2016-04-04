@@ -393,10 +393,10 @@ DiabloCalc.simMapping = {
     haloofkarini: {name: "Halo of Karini", category: "Items", stat: "leg_haloofkarini"},
     flailoftheascended: {name: "Flail of the Ascended", category: "Items", stat: "leg_flailoftheascended"},
     ingeom: {name: "In-geom", category: "Items", stat: "leg_ingeom"},
+    bootsofdisregard: {name: "Boots of Disregard", category: "Items", stats: "leg_bootsofdisregard"},
   },
   nyi: {
     "Unique_Ring_006_p2": true,
-    "Unique_Boots_102_x1": true,
     "Unique_Pants_102_x1": true,
     "Unique_Amulet_104_x1": true,
     "Unique_Mace_2H_006_x1": true,
