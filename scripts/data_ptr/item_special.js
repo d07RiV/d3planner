@@ -858,7 +858,7 @@ DiabloCalc.itemaffixes = {
       }
     }
   },
-  set_uliana_2pc: {
+  set_uliana_6pc: {
     buffs: {dmgmul: {skills: ["explodingpalm"], percent: 250}},
   },
 
