@@ -149,7 +149,7 @@ DiabloCalc.partybuffs.shrines = {
     icon: 11,
     desc: ["You move faster with an increased pickup radius.", "2 minutes left"],
     buffs: function(stats) {
-      return {regen: 6437};
+      return {extrams: 25, pickup: 25};
     },
   },
   shrine_fortune: {
