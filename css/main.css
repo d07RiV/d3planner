@@ -121,11 +121,12 @@ li a, .ui-state-focus {
 .footer:hover {
   opacity: 1;
 }
-.footer form {
+.footer .donate-button {
   display: inline-block;
   margin: -30px 0 0 8px;
   position: relative;
   top: 7px;
+  text-decoration: none;
 }
 
 .dollframe {

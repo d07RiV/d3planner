@@ -197,8 +197,12 @@
           });
           counter = Sim.target.count - 1;
         }
+        var fpa = (Sim.getCastInfo("channeling", "frames") || 60);
         var aps = (Sim.getCastInfo("speed") || 1);
-        next = Sim.time + Math.floor(54 / aps);
+        if (Sim.getCastInfo("skill") === "whirlwind") {
+          aps *= 3; // nice hacks
+        }
+        next = Sim.time + Math.ceil((fpa - 1) / fpa * 60 / aps);
       }
     });
     if (level >= 25) {

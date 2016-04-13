@@ -40,7 +40,7 @@
     } else {
       input.removeAttr("max");
     }
-    input.prop("disabled", min === max);
+    input.prop("disabled", min === max && min !== undefined);
     input.attr("step", step || 1);
   }
   function smartListStats(src, affixes, charClass) {

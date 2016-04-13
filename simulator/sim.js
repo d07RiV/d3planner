@@ -224,10 +224,13 @@
     }
     return castInfo;
   };
-  Sim.getCastInfo = function(field) {
+  Sim.getCastInfo = function() {
     for (var i = this.castInfoStack.length - 1; i >= 0; --i) {
-      if (this.castInfoStack[i] && this.castInfoStack[i][field]) {
-        return this.castInfoStack[i][field];
+      if (!this.castInfoStack[i]) continue;
+      for (var j = 0; j < arguments.length; ++j) {
+        if (arguments[j] in this.castInfoStack[i]) {
+          return this.castInfoStack[i][arguments[j]];
+        }
       }
     }
   };
