@@ -473,8 +473,10 @@
           params.onapply(stack.data);
         }
         if (params.tickrate) {
-          stack.events.tick = this.after(tickinitial || params.tickinitial || params.tickrate,
-            onBuffTick, {buff: buff, stack: stack});
+          if (tickinitial === undefined) {
+            tickinitial = (params.tickinitial === undefined ? params.tickrate : params.tickinitial);
+          }
+          stack.events.tick = this.after(tickinitial, onBuffTick, {buff: buff, stack: stack});
         }
         buff.stacklist[pos] = stack;
         pos = (pos + 1) % buff.params.maxstacks;
