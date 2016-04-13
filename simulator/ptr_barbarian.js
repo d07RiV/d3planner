@@ -480,6 +480,7 @@
   skills.sprint = {
     secondary: true,
     weapon: "mainhand",
+    frames: 40,
     cost: 20,
     oncast: function(rune) {
       var params = {duration: 180};
