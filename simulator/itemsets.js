@@ -11,7 +11,7 @@ asheara's: todo
     Sim.register("onhit", function(data) {
       if (data.castInfo && !data.castInfo.pet &&
           data.castInfo.user && !data.castInfo.user.bastionsofwill) {
-        if (data.castInfo.cost) {
+        if (data.castInfo.cost !== undefined) {
           data.castInfo.user.bastionsofwill = true;
           Sim.addBuff("restraint", {dmgmul: 50}, {duration: 300});
         } else if (data.castInfo.generate !== undefined) {
