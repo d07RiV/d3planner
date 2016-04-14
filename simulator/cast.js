@@ -413,6 +413,7 @@
     } else {
       castInfo.buffs = [];
       castInfo.user = {};
+      castInfo.globUser = {};
       castInfo.generate = this.getProp(skill, "generate", rune);
       if (!castInfo.generate && skill.signature) {
         castInfo.generate = 0;

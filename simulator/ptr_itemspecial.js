@@ -533,9 +533,9 @@
   };
   affixes.leg_hack = function(amount) {
     Sim.register("onhit_proc", function(data) {
-      if (data.castInfo && data.castInfo.user && !data.castInfo.user.hack) {
-        data.castInfo.user.hack = true;
-        var targets = data.targets;
+      if (data.castInfo && data.castInfo.globUser && !data.castInfo.globUser.hack) {
+        data.castInfo.globUser.hack = true;
+        var targets = 1;
         if (Sim.stats.set_invoker_2pc) {
           targets = Math.max(targets, Sim.getTargets(15, Sim.target.distance));
         }
