@@ -3875,6 +3875,12 @@ DiabloCalc.webglItems = {
     promo: true,
     type: "axe2h",
   },
+  TransmogAxe_241_003: {
+    actor: 449477,
+    name: "Kanai's Skorn",
+    promo: true,
+    type: "axe2h",
+  },
   TransmogAxe_241_004: {
     actor: 271600,
     name: "Sungjae's Fury",
@@ -8200,7 +8206,11 @@ DiabloCalc.webglActors = {
       "2": 0,
     },
   },
-  "139070": null,
+  "139070": {
+    enable: {
+      "2": 0,
+    },
+  },
   "139071": {
     enable: {
       "2": 0,
@@ -9303,7 +9313,12 @@ DiabloCalc.webglActors = {
       "2": 0,
     },
   },
-  "192887": null,
+  "192887": {
+    enable: {
+      "2": 0,
+      "3": 0,
+    },
+  },
   "193066": {
     enable: {
       "2": 0,
@@ -13650,7 +13665,11 @@ DiabloCalc.webglActors = {
       "2": 0,
     },
   },
-  "3449": null,
+  "3449": {
+    enable: {
+      "2": 0,
+    },
+  },
   "3450": {
     enable: {
       "2": 0,
@@ -17380,6 +17399,12 @@ DiabloCalc.webglActors = {
       "0": 0,
     },
     hair: 0,
+  },
+  "449477": {
+    enable: {
+      "2": 0,
+      "3": 0,
+    },
   },
   "449884": {
     enable: {

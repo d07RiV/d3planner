@@ -17262,4 +17262,8 @@ DiabloCalc.itemIcons = {
     62,
     3979523788,
   ],
+  TransmogAxe_241_003: [
+    2,
+    51607924,
+  ],
 };
