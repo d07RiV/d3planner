@@ -755,9 +755,9 @@ DiabloCalc.skills.wizard = {
     buffs: function(rune, stats) {
       var res = {dmgmul: {list: [30, 6 * this.params[0].val]}, armor_percent: 150, resist_percent: 150};
       if (stats.set_vyr_4pc) {
-        res.ias = this.params[0].val * 1.5;
-        res.armor_percent += this.params[0].val * 1.5;
-        res.resist_percent += this.params[0].val * 1.5;
+        res.ias = this.params[0].val * 1.0;
+        res.armor_percent += this.params[0].val * 1.0;
+        res.resist_percent += this.params[0].val * 1.0;
       }
       return res;
     },

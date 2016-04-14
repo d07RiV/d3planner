@@ -360,7 +360,7 @@ DiabloCalc.itemaffixes = {
     },
   },
   set_firebird_6pc: {
-    params: [{min: 0, max: 50, val: 0, inf: true, name: "Whites", buffs: false}],
+    params: [{min: 0, max: 60, val: 0, name: "Whites", buffs: false}],
     active: true,
     activetip: "Elites burning",
     buffs: function(value, stats) {
@@ -774,9 +774,9 @@ DiabloCalc.itemaffixes = {
         var stacks = this.params[0].val;
         var res = {damage: stacks * 6};
         if (stats.set_vyr_4pc) {
-          res.ias = stacks * 1.5;
-          res.armor_percent += stacks * 1.5;
-          res.resist_percent += stacks * 1.5;
+          res.ias = stacks * 1.0;
+          res.armor_percent += stacks * 1.0;
+          res.resist_percent += stacks * 1.0;
         }
         return res;
       }
@@ -943,7 +943,7 @@ DiabloCalc.itemaffixes = {
   },
 
   set_invoker_2pc: {
-    params: [{min: 0, max: 20, inf: true, val: 0, name: "Stacks"}],
+    params: [{min: 0, max: 25, val: 0, name: "Stacks"}],
     buffs: function(value, stats) {
       return {thorns_percent: this.params[0].val * 35};
     },

@@ -611,12 +611,12 @@ asheara's: todo
   affixes.set_invoker_2pc = function() {
     Sim.register("onhit_proc", function(data) {
       if (data.castInfo && (data.castInfo.skill === "punish" || data.castInfo.skill === "slash") && data.castInfo.user && !data.castInfo.user.invoker_2pc) {
-        Sim.addBuff("invoker_2pc", {thorns_percent: 25}, {maxstacks: 100, duration: 120, refresh: false});
+        Sim.addBuff("invoker_2pc", {thorns_percent: 25}, {maxstacks: 50, duration: 120, refresh: false});
         data.castInfo.user.invoker_2pc = true;
       }
     });
     Sim.register("onblock", function() {
-      Sim.addBuff("invoker_2pc", {thorns_percent: 25}, {maxstacks: 100, duration: 120, refresh: false});
+      Sim.addBuff("invoker_2pc", {thorns_percent: 25}, {maxstacks: 50, duration: 120, refresh: false});
     });
   };
   affixes.set_invoker_4pc = function() {

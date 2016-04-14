@@ -93,7 +93,7 @@ asheara's: todo
           var stacks = Math.round(data.targets);
           if (stacks) {
             var elites = (Sim.target.elite ? 1 : 0);
-            stacks -= elites;
+            stacks = Math.min(stacks - elites, 60);
             Sim.addBuff("firebird_6pc", {dmgmul: 40}, {stacks: stacks + elites * 50});
           }
         }
@@ -615,12 +615,12 @@ asheara's: todo
   affixes.set_invoker_2pc = function() {
     Sim.register("onhit_proc", function(data) {
       if (data.castInfo && (data.castInfo.skill === "punish" || data.castInfo.skill === "slash") && data.castInfo.user && !data.castInfo.user.invoker_2pc) {
-        Sim.addBuff("invoker_2pc", {thorns_percent: 35}, {maxstacks: 100, duration: 120, refresh: false});
+        Sim.addBuff("invoker_2pc", {thorns_percent: 35}, {maxstacks: 25, duration: 120, refresh: false});
         data.castInfo.user.invoker_2pc = true;
       }
     });
     Sim.register("onblock", function() {
-      Sim.addBuff("invoker_2pc", {thorns_percent: 35}, {maxstacks: 100, duration: 120, refresh: false});
+      Sim.addBuff("invoker_2pc", {thorns_percent: 35}, {maxstacks: 25, duration: 120, refresh: false});
     });
   };
   affixes.set_invoker_4pc = function() {

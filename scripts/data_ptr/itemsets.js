@@ -299,7 +299,7 @@ DiabloCalc.itemSets = {
         {format: "Archon gains the effect of every rune."},
       ],
       "4": [
-        {format: "Archon stacks also increase your Attack Speed, Armor, and Resistances by 1.5%%."},
+        {format: "Archon stacks also increase your Attack Speed, Armor, and Resistances by 1%%."},
       ],
       "6": [
         {format: "You also gain Archon stacks when you hit with an Archon ability."},

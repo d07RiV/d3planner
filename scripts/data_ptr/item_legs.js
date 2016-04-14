@@ -375,12 +375,18 @@ DiabloCalc.addItems([
     type: "pants",
     quality: "legendary",
     affixes: {
+      dmgphy: "elementalDamage",
+      dmgfir: "elementalDamage",
+      dmglit: "elementalDamage",
+      dmgcol: "elementalDamage",
       dmgpsn: "elementalDamage",
+      dmgarc: "elementalDamage",
+      dmghol: "elementalDamage",
     },
     required: {
       custom: {id: "leg_swamplandwaders", name: "Sacrifice Damage Bonus", format: "Sacrifice deals %d%% additional damage against enemies affected by Locust Swarm or Grasp of the Dead.", min: 300, max: 400},
     },
-    preset: ["mainstat", "dmgpsn", "sockets"],
+    preset: ["mainstat", "elemental", "sockets"],
     primary: 5,
   },
 

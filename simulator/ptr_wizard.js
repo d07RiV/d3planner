@@ -927,9 +927,9 @@
       var stacks = Sim.getBuff("archon_stacks");
       var buffs = {damage: 6};
       if (Sim.stats.set_vyr_4pc) {
-        buffs.ias = 1.5;
-        buffs.armor_percent = 1.5;
-        buffs.resist_percent = 1.5;
+        buffs.ias = 1.0;
+        buffs.armor_percent = 1.0;
+        buffs.resist_percent = 1.0;
       }
       Sim.removeBuff("theswami");
       Sim.addBuff("theswami", buffs, {stacks: stacks, duration: 60 * (Sim.stats.leg_theswami_p3 || Sim.stats.leg_theswami)});
@@ -946,9 +946,9 @@
       if (Sim.stats.leg_fazulasimprobablechain || Sim.stats.leg_fazulasimprobablechain_p2) {
         var buffs = {dmgmul: 6};
         if (Sim.stats.set_vyr_4pc) {
-          buffs.ias = 1.5;
-          buffs.armor_percent = 1.5;
-          buffs.resist_percent = 1.5;
+          buffs.ias = 1.0;
+          buffs.armor_percent = 1.0;
+          buffs.resist_percent = 1.0;
         }
         Sim.addBuff("archon_stacks", buffs, {maxstacks: 9999, stacks:
           Sim.stats.leg_fazulasimprobablechain || Sim.stats.leg_fazulasimprobablechain_p2});

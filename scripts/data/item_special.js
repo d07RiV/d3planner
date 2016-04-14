@@ -931,7 +931,7 @@ DiabloCalc.itemaffixes = {
   },
 
   set_invoker_2pc: {
-    params: [{min: 0, max: 20, inf: true, val: 0, name: "Stacks"}],
+    params: [{min: 0, max: 50, val: 0, name: "Stacks"}],
     buffs: function(value, stats) {
       return {thorns_percent: this.params[0].val * 25};
     },
