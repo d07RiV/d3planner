@@ -714,6 +714,16 @@
                   tip += " / " + fmtValue(data.divide, 0, "white");
                 }
               }
+              if (data.cd) {
+                data.cd = execString(data.cd);
+                if (data.cdr !== false) {
+                  data.cd -= (stats.cdrint || 0);
+                  data.cd *= (1 - 0.01 * (stats.cdr || 0));
+                }
+                data.cd = Math.max(0.5, data.cd);
+                tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Cooldown: {0} seconds").format(fmtValue(data.cd, 2, "white"));
+                mul /= data.cd;
+              }
               if (data.pet) {
                 var frames = undefined;
                 var aps = (data.speed ? execString(data.speed) * stats.info.mainhand.speed : (data.aps ? execString(data.aps) : 1));
@@ -771,7 +781,11 @@
                 if (sequence) {
                   totalTime += 1 / aps;
                 } else {
-                  mul *= aps;
+                  if (data.cd) {
+                    mul *= Math.min(1, data.cd * aps);
+                  } else {
+                    mul *= aps;
+                  }
                 }
               } else if (data.speed || data.aps || data.fpa) {
                 var aps = 1;
@@ -936,34 +950,29 @@
                         ticks = Math.ceil(data.total / frames);
                       }
                       tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Total ticks: {0} ({1} damage)").format(
-                        fmtValue(ticks, 1, "white"), "<span class=\"d3-color-green\">" + DC.formatNumber(theValue * mul * ticks, 0, 10000) + "</span>");
+                        fmtValue(ticks, 1, "white"), "<span class=\"d3-color-green\">" + DC.formatNumber(theValue * (mul * (data.cd || 1)) * ticks, 0, 10000) + "</span>");
                     }
                   }
                 }
                 if (sequence) {
                   totalTime += 1 / aps;
                 } else {
-                  mul *= aps;
+                  if (data.cd) {
+                    mul *= Math.min(1, data.cd * aps);
+                  } else {
+                    mul *= aps;
+                  }
                 }
               } else if (data.refspeed) {
                 if (speedCache[data.refspeed] === undefined) {
                   okay = false;
                 } else {
-                  mul /= speedCache[data.refspeed];
+                  if (data.cd) {
+                    mul *= Math.min(1, data.cd / speedCache[data.refspeed]);
+                  } else {
+                    mul /= speedCache[data.refspeed];
+                  }
                   tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Speed: {0}").format(fmtValue(1 / speedCache[data.refspeed], 2, "white"));
-                }
-              }
-              if (data.cd) {
-                data.cd = execString(data.cd);
-                if (data.cdr !== false) {
-                  //data.cd -= (stats.leg_ingeom || 0);
-                  data.cd *= (1 - 0.01 * (stats.cdr || 0));
-                }
-                if (data.cd < 0.01) {
-                  okay = false;
-                } else {
-                  tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Cooldown: {0} seconds").format(fmtValue(data.cd, 2, "white"));
-                  mul /= data.cd;
                 }
               }
               sum += theValue * mul;
