@@ -281,9 +281,9 @@ DiabloCalc.skills.witchdoctor = {
       var base = {pet: true, aps: true};
       var lphm = 1;
       if (stats.leg_thetallmansfinger) {
-        base.factors = {};
-        base.factors[DiabloCalc.itemById.Unique_Ring_101_x1.name] = 4 * count + 1;
-        lphm = 4 * count + 1;
+        base.percent = {};
+        base.percent[DiabloCalc.itemById.Unique_Ring_101_x1.name] = 800 * count;
+        lphm = 8 * count + 1;
         count = 1;
       }
       var res;

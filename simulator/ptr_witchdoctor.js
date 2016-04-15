@@ -369,7 +369,7 @@
       if (Sim.stats.passives.fierceloyalty) params.maxstacks += 1;
       if (Sim.stats.passives.midnightfeast) params.maxstacks += 1;
       if (Sim.stats.leg_thetallmansfinger) {
-        params.data.coeff *= 1 + 4 * params.maxstacks;
+        params.data.coeff *= 1 + 8 * params.maxstacks;
         params.maxstacks = 1;
       }
       switch (rune) {
