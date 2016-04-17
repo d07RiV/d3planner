@@ -1451,6 +1451,7 @@
   DC.ItemBox.prototype.onChangeItem = function() {
     delete this.enchant;
     delete this.imported;
+    this.div.removeClass("item-imported");
     var id = this.item.val();
 
     var item = DC.itemById[id];
