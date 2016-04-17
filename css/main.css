@@ -12,17 +12,17 @@ body.theme-dark {
   background-color: #000;
   color: #eee;
 }
-.theme-light a {
+.theme-light a, .theme-light .link-like {
   color: #44f;
 }
-.theme-dark a {
+.theme-dark a, .theme-dark .link-like {
   color: #88f;
 }
-a {
+a, .link-like {
   cursor: pointer;
   text-decoration: none;
 }
-a:hover {
+a:hover, .link-like {
   text-decoration: underline;
 }
 

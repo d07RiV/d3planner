@@ -43,6 +43,11 @@
     input.prop("disabled", min === max && min !== undefined);
     input.attr("step", step || 1);
   }
+  function inputDisabled(input) {
+    var min = parseFloat(input.attr("min"));
+    var max = parseFloat(input.attr("max"));
+    return (!isNaN(min) && !isNaN(max) && min === max);
+  }
   function smartListStats(src, affixes, charClass) {
     var list = DC.extendStats([], src);
     if (list.length == 0) {
@@ -318,7 +323,8 @@
     this.list = $("<select class=\"item-info-stat-list\"></select>");
     this.value = $("<input class=\"item-info-stat-value\" type=\"number\"></input>").hide();
     this.value2 = $("<input class=\"item-info-stat-value\" type=\"number\"></input>").hide();
-    this.inner.append($("<span style=\"position: absolute\"></span>").append(this.remove));
+    this.inner.append($("<span style=\"position: absolute\"></span>").append(this.remove,
+      "<span class=\"item-info-stat-enchanted\" title=\"" + _L("Enchanted") + "\"></span>"));
     this.inner.append(this.list, this.value, this.value2);
     this.line.append(this.inner);
     box.statsDiv.append(this.line);
@@ -387,6 +393,12 @@
     this.onChangeStat();
   }
 
+  StatLine.prototype.enable = function(flag) {
+    this.list.prop("disabled", !flag || !!this.required);
+    this.list.trigger("chosen:updated");
+    this.value.prop("disabled", !!inputDisabled(this.value) || !flag);
+    this.value2.prop("disabled", !!inputDisabled(this.value2) || !flag);
+  };
   // update stat list; only inserts the selected item to save time
   StatLine.prototype.updateList = function(current) {
     if (this.required) {
@@ -694,6 +706,7 @@
       delete this.socketList;
       delete this.sockets;
     }
+    this.box.updateEnchant();
   };
   // when stat changes or ancient checkbox is clicked
   StatLine.prototype.updateLimits = function(nosetvalue) {
@@ -872,7 +885,37 @@
     this.typeSpan = $("<span style=\"display: inline-block; vertical-align: top\"></span>");
     this.itemSpan = $("<span style=\"display: inline-block; vertical-align: top\"></span>");
     this.itemMod = $("<div class=\"item-mod chosen-noframe\"></div>");
+    this.importDiv = $("<div class=\"item-info-imported\">" + _L("Imported item ({0}, {1})").format(
+      "<span class=\"link-like item-imported-reset\">" + _L("reset") + "</span>",
+      "<span class=\"link-like item-imported-unlock\">" + _L("unlock") + "</span>") + "</div>");
     this.stats = [];
+
+    this.importReset = this.importDiv.find(".item-imported-reset");
+    this.importUnlock = this.importDiv.find(".item-imported-unlock");
+    this.importReset.click(function() {
+      var data = self.getData();
+      if (data.imported) {
+        data.enchant = data.imported.enchant;
+        data.stats = $.extend(true, {}, data.imported.stats);
+      }
+      self.setItem(data);
+    });
+    this.importReset.hover(function() {
+      var data = self.getData();
+      if (data.imported) {
+        data.enchant = data.imported.enchant;
+        data.stats = data.imported.stats;
+      }
+      DC.tooltip.showItem(this, data);
+    }, function() {
+      DC.tooltip.hide();
+    });
+    this.importUnlock.click(function() {
+      var data = self.getData();
+      delete data.imported;
+      delete data.enchant;
+      self.setItem(data);
+    });
 
     this.div = $("<div class=\"item-info\"></div>");
     if (this.slot) {
@@ -881,7 +924,7 @@
     this.div.append($("<div></div>").append(this.typeSpan.append(this.type)).append(this.itemSpan.append(this.item)));
     this.typeSpan.append(this.equipSet);
     this.itemSpan.append(this.ancientTip);
-    this.div.append(this.statsDiv);
+    this.div.append(this.importDiv, this.statsDiv);
 
     this.equipSet.click(function() {self.onEquipSet();});
     DC.register("updateSlotItem", function() {self.updateEquipSet();});
@@ -1152,7 +1195,42 @@
       --usedSecondary;
     }
     this.updateWarning();
+    this.updateEnchant();
     delete this.nonRecursive;
+  };
+  DC.ItemBox.prototype.updateEnchant = function() {
+    delete this.enchant;
+    if (this.imported) {
+      for (var i = 0; i < this.stats.length; ++i) {
+        var stat = this.stats[i].list.val();
+        if (stat === "custom") continue;
+        if (!(stat in this.imported.stats)) {
+          this.enchant = stat;
+          break;
+        }
+        if (this.imported.stats[stat].length >= 1) {
+          if (parseFloat(this.stats[i].value.val()) !== this.imported.stats[stat][0]) {
+            this.enchant = stat;
+            break;
+          }
+        }
+        if (this.imported.stats[stat].length >= 2) {
+          if (parseFloat(this.stats[i].value2.val()) !== this.imported.stats[stat][1]) {
+            this.enchant = stat;
+            break;
+          }
+        }
+      }
+      if (!this.enchant) {
+        this.enchant = this.imported.enchant;
+      }
+    }
+
+    for (var i = 0; i < this.stats.length; ++i) {
+      var stat = this.stats[i].list.val();
+      this.stats[i].line.toggleClass("stat-enchanted", stat === this.enchant);
+      this.stats[i].enable(stat === this.enchant || !this.enchant);
+    }
   };
   // update the warning icon
   DC.ItemBox.prototype.updateWarning = function() {
@@ -1372,6 +1450,7 @@
   // big function
   DC.ItemBox.prototype.onChangeItem = function() {
     delete this.enchant;
+    delete this.imported;
     var id = this.item.val();
 
     var item = DC.itemById[id];
@@ -1550,6 +1629,7 @@
   // set item data
   DC.ItemBox.prototype.setItem = function(data) {
     this.updateItem();
+    this.div.removeClass("item-imported");
     if (!data || !DC.itemById[data.id]) {
       this.type.val("");
       this.item.val("");
@@ -1563,7 +1643,7 @@
       return false;
     }
     this.type.trigger("chosen:updated");
-    this.onChangeType();
+    this.onChangeType(data.id);
     this.item.val(data.id);
     if (this.item.val() !== data.id) {
       return false;
@@ -1582,6 +1662,12 @@
     var required = this.getItemAffixes("only");
     if (required.basearmor && !data.stats.basearmor) {
       data.stats.basearmor = [required.basearmor.max];
+    }
+    if (required.baseblock && !data.stats.baseblock) {
+      data.stats.baseblock = [required.baseblock.max];
+    }
+    if (required.blockamount && !data.stats.blockamount) {
+      data.stats.blockamount = [required.blockamount.max, required.blockamount.max2];
     }
     this.nonRecursive = true;
     var empty = (data.empty || 0);
@@ -1624,10 +1710,16 @@
       }
     }
     delete this.nonRecursive;
+    this.enchant = data.enchant;
+    this.imported = data.imported;
+    if (this.imported) {
+      this.div.addClass("item-imported");
+    } else {
+      delete this.enchant;
+    }
     this.updateStatCounts();
     this.updateMods(data.transmog, data.dye);
     this.updateEquipSet();
-    this.enchant = data.enchant;
     return true;
   };
 
@@ -1699,6 +1791,7 @@
     if (this.enchant && data.stats[this.enchant]) {
       data.enchant = this.enchant;
     }
+    data.imported = this.imported;
     var mods = this.getMods();
     if (mods[0] && this.transmogs.val()) data.transmog = this.transmogs.val();
     if (mods[1] && this.dyes.val()) data.dye = this.dyes.val();
@@ -1865,9 +1958,9 @@
       "\">" + item.name + (item.suffix ? " (" + item.suffix + ")" : "") + "</option>";
     this.item.append(option);
   };
-  DC.ItemBox.prototype.populateItems = function() {
+  DC.ItemBox.prototype.populateItems = function(id) {
     var type = this.type.val();
-    var itemid = this.item.val();
+    var itemid = (id || this.item.val());
     this.item.empty();
     this.item.append("<option value=\"\">" + (DC.noChosen ? _L("Empty Slot") : "") + "</option>");
     if (type && DC.itemTypes[type]) {
@@ -1902,9 +1995,9 @@
       }
     }
   };
-  DC.ItemBox.prototype.refreshItems = function() {
+  DC.ItemBox.prototype.refreshItems = function(id) {
     //if (DC.noChosen) {
-    this.populateItems();
+    this.populateItems(id);
     /*} else {
       var itemid = this.item.val();
       this.item.empty();
@@ -1916,7 +2009,7 @@
     }*/
   };
 
-  DC.ItemBox.prototype.onChangeType = function() {
+  DC.ItemBox.prototype.onChangeType = function(id) {
     var type = this.type.val();
     if (DC.itemTypes[type]) {
       this.itemSpan.show();
@@ -1927,7 +2020,7 @@
       this.statsDiv.hide();
       this.add.hide();
     }
-    this.refreshItems();
+    this.refreshItems(id);
 
     this.item.trigger("chosen:updated");
     this.onChangeItem();

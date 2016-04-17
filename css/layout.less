@@ -64,6 +64,33 @@
     margin-bottom: 8px;
     font-size: 14pt;
   }
+  .item-info-imported {
+    display: none;
+    margin-top: 6px;
+    margin-left: 20px;
+    padding-left: 30px;
+    background-repeat: no-repeat;
+    background-position: 0 2px;
+    .theme-light & {
+      background-image: url(images/lock-black.png);
+    }
+    .theme-dark & {
+      background-image: url(images/lock-white.png);
+    }
+  }
+  &.item-imported .item-info-imported {
+    display: block;
+  }
+  &.item-imported .item-info-add-stat {
+    display: none !important;
+  }
+  &.item-imported .item-info-stat-remove {
+    display: none !important;
+  }
+  &.item-imported .stat-enchanted .item-info-stat-enchanted {
+    display: inline-block;
+  }
+
   .item-mod {
     display: block;
     margin-top: 6px;
@@ -143,6 +170,19 @@
         height: 16px;
         display: inline-block;
         cursor: pointer;
+      }
+      .item-info-stat-enchanted {
+        position: relative;
+        top: 4px;
+        width: 16px;
+        height: 16px;
+        display: none;
+        .theme-light & {
+          background: url(images/arrows-black.png) no-repeat;
+        }
+        .theme-dark & {
+          background: url(images/arrows-white.png) no-repeat;
+        }
       }
       & > div:hover .item-info-stat-remove {
         background: url(images/cross_red.png) no-repeat;

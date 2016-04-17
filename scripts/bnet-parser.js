@@ -173,6 +173,11 @@
     if (data.attributesRaw.Damage_Percent_Reduction_From_Ranged) {
       result.stats.rangedef = [data.attributesRaw.Damage_Percent_Reduction_From_Ranged.max * 100];
     }
+
+    result.imported = {
+      enchant: result.enchant,
+      stats: $.extend(true, {}, result.stats),
+    };
     
     return result;
   };

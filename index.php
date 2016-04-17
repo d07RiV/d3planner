@@ -114,12 +114,6 @@ function mklink($path, $src = NULL) {
 
    <div class="row footer">
     Developed by Riv @ rivsoft.net.
-    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-     <input type="hidden" name="cmd" value="_s-xclick">
-     <input type="hidden" name="hosted_button_id" value="RLWBXAT2ENXY2">
-     <input type="image" src="css/images/donate.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-    </form>
-    to help development.
     <select class="theme-select">
      <option value="light">Light Theme</option>
      <option value="dark">Dark Theme</option>
