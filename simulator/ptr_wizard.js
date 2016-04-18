@@ -925,7 +925,7 @@
   function archon_onexpire(data) {
     if (Sim.stats.leg_theswami || Sim.stats.leg_theswami_p3) {
       var stacks = Sim.getBuff("archon_stacks");
-      var buffs = {damage: 6};
+      var buffs = {dmgmul: 6};
       if (Sim.stats.set_vyr_4pc) {
         buffs.ias = 1.0;
         buffs.armor_percent = 1.0;

@@ -772,7 +772,7 @@ DiabloCalc.itemaffixes = {
     buffs: function(value, stats) {
       if (stats.skills.archon && !DiabloCalc.skills.wizard.archon.active) {
         var stacks = this.params[0].val;
-        var res = {damage: stacks * 6};
+        var res = {dmgmul: stacks * 6};
         if (stats.set_vyr_4pc) {
           res.ias = stacks * 1.0;
           res.armor_percent += stacks * 1.0;
