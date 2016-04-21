@@ -727,7 +727,7 @@ DiabloCalc.skills.wizard = {
       res["Arcane Blast Damage"] = {elem: elem, coeff: 6.04};
       res["Arcane Strike DPS"] = {sum: true, "Arcane Strike Damage": {speed: 1, fpa: 57.599954, round: "up"}};
       if (stats.set_chantodo_2pc) {
-        res["Chantodo's DPS"] = {elem: "max", coeff: 3.5};
+        res["Chantodo's DPS"] = {elem: "max", srcelem: DiabloCalc.skilltips.wizard.archon.elements[rune], coeff: 3.5};
         if (this.params[1].val) {
           res["Chantodo's DPS"].addcoeff = [[3.5, this.params[1].val]];
         }

@@ -57,6 +57,7 @@
     }
 
     var elem = (data.elem === "max" ? stats.info.maxelem : data.elem);
+    var srcelem = ((data.srcelem === "max" ? stats.info.maxelem : data.srcelem) || data.elem);
     //if (data.thorns === "normal") elem = "phy";
     if (!orphan) dibs += stats.getSpecial("damage", elem, ispet, data.skill, data.exclude);
     var dmgtaken = stats.getSpecial("dmgtaken", elem, ispet, data.skill, data.exclude);
@@ -69,7 +70,7 @@
 
     factor *= 1 + 0.01 * dibs;
 
-    var elemental = (data.thorns !== "special" && elem && stats["dmg" + elem] || 0);
+    var elemental = (data.thorns !== "special" && srcelem && stats["dmg" + srcelem] || 0);
     if (ispet) elemental += (stats.petdamage || 0);
     factor *= 1 + 0.01 * elemental;
 
@@ -106,7 +107,7 @@
       skill: data.skill,
       proc: (ispet ? 0 : data.proc),
       damage: value,
-      elem: data.elem,
+      elem: /*data.*/elem,
       pet: ispet,
       castInfo: data.castInfo,
       triggered: triggered,

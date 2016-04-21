@@ -220,6 +220,7 @@
     }
 
     var elem = (fmt.elem == "max" ? stats.info.maxelem : fmt.elem);
+    var srcelem = ((fmt.srcelem == "max" ? stats.info.maxelem : fmt.srcelem) || elem);
     //if (fmt.thorns === "normal") elem = "phy";
     // DIBS
     var tmp = stats.getTotalSpecial("damage", elem, fmt.pet, skillid, fmt.exclude);
@@ -251,10 +252,10 @@
     }
 
     // elemental/pet damage
-    if (((elem && stats["dmg" + elem]) || (fmt.pet && stats.petdamage)) && fmt.thorns !== "special") {
+    if (((srcelem && stats["dmg" + srcelem]) || (fmt.pet && stats.petdamage)) && fmt.thorns !== "special") {
       var bonuses = {};
-      if (elem && stats["dmg" + elem]) {
-        bonuses[DC.elements[elem]] = stats["dmg" + elem];
+      if (srcelem && stats["dmg" + srcelem]) {
+        bonuses[DC.elements[srcelem]] = stats["dmg" + srcelem];
       }
       if (fmt.pet && stats.petdamage) {
         bonuses["Pets"] = stats.petdamage;

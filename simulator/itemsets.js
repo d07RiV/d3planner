@@ -152,9 +152,11 @@ asheara's: todo
 
   affixes.set_chantodo_2pc = function() {
     Sim.after(60, function tick() {
+      if (Sim.stats.charClass !== "wizard") return;
       if (Sim.getBuff("archon")) {
         var stacks = Sim.getBuff("chantodo_2pc");
-        Sim.damage({type: "area", range: 30, self: true, coeff: 3.5 + 3.5 * stacks});
+        Sim.damage({type: "area", range: 30, self: true, coeff: 3.5 + 3.5 * stacks, elem: "max",
+          srcelem: Sim.skills.archon.default_elem[Sim.stats.skills.archon || "x"]});
         /*if (Sim.stats.set_vyr_6pc) {
           var buffs = {damage: 6, ias: 1, armor_percent: 1, resist_percent: 1};
           Sim.addBuff("archon_stacks", buffs, {maxstacks: 9999, stacks: 1});
@@ -558,7 +560,7 @@ asheara's: todo
     Sim.addBaseStats({dmgmul: {skills: ["rend"], percent: 500}});
   };
 
-  affixes.set_jade_4pc = function() {
+  affixes.set_jadeharvester_4pc = function() {
     Sim.register("oncast", function(data) {
       if ((data.skill === "haunt" || data.skill === "locustswarm") && !data.triggered) {
         Sim.reduceCooldown("soulharvest", 60);
@@ -629,7 +631,7 @@ asheara's: todo
   affixes.set_invoker_6pc = function() {
     Sim.register("onhit_proc", function(data) {
       if (data.castInfo && (data.castInfo.skill === "punish" || data.castInfo.skill === "slash") && data.castInfo.user && !data.castInfo.user.invoker_6pc) {
-        Sim.damage({thorns: "special", coeff: 6, elem: "phy"/*, skill: data.castInfo.skill*/});
+        Sim.damage({thorns: "special", coeff: 6, elem: "phy", srcelem: "none"/*, elem: "phy", skill: data.castInfo.skill*/});
         data.castInfo.user.invoker_6pc = true;
       }
     });

@@ -34,7 +34,7 @@ DiabloCalc.skills.crusader = {
         res["Retaliate Damage"] = {elem: elem, coeff: 1.4};
       }
       if (stats.set_invoker_6pc) {
-        res["Thorns Damage"] = {thorns: "special", coeff: 6, elem: "phy"};
+        res["Thorns Damage"] = {thorns: "special", coeff: 6, elem: "phy", srcelem: "none"};
         res["DPS"]["Damage"].speed *= 1.5;
         res["DPS"]["Thorns Damage"] = $.extend({nobp: true}, res["DPS"]["Damage"]);
       }
