@@ -675,12 +675,9 @@ DiabloCalc.skills.monk = {
       d: "Inner Fire",
     },
     info: {
-      x: {"Uptime": {duration: 15, cooldown: 60}},
-      a: {"Uptime": {duration: 15, cooldown: 60}},
-      e: {"Uptime": {duration: 15, cooldown: 60}},
-      b: {"Uptime": {duration: 15, cooldown: 60}},
-      c: {"Uptime": {duration: 15, cooldown: 60}},
-      d: {"Extra Damage": {elem: "fir", coeff: 3.53}, "Uptime": {duration: 15, cooldown: 60}},
+      "*": {"Uptime": {duration: 15, cooldown: 60}},
+      b: {"Healing": "@40232+0.1*healbonus"},
+      d: {"Extra Damage": {elem: "fir", coeff: 3.53}},
     },
     active: false,
     buffs: {
