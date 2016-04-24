@@ -273,7 +273,7 @@ DiabloCalc.legendaryGems = {
       {
         format: "While under any control-impairing effects, reduce all damage taken by %.1f%%.",
         value: [30],
-        delta: [1],
+        delta: [0.4],
       },
       {
         format: "Heal for 20%% of maximum life when hit by a control-impairing effect.",
