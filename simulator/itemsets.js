@@ -535,7 +535,7 @@ asheara's: todo
 
   affixes.set_earth_2pc = function() {
     Sim.register("resourceloss", function(data) {
-      if (data.type === "fury") {
+      if (data.type === "fury" && data.castInfo && data.castInfo.offensive) {
         var ticks = Sim.random("earth_2pc", 1, data.amount / 30, true);
         if (ticks) {
           Sim.reduceCooldown("earthquake", ticks * 60);

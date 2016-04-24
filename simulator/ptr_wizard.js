@@ -925,14 +925,8 @@
   function archon_onexpire(data) {
     if (Sim.stats.leg_theswami || Sim.stats.leg_theswami_p3) {
       var stacks = Sim.getBuff("archon_stacks");
-      var buffs = {dmgmul: 6};
-      if (Sim.stats.set_vyr_4pc) {
-        buffs.ias = 1.0;
-        buffs.armor_percent = 1.0;
-        buffs.resist_percent = 1.0;
-      }
       Sim.removeBuff("theswami");
-      Sim.addBuff("theswami", buffs, {stacks: stacks, duration: 60 * (Sim.stats.leg_theswami_p3 || Sim.stats.leg_theswami)});
+      Sim.addBuff("theswami", undefined, {stacks: stacks, duration: 60 * (Sim.stats.leg_theswami_p3 || Sim.stats.leg_theswami)});
     }
     Sim.removeBuff("archon_stacks");
   }
@@ -944,13 +938,7 @@
     oncast: function(rune) {
       Sim.removeBuff("archon_stacks");
       if (Sim.stats.leg_fazulasimprobablechain || Sim.stats.leg_fazulasimprobablechain_p2) {
-        var buffs = {dmgmul: 6};
-        if (Sim.stats.set_vyr_4pc) {
-          buffs.ias = 1.0;
-          buffs.armor_percent = 1.0;
-          buffs.resist_percent = 1.0;
-        }
-        Sim.addBuff("archon_stacks", buffs, {maxstacks: 9999, stacks:
+        Sim.addBuff("archon_stacks", undefined, {maxstacks: 9999, stacks:
           Sim.stats.leg_fazulasimprobablechain || Sim.stats.leg_fazulasimprobablechain_p2});
       }
       if (rune === "e" || Sim.stats.set_vyr_2pc) {
@@ -960,6 +948,20 @@
         duration: 1200,
         onexpire: archon_onexpire,
       });
+    },
+    oninit: function(rune) {
+      var buffname;
+      function update() {
+        var stats = {dmgmul: 6};
+        if (Sim.stats.set_vyr_4pc) {
+          buffs.ias = 1;
+          buffs.armor_percent = 1;
+          buffs.resist_percent = 1;
+        }
+        buffname = Sim.setBuffStacks(buffname, stats, Sim.getBuff("archon_stacks") + Sim.getBuff("theswami"));
+      }
+      Sim.watchBuff("archon_stacks", update);
+      Sim.watchBuff("theswami", update);
     },
     default_elem: {x: "arc", e: "fir", c: "arc", d: "lit", b: "col", a: "arc"},
     elem: function(rune) {

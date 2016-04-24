@@ -731,7 +731,6 @@
     Sim.addBuff("intothefray", {chc: 1}, {stacks: count, maxstacks: count, duration: 60});
   }
   skills.battlerage = {
-    offensive: true,
     secondary: true,
     weapon: "mainhand",
     frames: 57.142845,

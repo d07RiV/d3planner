@@ -445,21 +445,21 @@
           castInfo.buffs.push(buffs[i]);
         }
       }
-
-      if (!triggered) {
-        var res = true;
-        if (skill.precast) {
-          res = skill.precast.call(skill, rune, false);
-        }
-        if (res === true) {
-          usedGrace = false;
-          this.trigCooldown(id, rune, false);
-          if (!usedGrace) this.trigCost(id, rune, false);
-        }
-      }
     }
 
     this.pushCastInfo(castInfo);
+
+    if (!triggered) {
+      var res = true;
+      if (skill.precast) {
+        res = skill.precast.call(skill, rune, false);
+      }
+      if (res === true) {
+        usedGrace = false;
+        this.trigCooldown(id, rune, false);
+        if (!usedGrace) this.trigCost(id, rune, false);
+      }
+    }
 
     if (castInfo.generate) {
       Sim.addResource(castInfo.generate, rctype);

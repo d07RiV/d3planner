@@ -122,7 +122,6 @@ asheara's: todo
         var counter = data.castInfo.user.vyr_6pc;
         if (!counter || counter < 1) {
           var hits = Math.min(1 - (counter || 0), Math.ceil(data.targets));
-          var buffs = {dmgmul: 6, ias: 1.5, armor_percent: 1.5, resist_percent: 1.5};
           Sim.addBuff("archon_stacks", buffs, {maxstacks: 9999, stacks: hits});
           data.castInfo.user.vyr_6pc = (counter || 0) + hits;
         }
@@ -539,7 +538,7 @@ asheara's: todo
 
   affixes.set_earth_2pc = function() {
     Sim.register("resourceloss", function(data) {
-      if (data.type === "fury") {
+      if (data.type === "fury" && data.castInfo && data.castInfo.offensive) {
         var ticks = Sim.random("earth_2pc", 1, data.amount / 30, true);
         if (ticks) {
           Sim.reduceCooldown("earthquake", ticks * 60);
