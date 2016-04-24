@@ -675,18 +675,7 @@
     charges: function(rune) {
       return (rune === "e" ? 3 : undefined);
     },
-    generate: function(rune) {
-      if (Sim.stats.passives.earthenmight) {
-        return 30;
-      }
-    },
     oncast: function(rune) {
-      var ci = Sim.getCastInfo();
-      if (!ci || ci.skill !== "avalanche" || !ci.generate) {
-        Sim.pushCastInfo({triggered: "earthenmight"});
-        Sim.addResource(30);
-        Sim.popCastInfo();
-      }
       Sim.addBuff(undefined, undefined, {
         duration: (rune === "c" ? 300 : 180),
         tickrate: (rune === "c" ? 12 : (rune === "b" ? 60 : 18)),
@@ -840,18 +829,7 @@
     cooldown: function(rune) {
       return (rune === "d" ? 30 : 60) - (Sim.stats.passives.boonofbulkathos ? 15 : 0);
     },
-    generate: function(rune) {
-      if (Sim.stats.passives.earthenmight) {
-        return 30;
-      }
-    },
     oncast: function(rune) {
-      var ci = Sim.getCastInfo();
-      if (!ci || ci.skill !== "earthquake" || !ci.generate) {
-        Sim.pushCastInfo({triggered: "earthenmight"});
-        Sim.addResource(30);
-        Sim.popCastInfo();
-      }
       var params = {
         duration: 480,
         tickrate: 24,
@@ -1030,7 +1008,13 @@
     juggernaut: {ccr: 50},
     unforgiving: {furyregen: 2},
     boonofbulkathos: function() {},
-    earthenmight: function() {},
+    earthenmight: function() {
+      Sim.register("oncast", function(data) {
+        if (data.skill === "earthquake" || data.skill === "avalanche") {
+          Sim.addResource(30);
+        }
+      });
+    },
     swordandboard: function() {
       if (Sim.stats.info.ohtype === "shield") {
         Sim.addBaseStats({dmgred: 30, rcr_fury: 20});

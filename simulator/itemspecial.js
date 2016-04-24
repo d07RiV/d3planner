@@ -908,7 +908,7 @@
 
   affixes.leg_beltofthetrove = function(amount) {
     Sim.after(amount * 60, function impact() {
-      Sim.cast("bombardment", undefined, true);
+      Sim.cast("bombardment", undefined, "soft");
       Sim.after(amount * 60, impact);
     });
   };
@@ -1056,8 +1056,8 @@
   affixes.leg_bladeofthetribes = function() {
     Sim.register("oncast", function(data) {
       if (data.skill === "warcry" || data.skill === "threateningshout") {
-        Sim.cast("avalanche");
-        Sim.cast("earthquake");
+        Sim.cast("avalanche", undefined, "soft");
+        Sim.cast("earthquake", undefined, "soft");
       }
     });
   };

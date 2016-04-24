@@ -14,7 +14,8 @@ asheara's: todo
         if (data.castInfo.cost !== undefined) {
           data.castInfo.user.bastionsofwill = true;
           Sim.addBuff("restraint", {dmgmul: 50}, {duration: 300});
-        } else if (data.castInfo.generate !== undefined) {
+        } else if (data.castInfo.generate !== undefined ||
+            ((data.castInfo.skill === "earthquake" || data.castInfo.skill === "avalanche") && this.stats.passives.earthenmight)) { // weird fix
           data.castInfo.user.bastionsofwill = true;
           Sim.addBuff("focus", {dmgmul: 50}, {duration: 300});
         }
@@ -552,7 +553,7 @@ asheara's: todo
   affixes.set_earth_4pc = function() {
     Sim.register("oncast", function(data) {
       if (data.skill === "leap" && !data.triggered) {
-        Sim.cast("earthquake");
+        Sim.cast("earthquake", undefined, "soft");
       }
     });
   };

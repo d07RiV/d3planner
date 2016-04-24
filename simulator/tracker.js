@@ -105,6 +105,7 @@
     }
   });
   Sim.register("oncast", function(data) {
+    if (data.triggered) return;
     var cnt = _counter(data.skill);
     cnt.count = (cnt.count || 0) + 1;
     if (Sample /*&& Sample.length < 50*/) {

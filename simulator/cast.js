@@ -354,9 +354,10 @@
     var rune = rune || this.stats.skills[id] || "x";
     if (!rune) return false;
     var prevInfo = this.castInfo();
-    var trigExplicit = !!triggered;
-    if (prevInfo && (!triggered || triggered === true)) triggered = (prevInfo.triggered || prevInfo.skill);
-    if (triggered === true) triggered = undefined;
+    var trigExplicit = (!!triggered && triggered !== "soft");
+    var trigSoft = (triggered === "soft");
+    if (prevInfo && (!triggered || triggered === true || triggered === "soft")) triggered = (prevInfo.triggered || prevInfo.skill);
+    if (triggered === true || triggered === "soft") triggered = undefined;
     var rc = {};
     if (!triggered) {
       rc = this.canCast(id, rune);
@@ -395,7 +396,7 @@
         this.curweapon = (this.curweapon === "mainhand" ? "offhand" : "mainhand");
       }
     }
-    if (triggered) {
+    if (triggered && !trigSoft) {
       castInfo.triggered = triggered;
       var tsk = this.skills[triggered];
       if (tsk) {
@@ -411,12 +412,16 @@
       }
       castInfo.trigExplicit = trigExplicit;
     } else {
+      castInfo.triggered = triggered;
+      castInfo.trigExplicit = trigExplicit;
       castInfo.buffs = [];
       castInfo.user = {};
       castInfo.globUser = {};
-      castInfo.generate = this.getProp(skill, "generate", rune);
-      if (!castInfo.generate && skill.signature) {
-        castInfo.generate = 0;
+      if (!triggered) {
+        castInfo.generate = this.getProp(skill, "generate", rune);
+        if (!castInfo.generate && skill.signature) {
+          castInfo.generate = 0;
+        }
       }
       castInfo.cost = rc.cost;
       castInfo.cooldown = rc.cooldown;
@@ -441,14 +446,16 @@
         }
       }
 
-      var res = true;
-      if (skill.precast) {
-        res = skill.precast.call(skill, rune, false);
-      }
-      if (res === true) {
-        usedGrace = false;
-        this.trigCooldown(id, rune, false);
-        if (!usedGrace) this.trigCost(id, rune, false);
+      if (!triggered) {
+        var res = true;
+        if (skill.precast) {
+          res = skill.precast.call(skill, rune, false);
+        }
+        if (res === true) {
+          usedGrace = false;
+          this.trigCooldown(id, rune, false);
+          if (!usedGrace) this.trigCost(id, rune, false);
+        }
       }
     }
 
