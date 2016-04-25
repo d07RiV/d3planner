@@ -241,20 +241,38 @@
     for (var i = 0; i < data.length; ++i) {
       var allowed = getPoints(plvl, i);
       var spent = 0;
-      for (var j = 0; j < data[i].stats.length; ++j) {
-        spent += (parseInt(data[i].stats[j].input.val()) || 0);
-      }
-      if (allowed < spent) {
-        for (var j = data[i].stats.length - 1; j >= 0; --j) {
+      if (i > 0 && allowed >= data[i].stats.length * 50) {
+        var delta = 0;
+        for (var j = 0; j < data[i].stats.length; ++j) {
           var value = (parseInt(data[i].stats[j].input.val()) || 0);
-          var delta = Math.min(value, spent - allowed);
-          data[i].stats[j].input.val(value - delta);
-          spent -= delta;
-          updateValue(data[i].stats[j]);
+          if (value < 50) {
+            delta += 50 - value;
+            data[i].stats[j].input.val(50);
+            updateValue(data[i].stats[j]);
+          }
+          spent += 50;
         }
-        dataCache = undefined;
-        levelsCache = undefined;
-        DiabloCalc.trigger("updateParagon");
+        if (delta) {
+          dataCache = undefined;
+          levelsCache = undefined;
+          DiabloCalc.trigger("updateParagon");
+        }
+      } else {
+        for (var j = 0; j < data[i].stats.length; ++j) {
+          spent += (parseInt(data[i].stats[j].input.val()) || 0);
+        }
+        if (allowed < spent) {
+          for (var j = data[i].stats.length - 1; j >= 0; --j) {
+            var value = (parseInt(data[i].stats[j].input.val()) || 0);
+            var delta = Math.min(value, spent - allowed);
+            data[i].stats[j].input.val(value - delta);
+            spent -= delta;
+            updateValue(data[i].stats[j]);
+          }
+          dataCache = undefined;
+          levelsCache = undefined;
+          DiabloCalc.trigger("updateParagon");
+        }
       }
       updateCategory(i, allowed - spent, spent);
     }
