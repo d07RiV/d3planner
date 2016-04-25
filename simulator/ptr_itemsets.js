@@ -94,8 +94,8 @@ asheara's: todo
           var stacks = Math.round(data.targets);
           if (stacks) {
             var elites = (Sim.target.elite ? 1 : 0);
-            stacks = Math.min(stacks - elites, 60);
-            Sim.addBuff("firebird_6pc", {dmgmul: 40}, {stacks: stacks + elites * 50});
+            //stacks = Math.min(stacks - elites, 60);
+            Sim.addBuff("firebird_6pc", {dmgmul: 40}, {stacks: Math.min(stacks + elites * 50, 60)});
           }
         }
       }

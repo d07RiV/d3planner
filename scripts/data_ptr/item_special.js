@@ -360,7 +360,7 @@ DiabloCalc.itemaffixes = {
     },
   },
   set_firebird_6pc: {
-    params: [{min: 0, max: 60, val: 0, name: "Whites", buffs: false}],
+    params: [{min: 0, max: function() {return this.active ? 10 : 60;}, val: 0, name: "Whites", buffs: false}],
     active: true,
     activetip: "Elites burning",
     buffs: function(value, stats) {

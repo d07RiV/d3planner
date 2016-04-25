@@ -461,7 +461,7 @@
             get: function() {
               if (param._val === null || param._val === "max") return param.max;
               if (param._val === "min") return param.min;
-              return param._val;
+              return Math.min(param.max, Math.max(param._val, param.min));
             },
             set: function(v) {
               if (v <= param.min) param._val = "min";
@@ -480,7 +480,7 @@
               var val = 0;
               if (DiabloCalc.getStats) {
                 var stats = DiabloCalc.getStats();
-                val = (typeof min === "string" ? stats.execString(min) : min.call(this, stats));
+                val = (typeof min === "string" ? stats.execString(min) : min.call(info, stats));
               }
               var step = (param.step || 1);
               return Math.ceil(val / step) * step;
@@ -494,7 +494,7 @@
               var val = 0;
               if (DiabloCalc.getStats) {
                 var stats = DiabloCalc.getStats();
-                val = (typeof max === "string" ? stats.execString(max) : max.call(this, stats));
+                val = (typeof max === "string" ? stats.execString(max) : max.call(info, stats));
               }
               var step = (param.step || 1);
               val = Math.floor(val / step) * step;
