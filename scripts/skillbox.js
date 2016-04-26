@@ -955,7 +955,7 @@
               DC.tooltip.showSkill(this, self.buff.charClass, self.buff.id, rune, true);
             }
           });
-        } else if (this.buff.runelist !== "x") {
+        } else if (1 || this.buff.runelist !== "x") {
           this.desc.append("<span class=\"skill-rune\"><span class=\"skill-rune-" + this.buff.runelist + "\"></span> " + this.buff.runes[this.buff.runelist] + "</span>");
         }
         this.header.mouseover(function() {
@@ -1033,15 +1033,16 @@
           };})(i));
         }
       }
-      this.updateParams();
-      if (this.buff.params) {
-        this.params.toggle(this.buff.active);
-      }
+      //this.updateParams();
+      //if (this.buff.params) {
+      //  this.params.toggle(this.buff.active);
+      //}
+      this.updateBoxes();
     },
     updateBoxes: function() {
       this.apply.toggle(!this.buff.multiple && this.buff.active !== undefined);
       if (!this.buff.multiple) {
-        this.applybox.prop("checked", this.buff.active);
+        this.applybox.prop("checked", !!this.buff.active);
         if (this.runebox) {
           this.runebox.val(this.buff.runevals).trigger("chosen:updated");
         }
@@ -1052,7 +1053,7 @@
       }
       if (this.boxlabels) {
         for (var i = 0; i < this.boxlabels.length; ++i) {
-          this.boxlabels[i].toggle(this.buff.active !== false || this.buff.multiple);
+          this.boxlabels[i].toggle(this.buff.active !== false || !!this.buff.multiple);
         }
       }
       if (this.boxes) {
@@ -1061,7 +1062,7 @@
         }
       }
       if (this.buff.params) {
-        this.params.toggle(this.buff.active !== false || this.buff.multiple);
+        this.params.toggle(this.buff.active !== false || !!this.buff.multiple);
       }
       this.updateParams();
     },

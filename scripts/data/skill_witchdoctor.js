@@ -911,9 +911,17 @@ DiabloCalc.partybuffs.witchdoctor = {
   },
   massconfusion: {
     runelist: "a",
+    boxnames: ["Grin Reaper"],
+    buffs: function(stats) {
+      return {dmgtaken: (this.boxvals[0] ? 90 : 30)};
+    },
   },
   piranhas: {
     runelist: "x",
+    boxnames: ["Grin Reaper"],
+    buffs: function(stats) {
+      return {dmgtaken: (this.boxvals[0] ? 45 : 15)};
+    },
   },
   bigbadvoodoo: {
     runelist: "*",
