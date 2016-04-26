@@ -562,7 +562,7 @@
     },
     oncast: function(rune) {
       var dmg = {type: "area", self: true, range: 10, coeff: 3.7};
-      if (Sim.getBuff("storms_6pc")) {
+      if (Sim.getBuff("storms_6pc_ds")) {
         dmg.coeff = 125;
       }
       switch (rune) {
@@ -763,7 +763,7 @@
     speed: 1,
     cost: {x: 50, a: 50, b: 50, d: 50, e: 50},
     cooldown: function(rune) {
-      return (rune === "d" ? 14 : 30) * (1 - 0.01 * (Sim.stats.leg_theflowofeternity || 0));
+      return (rune === "d" ? 14 : 30) * (1 - 0.01 * (Sim.stats.leg_theflowofeternity_p2 || Sim.stats.leg_theflowofeternity || 0));
     },
     oncast: function(rune) {
       var params = {
@@ -777,7 +777,7 @@
       case "e": params.ontick = {type: "area", range: 7, coeff: 8.77, onhit: sss_onhit}; break;
       }
       if (Sim.stats.set_uliana_4pc) {
-        params.ontick.coeff *= 7 + (Sim.stats.leg_lionsclaw ? 7 : 0);
+        params.ontick.coeff *= 2 * (7 + (Sim.stats.leg_lionsclaw ? 7 : 0));
       }
       Sim.addBuff(Sim.castInfo().triggered ? undefined : "sevensidedstrike", undefined, params);
     },

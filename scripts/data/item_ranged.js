@@ -196,10 +196,11 @@ DiabloCalc.addItems([
   {
     id: "Unique_Xbow_102_x1",
     name: "Wojahnni Assaulter",
+    suffix: _L("Legacy"),
     type: "crossbow",
     quality: "legendary",
     required: {
-      custom: {id: "leg_wojahnniassaulter", name: "Rapid Fire Ramp-Up", format: "Rapid Fire deals %d%% more damage for every second that you channel. Stacks up to 4 times.", min: 30, max: 40},
+      custom: {id: "leg_wojahnniassaulter", name: "Rapid Fire Ramp-Up", format: "Rapid Fire deals %d%% increased damage for every second that you channel. Stacks up to 4 times.", min: 30, max: 40},
     },
     preset: ["mainstat"],
   },
@@ -592,6 +593,17 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       custom: {id: "leg_fragmentofdestiny", name: "Spectral Blade Damage Increase", format: "Spectral Blade attacks 50%% faster and deals %d%% increased damage.", min: 150, max: 200},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P41_Unique_Xbow_102",
+    name: "Wojahnni Assaulter",
+    type: "crossbow",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_wojahnniassaulter_p2", name: "Rapid Fire Ramp-Up", format: "Rapid Fire deals %d%% increased damage for every half second that you channel. Stacks up to 4 times.", min: 60, max: 75},
     },
     preset: ["mainstat"],
   },

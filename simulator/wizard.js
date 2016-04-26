@@ -608,9 +608,9 @@
 
   function meteor_nilfurs_fix() {
     if (this.targets <= 3) {
-      this.factor = 1 + 0.01 * Sim.stats.leg_nilfursboast;
+      this.factor = 1 + 0.01 * (Sim.stats.leg_nilfursboast_p2 || Sim.stats.leg_nilfursboast || 0);
     } else {
-      this.factor = 2;
+      this.factor = (Sim.stats.leg_nilfursboast_p2 ? 3 : 2);
     }
   }
   function meteor_ontick(data) {
@@ -621,7 +621,7 @@
       dmg.count = 7;
       dmg.spread = 25;
     }
-    if (Sim.stats.leg_nilfursboast) dmg.fix = meteor_nilfurs_fix;
+    if (Sim.stats.leg_nilfursboast || Sim.stats.leg_nilfursboast_p2) dmg.fix = meteor_nilfurs_fix;
     Sim.damage(dmg);
   }
   function meteor_onhit(data) {
@@ -662,7 +662,7 @@
       case "a": dmg = {delay: 75, type: "area", range: 18, coeff: 16.48}; break;
       }
       dmg.onhit = meteor_onhit;
-      if (Sim.stats.leg_nilfursboast) {
+      if (Sim.stats.leg_nilfursboast || Sim.stats.leg_nilfursboast_p2) {
         dmg.fix = meteor_nilfurs_fix;
       }
       return dmg;
@@ -925,14 +925,8 @@
   function archon_onexpire(data) {
     if (Sim.stats.leg_theswami || Sim.stats.leg_theswami_p3) {
       var stacks = Sim.getBuff("archon_stacks");
-      var buffs = {damage: 6};
-      if (Sim.stats.set_vyr_4pc) {
-        buffs.ias = 1;
-        buffs.armor_percent = 1;
-        buffs.resist_percent = 1;
-      }
       Sim.removeBuff("theswami");
-      Sim.addBuff("theswami", buffs, {stacks: stacks, duration: 60 * (Sim.stats.leg_theswami_p3 || Sim.stats.leg_theswami)});
+      Sim.addBuff("theswami", undefined, {stacks: stacks, duration: 60 * (Sim.stats.leg_theswami_p3 || Sim.stats.leg_theswami)});
     }
     Sim.removeBuff("archon_stacks");
   }
@@ -944,22 +938,30 @@
     oncast: function(rune) {
       Sim.removeBuff("archon_stacks");
       if (Sim.stats.leg_fazulasimprobablechain || Sim.stats.leg_fazulasimprobablechain_p2) {
-        var buffs = {damage: 6};
-        if (Sim.stats.set_vyr_4pc) {
-          buffs.ias = 1;
-          buffs.armor_percent = 1;
-          buffs.resist_percent = 1;
-        }
-        Sim.addBuff("archon_stacks", buffs, {maxstacks: 9999, stacks:
+        Sim.addBuff("archon_stacks", undefined, {maxstacks: 9999, stacks:
           Sim.stats.leg_fazulasimprobablechain || Sim.stats.leg_fazulasimprobablechain_p2});
       }
       if (rune === "e" || Sim.stats.set_vyr_2pc) {
         Sim.damage({delay: 1, type: "area", range: 15, coeff: 36.8, elem: this.default_elem[rune]});
       }
-      Sim.addBuff("archon", {shift: "archon", damage: 20, armor_percent: 20, resist_percent: 20}, {
+      Sim.addBuff("archon", {shift: "archon", dmgmul: 30, armor_percent: 150, resist_percent: 150}, {
         duration: 1200,
         onexpire: archon_onexpire,
       });
+    },
+    oninit: function(rune) {
+      var buffname;
+      function update() {
+        var stats = {dmgmul: 6};
+        if (Sim.stats.set_vyr_4pc) {
+          buffs.ias = 1;
+          buffs.armor_percent = 1;
+          buffs.resist_percent = 1;
+        }
+        buffname = Sim.setBuffStacks(buffname, stats, Sim.getBuff("archon_stacks") + Sim.getBuff("theswami"));
+      }
+      Sim.watchBuff("archon_stacks", update);
+      Sim.watchBuff("theswami", update);
     },
     default_elem: {x: "arc", e: "fir", c: "arc", d: "lit", b: "col", a: "arc"},
     elem: function(rune) {
@@ -974,7 +976,7 @@
     shift: "archon",
     oncast: function(rune) {
       var improved = (Sim.stats.skills.archon === "a" || Sim.stats.set_vyr_2pc);
-      var res = {type: "area", range: 9, coeff: 7.9, dibs: (improved ? 22 : 0)}
+      var res = {type: "area", range: 9, coeff: 7.9 * (improved ? 1.5 : 1)}
       if (Sim.stats.skills.archon === "b" || Sim.stats.set_vyr_2pc) {
         res.onhit = Sim.apply_effect("frozen", 60);
       }
@@ -993,7 +995,7 @@
     shift: "archon",
     oncast: function(rune) {
       var improved = (Sim.stats.skills.archon === "a" || Sim.stats.set_vyr_2pc);
-      var res = {type: "area", range: 15, coeff: 6.04, dibs: (improved ? 22 : 0)};
+      var res = {type: "area", range: 15, coeff: 6.04 * (improved ? 1.5 : 1)};
       if (Sim.stats.skills.archon === "b" || Sim.stats.set_vyr_2pc) {
         res.onhit = Sim.apply_effect("frozen", 60);
       }
@@ -1014,7 +1016,7 @@
     shift: "archon",
     oncast: function(rune) {
       var improved = (Sim.stats.skills.archon === "a" || Sim.stats.set_vyr_2pc);
-      var dmg = {type: "line", pierce: true, coeff: 7.79, dibs: (improved ? 22 : 0), radius: 2};
+      var dmg = {type: "line", pierce: true, coeff: 7.79 * (improved ? 1.5 : 1), radius: 2};
       Sim.channeling("archon_disintegrationwave", this.channeling, archon_wave_ontick, {dmg: dmg});
     },
     elem: function(rune) {
@@ -1044,7 +1046,7 @@
       return aps * 1.5;
     },
     cooldown: function(rune) {
-      return Sim.stats.leg_aetherwalker ? 0.5 : 3;
+      return Sim.stats.leg_aetherwalker ? 0.5 : 2;
     },
     shift: "archon",
     oncast: function(rune) {

@@ -363,6 +363,10 @@
       var bonus = Math.min(4, Math.floor((Sim.time - data.buff.start) / 60));
       dmg.coeff *= 1 + bonus * 0.01 * Sim.stats.leg_wojahnniassaulter;
     }
+    if (Sim.stats.leg_wojahnniassaulter_p2) {
+      var bonus = Math.min(4, Math.floor((Sim.time - data.buff.start) / 30 + 1));
+      dmg.coeff *= 1 + bonus * 0.01 * Sim.stats.leg_wojahnniassaulter_p2;
+    }
     if (data.rune === "a") {
       if (Sim.stats.passives.grenadier) {
         dmg.coeff *= 1.1;
@@ -446,7 +450,8 @@
       tickrate: 30,
       data: {targets: data.targets},
       ontick: function(data) {
-        Sim.damage({type: "area", range: 10, count: data.targets, coeff: 3.15 / 4, proc: 0.4});
+        var aug = 1 + 0.01 * (Sim.stats.leg_augustinespanacea || 0);
+        Sim.damage({type: "area", range: 10, count: data.targets, coeff: 3.15 / 4 * aug, proc: 0.4});
       },
     });
   }
@@ -465,13 +470,14 @@
     },
     frames: 56.666664,
     oncast: function(rune) {
+      var aug = 1 + 0.01 * (Sim.stats.leg_augustinespanacea || 0);
       switch (rune) {
       case "x": return {type: "line", pierce: true, speed: 1.3, coeff: 3};
-      case "b": return {type: "ball", speed: 0.4 * 0.01 * (Sim.stats.leg_meticulousbolts || 100), coeff: 1.5, rate: 42, radius: 15};
-      case "a": return {type: "line", pierce: _buriza(), speed: 1.3, coeff: 3.3, onhit: ea_fa_onhit};
+      case "b": return {type: "ball", speed: 0.4 * 0.01 * (Sim.stats.leg_augustinespanacea || Sim.stats.leg_meticulousbolts || 100), coeff: 1.5, rate: 42, radius: 15};
+      case "a": return {type: "line", pierce: _buriza(), speed: 1.3, coeff: 3.3 * aug, onhit: ea_fa_onhit};
       case "c": return {type: "line", pierce: _buriza(), speed: 1.3, coeff: 3, onhit: ea_ia_onhit};
-      case "e": return {type: "line", pierce: true, speed: 1.3, coeff: 3, onhit: ea_lb_onhit};
-      case "d": return {type: "line", pierce: true, speed: 0.4, coeff: 3};
+      case "e": return {type: "line", pierce: true, speed: 1.3, coeff: 3 * aug, onhit: ea_lb_onhit};
+      case "d": return {type: "line", pierce: true, speed: 0.4, coeff: 3 * aug};
       }
     },
     proctable: {x: 0.5, b: 0.333, a: 0.25, c: 0.1, e: 0.4, d: 0.3},
@@ -638,7 +644,7 @@
         Sim.addResource(50, "hatred");
       }
       if (rune === "c" || Sim.stats.set_marauder_2pc) {
-        Sim.addBuff("wolfcompanion", {damage: 30}, {duration: 600});
+        Sim.addBuff("wolfcompanion", {dmgmul: 30}, {duration: 600});
       }
     },
     oninit: function(rune) {
@@ -1109,7 +1115,7 @@
     steadyaim: function() {
       Sim.after(30, function check() {
         if (!Sim.getTargets(10, Sim.target.distance)) {
-          Sim.addBuff("steadyaim", {damage: 20}, {duration: 42});
+          Sim.addBuff("steadyaim", {dmgmul: 20}, {duration: 42});
         }
         Sim.after(30, check);
       });

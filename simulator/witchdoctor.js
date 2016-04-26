@@ -234,7 +234,7 @@
     }
   }
   function jade2_onrefresh(data) {
-    Sim.damage({coeff: data.coeff * 300});
+    Sim.damage({coeff: data.coeff * 600});
   }
   function haunt_onhit(data) {
     var params = {
@@ -511,7 +511,7 @@
       var event = Sim.calcDamage({coeff: stack.data.coeff,
         elem: stack.castInfo.elem, skill: stack.castInfo.skill, weapon: stack.castInfo.weapon});
       Sim.popCastInfo();
-      total += event.damage * Sim.reduceStackDuration(id, stack, 150 * 60) / tickrate;
+      total += event.damage * Sim.reduceStackDuration(id, stack, 300 * 60) / tickrate;
       --targets;
     }
     return total;

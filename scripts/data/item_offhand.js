@@ -603,6 +603,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Quiver_001_p1",
     name: "Meticulous Bolts",
+    suffix: _L("Legacy"),
     type: "quiver",
     quality: "legendary",
     required: {
@@ -782,6 +783,17 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       custom: {id: "leg_orbofinfinitedepth", name: "Damage Bonus", format: "Each time you hit an enemy with Explosive Blast your damage is increased by %d%% and your damage reduction is increased by 15%% for 6 seconds. This effect can stack up to 4 times.", min: 4, max: 5},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P41_Unique_Quiver_001",
+    name: "Augustine's Panacea",
+    type: "quiver",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_augustinespanacea", name: "Elemental Arrow Bonuses", format: "Elemental Arrow gains an effect based on the rune:\r\n   Ball Lightning now travels at 30%% speed.\r\n   Frost Arrow damage and Chilled duration increased by %{0}d%%.\r\n   Immolation Arrow ground damage over time increased by %{0}d%%.\r\n   Lightning Bolts damage and Stun duration increased by %{0}d%%.\r\n   Nether Tentacles damage and healing amount increased by %{0}d%%.", min: 200, max: 250},
     },
     preset: ["mainstat", "chc"],
   },

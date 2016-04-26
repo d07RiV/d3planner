@@ -323,7 +323,8 @@ DiabloCalc.skills.barbarian = {
         res.ias = 30;
       }
       if (stats.set_wastes_4pc) {
-        res.dmgred = 40;
+        res.dmgred = 50;
+        res.dmgmul = {skills: ["rend"], percent: 200};
       }
       if (!$.isEmptyObject(res)) {
         return res;
@@ -848,7 +849,7 @@ DiabloCalc.passives.barbarian = {
     name: "Tough as Nails",
     index: 9,
     buffs: function(stats) {
-      return {armor_percent: 25, thorns_percent: 50};
+      return {armor_percent: 25, thorns_multiply: 100};
     },
   },
   noescape: {
@@ -928,6 +929,7 @@ DiabloCalc.partybuffs.barbarian = {
   },
   ignorepain: {
     runelist: "c",
+    buffs: {c: {dmgred: 25}},
   },
   warcry: {
     runelist: "*",

@@ -259,6 +259,7 @@ DiabloCalc.addItems([
     id: "P2_Unique_Boots_01",
     ids: ["ptr_NilfursBoast"],
     name: "Nilfur's Boast",
+    suffix: _L("Legacy"),
     type: "boots",
     quality: "legendary",
     required: {
@@ -365,6 +366,17 @@ DiabloCalc.addItems([
     quality: "set",
     set: "earth",
     preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "P41_Unique_Boots_01",
+    name: "Nilfur's Boast",
+    type: "boots",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_nilfursboast_p2", name: "Meteor Damage Bonus", format: "Increase the damage of Meteor by 200%%. When your Meteor hits 3 or fewer enemies, the damage is increased by %d%%.", min: 275, max: 350},
+    },
+    preset: ["mainstat", "resall"],
   },
 
 ]);

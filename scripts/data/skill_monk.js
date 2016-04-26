@@ -569,12 +569,8 @@ DiabloCalc.skills.monk = {
       case "e": res = {"Damage": {elem: "hol", coeff: 8.77}, "Total Damage": {sum: true, "Damage": {count: hits}}}; break;
       }
       if (stats.set_uliana_4pc) {
-        if (rune !== "e") {
-          delete res["Damage"].divide;
-        } else {
-          res["Damage"].factor = {};
-          res["Damage"].factor[DiabloCalc.itemSets.uliana.name] = 7;
-        }
+        res["Damage"].factor = {};
+        res["Damage"].factor[DiabloCalc.itemSets.uliana.name] = 2 * hits;
       }
       if (stats.leg_gungdogear && stats.set_uliana_6pc) {
         var ep_rune = (stats.skills.explodingpalm || "x");
@@ -585,7 +581,7 @@ DiabloCalc.skills.monk = {
           value: ep_info["Explosion Damage"].value, count: (stats.leg_lionsclaw ? 14 : 7),
         };
       }
-      var base = {"Cooldown": {cooldown: (rune === "d" ? 14 : 30), cdr: "leg_theflowofeternity"}};
+      var base = {"Cooldown": {cooldown: (rune === "d" ? 14 : 30), cdr: "leg_theflowofeternity+leg_theflowofeternity_p2"}};
       if (rune !== "c") base["Cost"] = {cost: 50};
       return $.extend(base, res);
     },

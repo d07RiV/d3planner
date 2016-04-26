@@ -123,7 +123,7 @@ DiabloCalc.addItems([
     type: "bracers",
     quality: "legendary",
     required: {
-      custom: {id: "leg_strongarmbracers", name: "Damage Bonus on Knockback", format: "Enemies hit by knockbacks suffer %d%% more damage for 5 seconds when they land.", min: 20, max: 30},
+      custom: {id: "leg_strongarmbracers", name: "Damage Bonus on Knockback", format: "Enemies hit by knockbacks suffer %d%% increased damage for 5 seconds when they land.", min: 20, max: 30},
     },
     preset: ["mainstat", "vit"],
   },
@@ -427,7 +427,7 @@ DiabloCalc.addItems([
     type: "bracers",
     quality: "legendary",
     required: {
-      custom: {id: "leg_bindingsofthelessergods", name: "Mystic Ally Damage Bonus", format: "Enemies hit by your Cyclone Strike take %d%% more damage from your Mystic Ally for 5 seconds.", min: 150, max: 200},
+      custom: {id: "leg_bindingsofthelessergods", name: "Mystic Ally Damage Bonus", format: "Enemies hit by your Cyclone Strike take %d%% increased damage from your Mystic Ally for 5 seconds.", min: 150, max: 200},
     },
     preset: ["mainstat", "chc"],
   },

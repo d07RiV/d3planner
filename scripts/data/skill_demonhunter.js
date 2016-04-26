@@ -177,7 +177,7 @@ DiabloCalc.skills.demonhunter = {
       var sentries = (stats.skills.sentry || stats.leg_helltrapper ? DiabloCalc.skills.demonhunter.sentry.params[0].val : 0);
       if (stats.set_marauder_4pc && sentries) {
         var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
-        ext.percent[DiabloCalc.itemSets.marauder.name] = 300;
+        ext.percent[DiabloCalc.itemSets.marauder.name] = 400;
         res["Sentry Damage"] = $.extend({}, res["Damage"], ext);
         DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Damage"], stats);
         if (res["Burn Damage"]) res["Sentry Burn Damage"] = $.extend({}, res["Burn Damage"], ext);
@@ -269,7 +269,7 @@ DiabloCalc.skills.demonhunter = {
         var sentries = (stats.skills.sentry || stats.leg_helltrapper ? DiabloCalc.skills.demonhunter.sentry.params[0].val : 0);
         if (stats.set_marauder_4pc && sentries) {
           var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
-          ext.percent[DiabloCalc.itemSets.marauder.name] = 300;
+          ext.percent[DiabloCalc.itemSets.marauder.name] = 400;
           res["Sentry Damage"] = $.extend({}, res["Damage"], ext);
           DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Damage"], stats);
         }
@@ -306,11 +306,19 @@ DiabloCalc.skills.demonhunter = {
       var res;
       switch (rune) {
       case "x": res = {"Damage": {elem: "fir", coeff: 3}}; break;
-      case "b": res = {"Damage": {elem: "lit", coeff: 1.5}, "Average Damage": {sum: true, "Damage": {factor: this.params[0].val * 100 / (stats.leg_meticulousbolts || 100)}}}; break;
+      case "b": res = {"Damage": {elem: "lit", coeff: 1.5}, "Average Damage": {sum: true, "Damage": {factor: this.params[0].val * 100 / (stats.leg_augustinespanacea || stats.leg_meticulousbolts || 100)}}}; break;
       case "a": res = {"Damage": {elem: "col", coeff: 3.3}}; break;
       case "c": res = {"Damage": {elem: "fir", coeff: 3}, "Explosion Damage": {elem: "fir", coeff: 3.15, total: true}}; break;
       case "e": res = {"Damage": {elem: "lit", coeff: 3}}; break;
       case "d": res = {"Damage": {elem: "phy", coeff: 3}}; break;
+      }
+      if (stats.leg_augustinespanacea) {
+        var pct = {};
+        pct[DiabloCalc.itemById.P41_Unique_Quiver_001.name] = stats.leg_augustinespanacea;
+        if (rune === "a") res["Damage"].percent = pct;
+        if (rune === "c") res["Explosion Damage"].percent = pct;
+        if (rune === "e") res["Damage"].percent = pct;
+        if (rune === "d") res["Damage"].percent = pct;
       }
       if (!stats.leg_kridershot) {
         res = $.extend({"Cost": {cost: 10}}, res);
@@ -318,11 +326,11 @@ DiabloCalc.skills.demonhunter = {
       var sentries = (stats.skills.sentry || stats.leg_helltrapper ? DiabloCalc.skills.demonhunter.sentry.params[0].val : 0);
       if (stats.set_marauder_4pc && sentries) {
         var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
-        ext.percent[DiabloCalc.itemSets.marauder.name] = 300;
-        res["Sentry Damage"] = $.extend({}, res["Damage"], ext);
+        ext.percent[DiabloCalc.itemSets.marauder.name] = 400;
+        res["Sentry Damage"] = $.extend(true, {}, res["Damage"], ext);
         DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Damage"], stats);
         if (res["Explosion Damage"]) {
-          res["Sentry Explosion Damage"] = $.extend({}, res["Explosion Damage"], ext);
+          res["Sentry Explosion Damage"] = $.extend(true, {}, res["Explosion Damage"], ext);
           DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Explosion Damage"], stats);
         }
         if (rune === "b") res["Average Sentry Damage"] = {sum: true, "Sentry Damage": {factor: res["Average Damage"]["Damage"].factor}};
@@ -520,7 +528,7 @@ DiabloCalc.skills.demonhunter = {
     active: false,
     buffs: function(rune, stats) {
       if (rune == "c" || stats.set_marauder_2pc) {
-        return {damage: 30};
+        return {dmgmul: 30};
       }
     },
     passive: function(rune, stats) {
@@ -636,7 +644,7 @@ DiabloCalc.skills.demonhunter = {
       if (stats.gems.zei !== undefined) {
         dmg.exclude = ["zei"];
         dmg.percent = (dmg.percent || {});
-        dmg.percent[DiabloCalc.legendaryGems.zei.name] = this.params[1].val * (4 + 0.05 * stats.gems.zei) / 10;
+        dmg.percent[DiabloCalc.legendaryGems.zei.name] = this.params[1].val * (4 + 0.08 * stats.gems.zei) / 10;
       }
     },
     info: function(rune, stats) {
@@ -756,7 +764,7 @@ DiabloCalc.skills.demonhunter = {
       var sentries = (stats.skills.sentry || stats.leg_helltrapper ? DiabloCalc.skills.demonhunter.sentry.params[0].val : 0);
       if (stats.set_marauder_4pc && sentries) {
         var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
-        ext.percent[DiabloCalc.itemSets.marauder.name] = 300;
+        ext.percent[DiabloCalc.itemSets.marauder.name] = 400;
         res["Sentry Damage"] = $.extend({}, res["Damage"], ext);
         DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Damage"], stats);
         if (res["Rocket Damage"]) {
@@ -814,7 +822,7 @@ DiabloCalc.skills.demonhunter = {
       var sentries = (stats.skills.sentry || stats.leg_helltrapper ? DiabloCalc.skills.demonhunter.sentry.params[0].val : 0);
       if (stats.set_marauder_4pc && sentries) {
         var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
-        ext.percent[DiabloCalc.itemSets.marauder.name] = 300;
+        ext.percent[DiabloCalc.itemSets.marauder.name] = 400;
         res["Sentry Damage"] = $.extend({}, res["Damage"], ext);
         DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Damage"], stats);
         if (res["Grenade Damage"]) {
@@ -973,7 +981,7 @@ DiabloCalc.passives.demonhunter = {
     name: "Steady Aim",
     index: 3,
     active: true,
-    buffs: {damage: 20},
+    buffs: {dmgmul: 20},
   },
   culltheweak: {
     id: "cull-the-weak",
@@ -1081,8 +1089,16 @@ DiabloCalc.passives.demonhunter = {
 };
 DiabloCalc.partybuffs.demonhunter = {
   companion: {
-    runelist: "c",
-    buffs: function() {return {damage: 30};},
+    runelist: "bc",
+    multiple: true,
+    buffs: function(stats) {
+      var buffs = {};
+      if (this.runevals.b) {
+        buffs.regen = 5364;
+        buffs.resist_percent = 20;
+      }
+      if (this.runevals.c) buffs.dmgmul = 30;
+    },
   },
   markedfordeath: {
     runelist: "*",

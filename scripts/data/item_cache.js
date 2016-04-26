@@ -156,7 +156,7 @@ DiabloCalc.addItems([
     type: "amulet",
     quality: "legendary",
     required: {
-      custom: {id: "leg_overwhelmingdesire", name: "Chance to Charm Enemies", format: "Chance on hit to charm the enemy. While charmed, the enemy takes 35%% more damage.", args: 0},
+      custom: {id: "leg_overwhelmingdesire", name: "Chance to Charm Enemies", format: "Chance on hit to charm the enemy. While charmed, the enemy takes 35%% increased damage.", args: 0},
     },
     preset: ["mainstat", "cdr"],
   },

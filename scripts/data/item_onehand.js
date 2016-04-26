@@ -661,6 +661,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Fist_007_x1",
     name: "Fleshrake",
+    suffix: _L("Legacy"),
     type: "fistweapon",
     quality: "legendary",
     preset: ["wpnphy", "mainstat", "lifespirit"],
@@ -719,6 +720,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Fist_008_x1",
     name: "Crystal Fist",
+    suffix: _L("Legacy"),
     type: "fistweapon",
     quality: "legendary",
     preset: ["wpnhol", "mainstat", "damage", "dura"],
@@ -1048,7 +1050,7 @@ DiabloCalc.addItems([
     type: "flail",
     quality: "legendary",
     required: {
-      custom: {id: "leg_johannasargument", name: "Blessed Hammer Attack Speed", format: "Increase the attack speed of Blessed Hammer by 100%%.", args: 0},
+      custom: {id: "leg_johannasargument", name: "Blessed Hammer Bonus", format: "Increase the attack speed and damage of Blessed Hammer by 100%%.", args: 0},
     },
     preset: ["mainstat"],
   },
@@ -1252,6 +1254,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Dagger_102_x1",
     name: "Lord Greenstone's Fan",
+    suffix: _L("Legacy"),
     type: "dagger",
     quality: "legendary",
     required: {
@@ -1266,7 +1269,7 @@ DiabloCalc.addItems([
     type: "sword",
     quality: "legendary",
     required: {
-      custom: {id: "leg_thetwistedsword", name: "Energy Twister Damage Bonus", format: "Energy Twister damage is increased by %d%% for each Energy Twister you have out.", min: 125, max: 150},
+      custom: {id: "leg_thetwistedsword", name: "Energy Twister Damage Bonus", format: "Energy Twister damage is increased by %d%% for each Energy Twister you have out up to a maximum of 8.", min: 125, max: 150},
     },
     preset: ["mainstat"],
   },
@@ -1289,6 +1292,39 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       custom: {id: "leg_thefistofazturrasq_p2", name: "Exploding Palm Explosion Damage", format: "Exploding Palm's on-death explosion damage is increased by %d%%.", min: 250, max: 300},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P41_Unique_Dagger_102_x1",
+    name: "Lord Greenstone's Fan",
+    type: "dagger",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_lordgreenstonesfan_p2", name: "Fan of Knives Damage Bonus", format: "Every second, gain %d%% increased damage for your next Fan of Knives. Stacks up to 30 times.", min: 160, max: 200},
+    },
+    preset: ["mainstat", "wpncol"],
+  },
+
+  {
+    id: "P41_Unique_Fist_007",
+    name: "Fleshrake",
+    type: "fistweapon",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_fleshrake", name: "Dashing Strike Damage Bonus", format: "Dashing Strike increases the damage of Dashing Strike by %d%% for 1 second, stacking up to 5 times.", min: 75, max: 100},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P41_Unique_Fist_008",
+    name: "Crystal Fist",
+    type: "fistweapon",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_crystalfist", name: "Dashing Strike Damage Reduction", format: "Dashing Strike reduces your damage taken by %d%% for 6 seconds.", min: 40, max: 50},
     },
     preset: ["mainstat"],
   },

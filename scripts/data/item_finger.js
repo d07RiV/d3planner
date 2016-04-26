@@ -330,6 +330,7 @@ DiabloCalc.addItems([
     id: "P2_Unique_Ring_01",
     ids: ["ptr_SkullGrasp"],
     name: "Skull Grasp",
+    suffix: _L("Legacy"),
     type: "ring",
     quality: "legendary",
     required: {
@@ -543,6 +544,28 @@ DiabloCalc.addItems([
       custom: {id: "leg_oculusring_p2", name: "Damage Bonus", format: "Chance to create an area of focused power on killing a monster. Damage is increased by %d%% while standing in the area.", min: 70, max: 85},
     },
     preset: ["sockets"],
+  },
+
+  {
+    id: "P41_Unique_Ring_02",
+    name: "Skull Grasp",
+    type: "ring",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_skullgrasp_p2", name: "Whirlwind Damage", format: "Increase the damage of Whirlwind by %d%%.", min: 250, max: 300},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P41_Unique_Ring_01",
+    name: "Halo of Karini",
+    type: "ring",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_haloofkarini", name: "Damage Reduction", format: "You take %d%% less damage for 3 seconds after your Storm Armor electrocutes an enemy more than 30 yards away.", min: 45, max: 60},
+    },
+    preset: ["mainstat", "sockets"],
   },
 
 ]);

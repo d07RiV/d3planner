@@ -106,20 +106,29 @@ DiabloCalc.legendaryGems = {
     id: "Unique_Gem_001_x1",
     name: "Bane of the Powerful",
     types: ["finger", "neck"],
+    check: true,
     active: false,
     effects: [
       {
-        stat: "damage",
         format: "Gain 20%% increased damage for %.1f seconds after killing an elite pack.",
         value: [30],
         delta: [1],
-        realvalue: [20],
       },
       {
-        stat: "edmg",
-        value: [15],
+        format: "Gain 15%% increased damage versus elites and take 15%% reduced damage from elites.",
       },
     ],
+    buffs: function(level, stats) {
+      var buffs = {dmgmul: 20};
+      if (level >= 25) {
+        buffs.edmg = 15;
+        buffs.edef = 15;
+      }
+      return buffs;
+    },
+    inactive: function(level, stats) {
+      if (level >= 25) return {edmg: 15, edef: 15};
+    },
   },
   trapped: {
     id: "Unique_Gem_002_x1",
@@ -165,14 +174,16 @@ DiabloCalc.legendaryGems = {
     effects: [
       {
         format: "Increase the damage of your pets by %.2f%%.",
-        stat: "petdamage",
         value: [15],
         delta: [0.3],
       },
       {
-        format: "Your pets take 25%% less damage.",
+        format: "Your pets take 90%% less damage.",
       },
     ],
+    buffs: function(level, stats) {
+      return {dmgmul: {pet: true, percent: 15 + level * 0.3}};
+    },
   },
   esoteric: {
     id: "Unique_Gem_016_x1",
@@ -222,7 +233,7 @@ DiabloCalc.legendaryGems = {
       },
       {
         stat: "dmgtaken",
-        format: "All enemies you poison take 10%% increased damage from all sources.",
+        format: "All enemies you poison take 10%% increased damage from all sources and deal 10%% less damage.",
         value: [10],
       },
     ],
@@ -237,9 +248,9 @@ DiabloCalc.legendaryGems = {
     active: true,
     effects: [
       {
-        format: "%.1f%% chance on hit to gain Swiftness, increasing your Attack Speed by 1%% for 4 seconds. This effect stacks up to 15 times.",
-        value: [50],
-        delta: [1],
+        format: "Gain Swiftness with every attack, increasing your Attack Speed by 1%% and Dodge by %.2f%% for 4 seconds. This effect stacks up to 15 times.",
+        value: [0.5],
+        delta: [0.01],
       },
       {
         format: "Gain 1%% Cooldown Reduction per stack of Swiftness.",
@@ -247,7 +258,7 @@ DiabloCalc.legendaryGems = {
     ],
     params: [{min: 0, max: 15, name: "Stacks"}],
     buffs: function(level, stats) {
-      var res = {ias: this.params[0].val};
+      var res = {ias: this.params[0].val, dodge: (0.5 + 0.01 * level) * this.params[0].val};
       if (level >= 25) {
         res.cdr = res.ias;
       }
@@ -275,16 +286,16 @@ DiabloCalc.legendaryGems = {
     types: ["finger", "neck"],
     effects: [
       {
-        format: "15%% chance on hit to smite a nearby enemy for %d%% weapon damage as Holy.",
-        value: [2000],
-        delta: [40],
+        format: "15%% chance on hit to smite a nearby enemy for %d%% weapon damage as Holy and heal yourself for 3%% of your maximum Life.",
+        value: [3000],
+        delta: [60],
       },
       {
-        format: "Smite a nearby enemy every 5 seconds.",
+        format: "Smite a nearby enemy every 3 seconds.",
       },
     ],
     info: function(level, stats) {
-      return {"Damage": {elem: "hol", coeff: 20 + 0.4 * level}};
+      return {"Damage": {elem: "hol", coeff: 30 + 0.6 * level}};
     },
   },
   gizzard: {
@@ -315,7 +326,7 @@ DiabloCalc.legendaryGems = {
         delta: [0.1],
       },
       {
-        format: "10%% chance on kill to clear all staggered damage.",
+        format: "20%% chance on kill to clear all staggered damage.",
       },
     ],
   },
@@ -326,15 +337,15 @@ DiabloCalc.legendaryGems = {
     effects: [
       {
         format: "Critical hits cause the enemy to bleed for %.1f%% weapon damage as Physical over 3 seconds.",
-        value: [1200],
-        delta: [30],
+        value: [2500],
+        delta: [50],
       },
       {
         format: "Gain Blood Frenzy, granting you 3%% increased Attack Speed for each bleeding enemy within 20 yards.",
       },
     ],
     info: function(level, stats) {
-      return {"DPS": {elem: "phy", coeff: 12 + 0.3 * level, divide: {"Duration": 3}, total: true}};
+      return {"DPS": {elem: "phy", coeff: 25 + 0.5 * level, divide: {"Duration": 3}, total: true}};
     },
 //    active: false,
 //    check: true,
@@ -358,18 +369,19 @@ DiabloCalc.legendaryGems = {
         delta: [0.5],
       },
       {
-        format: "Primary skills heal you for 2%% of maximum health on hit.",
+        format: "Primary skills heal you for 4%% of maximum health on hit.",
       },
     ],
     buffs: function(level, stats) {
       var value = 25 + level * 0.5;
-      var res = {};
+      var skills = [];
       for (var skill in DiabloCalc.skills[stats.charClass]) {
         if (DiabloCalc.skills[stats.charClass][skill].category === "primary") {
-          res["skill_" + stats.charClass + "_" + skill] = value;
+          skills.push(skill);
+          //res["skill_" + stats.charClass + "_" + skill] = value;
         }
       }
-      return res;
+      return {dmgmul: {skills: skills, percent: value}};
     },
   },
   taeguk: {
@@ -379,19 +391,19 @@ DiabloCalc.legendaryGems = {
     active: true,
     effects: [
       {
-        format: "Gain 0.5%% increased damage for 3 seconds after spending primary resource. This effect stacks up to %d times.",
-        value: [20],
-        delta: [1],
+        format: "Gain %.2f%% increased damage for 1.5 seconds when you spend resource on a channeled skill. This effect stacks up to 10 times.",
+        value: [2],
+        delta: [0.04],
       },
       {
-        format: "Gain 0.5%% increased Armor for every stack.",
+        format: "Gain 2%% increased Armor for every stack.",
       },
     ],
-    params: [{min: 0, max: "20+gems.taeguk", name: "Stacks"}],
+    params: [{min: 0, max: 10, name: "Stacks"}],
     buffs: function(level, stats) {
-      var res = {damage: 0.5 * this.params[0].val};
+      var res = {dmgmul: (2 + level * 0.04) * this.params[0].val};
       if (level >= 25) {
-        res.armor_percent = res.damage;
+        res.armor_percent = 2 * this.params[0].val;
       }
       return res;
     },
@@ -404,8 +416,8 @@ DiabloCalc.legendaryGems = {
     effects: [
       {
         format: "15%% chance on hit to gain a Wreath of Lightning, dealing %.1f%% weapon damage as Lightning every second to nearby enemies for 3 seconds.",
-        value: [600],
-        delta: [10],
+        value: [1250],
+        delta: [25],
       },
       {
         stat: "extrams",
@@ -414,7 +426,7 @@ DiabloCalc.legendaryGems = {
       },
     ],
     info: function(level, stats) {
-      return {"Damage": {elem: "lit", coeff: 6 + 0.1 * level, total: true}};
+      return {"Damage": {elem: "lit", coeff: 12.5 + 0.25 * level, total: true}};
     },
   },
   zei: {
@@ -426,7 +438,7 @@ DiabloCalc.legendaryGems = {
       {
         format: "Damage you deal is increased by %.2f%% for every 10 yards between you and the enemy hit. Maximum %.2f%% increase at 50 yards.",
         value: [4, 20],
-        delta: [0.05, 0.25],
+        delta: [0.08, 0.4],
       },
       {
         format: "20%% chance on hit to Stun the enemy for 1 second.",

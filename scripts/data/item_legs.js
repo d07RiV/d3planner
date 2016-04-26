@@ -51,6 +51,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Pants_001_x1",
     name: "Swamp Land Waders",
+    suffix: _L("Legacy"),
     type: "pants",
     quality: "legendary",
     affixes: {
@@ -366,6 +367,27 @@ DiabloCalc.addItems([
     quality: "set",
     set: "invoker",
     preset: ["mainstat", "sockets", "thorns"],
+  },
+
+  {
+    id: "P41_Unique_Pants_001",
+    name: "Swamp Land Waders",
+    type: "pants",
+    quality: "legendary",
+    affixes: {
+      dmgphy: "elementalDamage",
+      dmgfir: "elementalDamage",
+      dmglit: "elementalDamage",
+      dmgcol: "elementalDamage",
+      dmgpsn: "elementalDamage",
+      dmgarc: "elementalDamage",
+      dmghol: "elementalDamage",
+    },
+    required: {
+      custom: {id: "leg_swamplandwaders", name: "Sacrifice Damage Bonus", format: "Sacrifice deals %d%% additional damage against enemies affected by Locust Swarm or Grasp of the Dead.", min: 300, max: 400},
+    },
+    preset: ["mainstat", "elemental", "sockets"],
+    primary: 5,
   },
 
 ]);

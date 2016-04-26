@@ -199,10 +199,6 @@
     elem: {x: "phy", a: "lit", b: "fir", c: "phy", e: "phy", d: "fir"},
   };
 
-  function hota_birthright_onhit(data) {
-    var count = Sim.random("birthright", 0.1, data.targets * data.chc, true);
-    while (count--) Sim.trigger("onglobe");
-  }
   function hota_gavel_onhit(data) {
     if (data.targets <= 3) {
       Sim.addResource(Sim.stats.leg_gavelofjudgment || 0);
@@ -221,7 +217,6 @@
       case "b": Sim.damage({type: "rollingthunder", range: 22, angle: 60, expos: Sim.target.distance - 7, exrange: 7, coeff: 5.05}); break;
       case "a": dmg.coeff = 6.4; break;
       case "c": dmg.onhit = Sim.apply_effect("chilled", 120); break;
-      case "d": dmg.onhit = hota_birthright_onhit; break;
       }
       if (Sim.stats.leg_gavelofjudgment) {
         dmg.onhit = _chain(dmg.onhit, hota_gavel_onhit);
@@ -357,7 +352,8 @@
         base.buffs.ias = 30;
       }
       if (Sim.stats.set_wastes_4pc) {
-        base.buffs.dmgred = 40;
+        base.buffs.dmgred = 50;
+        base.buffs.dmgmul = {skills: ["rend"], percent: 200};
       }
       Sim.channeling("whirlwind", this.channeling, ww_ontick, data, base);
     },
@@ -989,7 +985,7 @@
     },
     animosity: {resourcegen: 10, maxfury: 20},
     superstition: {nonphys: 20},
-    toughasnails: {armor_percent: 25, thorns_multiply: 50},
+    toughasnails: {armor_percent: 25, thorns_multiply: 100},
     noescape: function() {},
     relentless: function() {
       // todo?

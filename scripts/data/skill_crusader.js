@@ -34,7 +34,7 @@ DiabloCalc.skills.crusader = {
         res["Retaliate Damage"] = {elem: elem, coeff: 1.4};
       }
       if (stats.set_invoker_6pc) {
-        res["Thorns Damage"] = {thorns: "special", coeff: 6, elem: "phy", srcelem: "none"};
+        res["Thorns Damage"] = {thorns: "special", coeff: 8, elem: "phy", srcelem: "none"};
         res["DPS"]["Damage"].speed *= 1.5;
         res["DPS"]["Thorns Damage"] = $.extend({nobp: true}, res["DPS"]["Damage"]);
       }
@@ -74,7 +74,7 @@ DiabloCalc.skills.crusader = {
         "Damage": {elem: DiabloCalc.skilltips.crusader.slash.elements[rune], coeff: 2.3}};
       if (rune === "c") res["Damage"].chc = 20;
       if (stats.set_invoker_6pc) {
-        res["Thorns Damage"] = {thorns: "special", coeff: 6, elem: "phy"};
+        res["Thorns Damage"] = {thorns: "special", coeff: 8, elem: "phy"};
         res["DPS"]["Damage"].speed *= 1.5;
         res["DPS"]["Thorns Damage"] = $.extend({nobp: true}, res["DPS"]["Damage"]);
       }
@@ -316,13 +316,21 @@ DiabloCalc.skills.crusader = {
       c: "Emblazoned Shield",
       e: "Subdue",
     },
-    info: {
-      x: {"Uptime": {duration: 4, cooldown: "12*(passives.toweringshield?0.7:1)"}},
-      a: {"Uptime": {duration: 4, cooldown: "12*(passives.toweringshield?0.7:1)"}},
-      b: {"Uptime": {duration: 4, cooldown: "12*(passives.toweringshield?0.7:1)"}},
-      d: {"Uptime": {duration: 4, cooldown: "12*(passives.toweringshield?0.7:1)"}},
-      c: {"Explosion Damage": {elem: "phy", coeff: 0.6}, "Uptime": {duration: 4, cooldown: "12*(passives.toweringshield?0.7:1)"}},
-      e: {"Uptime": {duration: 4, cooldown: "12*(passives.toweringshield?0.7:1)"}},
+    params: [{min: 0, max: 5, name: "Shield Bash Stacks", buffs: false, show: function(rune, stats) {
+               return !!(stats.leg_flailoftheascended && stats.skills.shieldbash);
+             }}],
+    info: function(rune, stats) {
+      var res = {"Uptime": {duration: 4, cooldown: 12 * (stats.passives.toweringshield ? 0.7 : 1)}};
+      if (rune === "c") {
+        res["Explosion Damage"] = {elem: "phy", coeff: 0.6};
+      }
+      if (stats.leg_flailoftheascended && this.params[0].val && stats.skills.shieldbash) {
+        var dmg = DiabloCalc.skills.crusader.shieldbash.info(stats.skills.shieldbash, stats)["Damage"];
+        dmg.elem = (rune === "c" ? "phy" : "hol");
+        dmg.factors = {"Stacks": this.params[0].val};
+        res["Shield Bash Damage"] = dmg;
+      }
+      return res;
     },
     active: false,
     buffs: {
@@ -621,6 +629,7 @@ DiabloCalc.skills.crusader = {
     buffs: {
       a: {extrams: 50},
       b: {life: 10},
+      c: {physdef: 25},
       d: {lifewrath: 1073},
       e: {nonphys: 25},
     },
@@ -679,12 +688,12 @@ DiabloCalc.skills.crusader = {
     },
     active: false,
     buffs: function(rune, stats) {
-      var res = {damage: 35, wrathregen: 5};
+      var res = {dmgmul: 35, wrathregen: 5};
       if (rune === "b" || stats.leg_akkhansaddendum) res.wrathregen = 10;
       if (rune === "d" || stats.leg_akkhansaddendum) res.armor_percent = 150;
       if (rune === "e") res.ias = 15;
       if (stats.set_akkhan_2pc) res.rcr = 50;
-      if (stats.set_akkhan_6pc) res.dmgmul = 450;
+      if (stats.set_akkhan_6pc) res.dmgmul = {list: [35, 450]};
       return res;
     },
   },

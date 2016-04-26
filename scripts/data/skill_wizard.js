@@ -433,7 +433,7 @@ DiabloCalc.skills.wizard = {
         if (stats.gems.zei !== undefined) {
           res[key].exclude = ["zei"];
           res[key].percent = {};
-          res[key].percent[DiabloCalc.legendaryGems.zei.name] = this.params[1].val * (4 + 0.05 * stats.gems.zei) / 10;
+          res[key].percent[DiabloCalc.legendaryGems.zei.name] = this.params[1].val * (4 + 0.08 * stats.gems.zei) / 10;
         }
         res["DPS"] = {sum: true};
         res["DPS"][key] = {pet: (rune === "a" ? 86 : 76.300583), area: false, speed: 1, count: 3 * this.params[0].val};
@@ -441,7 +441,7 @@ DiabloCalc.skills.wizard = {
         if (stats.gems.zei !== undefined) {
           res["Tick Damage"].exclude = ["zei"];
           res["Tick Damage"].percent = {};
-          res["Tick Damage"].percent[DiabloCalc.legendaryGems.zei.name] = this.params[1].val * (4 + 0.05 * stats.gems.zei) / 10;
+          res["Tick Damage"].percent[DiabloCalc.legendaryGems.zei.name] = this.params[1].val * (4 + 0.08 * stats.gems.zei) / 10;
         }
         var duration = 5 - this.params[1].val * 1.8 / 50;
         res["Layer Damage"] = {sum: true, "Tick Damage": {count: Math.floor(duration / 0.3)}};
@@ -478,7 +478,10 @@ DiabloCalc.skills.wizard = {
         b: {"Damage": {elem: "fir", coeff: 2.77, addcoeff: [0.70], total: 0}, "Total Damage": {sum: true, "Damage": {count: 7}}, "Average Damage": {sum: true, tip: "Small target gets hit by 2.5 meteors, on average", "Damage": {count: 2.5}}},
         a: {"Cooldown": {cooldown: 15}, "Damage": {elem: "fir", coeff: 16.48, addcoeff: [6.25], total: 0}},
       }[rune];
-      if (stats.leg_nilfursboast) {
+      if (stats.leg_nilfursboast_p2) {
+        res["Damage"].percent = {};
+        res["Damage"].percent[DiabloCalc.itemById.P41_Unique_Boots_01.name] = (this.active ? stats.leg_nilfursboast_p2 : 200);
+      } else if (stats.leg_nilfursboast) {
         res["Damage"].percent = {};
         res["Damage"].percent[DiabloCalc.itemById.P2_Unique_Boots_01.name] = (this.active ? stats.leg_nilfursboast : 100);
       }
@@ -735,7 +738,8 @@ DiabloCalc.skills.wizard = {
       if (rune === "a" || stats.set_vyr_2pc) {
         for (var k in res) {
           if (res[k].coeff) {
-            res[k].bonuses = {"Improved": 22};
+            res[k].percent = {};
+            res[k].percent[this.runes.a] = 50;
           }
         }
       }
@@ -749,11 +753,11 @@ DiabloCalc.skills.wizard = {
         return !!stats.set_chantodo_2pc;
       }}],
     buffs: function(rune, stats) {
-      var res = {damage: 20 + 6 * this.params[0].val, armor_percent: 20, resist_percent: 20};
+      var res = {dmgmul: {list: [30, 6 * this.params[0].val]}, armor_percent: 150, resist_percent: 150};
       if (stats.set_vyr_4pc) {
-        res.ias = this.params[0].val;
-        res.armor_percent += this.params[0].val;
-        res.resist_percent += this.params[0].val;
+        res.ias = this.params[0].val * 1.0;
+        res.armor_percent += this.params[0].val * 1.0;
+        res.resist_percent += this.params[0].val * 1.0;
       }
       return res;
     },
@@ -1059,6 +1063,6 @@ DiabloCalc.extraskills.wizard = {
     name: "Teleport",
     row: 6,
     col: 3,
-    tip: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/wizard_archon_teleport.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">3</span> seconds</p><p>Teleport through the ether to the selected location up to <span class=\"d3-color-green\">50</span> yards away.</p> </div> </div>",
+    tip: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/wizard_archon_teleport.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">2</span> seconds</p><p>Teleport through the ether to the selected location up to <span class=\"d3-color-green\">50</span> yards away.</p> </div> </div>",
   },
 };

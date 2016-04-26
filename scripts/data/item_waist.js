@@ -655,4 +655,15 @@ DiabloCalc.addItems([
     preset: ["mainstat"],
   },
 
+  {
+    id: "P41_Unique_Belt_007",
+    name: "Bakuli Jungle Wraps",
+    type: "belt",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_bakulijunglewraps", name: "Extra Firebats Damage", format: "Firebats deals %d%% increased damage to enemies affected by Locust Swarm or Piranhas.", min: 150, max: 200},
+    },
+    preset: ["mainstat", "resall"],
+  },
+
 ]);

@@ -429,7 +429,7 @@ DiabloCalc.addItems([
     type: "voodoomask",
     quality: "legendary",
     required: {
-      custom: {id: "leg_maskofjeram", name: "Pet Damage", format: "Pets deal %d%% more damage.", min: 75, max: 100},
+      custom: {id: "leg_maskofjeram", name: "Pet Damage", format: "Pets deal %d%% increased damage.", min: 75, max: 100},
     },
     preset: ["mainstat", "sockets"],
   },

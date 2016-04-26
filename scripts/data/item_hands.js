@@ -14,6 +14,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Gloves_014_x1",
     name: "Magefist",
+    suffix: _L("Legacy"),
     type: "gloves",
     quality: "legendary",
     required: {
@@ -61,6 +62,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Gloves_002_x1",
     name: "Frostburn",
+    suffix: _L("Legacy"),
     type: "gloves",
     quality: "legendary",
     required: {
@@ -338,6 +340,28 @@ DiabloCalc.addItems([
     type: "gloves",
     quality: "set",
     set: "light",
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P41_Unique_Gloves_014",
+    name: "Magefist",
+    type: "gloves",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_magefist", name: "Fire Damage", format: "Fire skills deal %d%% increased damage.", min: 15, max: 20},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P41_Unique_Gloves_002",
+    name: "Frostburn",
+    type: "gloves",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_frostburn_p2", name: "Cold Damage", format: "Cold skills deal %d%% increased damage and have a 50%% chance to Freeze enemies.", min: 15, max: 20},
+    },
     preset: ["mainstat", "chc"],
   },
 

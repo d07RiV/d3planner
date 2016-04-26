@@ -55,9 +55,9 @@
   });
 
   gems.powerful = function(level) {
-    if (level >= 25) Sim.addBaseStats({edmg: 15});
+    if (level >= 25) Sim.addBaseStats({edmg: 15, edef: 15});
     if (Sim.params.powerful && Sim.params.powerful[0]) {
-      Sim.addBuff("powerful", {damage: 20});
+      Sim.addBuff("powerful", {dmgmul: 20});
     }
   };
   gems.trapped = function(level) {
@@ -74,7 +74,7 @@
     });
   };
   gems.enforcer = function(level) {
-    Sim.addBaseStats({petdamage: 15 + 0.3 * level});
+    Sim.addBaseStats({dmgmul: {pet: true, percent: 15 + 0.3 * level}});
   };
   gems.toxin = function(level) {
     var buffs = (level >= 25 ? {dmgtaken: 10} : undefined);
@@ -95,28 +95,29 @@
     });
   };
   gems.gogok = function(level) {
-    var buffs = (level >= 25 ? {ias: 1, cdr: 1} : {ias: 1});
+    var buffs = {ias: 1, dodge: 0.5 + level * 0.01};
+    if (level >= 25) buffs.cdr = 1;
     Sim.register("onhit_proc", function(data) {
-      var stacks = Sim.random("gogok", data.proc * (0.5 + 0.01 * level), data.targets, true);
+      var stacks = Sim.random("gogok", data.proc, data.targets, true);
       if (stacks) {
         Sim.addBuff("gogok", buffs, {duration: 240, maxstacks: 15, stacks: stacks});
       }
     });
   };
   gems.mirinae = function(level) {
-    var coeff = 20 + 0.4 * level;
+    var coeff = 30 + 0.6 * level;
     Sim.register("onhit_proc", function(data) {
       Sim.damage({count: data.targets * data.proc * 0.15, elem: "hol", coeff: coeff});
     });
     if (level >= 25) {
-      Sim.after(300, function ontick() {
+      Sim.after(180, function ontick() {
         Sim.damage({elem: "hol", coeff: coeff});
-        Sim.after(300, ontick);
+        Sim.after(180, ontick);
       });
     }
   };
   gems.pain = function(level) {
-    var coeff = (12 + 0.3 * level) / 12;
+    var coeff = (25 + 0.5 * level) / 12;
     var buffs = undefined;
     if (level >= 25 && Sim.target.distance - Sim.target.size < 20) {
       buffs = {ias: 3};
@@ -138,25 +139,26 @@
     });
   };
   gems.simplicity = function(level) {
-    var stats = {};
+    var skills = [];
     for (var id in Sim.skills) {
-      var skill = Sim.skills[id];
       if (Sim.skills[id].signature) {
-        stats["skill_" + Sim.stats.charClass + "_" + id] = 25 + 0.5 * level;
+        skills.push(id);
+        //stats["skill_" + Sim.stats.charClass + "_" + id] = 25 + 0.5 * level;
       }
     }
-    Sim.addBaseStats(stats);
+    Sim.addBaseStats({dmgmul: {skills: skills, percent: 25 + 0.5 * level}});
   };
   gems.taeguk = function(level) {
-    var buffs = (level >= 25 ? {damage: 0.5, armor_percent: 0.5} : {damage: 0.5});
+    var buffs = {dmgmul: 2 + level * 0.04};
+    if (level >= 25) buffs.armor_percent = 2;
     Sim.register("oncast", function(data) {
-      if (data.cost) {
-        Sim.addBuff("taeguk", buffs, {maxstacks: 20 + level, duration: 180});
+      if (data.cost && data.channeling) {
+        Sim.addBuff("taeguk", buffs, {maxstacks: 10, duration: 90});
       }
     });
   };
   gems.wreath = function(level) {
-    var coeff = (6 + 0.1 * level) / 5;
+    var coeff = (12.5 + 0.25 * level) / 5;
     function ontick(data) {
       Sim.damage({targets: 2, elem: "lit", coeff: coeff});
     }
@@ -264,6 +266,17 @@
   affixes.leg_frostburn = function(amount) {
     Sim.register("onhit_proc", function(data) {
       if (data.elem === "col" && Sim.random("frostburn", 0.01 * amount * data.proc, data.targets / Sim.target.count)) {
+        Sim.addBuff("frozen", undefined, 36);
+      }
+    });
+  };
+  affixes.leg_magefist = function(amount) {
+    Sim.addBaseStats({dmgfir: amount});
+  };
+  affixes.leg_frostburn_p2 = function(amount) {
+    Sim.addBaseStats({dmgcol: amount});
+    Sim.register("onhit_proc", function(data) {
+      if (data.elem === "col" && Sim.random("frostburn", 0.5 * data.proc, data.targets / Sim.target.count)) {
         Sim.addBuff("frozen", undefined, 36);
       }
     });
@@ -520,9 +533,9 @@
   };
   affixes.leg_hack = function(amount) {
     Sim.register("onhit_proc", function(data) {
-      if (data.castInfo && data.castInfo.user && !data.castInfo.user.hack) {
-        data.castInfo.user.hack = true;
-        var targets = data.targets;
+      if (data.castInfo && data.castInfo.globUser && !data.castInfo.globUser.hack) {
+        data.castInfo.globUser.hack = true;
+        var targets = 1;
         if (Sim.stats.set_invoker_2pc) {
           targets = Math.max(targets, Sim.getTargets(15, Sim.target.distance));
         }
@@ -654,9 +667,11 @@
     });
   };
   affixes.leg_solanium = function(amount) {
+    var next = 0;
     Sim.register("onhit_proc", function(data) {
-      for (var i = Sim.random("solanium", 0.01 * amount * data.proc * data.chc, data.targets, true); i > 0; --i) {
+      if (Sim.time >= next && Sim.random("solanium", 0.01 * amount * data.proc * data.chc, data.targets)) {
         Sim.trigger("onglobe");
+        next = Sim.time + 480;
       }
     });
   };
@@ -962,7 +977,7 @@
   affixes.leg_depthdiggers = function(amount) {
     Sim.register("oncast", function(data) {
       if (Sim.skills[data.skill] && Sim.skills[data.skill].signature && data.generate) {
-        return {dibs: amount};
+        return {percent: amount};
       }
     });
   };
@@ -1219,7 +1234,7 @@
       }
     });
   };
-  affixes.leg_lordgreenstonesfan = function(amount) {
+  affixes.leg_lordgreenstonesfan = affixes.leg_lordgreenstonesfan_p2 = function(amount) {
     Sim.after(60, function tick() {
       Sim.addBuff("lordgreenstonesfan", undefined, {maxstacks: 30});
       Sim.after(60, tick);
@@ -1250,7 +1265,7 @@
   affixes.leg_thetwistedsword = function(amount) {
     var buffname;
     function update() {
-      var stacks = Sim.getBuff("energytwister") + 2 * Sim.getBuff("ragingstorm");
+      var stacks = Math.min(8, Sim.getBuff("energytwister") + 2 * Sim.getBuff("ragingstorm"));
       buffname = Sim.setBuffStacks(buffname, {dmgmul: {skills: ["energytwister"], percent: amount}}, stacks);
     }
     Sim.watchBuff("energytwister", update);
@@ -1429,6 +1444,68 @@
       if (Sim.time >= next) {
         Sim.damage({coeff: amount * 0.01});
         next = Sim.time + 30;
+      }
+    });
+  };
+  affixes.leg_skullgrasp_p2 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["whirlwind"], percent: amount}});
+  };
+  affixes.leg_bakulijunglewraps = function(amount) {
+    var buff;
+    function update() {
+      if (Sim.getBuff("locustswarm") || Sim.getBuff("piranhas")) {
+        buff = Sim.addBuff(buff, {dmgmul: {skills: ["firebats"], percent: amount}});
+      } else if (buff) {
+        Sim.removeBuff(buff);
+      }
+    }
+    Sim.watchBuff("locustswarm", update);
+    Sim.watchBuff("piranhas", update);
+  };
+  affixes.leg_swamplandwaders = function(amount) {
+    var buff;
+    function update() {
+      if (Sim.getBuff("locustswarm") || Sim.getBuff("graspofthedead")) {
+        buff = Sim.addBuff(buff, {dmgmul: {skills: ["sacrifice"], percent: amount}});
+      } else if (buff) {
+        Sim.removeBuff(buff);
+      }
+    }
+    Sim.watchBuff("locustswarm", update);
+    Sim.watchBuff("graspofthedead", update);
+  };
+  affixes.leg_johannasargument = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["blessedhammer"], percent: 100}});
+  };
+  affixes.leg_theflowofeternity_p2 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["sevensidedstrike"], percent: 100}});
+  };
+  affixes.leg_fleshrake = function(amount) {
+    Sim.register("oncast", function(data) {
+      if (data.skill === "dashingstrike") {
+        Sim.addBuff("fleshrake", undefined, {maxstacks: 5, duration: 60});
+        return {percent: Sim.getBuff("fleshrake") * amount};
+      }
+    });
+  };
+  affixes.leg_crystalfist = function(amount) {
+    Sim.register("oncast", function(data) {
+      if (data.skill === "dashingstrike") {
+        Sim.addBuff("crystalfist", {dmgred: amount}, {duration: 360});
+      }
+    });
+  };
+  affixes.leg_haloofkarini = function(amount) {
+    Sim.register("onhit", function(data) {
+      if (data.castInfo && data.castInfo.skill === "stormarmor" && data.distance > 30) {
+        Sim.addBuff("haloofkarini", {dmgred: amount}, {duration: 180});
+      }
+    });
+  };
+  affixes.leg_flailoftheascended = function(amount) {
+    Sim.register("oncast", function(data) {
+      if (data.skill === "shieldbash") {
+        Sim.addBuff("flailoftheascended", undefined, {maxstacks: 5});
       }
     });
   };

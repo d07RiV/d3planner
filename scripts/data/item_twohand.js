@@ -498,6 +498,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_CombatStaff_2H_005_x1",
     name: "The Flow of Eternity",
+    suffix: _L("Legacy"),
     type: "daibo",
     quality: "legendary",
     required: {
@@ -896,6 +897,28 @@ DiabloCalc.addItems([
     },
     preset: ["mainstat", "skill_barbarian_seismicslam"],
     primary: 6,
+  },
+
+  {
+    id: "P41_Unique_CombatStaff_2H_005",
+    name: "The Flow of Eternity",
+    type: "daibo",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_theflowofeternity_p2", name: "Seven-Sided Strike Cooldown Reduction", format: "Increase the damage of Seven-Sided Strike by 100%% and reduce the cooldown of Seven-Sided Strike by %d%%.", min: 45, max: 60},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P4_Unique_Flail_2H_002",
+    name: "Flail of the Ascended",
+    type: "flail2h",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_flailoftheascended", name: "Shield Glare Damage", format: "Your Shield Glare deals damage equal to up to your last 5 Shield Bash casts.", args: 0},
+    },
+    preset: ["mainstat"],
   },
 
 ]);

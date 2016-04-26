@@ -196,7 +196,7 @@ DiabloCalc.skilltips.crusader = {
   lawsofhope: {
     a: "<p><span class=\"d3-color-gold\">Active:</span> Empowering the Law also increases movement speed for you and your allies by <span class=\"d3-color-green\">50%</span>, and allows everyone affected to run through enemies unimpeded.</p> <p class=\"subtle\">Unlocked at level <em>31</em>.</p>",
     b: "<p><span class=\"d3-color-gold\">Active:</span> Empowering the Law also increases the maximum Life of you and your allies by <span class=\"d3-color-green\">10%</span>.</p> <p class=\"subtle\">Unlocked at level <em>34</em>.</p>",
-    c: "<p><span class=\"d3-color-gold\">Active:</span> Empowering the Law also grants a <span class=\"d3-color-green\">5%</span> chance to cause nearby enemies to drop Health Globes.</p> <p class=\"subtle\">Unlocked at level <em>40</em>.</p>",
+    c: "<p><span class=\"d3-color-gold\">Active:</span> Empowering the Law also reduces all Physical damage taken by <span class=\"d3-color-green\">25%</span>.</p> <p class=\"subtle\">Unlocked at level <em>40</em>.</p>",
     d: "<p><span class=\"d3-color-gold\">Active:</span> Empowering the Law also heals you and your allies for <span class=\"d3-color-green\">1073</span> Life for every point of Wrath that you spend. </p> <p class=\"subtle\">Unlocked at level <em>48</em>.</p>",
     e: "<p><span class=\"d3-color-gold\">Active:</span> Empowering the Law also reduces all non-Physical damage taken by <span class=\"d3-color-green\">25%</span>.</p> <p class=\"subtle\">Unlocked at level <em>58</em>.</p>",
     elements: {
