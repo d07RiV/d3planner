@@ -163,7 +163,7 @@ DiabloCalc.skills.barbarian = {
       if (rune === "a" || stats.leg_theundisputedchampion) {
         res.damage = this.params[0].val * 2.5;
       }
-      if (rune === "a" || stats.leg_theundisputedchampion) {
+      if (rune === "c" || stats.leg_theundisputedchampion) {
         res.extrams = this.params[0].val * 5;
       }
       return res;
