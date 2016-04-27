@@ -401,7 +401,7 @@ DiabloCalc.legendaryGems = {
     ],
     params: [{min: 0, max: 10, name: "Stacks"}],
     buffs: function(level, stats) {
-      var res = {dmgmul: (2 + level * 0.04) * this.params[0].val};
+      var res = {damage: (2 + level * 0.04) * this.params[0].val};
       if (level >= 25) {
         res.armor_percent = 2 * this.params[0].val;
       }

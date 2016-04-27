@@ -149,7 +149,7 @@
     Sim.addBaseStats({dmgmul: {skills: skills, percent: 25 + 0.5 * level}});
   };
   gems.taeguk = function(level) {
-    var buffs = {dmgmul: 2 + level * 0.04};
+    var buffs = {damage: 2 + level * 0.04};
     if (level >= 25) buffs.armor_percent = 2;
     Sim.register("oncast", function(data) {
       if (data.cost && data.channeling) {

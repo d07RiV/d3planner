@@ -2451,6 +2451,9 @@ _L.patch.add({
     Helm_console_promo: {
       flavor: "At the height of his madness, Zoltun Kulle’s pride knew no bounds. He raised vast halls filled with arcane beings to serve at his whim and created magical artifacts to amplify his power beyond the limits of imagination.\n",
     },
+    TransmogAxe_241_003: {
+      flavor: "L’Anzuul’s vile axe was never used to more righteous purpose than when it was wielded by the Chief Elder of Sescheron.",
+    },
     TransmogFist_241_001: {
       flavor: "Fills its victims with an overwhelming despair that makes them pray for the sweet release of death.",
     },
