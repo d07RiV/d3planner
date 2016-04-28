@@ -1004,7 +1004,7 @@
       self.onUpdate(true);
     });
     chosen_addIcons(this.item, function(id) {
-      var type = this.type.val();
+      var type = this.type.val() || (DC.itemById[id] && DC.itemById[id].type);
       var icon = DC.itemIcons[id];
       if (type === "custom" && this.slot) {
         var types = (DC.getOffhandTypes && this.slot === "offhand" ? DC.getOffhandTypes() : DC.itemSlots[this.slot].types);

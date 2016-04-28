@@ -22,7 +22,7 @@ a, .link-like {
   cursor: pointer;
   text-decoration: none;
 }
-a:hover, .link-like {
+a:hover, .link-like:hover {
   text-decoration: underline;
 }
 

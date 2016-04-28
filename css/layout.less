@@ -1194,3 +1194,49 @@
   .d2-crafted {color: #FFA800;}
   .d2-gray {color: #696969;}
 }
+
+#tab-equipment .skill-category {
+  margin-top: 12px;
+}
+
+.collapse-header {
+  margin: 24px 47px 4px 47px !important;
+  position: relative;
+  cursor: pointer;
+  &:before {
+    content: "-";
+    font-family: monospace;
+    position: absolute;
+    left: -20px;
+    bottom: 3px;
+    width: 14px;
+    height: 14px;
+    line-height: 13px;
+    font-size: 18px;
+    font-weight: normal;
+    border: 1px solid black;
+    text-align: center;
+  }
+  &.collapsed {
+    &:before {
+      content: "+";
+    }
+    & + ul {
+      //display: none;
+      max-height: 0;
+    }
+  }
+  & + ul {
+    list-style-type: none;
+    max-height: 100px;
+    margin: 0 47px;
+    padding: 0;
+    overflow-y: hidden;
+    transition-property: all;
+	transition-duration: 0.5s;
+	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    li {
+      margin: 3px 0;
+    }
+  }
+}

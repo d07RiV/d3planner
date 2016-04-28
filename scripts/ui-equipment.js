@@ -757,6 +757,86 @@
     });
   }
 
+  tab.append("<h3 class=\"skill-category collapse-header collapsed\">" + _L("Global equipment modifications") + "</h3>");
+  $(".collapse-header").click(function() {
+    $(this).toggleClass("collapsed");
+  });
+  var eqmod = $("<ul></ul>");
+  tab.append(eqmod);
+  eqmod.append("<li><span class=\"link-like eqmod-ancient\">" + _L("Make all items Ancient") + "</span></li>");
+  eqmod.append("<li><span class=\"link-like eqmod-maxstat\">" + _L("Change all stats to maximum") + "</span></li>");
+  var in_level = "<input class=\"eqmod-enchant-level\" type=\"number\" min=\"0\" max=\"200\" value=\"100\"/>";
+  var in_stat = "<select class=\"eqmod-enchant-type\">";
+  for (var st in {str: true, dex: true, int: true, vit: true}) {
+    in_stat += "<option value=\"" + st + "\">" + DiabloCalc.stats[st].name + "</option>";
+  }
+  in_stat += "</select>";
+  eqmod.append("<li><span class=\"link-like eqmod-enchant\">" + _L("Add level {0} {1} Caldessan's Despair").format(in_level, in_stat) + "</span></li>");
+  DiabloCalc.register("changeClass", function() {
+    $(".eqmod-enchant-type").val(DiabloCalc.classes[DiabloCalc.charClass].primary);
+  });
+  $(".eqmod-enchant-type").val(DiabloCalc.classes[DiabloCalc.charClass].primary);
+
+  $(".eqmod-ancient").click(function() {
+    for (var slot in DiabloCalc.itemSlots) {
+      var data = DiabloCalc.getSlot(slot);
+      if (!data) continue;
+      if (!data.ancient) {
+        data.ancient = true;
+        delete data.enchant;
+        delete data.imported;
+        DiabloCalc.setSlot(slot, data);
+      }
+    }
+  });
+  $(".eqmod-maxstat").click(function() {
+    for (var slot in DiabloCalc.itemSlots) {
+      var data = DiabloCalc.getSlot(slot);
+      if (!data) continue;
+      delete data.enchant;
+      delete data.imported;
+      var stats = DiabloCalc.getItemAffixesById(data.id, data.ancient, true);
+      for (var st in data.stats) {
+        if (!stats[st]) continue;
+        if (data.stats[st].length >= 1) {
+          data.stats[st][0] = (stats[st][stats[st].best || "max"] || data.stats[st][0]);
+        }
+        if (data.stats[st].length >= 2) {
+          data.stats[st][0] = (stats[st].max2 || data.stats[st][1]);
+        }
+      }
+      DiabloCalc.setSlot(slot, data);
+    }
+  });
+  $(".eqmod-enchant").click(function() {
+    var value = (parseInt($(".eqmod-enchant-level").val()) || 1) * 5;
+    var stat = "caldesanns_" + $(".eqmod-enchant-type").val();
+    for (var slot in DiabloCalc.itemSlots) {
+      var data = DiabloCalc.getSlot(slot);
+      if (!data) continue;
+      if (value) {
+        if (!data.stats[stat] || data.stats[stat][0] !== value) {
+          delete data.stats.caldesanns_str;
+          delete data.stats.caldesanns_dex;
+          delete data.stats.caldesanns_int;
+          delete data.stats.caldesanns_vit;
+          data.stats[stat] = [value];
+          DiabloCalc.setSlot(slot, data);
+        }
+      } else {
+        if (data.stats.caldesanns_str || data.stats.caldesanns_dex ||
+            data.stats.caldesanns_int || data.stats.caldesanns_vit) {
+          delete data.stats.caldesanns_str;
+          delete data.stats.caldesanns_dex;
+          delete data.stats.caldesanns_int;
+          delete data.stats.caldesanns_vit;
+          data.stats[stat] = [value];
+          DiabloCalc.setSlot(slot, data);
+        }
+      }
+    }
+  });
+
   var saveTip = $("<span class=\"status\"></span>").hide();
   var header = $("<div class=\"stash-header\">" + _L("Drag items between paperdoll and stash.<br/>Hold shift to clone items.") + "</div>");
   DiabloCalc.stashHeader = header;
