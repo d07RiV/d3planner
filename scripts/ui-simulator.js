@@ -908,6 +908,7 @@
           }
           info.val = ui.value;
           value.text(ui.value);
+          updateRange();
         },
       });
       DC.addTip(slider, info.tip);
@@ -945,7 +946,7 @@
   });
   optDiv.css("margin-bottom", 8);
 
-  var nyiSection = $("<div><p>" + _L("The following equipped items are not implemented in the simulation:") + "</p></div>");
+  var nyiSection = $("<div class=\"nyi-section\"><p>" + _L("The following equipped items are not implemented in the simulation:") + "</p></div>");
   var nyiList = $("<ul class=\"nyi-list\"></ul>");
   Section.append(nyiSection.append(nyiList));
   nyiSection.hide();
@@ -965,6 +966,39 @@
       }
     });
     nyiSection.toggle(!!nyiList.children().length);
+  }
+  var rangeSection = $("<div class=\"nyi-section\"><p>" + _L("The character might not be in range to use the following skills:") + "</p></div>");
+  var rangeList = $("<ul class=\"nyi-list\"></ul>");
+  Section.append(rangeSection.append(rangeList));
+  rangeSection.hide();
+  function updateRange() {
+    rangeList.empty();
+    var data = DC.priority.getData();
+    var sku = {};
+    var skr = {};
+    for (var i = 0; i < 6; ++i) {
+      var skill = DC.getSkill(i);
+      if (skill) skr[skill[0]] = skill[1];
+    }
+    var maxrange = DC.options.targetDistance - DC.options.targetRadius - DC.options.targetSize;
+    $.each(data, function(i, datai) {
+      var skill = datai.skill;
+      if (!skill || sku[skill]) return;
+      sku[skill] = true;
+      var info = DC.skills[DC.charClass][skill];
+      if (!info || !info.range) return;
+      var range = (typeof info.range === "object" ? info.range[skr[skill] || "x"] : info.range);
+      if (maxrange > range) {
+        var line = $("<li>" + info.name + "</li>");
+        line.hover(function() {
+          DC.tooltip.showSkill(this, DC.charClass, skill, skr[skill] || "x");
+        }, function() {
+          DC.tooltip.hide();
+        });
+        rangeList.append(line);
+      }
+    });
+    rangeSection.toggle(!!rangeList.children().length);
   }
 
   var SimButton = $("<button class=\"button-start\">" + _L("Start") + "</button>").button({
@@ -1405,6 +1439,9 @@
     activate: function(event, ui) {
       ui.newPanel.removeClass("sliding");
       ui.oldPanel.removeClass("sliding");
+      if (ui.newPanel.is(Section)) {
+        updateRange();
+      }
     },
     beforeActivate: function(event, ui) {
       ui.newPanel.addClass("sliding");

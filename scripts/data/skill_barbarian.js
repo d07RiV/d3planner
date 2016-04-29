@@ -37,6 +37,7 @@ DiabloCalc.skills.barbarian = {
       d: "Instigation",
       e: "Pulverize",
     },
+    range: 5,
     active: true,
     params: [{rune: "b", min: 0, max: 3, val: 3, name: "Stacks"},
              {min: 0, max: 40, name: "Fury", buffs: false, show: function(rune, stats) {
@@ -79,6 +80,7 @@ DiabloCalc.skills.barbarian = {
       a: "Broad Sweep",
       b: "Gathering Storm",
     },
+    range: 10,
     params: [{min: 0, max: "maxfury", name: "Fury", buffs: false, show: function(rune, stats) {
                return !!stats.leg_dishonoredlegacy;
              }}],
@@ -134,6 +136,7 @@ DiabloCalc.skills.barbarian = {
       d: "Smite",
       a: "Maniac",
     },
+    range: 5,
     params: [{min: 0, max: "leg_bastionsrevered?10:5", name: "Stacks", buffs: false}],
     info: function(rune, stats) {
       var fpa = DiabloCalc.barbarian.varSpeed(stats);
@@ -182,6 +185,7 @@ DiabloCalc.skills.barbarian = {
       e: "Stupefy",
       d: "Balanced Weapon",
     },
+    range: 75,
     info: {
       "*": {"DPS": {sum: true, "Damage": {speed: "leg_oathkeeper?1.5:1", fpa: 57.777767, round: "up"}}},
       x: {"Damage": {elem: "phy", coeff: 2.75}},
@@ -205,6 +209,7 @@ DiabloCalc.skills.barbarian = {
       e: "Thunderstrike",
       d: "Birthright",
     },
+    range: 14,
     params: [{min: 0, max: "maxfury", name: "Fury", buffs: false}],
     info: {
       "*": {"Cost": {cost: 20}, "DPS": {sum: true, "Damage": {speed: 1, ias: "leg_bracersofthefirstmen?50:0", fpa: 56.666664, round: "up"}}},
@@ -229,6 +234,7 @@ DiabloCalc.skills.barbarian = {
       c: "Mutilate",
       e: "Bloodbath",
     },
+    range: {x: 12, b: 18, d: 12, a: 12, c: 12, e: 12},
     params: [{min: 1, max: "leg_lamentation?2:1", name: "Stacks", buffs: false}],
     info: {
       "*": {"Cost": {cost: 20}, "DPS": {sum: true, "Damage": {divide: "set_wastes_2pc?15:5", factor: "$1"}}},
@@ -257,6 +263,7 @@ DiabloCalc.skills.barbarian = {
       d: "Strength from Earth",
       e: "Permafrost",
     },
+    range: 50,
     active: true,
     activetip: "First 5 enemies",
     activeshow: function(rune, stats) {
@@ -293,6 +300,7 @@ DiabloCalc.skills.barbarian = {
       d: "Wind Shear",
       a: "Volcanic Eruption",
     },
+    range: 9,
     info: function(rune, stats) {
       var res;
       switch (rune) {
@@ -344,6 +352,7 @@ DiabloCalc.skills.barbarian = {
       b: "Boulder Toss",
       e: "Rage Flip",
     },
+    range: 60,
     active: true,
     activetip: "3 or fewer targets",
     activeshow: function(rune, stats) {
@@ -381,6 +390,7 @@ DiabloCalc.skills.barbarian = {
       d: "Foot of the Mountain",
       c: "Jarring Slam",
     },
+    range: {x: 14, e: 14, b: 24, a: 14, d: 14, c: 14},
     info: {
       "*": {"Cooldown": {cooldown: 12}},
       a: {"Damage": {weapon: "mainhand", elem: "fir", coeff: 5.75}},
@@ -400,6 +410,7 @@ DiabloCalc.skills.barbarian = {
       a: "Call of Arreat",
       e: "Death from Above",
     },
+    range: {x: 10, d: 10, c: 10, b: 10, a: 16, e: 10},
     info: {
       "*": {"Cooldown": {cooldown: 10}, "Damage": {weapon: "mainhand", elem: "phy", coeff: 1.8}},
       b: {"Damage": {weapon: "mainhand", elem: "phy", coeff: 4.5}},
@@ -478,6 +489,7 @@ DiabloCalc.skills.barbarian = {
       d: "Momentum",
       c: "Revel",
     },
+    range: 9,
     info: {
       "*": {"Cooldown": {cooldown: 12}},
       x: {"Damage": {weapon: "mainhand", elem: "phy", coeff: 3.8}},
@@ -506,6 +518,7 @@ DiabloCalc.skills.barbarian = {
       c: "Grudge",
       b: "Provocation",
     },
+    range: 11,
     info: {
       x: {"Damage": {weapon: "mainhand", elem: "phy", coeff: 3}},
       d: {"Damage": {weapon: "mainhand", elem: "phy", coeff: 3}},
@@ -532,6 +545,7 @@ DiabloCalc.skills.barbarian = {
       c: "Cold Rush",
       b: "Dreadnought",
     },
+    range: 27,
     info: function(rune, stats) {
       var elem;
       switch (rune) {
@@ -570,6 +584,7 @@ DiabloCalc.skills.barbarian = {
       e: "Tectonic Rift",
       a: "Glacier",
     },
+    range: 40,
     info: {
       "*": {"Cooldown": {cooldown: 30}},
       x: {"Damage": {weapon: "mainhand", elem: "phy", coeff: 24}},
@@ -669,6 +684,7 @@ DiabloCalc.skills.barbarian = {
       a: "Molten Fury",
       e: "Cave-In",
     },
+    range: 18,
     info: {
       "*": {"Cooldown": {cooldown: 60}},
       x: {"Damage": {weapon: "mainhand", elem: "fir", coeff: 48, total: true}},

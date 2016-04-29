@@ -670,11 +670,11 @@
       DiabloCalc.itemById[DiabloCalc.items[i].id] = DiabloCalc.items[i];
     }
 
-    //*
+    /*
     var exportRes = {};
     var exportList = [
-"itemById.*.name",
-"itemById.*.type",
+"skills.*.*.name",
+"passives.*.*.name",
     ];
     for (var i = 0; i < exportList.length; ++i) {
       $.extend(true, exportRes, DiabloCalc.exportData(exportList[i]));

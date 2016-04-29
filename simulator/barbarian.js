@@ -453,7 +453,7 @@
     frames: 45,
     speed: 0.8,
     oncast: function(rune) {
-      var dmg = {type: "area", range: 8, self: true, coeff: 1.8, onhit: leap_onhit};
+      var dmg = {type: "area", range: 10, self: true, coeff: 1.8, onhit: leap_onhit};
       switch (rune) {
       case "c":
         //Sim.damage(dmg);
