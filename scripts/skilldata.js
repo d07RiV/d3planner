@@ -1,6 +1,6 @@
 (function() {
   var DC = DiabloCalc;
-  var _L = DC.locale("skilldata");
+  var _L = DC.locale("ui-skills.js", "skilldata");
 
   DC.getSkillBonus = function(skill, stats, type) {
     if (!skill) return;

@@ -670,20 +670,11 @@
       DiabloCalc.itemById[DiabloCalc.items[i].id] = DiabloCalc.items[i];
     }
 
-    /*
+    //*
     var exportRes = {};
     var exportList = [
-"webglDyes.*.name",
-"webglItems.*.name",
-"legendaryGems.*.id",
-"legendaryGems.*.effects.*.format",
 "itemById.*.name",
-"itemById.*.required.custom.id",
-"itemById.*.required.custom.format",
-"itemById.*.required.custom.name",
-"itemSets.*.name",
-"itemSets.*.bonuses.*.*.format",
-"simMapping.buffs",
+"itemById.*.type",
     ];
     for (var i = 0; i < exportList.length; ++i) {
       $.extend(true, exportRes, DiabloCalc.exportData(exportList[i]));
