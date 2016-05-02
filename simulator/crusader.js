@@ -456,7 +456,7 @@
     }
     if (Sim.stats.leg_flailoftheascended) {
       var stacks = Sim.getBuff("flailoftheascended");
-      if (stacks) {
+/*      if (stacks) {
         var castInfo = Sim.extend({}, data.castInfo);
         castInfo.triggered = "shieldglare";
         castInfo.trigExplicit = true;
@@ -469,6 +469,9 @@
         Sim.damage(dmg);
         Sim.popCastInfo();
         Sim.removeBuff("flailoftheascended");
+      }*/
+      while (--stacks) {
+        Sim.cast("shieldbash", undefined, true);
       }
     }
     Sim.addBuff("blinded", undefined, {duration: 240});
