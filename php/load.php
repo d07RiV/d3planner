@@ -24,6 +24,8 @@ if (!$result || !mysql_num_rows($result)) {
     echo $row['data'];
     $date = time();
     mysql_query("UPDATE profiles SET accessed='$date' WHERE id=$id");
+    include_once("actions.php");
+    log_action('load', $id);
   }
 }
 ?>

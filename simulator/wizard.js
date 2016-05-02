@@ -967,9 +967,9 @@
       function update() {
         var stats = {dmgmul: 6};
         if (Sim.stats.set_vyr_4pc) {
-          buffs.ias = 1;
-          buffs.armor_percent = 1;
-          buffs.resist_percent = 1;
+          stats.ias = 1;
+          stats.armor_percent = 1;
+          stats.resist_percent = 1;
         }
         buffname = Sim.setBuffStacks(buffname, stats, Sim.getBuff("archon_stacks") + Sim.getBuff("theswami"));
       }

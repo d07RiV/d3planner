@@ -178,7 +178,7 @@
       box = MyProf.response;
     } else {
       data.name = Save.name.val();
-      data.private = Save.private.prop("checked");
+      data.public = Save.public.prop("checked");
       box = Save.response;
     }
     box.hide();
@@ -373,15 +373,15 @@
   Sections.append(SaveDiv);
 
   SaveDiv.append("<p>" + _L("Enter a name or a short description for your profile. Unnamed profiles do not come up in search results.") + "</p>");
-  Save.private = $("<input type=\"checkbox\"></input>");
+  Save.public = $("<input type=\"checkbox\"></input>");
   Save.allsets = $("<input type=\"checkbox\"></input>");
-  var privlabel = $("<label title=\"" + _L("This profile will not come up in search results, but can be accessed using the link provided.") + "\">" + _L("Private profile") + "</label>")
-    .prepend(Save.private).css("margin-bottom", -6);
-  SaveDiv.append(privlabel);
-  SaveDiv.append(DiabloCalc.account.makeLine(_L(" to save private profiles"), function(okay) {
+  var publabel = $("<label title=\"" + _L("This profile will come up in search results, and might appear in future Popular Builds listings.") + "\">" + _L("Public profile") + "</label>")
+    .prepend(Save.public).css("margin-bottom", -6);
+  SaveDiv.append(publabel);
+/*  SaveDiv.append(DiabloCalc.account.makeLine(_L(" to save private profiles"), function(okay) {
     this.toggle(!okay);
     privlabel.toggle(okay);
-  }));
+  }));*/
   SaveDiv.append($("<label>" + _L("Save all sets and settings") + "</label>").prepend(Save.allsets));
   Save.name = $("<input class=\"import-savename\"></input>");
   Save.button = $("<input type=\"button\" value=\"" + _L("Save") + "\"></input>").click(function() {

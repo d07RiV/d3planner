@@ -122,7 +122,7 @@ asheara's: todo
         var counter = data.castInfo.user.vyr_6pc;
         if (!counter || counter < 1) {
           var hits = Math.min(1 - (counter || 0), Math.ceil(data.targets));
-          Sim.addBuff("archon_stacks", buffs, {maxstacks: 9999, stacks: hits});
+          Sim.addBuff("archon_stacks", undefined, {maxstacks: 9999, stacks: hits});
           data.castInfo.user.vyr_6pc = (counter || 0) + hits;
         }
       }
