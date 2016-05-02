@@ -215,7 +215,19 @@
       switch (rune) {
       case "x": return {type: "line", coeff: 4.35, area: 15, speed: 0.5, count: count};
       case "a": return {type: "line", coeff: 7, area: 8, speed: 1.5, count: count};
-      case "c": return {delay: 60, type: "area", self: true, range: 8, coeff: 2.65, count: 4, count: count};
+      case "c":
+        Sim.removeBuff("arcaneorbit");
+        Sim.addBuff("arcaneorbit", undefined, {
+          stacks: 4,
+          tickrate: 30,
+          ontick: function() {
+            if (Sim.getTargets(10, Sim.target.distance)) {
+              Sim.removeBuff("arcaneorbit", 1);
+              Sim.damage({type: "area", origin: Math.max(0, Sim.target.distance - 10), range: 10, coeff: 2.65, count: count});
+            }
+          },
+        });
+        break;
       case "b": return {type: "line", coeff: 1.745, count: 2, range: 45, radius: 15, pierce: true, speed: 0.5, onhit: function(event) {
         var stacks = Math.ceil(event.targets);
         Sim.addBuff("spark", undefined, {stacks: stacks, maxstacks: stacks});
@@ -285,7 +297,7 @@
       switch (rune) {
       case "x": dmg = {delay: 24, type: "area", coeff_base: 4, coeff_delta: 3.05, range: 6}; break;
       case "a": dmg = {delay: 24, type: "area", coeff_base: 4, coeff_delta: 3.05, range: 6}; break;
-      case "e": dmg = {delay: 24, type: "area", self: true, spread: 7, inner: 35,
+      case "e": dmg = {delay: 24, type: "area", self: true, spread: 35, inner: 7,
         coeff_base: 12.15, coeff_delta: 6.4, range: 6}; break;
       case "c":
         Sim.channeling("arcanetorrent", this.channeling[rune], at_mines_ontick);
@@ -488,7 +500,7 @@
     if (data.rune === "a") {
       dmg.onhit = et_gale_onhit;
     }
-    if (data.rune !== "e") {
+    if (data.rune !== "e" && !Sim.params.twisterStop) {
       dmg.origin = (Sim.time - data.stack.start) * 0.25;
     }
     Sim.damage(dmg);
@@ -895,6 +907,7 @@
     frames: 56.249996,
     cost: 20,
     cooldown: {x: 6, d: 6, c: 3, a: 6, b: 6, e: 6},
+    range: {},
     oncast: function(rune) {
       var dmg = {delay: 90, self: true, type: "area", range: 12, coeff: 9.45};
       switch (rune) {
@@ -976,7 +989,7 @@
     shift: "archon",
     oncast: function(rune) {
       var improved = (Sim.stats.skills.archon === "a" || Sim.stats.set_vyr_2pc);
-      var res = {type: "area", range: 9, coeff: 7.9 * (improved ? 1.5 : 1)}
+      var res = {type: "area", front: true, range: 9, coeff: 7.9 * (improved ? 1.5 : 1)}
       if (Sim.stats.skills.archon === "b" || Sim.stats.set_vyr_2pc) {
         res.onhit = Sim.apply_effect("frozen", 60);
       }

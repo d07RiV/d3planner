@@ -379,6 +379,15 @@
       r = R;
       R = tmp;
     }
+    function _arc(d, x, r) {
+      if (r >= d + x) {
+        return 2 * Math.PI * x;
+      } else if (r <= d - x) {
+        return 0;
+      } else {
+        return 2 * Math.acos((d * d + x * x - r * r) / (2 * d * x)) * x;
+      }
+    }
     if (!origin && !inner) {
       var t = R - r;
       if (spread < t) {
@@ -391,16 +400,12 @@
       return area / (spread * spread);
     } else if (!inner) {
       var area = _integrate(function(x) {
-        return Math.acos((origin * origin + x * x - spread * spread) / (2 * origin * x)) * _circle_intersection(x, r, R);
+        return _arc(origin, x, spread) * _circle_intersection(x, r, R);
       }, Math.max(0, origin - spread), Math.min(origin + spread, R + r));
       return area / (Math.PI * spread * spread);
     } else {
       var area = _integrate(function(x) {
-        var len = Math.acos((origin * origin + x * x - spread * spread) / (2 * origin * x));
-        if (x > origin - inner && x < origin + inner) {
-          len -= Math.acos((origin * origin + x * x - inner * inner) / (2 * origin * x));
-        }
-        return len * _circle_intersection(x, r, R);
+        return (_arc(origin, x, spread) - _arc(origin, x, inner)) * _circle_intersection(x, r, R);
       }, Math.max(0, origin - spread), Math.min(origin + spread, R + r));
       return area / (Math.PI * (spread * spread - inner * inner));
     }

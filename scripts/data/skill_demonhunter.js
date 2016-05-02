@@ -583,6 +583,7 @@ DiabloCalc.skills.demonhunter = {
       c: "Fan of Daggers",
       b: "Assassin's Knives",
     },
+    range: 20,
     info: {
       x: {"Cooldown": {cooldown: 10}, "Damage": {weapon: "mainhand", elem: "phy", coeff: 6.2}},
       d: {"Cooldown": {cooldown: 15}, "Damage": {weapon: "mainhand", elem: "lit", coeff: 16}},

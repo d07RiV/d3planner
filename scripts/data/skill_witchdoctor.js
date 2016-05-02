@@ -168,6 +168,7 @@ DiabloCalc.skills.witchdoctor = {
       b: "Hungry Bats",
       e: "Cloud of Bats",
     },
+    range: {x: 28, a: 28, d: 28, c: 28, b: 60, e: 15},
     params: [{rune: "e", min: 0, max: 5, val: 5, step: 0.5, name: "Channeled for", buffs: false},
              {rune: "c", min: 0, max: 3, val: 3, step: 0.5, name: "Channeled for", buffs: false}],
     info: function(rune, stats) {
@@ -242,6 +243,7 @@ DiabloCalc.skills.witchdoctor = {
       e: "Diseased Swarm",
       a: "Searing Locusts",
     },
+    range: 22,
     info: function(rune, stats) {
       var damage;
       switch (rune) {
@@ -319,6 +321,7 @@ DiabloCalc.skills.witchdoctor = {
       a: "Frightening Aspect",
       d: "Ruthless Terror",
     },
+    range: {x: 18, c: 18, e: 18, b: 24, a: 18, d: 18},
     info: function(rune, stats) {
       var cd = 10;
       var res = {};
@@ -354,6 +357,7 @@ DiabloCalc.skills.witchdoctor = {
       a: "Severance",
       e: "Healing Journey",
     },
+    range: {x: 100, b: 188, d: 100, c: 10, a: 100, e: 100},
     info: {
       "*": {"Uptime": {cooldown: 10, duration: 2, after: true}},
       b: {"Uptime": {cooldown: 10, duration: 3, after: true}},
@@ -382,6 +386,7 @@ DiabloCalc.skills.witchdoctor = {
       a: "Toad of Hugeness",
       c: "Unstable Form",
     },
+    range: {x: 100, d: 100, e: 100, b: 12, a: 100, c: 100},
     info: function(rune, stats) {
       var res = {"Uptime": {cooldown: 15 * (stats.passives.tribalrites ? 0.75 : 1), duration: 12}};
       switch (rune) {
@@ -431,6 +436,7 @@ DiabloCalc.skills.witchdoctor = {
       b: "Soul to Waste",
       e: "Vengeful Spirit",
     },
+    range: 18,
     info: function(rune, stats) {
       var res = {};
       if (rune == "e" || stats.set_jadeharvester_4pc) {
@@ -549,6 +555,7 @@ DiabloCalc.skills.witchdoctor = {
       e: "Explosive Beast",
       a: "Zombie Bears",
     },
+    range: {x: 28, c: 100, d: 28, b: 28, e: 63, a: 30},
     info: {
       "*": {"Cost": {cost: 150, rcr: "leg_scrimshaw"}},
       x: {"Damage": {elem: "psn", coeff: 5.6}},
@@ -596,6 +603,7 @@ DiabloCalc.skills.witchdoctor = {
       e: "Kiss of Death",
       a: "Corpse Bomb",
     },
+    range: {x: 100, b: 100, c: 100, d: 100, e: 30, a: 100},
     info: function(rune, stats) {
       var res;
       switch (rune) {

@@ -53,6 +53,7 @@ DiabloCalc.skills.wizard = {
       d: "Power Affinity",
       b: "Living Lightning",
     },
+    range: {x: 40, e: 40, a: 40, c: 100, d: 40, b: 44},
     info: {
       "*": {"DPS": {sum: true, "Damage": {count: 3, fpa: 57.142834, round: "up", speed: "leg_theshameofdelsere?1.5:1"}}},
       x: {"Damage": {elem: "lit", coeff: 1.94}},
@@ -76,6 +77,7 @@ DiabloCalc.skills.wizard = {
       e: "Barrier Blades",
       c: "Ice Blades",
     },
+    range: {x: 15, a: 15, d: 15, b: 20, e: 15, c: 15},
     info: {
       "*": {"DPS": {sum: true, "Damage": {count: 3, fpa: 56.25, round: "up", speed: "(leg_theshameofdelsere?1.5:1)*(leg_fragmentofdestiny?1.5:1)"}}},
       x: {"Damage": {elem: "arc", coeff: 0.56}},
@@ -106,6 +108,7 @@ DiabloCalc.skills.wizard = {
       d: "Surge of Power",
       c: "Arc Lightning",
     },
+    range: {x: 50, b: 50, e: 50, a: 50, d: 50, c: 15},
     info: {
       "*": {"DPS": {sum: true, "Damage": {speed: "leg_theshameofdelsere?1.5:1", fpa: 30}}},
       x: {"Damage": {elem: "lit", coeff: 1.38, divide: {"Base Speed": 2}}},
@@ -154,6 +157,7 @@ DiabloCalc.skills.wizard = {
       d: "Scorch",
       e: "Frozen Orb",
     },
+    range: {x: 100, a: 100, c: 8, b: 100, d: 100, e: 100},
     info: function(rune, stats) {
       var res;
       switch (rune) {
@@ -197,6 +201,7 @@ DiabloCalc.skills.wizard = {
       d: "Static Discharge",
       b: "Cascade",
     },
+    range: {x: 56, a: 56, e: 41, c: 56, d: 56, b: 56},
     params: [{min: 0, max: 2, val: 2, name: "Channeled for", buffs: false}],
     info: {
       "*": {"Cost": {cost: 16, fpa: 20, rcr: "leg_hergbrashsbinding"}},
@@ -227,6 +232,7 @@ DiabloCalc.skills.wizard = {
       d: "Chaos Nexus",
       a: "Intensify",
     },
+    range: {x: 100, b: 100, e: 100, c: 20, d: 100, a: 100},
     params: [{min: 0, max: 2, val: 2, name: "Channeled for", buffs: false}],
     info: {
       "*": {"Cost": {cost: 18, fpa: 20, rcr: "leg_hergbrashsbinding"}},
@@ -256,6 +262,7 @@ DiabloCalc.skills.wizard = {
       e: "Deep Freeze",
       a: "Bone Chill",
     },
+    range: 19,
     info: {
       "*": {"Cooldown": {cooldown: 11}},
       d: {"Cooldown": {cooldown: 7.5}},
@@ -331,6 +338,7 @@ DiabloCalc.skills.wizard = {
       b: "Fracture",
       a: "Calamity",
     },
+    range: {x: 100, c: 100, e: 100, d: 100, b: 100, a: 20},
     info: function(rune, stats) {
       var obj = (stats.leg_aetherwalker ? {"Cost": {cost: 25}} : {"Cooldown": {cooldown: 11}});
       if (rune === "a") {
@@ -356,6 +364,7 @@ DiabloCalc.skills.wizard = {
       b: "Static Pulse",
       c: "Heat Wave",
     },
+    range: 30,
     info: {
       "*": {"Cost": {cost: 25}},
       x: {"Damage": {elem: "arc", coeff: 3.9}},
@@ -675,6 +684,7 @@ DiabloCalc.skills.wizard = {
       b: "Obliterate",
       e: "Chain Reaction",
     },
+    range: {x: 12, d: 12, c: 12, a: 12, b: 18, e: 12},
     info: {
       "*": {"Cost": {cost: 20}, "Damage": null, "DPS": {sum: true, "Damage": {count: "leg_wandofwoh?4:1", cd: 6, speed: 1, fpa: 56.249996, round: "up", nobp: true}}},
       x: {"Damage": {elem: "arc", coeff: 9.45}},
@@ -1031,6 +1041,7 @@ DiabloCalc.extraskills.wizard = {
     name: "Arcane Strike",
     row: 6,
     col: 0,
+    range: 18,
     tip: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/wizard_archon_arcanestrike.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p>Strike the ground in front of you, causing <span class=\"d3-color-green\">790%</span> weapon damage as Arcane to enemies in the area.</p> </div> </div>",
   },
   archon_disintegrationwave: {
@@ -1047,6 +1058,7 @@ DiabloCalc.extraskills.wizard = {
     name: "Arcane Blast",
     row: 6,
     col: 2,
+    range: 15,
     tip: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/wizard_archon_arcaneblast.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p>Release a wave of pure energy dealing <span class=\"d3-color-green\">604%</span> weapon damage as Arcane to all nearby enemies.</p> </div> </div>",
   },
   archon_slowtime: {

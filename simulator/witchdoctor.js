@@ -629,7 +629,7 @@
         }
         break;
       case "e": return {type: "line", speed: 1.2, radius: 6, area: 12, coeff: 6.8, range: 57};
-      case "a": return {type: "line", speed: 0.5, radius: 6, pierce: true, coeff: 5.2, count: 3, range: 44};
+      case "a": return {type: "line", speed: 0.5, radius: 6, pierce: true, coeff: 5.2, count: 3, range: 44, origin: Sim.target.distance + 20};
       }
     },
     proctable: {x: 0.5, c: 0.5, d: 0.5, b: 0.333, e: 0.5, a: 0.111},

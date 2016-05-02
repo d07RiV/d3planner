@@ -985,13 +985,13 @@
       var skill = datai.skill;
       if (!skill || sku[skill]) return;
       sku[skill] = true;
-      var info = DC.skills[DC.charClass][skill];
+      var info = (DC.skills[DC.charClass][skill] || (DC.extraskills[DC.charClass] && DC.extraskills[DC.charClass][skill]));
       if (!info || !info.range) return;
       var range = (typeof info.range === "object" ? info.range[skr[skill] || "x"] : info.range);
       if (maxrange > range) {
         var line = $("<li>" + info.name + "</li>");
         line.hover(function() {
-          DC.tooltip.showSkill(this, DC.charClass, skill, skr[skill] || "x");
+          DC.tooltip.showSkill(this, DC.charClass, skill, skr[skill]);
         }, function() {
           DC.tooltip.hide();
         });
