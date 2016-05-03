@@ -322,7 +322,7 @@
     }
   };
   var uniqId = 0;
-  Sim.addBuff = function(id, stats, params) {
+  Sim.addBuff = function(id, stats, params, party) {
     if (!id) {
       id = "uniq_" + (uniqId++);
     }
@@ -332,6 +332,7 @@
     }
     if (params && params.stacks) params.stacks = Math.round(params.stacks);
     if (params && params.maxstacks) params.maxstacks = Math.round(params.maxstacks);
+    if (params && params.targets) params.targets = Math.min(params.targets, Sim.target.count);
     params = this.extend({
       stacks: 1,
       refresh: true,

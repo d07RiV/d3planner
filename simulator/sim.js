@@ -118,6 +118,7 @@
     this.params = data.params || {};
     this.time = 0;
     this.initresource = data.params.startResource;
+    this.target.index = 0;
     this.target.radius = Math.max(data.params.targetRadius || 0, 1);
     this.target.area = Math.PI * Math.pow(this.target.radius, 2);
     this.target.size = (data.params.targetSize || 0);

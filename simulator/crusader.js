@@ -189,6 +189,10 @@
         break;
       }
       if (Sim.stats.leg_drakonslesson || Sim.stats.leg_drakonslesson_p2) dmg.fix = bash_drakons_fix;
+      var foa = Sim.getCastInfo("foa_targets");
+      if (foa) {
+        return {targets: foa, coeff: dmg.coeff, fix: dmg.fix};
+      }
       return dmg;
     },
     proctable: {x: 0.59, b: 0.333, e: 0.333, c: 0.333, a: 0.333, d: 1},
@@ -468,10 +472,13 @@
         dmg.targets = data.targets;
         Sim.damage(dmg);
         Sim.popCastInfo();
-        Sim.removeBuff("flailoftheascended");
       }*/
-      while (--stacks) {
-        Sim.cast("shieldbash", undefined, true);
+      if (stacks) {
+        Sim.castInfo().foa_targets = data.targets;
+        while (--stacks) {
+          Sim.cast("shieldbash", undefined, true);
+        }
+        Sim.removeBuff("flailoftheascended");
       }
     }
     Sim.addBuff("blinded", undefined, {duration: 240});
