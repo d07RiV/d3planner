@@ -717,18 +717,17 @@ DiabloCalc.skills.crusader = {
     },
     info: function(rune, stats) {
       var res;
+      var cd = {cooldown: 20, cdr: stats.leg_eberlicharo};
+      switch (rune) {
+      case "x": res = {"Cooldown": cd, "Damage": {elem: "hol", coeff: 17.1, total: true}}; break;
+      case "b": res = {"Cooldown": cd, "Damage": {elem: "hol", coeff: 17.1, total: true}, "Residual Damage": {elem: "hol", coeff: 15.5, total: true}}; break;
+      case "a": res = {"Cooldown": cd, "Damage": {elem: "hol", coeff: 27.66, total: true}}; break;
+      case "c": res = {"Cooldown": cd, "Damage": {elem: "hol", coeff: 19.8, total: true}}; break;
+      case "d": res = {"Cooldown": cd, "Damage": {elem: "lit", coeff: 17.1, total: true}}; break;
+      case "e": res = {"Cost": {cost: 40}, "Damage": {elem: "hol", coeff: 9.6}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 57.777767}}}; break;
+      }
       if (rune == "e" && stats.leg_fateofthefell) {
-        res = {"Cost": {cost: 40}, "Damage": {elem: "hol", coeff: 9.6}, "Total Damage": {sum: true, "Damage": {count: 3}}};
-      } else {
-        var cd = {cooldown: 20, cdr: stats.leg_eberlicharo};
-        switch (rune) {
-        case "x": res = {"Cooldown": cd, "Damage": {elem: "hol", coeff: 17.1, total: true}}; break;
-        case "b": res = {"Cooldown": cd, "Damage": {elem: "hol", coeff: 17.1, total: true}, "Residual Damage": {elem: "hol", coeff: 15.5, total: true}}; break;
-        case "a": res = {"Cooldown": cd, "Damage": {elem: "hol", coeff: 27.66, total: true}}; break;
-        case "c": res = {"Cooldown": cd, "Damage": {elem: "hol", coeff: 19.8, total: true}}; break;
-        case "d": res = {"Cooldown": cd, "Damage": {elem: "lit", coeff: 17.1, total: true}}; break;
-        case "e": res = {"Cost": {cost: 40}, "Damage": {elem: "hol", coeff: 9.6}}; break;
-        }
+        res["DPS"]["Damage"].count = 3;
       }
       if (stats.leg_braceroffury && this.active) {
         var pct = {};
