@@ -764,7 +764,8 @@
   var eqmod = $("<ul></ul>");
   tab.append(eqmod);
   eqmod.append("<li><span class=\"link-like eqmod-ancient\">" + _L("Make all items Ancient") + "</span></li>");
-  eqmod.append("<li><span class=\"link-like eqmod-maxstat\">" + _L("Change all stats to maximum") + "</span></li>");
+  eqmod.append("<li><span class=\"link-like eqmod-maxstat\">" + _L("Change all stats to {0}%").format(
+    "<input class=\"eqmod-maxstat-value\" type=\"number\" min=\"0\" max=\"100\" value=\"100\"/>") + "</span></li>");
   var in_level = "<input class=\"eqmod-enchant-level\" type=\"number\" min=\"0\" max=\"200\" value=\"100\"/>";
   var in_stat = "<select class=\"eqmod-enchant-type\">";
   for (var st in {str: true, dex: true, int: true, vit: true}) {
@@ -790,6 +791,7 @@
     }
   });
   $(".eqmod-maxstat").click(function() {
+    var value = (parseInt($(".eqmod-maxstat-value").val()) || 0) * 0.01;
     for (var slot in DiabloCalc.itemSlots) {
       var data = DiabloCalc.getSlot(slot);
       if (!data) continue;
@@ -799,10 +801,24 @@
       for (var st in data.stats) {
         if (!stats[st]) continue;
         if (data.stats[st].length >= 1) {
-          data.stats[st][0] = (stats[st][stats[st].best || "max"] || data.stats[st][0]);
+          var best = (stats[st].best || "max");
+          var worst = (best === "max" ? "min" : "max");
+          if (stats[st].min && stats[st].max) {
+            data.stats[st][0] = stats[st][worst] + (stats[st][best] - stats[st][worst]) * value;
+            if (stats[st].step !== "any") {
+              var step = (stats[st].step || 1);
+              data.stats[st][0] = Math.round(data.stats[st][0] / step) * step;
+            }
+          }
         }
         if (data.stats[st].length >= 2) {
-          data.stats[st][0] = (stats[st].max2 || data.stats[st][1]);
+          if (stats[st].min2 && stats[st].max2) {
+            data.stats[st][1] = stats[st].min2 + (stats[st].max2 - stats[st].min2) * value;
+            if (stats[st].step2 !== "any") {
+              var step = (stats[st].step2 || 1);
+              data.stats[st][1] = Math.round(data.stats[st][1] / step) * step;
+            }
+          }
         }
       }
       DiabloCalc.setSlot(slot, data);
@@ -835,6 +851,9 @@
         }
       }
     }
+  });
+  $(".eqmod-maxstat-value, .eqmod-enchant-level, .eqmod-enchant-type").click(function(e) {
+    e.stopPropagation();
   });
 
   var saveTip = $("<span class=\"status\"></span>").hide();
