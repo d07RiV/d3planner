@@ -1017,6 +1017,7 @@
     elem: function(rune) {
       return skills.archon.elem(Sim.stats.skills.archon);
     },
+    proctable: 0.25,
   };
   function archon_wave_ontick(data) {
     data.dmg.factor = Sim.stats.info.aps * data.buff.params.tickrate / 60;
@@ -1035,6 +1036,7 @@
     elem: function(rune) {
       return skills.archon.elem(Sim.stats.skills.archon);
     },
+    proctable: 0.1,
   };
   skills.archon_slowtime = {
     precast: function(rune) {
