@@ -567,8 +567,11 @@
 
       this.info.toughpervit = this.info.toughness / this.info.hp * 100 * hpPerVit * (1 + 0.01 * (this.life || 0));
       this.info.toughperlife = this.info.toughness * 0.01 / (1 + 0.01 * (this.life || 0));
-      this.info.toughperarmor = this.info.toughness * 100 / (this.info.level * 50) * this.info.armor_factor;
-      this.info.toughperres = this.info.toughness * 100 / (this.info.level * 5) * this.info.res_factor;
+      this.info.toughperarmor = this.info.toughness * 100 / (this.info.level * 50) * this.info.armor_factor * (1 + 0.01 * (this.armor_percent || 0));
+      var resMult = 1 + 0.01 * (this.resist_percent || 0) + 0.01 * (
+        (this.resphy_percent || 0) + (this.resfir_percent || 0) + (this.rescol_percent || 0) +
+        (this.reslit_percent || 0) + (this.respsn_percent || 0) + (this.resarc_percent || 0)) / 6;
+      this.info.toughperres = this.info.toughness * 100 / (this.info.level * 5) * this.info.res_factor * resMult;
 
 
       this.info.resphy_factor = 1 / (1 + this.resphy / (this.info.level * 5));

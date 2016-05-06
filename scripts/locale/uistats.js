@@ -382,7 +382,7 @@ _L.add({
         {
           name: "T. per 100 Armor",
           stat: "info.toughperarmor",
-          tooltip: "Toughness per 100 Armor: $1\n* Toughness gained per 100 points of Armor.\n* Toughness per one percent of Armor: {info.toughperarmor*(0.01*armor)/100}",
+          tooltip: "Toughness per 100 Armor: $1\n* Toughness gained per 100 points of Armor.\n* Toughness per one percent of Armor: {info.toughperarmor*(0.01*armor)/100/(1+0.01*armor_percent)}",
         },
         {
           name: "T. per 100 Resistances",
