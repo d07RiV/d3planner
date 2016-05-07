@@ -261,7 +261,7 @@ DiabloCalc.addItems([
       dura: "one",
     },
     required: {
-      custom: {id: "leg_obsidianringofthezodiac", name: "Cooldown Reduction", format: "Reduce the remaining cooldown of one of your skills by 1 second when you hit with a resource-spending attack.", args: 0},
+      custom: {id: "leg_obsidianringofthezodiac", name: "Cooldown Reduction", format: "Reduce the remaining cooldown of one of your skills by 1 seconds when you hit with a resource-spending attack.", args: 0},
     },
     secondary: 3,
     preset: ["cdr", "rcr", "dura", "ias", "chc"],

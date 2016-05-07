@@ -766,20 +766,20 @@ DiabloCalc.itemaffixes = {
   leg_theswami: {
     check: true,
     active: true,
-    params: [(DiabloCalc.skills&&DiabloCalc.skills.wizard&&DiabloCalc.skills.wizard.archon.params[0]||
-      {min: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)",
-       max: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)+50", val: "min", name: "Stacks", inf: true})],
+    //params: [(DiabloCalc.skills&&DiabloCalc.skills.wizard&&DiabloCalc.skills.wizard.archon.params[0]||
+    //  {min: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)",
+    //   max: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)+50", val: "min", name: "Stacks", inf: true})],
+    params: [{min: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)",
+              max: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)+50", val: "min", name: "Stacks", inf: true}],
     buffs: function(value, stats) {
-      if (stats.skills.archon && !DiabloCalc.skills.wizard.archon.active) {
-        var stacks = this.params[0].val;
-        var res = {dmgmul: stacks * 6};
-        if (stats.set_vyr_4pc) {
-          res.ias = stacks * 1.0;
-          res.armor_percent += stacks * 1.0;
-          res.resist_percent += stacks * 1.0;
-        }
-        return res;
+      var stacks = this.params[0].val;
+      var res = {dmgmul: stacks * 6};
+      if (stats.set_vyr_4pc) {
+        res.ias = stacks * 1.0;
+        res.armor_percent += stacks * 1.0;
+        res.resist_percent += stacks * 1.0;
       }
+      return res;
     },
   },
   leg_theswami_p3: {

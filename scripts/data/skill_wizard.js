@@ -756,9 +756,15 @@ DiabloCalc.skills.wizard = {
       return res;
     },
     active: false,
-    params: [(DiabloCalc.itemaffixes&&DiabloCalc.itemaffixes.leg_theswami.params[0]||
+    //params: [(DiabloCalc.itemaffixes&&DiabloCalc.itemaffixes.leg_theswami.params[0]||
+    //  {min: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)",
+    //   max: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)+50", val: "min", name: "Stacks", inf: true, buffs: false}),
+    //  {min: 0, max: 20, val: 20, name: "Chantodo's", buffs: false, show: function(rune, stats) {
+    //    return !!stats.set_chantodo_2pc;
+    //  }}],
+    params: [
       {min: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)",
-       max: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)+50", val: "min", name: "Stacks", inf: true, buffs: false}),
+       max: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)+50", val: "min", name: "Stacks", inf: true},
       {min: 0, max: 20, val: 20, name: "Chantodo's", buffs: false, show: function(rune, stats) {
         return !!stats.set_chantodo_2pc;
       }}],
