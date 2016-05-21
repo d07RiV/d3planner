@@ -452,6 +452,14 @@
       }
       return;
     }
+    if (this.type === "caldesanns") {
+      for (var id in DC.stats) {
+        if (DC.stats[id].caldesanns && affixes.hasOwnProperty(id)) {
+          this.list.append("<option value=\"" + id + "\"" + (value === id ? " selected=\"selected\"" : "") + ">" + DC.stats[id].name + "</option>");
+        }
+      }
+      return;
+    }
     for (var catType in DC.statList) {
       if (this.type === "primary" && catType !== "primary") continue;
       if (this.type === "secondary" && catType !== "secondary") continue;
@@ -1125,13 +1133,17 @@
     var emptyPrimary = [];
     var emptySecondary = [];
     var emptySocket = [];
+    var cald = false;
     //var emptyCaldesanns = [];
     for (var i = 0; i < this.stats.length; ++i) {
       var stat = this.stats[i].list.val();
       if (DC.stats[stat] && DC.stats[stat].base) continue;
       var weight = 1;
       if (this.stats[i].merged) ++weight;
-      if (DC.stats[stat] && DC.stats[stat].caldesanns) weight = 0;
+      if (DC.stats[stat] && DC.stats[stat].caldesanns) {
+        weight = 0;
+        cald = true;
+      }
       if (DC.stats[stat] ? DC.stats[stat].secondary : this.stats[i].type === "secondary") {
         usedSecondary += weight;
       } else if (DC.stats[stat] || this.stats[i].type !== "socket") {
@@ -1167,9 +1179,9 @@
         this.stats.splice(index, 1);
       }
     }
-    //if (this.ancient.prop("checked") && emptyCaldesanns.length === 0) {
-    //  this.onAddStat("caldesanns");
-    //}
+    if (this.imported && this.ancient.prop("checked") && !cald) {
+      this.onAddStat("caldesanns");
+    }
     while (usedPrimary < numStats[0]) {
       this.onAddStat("primary");
       ++usedPrimary;
@@ -1203,7 +1215,10 @@
     if (this.imported) {
       for (var i = 0; i < this.stats.length; ++i) {
         var stat = this.stats[i].list.val();
-        if (stat === "custom") continue;
+        if (this.stats[i].required) continue;
+        if (DC.stats[stat] && DC.stats[stat].caldesanns) continue;
+        //if (stat === "custom") continue;
+        //if (stat === "wpnphy" && 
         if (!(stat in this.imported.stats)) {
           this.enchant = stat;
           break;
@@ -1226,10 +1241,16 @@
       }
     }
 
+    var ohstat = false;
+    if ((this.type.val() === "source" || this.type.val() === "mojo") && this.ancient.prop("checked")) {
+      ohstat = "wpnphy";
+    }
     for (var i = 0; i < this.stats.length; ++i) {
       var stat = this.stats[i].list.val();
       this.stats[i].line.toggleClass("stat-enchanted", stat === this.enchant);
-      this.stats[i].enable(stat === this.enchant || !this.enchant);
+      this.stats[i].line.toggleClass("stat-caldesanns", this.stats[i].type === "caldesanns");
+      this.stats[i].enable((!this.stats[i].required && stat === this.enchant || !this.enchant) || this.stats[i].required === ohstat ||
+        this.stats[i].type === "caldesanns");
     }
   };
   // update the warning icon
@@ -1390,6 +1411,7 @@
   };
   // add stat line
   DC.ItemBox.prototype.onAddStat = function(type, required, current) {
+    debugger;
     if (type !== "primary" && type !== "secondary" && type !== "socket" && type !== "caldesanns" && (required || current)) {
       current = required;
       required = type;
@@ -1400,7 +1422,7 @@
         slotType = (DC.itemTypes[slotType] ? DC.itemTypes[slotType].slot : null);
         if ((slotType === "onehand" || slotType === "twohand") && stat === "sockets") type = "socket";
         else if (DC.stats[stat].secondary) type = "secondary";
-        //else if (DC.stats[stat].caldesanns) type = "caldesanns";
+        else if (this.imported && DC.stats[stat].caldesanns) type = "caldesanns";
         else type = "primary";
       }
     }
@@ -1672,6 +1694,8 @@
     }
     this.nonRecursive = true;
     var empty = (data.empty || 0);
+    this.enchant = data.enchant;
+    this.imported = data.imported;
     for (var stat in data.stats) {
       if (!affixes[stat]) {
         ++empty;
@@ -1711,8 +1735,6 @@
       }
     }
     delete this.nonRecursive;
-    this.enchant = data.enchant;
-    this.imported = data.imported;
     if (this.imported) {
       this.div.addClass("item-imported");
     } else {

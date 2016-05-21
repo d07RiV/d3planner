@@ -23,12 +23,13 @@
   var _fb_prev = 0;
   function bash_frostbite_onhit(data) {
     if (Sim.time >= _fb_prev) {
-      Sim.addBuff("frozen", undefined, 90);
+      Sim.addBuff("frozen", undefined, {duration: 90, targets: data.targets, firsttarget: data.firsttarget});
       _fb_prev = Sim.time + 300;
     }
   }
   function bash_onslaught_onhit(data) {
-    Sim.addBuff("onslaught", {chctaken: 10}, {duration: 180});
+    Sim.addBuff("onslaught", {chctaken: 10}, {duration: 180,
+      targets: data.targets, firsttarget: data.firsttarget});
   }
   skills.bash = {
     signature: true,

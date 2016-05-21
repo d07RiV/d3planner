@@ -97,13 +97,16 @@
     }
     if (data.nocrit || orphan || data.thorns/* === "normal"*/ || data.addthorns) chc = 0;
 
-    var count = (data.count || 1);
-    if (data.targets) {
-      count *= Math.min(data.targets, Sim.target.count);
-    }
+    //var count = (data.count || 1);
+    //if (data.targets) {
+    //  count *= Math.min(data.targets, Sim.target.count);
+    //}
 
     return {
-      targets: count,
+      targets: Math.min(data.targets || 1, Sim.target.count),
+      firsttarget: data.firsttarget,
+      count: (data.count || 1),
+      //targets: count,
       skill: data.skill,
       proc: (ispet ? 0 : data.proc),
       damage: value,
@@ -115,7 +118,6 @@
       chc: chc,
       distance: data.distance,
       dmgmul: dmgmul,
-      hits: (data.count || 1),
       castId: data.castId,
     };
   };
@@ -132,7 +134,10 @@
       }
       if (Sim.target.area_coeff && Sim.stats.area) {
         Sim.trigger("onhit", {
-          targets: event.targets * 0.2 * Sim.target.area_coeff,
+          targets: event.targets * Sim.target.area_coeff,
+          firsttarget: (event.targets === 1 ?
+            (event.firsttarget ? event.firsttarget + 1 : (Sim.target.boss ? Sim.target.index : Sim.target.index + 1)) : undefined),
+          count: event.count * 0.2,
           skill: event.skill,
           damage: event.damage * 0.01 * Sim.stats.area/* / (event.dmgmul || 1)*/,
           elem: event.elem,

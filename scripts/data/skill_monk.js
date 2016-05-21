@@ -303,7 +303,7 @@ DiabloCalc.skills.monk = {
       if (stats.leg_kyoshirosblade) {
         var pct = {};
         pct[DiabloCalc.itemById.P4_Unique_Fist_102.name] = (this.active ? stats.leg_kyoshirosblade : 150);
-        for (var id in res) res["Damage"].percent = pct;
+        for (var id in res) res[id].percent = pct;
       }
       return $.extend({"Cost": {cost: 75, rcr: "leg_incensetorchofthegrandtemple"}}, res);
     },

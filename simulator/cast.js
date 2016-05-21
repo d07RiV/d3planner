@@ -562,20 +562,44 @@
     return 0;
   };
 
-  Sim.apply_effect = function(effect, duration, chance) {
-    if (effect === "knockback" && Sim.target.boss) return;
-    if (chance && chance < 1) {
+  Sim.apply_effect = function(effect, duration, chance, proc) {
+    if (chance && (chance < 1 || proc)) {
       return function(data) {
-        var id = "ufx_" + (Sim.castInfo() && Sim.castInfo().skill || "");
-        if (Sim.random(id, chance, data.targets / Sim.target.count)) {
-          Sim.addBuff(effect, null, duration);
+        var id = "ufx_" + (Sim.castInfo() && Sim.castInfo().skill || "") + "_";
+        var targets = Sim.target.random(id, chance * (proc ? data.proc : 1), data);
+        if (effect === "knockback" && targets[0] === 0) {
+          targets.shift();
+        }
+        if (targets.length) {
+          Sim.addBuff(effect, null, {duration: duration, targets: targets});
         }
       };
     } else {
-      return function() {
-        Sim.addBuff(effect, null, duration);
-      };
+      if (effect === "knockback" && Sim.target.boss) {
+        return function(data) {
+          var tcount = data.targets;
+          if (!data.firsttarget) --tcount;
+          if (tcount > 0) Sim.addBuff(effect, null, {duration: duration, targets: tcount});
+        };
+      } else {
+        return function(data) {
+          Sim.addBuff(effect, null, {duration: duration, targets: data.targets, firsttarget: data.firsttarget});
+        };
+      }
     }
+  };
+
+  Sim.magic_icd = function() {
+    var cast = Sim.getCastInfo(true, "speed");
+    if (!cast) return 59;
+    var frames = ((cast.channeling || cast.frames || 60) - 1) / (cast.speed || 1);
+    if (cast.channeling) {
+      frames *= 60 / cast.channeling;
+      if (cast.skill === "whirlwind") {
+        frames /= 3; // bug?
+      }
+    }
+    return Math.ceil(frames);
   };
 
 })();

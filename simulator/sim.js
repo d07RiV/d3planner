@@ -118,7 +118,7 @@
     this.params = data.params || {};
     this.time = 0;
     this.initresource = data.params.startResource;
-    this.target.index = 0;
+    this.target.index = 1;
     this.target.radius = Math.max(data.params.targetRadius || 0, 1);
     this.target.area = Math.PI * Math.pow(this.target.radius, 2);
     this.target.size = (data.params.targetSize || 0);
@@ -132,6 +132,27 @@
     this.target.health = (data.params.targetHealth < 0 ? -1 : data.params.targetHealth * this.target.count);
     this.target.maxdr = 0.95;
     this.target.mincc = 0.65;
+    this.target.list = function() {
+      var res = [];
+      if (this.boss) res.push(0);
+      var count = (this.count - (this.boss ? 1 : 0));
+      for (var i = 0; i < count; ++i) {
+        res.push(this.index + i);
+      }
+      return res;
+    };
+    this.target.random = function(id, chance, data) {
+      var targets = this.list();
+      var tlist = [];
+      var t0 = (data && data.firsttarget || 0);
+      var t1 = (data && data.firsttarget || (Sim.target.index - (Sim.target.boss ? 1 : 0))) + data.targets;
+      for (var i = 0; i < targets.length && targets[i] < t1; ++i) {
+        if (targets[i] >= t0 && Sim.random(id + targets[i], chance, data ? data.count : 1)) {
+          tlist.push(targets[i]);
+        }
+      }
+      return tlist;
+    };
     if (this.target.elite) {
       this.target.maxdr = 65;
       this.target.mincc = 0.65;
@@ -196,7 +217,7 @@
     if (count === undefined) count = 1;
     if (sum) {
       chance *= count;
-    } else {
+    } else if (count !== 1) {
       chance = 1 - Math.pow(1 - chance, count);
     }
     rngBuffer[id] = (rngBuffer[id] === undefined ? 0.5 : rngBuffer[id]) + chance;
@@ -226,11 +247,12 @@
     return castInfo;
   };
   Sim.getCastInfo = function() {
+    var a0 = (arguments.length && arguments[0] === true ? 1 : 0);
     for (var i = this.castInfoStack.length - 1; i >= 0; --i) {
       if (!this.castInfoStack[i]) continue;
-      for (var j = 0; j < arguments.length; ++j) {
+      for (var j = a0; j < arguments.length; ++j) {
         if (arguments[j] in this.castInfoStack[i]) {
-          return this.castInfoStack[i][arguments[j]];
+          return (a0 ? this.castInfoStack[i] : this.castInfoStack[i][arguments[j]]);
         }
       }
     }
@@ -257,6 +279,37 @@
     Sim.init(data);
     Sim.run();
     Sim.postResults();
-  }
+  };
+
+  Sim.listUnion = function(a, b) {
+    var r = [];
+    var i = 0, j = 0;
+    while (i < a.length || j < b.length) {
+      if (a[i] === b[j]) {
+        r.push(a[i++]);
+        ++j;
+      } else if (j >= b.length || a[i] < b[j]) {
+        r.push(a[i++]);
+      } else {
+        r.push(b[j++]);
+      }
+    }
+    return r;
+  };
+  Sim.listIntersection = function(a, b) {
+    var r = [];
+    var i = 0, j = 0;
+    while (i < a.length && j < b.length) {
+      if (a[i] === b[j]) {
+        r.push(a[i++]);
+        ++j;
+      } else if (a[i] < b[j]) {
+        ++i;
+      } else {
+        ++j;
+      }
+    }
+    return r;
+  };
 
 })();

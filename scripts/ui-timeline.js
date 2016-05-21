@@ -361,7 +361,7 @@
     changeset: function(index) {
       if (this.curset == this.datasets[index]) return;
       this.curset.line.removeClass("selected");
-      this.curset.profile = DiabloCalc.getProfile();
+      this.curset.profile = $.extend(true, {}, DiabloCalc.getProfile());
       this.curset = this.datasets[index];
       this.curset.line.addClass("selected");
       if (this.curset.profile) {

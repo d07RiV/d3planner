@@ -147,16 +147,87 @@
 
   function Stats(base, buffs) {
     Sim.extend(true, this, base);
+    this.status = {};
+    for (var id in Sim.target.list()) {
+      this.status[id] = {};
+    }
+
     for (var id in buffs) {
-      var src = buffs[id].stats;
-      var factor = (buffs[id].params.multiply ? buffs[id].stacks : 1);
-      for (var s in src) {
-        this.add(s, src[s], factor);
+      var buff = buffs[id];
+      var factor = 0;
+      var src = buff.stats;
+      if (buff.targets) {
+        for (var idx in buff.targets) {
+          var stats = buff.targets[idx].stats;
+          if (stats && this.status[idx]) for (var s in stats) {
+            if (Sim.statusBuffs[s] && stats[s]) {
+              this.status[idx][s] = 1;
+            }
+          }
+          src = (src || stats);
+          factor += (buff.targets[idx].params.multiply ? buff.targets[idx].stacks : 1);
+        }
+        factor /= Sim.target.count;
+      } else {
+        factor = (buff.params.multiply ? buff.stacks : 1);
+      }
+      if (src) {
+        for (var s in src) {
+          this.add(s, src[s], factor);
+        }
+      }
+    }
+    for (var s in Sim.statusBuffs) {
+      if (this[s]) {
+        for (var id in this.status) {
+          this.status[id][s] = 1;
+        }
+        this[s] = Sim.target.count;
+      } else {
+        this[s] = 0;
+        for (var id in this.status) {
+          if (this.status[s]) {
+            this[s] += 1;
+          }
+        }
       }
     }
     Sim.trigger("updatestats", {stats: this});
     this.finalize(true);
   }
+
+  Stats.prototype.filterStatus = function() {
+    for (var i = 0; i < arguments.length; ++i) {
+      if (this[arguments[i]]) return Sim.target.count;
+    }
+    var res = [];
+    if (!this.status) return res;
+    for (var idx in this.status) {
+      for (var i = 0; i < arguments.length; ++i) {
+        if (this.status[idx][arguments[i]]) {
+          res.push(idx);
+          break;
+        }
+      }
+    }
+    return res;
+  };
+  Stats.prototype.countStatus = function() {
+    for (var i = 0; i < arguments.length; ++i) {
+      if (this[arguments[i]]) return Sim.target.count;
+    }
+    var res = 0;
+    if (!this.status) return res;
+    for (var idx in this.status) {
+      for (var i = 0; i < arguments.length; ++i) {
+        if (this.status[idx][arguments[i]]) {
+          res += 1;
+          break;
+        }
+      }
+    }
+    return res;
+  };
 
   Stats.prototype.addAbsolute = function(stat, from) {
     if (!this[from]) return;

@@ -14,10 +14,10 @@
   var mm_glacial_next = undefined;
   function mm_glacial_onhit(event) {
     if (!mm_glacial_next || event.time >= mm_glacial_next) {
-      Sim.addBuff("frozen", null, 60);
+      Sim.addBuff("frozen", null, {duration: 60, targets: event.targets});
       mm_glacial_next = event.time + 300;
     } else {
-      Sim.addBuff("chilled", null, 36);
+      Sim.addBuff("chilled", null, {duration: 36, targets: event.targets});
     }
   }
   function mm_conflag_refresh(event) {
@@ -29,7 +29,7 @@
     Sim.addBuff("conflagrate", null, {
       maxstacks: 3,
       duration: 180,
-      data: {targets: event.targets},
+      targets: event.targets,
 /*      onapply: function() {
         Sim.register("onhit", mm_conflag_refresh);
       },
@@ -37,7 +37,7 @@
         Sim.unregister("onhit", mm_conflag_refresh);
       },*/ // <- buff cannot be refreshed (bug?)
       ontick: function(data) {
-        Sim.damage({coeff: 1.3 * data.stacks / 12, count: data.targets});
+        Sim.damage({coeff: 1.3 * data.stacks / 12});
       },
       tickrate: 15,
     });
@@ -95,19 +95,19 @@
       switch (rune) {
       case "x": return {type: "cone", coeff: 0.56, count: 3, range: 15};
       case "a": return {type: "cone", coeff: 0.56, count: 3, range: 15, onhit: function(event) {
-        Sim.addBuff("flameblades", {dmgfir: 1}, {maxstacks: 30, stacks: Sim.random("flameblades", 1, event.targets / 3, true), duration: 300, refresh: false});
+        Sim.addBuff("flameblades", {dmgfir: 1}, {maxstacks: 30, stacks: Sim.random("flameblades", 1, event.targets, true), duration: 300, refresh: false});
       }};
       case "d": return {type: "cone", coeff: 0.56, count: 3, range: 15, onhit: function(event) {
-        Sim.addResource(event.targets * 2 / 3);
+        Sim.addResource(event.targets * 2);
       }};
       case "b": return {type: "cone", coeff: 0.77, count: 3, range: 20};
       case "e": return {type: "cone", coeff: 0.56, count: 3, range: 15};
       case "c": return {type: "cone", coeff: 0.56, chc: (Sim.stats.frozen ? 5 : 0),
                         count: 3, range: 15, onhit: function(event) {
         if (Sim.stats.chilled && Sim.random("sb_iceblades", 0.05)) {
-          Sim.addBuff("frozen", undefined, 60);
+          Sim.addBuff("frozen", undefined, {duration: 60, targets: event.targets});
         }
-        Sim.addBuff("chilled", undefined, 36);
+        Sim.addBuff("chilled", undefined, {duration: 36, targets: event.targets});
       }};
       }
     },
@@ -145,9 +145,9 @@
       if (Sim.stats.leg_velvetcamaral && dmg.targets) {
         dmg.targets *= 2;
       }
-      if (Sim.stats.leg_mykensballofhate && Sim.target.count > 1 && dmg.targets) {
-        dmg.count = dmg.targets;
-        delete dmg.targets;
+      if (Sim.stats.leg_mykensballofhate && Sim.target.count > 1 && dmg.targets > Sim.target.count) {
+        dmg.count = dmg.targets / Sim.target.count;
+        dmg.targets = Sim.target.count;
       }
       return dmg;
     },
@@ -157,13 +157,13 @@
 
   function rof_numb_onhit(event) {
     if (Sim.random("rof_numb", 0.1)) {
-      Sim.addBuff("frozen", undefined, 60);
+      Sim.addBuff("frozen", undefined, {duration: 60, targets: event.targets});
     }
-    Sim.addBuff("chilled", undefined, 180);
+    Sim.addBuff("chilled", undefined, {duration: 180, targets: event.targets});
   }
   function rof_snowblast_onhit(event) {
-    Sim.addBuff("snowblast", {dmgtaken: {elems: ["col"], percent: 15}}, 240);
-    Sim.addBuff("chilled", undefined, 180);
+    Sim.addBuff("snowblast", {dmgtaken: {elems: ["col"], percent: 15}}, {duration: 240, targets: event.targets});
+    Sim.addBuff("chilled", undefined, {duration: 180, targets: event.targets});
   }
   function rof_ontick(data) {
     var bonus = Math.floor((Sim.time - data.buff.start) / 60);
@@ -317,7 +317,7 @@
   };
 
   function dis_intensify_onhit(event) {
-    Sim.addBuff("intensify", {dmgtaken: {elems: ["arc"], percent: 15}}, 240);
+    Sim.addBuff("intensify", {dmgtaken: {elems: ["arc"], percent: 15}}, {duration: 240, targets: event.targets});
   }
   function dis_ontick(data) {
     var bonus = Math.floor((Sim.time - data.buff.start) / 60);
@@ -354,7 +354,7 @@
   };
 
   function fn_mist_ontick(data) {
-    Sim.damage({type: "area", coeff: 9.15 / 27, range: 19, self: true});
+    Sim.damage({type: "area", coeff: 9.15 / 27, range: 19, self: true, onhit: Sim.apply_effect("chilled", 30)});
   }
   skills.frostnova = {
     secondary: true,
@@ -368,7 +368,6 @@
       case "d": return {type: "area", coeff: 0, range: 19, self: true, onhit: Sim.apply_effect("frozen", 180)};
       case "c":
         Sim.addBuff("frozenmist", undefined, {
-          status: "chilled",
           duration: 480,
           tickrate: 18,
           tickinitial: 1,
@@ -376,13 +375,13 @@
         });
         return;
       case "e": return {type: "area", coeff: 0, range: 19, self: true, onhit: function(event) {
-        Sim.addBuff("frozen", undefined, {duration: 120});
+        Sim.addBuff("frozen", undefined, {duration: 120, targets: event.targets});
         if (event.targets >= 5) {
           Sim.addBuff("deepfreeze", {chc: 10}, {duration: 660});
         }
       }};
       case "a": return {type: "area", coeff: 0, range: 19, self: true, onhit: function(event) {
-        Sim.addBuff("bonechill", {dmgtaken: 33}, {duration: 120, status: "frozen"});
+        Sim.addBuff("bonechill", {dmgtaken: 33}, {duration: 120, status: "frozen", targets: event.targets});
       }};
       }
     },
@@ -412,6 +411,7 @@
     elem: {x: "arc", c: "arc", d: "arc", a: "arc", b: "arc", e: "arc"},
   };
 
+  var st_self;
   skills.slowtime = {
     frames: 56.249996,
     cooldown: function(rune) {
@@ -419,17 +419,25 @@
       return cd * (1 - 0.01 * (Sim.stats.leg_gestureoforpheus || Sim.stats.leg_gestureoforpheus_p2 || 0));
     },
     oncast: function(rune) {
-      var params = {duration: 900, status: "slowed"};
-      var buffs = {};
-      if (Sim.stats.set_magnumopus_4pc) buffs.dmgred = 50;
-      if (rune === "a" || Sim.stats.leg_crownoftheprimus) buffs.dmgtaken = 15;
-      if (rune === "e" || Sim.stats.leg_crownoftheprimus) buffs.ias = 10;
-      if (rune === "b" || Sim.stats.leg_crownoftheprimus) Sim.addBuff("stunned", undefined, 300);
+      var targets = Sim.getTargets(21);
+
+      var params = {duration: 900, status: "slowed", targets: targets};
+      var buffs = undefined;
+      if (rune === "a" || Sim.stats.leg_crownoftheprimus) buffs = {dmgtaken: 15};
       Sim.addBuff("slowtime", buffs, params);
+
+      if (rune === "b" || Sim.stats.leg_crownoftheprimus) {
+        Sim.addBuff("stunned", undefined, {duration: 300, targets: targets});
+      }
+
+      var selfbuffs = {};
+      if (Sim.stats.set_magnumopus_4pc) selfbuffs.dmgred = 50;
+      if (rune === "e" || Sim.stats.leg_crownoftheprimus) selfbuffs.ias = 10;
+      if (selfbuffs.dmgred || selfbuffs.ias) {
+        st_self = Sim.addBuff(st_self, selfbuffs, {duration: 900});
+      }
     },
-    elem: function(rune) {
-      return (Sim.stats.set_magnumopus_4pc ? Sim.stats.info.maxelem : "arc");
-    },
+    elem: "arc",
   };
 
   skills.teleport = {
@@ -493,7 +501,7 @@
   };
 
   function et_gale_onhit(event) {
-    Sim.addBuff("galeforce", {dmgtaken: {elems: ["fir"], percent: 15}}, {duration: 240});
+    Sim.addBuff("galeforce", {dmgtaken: {elems: ["fir"], percent: 15}}, {duration: 240, targets: event.targets});
   }
   function et_ontick(data) {
     var dmg = {type: "area", coeff: data.base / 12, range: 8};
@@ -646,8 +654,8 @@
       data: {rune: rune, proc: data.proc},
     });
     if (rune === "c") {
-      if (Sim.stats.chilled) Sim.addBuff("frozen", undefined, 60);
-      Sim.addBuff("chilled", undefined, 180);
+      if (Sim.stats.chilled) Sim.addBuff("frozen", undefined, {duration: 60, targets: data.targets});
+      Sim.addBuff("chilled", undefined, {duration: 180, targets: data.targets});
     }
   }
   skills.meteor = {
@@ -684,7 +692,7 @@
   };
 
   function blizzard_ls_onhit(data) {
-    Sim.addBuff("lightningstorm", {dmgtaken: {elems: ["lit"], percent: 15}}, {duration: 16});
+    Sim.addBuff("lightningstorm", {dmgtaken: {elems: ["lit"], percent: 15}}, {duration: 16, targets: data.targets});
   }
   function blizzard_ontick(data) {
     var dmg = {type: "area", range: (data.rune === "b" ? 30 : 12), coeff: (data.rune === "a" ? 18.10 / 32 : 10.75 / 24)};
@@ -701,7 +709,7 @@
       var data = {duration: (rune === "a" ? 480 : 360), tickrate: 15, tickinitial: 1, ontick: blizzard_ontick, rune: rune};
       Sim.addBuff("blizzard", undefined, data);
       if (rune === "e") {
-        Sim.addBuff("frozen", undefined, 150);
+        Sim.addBuff("frozen", undefined, {duration: 150, targets: Sim.getTargets(12)});
       }
     },
     elem: {x: "col", c: "lit", e: "col", d: "col", b: "fir", a: "col"},
@@ -841,16 +849,11 @@
     elem: {x: "arc", b: "lit", c: "arc", d: "arc", a: "fir", e: "arc"},
   };
 
-  function familiar_icicle_onhit(data) {
-    if (Sim.random("familiar", 0.35)) {
-      Sim.addBuff("frozen", undefined, 60);
-    }
-  }
   function familiar_oncast(event) {
     var data = event.data;
     if (data.last === undefined || data.last + data.icd <= event.time) {
       var dmg = {type: "line", speed: 1, coeff: 2.4};
-      if (data.rune === "c") dmg.onhit = familiar_icicle_onhit;
+      if (data.rune === "c") dmg.onhit = Sim.apply_effect("frozen", 60, 0.35);
       if (data.rune === "b") dmg.area = 6;
       Sim.damage(dmg);
       data.last = event.time;
@@ -1044,7 +1047,24 @@
     secondary: true,
     shift: "archon",
     oncast: function(rune) {
-      skills.slowtime.oncast.call(this, rune);
+      var st_rune = (Sim.stats.skills.slowtime || "x");
+      var targets = Sim.getTargets(21);
+
+      var params = {duration: 900, status: "slowed", targets: targets};
+      var buffs = undefined;
+      if (st_rune === "a" || Sim.stats.leg_crownoftheprimus) buffs = {dmgtaken: 15};
+      Sim.addBuff("slowtime", buffs, params);
+
+      if (st_rune === "b" || Sim.stats.leg_crownoftheprimus) {
+        Sim.addBuff("stunned", undefined, {duration: 300, targets: targets});
+      }
+
+      var selfbuffs = {};
+      if (Sim.stats.set_magnumopus_4pc) selfbuffs.dmgred = 50;
+      if (st_rune === "e" || Sim.stats.leg_crownoftheprimus) selfbuffs.ias = 10;
+      if (selfbuffs.dmgred || selfbuffs.ias) {
+        st_self = Sim.addBuff(st_self, selfbuffs, {duration: 900});
+      }
     },
     elem: function(rune) {
       return skills.archon.elem(Sim.stats.skills.archon);
@@ -1070,7 +1090,7 @@
   };
 
   function bh_zero_onhit(data) {
-    Sim.addBuff("absolutezero", {damage: {elems: ["col"], percent: 3}}, {duration: 600, stacks: Sim.random("absolutezero", 1, data.targets, true)});
+    Sim.addBuff("absolutezero", {dmgcol: 3}, {duration: 600, stacks: Sim.random("absolutezero", 1, data.targets, true)});
   }
   function bh_spellsteal_onhit(data) {
     Sim.addBuff("spellsteal", {damage: 3}, {duration: 300, stacks: Sim.random("spellsteal", 1, data.targets, true)});
@@ -1155,22 +1175,22 @@
     },
     coldblooded: function() {
       Sim.register("updatestats", function(data) {
-        if (data.stats.chilled || data.stats.frozen) {
-          data.stats.add("dmgtaken", 10);
-        }
+        var count = data.stats.countStatus("chilled", "frozen");
+        if (count) data.stats.add("dmgtaken", 10 * count / Sim.target.count);
       });
     },
     conflagration: function() {
       Sim.register("onhit", function(data) {
         if (data.elem === "fir") {
-          Sim.addBuff("conflagration", {chctaken: 6}, {duration: 180});
+          Sim.addBuff("conflagration", {chctaken: 6}, {duration: 180, targets: data.targets});
         }
       });
     },
     paralysis: function() {
+      var func = Sim.apply_effect("stunned", 90, 0.15, true);
       Sim.register("onhit_proc", function(data) {
-        if (data.elem === "lit" && Sim.random("paralysis", data.proc * 0.15, data.targets / Sim.target.count)) {
-          Sim.addBuff("stunned", undefined, 90);
+        if (data.elem === "lit") {
+          func(data);
         }
       });
     },
@@ -1179,7 +1199,7 @@
     temporalflux: function() {
       Sim.register("onhit", function(data) {
         if (data.elem === "arc") {
-          Sim.addBuff("slowed", undefined, 120);
+          Sim.addBuff("slowed", undefined, {duration: 120, targets: data.targets});
         }
       });
     },
@@ -1196,6 +1216,7 @@
             Sim.removeBuff("arcanedynamo");
             var result = {percent: 60};
             if (data.skill === "meteor" && data.rune === "d") {
+              // has this been fixed yet?
               result.percent = 156;
             }
             return result;
@@ -1209,20 +1230,18 @@
       Sim.addBuff("unwaveringwill", {armor_percent: 20, resist_percent: 20, damage: 10});
     },
     audacity: function() {
-      if (Sim.target.distance - Sim.target.size < 15) {
-        Sim.addBuff("audacity", {dmgmul: {pet: false, percent: 30}});
-      }
+      Sim.addBuff("audacity", {dmgmul: {pet: false, percent: 30}}, {targets: Sim.getTargets(15, Sim.target.distance), aura: true});
     },
     elementalexposure: function() {
       var stacks = {"fir": "ee_fire", "col": "ee_cold", "arc": "ee_arcane", "lit": "ee_lightning"};
-      function trigger(elem) {
+      function trigger(elem, data) {
         var name = stacks[elem];
         if (!name) return;
-        Sim.addBuff(name, {dmgtaken: (Sim.stats.leg_primordialsoul ? 10 : 5)}, {duration: 300});
+        Sim.addBuff(name, {dmgtaken: (Sim.stats.leg_primordialsoul ? 10 : 5)}, {duration: 300, targets: data.targets, firsttarget: data.firsttarget});
       }
       Sim.register("onhit", function(data) {
-        if (data.elem) trigger(data.elem);
-        if (Sim.stats.info.mhelement) trigger(Sim.stats.info.mhelement);
+        if (data.elem) trigger(data.elem, data);
+        if (Sim.stats.info.mhelement) trigger(Sim.stats.info.mhelement, data);
       });
       Sim.metaBuff("elementalexposure", ["ee_fire", "ee_cold", "ee_arcane", "ee_lightning"]);
     },

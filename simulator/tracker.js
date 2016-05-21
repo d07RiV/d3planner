@@ -74,7 +74,7 @@
       source = (data.triggered || data.skill || "unknown");
     }
     //var source = ((data.skill ? (!data.pet && data.triggered) || data.skill : data.triggered) || "unknown");
-    var amount = data.damage * data.targets;
+    var amount = data.damage * data.targets * data.count;
     var cnt = _counter(source);
     cnt.damage = (cnt.damage || 0) + amount;
     var contrib = 0;
@@ -112,7 +112,8 @@
       var buffs = {};
       for (var id in this.buffs) {
         if (id.indexOf("uniq_") === 0) continue;
-        buffs[id] = this.buffs[id].stacks;
+        var amount = Math.max(Sim.getBuff(id), Sim.getBuffTargets(id));
+        if (amount) buffs[id] = amount;
       }
       var evt = [data.time, data.skill, Sim.resources[Sim.rcTypes[0]], 0, {}, buffs];
       if (data.castId) CastCounters[data.castId] = evt;

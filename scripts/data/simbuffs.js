@@ -26,8 +26,9 @@ DiabloCalc.simMapping = {
   },
   opts: {
     buff: "Buff stacks",
-    buffmin: "Buff duration (min)",
     buffmax: "Buff duration",
+    buffmin: "Buff duration (min)",
+    bufftgt: "Debuff targets",
     ticks: "Buff ticks",
     resource: "Resource",
     resourcepct: "Resource (percent)",
@@ -103,7 +104,8 @@ DiabloCalc.simMapping = {
     ee_arcane: {name: "Elemental Exposure - Arcane", category: "Passives", classes: ["wizard"], passive: "elementalexposure"},
 
     entanglingshot: {name: "Entangling Shot", category: "Skills", classes: ["demonhunter"], skill: ["entanglingshot"]},
-    shockcollar: {name: "Entangling Shot - Shock Collar", category: "Skills", classes: ["demonhunter"], skill: ["entanglingshot", "c"]},
+    //shockcollar: {name: "Entangling Shot - Shock Collar", category: "Skills", classes: ["demonhunter"], skill: ["entanglingshot", "c"]},
+    hardened: {name: "Evasive Fire - Hardened", category: "Skills", classes: ["demonhunter"], skill: ["evasivefire", "a"]},
     coldgrenade: {name: "Grenade - Cold Grenade", category: "Skills", classes: ["demonhunter"], skill: ["grenade", "a"]},
     rapidfire: {name: "Rapid Fire (Channeling)", category: "Skills", classes: ["demonhunter"], skill: ["rapidfire"]},
     firesupport: {name: "Rapid Fire - Fire Support", category: "Skills", classes: ["demonhunter"], skill: ["rapidfire", "c"]},
@@ -299,6 +301,7 @@ DiabloCalc.simMapping = {
     toxin: {name: "Gem of Efficacious Toxin", category: "Gems", gem: ["toxin"]},
     gogok: {name: "Gogok of Swiftness", category: "Gems", gem: ["gogok"]},
     pain: {name: "Pain Enhancer", category: "Gems", gem: ["pain"]},
+    painias: {name: "Pain Enhancer (Attack Speed)", category: "Gems", gem: ["pain"]},
     taeguk: {name: "Taeguk", category: "Gems", gem: ["taeguk"]},
     wreath: {name: "Wreath of Lightning", category: "Gems", gem: ["wreath"]},
     stricken: {name: "Bane of the Stricken", category: "Gems", gem: ["stricken"]},

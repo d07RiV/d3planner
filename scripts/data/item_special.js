@@ -7,7 +7,7 @@ DiabloCalc.itemaffixes = {
     info: {"Damage": {elem: "psn", coeff: "$1/100"}},
   },
   leg_sanguinaryvambraces: {
-    info: {"Damage": {thorns: "normal", coeff: 10}},
+    info: {"Damage": {thorns: "normal", coeff: 10, elem: "phy"}},
   },
   leg_bootsofdisregard: {
     params: [{min: 0, max: 4, name: "Stacks"}],

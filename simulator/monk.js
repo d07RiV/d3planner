@@ -588,12 +588,10 @@
   function ep_onhit(data) {
     var params = {
       duration: 540,
-      refresh: false,
-      maxstacks: Sim.target.count,
-      stacks: data.targets,
+      targets: data.targets,
+      firsttarget: data.firsttarget,
       tickrate: 30,
       tickinitial: 1,
-      tickkeep: true,
       ontick: {coeff: 12 / 18},
     };
     var buffs;
@@ -605,7 +603,6 @@
       delete params.ontick;
       delete params.tickrate;
       delete params.tickinitial;
-      delete params.tickkeep;
       break;
     case "e":
       params.ontick.coeff = 18.75 / 18;
@@ -613,7 +610,7 @@
     }
     Sim.addBuff("explodingpalm", buffs, params);
   }
-  Sim.apply_palm = function(count) {
+  Sim.apply_palm = function(count, firsttarget) {
     Sim.pushCastInfo({
       skill: "explodingpalm",
       rune: Sim.stats.skills.explodingpalm || "x",
@@ -621,7 +618,7 @@
       weapon: Sim.curweapon,
       castId: Sim.getCastId(),
     });
-    ep_onhit({targets: count || 1});
+    ep_onhit({targets: count || 1, firsttarget: (firsttarget === undefined ? "new" : firsttarget)});
     Sim.popCastInfo();
   };
   skills.explodingpalm = {
@@ -631,7 +628,7 @@
       return (Sim.stats.info.weaponClass === "fist" ? 57.142849 : 57);
     },
     oncast: function(rune) {
-      return {targets: (rune === "a" ? 2 : 1), coeff: 0, onhit: ep_onhit};
+      return {targets: (rune === "a" ? 2 : 1), firsttarget: "new", coeff: 0, onhit: ep_onhit};
     },
     proctable: 0.25,
     elem: {x: "phy", c: "phy", d: "hol", b: "col", a: "lit", e: "fir"},
