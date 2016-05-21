@@ -34,6 +34,7 @@ DiabloCalc.simMapping = {
     resourcepct: "Resource (percent)",
     cooldown: "Cooldown",
     charges: "Charges",
+    channeled: "Channeled for",
     interval: "Time since cast",
     health: "Target HP (percent)",
     any: "Any condition",

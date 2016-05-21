@@ -497,10 +497,12 @@
 
       for (var i = 0; i < tindex.length; ++i) {
         var idx = tindex[i];
-        tlist[idx] = makeBuff.call(this, tlist[idx], id, stats, params, idx);
+        var buff = makeBuff.call(this, tlist[idx], id, stats, params, idx);
+        if (buff) tlist[idx] = buff;
       }
     } else {
-      this.buffs[id] = makeBuff.call(this, this.buffs[id], id, stats, params, party);
+      var buff = makeBuff.call(this, this.buffs[id], id, stats, params, party);
+      if (buff) this.buffs[id] = buff;
     }
     this.buffWatchTrigger(id);
     return id;
@@ -798,23 +800,30 @@
       return (stack.time ? stack.time - this.time : 1e+10);
     }
   };
+  Sim.getBuffElapsed = function(id, target) {
+    var buff = this.buffs[id];
+    if (buff && buff.targets) {
+      buff = buff.targets[target === undefined ? (this.target.boss ? 0 : this.target.index) : target];
+    }
+    return (buff ? Sim.time - buff.start : 0);
+  };
   Sim.getBuffTicks = function(id, target) {
     var buff = this.buffs[id];
-    if (buff.targets) {
+    if (buff && buff.targets) {
       buff = buff.targets[target === undefined ? (this.target.boss ? 0 : this.target.index) : target];
     }
     return (buff ? buff.ticks : 0);
   };
   Sim.getBuffData = function(id, target) {
     var buff = this.buffs[id];
-    if (buff.targets) {
+    if (buff && buff.targets) {
       buff = buff.targets[target === undefined ? (this.target.boss ? 0 : this.target.index) : target];
     }
     return buff && buff.data;
   };
   Sim.getBuffStack = function(id, target) {
     var buff = this.buffs[id];
-    if (buff.targets) {
+    if (buff && buff.targets) {
       buff = buff.targets[target === undefined ? (this.target.boss ? 0 : this.target.index) : target];
     }
     if (!buff || !buff.stacklist || !buff.stacks) return;
@@ -823,7 +832,7 @@
   };
   Sim.getBuffCastInfo = function(id, target) {
     var buff = this.buffs[id];
-    if (buff.targets) {
+    if (buff && buff.targets) {
       buff = buff.targets[target === undefined ? (this.target.boss ? 0 : this.target.index) : target];
     }
     return (buff && buff.castInfo);

@@ -43,6 +43,7 @@
     health: makeNumeric(getHealth),
     charges: makeNumeric(Sim.getCharges),
     ticks: makeNumeric(Sim.getBuffTicks),
+    channeled: makeNumeric(Sim.getBuffElapsed, 60),
     interval: makeNumeric(getCastInterval, 60),
 
     any: function(code) {return countConditions(code.sub) >= 1;},
