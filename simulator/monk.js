@@ -1109,7 +1109,7 @@
   };
 
   Sim.passives = {
-    resolve: {
+    resolve: function() {
       Sim.register("onhit", function(data) {
         Sim.addBuff("resolve", {edmgred: 20}, {
           duration: 240,
