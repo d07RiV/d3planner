@@ -175,6 +175,8 @@ asheara's: todo
         });
       }
     });
+    var next = 0;
+    var limit = 0;
     Sim.register("onhit", function(data) {
       if (data.castInfo && data.castInfo.user) {
         if (Sim.skills[data.castInfo.skill] && Sim.skills[data.castInfo.skill].shift) {
@@ -186,6 +188,9 @@ asheara's: todo
           Sim.addBuff("chantodo_2pc", undefined, {maxstacks: 20, stacks: hits});
           data.castInfo.user.chantodo_2pc = (counter || 0) + hits;
         }
+        var hits = Math.min(3 - limit, Math.ceil(data.targets * data.count));
+        Sim.addBuff("chantodo_2pc", undefined, {maxstacks: 20, stacks: hits});
+        limit += hits;
       }
     });
   };

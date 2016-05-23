@@ -1411,6 +1411,7 @@
   };
   // add stat line
   DC.ItemBox.prototype.onAddStat = function(type, required, current) {
+    debugger;
     if (type !== "primary" && type !== "secondary" && type !== "socket" && type !== "caldesanns" && (required || current)) {
       current = required;
       required = type;

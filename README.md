@@ -17,6 +17,8 @@ If you want to try running it locally, set up a webserver (i.e. XAMPP/Apache) an
 
 # Unofficial Game Resources
 
+* [Bloodshard/Death's Breath calculator](http://www.d3planner.com/kadala)
+
 **Skills**
 
 * Barbarian: [Live](http://www.d3planner.com/skills/barbarian), [PTR](http://ptr.d3planner.com/skills/barbarian)
