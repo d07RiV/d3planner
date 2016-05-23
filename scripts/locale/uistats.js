@@ -368,6 +368,13 @@ _L.add({
           collapse: true,
           tooltip: "Non-Physical Damage Reduction: $1\n* Increased by skills and items.",
         },
+        {
+          stat: "edmgred",
+          decimal: 2,
+          percent: true,
+          collapse: true,
+          tooltip: "Enemy Damage Reduction: $1\n* Enemies affected by your attacks deal $1 less damage.",
+        },
 
         {
           name: "T. per 100 Vitality",

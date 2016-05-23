@@ -303,7 +303,7 @@ DiabloCalc.skills.monk = {
       if (stats.leg_kyoshirosblade) {
         var pct = {};
         pct[DiabloCalc.itemById.P4_Unique_Fist_102.name] = (this.active ? stats.leg_kyoshirosblade : 150);
-        for (var id in res) res["Damage"].percent = pct;
+        for (var id in res) res[id].percent = pct;
       }
       return $.extend({"Cost": {cost: 75, rcr: "leg_incensetorchofthegrandtemple"}}, res);
     },
@@ -406,13 +406,11 @@ DiabloCalc.skills.monk = {
       e: {"Uptime": {duration: 6, cooldown: 20}},
     },
     active: false,
-    buffs: {
-      x: {dmgred: 55},
-      b: {dmgred: 55},
-      d: {dmgred: 55, regen: 35779},
-      c: {dmgred: 55},
-      a: {dmgred: 55},
-      e: {dmgred: 55, dmgtaken: 30},
+    buffs: function(rune, stats) {
+      var res = {dmgred: 55};
+      if (rune === "d") res.regen = 35779 + (stats.regen || 0) * 0.07;
+      if (rune === "e") res.dmgtaken = 30;
+      return res;
     },
   },
   dashingstrike: {

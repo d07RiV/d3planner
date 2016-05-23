@@ -2,15 +2,23 @@
  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>Diablo III Simulator Test</title>
+  <script language="javascript" src="tests.js"></script>
   <script language="javascript" src="input.js"></script>
-  <script language="javascript" src="math.js"></script>
+  <script language="javascript" src="/external/jquery.min.js"></script>
   <style type="text/css">
    span {color: blue; cursor: pointer;} span:hover {text-decoration: underline;}
+   table {
+     border-collapse: collapse;
+   }
+   table td {
+     border: 1px solid black;
+     padding: 4px;
+   }
   </style>
  </head>
  <body>
   Press Ctrl+Shift+J (Chrome) or Ctrl+Shift+K (Firefox) to open console, then click the links:<br/>
-  Reload the page between simulations.<br/>
   <span onclick='_run();'>GO!</span><br/>
+  <table cellspacing="0"></table>
  </body>
 </html>

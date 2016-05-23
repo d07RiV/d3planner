@@ -446,7 +446,7 @@ DiabloCalc.legendaryGems = {
     ],
     params: [{min: 0, max: 50, name: "Distance"}],
     buffs: function(level, stats) {
-      return {dmgmul: this.params[0].val * (4 + 0.05 * level) / 10};
+      return {dmgmul: this.params[0].val * (4 + 0.08 * level) / 10};
     },
   },
 

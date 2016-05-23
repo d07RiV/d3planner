@@ -61,6 +61,7 @@
     resist_percent: {name: "Resistances"},
     dmgred: {name: "Damage Reduction", dr: true},
     dodge: {name: "Dodge Chance", dr: true},
+    edmgred: {name: "Enemy Damage Reduction", dr: true},
 
     block: {name: "Block Chance", format: "+%d%% Chance to Block", utility: true, id: "Block_Chance_Bonus_Item", percent: true},
     block_percent: {name: "Block Chance"},

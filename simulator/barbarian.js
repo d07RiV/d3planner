@@ -23,12 +23,13 @@
   var _fb_prev = 0;
   function bash_frostbite_onhit(data) {
     if (Sim.time >= _fb_prev) {
-      Sim.addBuff("frozen", undefined, 90);
+      Sim.addBuff("frozen", undefined, {duration: 90, targets: data.targets, firsttarget: data.firsttarget});
       _fb_prev = Sim.time + 300;
     }
   }
   function bash_onslaught_onhit(data) {
-    Sim.addBuff("onslaught", {chctaken: 10}, {duration: 180});
+    Sim.addBuff("onslaught", {chctaken: 10}, {duration: 180,
+      targets: data.targets, firsttarget: data.firsttarget});
   }
   skills.bash = {
     signature: true,
@@ -77,6 +78,8 @@
     Sim.addBuff("gatheringstorm", {dmgtaken: 10}, {
       duration: 180,
       status: "chilled",
+      targets: data.targets,
+      firsttarget: data.firsttarget,
     });
   }
   skills.cleave = {
@@ -228,7 +231,7 @@
   };
 
   function rend_ontick(data) {
-    Sim.damage({coeff: data.coeff, count: data.stacks, targets: data.targets});
+    Sim.damage({coeff: data.coeff, count: data.stacks});
   }
   function rend_onhit(data) {
     var params = {
@@ -236,7 +239,9 @@
       tickrate: 30,
       tickinitial: 1,
       ontick: rend_ontick,
-      data: {coeff: 1.1, targets: data.targets},
+      data: {coeff: 1.1},
+      targets: data.targets,
+      firsttarget: data.firsttarget,
     };
     if (Sim.stats.leg_lamentation) {
       params.maxstacks = 2;
@@ -247,7 +252,7 @@
     var buffs;
     switch (data.castInfo.rune) {
     case "a": params.data.coeff = 1.35; break;
-    case "c":
+    case "c":                         
       buffs = {dmgtaken: 10};
       params.status = "chilled";
       break;
@@ -404,7 +409,7 @@
     switch (data.castInfo.rune) {
     case "e":
       Sim.after(240, function() {
-        Sim.addBuff("slowed", undefined, {duration: 480});
+        Sim.addBuff("slowed", undefined, {duration: 480, targets: data.targets, firsttarget: data.firsttarget});
       });
       break;
     case "c":
@@ -412,7 +417,7 @@
       while (count--) Sim.trigger("onglobe");
       break;
     }
-    Sim.addBuff("stunned", undefined, {duration: 240});
+    Sim.addBuff("stunned", undefined, {duration: 240, targets: data.targets, firsttarget: data.firsttarget});
   }
   skills.groundstomp = {
     offensive: true,
@@ -438,7 +443,7 @@
       Sim.addBuff("ironimpact", {armor_percent: 150 * (Sim.stats.set_earth_4pc ? 2.5 : 1)}, {duration: 240 * (Sim.stats.set_earth_4pc ? 2.5 : 1)});
     }
     if (data.castInfo.rune === "e") status = "stunned";
-    Sim.addBuff(status, undefined, {duration: 180});
+    Sim.addBuff(status, undefined, {duration: 180, targets: data.targets, firsttarget: data.firsttarget});
   }
   skills.leap = {
     offensive: true,
@@ -558,7 +563,7 @@
     },
     oninit: function(rune) {
       Sim.register("onhit_proc", function(data) {
-        Sim.reduceCooldown("overpower", Sim.random("overpower", data.proc * data.chc, data.targets, true) * 60);
+        Sim.reduceCooldown("overpower", Sim.random("overpower", data.proc * data.chc, data.targets * data.count, true) * 60);
       });
     },
     proctable: {x: 0.333, b: 0.2, a: 0.333, e: 0.333, d: 0.333, c: 0.333},
@@ -610,7 +615,7 @@
       Sim.addResource(10 * data.targets);
     }
     if (Sim.stats.set_raekor_4pc || data.castInfo.rune === "c") {
-      Sim.addBuff("frozen", undefined, {duration: 150});
+      Sim.addBuff("frozen", undefined, {duration: 150, targets: data.targets, firsttarget: data.firsttarget});
     }
   }
   function fc_fix() {
@@ -692,6 +697,29 @@
     elem: {x: "phy", c: "fir", d: "phy", b: "col", e: "phy", a: "col"},
   };
 
+  function ts_onhit(data) {
+    var params = {duration: 900, targets: data.targets, firsttarget: data.firsttarget};
+    switch (data.castInfo.rune) {
+    case "b": params.status = "slowed"; break;
+    case "d":
+      Sim.addBuff("falter", {dmgtaken: 25}, {duration: 360, targets: data.targets, firsttarget: data.firsttarget});
+      return;
+    case "c":
+      var count = Sim.random("grimharvest", 0.15, data.targets, true);
+      while (count--) Sim.trigger("onglobe");
+      break;
+    case "a":
+      Sim.addBuff("demoralize", undefined, {duration: 240, targets: data.targets, firsttarget: data.firsttarget});
+      break;
+    case "e":
+      Sim.addBuff("feared", undefined, {duration: 180, targets: data.targets, firsttarget: data.firsttarget});
+      break;
+    }
+    if (Sim.stats.passives.inspiringpresence) {
+      params.duration *= 2;
+    }
+    Sim.addBuff("threateningshout", undefined, params);
+  }
   skills.threateningshout = {
     secondary: true,
     weapon: "mainhand",
@@ -699,27 +727,7 @@
     cooldown: 10,
     generate: 15,
     oncast: function(rune) {
-      var params = {duration: 900};
-      switch (rune) {
-      case "b": params.status = "slowed"; break;
-      case "d":
-        Sim.addBuff("falter", {dmgtaken: 25}, {duration: 360});
-        return;
-      case "c":
-        var count = Sim.random("grimharvest", 0.15, Sim.getTargets(25, Sim.target.distance), true);
-        while (count--) Sim.trigger("onglobe");
-        break;
-      case "a":
-        Sim.addBuff("demoralize", undefined, {duration: 240});
-        break;
-      case "e":
-        Sim.addBuff("feared", undefined, {duration: 180});
-        break;
-      }
-      if (Sim.stats.passives.inspiringpresence) {
-        params.duration *= 2;
-      }
-      Sim.addBuff("threateningshout", undefined, params);
+      Sim.damage({type: "area", range: 25, self: true, coeff: 0, onhit: ts_onhit});
     },
     proctable: {e: 1},
     elem: "phy",
@@ -758,7 +766,10 @@
           if (Sim.getBuff("battlerage")) {
             var targets = Sim.getTargets(15, 0) - 1;
             if (targets > 0) Sim.trigger("onhit", {
-              targets: targets * data.targets * data.chc * data.proc,
+              targets: targets * data.targets,
+              firsttarget: (data.targets === 1 ?
+                (data.firsttarget ? data.firsttarget + 1 : (Sim.target.boss ? Sim.target.index : Sim.target.index + 1)) : undefined),
+              count: data.chc * data.proc * data.count,
               damage: data.damage * 0.2,
               elem: "phy",
               castInfo: Sim.castInfo(),
@@ -766,7 +777,6 @@
               chc: 0,
               distance: 0,
               dmgmul: data.dmgmul,
-              hits: data.targets * data.chc * data.proc,
             });
           }
         });
@@ -838,19 +848,23 @@
     elem: {x: "fir", b: "fir", c: "col", d: "lit", a: "fir", e: "phy"},
   };
 
+  function dtc_onhit(data) {
+    Sim.addBuff("dutytotheclan", {chctaken: 10}, {duration: 120, status: "chilled", targets: data.targets, firsttarget: data.firsttarget});
+  }
   function ancient_ontick(data) {
     var info = Sim.castInfo();
     if ((info && info.rune === "c") || Sim.stats.leg_furyoftheancients) {
       Sim.addResource(4);
     }
+    var onhit = undefined;
+    if (info && info.rune === "d") {
+      onhit = dtc_onhit;
+    }
     if (data.user && (!data.user.ability || data.user.ability <= Sim.time)) {
-      Sim.damage({type: "area", range: 8, coeff: data.coeff, pet: true});
+      Sim.damage({type: "area", range: 8, coeff: data.coeff, pet: true, onhit: onhit});
       data.user.ability = Sim.time + 240;
     } else {
-      Sim.damage({coeff: data.coeff, pet: true});
-    }
-    if (info && info.rune === "d") {
-      Sim.addBuff("dutytotheclan", {chctaken: 10}, {duration: 120, status: "chilled"});
+      Sim.damage({coeff: data.coeff, pet: true, onhit: onhit});
     }
   }
 
@@ -907,7 +921,7 @@
       if (rune === "e") {
         Sim.register("onhit_proc", function(data) {
           if (data.chc && Sim.getBuff("wrathoftheberserker")) {
-            Sim.damage({type: "area", range: 15, coeff: 3, count: data.targets * data.chc * data.proc, nocrit: true});
+            Sim.damage({type: "area", range: 15, coeff: 3, count: data.targets * data.count * data.chc * data.proc, nocrit: true});
           }
         });
       }
@@ -958,7 +972,7 @@
       case "mightyweapon":
       case "mightyweapon2h":
         Sim.register("onhit_proc", function(data) {
-          Sim.addResource(data.targets * data.proc * 2);
+          Sim.addResource(data.targets * data.count * data.proc * 2);
         });
         break;
       }

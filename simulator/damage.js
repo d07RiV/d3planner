@@ -3,6 +3,14 @@
 
   Sim.curweapon = "mainhand";
 
+  function _choose() {
+    for (var i = 0; i < arguments.length; ++i) {
+      if (arguments[i] || arguments[i] === 0) {
+        return arguments[i];
+      }
+    }
+  }
+
   Sim.calcDamage = function(data) {
     var stats = Sim.stats;
     var triggered = (data.castInfo && data.castInfo.triggered);
@@ -85,7 +93,7 @@
     if (!orphan) {
       dmgmul = stats.getSpecial("dmgmul", elem, ispet, data.skill, data.exclude);
       if (stats.gems.zei) {
-        var dist = ((data.castInfo && data.castInfo.distance) || data.distance || data.origin || Sim.target.distance);
+        var dist = _choose(data.castInfo && data.castInfo.distance, data.distance, data.origin, Sim.target.distance);
         dmgmul *= 1 + 0.01 * dist * (4 + 0.08 * stats.gems.zei) / 10;
       }
     }
@@ -97,13 +105,16 @@
     }
     if (data.nocrit || orphan || data.thorns/* === "normal"*/ || data.addthorns) chc = 0;
 
-    var count = (data.count || 1);
-    if (data.targets) {
-      count *= Math.min(data.targets, Sim.target.count);
-    }
+    //var count = (data.count || 1);
+    //if (data.targets) {
+    //  count *= Math.min(data.targets, Sim.target.count);
+    //}
 
     return {
-      targets: count,
+      targets: Math.min(data.targets || 1, Sim.target.count),
+      firsttarget: data.firsttarget,
+      count: (data.count || 1),
+      //targets: count,
       skill: data.skill,
       proc: (ispet ? 0 : data.proc),
       damage: value,
@@ -115,7 +126,6 @@
       chc: chc,
       distance: data.distance,
       dmgmul: dmgmul,
-      hits: (data.count || 1),
       castId: data.castId,
     };
   };
@@ -132,7 +142,10 @@
       }
       if (Sim.target.area_coeff && Sim.stats.area) {
         Sim.trigger("onhit", {
-          targets: event.targets * 0.2 * Sim.target.area_coeff,
+          targets: event.targets * Sim.target.area_coeff,
+          firsttarget: (event.targets === 1 ?
+            (event.firsttarget ? event.firsttarget + 1 : (Sim.target.boss ? Sim.target.index : Sim.target.index + 1)) : undefined),
+          count: event.count * 0.2,
           skill: event.skill,
           damage: event.damage * 0.01 * Sim.stats.area/* / (event.dmgmul || 1)*/,
           elem: event.elem,
@@ -155,7 +168,7 @@
   function _line(data) {
     var tcount = Sim.target.count + (data.cmod || 0);
     if (!tcount) return;
-    var origin = (data.origin || Sim.target.distance);
+    var origin = _choose(data.origin, Sim.target.distance);
     var size = Sim.target.size + (data.radius || 0);
     if (data.fan && data.count && data.count > 1 && !data.merged) {
       var tmp = Sim.extend({}, data);
@@ -222,7 +235,7 @@
 
   function _ball(data) {
     var size = (data.radius || 0) + Sim.target.size;
-    var origin = (data.origin || Sim.target.distance);
+    var origin = _choose(data.origin, Sim.target.distance);
     var range = (data.range || Sim.target.radius + origin + size);
 
     var distance = Sim.math.lineDistance(Sim.target.count, Sim.target.radius, size, origin, range);
@@ -251,14 +264,14 @@
       data.distance = data.range / 2;
     }
     if (data.front) {
-      data.origin = Math.abs((data.origin || Sim.target.distance) - data.range);
+      data.origin = Math.abs(_choose(data.origin, Sim.target.distance) - data.range);
       data.distance = data.range;
     }
     if (data.spread) {
       area = Sim.math.circleArea(Sim.target.radius, Sim.target.size + data.range, data.spread,
-        data.origin || (data.self && Sim.target.distance) || 0, data.inner);
-    } else if (data.self || data.origin) {
-      area = Sim.math.circleIntersection(data.origin || Sim.target.distance,
+        _choose(data.origin, data.self && Sim.target.distance, 0), data.inner);
+    } else if (data.self || data.origin !== undefined) {
+      area = Sim.math.circleIntersection(_choose(data.origin, Sim.target.distance),
         Sim.target.size + data.range, Sim.target.radius);
     } else {
       area = Math.PI * Math.pow(Math.min(Sim.target.radius, Sim.target.size + data.range), 2);
@@ -278,7 +291,7 @@
   function _cone(data) {
     data.distance = data.range / 2;
     var area = Sim.math.coneArea(Sim.target.radius, Sim.target.size,
-      data.origin || Sim.target.distance, data.width || 90, data.range, data.angle);
+      _choose(data.origin, Sim.target.distance), data.width || 90, data.range, data.angle);
     var tcount = Sim.target.count + (data.cmod || 0);
     var prob = Math.min(area, Sim.target.area) / Sim.target.area;
     if (data.cap) {
@@ -364,6 +377,13 @@
     }
 
     this.popCastInfo();
+  };
+
+  Sim.healing = function(data) {
+    Sim.trigger("healing", {
+      amount: data.amount,
+      castInfo: this.castInfo(),
+    });
   };
 
 })();

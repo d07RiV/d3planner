@@ -40,6 +40,20 @@
           ++total;
           if (stats.skills[opts.skill[0]] && (opts.skill.length < 2 || opts.skill[1].indexOf(stats.skills[opts.skill[0]]) >= 0)) ++good;
         }
+        if (opts.skills) {
+          ++total;
+          for (var i = 0; i < opts.skills.length; ++i) {
+            if (stats.skills[opts.skills[i]]) {
+              ++good;
+              break;
+            } else if (DC.extraskills[DC.charClass] && DC.extraskills[DC.charClass][opts.skills[i]]) {
+              if (DC.extraskills[DC.charClass][opts.skills[i]].required(stats)) {
+                ++good;
+                break;
+              }
+            }
+          }
+        }
         if (opts.passive) {
           ++total;
           if (stats.passives[opts.passive]) ++good;
@@ -346,11 +360,13 @@
     buff: "buff",
     buffmin: "buff",
     buffmax: "buff",
+    bufftgt: "buff",
     ticks: "buff",
     resource: "resource",
     resourcepct: "resource",
     cooldown: "skill",
     charges: "skill",
+    channeled: "skill",
     interval: "skill",
     health: "none",
     any: "sub",

@@ -15,11 +15,13 @@
       return 0;
     }
   }
-  var Buckets = [];
+  var Buckets = [], HealBuckets = [];
   while (Buckets.length < Math.ceil((2 * KernelFactor * KernelSize - 1) / BucketSize) + 1) {
     Buckets.push(0);
+    HealBuckets.push(0);
   }
   var TotalDamage = 0;
+  var TotalHealing = 0;
   var SkillCounters = {};
   var Sample = [];
   Sim._sample = Sample;
@@ -29,8 +31,9 @@
 
   Sim.register("init", function() {
     this.after(BucketBase + KernelFactor * KernelSize, function SendReport() {
-      Sim.postMessage({type: "chart", time: BucketBase, damage: Buckets.shift(), health: Math.max(0, Sim.targetHealth)});
+      Sim.postMessage({type: "chart", time: BucketBase, damage: Buckets.shift(), healing: HealBuckets.shift(), health: Math.max(0, Sim.targetHealth)});
       Buckets.push(0);
+      HealBuckets.push(0);
       BucketBase += BucketSize;
       Sim.after(BucketSize, SendReport);
     });
@@ -68,13 +71,20 @@
     return SkillCounters[id];
   }
   var CastCounters = {};
+  // 0: time
+  // 1: skill
+  // 2: resource
+  // 3: damage
+  // 4: damage/source
+  // 5: buffs
+  // 6: healing
   Sim.register("onhit", function(data) {
     var source = (data.skill || data.triggered || "unknown");
     if (data.pet || (data.castInfo && (data.castInfo.pet || data.castInfo.trigExplicit))) {
       source = (data.triggered || data.skill || "unknown");
     }
     //var source = ((data.skill ? (!data.pet && data.triggered) || data.skill : data.triggered) || "unknown");
-    var amount = data.damage * data.targets;
+    var amount = data.damage * data.targets * data.count;
     var cnt = _counter(source);
     cnt.damage = (cnt.damage || 0) + amount;
     var contrib = 0;
@@ -104,6 +114,29 @@
       }
     }
   });
+  Sim.register("healing", function(data) {
+    var source = (data.castInfo && (data.castInfo.skill || data.castInfo.triggered) || "unknown");
+    if (data.castInfo && (data.castInfo.pet || data.castInfo.trigExplicit)) {
+      source = (data.castInfo.triggered || data.castInfo.skill || "unknown");
+    }
+    var cnt = _counter(source);
+    cnt.healing = (cnt.healing || 0) + data.amount;
+    var contrib = 0;
+    for (var i = 0; i < HealBuckets.length; ++i) {
+      contrib += Kernel((BucketBase + BucketSize * i - Sim.time) / KernelFactor);
+    }
+    if (contrib) {
+      for (var i = 0; i < HealBuckets.length; ++i) {
+        HealBuckets[i] += data.amount * Kernel((BucketBase + BucketSize * i - Sim.time) / KernelFactor) / contrib;
+      }
+    }
+    TotalHealing += data.amount;
+    var castId = data.castId || (data.castInfo && data.castInfo.castId);
+    if (castId && CastCounters[castId]) {
+      var evt = CastCounters[castId];
+      evt[6] = (evt[6] || 0) + data.amount;
+    }
+  });
   Sim.register("oncast", function(data) {
     if (data.triggered) return;
     var cnt = _counter(data.skill);
@@ -112,7 +145,8 @@
       var buffs = {};
       for (var id in this.buffs) {
         if (id.indexOf("uniq_") === 0) continue;
-        buffs[id] = this.buffs[id].stacks;
+        var amount = Math.max(Sim.getBuff(id), Sim.getBuffTargets(id));
+        if (amount) buffs[id] = amount;
       }
       var evt = [data.time, data.skill, Sim.resources[Sim.rcTypes[0]], 0, {}, buffs];
       if (data.castId) CastCounters[data.castId] = evt;
@@ -131,6 +165,7 @@
     Sim.postMessage({type: "report", time: Sim.time, health: Math.max(0, Sim.targetHealth),
       counters: SkillCounters,
       damage: TotalDamage,
+      healing: TotalHealing,
       uptimes: Sim.uptimes,
       sample: Sample,
     });

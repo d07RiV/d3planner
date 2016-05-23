@@ -4,15 +4,18 @@
   var skills = {};
   Sim.skills = skills;
 
+  var pd_snake_onhit = Sim.apply_effect("stunned", 90, 0.35);
   function pd_onhit(data) {
     var params = {
       duration: 121,
       tickrate: 30,
       ontick: {coeff: 0.1},
+      targets: data.targets,
+      firsttarget: data.firsttarget,
     };
     switch (data.castInfo.rune) {
     case "d": Sim.addResource(50); break;
-    case "e": if (Sim.random("poisondart", 0.35)) Sim.addBuff("stunned", 90); break;
+    case "e": pd_snake_onhit(data); break;
     case "c": params.status = "chilled"; break;
     }
     Sim.addBuff(undefined, undefined, params);
@@ -23,6 +26,8 @@
       tickrate: 30,
       tickinitial: 1,
       ontick: {coeff: 5.65 / 8},
+      targets: data.targets,
+      firsttarget: data.firsttarget,
     });
   }
   skills.poisondart = {
@@ -47,7 +52,7 @@
   function cs_bs_onhit(data) {
     Sim.addResource(3 * data.targets);
     if (Sim.stats.leg_thespiderqueensgrasp) {
-      Sim.addBuff("slowed", undefined, 180);
+      Sim.addBuff("slowed", undefined, {duration: 180, targets: data.targets, firsttarget: data.firsttarget});
     }
   }
   skills.corpsespiders = {
@@ -170,11 +175,10 @@
         });
       }
       Sim.addBuff("graspofthedead", undefined, {
-        status: "slowed",
         duration: 480,
         tickrate: 30,
         tickinitial: 1,
-        ontick: {type: "area", range: 14, coeff: (rune === "a" ? 0.85 : 0.475)},
+        ontick: {type: "area", range: 14, coeff: (rune === "a" ? 0.85 : 0.475), onhit: Sim.apply_effect("slowed", 31)},
       });
     },
     proctable: {x: 0.07, c: 0.07, a: 0.07, e: 0.07, d: 0.07, b: 0.07},
@@ -238,11 +242,9 @@
   }
   function haunt_onhit(data) {
     var params = {
-      maxstacks: Math.min(5, Sim.target.count),
-      refresh: false,
+      targets: 1,
       duration: 720,
       tickrate: 12,
-      tickkeep: true,
       tickinitial: 1,
       data: {coeff: 40 / 60},
       ontick: haunt_ontick,
@@ -261,6 +263,7 @@
       params.data.leech = 2.5;
     }
     for (var i = 0; i < data.targets; ++i) {
+      params.firsttarget = (Sim.getBuffTargets("haunt") < 5 ? "new" : undefined);
       Sim.addBuff("haunt", data.castInfo.rune === "c" && {dmgtaken: 20}, params);
     }
   }
@@ -283,48 +286,51 @@
     if (data.leech) {
       Sim.addResource(data.leech);
     }
+    ++data.spread;
+    if (data.spread === 3) {
+      var count = 1;
+      if (data.rune === "b" || Sim.stats.leg_vilehive) {
+        count = 2;
+      }
+      Sim.damage({coeff: 0, targets: count, onhit: swarm_onhit, proc: data.proc});
+    }
   }
   function swarm_onhit(data) {
-    var params = {
-      maxstacks: Sim.target.count,
-      stacks: data.targets,
-      refresh: false,
-      duration: 480,
-      tickrate: 12,
-      tickinitial: 1,
-      tickkeep: true,
-      data: {coeff: 1.3 / 5},
-      ontick: swarm_ontick,
-    };
-    if (data.castInfo.rune === "d" && (!data.castInfo.user || !data.castInfo.user.spread)) {
-      params.data.leech = 5;
+    var tlist = Sim.target.list();
+    data.castInfo.sindex = (data.castInfo.sindex || 0);
+    var index = 0;
+    while (index < tlist.length && tlist[index] < data.castInfo.sindex) {
+      ++index;
     }
-    if (data.castInfo.rune === "a") {
-      params.data.coeff = 1.85 / 5;
-    }
-    if (Sim.stats.passives.creepingdeath) {
-      params.duration = 3600 * 60;
-    }
-    if (Sim.stats.leg_quetzalcoatl) {
-      params.duration /= 2;
-      params.data.coeff *= 2;
-    }
-    if (Sim.stats.leg_hwojwrap) {
-      params.status = "slowed";
-    }
-    Sim.addBuff("locustswarm", undefined, params);
-    Sim.after(45, function() {
-      if (!data.castInfo.user) data.castInfo.user = {};
-      data.castInfo.user.spread = true;
-      var spread = data.targets;
-      if (data.castInfo.rune === "b" || Sim.stats.leg_vilehive) {
-        spread *= 2;
+    for (var i = 0; i < data.targets && index < tlist.length; ++i, ++index) {
+      var params = {
+        targets: 1,
+        firsttarget: tlist[index],
+        duration: 480,
+        tickrate: 12,
+        tickinitial: 1,
+        data: {coeff: 1.3 / 5, rune: data.castInfo.rune, proc: data.proc, spread: 0},
+        ontick: swarm_ontick,
+      };
+      data.castInfo.sindex = tlist[index] + 1;
+      if (data.castInfo.rune === "d" && (!data.castInfo.user || !data.castInfo.user.spread)) {
+        params.data.leech = 5;
       }
-      spread = Math.min(Sim.target.count - Sim.getBuff("locustswarm"), spread);
-      if (spread) {
-        Sim.damage({coeff: 0, targets: spread, onhit: swarm_onhit, proc: data.proc});
+      if (data.castInfo.rune === "a") {
+        params.data.coeff = 1.85 / 5;
       }
-    });
+      if (Sim.stats.passives.creepingdeath) {
+        params.duration = 3600 * 60;
+      }
+      if (Sim.stats.leg_quetzalcoatl) {
+        params.duration /= 2;
+        params.data.coeff *= 2;
+      }
+      if (Sim.stats.leg_hwojwrap) {
+        params.status = "slowed";
+      }
+      Sim.addBuff("locustswarm", undefined, params);
+    }
   }
   skills.locustswarm = {
     offensive: true,
@@ -341,11 +347,12 @@
     Sim.addBuff(undefined, undefined, {
       duration: 181,
       tickrate: 60,
-      ontick: {pet: true, coeff: 0.4 * Sim.stats.info.aps, count: data.targets},
+      ontick: {pet: true, coeff: 0.4 * Sim.stats.info.aps, targets: data.targets, firsttarget: data.firsttarget},
     });
   }
   function dogs_chilled_onhit(data) {
-    Sim.addBuff("chilledtothebone", {dmgtaken: 15}, {duration: 180, status: "chilled"});
+    Sim.addBuff("chilledtothebone", {dmgtaken: 15}, {duration: 180, status: "chilled",
+      targets: data.targets, firsttarget: data.firsttarget});
   }
   function dogs_ontick(data) {
     Sim.damage({pet: true, distance: 5, coeff: Sim.stats.info.aps * data.coeff, onhit: data.onhit});
@@ -400,29 +407,30 @@
     elem: {x: "phy", c: "psn", d: "col", b: "phy", a: "fir", e: "phy"},
   };
 
+  function horrify_onhit(data) {
+    if (data.castInfo.rune === "d") Sim.addResource(data.targets * 55);
+    if (Sim.stats.leg_tiklandianvisage) {
+      Sim.addBuff("horrify", undefined, {duration: 480, status: "feared", nodr: true,
+        targets: data.targets, firsttarget: data.firsttarget});
+    } else {
+      var duration = 180;
+      if (data.castInfo.rune === "c") duration = 300;
+      Sim.addBuff("horrify", undefined, {duration: duration, status: "feared",
+        targets: data.targets, firsttarget: data.firsttarget});
+    }
+  }
   skills.horrify = {
     secondary: true,
     frames: 57.692299,
     cooldown: 10,
     oncast: function(rune) {
-      var duration = 180;
       var range = 18;
       switch (rune) {
-      case "c": duration = 300; break;
       case "e": Sim.addBuff("stalker", {extrams: 20}, {duration: 240}); break;
       case "b": range = 24; break;
       case "a": Sim.addBuff("frighteningaspect", {armor_percent: 50}, {duration: 480}); break;
       }
-      var targets = Sim.getTargets(range, Sim.target.distance);
-      if (targets) {
-        if (rune === "d") Sim.addResource(targets * 55);
-        if (Sim.stats.leg_tiklandianvisage) {
-          Sim.addBuff("horrify", undefined, {duration: 480, status: "feared", nodr: true});
-        } else {
-          Sim.addBuff("horrify", undefined, {duration: duration, status: "feared"});
-        }
-      }
-      Sim.damage({type: "area", range: range, self: true, coeff: 0});
+      Sim.damage({type: "area", range: range, self: true, coeff: 0, onhit: horrify_onhit});
     },
     proctable: {x: 0.25, c: 0.25, e: 0.25, b: 0.2, a: 0.25, d: 0.25},
     elem: "phy",
@@ -464,6 +472,7 @@
           duration: 301,
           tickrate: 30,
           ontick: {coeff: 0.75},
+          targets: 1,
         });
         if (rune === "a") return;
       }
@@ -482,7 +491,11 @@
         tickrate: 180,
         tickinitial: 1,
         ontick: function() {
-          Sim.addBuff("hex", {dmgtaken: (rune === "e" ? 30 : 15)}, {duration: 180, status: "charmed"});
+          Sim.addBuff("hex", {dmgtaken: (rune === "e" ? 30 : 15)}, {
+            duration: 180,
+            status: "charmed",
+            targets: Sim.getTargets(12),
+          });
         },
       });
     },
@@ -504,15 +517,15 @@
     var buff = Sim.buffs[id];
     if (!buff) return 0;
     var total = 0;
-    var tickrate = buff.params.tickrate;
-    for (var i = 0; i < buff.stacks && targets; ++i) {
-      var stack = buff.stacklist[(buff.stackstart + i) % buff.stacklist.length];
+    var tickrate = 12;
+    var res = Sim.reduceBuffDuration(id, 300 * 60, targets);
+    for (var i = 0; i < res.length; ++i) {
+      var stack = res[i].buff;
       Sim.pushCastInfo(stack.castInfo);
       var event = Sim.calcDamage({coeff: stack.data.coeff,
         elem: stack.castInfo.elem, skill: stack.castInfo.skill, weapon: stack.castInfo.weapon});
       Sim.popCastInfo();
-      total += event.damage * Sim.reduceStackDuration(id, stack, 300 * 60) / tickrate;
-      --targets;
+      total += event.damage * res[i].duration / tickrate;
     }
     return total;
   }
@@ -545,6 +558,7 @@
       if (targets && Sim.stats.set_jadeharvester_6pc) {
         Sim.dealDamage({
           targets: targets,
+          count: 1,
           skill: "soulharvest",
           proc: 0,
           damage: (jade6_apply("haunt", targets) + jade6_apply("locustswarm", targets)) / targets,
@@ -596,8 +610,9 @@
       return (rune === "d" ? 30 : 60) * (Sim.stats.passives.tribalrites ? 0.75 : 1);
     },
     oncast: function(rune) {
+      var targets = Sim.getTargets(30);
       if (rune === "a") {
-        Sim.addBuff("paranoia", {dmgtaken: 30}, {duration: 720});
+        Sim.addBuff("paranoia", {dmgtaken: 30}, {duration: 720, targets: targets});
       }
       if (rune === "c") {
         Sim.addBuff(undefined, undefined, {
@@ -606,7 +621,7 @@
           ontick: {type: "area", range: 8, coeff: 1},
         });
       }
-      Sim.addBuff("massconfusion", undefined, {duration: 720, status: "charmed"});
+      Sim.addBuff("massconfusion", undefined, {duration: 720, status: "charmed", targets: targets});
     },
     proctable: {c: 0.13},
     elem: "phy",
@@ -769,12 +784,17 @@
 
   function piranhas_onhit(data) {
     if (data.castInfo.rune === "c") {
-      Sim.addBuff("knockback", undefined, 30);
+      Sim.addBuff("knockback", undefined, {duration: 30, targets: data.targets, firsttarget: data.firsttarget});
     }
     var duration = 60;
     if (data.castInfo.rune === "d") duration = 480;
     if (Sim.stats.passives.creepingdeath) duration = 3600 * 60;
-    Sim.addBuff("piranhas", {dmgtaken: 15}, {duration: duration});
+    Sim.addBuff("piranhas", {dmgtaken: 15}, {duration: duration,
+      targets: data.targets, firsttarget: data.firsttarget});
+    if (data.castInfo.rune === "e") {
+      Sim.addBuff("chilled", undefined, {duration: 25,
+        targets: data.targets, firsttarget: data.firsttarget});
+    }
   }
   skills.piranhas = {
     offensive: true,
@@ -805,7 +825,6 @@
         break;
       case "d":
         return {type: "line", pierce: true, range: 20, speed: 0.5, radius: 36, coeff: 4.75, onhit: piranhas_onhit};
-      case "e": Sim.addBuff("chilled", undefined, 480); break;
       }
       Sim.addBuff(undefined, undefined, params);
     },
@@ -977,7 +996,7 @@
     },
     fetishsycophants: function() {
       Sim.register("onhit_proc", function(data) {
-        for (var i = Sim.random("fetishsycophants", 0.15 * data.proc, data.targets, true); i > 0; --i) {
+        for (var i = Sim.random("fetishsycophants", 0.15 * data.proc, data.targets * data.count, true); i > 0; --i) {
           Sim.summon_sycophant();
         }
       });
@@ -1009,9 +1028,7 @@
     },
     midnightfeast: {dmgmul: {skills: ["summonzombiedogs", "gargantuan"], percent: 50}},
     confidenceritual: function() {
-      if (Sim.target.distance - Sim.target.size < 20) {
-        Sim.addBuff("confidenceritual", {dmgmul: 25});
-      }
+      Sim.addBuff("confidenceritual", {dmgmul: 25}, {targets: Sim.getTargets(20, Sim.target.distance), aura: true});
     },
   };
 

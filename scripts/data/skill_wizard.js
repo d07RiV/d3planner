@@ -803,7 +803,7 @@ DiabloCalc.skills.wizard = {
     active: false,
     params: [{rune: "ed", min: 0, max: 25, val: 0, name: "Enemies Hit", inf: true}],
     buffs: function(rune, stats) {
-      if (rune === "e") return {damage: {elems: ["col"], percent: 3 * this.params[0].val}};
+      if (rune === "e") return {dmgcol: 3 * this.params[0].val};
       if (rune === "d") return {damage: 3 * this.params[0].val};
     },
   },

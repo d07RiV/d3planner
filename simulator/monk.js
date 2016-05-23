@@ -35,9 +35,11 @@
 
   function fot_static_onhit(data) {
     if (data.castInfo && data.castInfo.rune === "c") {
-      var stacks = Math.max(Sim.getBuff("staticcharge"), Math.round(data.targets));
-      Sim.removeBuff("staticcharge");
-      Sim.addBuff("staticcharge", undefined, {duration: 360, stacks: stacks});
+      Sim.addBuff("staticcharge", undefined, {
+        duration: 360,
+        targets: data.targets,
+        firsttarget: data.firsttarget,
+      });
     }
   }
   skills.fistsofthunder = {
@@ -74,14 +76,28 @@
     oninit: function(rune) {
       if (rune === "c") {
         Sim.register("onhit_proc", function(data) {
-          var stacks = Sim.getBuff("staticcharge");
-          if (stacks > 1) {
+          var list = Sim.target.list(data);
+          var count = 0, last;
+          for (var i = 0; i < list.length; ++i) {
+            if (Sim.getBuff("staticcharge", list[i])) {
+              count += 1;
+              last = list[i];
+            }
+          }
+          if (count) {
+            var tlist = Sim.getBuffTargetList("staticcharge");
+            if (count === 1) {
+              var idx = tlist.indexOf(last);
+              if (idx >= 0) tlist.splice(idx, 1);
+            } else {
+              count *= (tlist.length - 1) / tlist.length;
+            }
             var coeff = 0.3;
             if (Sim.stats.set_shenlong_2pc) {
               // dirty fix
               coeff *= 1 + 0.015 * (Sim.resources.spirit || 0);
             }
-            Sim.damage({targets: stacks - 1, count: data.proc * data.targets, coeff: coeff, proc: 0});
+            Sim.damage({targets: tlist, count: data.proc * count, coeff: coeff, proc: 0});
           }
         });
       }
@@ -106,13 +122,13 @@
       Sim.addBuff("strikefrombeyond", {stacks: stacks});
     }
     if (Sim.random("deadlyreach", 0.5)) {
-      Sim.addBuff("knockback", 30);
+      Sim.addBuff("knockback", undefined, {duration: 30, targets: data.targets, firsttarget: data.firsttarget});
     }
   }
   function dr_foresight_onhit(data) {
     Sim.addBuff("foresight", {damage: 15}, {duration: 300});
     if (Sim.random("deadlyreach", 0.5)) {
-      Sim.addBuff("knockback", 30);
+      Sim.addBuff("knockback", undefined, {duration: 30, targets: data.targets, firsttarget: data.firsttarget});
     }
   }
 
@@ -172,7 +188,7 @@
   };
 
   function cw_third_onhit(data) {
-    Sim.addBuff("slowed", undefined, 180);
+    Sim.addBuff("slowed", undefined, {duration: 180, targets: data.targets, firsttarget: data.firsttarget});
   }
   function cw_tide_onhit(data) {
     Sim.addResource(2.5 * data.targets * (1 + 0.01 * (Sim.stats.leg_bandofruechambers || 0)));
@@ -182,14 +198,14 @@
     cw_third_onhit(data);
   }
   function cw_wave_onhit(data) {
-    Sim.addBuff("breakingwave", {dmgtaken: 10}, {duration: 180});
+    Sim.addBuff("breakingwave", {dmgtaken: 10}, {duration: 180, targets: data.targets, firsttarget: data.firsttarget});
   }
   function cw_wave_third_onhit(data) {
     cw_wave_onhit(data);
     cw_third_onhit(data);
   }
   function cw_tsunami_third_onhit(data) {
-    Sim.addBuff("frozen", undefined, 60);
+    Sim.addBuff("frozen", undefined, {duration: 60, targets: data.targets, firsttarget: data.firsttarget});
     cw_third_onhit(data);
   }
   skills.cripplingwave = {
@@ -246,12 +262,11 @@
       tickrate: 12,
       stacks: data.hits,
       maxstacks: Math.ceil(limit),
-      data: {targets: Math.min(Sim.target.count, data.targets / data.hits), proc: data.proc, limit: limit},
-      onrefresh: function(data, newdata) {
-        data.targets = Math.max(data.targets, newdata.targets);
-      },
+      targets: data.targets,
+      firsttarget: data.firsttarget,
+      data: {proc: data.proc, limit: limit},
       ontick: function(data) {
-        Sim.damage({targets: data.targets, coeff: 0.04 * Math.min(data.stacks, data.limit), proc: data.proc});
+        Sim.damage({coeff: 0.04 * Math.min(data.stacks, data.limit), proc: data.proc});
       },
     });
   }
@@ -308,7 +323,9 @@
     Sim.addBuff(undefined, undefined, {
       duration: 181,
       tickrate: 60,
-      ontick: {count: data.targets, coeff: 2.3 / 3},
+      targets: data.targets,
+      firsttarget: data.firsttarget,
+      ontick: {coeff: 2.3 / 3},
     });
   }
   skills.lashingtailkick = {
@@ -386,15 +403,6 @@
     elem: {x: "phy", d: "hol", b: "phy", e: "col", c: "lit", a: "fir"},
   };
 
-  function wol_kyoshiros_fix() {
-    if (Sim.stats.leg_kyoshirosblade) {
-      if (this.targets <= 3) {
-        this.factor = 1 + 0.01 * Sim.stats.leg_kyoshirosblade;
-      } else {
-        this.factor = 2.5;
-      }
-    }
-  }
   skills.waveoflight = {
     offensive: true,
     cost: function(rune) {
@@ -402,10 +410,20 @@
     },
     frames: 58.823528,
     oncast: function(rune) {
-      var dmg = {delay: 18, type: "area", front: true, range: 10, coeff: 8.35 / 3, count: 3};
+      var origin = Math.max(0, Sim.target.distance - 10);
       if (Sim.stats.leg_tzokrinsgaze) {
-        delete dmg.front;
+        origin = 0;
       }
+      var factor = 1;
+      if (Sim.stats.leg_kyoshirosblade) {
+        if (Sim.getTargets((rune === "c" ? 15 : 10), origin) <= 3) {
+          factor = 1 + 0.01 * Sim.stats.leg_kyoshirosblade;
+        } else {
+          factor = 2.5;
+        }
+      }
+
+      var dmg = {delay: 18, type: "area", origin: origin, range: 10, coeff: 8.35 / 3, count: 3, factor: factor};
       switch (rune) {
       case "a":
         dmg.onhit = Sim.apply_effect("stunned", 60);
@@ -419,12 +437,13 @@
         dmg.fan = 360 / 8;
         dmg.merged = true;
         dmg.angle = 360 / 16;
+        delete dmg.delay;
         break;
       case "d":
         dmg.coeff = 10.45 / 3;
         break;
       case "e":
-        Sim.damage({type: "waveoflight", range: 50, radius: 10, speed: 1.5, coeff: 8.2, expos: Sim.target.distance - 10, exrange: 10});
+        Sim.damage({type: "waveoflight", range: 50, radius: 10, speed: 1.5, coeff: 8.2, factor: factor, expos: Sim.target.distance - 10, exrange: 10});
         break;
       case "c":
         dmg.coeff = 6.35;
@@ -434,39 +453,48 @@
           duration: 199,
           tickrate: 30,
           tickinitial: 48,
-          ontick: {type: "area", origin: Math.abs(Sim.target.distance - 15), range: 15, coeff: 7.85 / 6},
+          ontick: {type: "area", origin: origin, range: 15, coeff: 7.85 / 6, factor: factor},
         });
         break;
       }
-      if (Sim.stats.leg_kyoshirosblade) dmg.fix = wol_kyoshiros_fix;
       return dmg;
     },
     proctable: {x: 0.111, a: 0.111, b: 0.25, d: 0.111, e: 0.111, c: 0.2},
     elem: {x: "hol", a: "phy", b: "fir", d: "hol", e: "col", c: "lit"},
   };
 
+  function bf_onhit(data) {
+    var params = {duration: 180, targets: data.targets, firsttarget: data.firsttarget, status: blinded};
+    switch (rune) {
+    case "d": params.duration *= 2; break;
+    case "c":
+      Sim.addBuff("slowed", undefined, {duration: 300, targets: data.targets, firsttarget: data.firsttarget});
+      break;
+    case "b":
+      Sim.addResource(10 * data.targets);
+      break;
+    case "e":
+      params.onexpire = function() {
+        Sim.addBuff("cripplinglight", undefined, {
+          duration: 300,
+          targets: data.targets,
+          firsttarget: data.firsttarget,
+        });
+      };
+      break;
+    }
+    Sim.addBuff("blindingflash", undefined, params);
+  }
   skills.blindingflash = {
     secondary: true,
     cooldown: 15,
     weapon: "mainhand",
     frames: 40,
     oncast: function(rune) {
-      var duration = 3;
-      if (Sim.target.elite || Sim.target.boss) duration /= 3;
-      var targets = Sim.getTargets(20, Sim.target.distance);
-      switch (rune) {
-      case "d": duration *= 2; break;
-      case "c":
-        if (targets) Sim.addBuff("slowed", undefined, 300);
-        break;
-      case "b":
-        Sim.addResource(10 * targets);
-        break;
-      case "a":
+      if (rune === "a") {
         Sim.addBuff("faithinthelight", {damage: 29}, {duration: 180});
-        break;
       }
-      if (targets) Sim.addBuff("blinded", undefined, duration);
+      Sim.damage({type: "area", range: 20, self: true, coeff: 0, onhit: bf_onhit});
     },
     elem: "hol",
   };
@@ -526,8 +554,12 @@
         params.duration = 480;
         break;
       case "e":
-        buffs.dmgtaken = 30;
-        params.status = "slowed";
+        Sim.addBuff("forbiddenpalace", {dmgtaken: 30}, {
+          status: "slowed",
+          targets: Sim.getTargets(11, Sim.target.distance),
+          aura: true,
+          duration: 360,
+        });
         break;
       }
       if (Sim.stats.leg_themindseye) {
@@ -588,12 +620,10 @@
   function ep_onhit(data) {
     var params = {
       duration: 540,
-      refresh: false,
-      maxstacks: Sim.target.count,
-      stacks: data.targets,
+      targets: data.targets,
+      firsttarget: data.firsttarget,
       tickrate: 30,
       tickinitial: 1,
-      tickkeep: true,
       ontick: {coeff: 12 / 18},
     };
     var buffs;
@@ -605,7 +635,6 @@
       delete params.ontick;
       delete params.tickrate;
       delete params.tickinitial;
-      delete params.tickkeep;
       break;
     case "e":
       params.ontick.coeff = 18.75 / 18;
@@ -613,7 +642,7 @@
     }
     Sim.addBuff("explodingpalm", buffs, params);
   }
-  Sim.apply_palm = function(count) {
+  Sim.apply_palm = function(count, firsttarget) {
     Sim.pushCastInfo({
       skill: "explodingpalm",
       rune: Sim.stats.skills.explodingpalm || "x",
@@ -621,7 +650,7 @@
       weapon: Sim.curweapon,
       castId: Sim.getCastId(),
     });
-    ep_onhit({targets: count || 1});
+    ep_onhit({targets: count || 1, firsttarget: (firsttarget === undefined ? "new" : firsttarget)});
     Sim.popCastInfo();
   };
   skills.explodingpalm = {
@@ -631,7 +660,7 @@
       return (Sim.stats.info.weaponClass === "fist" ? 57.142849 : 57);
     },
     oncast: function(rune) {
-      return {targets: (rune === "a" ? 2 : 1), coeff: 0, onhit: ep_onhit};
+      return {targets: (rune === "a" ? 2 : 1), firsttarget: "new", coeff: 0, onhit: ep_onhit};
     },
     proctable: 0.25,
     elem: {x: "phy", c: "phy", d: "hol", b: "col", a: "lit", e: "fir"},
@@ -643,7 +672,7 @@
     case "e":
       data.freeze = (data.freeze || 0) + 1;
       if (data.freeze >= 12) {
-        Sim.addBuff("frozen", undefined, {duration: 120});
+        dmg.onhit = Sim.apply_effect("frozen", 120);
         data.freeze = 0;
       }
       break;
@@ -656,11 +685,6 @@
     }
     dmg.coeff *= data.stacks;
     Sim.damage(dmg);
-  }
-  function sw_onexpire(data) {
-    if (data.rune === "d") {
-      Sim.removeBuff("innerstorm");
-    }
   }
   skills.sweepingwind = {
     offensive: true,
@@ -681,29 +705,33 @@
         maxstacks: 3,
         data: {rune: rune},
         ontick: sw_ontick,
-        onexpire: sw_onexpire,
       };
       if (Sim.stats.leg_vengefulwind) params.maxstacks += 3;
       if (Sim.stats.leg_vengefulwind_p2) params.maxstacks += Sim.stats.leg_vengefulwind_p2;
-      var buffs = undefined;
-      Sim.addBuff("sweepingwind", buffs, params);
+      Sim.addBuff("sweepingwind", undefined, params);
     },
     oninit: function(rune) {
+      if (rune === "d") {
+        Sim.watchBuff("sweepingwind", function(data) {
+          if (data.stacks >= 3) {
+            Sim.addBuff("innerstorm", {spiritregen: 8});
+          } else {
+            Sim.removeBuff("innerstorm");
+          }
+        });
+      }
       var nextStack = 0;
       Sim.register("onhit_proc", function(data) {
         var stacks = Sim.getBuff("sweepingwind");
         if (!stacks) return;
-        if (Sim.time >= nextStack && Sim.random("sweepingwind", data.proc * data.chc, data.targets)) {
+        if (Sim.time >= nextStack && Sim.random("sweepingwind", data.proc * data.chc, data.targets * data.count)) {
           Sim.addBuff("sweepingwind", undefined, {stacks: 1});
-          if (rune === "d" && Sim.getBuff("sweepingwind") >= 3) {
-            Sim.addBuff("innerstorm", {spiritregen: 8});
-          }
           nextStack = Sim.time + 30;
         } else {
           Sim.refreshBuff("sweepingwind", 360);
         }
         if (rune === "c" && stacks >= 3) {
-          for (var i = Sim.random("cyclone", data.proc * data.chc, data.targets, true); i > 0; --i) {
+          for (var i = Sim.random("cyclone", data.proc * data.chc, data.targets * data.count, true); i > 0; --i) {
             Sim.addBuff(undefined, undefined, {
               duration: 180,
               tickrate: 36,
@@ -722,16 +750,11 @@
     cost: {x: 50, d: 26, b: 50, a: 50, e: 50, c: 50},
     frames: 57.599995,
     oncast: function(rune) {
-      if (!Sim.target.boss) {
-        Sim.addBuff("knockback", undefined, 30);
-        if (rune === "e") {
-          Sim.addBuff("frozen", undefined, 90);
-        }
-      }
-      var dmg = {delay: 3, type: "area", self: true, range: 24, cap: 16, coeff: 2.61};
+      var dmg = {delay: 3, type: "area", self: true, range: 24, cap: 16, coeff: 2.61, onhit: Sim.addBuff("knockback", 30)};
       switch (rune) {
       case "b": dmg.range = 34; break;
       case "a": dmg.coeff = 4.54; break;
+      case "e": dmg.onhit = Sim.addBuff("frozen", 90); break;
       }
       return dmg;
     },
@@ -746,14 +769,16 @@
         duration: 181,
         tickrate: 30,
         ontick: {coeff: 1.05},
+        targets: data.targets,
+        firsttarget: data.firsttarget,
       });
       break;
     case "c":
-      Sim.addBuff("frozen", undefined, 420);
+      Sim.addBuff("frozen", undefined, {duration: 420, targets: data.targets, firsttarget: data.firsttarget});
       break;
     }
     if (Sim.stats.leg_madstone) {
-      Sim.apply_palm(data.targets);
+      Sim.apply_palm(data.targets, data.firsttarget);
     }
   }
   skills.sevensidedstrike = {
@@ -770,15 +795,31 @@
         duration: (Sim.stats.leg_lionsclaw ? 72 : 61),
         tickrate: (Sim.stats.leg_lionsclaw ? 5 : 9),
         tickinitial: 6,
-        ontick: {coeff: 8.11, onhit: sss_onhit},
+        data: {target: -1, rune: rune},
+        ontick: function(data) {
+          var list = Sim.target.list();
+          var target = list[0];
+          for (var i = 0; i < list.length; ++i) {
+            if (list[i] > data.target) {
+              target = list[i];
+              break;
+            }
+          }
+          data.target = target;
+          var dmg = {coeff: 8.11, onhit: sss_onhit, firsttarget: data.target};
+          if (data.rune === "a") {
+            dmg.coeff = 82.85 / 7;
+          } else if (data.rune === "e") {
+            dmg.type = "area";
+            dmg.range = 7;
+            dmg.coeff = 8.77;
+          }
+          if (Sim.stats.set_uliana_4pc) {
+            dmg.coeff *= 2 * (7 + (Sim.stats.leg_lionsclaw ? 7 : 0));
+          }
+          Sim.damage(dmg);
+        },
       };
-      switch (rune) {
-      case "a": params.ontick.coeff = 82.85 / 7; break;
-      case "e": params.ontick = {type: "area", range: 7, coeff: 8.77, onhit: sss_onhit}; break;
-      }
-      if (Sim.stats.set_uliana_4pc) {
-        params.ontick.coeff *= 2 * (7 + (Sim.stats.leg_lionsclaw ? 7 : 0));
-      }
       Sim.addBuff(Sim.castInfo().triggered ? undefined : "sevensidedstrike", undefined, params);
     },
     proctable: {x: 0.57, a: 0.57, b: 0.087, c: 0.57, d: 0.34, e: 0.285},
@@ -1068,7 +1109,15 @@
   };
 
   Sim.passives = {
-    resolve: {},
+    resolve: {
+      Sim.register("onhit", function(data) {
+        Sim.addBuff("resolve", {edmgred: 20}, {
+          duration: 240,
+          targets: data.targets,
+          firsttarget: data.firsttarget,
+        });
+      });
+    },
     fleetfooted: {extrams: 10},
     exaltedsoul: {maxspirit: 50, spiritregen: 4},
     transcendence: {lifespirit: 429},
@@ -1098,23 +1147,14 @@
     determination: function() {
       Sim.after(18, function update() {
         var targets = Math.round(Sim.getTargets(12, Sim.target.distance));
-        var stacks = Sim.getBuff("determination");
-        if (targets < stacks) {
-          Sim.removeBuff("determination", stacks - targets);
-        } else {
-          Sim.addBuff("determination", {damage: 4}, {
-            maxstacks: 5,
-            stacks: targets - stacks,
-          });
-        }
+        Sim.setBuffStacks("determination", {damage: 4}, Math.min(5, targets));
         Sim.after(18, update);
       });
     },
     relentlessassault: function() {
       Sim.register("updatestats", function(data) {
-        if (data.stats.blinded || data.stats.frozen || data.stats.stunned) {
-          data.stats.add("dmgmul", 20);
-        }
+        var count = data.stats.countStatus("blinded", "frozen", "stunned");
+        if (count) data.stats.add("dmgmul", 20 * count / Sim.target.count);
       });
     },
     beaconofytar: {cdr: 20},

@@ -84,34 +84,31 @@ asheara's: todo
   affixes.set_firebird_4pc = function() {
     if (Sim.stats.charClass !== "wizard") return;
     function fb_ontick(data) {
-      Sim.damage({targets: data.targets, elem: "fir", coeff: data.coeff / 4});
+      Sim.damage({elem: "fir", coeff: data.coeff / 4, firsttarget: data.buff.target});
     }
     function fb_onapply(data) {
       if (data.coeff >= 30) {
-        Sim.refreshBuff("firebird_4pc", "infinite");
-        if (Sim.stats.set_firebird_6pc) {
-          Sim.removeBuff("firebird_6pc");
-          var stacks = Math.round(data.targets);
-          if (stacks) {
-            var elites = (Sim.target.elite ? 1 : 0);
-            //stacks = Math.min(stacks - elites, 60);
-            Sim.addBuff("firebird_6pc", {dmgmul: 40}, {stacks: Math.min(stacks + elites * 50, 60)});
-          }
-        }
+        Sim.refreshBuff("firebird_4pc", "infinite", data.buff.target);
       }
     }
     function fb_onrefresh(data, newdata) {
       data.coeff = Math.min(30, data.coeff + newdata.coeff);
-      data.targets = Math.min(Sim.target.count, Math.max(data.targets, Math.ceil(newdata.targets)));
       fb_onapply(data);
     }
     Sim.register("onhit", function(data) {
       if (data.elem === "fir" && data.triggered !== "set_firebird_4pc") {
         var coeff = data.damage / Sim.stats.info.mainhand.wpnphy.max / Sim.stats.info.critfactor /
           (1 + 0.01 * (Sim.stats.dmgfir || 0)) / 3.03;
-        Sim.addBuff("firebird_4pc", undefined, {data: {coeff: coeff, targets: data.targets},
+        Sim.addBuff("firebird_4pc", undefined, {data: {coeff: coeff}, targets: data.targets, firsttarget: data.firsttarget,
           duration: 180, tickrate: 15, onapply: fb_onapply, onrefresh: fb_onrefresh, ontick: fb_ontick});
       }
+    });
+  };
+  affixes.set_firebird_6pc = function() {
+    Sim.watchBuff("firebird_4pc", function(data) {
+      var targets = Sim.getBuffTargets("firebird_4pc");
+      var stacks = Math.min((Sim.target.elite ? 49 : 0) + targets, 60);
+      Sim.setBuffStacks("firebird_6pc", {dmgmul: 40}, stacks);
     });
   };
 
@@ -147,9 +144,9 @@ asheara's: todo
   affixes.set_magnumopus_6pc = function() {
     var buffname;
     Sim.watchBuff("slowtime", function(data) {
-      if (data.stacks) {
+      if (data.targets) {
         buffname = Sim.addBuff(buffname, {dmgmul: {skills: ["arcaneorb", "energytwister", "explosiveblast", "magicmissile",
-          "shockpulse", "spectralblade", "waveofforce"], percent: 2000}});
+          "shockpulse", "spectralblade", "waveofforce"], percent: 2000}}, {targets: data.targets});
       } else if (buffname) {
         Sim.removeBuff(buffname);
       }
@@ -157,25 +154,36 @@ asheara's: todo
   };
 
   affixes.set_chantodo_2pc = function() {
-    Sim.after(60, function tick() {
-      if (Sim.stats.charClass !== "wizard") return;
-      if (Sim.getBuff("archon")) {
+    Sim.addBuff("chantodo_2pc", undefined, {maxstacks: 20});
+    Sim.register("oncast", function(data) {
+      if (data.skill === "archon") {
         var stacks = Sim.getBuff("chantodo_2pc");
-        Sim.damage({type: "area", range: 30, self: true, coeff: 3.5 + 3.5 * stacks, elem: "max",
-          srcelem: Sim.skills.archon.default_elem[Sim.stats.skills.archon || "x"]});
-        /*if (Sim.stats.set_vyr_6pc) {
-          var buffs = {dmgmul: 6, ias: 1, armor_percent: 1, resist_percent: 1};
-          Sim.addBuff("archon_stacks", buffs, {maxstacks: 9999, stacks: 1});
-        }*/
+        var elem = (data.elem || "arc");
+        Sim.removeBuff("chantodo_2pc");
+        Sim.addBuff("chantodo_2pc", undefined, {maxstacks: 20});
+        var buff = Sim.addBuff(undefined, undefined, {
+          duration: 1200,
+          tickinitial: 1,
+          tickrate: 60,
+          ontick: function(data) {
+            if (!Sim.getBuff("archon")) {
+              Sim.removeBuff(buff);
+              return;
+            }
+            Sim.damage({type: "area", range: 30, self: true, coeff: 3.5 * stacks, elem: "max", srcelem: elem});
+          },
+        });
       }
-      Sim.after(60, tick);
     });
     Sim.register("onhit", function(data) {
-      if (!Sim.getBuff("archon") && data.castInfo && data.castInfo.user) {
+      if (data.castInfo && data.castInfo.user) {
+        if (Sim.skills[data.castInfo.skill] && Sim.skills[data.castInfo.skill].shift) {
+          return;
+        }
         var counter = data.castInfo.user.chantodo_2pc;
-        if (!counter || counter < 3) {
-          var hits = Math.min(3 - (counter || 0), Math.ceil(data.targets));
-          Sim.addBuff("chantodo_2pc", undefined, {duration: 1200, maxstacks: 20, stacks: hits});
+        if (!counter || counter < 1) {
+          var hits = Math.min(1 - (counter || 0), Math.ceil(data.targets * data.count));
+          Sim.addBuff("chantodo_2pc", undefined, {maxstacks: 20, stacks: hits});
           data.castInfo.user.chantodo_2pc = (counter || 0) + hits;
         }
       }
@@ -265,7 +273,7 @@ asheara's: todo
     if (Sim.stats.charClass !== "witchdoctor") return;
     Sim.register("onhit", function(data) {
       if (data.castInfo && data.castInfo.cost) {
-        Sim.addBuff("zunimassa_6pc", {dmgmul: {pet: true, percent: 1500}}, {duration: 480});
+        Sim.addBuff("zunimassa_6pc", {dmgmul: {pet: true, percent: 1500}}, {duration: 480, targets: data.targets, firsttarget: data.firsttarget});
       }
     });
   };
@@ -276,15 +284,24 @@ asheara's: todo
     Sim.register("onhit", function(data) {
       if (data.castInfo && skills.indexOf(data.castInfo.skill) >= 0) {
         var buffs = {dmgtaken: 20};
-        if (Sim.stats.set_helltooth_4pc) {
-          buffs.dmgred = 60;
-        }
         Sim.addBuff("helltooth_2pc", buffs, {
           status: "slowed",
           duration: 601,
           tickrate: 30,
-          ontick: {targets: Sim.target.count, elem: "max", coeff: 7.5},
+          targets: data.targets,
+          firsttarget: data.firsttarget,
+          ontick: {elem: "max", coeff: 7.5},
         });
+      }
+    });
+  };
+  affixes.set_helltooth_4pc = function() {
+    var buffname;
+    Sim.watchBuff("helltooth_4pc", function(data) {
+      if (data.targets) {
+        buffname = Sim.addBuff(buffname, {dmgred: 60});
+      } else {
+        Sim.removeBuff(buffname);
       }
     });
   };
@@ -303,15 +320,23 @@ asheara's: todo
   };
 
   affixes.set_arachyr_2pc = function() {
+    var buffname;
     Sim.after(48, function drop() {
-      Sim.addBuff(undefined, undefined, {
+      buffname = Sim.addBuff(buffname, undefined, {
         status: "slowed",
         duration: 300,
         tickrate: 30,
         tickinitial: 1,
-        ontick: {type: "area", range: 15, coeff: 4},
+        ontick: {type: "area", range: 15, coeff: 4, elem: "max", skill: "corpsespiders"},
       });
       Sim.after(48, drop);
+    });
+  };
+  affixes.set_arachyr_4pc = function() {
+    Sim.register("oncast", function(data) {
+      if (data.skill === "hex") {
+        Sim.addBuff("arachyr_4pc", {dmgred: 50}, {duration: 900});
+      }
     });
   };
   affixes.set_arachyr_6pc = function() {
@@ -444,7 +469,7 @@ asheara's: todo
     });
     Sim.register("onhit", function(data) {
       if (data.castInfo && data.castInfo.user && data.castInfo.user.sequence === 2 && Sim.apply_palm) {
-        Sim.apply_palm(data.targets);
+        Sim.apply_palm(data.targets, data.firsttarget);
         delete data.castInfo.user.sequence;
       }
     });
@@ -452,11 +477,9 @@ asheara's: todo
   affixes.set_uliana_6pc = function() {
     Sim.addBaseStats({dmgmul: {skills: ["explodingpalm"], percent: 250}});
     Sim.register("onhit", function(data) {
-      if (data.castInfo && data.castInfo.skill === "sevensidedstrike" && Sim.getBuff("explodingpalm")) {
-        var stack = Sim.removeBuff("explodingpalm", 1);
-        if (!stack || !stack.castInfo) return;
+      if (data.castInfo && data.castInfo.skill === "sevensidedstrike" && Sim.getBuff("explodingpalm", data.firsttarget)) {
         var damage = {type: "area", range: 15, coeff: 27.7, onhit: ep_explode};
-        switch (stack.castInfo.rune) {
+        switch (Sim.stats.skills.explodingpalm) {
         case "b": damage.coeff = 63.05; break;
         case "e": damage.coeff = 32.6 / 6; damage.count = 6; break;
         }
@@ -466,7 +489,7 @@ asheara's: todo
         if (Sim.stats.leg_thefistofazturrasq_p2) {
           damage.coeff *= 1 + 0.01 * Sim.stats.leg_thefistofazturrasq_p2;
         }
-        Sim.pushCastInfo(stack.castInfo);
+        Sim.pushCastInfo(Sim.getBuffCastInfo("explodingpalm", data.firsttarget));
         Sim.damage(damage);
         Sim.popCastInfo();
       }
@@ -601,7 +624,11 @@ asheara's: todo
 
   affixes.set_endlesswalk_2pc = function() {
     // we're standing still
-    Sim.addBaseStats({dmgmul: 100});
+    var bar = 0;
+    if (Sim.params.set_endlesswalk_2pc && Sim.params.set_endlesswalk_2pc[0]) {
+      bar = (Sim.params.set_endlesswalk_2pc[0][0] || 0);
+    }
+    Sim.addBaseStats({dmgmul: (5 - bar) * 20, dmgred: bar * 10});
   };
 
   affixes.set_nightmares_2pc = function() {
@@ -643,13 +670,6 @@ asheara's: todo
       if (data.castInfo && (data.castInfo.skill === "punish" || data.castInfo.skill === "slash") && data.castInfo.user && !data.castInfo.user.invoker_6pc) {
         Sim.damage({thorns: "special", coeff: 8, elem: "phy", srcelem: "none"/*, elem: "phy", skill: data.castInfo.skill*/});
         data.castInfo.user.invoker_6pc = true;
-      }
-    });
-  };
-  affixes.set_arachyr_4pc = function() {
-    Sim.register("oncast", function(data) {
-      if (data.skill === "hex") {
-        Sim.addBuff("arachyr_4pc", {dmgred: 50}, {duration: 900});
       }
     });
   };
