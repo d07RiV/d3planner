@@ -754,7 +754,7 @@
       switch (rune) {
       case "b": dmg.range = 34; break;
       case "a": dmg.coeff = 4.54; break;
-      case "e": dmg.onhit = Sim.addBuff("frozen", 90); break;
+      case "e": dmg.onhit = Sim.apply_effect("frozen", 90); break;
       }
       return dmg;
     },
