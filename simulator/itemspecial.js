@@ -560,7 +560,7 @@
     var next = 0;
     Sim.register("onhit_proc", function(data) {
       if (Sim.time >= next && Sim.random("thunderfury", 0.6 * data.proc, data.targets * data.count)) {
-        Sim.damage({elem: "lit", coeff: amount * 0.01, targets: 6, onhit: Sim.apply_status("slowed", 180)});
+        Sim.damage({elem: "lit", coeff: amount * 0.01, targets: 6, onhit: Sim.apply_effect("slowed", 180)});
         next = Sim.time + Math.floor(54 / Sim.stats.info.aps);
       }
     });
