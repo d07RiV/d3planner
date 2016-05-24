@@ -189,10 +189,6 @@
         break;
       }
       if (Sim.stats.leg_drakonslesson || Sim.stats.leg_drakonslesson_p2) dmg.fix = bash_drakons_fix;
-      var foa = Sim.getCastInfo("foa_targets");
-      if (foa) {
-        return {targets: foa, coeff: dmg.coeff, fix: dmg.fix};
-      }
       return dmg;
     },
     proctable: {x: 0.59, b: 0.333, e: 0.333, c: 0.333, a: 0.333, d: 1},
@@ -205,23 +201,17 @@
       Sim.addBuff(undefined, undefined, {
         duration: 121,
         tickrate: 30,
-        ontick: {coeff: 0.3, count: data.targets},
+        targets: data.targets,
+        firsttarget: data.firsttarget,
+        ontick: {coeff: 0.3},
       });
       break;
     case "d":
-      if (Sim.random("tripattack", 0.5, data.targets / Sim.target.count)) {
-        Sim.addBuff("stunned", null, 120);
+      var targets = Sim.target.random("tripattack", 0.5, data);
+      if (targets.length) {
+        Sim.addBuff("stunned", undefined, {duration: 120, targets: targets});
       }
       break;
-    }
-    if (Sim.stats.leg_goldenflense) {
-      Sim.addResource(Sim.stats.leg_goldenflense * data.targets);
-    }
-    if (Sim.stats.leg_goldenflense_p2) {
-      Sim.addResource(Sim.stats.leg_goldenflense_p2 * data.targets);
-    }
-    if (Sim.stats.leg_denial) {
-      Sim.addBuff("denial", undefined, {maxstacks: 5, stacks: Sim.random("denial", 1, data.targets, true)});
     }
   }
   skills.sweepattack = {
@@ -230,11 +220,6 @@
     cost: 20,
     oncast: function(rune) {
       var dmg = {type: "cone", range: 18, width: 180, coeff: 4.8, onhit: sweep_onhit};
-      var stacks = Sim.getBuff("denial");
-      if (stacks && Sim.stats.leg_denial) {
-        Sim.removeBuff("denial");
-        dmg.coeff *= 1 + 0.01 * stacks * Sim.stats.leg_denial;
-      }
       if (rune === "e") {
         Sim.addBuff("inspiringsweep", {armor_percent: 20}, {duration: 180, maxstacks: 100, refresh: false});
       }
@@ -326,7 +311,7 @@
   function bs_aegis_onhit(event) {
     Sim.addBuff("divineaegis", {armor_percent: 5, regen_bonus: 5}, {
       duration: 240,
-      stacks: Sim.random("divineaegis", 1, event.targets, true),
+      stacks: Sim.random("divineaegis", 1, event.targets * event.count, true),
     });
   }
   function bs_akkhans_fix() {
@@ -460,25 +445,31 @@
     }
     if (Sim.stats.leg_flailoftheascended) {
       var stacks = Sim.getBuff("flailoftheascended");
-/*      if (stacks) {
-        var castInfo = Sim.extend({}, data.castInfo);
-        castInfo.triggered = "shieldglare";
-        castInfo.trigExplicit = true;
-        Sim.pushCastInfo(castInfo);
-        var dmg = skills.shieldbash.oncast(Sim.stats.skills.shieldbash || "x");
-        dmg.coeff *= stacks;
-        dmg.skill = "shieldbash";
+      var factor = 0;
+      while (stacks--) {
+        var stack = Sim.removeBuff("flailoftheascended", 1);
+        if (stack) factor += (stack.data.factor || 1);
+      }
+
+      if (factor) {
+        var sbrune = (Sim.stats.skills.shieldbash || "x");
+        Sim.pushCastInfo({
+          skill: "shieldbash",
+          rune: sbrune,
+          elem: skills.shieldbash.elem[sbrune],
+          castId: Sim.getCastId(),
+          weapon: "mainhand",
+          triggered: "shieldglare",
+          trigExplicit: true,
+        });
+        var dmg = skills.shieldbash.oncast(sbrune);
+        dmg.coeff *= factor;
+        delete dmg.fix;
         delete dmg.type;
         dmg.targets = data.targets;
+        dmg.firsttarget = data.firsttarget;
         Sim.damage(dmg);
         Sim.popCastInfo();
-      }*/
-      if (stacks) {
-        Sim.castInfo().foa_targets = data.targets;
-        while (--stacks) {
-          Sim.cast("shieldbash", undefined, true);
-        }
-        Sim.removeBuff("flailoftheascended");
       }
     }
     Sim.addBuff("blinded", undefined, {duration: 240});

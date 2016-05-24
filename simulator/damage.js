@@ -127,6 +127,7 @@
       distance: data.distance,
       dmgmul: dmgmul,
       castId: data.castId,
+      origdata: data,
     };
   };
   Sim.dealDamage = function(event) {

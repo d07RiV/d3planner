@@ -683,7 +683,7 @@
       for (var i = 0; i < stacks; ++i) {
         stack = removeStack(buff);
       }
-      this.buffWatchTrigger(id);
+      this.buffWatchTrigger(buff.id);
       return stack;
     }
   }

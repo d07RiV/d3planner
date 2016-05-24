@@ -1466,9 +1466,10 @@
     });
   };
   affixes.leg_flailoftheascended = function(amount) {
-    Sim.register("oncast", function(data) {
-      if (data.skill === "shieldbash") {
-        Sim.addBuff("flailoftheascended", undefined, {maxstacks: 5});
+    Sim.register("onhit_proc", function(data) {
+      if (data.castInfo && data.castInfo.skill === "shieldbash" && data.castInfo.user && !data.castInfo.user.foa && data.origdata) {
+        data.castInfo.user.foa = true;
+        Sim.addBuff("flailoftheascended", undefined, {maxstacks: 5, refresh: false, data: {factor: (data.origdata.factor || 1)}});
       }
     });
   };
@@ -1476,6 +1477,31 @@
     Sim.after(60, function stack() {
       Sim.addBuff("bootsofdisregard", {regen: 10000}, {maxstacks: 4});
       Sim.after(60, stack);
+    });
+  };
+
+  affixes.leg_denial = function(amount) {
+    Sim.register("onhit_proc", function(data) {
+      if (data.castInfo && data.castInfo.skill === "sweepattack" && data.castInfo.user && !data.castInfo.user.denial) {
+        data.castInfo.user.denial = true;
+        Sim.setBuffStacks("denial", undefined, Math.min(5, Sim.random("denial", 1, data.targets, true)));
+      }
+    });
+    Sim.register("oncast", function(data) {
+      if (data.skill === "sweepattack") {
+        var stacks = Sim.getBuff("denial");
+        if (denial) {
+          Sim.removeBuff("denial");
+          return {percent: amount * stacks};
+        }
+      }
+    });
+  };
+  affixes.leg_goldenflense = affixes.leg_goldenflense_p2 = function(amount) {
+    Sim.register("onhit_proc", function(data) {
+      if (data.castInfo && data.castInfo.skill === "sweepattack") {
+        Sim.addResource(data.targets * data.count * amount);
+      }
     });
   };
 

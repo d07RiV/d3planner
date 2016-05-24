@@ -887,7 +887,7 @@ DiabloCalc.passives.wizard = {
     name: "Arcane Dynamo",
     index: 13,
     active: false,
-    buffs: {dmgmul: {skills: ["rayoffrost", "arcaneorb", "arcanetorrent", "disintegrate", "hydra",
+    buffs: {dmgmul: {skills: ["rayoffrost", "arcaneorb", "arcanetorrent", "disintegrate", "hydra", "blackhole",
                               "waveofforce", "energytwister", "meteor", "blizzard", "explosiveblast"], percent: 60}},
   },
   unstableanomaly: {
