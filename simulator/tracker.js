@@ -46,20 +46,20 @@
       });
     }
     if (this.params.globeRate) {
-      var delay = 3600 / Sim.params.globeRate;
-      this.after(Sim.random("globedelay", delay), function globes() {
+      var globeDelay = 3600 / Sim.params.globeRate;
+      this.after(Sim.random("globedelay", globeDelay), function globes() {
         Sim.trigger("onglobe");
-        Sim.after(Sim.random("globedelay", delay), globes);
+        Sim.after(Sim.random("globedelay", globeDelay), globes);
       });
     }
     if (this.params.hitRate) {
-      var delay = 3600 / Sim.params.hitRate;
-      this.after(Sim.random("gethitdelay", delay), function hits() {
+      var hitDelay = 3600 / Sim.params.hitRate;
+      this.after(Sim.random("gethitdelay", hitDelay), function hits() {
         Sim.trigger("ongethit");
         if (Sim.random("block", Sim.stats.block * 0.01)) {
           Sim.trigger("onblock");
         }
-        Sim.after(Sim.random("gethitdelay", delay), hits);
+        Sim.after(Sim.random("gethitdelay", hitDelay), hits);
       });
     }
   });

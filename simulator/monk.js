@@ -750,7 +750,7 @@
     cost: {x: 50, d: 26, b: 50, a: 50, e: 50, c: 50},
     frames: 57.599995,
     oncast: function(rune) {
-      var dmg = {delay: 3, type: "area", self: true, range: 24, cap: 16, coeff: 2.61, onhit: Sim.addBuff("knockback", 30)};
+      var dmg = {delay: 3, type: "area", self: true, range: 24, cap: 16, coeff: 2.61, onhit: Sim.apply_effect("knockback", 30)};
       switch (rune) {
       case "b": dmg.range = 34; break;
       case "a": dmg.coeff = 4.54; break;

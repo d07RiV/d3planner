@@ -165,12 +165,15 @@
     }
     return true;
   }
+  function buffEquals(prev, stats) {
+    if (!prev && !stats) return true;
+    return deepEquals(prev, stats);
+  }
 
   Sim.setBuffStats = function(buff, stats, stacks) {
     if (stats === null) stats = buff.stats;
-    var prev = (buff.stats || {});
     stacks = Math.min(stacks, buff.params.maxstacks);
-    if (!deepEquals(prev, stats) || (buff.params.multiply && stacks != buff.stacks && !deepEquals({}, stats))) {
+    if (!buffEquals(buff.stats, stats) || (buff.params.multiply && stacks != buff.stacks && !buffEquals(undefined, stats))) {
       this.buffsModified = true;
     }
     buff.stats = stats;
