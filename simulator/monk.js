@@ -464,7 +464,7 @@
   };
 
   function bf_onhit(data) {
-    var params = {duration: 180, targets: data.targets, firsttarget: data.firsttarget, status: blinded};
+    var params = {duration: 180, targets: data.targets, firsttarget: data.firsttarget, status: "blinded"};
     switch (rune) {
     case "d": params.duration *= 2; break;
     case "c":
