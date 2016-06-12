@@ -116,6 +116,15 @@
       }
       return dmg;
     },
+    oninit: function(rune) {
+      if (rune === "e") {
+        Sim.register("onkill", function(data) {
+          if (data.hit && data.hit.skill === "cleave") {
+            Sim.damage({type: "area", range: 8, coeff: 1.6});
+          }
+        });
+      }
+    },
     proctable: {x: 0.667, e: 0.667, d: 0.667, c: 0.667, a: 0.4, b: 0.667},
     elem: {x: "phy", e: "fir", d: "fir", c: "phy", a: "lit", b: "col"},
   };
@@ -226,6 +235,15 @@
       }
       return dmg;
     },
+    oninit: function(rune) {
+      if (rune === "e") {
+        Sim.register("onkill", function(data) {
+          if (data.hit && data.hit.skill === "hammeroftheancients") {
+            Sim.damage({type: "area", range: 10, coeff: 0, proc: 0, onhit: Sim.apply_effect("stunned", 120)});
+          }
+        });
+      }
+    },
     proctable: {x: 0.667, b: 0.4, a: 0.667, c: 0.667, e: 0.667, d: 0.667},
     elem: {x: "phy", b: "phy", a: "fir", c: "col", e: "lit", d: "phy"},
   };
@@ -266,6 +284,24 @@
     weapon: "mainhand",
     oncast: function(rune) {
       return {type: "area", self: true, range: rune === "b" ? 18 : 12, onhit: rend_onhit};
+    },
+    oninit: function(rune) {
+      if (rune === "e") {
+        Sim.register("onkill", function(data) {
+          if (Sim.getBuff("rend", data.target)) {
+            Sim.damage({type: "area", range: 10, coeff: 0, proc: 0, onhit: function(data) {
+              Sim.addBuff(undefined, undefined, {
+                targets: data.targets,
+                firsttarget: data.firsttarget,
+                duration: 300,
+                tickrate: 30,
+                tickinitial: 1,
+                ontick: {coeff: 1.1},
+              });
+            }});
+          }
+        });
+      }
     },
     proctable: {x: 0.333, b: 0.25, d: 0.333, a: 0.333, c: 0.333, e: 0.333},
     elem: {x: "phy", b: "fir", d: "phy", a: "lit", c: "col", e: "phy"},
@@ -767,8 +803,7 @@
             var targets = Sim.getTargets(15, 0) - 1;
             if (targets > 0) Sim.trigger("onhit", {
               targets: targets * data.targets,
-              firsttarget: (data.targets === 1 ?
-                (data.firsttarget ? data.firsttarget + 1 : (Sim.target.boss ? Sim.target.index : Sim.target.index + 1)) : undefined),
+              firsttarget: Sim.target.next(data),
               count: data.chc * data.proc * data.count,
               damage: data.damage * 0.2,
               elem: "phy",
@@ -939,16 +974,9 @@
     ruthless: function() {
       var id;
       Sim.register("update", function(data) {
-        if (Sim.targetHealth < 0.3) {
-          if (!id) {
-            id = Sim.addBuff(undefined, {dmgmul: 40});
-          }
-        } else {
-          if (id) {
-            Sim.removeBuff(id);
-            id = undefined;
-          }
-        }
+        if (id) Sim.removeBuff(id);
+        var list = Sim.listTargetsBelow(0.3);
+        if (list.length) id = Sim.addBuff(id, {dmgmul: 40}, {targets: list});
       });
     },
     nervesofsteel: function() {},
@@ -1030,7 +1058,9 @@
       }
     },
     rampage: function() {
-      // todo
+      Sim.register("onkill", function(data) {
+        Sim.addBuff("rampage", {str_percent: 1}, {duration: 480, maxstacks: 25});
+      });
     },
   };
 

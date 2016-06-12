@@ -506,9 +506,14 @@
     },
     frames: 30,
     oncast: function(rune) {
+      var amount = (69735 + 91192) * 0.5 + 0.3 * (Sim.stats.healbonus || 0);
       switch (rune) {
       case "a":
-        return {type: "area", range: 12, self: true, coeff: 5.05};
+        Sim.damage({type: "area", range: 12, self: true, coeff: 5.05});
+        break;
+      case "b":
+        amount = (139469 + 182383) * 0.5 + 0.3 * (Sim.stats.healbonus || 0);
+        break;
       case "c":
         Sim.addBuff("blazingwrath", {damage: 10}, {duration: 540});
         break;
@@ -519,6 +524,7 @@
         Sim.addBuff("zephyr", {extrams: 30}, {duration: 180});
         break;
       }
+      Sim.healing({type: "area", range: 12, self: true, amount: amount});
     },
     proctable: {a: 0.25},
     elem: "hol",
@@ -535,6 +541,12 @@
         params.tickrate = 60;
         params.tickinitial = 1;
         params.ontick = {type: "area", range: 20, self: true, coeff: 4.38};
+      }
+      if (rune === "a") {
+        Sim.healing({amount: (93874 + 120695) * 0.5 + 0.4 * (Sim.stats.healbonus || 0)});
+      }
+      if (rune === "d") {
+        Sim.healing({type: "area", range: 45, self: true, amount: 120158 + 0.4 * (Sim.stats.healbonus || 0)});
       }
       Sim.addBuff("serenity", undefined, params);
     },
@@ -560,6 +572,19 @@
           aura: true,
           duration: 360,
         });
+        break;
+      case "d":
+        Sim.addBuff("safehaven", undefined, {
+          duration: 360,
+          tickrate: 60,
+          tickinitial: 1,
+          ontick: function() {
+            Sim.healing({type: "area", range: 11, self: true, amount: 35779 + (Sim.stats.regen || 0) * 0.07});
+          },
+        });
+        break;
+      case "a":
+        Sim.healing({type: "area", range: 11, self: true, amount: 107284 + 0.28 * (Sim.stats.healbonus || 0)});
         break;
       }
       if (Sim.stats.leg_themindseye) {
@@ -653,6 +678,30 @@
     ep_onhit({targets: count || 1, firsttarget: (firsttarget === undefined ? "new" : firsttarget)});
     Sim.popCastInfo();
   };
+  function ep_explode(data) {
+    if (data.castInfo && data.castInfo.rune === "d") {
+      Sim.addResource(15 * data.targets);
+    }
+    if (Sim.stats.leg_gungdogear && Sim.apply_palm) {
+      Sim.apply_palm(data.targets);
+    }
+  }
+  Sim.explode_palm = function(target) {
+    var damage = {type: "area", range: 15, coeff: 27.7, onhit: ep_explode};
+    switch (Sim.stats.skills.explodingpalm) {
+    case "b": damage.coeff = 63.05; break;
+    case "e": damage.coeff = 32.6 / 6; damage.count = 6; break;
+    }
+    if (Sim.stats.leg_thefistofazturrasq) {
+      damage.coeff *= 1 + 0.01 * Sim.stats.leg_thefistofazturrasq;
+    }
+    if (Sim.stats.leg_thefistofazturrasq_p2) {
+      damage.coeff *= 1 + 0.01 * Sim.stats.leg_thefistofazturrasq_p2;
+    }
+    Sim.pushCastInfo(Sim.getBuffCastInfo("explodingpalm", target));
+    Sim.damage(damage);
+    Sim.popCastInfo();
+  };
   skills.explodingpalm = {
     offensive: true,
     cost: 40,
@@ -661,6 +710,13 @@
     },
     oncast: function(rune) {
       return {targets: (rune === "a" ? 2 : 1), firsttarget: "new", coeff: 0, onhit: ep_onhit};
+    },
+    oninit: function(rune) {
+      Sim.register("onkill", function(data) {
+        if (Sim.getBuff("explodingpalm", data.target)) {
+          Sim.explode_palm(data.target);
+        }
+      });
     },
     proctable: 0.25,
     elem: {x: "phy", c: "phy", d: "hol", b: "col", a: "lit", e: "fir"},
@@ -755,6 +811,9 @@
       case "b": dmg.range = 34; break;
       case "a": dmg.coeff = 4.54; break;
       case "e": dmg.onhit = Sim.apply_effect("frozen", 90); break;
+      case "c":
+        Sim.healing({type: "area", range: 24, self: true, amount: 31036 + 0.17 * (Sim.stats.healbonus || 0)});
+        break;
       }
       return dmg;
     },
@@ -987,6 +1046,11 @@
           }
         });
       }
+      if (rune === "b") {
+        Sim.register("oncast", function(data) {
+          Sim.healing({type: "area", range: 30, self: true, amount: 40232 + 0.1 * (Sim.stats.healbonus || 0)});
+        });
+      }
     },
     elem: {x: "hol", a: "phy", e: "lit", b: "col", c: "hol", d: "fir"},
   };
@@ -1030,7 +1094,7 @@
     oninit: function(rune) {
       var buffs = {};
       switch (rune) {
-      case "b": buffs.ias = 10 * (Sim.stats.set_inna_2pc ? 2 : 1); break;
+      case "b": buffs.ias = 10/* * (Sim.stats.set_inna_2pc ? 2 : 1)*/; break;
       }
       Sim.addBuff("mantraofretribution", buffs);
       Sim.register("ongethit", function() {
@@ -1102,6 +1166,11 @@
           ontick: {type: "area", self: true, range: 30, coeff: 0.19},
         };
         break;
+      case "d":
+        Sim.register("onkill", function(data) {
+          Sim.addBuff("annihilation", {extrams: 30}, {duration: 180});
+        });
+        break;
       }
       Sim.addBuff("mantraofconviction", buffs, params);
     },
@@ -1131,7 +1200,7 @@
     },
     seizetheinitiative: function() {
       Sim.register("onhit", function(data) {
-        if (Sim.targetHealth >= 0.75) {
+        if (Sim.countTargetsAbove(0.75, data)) {
           Sim.addBuff("seizetheinitiative", {ias: 30}, {duration: 240});
         }
       });

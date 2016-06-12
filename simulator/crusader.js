@@ -432,16 +432,15 @@
 
   function glare_onhit(data) {
     switch (data.castInfo.rune) {
-    case "a": Sim.addBuff("divineverdict", {dmgtaken: 20}, {duration: 240}); break;
-    case "b": if (Sim.random("uncertainty", 0.5)) Sim.addBuff("charmed", undefined, {duration: 480}); break;
+    case "a": Sim.addBuff("divineverdict", {dmgtaken: 20}, {duration: 240, targets: data.targets}); break;
+    case "b": if (Sim.random("uncertainty", 0.5)) Sim.addBuff("charmed", undefined, {duration: 480, targets: data.targets}); break;
     case "d": Sim.addResource(9 * data.targets); break;
     case "c":
-      if (Sim.targetHealth < 0.25) {
-        var count = Sim.random("emblazonedshield", 0.5, data.targets, true);
-        if (count) Sim.damage({type: "area", range: 8, coeff: 0.6, count: count});
-      }
+      var count = Sim.countTargetsBelow(0.25, data);
+      count = Sim.random("emblazonedshield", 0.5, count, true);
+      if (count) Sim.damage({type: "area", range: 8, coeff: 0.6, count: count});
       break;
-    case "e": Sim.addBuff("slowed", undefined, {duration: 360}); break;
+    case "e": Sim.addBuff("slowed", undefined, {duration: 360, targets: data.targets}); break;
     }
     if (Sim.stats.leg_flailoftheascended) {
       var stacks = Sim.getBuff("flailoftheascended");
@@ -472,7 +471,7 @@
         Sim.popCastInfo();
       }
     }
-    Sim.addBuff("blinded", undefined, {duration: 240});
+    Sim.addBuff("blinded", undefined, {duration: 240, targets: data.targets});
   }
   skills.shieldglare = {
     offensive: true,
@@ -541,7 +540,7 @@
       case "b":
         params.tickrate = 30;
         params.ontick = {type: "area", self: true, range: 20, coeff: 0.5, thorns: true};
-        break;
+        break;                                                              
       case "a": params.duration = 300; break;
       case "d":
         params.tickrate = 30;
@@ -564,9 +563,10 @@
     case "a": Sim.addBuff("penitence", {regen: 2682}, {maxstacks: 999, refresh: false,
       stacks: Sim.random("penitence", 1, data.targets, true), duration: 180}); break;
     case "c": duration = 600; break;
-    case "d": Sim.addBuff("resolved", {chctaken: 20}, {duration: 360}); break;
+    case "d": Sim.addBuff("resolved", {chctaken: 20}, {duration: 360, targets: data.targets}); break;
+    case "e": Sim.addBuff("debilitate", {edmgred: 40}, {duration: 360, targets: data.targets}); break;
     }
-    Sim.addBuff("immobilized", undefined, {duration: duration});
+    Sim.addBuff("immobilized", undefined, {duration: duration, targets: data.targets});
   }
   skills.judgment = {
     offensive: true,
@@ -583,15 +583,14 @@
     var duration = (data.castInfo.rune === "b" ? 480 : 240);
     var buffs = {};
     if (Sim.stats.leg_votoyiasspiker) buffs.thorns_taken = 100;
-    if (data.castInfo.rune === "e") buffs.block = 50;
-    Sim.addBuff("provoke", buffs, {duration: duration});
+    Sim.addBuff("provoke", buffs, {duration: duration, targets: data.targets});
     switch (data.castInfo.rune) {
     case "a": Sim.addBuff("cleanse", {lph: 1073}, {maxstacks: 999, refresh: false,
       stacks: Sim.random("cleanse", 1, data.targets, true), duration: 300}); break;
-    case "b": Sim.addBuff("feared", undefined, {duration: 480}); break;
-    case "c": Sim.addBuff("slowed", undefined, {duration: 240}); break;
-    //case "d": Sim.addBuff("chargedup", undefined, {duration: 240}); break;
-    //case "e": Sim.addBuff("hitme", {block: 50}, {duration: 240}); break;
+    case "b": Sim.addBuff("feared", undefined, {duration: 480, targets: data.targets}); break;
+    case "c": Sim.addBuff("slowed", undefined, {duration: 240, targets: data.targets}); break;
+    case "d": Sim.addBuff("chargedup", undefined, {duration: 240}); break;
+    case "e": Sim.addBuff("hitme", {block: 50}, {duration: 240}); break;
     }
   }
   skills.provoke = {
@@ -605,7 +604,9 @@
     oninit: function(rune) {
       if (rune === "d") {
         Sim.register("onhit_proc", function(data) {
-          if (Sim.getBuff("chargedup")) Sim.damage({count: data.proc * data.targets, coeff: 0.5});
+          if (Sim.getBuff("chargedup")) {
+            Sim.damage({count: data.proc * data.count, coeff: 0.5, targets: data.targets, firsttarget: data.firsttarget});
+          }
         });
       }
     },
@@ -682,12 +683,6 @@
     elem: {x: "hol", b: "hol", e: "hol", c: "hol", d: "phy", a: "fir"},
   };
 
-  function phalanx_stampede_onhit(data) {
-    Sim.addBuff("knockback", undefined, {duration: 30});
-    if (Sim.random("stampede", 0.3, data.targets / Sim.target.count)) {
-      Sim.addBuff("stunned", undefined, 120);
-    }
-  }
   skills.phalanx = {
     offensive: true,
     secondary: function(rune) {
@@ -729,7 +724,7 @@
         break;
       case "c":
         dmg.speed += 0.3;
-        dmg.onhit = phalanx_stampede_onhit;
+        dmg.onhit = Sim.apply_effect("stunned", 120, 0.3);
         break;
       case "d":
         dmg.type = "area";

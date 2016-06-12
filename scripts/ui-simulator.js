@@ -903,7 +903,7 @@
         }
       }, info.profile);
     } else {
-      var value = $("<span class=\"option-value\">" + info.val + "</span>");
+      var value = $("<span class=\"option-value\">" + (info.val < 0 ? _L("Auto") : info.val) + "</span>");
       subline.append(value);
       var slider = $("<div></div>").slider({
         value: info.val,
@@ -923,7 +923,7 @@
             info.val = ui.value;
           }
           info.val = ui.value;
-          value.text(ui.value);
+          value.text(ui.value < 0 ? _L("Auto") : ui.value);
           updateRange();
         },
       });
@@ -942,7 +942,7 @@
         } else {
           info.val = x;
         }
-        value.text(x);
+        value.text(x < 0 ? _L("Auto") : x);
         slider.slider("value", x);
       }, info.profile);
       if (info.resource) {
@@ -953,7 +953,7 @@
           if (info.val === "max" || info.val >= mx) {
             info.val = "max";
             data.value = mx;
-            value.text(mx);
+            value.text(mx < 0 ? _L("Auto") : mx);
           }
           slider.slider(data);
         });
@@ -1031,10 +1031,42 @@
 
   var Results = new function() {
     this.dps = $("<span class=\"dps-meter\">" + _L("DPS: ") + "<span></span></span>").hide();
+    this.hps = $("<span class=\"dps-meter inactive\">" + _L("HPS: ") + "<span></span></span>").hide();
     this.graph = $("<div class=\"sim-graph\"></div>").hide();
     this.section = $("<div class=\"sim-results statsframe\"></div>").hide();
     this.chartData = [];
-    Section.append(this.dps, this.graph, this.section);
+    this.damageData = [];
+    this.healingData = [];
+    this.chartMode = "dps";
+    Section.append(this.dps, this.hps, this.graph, this.section);
+
+    var self = this;
+    this.dps.click(function() {
+      if (self.chartMode !== "dps") {
+        self.chartMode = "dps";
+        self.dps.removeClass("inactive");
+        self.hps.addClass("inactive");
+        self.chartData.length = 0;
+        self.chart.render();
+        for (var i = 0; i < self.damageData.length; ++i) {
+          self.chartData.push(self.damageData[i]);
+        }
+        self.chart.render();
+      }
+    });
+    this.hps.click(function() {
+      if (self.chartMode !== "hps") {
+        self.chartMode = "hps";
+        self.hps.removeClass("inactive");
+        self.dps.addClass("inactive");
+        self.chartData.length = 0;
+        self.chart.render();
+        for (var i = 0; i < self.healingData.length; ++i) {
+          self.chartData.push(self.healingData[i]);
+        }
+        self.chart.render();
+      }
+    });
 
     this.sourceName = function(id) {
       if (DC.skills[this.charClass][id]) {
@@ -1097,8 +1129,15 @@
               "</span></span><span>" + value[2].toFixed(0) + "</span></li>");
             //self.sectSample.append(line);
             line.hover(function() {
-              var tip = "<div xmlns=\"http://www.w3.org/1999/xhtml\" class=\"profile-tooltip\"><p><span class=\"d3-color-gold\">" + _L("Damage") +
-                 ": <span class=\"d3-color-green\">" + DC.formatNumber(value[3], 0, 10000) + "</span></span>";
+              var tip = "<div xmlns=\"http://www.w3.org/1999/xhtml\" class=\"profile-tooltip\"><p><span class=\"d3-color-gold\">";
+              if (value[3] || !value[6]) {
+                tip += _L("Damage") + ": <span class=\"d3-color-green\">" + DC.formatNumber(value[3], 0, 10000) + "</span></span>";
+                if (value[6]) {
+                  tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Healing") + ": <span class=\"d3-color-green\">" + DC.formatNumber(value[6], 0, 10000) + "</span>";
+                }
+              } else if (value[6]) {
+                tip += _L("Healing") + ": <span class=\"d3-color-green\">" + DC.formatNumber(value[6], 0, 10000) + "</span></span>";
+              }
               for (var id in value[4]) {
                 var name = self.sourceName(id);
                 if (name) {
@@ -1321,6 +1360,11 @@
           self.sectCounters.append("<li><span>" + _L("DPS") + "</span><span>" + FmtNumber(value.damage / self.results.time * 60) + "</span></li>");
           self.sectCounters.append("<li><span>" + _L("% Damage") + "</span><span>" + DC.formatNumber(100 * value.damage / self.results.damage, 2) + "%</span></li>");
         }
+        if (value.healing) {
+          self.sectCounters.append("<li><span>" + _L("Healing") + "</span><span>" + FmtNumber(value.healing) + "</span></li>");
+          self.sectCounters.append("<li><span>" + _L("HPS") + "</span><span>" + FmtNumber(value.healing / self.results.time * 60) + "</span></li>");
+          self.sectCounters.append("<li><span>" + _L("% Healing") + "</span><span>" + DC.formatNumber(100 * value.healing / self.results.healing, 2) + "%</span></li>");
+        }
         if (value.rc) {
           for (var type in value.rc) {
             if (!DC.resources[type]) continue;
@@ -1364,13 +1408,23 @@
       this.results.time = data.time;
       if (data.type === "report") {
         this.results.damage = data.damage;
+        this.results.healing = data.healing;
         this.finish(data);
       } else {
         this.results.damage += data.damage;
-        this.chartData.push({x: data.time * 1000 / 60, y: data.damage / 3});
+        this.results.healing += data.healing;
+        this.damageData.push({x: data.time * 1000 / 60, y: data.damage / 3});
+        this.healingData.push({x: data.time * 1000 / 60, y: data.healing / 3});
+        if (this.chartMode === "dps") {
+          this.chartData.push(this.damageData[this.damageData.length - 1]);
+        } else {
+          this.chartData.push(this.healingData[this.healingData.length - 1]);
+        }
         this.chart.render();
       }
       this.dps.find("span").text(FmtNumber(this.results.damage / this.results.time * 60));
+      this.hps.find("span").text(FmtNumber(this.results.healing / this.results.time * 60));
+      this.hps.toggle(this.results.healing > 0);
     }
 
     this.start = function(data) {
@@ -1382,13 +1436,17 @@
       this.worker.onmessage = function(e) {
         self.onMessage(e.data);
       };
-      this.results = {damage: 0, time: 1};
+      this.results = {damage: 0, healing: 0, time: 1};
 
       this.dps.show();
       this.dps.find("span").text("0");
+      this.hps.hide();
       this.section.hide();
       this.chartData.length = 0;
+      this.damageData.length = 0;
+      this.healingData.length = 0;
       this.graph.show();
+      this.dps.click();
       this.chart.render();
       this.worker.postMessage(data);
       SimButton.button({
@@ -1399,6 +1457,7 @@
 
     this.abort = function() {
       this.dps.hide();
+      this.hps.hide();
       this.section.hide();
       this.graph.hide();
       this.worker.terminate();

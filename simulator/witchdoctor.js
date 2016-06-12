@@ -159,6 +159,10 @@
     elem: {x: "fir", e: "fir", b: "fir", c: "fir", d: "fir", a: "col"},
   };
 
+  var gg_buff;
+  function grasp_ontick(data) {
+    gg_buff = Sim.addBuff(gg_buff, undefined, {status: "slowed", duration: 31, targets: data.targets, firsttarget: data.firsttarget});
+  }
   skills.graspofthedead = {
     offensive: true,
     frames: 57.142853,
@@ -178,8 +182,17 @@
         duration: 480,
         tickrate: 30,
         tickinitial: 1,
-        ontick: {type: "area", range: 14, coeff: (rune === "a" ? 0.85 : 0.475), onhit: Sim.apply_effect("slowed", 31)},
+        ontick: {type: "area", range: 14, coeff: (rune === "a" ? 0.85 : 0.475), onhit: grasp_ontick},
       });
+    },
+    oninit: function(rune) {
+      if (rune === "e") {
+        Sim.register("onkill", function(data) {
+          if (gg_buff && Sim.getBuff(gg_buff, data.target) && Sim.random("deathislife", 0.7)) {
+            Sim.cast("summonzombiedogs");            
+          }
+        });
+      }
     },
     proctable: {x: 0.07, c: 0.07, a: 0.07, e: 0.07, d: 0.07, b: 0.07},
     elem: {x: "phy", c: "col", a: "phy", e: "psn", d: "psn", b: "phy"},
@@ -277,6 +290,13 @@
       if (Sim.stats.leg_hauntinggirdle) ++count;
       Sim.damage({delay: Math.floor(Sim.target.distance / 2), count: count, coeff: 0, onhit: haunt_onhit});
     },
+    oninit: function(rune) {
+      Sim.register("onkill", function(data) {
+        if (Sim.getBuff("haunt", data.target)) {
+          Sim.damage({delay: 30, coeff: 0, onhit: haunt_onhit});
+        }
+      });
+    },
     proctable: 1,
     elem: {x: "col", a: "fir", e: "col", b: "col", c: "psn", d: "phy"},
   };
@@ -338,6 +358,19 @@
     cost: 300,
     oncast: function(rune) {
       Sim.damage({coeff: 0, onhit: swarm_onhit});
+    },
+    oninit: function(rune) {
+      if (rune === "e") {
+        Sim.register("onkill", function(data) {
+          if (Sim.getBuff("locustswarm", data.target)) {
+            Sim.addBuff(undefined, undefined, {
+              duration: 181,
+              tickrate: 30,
+              ontick: {type: "area", range: 6, coeff: 1.25},
+            });
+          }
+        });
+      }
     },
     proctable: 0.333,
     elem: {x: "psn", b: "psn", d: "col", c: "phy", e: "psn", a: "fir"},
@@ -499,6 +532,15 @@
         },
       });
     },
+    oninit: function(rune) {
+      if (rune === "c") {
+        Sim.register("onkill", function(data) {
+          if (Sim.getBuff("hex", data.target)) {
+            Sim.damage({type: "area", range: 8, coeff: 5});
+          }
+        });
+      }
+    },
     proctable: {c: 0.333, a: 0.2},
     elem: {x: "phy", d: "phy", e: "phy", b: "psn", a: "psn", c: "fir"},
   };
@@ -623,10 +665,28 @@
       }
       Sim.addBuff("massconfusion", undefined, {duration: 720, status: "charmed", targets: targets});
     },
+    oninit: function(rune) {
+      if (rune === "e") {
+        Sim.register("onkill", function(data) {
+          if (Sim.getBuff("massconfusion", data.target)) {
+            Sim.cast("summonzombiedogs");            
+          }
+        });
+      }
+    },
     proctable: {c: 0.13},
     elem: "phy",
   };
 
+  function zc_reanimate(data) {
+    if (!data.reanimate) return;
+    var dmg = {type: "line", speed: 0.4, radius: 6, pierce: true, coeff: 4.8, range: 22, user: {reanimate: false, iter: data.iter + 1}};
+    if (data.iter === 0) {
+      dmg.origin = Math.abs(Sim.target.distance - 22);
+      Sim.after(55, zc_reanimate, dmg.user);
+    }
+    Sim.damage(dmg);
+  }
   skills.zombiecharger = {
     offensive: true,
     frames: 54.999996,
@@ -637,7 +697,11 @@
       switch (rune) {
       case "x": return {type: "line", speed: 0.3, radius: 6, pierce: true, coeff: 5.6, range: 22};
       case "c": return {delay: 60, type: "area", range: 7, coeff: 8.8};
-      case "d": return {type: "line", speed: 0.3, radius: 6, pierce: true, coeff: 5.6, range: 22};
+      case "d":
+        var dmg = {type: "line", speed: 0.3, radius: 6, pierce: true, coeff: 5.6, range: 22, user: {reanimate: false, iter: 0}};
+        Sim.after(74, zc_reanimate, dmg.user);
+        return dmg;
+        //TODO: reanimate on kills
       case "b":
         for (var i = 0; i < 7; ++i) {
           Sim.damage({type: "line", speed: 0.3, radius: 6, pierce: true, coeff: 2.8, range: 22, angle: (i - 3) * 360 / 7, onhit: Sim.apply_effect("slowed", 120)});
@@ -645,6 +709,15 @@
         break;
       case "e": return {type: "line", speed: 1.2, radius: 6, area: 12, coeff: 6.8, range: 57};
       case "a": return {type: "line", speed: 0.5, radius: 6, pierce: true, coeff: 5.2, count: 3, range: 44, origin: Sim.target.distance + 20};
+      }
+    },
+    oninit: function(rune) {
+      if (rune === "d") {
+        Sim.register("onkill", function(data) {
+          if (data.hit && data.hit.skill === "zombiecharger" && data.hit.origdata && data.hit.origdata.user) {
+            data.hit.origdata.user.reanimate = true;
+          }
+        });
       }
     },
     proctable: {x: 0.5, c: 0.5, d: 0.5, b: 0.333, e: 0.5, a: 0.111},
@@ -906,6 +979,15 @@
       }
       Sim.addBuff("bigbadvoodoo", buffs, params);
     },
+    oninit: function(rune) {
+      if (rune === "e") {
+        Sim.register("onkill", function(data) {
+          if (Sim.random("boogieman", 0.5)) {
+            Sim.cast("summonzombiedogs");
+          }
+        });
+      }
+    },
     elem: "phy",
   };
 
@@ -979,6 +1061,12 @@
   Sim.passives = {
     junglefortitude: {dmgred: 15},
     circleoflife: function() {
+      var buff = Sim.addBuff(undefined, undefined, {targets: Sim.getTargets(20 + Sim.stats.pickup, Sim.target.distance), aura: true});
+      Sim.register("onkill", function(data) {
+        if (Sim.getBuff(buff, data.target) && Sim.random("circleoflife", 0.15)) {
+          Sim.cast("summonzombiedogs");
+        }
+      });
     },
     spiritualattunement: {maxmana_percent: 10, manaregen_percent: 2},
     gruesomefeast: function() {
@@ -1019,6 +1107,14 @@
     fierceloyalty: function() {
     },
     graveinjustice: function() {
+      var buff = Sim.addBuff(undefined, undefined, {targets: Sim.getTargets(20 + Sim.stats.pickup, Sim.target.distance), aura: true});
+      Sim.register("onkill", function(data) {
+        if (Sim.getBuff(buff, data.target)) {
+          for (var id in Sim.stats.skills) {
+            Sim.reduceCooldown(id, 60);
+          }
+        }
+      });
     },
     tribalrites: function() {
     },

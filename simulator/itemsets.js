@@ -84,7 +84,7 @@ asheara's: todo
   affixes.set_firebird_4pc = function() {
     if (Sim.stats.charClass !== "wizard") return;
     function fb_ontick(data) {
-      Sim.damage({elem: "fir", coeff: data.coeff / 4, firsttarget: data.buff.target});
+      Sim.damage({elem: "fir", coeff: Math.min(30, data.coeff) / 4, firsttarget: data.buff.target});
     }
     function fb_onapply(data) {
       if (data.coeff >= 30) {
@@ -458,14 +458,6 @@ asheara's: todo
     });
   };
 
-  function ep_explode(data) {
-    if (data.castInfo && data.castInfo.rune === "d") {
-      Sim.addResource(15 * data.targets);
-    }
-    if (Sim.stats.leg_gungdogear && Sim.apply_palm) {
-      Sim.apply_palm(data.targets);
-    }
-  }
   affixes.set_uliana_2pc = function() {
     Sim.register("oncast", function(data) {
       if (data.generate) {
@@ -483,20 +475,7 @@ asheara's: todo
     Sim.addBaseStats({dmgmul: {skills: ["explodingpalm"], percent: 250}});
     Sim.register("onhit", function(data) {
       if (data.castInfo && data.castInfo.skill === "sevensidedstrike" && Sim.getBuff("explodingpalm", data.firsttarget)) {
-        var damage = {type: "area", range: 15, coeff: 27.7, onhit: ep_explode};
-        switch (Sim.stats.skills.explodingpalm) {
-        case "b": damage.coeff = 63.05; break;
-        case "e": damage.coeff = 32.6 / 6; damage.count = 6; break;
-        }
-        if (Sim.stats.leg_thefistofazturrasq) {
-          damage.coeff *= 1 + 0.01 * Sim.stats.leg_thefistofazturrasq;
-        }
-        if (Sim.stats.leg_thefistofazturrasq_p2) {
-          damage.coeff *= 1 + 0.01 * Sim.stats.leg_thefistofazturrasq_p2;
-        }
-        Sim.pushCastInfo(Sim.getBuffCastInfo("explodingpalm", data.firsttarget));
-        Sim.damage(damage);
-        Sim.popCastInfo();
+        Sim.explode_palm(data.firsttarget);
       }
     });
   };

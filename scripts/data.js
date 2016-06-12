@@ -651,19 +651,41 @@
     }
     return "+" + args.join("-") + " " + stat.name;
   }
-  function getStatRegex(stat) {
-    var format = getStatFormat(stat);
+  function NamedRegExp(re, list) {
+    this.re = re;
+    this.list = list;
+  }
+  NamedRegExp.prototype.exec = function(text) {
+    var res = this.re.exec(text);
+    var ans = [res[0]];
+    for (var i = 0; i < this.list.length; ++i) {
+      if (this.list[i] === undefined) {
+        ans.push(res[i]);
+      } else {
+        ans[this.list[i] + 1] = res[i];
+      }
+    }
+    return ans;
+  };
+  function getStatRegex(stat, format) {
+    format = (format || getStatFormat(stat));
     if (stat.class) {
       format += " (" + DiabloCalc.classes[stat.class].name + " Only)";
     }
-    format = format.replace(/(%d|%.[0-9]f)/g, "@");
-    format = format.replace(/%p/g, "#");
+    var list = [], any = false;
+    format = format.replace(/%(?:\{([0-9]+)\})?(d|\.[0-9]f|p)/g, function(m, idx, arg) {
+      list.push(idx ? parseInt(idx) : undefined);
+      if (idx) any = true;
+      return (arg === "p" ? "#" : "@");
+    });
     format = format.replace(/%%/g, "%");
     format = format.replace(/[$-.]|[[-^]|[?|{}]/g, "\\$&");
     format = format.replace(/@/g, "([0-9]+(?:\\.[0-9]+)?)");
     format = format.replace(/#/g, "(.+)");
-    return new RegExp("^" + format + "$", "i");
+    var re = new RegExp("^" + format + "$", "i");
+    return (any ? new NamedRegExp(re, list) : re);
   }
+  DiabloCalc.getStatRegex = getStatRegex;
   function onDataLoaded() {
     DiabloCalc.itemById = {};
     for (var i = 0; i < DiabloCalc.items.length; ++i) {

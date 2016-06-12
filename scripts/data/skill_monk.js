@@ -745,7 +745,7 @@ DiabloCalc.skills.monk = {
       e: {"Damage": {elem: "hol", coeff: "1.01*(set_inna_2pc?2:1)"}, "Activated Damage": {elem: "hol", coeff: "1.01*(set_inna_2pc?2:1)*2"}},
     },
     passive: function(rune, stats) {
-      if (rune === "b") return {ias: 10 * (stats.set_inna_2pc ? 2 : 1)};
+      if (rune === "b") return {ias: 10/* * (stats.set_inna_2pc ? 2 : 1)*/};
     },
   },
   mantraofhealing: {

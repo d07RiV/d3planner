@@ -196,6 +196,19 @@
       }
       Sim.channeling("rayoffrost", this.channeling, rof_ontick, {dmg: dmg, rune: rune});
     },
+    oninit: function(rune) {
+      if (rune === "e") {
+        Sim.register("onkill", function(data) {
+          if (data.hit && data.hit.skill === "rayoffrost") {
+            Sim.addBuff(undefined, undefined, {
+              duration: 181,
+              tickrate: 30,
+              ontick: {type: "area", range: 7, coeff: 16.25 / 6},
+            });
+          }
+        });
+      }
+    },
     proctable: {x: 0.333, d: 0.333, c: 0.333, e: 0.333, b: 0.1875, a: 0.333},
     elem: {x: "col", d: "col", c: "col", e: "col", b: "col", a: "col"},
   };
@@ -349,6 +362,15 @@
       }
       Sim.channeling("disintegrate", this.channeling, dis_ontick, {dmg: dmg, rune: rune});
     },
+    oninit: function(rune) {
+      if (rune === "e") {
+        Sim.register("onkill", function(data) {
+          if (data.hit && data.hit.skill === "disintegrate" && Sim.random("volatility", 0.35)) {
+            Sim.damage({type: "area", range: 8, coeff: 7.5});
+          }
+        });
+      }
+    },
     proctable: {x: 0.1667, b: 0.111, e: 0.125, c: 0.1667, d: 0.111, a: 0.1667},
     elem: {x: "arc", b: "fir", e: "arc", c: "arc", d: "arc", a: "arc"},
   };
@@ -383,6 +405,15 @@
       case "a": return {type: "area", coeff: 0, range: 19, self: true, onhit: function(event) {
         Sim.addBuff("bonechill", {dmgtaken: 33}, {duration: 120, status: "frozen", targets: event.targets});
       }};
+      }
+    },
+    oninit: function(rune) {
+      if (rune === "b") {
+        Sim.register("onkill", function(data) {
+          if (Sim.stats.status[data.target] && Sim.stats.status[data.target].frozen) {
+            Sim.damage({type: "area", range: 19, coeff: 0, onhit: Sim.apply_effect("frozen", 120)});
+          }
+        });
       }
     },
     proctable: {x: 0.1667, b: 0.1667, d: 0.1667, c: 0.05, e: 0.1667, a: 0.1667},
@@ -977,6 +1008,19 @@
         onexpire: archon_onexpire,
       });
     },
+    oninit: function(rune) {
+      Sim.register("onkill", function(data) {
+        if (Sim.getBuff("archon")) {
+          var stats = {dmgmul: 6};
+          if (Sim.stats.set_vyr_4pc) {
+            stats.ias = 1;
+            stats.armor_percent = 1;
+            stats.resist_percent = 1;
+          }
+          Sim.addBuff("archon_stacks", stats, {maxstacks: 9999});
+        }
+      });
+    },
     default_elem: {x: "arc", e: "fir", c: "arc", d: "lit", b: "col", a: "arc"},
     elem: function(rune) {
       if (Sim.stats.set_vyr_2pc) return Sim.stats.info.maxelem;
@@ -1204,6 +1248,13 @@
       });
     },
     dominance: function() {
+      Sim.register("onkill", function(data) {
+        var stacks = Sim.getBuff("dominance");
+        Sim.addBuff("dominance", undefined, {
+          duration: 180 + 30 * Math.min(stacks + 1, 10),
+          maxstacks: 10,
+        });
+      });
     },
     arcanedynamo: function() {
       var bufflist = ["rayoffrost", "arcaneorb", "arcanetorrent", "disintegrate", "hydra",

@@ -185,12 +185,12 @@
   var es_target = 0;
   function es_onhit(data) {
     var rune = (data.castInfo && data.castInfo.rune || "x");
-    var tlist = [Sim.target.boss ? 0 : Sim.target.index];
-    var t0 = (Sim.target.index + (Sim.target.boss ? 0 : 1));
+    var targ = Sim.target.list();
+    var tlist = [targ[0]];
     var tcount = (rune === "b" ? 4 : 2) * data.targets;
     for (var i = tcount; i >= 1; --i) {
-      tlist.push(t0 + es_target);
-      es_target = (es_target + 1) % (Sim.target.count - 1);
+      tlist.push(targ[1 + es_target]);
+      es_target = (es_target + 1) % (targ.length - 1);
     }
 
     var buffs = (Sim.stats.leg_odysseysend && {dmgtaken: Sim.stats.leg_odysseysend});
@@ -726,8 +726,7 @@
     oninit: function(rune) {
       if (rune === "d") {
         Sim.register("onhit_proc", function(data) {
-          var index = (data.firsttarget === undefined ? (Sim.target.boss ? 0 : Sim.target.index) : data.firsttarget);
-          if (Sim.getBuff("markedfordeath", index)) {
+          if (Sim.getBuff("markedfordeath", data.firsttarget)) {
             Sim.addResource(4 * data.proc * data.count, "hatred");
           }
         });
@@ -735,13 +734,12 @@
       if (rune === "a") {
         Sim.register("onhit", function(data) {
           if (data.triggered === "markedfordeath") return;
-          var index = (data.firsttarget === undefined ? (Sim.target.boss ? 0 : Sim.target.index) : data.firsttarget);
-          if (Sim.getBuff("markedfordeath", index)) {
+          if (Sim.getBuff("markedfordeath", data.firsttarget)) {
             var tgt = Sim.getTargets(20);
             if (tgt <= 1) return;
             Sim.dealDamage({
               targets: tgt - 1,
-              firsttarget: (data.firsttarget ? data.firsttarget + 1 : (Sim.target.boss ? Sim.target.index : Sim.target.index + 1)),
+              firsttarget: Sim.target.next(data),
               count: data.count,
               skill: data.skill,
               triggered: "markedfordeath",
@@ -749,6 +747,14 @@
               elem: elem,
               chc: 0,
             });
+          }
+        });
+      }
+      if (rune === "b") {
+        Sim.register("onkill", function(data) {
+          if (Sim.getBuff("markedfordeath", data.target)) {
+            var dm = (Sim.stats.passives.customengineering ? 2 : 1);
+            Sim.addBuff("markedfordeath", {dmgtaken: 20}, {duration: 1800 * dm, targets: 3, firsttarget: "new"});
           }
         });
       }
@@ -986,6 +992,14 @@
     elem: {x: "phy", b: "col", d: "lit", e: "phy", c: "fir", a: "fir"},
   };
 
+  function ms_dml_fix() {
+    if (Sim.stats.leg_deadmanslegacy) {
+      var count = Sim.countTargetsBelow(Sim.stats.leg_deadmanslegacy * 0.01, this);
+      if (count) {
+        this.count = 1 + count / this.targets;
+      }
+    }
+  }
   skills.multishot = {
     offensive: true,
     cost: {x: 25, d: 18, b: 25, e: 25, a: 25, c: 25},
@@ -1008,14 +1022,11 @@
         dmg.coeff = 5;
         break;
       case "c":
-        Sim.damage({targets: 3, coeff: 3 * (Sim.stats.passives.ballistics ? 2 : 1)});
+        Sim.damage({targets: 3, coeff: 3 * (Sim.stats.passives.ballistics ? 2 : 1), fix: ms_dml_fix});
         break;
       }
-      if (Sim.stats.leg_deadmanslegacy && Sim.targetHealth < Sim.stats.leg_deadmanslegacy * 0.01) {
-        Sim.damage(dmg);
-        if (rune === "c") {
-          Sim.damage({targets: 3, coeff: 3 * (Sim.stats.passives.ballistics ? 2 : 1)});
-        }
+      if (Sim.stats.leg_deadmanslegacy) {
+        dmg.fix = ms_dml_fix;
       }
       return dmg;
     },
@@ -1216,16 +1227,9 @@
     ambush: function() {
       var id;
       Sim.register("update", function(data) {
-        if (Sim.targetHealth > 0.75) {
-          if (!id) {
-            id = Sim.addBuff(undefined, {dmgmul: 40});
-          }
-        } else {
-          if (id) {
-            Sim.removeBuff(id);
-            id = undefined;
-          }
-        }
+        if (id) Sim.removeBuff(id);
+        var list = Sim.listTargetsAbove(0.75);
+        if (list.length) id = Sim.addBuff(id, {dmgmul: 40}, {targets: list});
       });
     },
     awareness: function() {

@@ -118,31 +118,32 @@
     this.params = data.params || {};
     this.time = 0;
     this.initresource = data.params.startResource;
-    this.target.index = 1;
     this.target.radius = Math.max(data.params.targetRadius || 0, 1);
     this.target.area = Math.PI * Math.pow(this.target.radius, 2);
     this.target.size = (data.params.targetSize || 0);
     this.target.count = (data.params.targetCount || 0) + (data.params.targetElites || 0) + (data.params.targetBosses || 0);
     if (!this.target.count) this.target.count = 1;
     this.target.distance = (data.params.targetDistance || 0);
-    this.target.elite = ((data.params.targetElites || 0) + (data.params.targetBosses || 0)) / this.target.count;
+    this.target.eliteCount = (data.params.targetElites || 0) + (data.params.targetBosses || 0);
+    this.target.index = this.target.eliteCount;
+    this.target.elite = this.target.eliteCount / this.target.count;
     this.target.boss = (data.params.targetBosses || 0) / this.target.count;
     this.target.type = (data.params.targetType || "");
     this.target.density = this.target.count / this.target.area;
-    this.target.health = (data.params.targetHealth < 0 ? -1 : data.params.targetHealth * this.target.count);
+    this.target.health = data.params.targetHealth;
     this.target.maxdr = 0.95;
     this.target.mincc = 0.65;
     this.target.list = function(data) {
       var res = [];
-      if (data && data.targets !== undefined && data.targets < 1) return;
-      var t0 = (data && data.firsttarget || 0);
-      var t1 = (data && data.firsttarget || (Sim.target.index - (Sim.target.boss ? 1 : 0))) + (data && data.targets || Sim.target.count);
-      if (this.boss && t0 <= 0) res.push(0);
-      var count = (this.count - (this.boss ? 1 : 0));
-      for (var i = 0; i < count; ++i) {
-        if (this.index + i >= t0 && this.index + i < t1) {
-          res.push(this.index + i);
-        }
+      if (data && data.targets !== undefined && data.targets < 1) return res;
+      var t0 = (data && data.firsttarget || 0), tcount = Math.min(data && data.targets || Sim.target.count, Sim.target.count);
+      var t1 = (t0 >= this.index || t0 + tcount <= this.eliteCount ? t0 + tcount : this.index + tcount - (this.eliteCount - t0));
+      var t1e = Math.min(t1, this.eliteCount);
+      for (var i = t0; i < t1e; ++i) {
+        res.push(i);
+      }
+      for (var i = Math.max(t0, this.index); i < t1; ++i) {
+        res.push(i);
       }
       return res;
     };
@@ -155,6 +156,21 @@
         }
       }
       return tlist;
+    };
+    this.target.next = function(data) {
+      if (data.targets !== 1) return;
+      if (data.firsttarget) {
+        if (data.firsttarget === this.index + this.count - this.eliteCount - 1) {
+          return;
+        }
+        return data.firsttarget + 1;
+      } else {
+        if (this.eliteCount >= 2) {
+          return 1;
+        } else {
+          return this.index + 1 - this.eliteCount;
+        }
+      }
     };
     if (this.target.elite) {
       this.target.maxdr = 65;
@@ -201,7 +217,7 @@
   Sim.run = function(duration) {
     duration = (duration || 36000);
     var start = this.time;
-    while (!this.eventQueue.empty() && this.time < start + duration * 1.5 && Sim.targetHealth > 0) {
+    while (!this.eventQueue.empty() && this.time < start + duration * 1.5 && !Sim.targetDead()) {
       var e = this.eventQueue.pop();
       this.time = e.time;
       this.trigger("update");

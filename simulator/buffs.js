@@ -108,20 +108,6 @@
 
   var lastUpdate = {};
   function updateUptime(id) {
-    /*var buff = this.buffs[id];
-    if (!buff) {
-      var meta = this.metaBuffs[id];
-      if (!meta) return 0;
-      var count = 0;
-      for (var i = 0; i < meta.length; ++i) {
-        count += Sim.getBuff(meta[i]);
-      }
-      return count;
-    }
-    if (buff.targets) {
-      buff = buff.targets[this.target.boss ? 0 : this.target.index];
-    }
-    return (buff && buff.stacks || 0);*/
     var stacks = Sim.getBuff(id);
     var delta = Sim.time - (lastUpdate[id] || 0);
     Sim.uptimes[id] = (Sim.uptimes[id] || 0) + delta * stacks;
@@ -294,7 +280,8 @@
     if (!buff) return dst;
     updateUptime(id);
     if (buff.targets) {
-      var maxTarget = this.target.index + (targets || this.target.count) - (this.target.boss ? 1 : 0);
+      var tcount = (targets || this.target.count);
+      var maxTarget = (tcount <= this.eliteCount ? t0 + tcount : this.index + tcount - this.eliteCount);
       for (var idx in buff.targets) {
         if (idx < maxTarget) {
           _reduceBuffDuration.call(this, dst, buff.targets[idx], amount);
@@ -395,6 +382,7 @@
     if (buff.params.refresh && (duration === "infinite" || (buff.time !== undefined && this.time + duration > buff.time))) {
       if (buff.events.expire) {
         _removeEvent(buff.events.expire);
+        delete buff.events.expire;
       }
       if (duration !== "infinite") {
         buff.time = this.time + duration;
@@ -478,13 +466,9 @@
           }
           delete params.firsttarget;
         }
-        if (this.target.boss && !params.firsttarget) {
-          tindex.push(0);
-          --tcount;
-        }
-        var t0 = (params.firsttarget || this.target.index);
-        for (var i = 0; i < tcount; ++i) {
-          tindex.push(t0 + i);
+        var tl = this.target.list({targets: tcount, firsttarget: params.firsttarget});
+        for (var i = 0; i < tl.length; ++i) {
+          tindex.push(tl[i]);
         }
       }
 
@@ -647,15 +631,17 @@
       if (buff.targets) {
         if (targets === undefined) targets = this.target.count;
         var res;
-        if (this.target.boss && buff.targets[0]) {
-          res = _removeBuff.call(this, buff.targets[0], stacks);
-          --targets;
-        }
-        for (var i = 0; i < targets; ++i) {
-          if (buff.targets[this.target.index + i]) {
-            var cr = _removeBuff.call(this, buff.targets[this.target.index + i], stacks);
-            if (!res) res = cr;
+        var tcount = (targets || this.target.count);
+        var maxTarget = (tcount <= this.eliteCount ? t0 + tcount : this.index + tcount - this.eliteCount);
+        var rlist = [];
+        for (var id in buff.targets) {
+          if (id < maxTarget) {
+            rlist.push(id);
           }
+        }
+        for (var i = 0; i < rlist.length; ++i) {
+          var cr = _removeBuff.call(this, buff.targets[rlist[i]], stacks);
+          if (!res) res = cr;
         }
         return res;
       } else {
@@ -722,7 +708,7 @@
       return count;
     }
     if (buff.targets) {
-      buff = buff.targets[target === undefined ? (this.target.boss ? 0 : this.target.index) : target];
+      buff = buff.targets[target === undefined ? (this.target.eliteCount ? 0 : this.target.index) : target];
     }
     return (buff && buff.stacks || 0);
   };
@@ -768,7 +754,7 @@
       return dura;
     }
     if (buff.targets) {
-      buff = buff.targets[target === undefined ? (this.target.boss ? 0 : this.target.index) : target];
+      buff = buff.targets[target === undefined ? (this.target.eliteCount ? 0 : this.target.index) : target];
     }
     if (!buff) return 0;
     if (buff.params.refresh) {
@@ -791,7 +777,7 @@
       return dura;
     }
     if (buff.targets) {
-      buff = buff.targets[target === undefined ? (this.target.boss ? 0 : this.target.index) : target];
+      buff = buff.targets[target === undefined ? (this.target.eliteCount ? 0 : this.target.index) : target];
     }
     if (!buff) return 0;
     if (buff.stacks < buff.params.maxstacks) return 0;
@@ -806,28 +792,28 @@
   Sim.getBuffElapsed = function(id, target) {
     var buff = this.buffs[id];
     if (buff && buff.targets) {
-      buff = buff.targets[target === undefined ? (this.target.boss ? 0 : this.target.index) : target];
+      buff = buff.targets[target === undefined ? (this.target.eliteCount ? 0 : this.target.index) : target];
     }
     return (buff ? Sim.time - buff.start : 0);
   };
   Sim.getBuffTicks = function(id, target) {
     var buff = this.buffs[id];
     if (buff && buff.targets) {
-      buff = buff.targets[target === undefined ? (this.target.boss ? 0 : this.target.index) : target];
+      buff = buff.targets[target === undefined ? (this.target.eliteCount ? 0 : this.target.index) : target];
     }
     return (buff ? buff.ticks : 0);
   };
   Sim.getBuffData = function(id, target) {
     var buff = this.buffs[id];
     if (buff && buff.targets) {
-      buff = buff.targets[target === undefined ? (this.target.boss ? 0 : this.target.index) : target];
+      buff = buff.targets[target === undefined ? (this.target.eliteCount ? 0 : this.target.index) : target];
     }
     return buff && buff.data;
   };
   Sim.getBuffStack = function(id, target) {
     var buff = this.buffs[id];
     if (buff && buff.targets) {
-      buff = buff.targets[target === undefined ? (this.target.boss ? 0 : this.target.index) : target];
+      buff = buff.targets[target === undefined ? (this.target.eliteCount ? 0 : this.target.index) : target];
     }
     if (!buff || !buff.stacklist || !buff.stacks) return;
     var pos = (buff.stackstart + buff.stacks - 1) % buff.params.maxstacks;
@@ -836,8 +822,23 @@
   Sim.getBuffCastInfo = function(id, target) {
     var buff = this.buffs[id];
     if (buff && buff.targets) {
-      buff = buff.targets[target === undefined ? (this.target.boss ? 0 : this.target.index) : target];
+      buff = buff.targets[target === undefined ? (this.target.eliteCount ? 0 : this.target.index) : target];
     }
     return (buff && buff.castInfo);
+  };
+
+  Sim.rotateBuffs = function() {
+    var index = Sim.target.index;
+    var newIndex = Sim.target.index + Sim.target.count - Sim.target.eliteCount;
+    for (var id in this.buffs) {
+      var buff = this.buffs[id];
+      if (!buff.targets || !(index in buff.targets)) continue;
+      if (buff.targets[index].params.aura) {
+        buff.targets[newIndex] = buff.targets[index];
+        delete buff.targets[index];
+      } else {
+        _removeBuff.call(this, buff.targets[index]);
+      }
+    }
   };
 })();

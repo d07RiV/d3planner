@@ -23,19 +23,6 @@
     "demon-hunter": "demonhunter",
   };
   DiabloCalc.parseItemData = function(data, charClass) {
-    function buildRegEx(format, cls) {
-      if (cls) {
-        format += " (" + DiabloCalc.classes[cls].name + " Only)";
-      }
-      format = format.replace(/(%d|%.[0-9]f)/g, "@");
-      format = format.replace(/%p/g, "#");
-      format = format.replace(/%%/g, "%");
-      format = format.replace(/[$-.]|[[-^]|[?|{}]/g, "\\$&");
-      format = format.replace(/@/g, "([0-9]+(?:\\.[0-9]+)?)");
-      format = format.replace(/#/g, "(.+)");
-      return new RegExp("^" + format + "$", "i");
-    }
-
     if (!data.type) {
       return;
     }
@@ -79,15 +66,15 @@
         if (stat.base) return null;
         if (stat.caldesanns) return null;
         if (!stat.regex) {
-          stat.regex = buildRegEx(stat.format, stat.class);
+          stat.regex = DiabloCalc.getStatRegex(stat);
         }
-        var result = text.match(stat.regex);
+        var result = stat.regex.exec(text);
         if (!result) {
           if (stat.altformat) {
             if (!stat.altregex) {
-              stat.altregex = buildRegEx(stat.altformat, stat.class);
+              stat.altregex = DiabloCalc.getStatRegex(stat, stat.altformat);
             }
-            result = text.match(stat.altregex);
+            result = stat.altregex.exec(text);
           }
           if (!result) return null;
         }

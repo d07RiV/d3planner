@@ -317,6 +317,15 @@
 .dps-meter {
   font-size: 16px;
   margin-left: 16px;
+  &.inactive {
+    cursor: pointer;
+  }
+  .theme-dark &.inactive {
+    color: #888;
+  }
+  .theme-light &.inactive {
+    color: #888;
+  }
 }
 .sim-graph {
   margin-top: 12px;

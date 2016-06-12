@@ -144,8 +144,7 @@
       if (Sim.target.area_coeff && Sim.stats.area) {
         Sim.trigger("onhit", {
           targets: event.targets * Sim.target.area_coeff,
-          firsttarget: (event.targets === 1 ?
-            (event.firsttarget ? event.firsttarget + 1 : (Sim.target.boss ? Sim.target.index : Sim.target.index + 1)) : undefined),
+          firsttarget: Sim.target.next(event),
           count: event.count * 0.2,
           skill: event.skill,
           damage: event.damage * 0.01 * Sim.stats.area/* / (event.dmgmul || 1)*/,

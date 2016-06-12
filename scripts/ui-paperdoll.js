@@ -11,6 +11,7 @@
   }
   var skills = [];
   var passives = [];
+  var cube = {};
   var $btnMale, $btnFemale;
   DiabloCalc.getDollSkill = function(index) {
     return skills[index];
@@ -25,8 +26,9 @@
   }
   function onUpdateSkills() {
     var charClass = $(".char-class").val();
+    var data = DiabloCalc.getSkills();
     for (var i = 0; i < 6; ++i) {
-      var skill = DiabloCalc.getSkill(i);
+      var skill = data.skills[i];
       if (skill) {
         var info = DiabloCalc.skills[charClass][skill[0]];
         skills[i].removeClass("empty");
@@ -36,13 +38,21 @@
       }
     }
     for (var i = 0; i < 4; ++i) {
-      var passive = DiabloCalc.getPassive(i);
+      var passive = data.passives[i];
       if (passive) {
         var info = DiabloCalc.passives[charClass][passive];
         passives[i].removeClass("empty");
         passives[i].css("background-position", (-42 * info.index) + "px 0");
       } else {
         passives[i].addClass("empty");
+      }
+    }
+    for (var type in cube) {
+      if (data.kanai[type]) {
+        cube[type].removeClass("empty");
+        cube[type].find(".icon").css("background-image", "url(" + DiabloCalc.getItemIcon(data.kanai[type]) + ")");
+      } else {
+        cube[type].addClass("empty");
       }
     }
   }
@@ -219,6 +229,25 @@
     passives.push(icon);
   }
   outer.parent().append(skillLine).append(passiveLine);
+  var cubeLine = $("<div></div>").addClass("paperdoll-cube");
+  cube.weapon = $("<span class=\"cube-item weapon empty\"><span class=\"icon\"></span></span>");
+  cube.armor = $("<span class=\"cube-item armor empty\"><span class=\"icon\"></span></span>");
+  cube.jewelry = $("<span class=\"cube-item jewelry empty\"><span class=\"icon\"></span></span>");
+  cubeLine.append(cube.weapon, cube.armor, cube.jewelry);
+  outer.parent().append(cubeLine);
+  $.each(cube, function(type, elem) {
+    elem.hover(function() {
+      var data = DiabloCalc.getSkills();
+      if (data.kanai[type]) {
+        DiabloCalc.tooltip.showItem(this, data.kanai[type]);
+      }
+    }, function() {
+      DiabloCalc.tooltip.hide();
+    });
+    elem.click(function() {
+      DiabloCalc.trigger("editKanai", type);
+    });
+  });
 
   $btnMale = $("<span class=\"d3gl-button-male\"></span>").click(function() {
     DiabloCalc.gender = "male";

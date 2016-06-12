@@ -26,7 +26,7 @@
     return 100 * Sim.resources[type] / Sim.stats["max" + type];
   }
   function getHealth(type) {
-    return 100 * Sim.targetHealth;
+    return 100 * Sim.getTargetHealth(0);
   }
   function getCastInterval(type) {
     return (lastCast[type] === undefined ? 1e+10 : Sim.time - lastCast[type]);

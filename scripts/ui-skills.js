@@ -429,6 +429,14 @@
     passives[index].line.get(0).scrollIntoView();
     setTimeout(function() {passivePopup.show(passives[index]);}, 0);
   });
+  DiabloCalc.register("editKanai", function(type) {
+    var index = $(".editframe").tabs("option", "active");
+    if (index !== 0 && index !== 2) {
+      $(".editframe").tabs("option", "active", 2);
+    }
+    kanai[type].line.get(0).scrollIntoView();
+    setTimeout(function() {kanai[type].namebox.trigger("chosen:open");}, 0);
+  });
 
   function onChangeClass() {
     skillPopup.hide();

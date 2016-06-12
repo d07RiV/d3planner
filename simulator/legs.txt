@@ -18,6 +18,7 @@ leg_jawbreaker Unique_Fist_101_x1
 leg_skullofresonance Unique_Helm_004_x1
 leg_fjordcutter Unique_Mighty_1H_006_x1
 leg_remorseless Unique_Mighty_1H_102_x1
+Unique_Mace_2H_104_x1      custom: {id: "leg_soulsmasher", name: "Life per Kill to Explosion", format: "When you kill an enemy, it explodes for %d%% of your Life per Kill as damage to all enemies within 20 yards. You no longer benefit from your Life per Kill.", min: 450, max: 600},
 
       custom: {id: "leg_sanguinaryvambraces", name: "Chance to Deal Thorns Damage", format: "Chance on being hit to deal 1000%% of your Thorns damage to nearby enemies.", args: 0},
       custom: {id: "leg_pridesfall", name: "Reduces Resource Costs", format: "Your resource costs are reduced by 30%% after not taking damage for 5 seconds.", args: 0},
@@ -39,3 +40,7 @@ leg_remorseless Unique_Mighty_1H_102_x1
       custom: {id: "leg_bloodbrother", name: "Chance to Block", format: "Grants a %d%% chance to block attacks. Blocked attacks inflict 30%% less damage. After blocking an attack, your next attack inflicts 30%% additional damage.", min: 15, max: 20},
       custom: {id: "leg_thundergodsvigor", name: "Lightning Bolts Damage", format: "Blocking, dodging or being hit causes you to discharge bolts of electricity that deal %d%% weapon damage as Lightning.", min: 100, max: 130},
       Halo of Arlyse
+
+Unique_Staff_101_x1      custom: {id: "leg_ahvarion", name: "Chance to Gain Random Shrine Effect", format: "Chance on killing a demon to gain a random Shrine effect.", args: 0},
+Unique_Flail_2H_102_x1      custom: {id: "leg_balefulremnant", name: "Summon Phalanx Avatars", format: "Enemies killed while Akarat's Champion is active turn into Phalanx Avatars for 10 seconds.", args: 0},
+Unique_Sword_2H_104_x1      custom: {id: "leg_corruptedashbringer", name: "Burn Damage", format: "Chance on kill to raise a skeleton to fight for you. Upon accumulating 5 skeletons, they explode for 1000%% weapon damage and the sword transforms into Ashbringer for a short time. Attacking with Ashbringer burns your target for %d%% weapon damage as Holy.", min: 4500, max: 6000},

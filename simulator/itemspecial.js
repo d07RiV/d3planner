@@ -233,8 +233,9 @@
   };
   affixes.leg_eunjangdo = function(amount) {
     Sim.register("onhit_proc", function(data) {
-      if (Sim.targetHealth < 0.01 * amount) {
-        Sim.addBuff("frozen", undefined, {duration: 180, targets: data.targets, firsttarget: data.firsttarget});
+      var list = Sim.listTargetsBelow(0.01 * amount, data);
+      if (list.length) {
+        Sim.addBuff("frozen", undefined, {duration: 180, targets: list});
       }
     });
   };
@@ -1501,6 +1502,64 @@
     Sim.register("onhit_proc", function(data) {
       if (data.castInfo && data.castInfo.skill === "sweepattack") {
         Sim.addResource(data.targets * data.count * amount);
+      }
+    });
+  };
+
+  affixes.leg_madmonarchsscepter = function(amount) {
+    Sim.register("onkill", function(data) {
+      if (Sim.getBuff("madmonarchsscepter") === 9) {
+        Sim.removeBuff("madmonarchsscepter");
+        Sim.damage({type: "area", range: 30, self: true, coeff: amount * 0.01, elem: "psn"});
+      } else {
+        Sim.addBuff("madmonarchsscepter", undefined, {maxstacks: 10});
+      }
+    });
+  };
+  affixes.leg_burstofwrath = function(amount) {
+    Sim.register("onkill", function(data) {
+      if (Sim.random("burstofwrath", 0.1)) {
+        var maxres = Sim.stats["max" + Sim.rcTypes[0]];
+        if (maxres) Sim.addResource(0.2 * maxres);
+      }
+    });
+  };
+  affixes.leg_pandemoniumloop = function(amount) {
+    var next = 0;
+    Sim.register("onkill", function(data) {
+      if (Sim.time >= next && Sim.stats.status[data.target] && Sim.stats.status[data.target].feared) {
+        Sim.damage({type: "area", range: 15, coeff: 2, onhit: Sim.apply_effect("feared", 120)});
+        next = Sim.time + 30;
+      }
+    });
+  };
+  affixes.leg_soulsmasher = function(amount) {
+    Sim.register("onkill", function(data) {
+      //Sim.damage({type: "area", range: 20, ???});
+    });
+  };
+  affixes.leg_oculusring = function(amount) {
+    var next = 0;
+    Sim.register("onkill", function(data) {
+      if (Sim.time >= next) {
+        Sim.addBuff("oculusring", {damage: amount}, {duration: 420});
+        next = Sim.time + 420;
+      }
+    });
+  };
+  affixes.leg_oculusring_p2 = function(amount) {
+    var next = 0;
+    Sim.register("onkill", function(data) {
+      if (Sim.time >= next) {
+        Sim.addBuff("oculusring", {dmgmul: amount}, {duration: 420});
+        next = Sim.time + 420;
+      }
+    });
+  };
+  affixes.leg_winterflurry = function(amount) {
+    Sim.register("onkill", function(data) {
+      if (data.hit && data.hit.elem === "col" && Sim.random("winterflurry", amount * 0.01)) {
+        Sim.damage({type: "area", range: 19, coeff: 0, elem: "col", onhit: Sim.apply_effect("frozen", 120)});
       }
     });
   };

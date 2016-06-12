@@ -365,6 +365,42 @@
     cursor: default;
   }
 }
+.paperdoll-cube {
+  margin-top: 10px;
+  height: 52px;
+  text-align: center;
+  .cube-item {
+    display: inline-block;
+    position: relative;
+    width: 52px;
+    height: 52px;
+    margin: 0 6px;
+    background: url(paperdoll/cube-empty.png);
+    .icon {
+      display: block;
+      position: absolute;
+      top: 4px;
+      left: 6px;
+      right: 6px;
+      bottom: 8px;
+      background-position: 50% 50%;
+      background-size: auto 100%;
+      background-repeat: no-repeat;
+    }
+    &.weapon.empty {
+      background: url(paperdoll/cube-weapon.png);
+      .icon {display: none;}
+    }
+    &.armor.empty {
+      background: url(paperdoll/cube-armor.png);
+      .icon {display: none;}
+    }
+    &.jewelry.empty {
+      background: url(paperdoll/cube-jewelry.png);
+      .icon {display: none;}
+    }
+  }
+}
 .d3-tooltip-range {
   display: none;
 }
