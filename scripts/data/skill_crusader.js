@@ -24,6 +24,7 @@ DiabloCalc.skills.crusader = {
       a: "Retaliate",
       e: "Fury",
     },
+    range: 5,
     info: function(rune, stats) {
       var elem = DiabloCalc.skilltips.crusader.punish.elements[rune];
       var res = {"DPS": {sum: true, "Damage": {speed: 1, ias: (stats.passives.fanaticism ? 15 : 0), fpa: 57.777767, round: "up"}}, "Damage": {elem: elem, coeff: 3.35}};
@@ -69,6 +70,7 @@ DiabloCalc.skills.crusader = {
       a: "Zeal",
       e: "Guard",
     },
+    range: 12,
     info: function(rune, stats) {
       var res = {"DPS": {sum: true, "Damage": {speed: 1, ias: stats.passives.fanaticism ? 15 : 0, fpa: 57.777767, round: "up"}},
         "Damage": {elem: DiabloCalc.skilltips.crusader.slash.elements[rune], coeff: 2.3}};
@@ -101,6 +103,7 @@ DiabloCalc.skills.crusader = {
       d: "Reaping",
       a: "Shared Fate",
     },
+    range: 30,
     info: {
       "*": {"DPS": {sum: true, "Damage": {speed: 1, ias: "passives.fanaticism?15:0", fpa: 57.777767, round: "up"}}},
       x: {"Damage": {elem: "hol", coeff: 1.75}, "Secondary Damage": {elem: "hol", coeff: 1.5}},
@@ -154,6 +157,7 @@ DiabloCalc.skills.crusader = {
       a: "Crumble",
       d: "Pound",
     },
+    range: {x: 17, b: 27, e: 17, c: 17, a: 17, d: 8},
     active: true,
     activetip: "3 or fewer targets",
     activeshow: function(rune, stats) {
@@ -192,6 +196,7 @@ DiabloCalc.skills.crusader = {
       a: "Gathering Sweep",
       e: "Inspiring Sweep",
     },
+    range: 18,
     active: false,
     params: [{rune: "e", min: 0, max: function(stats) {
       return Math.ceil(180 / DiabloCalc.calcFrames(57.777767));
@@ -222,6 +227,7 @@ DiabloCalc.skills.crusader = {
       d: "Brute Force",
       e: "Dominion",
     },
+    range: 25,
     active: true,
     activetip: "First 3 enemies",
     activeshow: function(rune, stats) {
@@ -316,6 +322,7 @@ DiabloCalc.skills.crusader = {
       c: "Emblazoned Shield",
       e: "Subdue",
     },
+    range: 30,
     params: [{min: 0, max: 5, name: "Shield Bash Stacks", buffs: false, show: function(rune, stats) {
                return !!(stats.leg_flailoftheascended && stats.skills.shieldbash);
              }}],
@@ -382,6 +389,7 @@ DiabloCalc.skills.crusader = {
       d: "Shattered Ground",
       e: "Fearful",
     },
+    range: {b: 20, d: 20},
     info: {
       "*": {"Uptime": {duration: 10, cooldown: 30}},
       b: {"DPS": {elem: "phy", coeff: 1, thorns: "full"}},
@@ -458,6 +466,7 @@ DiabloCalc.skills.crusader = {
       b: "Endurance",
       e: "Draw and Quarter",
     },
+    range: {a: 6.5, d: 6},
     info: {
       "*": {"Uptime": {duration: "2*(leg_swiftmount?2:1)+(set_norvald_2pc?2:0)", cooldown: 16, cdr: "passives.lordcommander?25:0"}},
       a: {"DPS": {elem: "phy", coeff: 5, thorns: "full"}},
@@ -483,6 +492,7 @@ DiabloCalc.skills.crusader = {
       d: "Shattering Explosion",
       a: "Reciprocate",
     },
+    range: {x: 15, b: 15, e: 15, c: 15, d: 20, a: 15},
     info: {
       "*": {"Cooldown": {cooldown: "leg_frydehrswrath?0:15"}, "Cost": {cost: "leg_frydehrswrath?40:0"}},
       x: {"Damage": {elem: "hol", coeff: 11.6}},
@@ -655,6 +665,7 @@ DiabloCalc.skills.crusader = {
       d: "Rapid Descent",
       e: "Flurry",
     },
+    range: 14,
     info: {
       "*": {"Cost": {cost: 25}, "Cooldown": {cooldown: 30}},
       x: {"Damage": {elem: "phy", coeff: 17}},

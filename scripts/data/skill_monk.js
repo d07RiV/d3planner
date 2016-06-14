@@ -27,6 +27,7 @@ DiabloCalc.skills.monk = {
       d: "Quickening",
       b: "Bounding Light",
     },
+    range: 5,
     params: DiabloCalc.monk.spirit,
     info: function(rune, stats) {
       var res;
@@ -73,6 +74,7 @@ DiabloCalc.skills.monk = {
       d: "Strike from Beyond",
       a: "Foresight",
     },
+    range: 12,
     params: DiabloCalc.monk.spirit,
     info: function(rune, stats) {
       var res;
@@ -121,6 +123,7 @@ DiabloCalc.skills.monk = {
       b: "Tsunami",
       e: "Breaking Wave",
     },
+    range: 11,
     params: [DiabloCalc.monk.spirit[0], {rune: "d", min: 0, max: 10, val: 1, name: "Enemies Hit", buffs: false}],
     info: function(rune, stats) {
       var res;
@@ -169,6 +172,7 @@ DiabloCalc.skills.monk = {
       d: "Assimilation",
       e: "Windforce Flurry",
     },
+    range: 5,
     params: [DiabloCalc.monk.spirit[0],
              {rune: "c", min: 0, max: 3, val: 0, name: "Stacks"},
              {rune: "d", min: 0, max: 10, val: 0, name: "Stacks", inf: true}],
@@ -222,6 +226,7 @@ DiabloCalc.skills.monk = {
       e: "Scorpion Sting",
       c: "Hand of Ytar",
     },
+    range: {x: 10, a: 10, d: 15, e: 10},
     info: function(rune, stats) {
       var res;
       switch (rune) {
@@ -249,6 +254,7 @@ DiabloCalc.skills.monk = {
       c: "Electric Field",
       a: "Bluster",
     },
+    range: 7,
     active: true,
     activetip: "3 or fewer targets",
     activeshow: function(rune, stats) {
@@ -284,6 +290,17 @@ DiabloCalc.skills.monk = {
       d: "Empowered Wave",
       e: "Shattering Light",
       c: "Pillar of the Ancients",
+    },
+    range: function(rune, stats) {
+      if (!stats.leg_kyoshirosblade) {
+        switch (rune) {
+        case "x": return 20;
+        case "a": return 20;
+        case "d": return 20;
+        case "e": return 20;
+        case "c": return 25;
+        }
+      }
     },
     active: true,
     activetip: "3 or fewer targets",
@@ -321,6 +338,7 @@ DiabloCalc.skills.monk = {
       e: "Crippling Light",
       a: "Faith in the Light",
     },
+    range: 20,
     info: {
       x: {"Uptime": {duration: 3, cooldown: 15}},
       d: {"Uptime": {duration: 6, cooldown: 15}},
@@ -347,6 +365,7 @@ DiabloCalc.skills.monk = {
       d: "Infused with Light",
       e: "Zephyr",
     },
+    range: {a: 12},
     info: {
       x: {"Cooldown": {cooldown: 15, cdr: "leg_eyeofpeshkov"}},
       a: {"Cooldown": {cooldown: 15, cdr: "leg_eyeofpeshkov"}, "Damage": {elem: "hol", coeff: 5.05}},
@@ -374,6 +393,7 @@ DiabloCalc.skills.monk = {
       c: "Ascension",
       b: "Instant Karma",
     },
+    range: {e: 20},
     info: {
       x: {"Uptime": {duration: 3, cooldown: 16, after: true}},
       a: {"Uptime": {duration: 3, cooldown: 16, after: true}},
@@ -397,6 +417,7 @@ DiabloCalc.skills.monk = {
       a: "Intervene",
       e: "Forbidden Palace",
     },
+    range: {e: 11},
     info: {
       x: {"Uptime": {duration: 6, cooldown: 20}},
       b: {"Uptime": {duration: 8, cooldown: 20}},
@@ -426,6 +447,7 @@ DiabloCalc.skills.monk = {
       e: "Radiance",
       a: "Barrage",
     },
+    range: 10,
     info: function(rune, stats) {
       var res;
       switch (rune) {
@@ -464,6 +486,7 @@ DiabloCalc.skills.monk = {
       a: "Shocking Grasp",
       e: "Essence Burn",
     },
+    range: 5,
     info: function(rune, stats) {
       var expl = {};
       if (stats.leg_thefistofazturrasq) {
@@ -502,6 +525,7 @@ DiabloCalc.skills.monk = {
       d: "Inner Storm",
       c: "Cyclone",
     },
+    range: {x: 10, e: 10, a: 10, b: 14, d: 10, c: 10},
     params: [{min: 1, max: "3+(leg_vengefulwind?3:1)+leg_vengefulwind_p2", name: "Stacks", buffs: false}],
     info: {
       "*": {"Cost": {cost: 75}},
@@ -529,6 +553,7 @@ DiabloCalc.skills.monk = {
       e: "Wall of Wind",
       c: "Soothing Breeze",
     },
+    range: {x: 24, d: 24, b: 34, a: 24, e: 24, c: 24},
     info: function(rune, stats) {
       var res;
       switch (rune) {

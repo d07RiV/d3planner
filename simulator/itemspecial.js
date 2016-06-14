@@ -288,7 +288,7 @@
         for (var iter = 0; iter < 6; ++iter) {
           var cur = rot[current];
           current = (current + 1) % rot.length;
-          if (Sim.getCooldown(cur) >= 60) {
+          if (Sim.getCooldown(cur) >= 10) {
             Sim.reduceCooldown(cur, 60);
             break;
           }

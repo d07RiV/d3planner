@@ -1004,6 +1004,10 @@
       var info = (DC.skills[DC.charClass][skill] || (DC.extraskills[DC.charClass] && DC.extraskills[DC.charClass][skill]));
       if (!info || !info.range) return;
       var range = (typeof info.range === "object" ? info.range[skr[skill] || "x"] : info.range);
+      if (typeof range === "function") {
+        range = range(skr[skill] || "x", DC.getStats());
+      }
+      if (!range) return;
       if (maxrange > range) {
         var line = $("<li>" + info.name + "</li>");
         line.hover(function() {
