@@ -6,6 +6,9 @@ DiabloCalc.itemaffixes = {
   leg_madmonarchsscepter: {
     info: {"Damage": {elem: "psn", coeff: "$1/100"}},
   },
+  leg_stormcrow: {
+    info: {"Damage": {elem: "fir", coeff: "1.15"}},
+  },
   leg_sanguinaryvambraces: {
     info: {"Damage": {thorns: "normal", coeff: 10, elem: "phy"}},
   },
