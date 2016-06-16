@@ -620,7 +620,13 @@
 }
 
 .col.statsframe {
-  overflow-y: scroll;
+  .statsframe-list {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    bottom: 170px;
+  }
   .col-container {
     width: 200%;
     display: flex;

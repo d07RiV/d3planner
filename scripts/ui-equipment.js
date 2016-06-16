@@ -779,22 +779,27 @@
   $(".eqmod-enchant-type").val(DiabloCalc.classes[DiabloCalc.charClass].primary);
 
   $(".eqmod-ancient").click(function() {
+    DiabloCalc.importStart();
     for (var slot in DiabloCalc.itemSlots) {
       var data = DiabloCalc.getSlot(slot);
       if (!data) continue;
       if (!data.ancient) {
+        data = $.extend(true, {}, data);
         data.ancient = true;
         delete data.enchant;
         delete data.imported;
         DiabloCalc.setSlot(slot, data);
       }
     }
+    DiabloCalc.importEnd("global");
   });
   $(".eqmod-maxstat").click(function() {
+    DiabloCalc.importStart();
     var value = (parseInt($(".eqmod-maxstat-value").val()) || 0) * 0.01;
     for (var slot in DiabloCalc.itemSlots) {
       var data = DiabloCalc.getSlot(slot);
       if (!data) continue;
+      data = $.extend(true, {}, data);
       delete data.enchant;
       delete data.imported;
       var stats = DiabloCalc.getItemAffixesById(data.id, data.ancient, true);
@@ -823,8 +828,10 @@
       }
       DiabloCalc.setSlot(slot, data);
     }
+    DiabloCalc.importEnd("global");
   });
   $(".eqmod-enchant").click(function() {
+    DiabloCalc.importStart();
     var value = (parseInt($(".eqmod-enchant-level").val()) || 1) * 5;
     var stat = "caldesanns_" + $(".eqmod-enchant-type").val();
     for (var slot in DiabloCalc.itemSlots) {
@@ -832,6 +839,7 @@
       if (!data) continue;
       if (value) {
         if (!data.stats[stat] || data.stats[stat][0] !== value) {
+          data = $.extend(true, {}, data);
           delete data.stats.caldesanns_str;
           delete data.stats.caldesanns_dex;
           delete data.stats.caldesanns_int;
@@ -842,6 +850,7 @@
       } else {
         if (data.stats.caldesanns_str || data.stats.caldesanns_dex ||
             data.stats.caldesanns_int || data.stats.caldesanns_vit) {
+          data = $.extend(true, {}, data);
           delete data.stats.caldesanns_str;
           delete data.stats.caldesanns_dex;
           delete data.stats.caldesanns_int;
@@ -851,6 +860,7 @@
         }
       }
     }
+    DiabloCalc.importEnd("global");
   });
   $(".eqmod-maxstat-value, .eqmod-enchant-level, .eqmod-enchant-type").click(function(e) {
     e.stopPropagation();

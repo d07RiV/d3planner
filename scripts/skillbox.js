@@ -334,6 +334,7 @@
 
     if (curInfo) {
       var results = DC.skill_processInfo(curInfo, {affix: (info.affixid || this.affix), params: info.params, skill: this.skill});
+      this.skillData = results;
       if (!this.info) {
         this.info = $("<ul></ul>").addClass("skill-info");
         if (this.type !== "skill" || !this.skill) {
@@ -361,6 +362,7 @@
     } else if (this.info) {
       this.info.remove();
       delete this.info;
+      delete this.skillData;
     }
   };
 
@@ -461,6 +463,8 @@
           val = $.extend({}, info.info["*"], val);
         }
         return val;
+      } else if (info.info) {
+        return info.info;
       }
     },
   });

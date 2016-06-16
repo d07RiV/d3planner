@@ -326,11 +326,31 @@
     var stats = DiabloCalc.getStats();
     var charClass = DiabloCalc.charClass;
 
+    var skillData = {}, reg;
+    function regData(box) {
+      var info = box.getInfo();
+      if (!box.skillData || !info) return;
+      var res = {data: {}};
+      skillData[info.name] = res;
+      for (var id in box.skillData) {
+        if (typeof box.skillData[id].value === "number") {
+          res.data[id] = box.skillData[id].value;
+        }
+      }
+      return res;
+    }
+
     for (var i = 0; i < skills.length; ++i) {
       skills[i].update();
+      if (skills[i].skill && (reg = regData(skills[i]))) {
+        reg.skill = skills[i].skill;
+      }
     }
     for (var i = 0; i < passives.length; ++i) {
       passives[i].update();
+      if (reg = regData(passives[i])) {
+        reg.passive = passives[i].passive;
+      }
     }
     var extra_passive = DiabloCalc.getStats().extra_passive;
     if (extra_passive && !DiabloCalc.passives[charClass][extra_passive]) {
@@ -347,10 +367,16 @@
     extraPassive.setPassive(extra_passive);
     extraPassive.section.toggle(!!extra_passive);
     extraPassive.update();
+    if (reg = regData(extraPassive)) {
+      reg.passive = extraPassive.passive;
+    }
     var kanaiFx = [];
     for (var type in kanai) {
       kanai[type].update();
       kanaiFx.push(kanai[type].getItemAffix());
+      if (reg = regData(kanai[type])) {
+        reg.kanai = kanai[type].getItemAffix();
+      }
     }
 
     for (var gem in DiabloCalc.legendaryGems) {
@@ -365,6 +391,9 @@
         gem.line = new DiabloCalc.SkillBox.gem(gemSection, id);
       }
       gem.line.update();
+      if (reg = regData(gem.line)) {
+        reg.gem = id;
+      }
     }
     gemSection.toggle(!$.isEmptyObject(stats.gems));
 
@@ -404,9 +433,14 @@
       if (affix.line) {
         hasAffixes = true;
         affix.line.update();
+        if (reg = regData(affix.line)) {
+          reg.gem = id;
+        }
       }
     }
     itemSection.toggle(hasAffixes);
+
+    DiabloCalc.trigger("skillData", skillData);
 
     if (_scrollTop !== undefined) {
       tab.scrollTop(_scrollTop);

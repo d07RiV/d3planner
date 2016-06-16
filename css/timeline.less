@@ -1,4 +1,4 @@
-.timeline-frame {
+.profiles-frame {
   position: absolute;
   left: 0;
   right: 0;
@@ -15,15 +15,7 @@
   font-size: 16px;
   font-family: Verdana, Arial, sans-serif;
 
-  .timeline-left-box {
-    position: absolute;
-    display: block;
-    width: 140px;
-    left: 0;
-    top: 0;
-    bottom: 0;
-  }
-  .timeline-left {
+  .profiles-list {
     position: absolute;
     display: block;
     margin: 0;
@@ -43,15 +35,8 @@
     border-radius: 4px;
     box-sizing: border-box;
   }
-  .timeline-right {
-    position: absolute;
-    left: 144px;
-    top: 0;
-    bottom: 0;
-    right: 0;
-  }
 
-  .timeline-set {
+  .profiles-set {
     margin-top: -1px;
     .theme-light & {
       border-top: 1px solid #aaa;
@@ -65,6 +50,13 @@
     list-style-type: none;
     cursor: pointer;
     padding: 2px 6px;
+    .class-icon {
+      display: inline-block;
+      width: 42px;
+      height: 42px;
+      float: left;
+      margin: -2px 2px 0 -6px;
+    }
     &:focus {
       outline: none;
     }
@@ -117,7 +109,7 @@
       display: block;
     }
     input {
-      width: 88px;
+      width: 250px;
 //      padding: 0;
       margin: -2px;
       font-size: 16px;
@@ -174,6 +166,27 @@
       }
     }
   }
+}
+.timeline-frame {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 160px;
+  border-radius: 6px;
+  padding: -1px;
+  .theme-light & {
+    background-color: #fff;
+    border: 1px solid #ccc;
+  }
+  .theme-dark & {
+    background-color: #121212;
+    border: 1px solid #444;
+  }
+  text-align: left;
+  margin: 0 2px 0 10px;
+  font-size: 16px;
+  font-family: Verdana, Arial, sans-serif;
 
   .timeline-stat {
     width: 100% !important;

@@ -152,7 +152,8 @@
     }
   }
 
-  var tab = $(".col.statsframe");
+  var tab = $(".col.statsframe .statsframe-list");
+  var outer = $(".col.statsframe");
   tab = DiabloCalc.addScroll(tab, "y");
   tab.append(DiabloCalc.account.makeLine());
 
@@ -320,12 +321,12 @@
   var second = $("<div class=\"column\"></div>");
   container.append(second);
   function recv() {
-    tab.addClass("two-column");
+    outer.addClass("two-column");
   }
   function remv() {
     setTimeout(function() {
       if (second.is(":empty")) {
-        tab.removeClass("two-column");
+        outer.removeClass("two-column");
       }
     }, 0);
   }

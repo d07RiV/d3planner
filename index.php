@@ -72,7 +72,7 @@ function mklink($path, $src = NULL) {
       </div>
      </div>
 
-     <div class="timeline-frame">
+     <div class="profiles-frame">
      </div>
 
     </div>
@@ -108,6 +108,10 @@ function mklink($path, $src = NULL) {
     </div>
 
     <div class="col statsframe">
+     <div class="statsframe-list">
+     </div>
+     <div class="timeline-frame">
+     </div>
     </div>
 
    </div>

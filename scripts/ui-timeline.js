@@ -30,6 +30,27 @@
       values: getValue(null, last && last.values),
     };
   }
+  function newGlobalState(prev, last) {
+    return {
+      label: _L("Global operation"),
+      pre: prev,
+      undo: function() {
+        this.post = {};
+        for (var slot in DiabloCalc.itemSlots) {
+          this.post[slot] = DiabloCalc.getSlot(slot);
+          DiabloCalc.setSlot(slot, this.pre[slot]);
+        }
+      },
+      redo: function() {
+        this.pre = {};
+        for (var slot in DiabloCalc.itemSlots) {
+          this.pre[slot] = DiabloCalc.getSlot(slot);
+          DiabloCalc.setSlot(slot, this.post[slot]);
+        }
+      },
+      values: getValue(DiabloCalc.getStats(), last && last.values),
+    };
+  }
   function newItemState(slot, prev, oh, last) {
     return {
       slot: slot,
@@ -94,16 +115,17 @@
     var set = {
       index: index,
       name: _L("Set {0}").format(index + 1),
-      line: $("<li></li>").addClass("timeline-set"),
-      label: $("<span></span>").addClass("label"),
-      value: $("<span></span>").addClass("value"),
-      edit: $("<span></span>").addClass("edit").attr("title", _L("Rename")),
-      del: $("<span></span>").addClass("delete").attr("title", _L("Delete")),
+      line: $("<li class=\"profiles-set\"></li>"),
+      icon: $("<span class=\"class-icon\"></span>"),
+      label: $("<span class=\"label\"></span>"),
+      value: $("<span class=\"value\"></span>"),
+      edit: $("<span class=\"edit\"></span>").attr("title", _L("Rename")),
+      del: $("<span class=\"delete\"></span>").attr("title", _L("Delete")),
       pos: 0,
       points: [newBlankState(evt, from)],
     };
     set.label.text(set.name);
-    set.line.append(set.label).append(set.del).append(set.edit).append(set.value);
+    set.line.append(set.icon, set.label, set.del, set.edit, set.value);
     set.line.attr("tabIndex", -1);
 
     set.rename = function(name) {
@@ -117,12 +139,15 @@
         set.label.replaceWith(set.input);
         set.label = null;
         set.input.focus().select();
-        set.input.focusout(function() {
+        set.input.focusout(function(e) {
           var val = set.input.val();
           if (val.length) set.name = val;
           set.label = $("<span></span>").addClass("label").text(set.name);
           set.input.replaceWith(set.label);
           set.input = null;
+        });
+        set.input.click(function(e) {
+          e.stopPropagation();
         });
         set.input.keyup(function(e) {
           if (e.keyCode != 13 && e.keyCode != 27) return;
@@ -209,14 +234,30 @@
           if (index.length > 0) {
             index = index[0];
             var label = chart.curset.points[index].label;
-            var value = statList[chart.curstat].name + ": <span class=\"d3-color-green\">" +
-              DiabloCalc[statList[chart.curstat].func || "formatNumber"](chart.curset.points[index].values[chart.curstat], 0, 1000) + "</span>";
-            if (index != chart.curset.pos) {
-              var was = chart.curset.points[index].values[chart.curstat];
-              var now = chart.curset.points[chart.curset.pos].values[chart.curstat];
-              if (now > 1) {
-                var diff = 100 * ((was - now) / now);
-                value += " (<span class=\"d3-color-green\">" + (diff >= 0 ? "+" : "") + DiabloCalc.formatNumber(diff, 2) + "%</span>)";
+            if (chart.curstatEx && chart.curset.points[index].skillData) {
+              var st = chart.curstatEx.split("$");
+              var data = chart.curset.points[index].skillData[st[0]];
+              var value = st[0] + " &mdash; " + st[1] + ": <span class=\"d3-color-green\">" +
+                DiabloCalc.formatNumber(data && data.data[st[1]] || 0, 0, 1000) + "</span>";
+              if (index != chart.curset.pos) {
+                var was = (data && data.data[st[1]] || 0);
+                var data2 = chart.curset.points[chart.curset.pos].skillData[st[0]];
+                var now = (data2 && data2.data[st[1]] || 0);
+                if (now > 1) {
+                  var diff = 100 * ((was - now) / now);
+                  value += " (<span class=\"d3-color-green\">" + (diff >= 0 ? "+" : "") + DiabloCalc.formatNumber(diff, 2) + "%</span>)";
+                }
+              }
+            } else {
+              var value = statList[chart.curstat].name + ": <span class=\"d3-color-green\">" +
+                DiabloCalc[statList[chart.curstat].func || "formatNumber"](chart.curset.points[index].values[chart.curstat], 0, 1000) + "</span>";
+              if (index != chart.curset.pos) {
+                var was = chart.curset.points[index].values[chart.curstat];
+                var now = chart.curset.points[chart.curset.pos].values[chart.curstat];
+                if (now > 1) {
+                  var diff = 100 * ((was - now) / now);
+                  value += " (<span class=\"d3-color-green\">" + (diff >= 0 ? "+" : "") + DiabloCalc.formatNumber(diff, 2) + "%</span>)";
+                }
               }
             }
             var fmt = "<div xmlns=\"http://www.w3.org/1999/xhtml\" class=\"profile-tooltip\"><p><span class=\"d3-color-gold\">" + label + "</span><br/>" + value;
@@ -352,7 +393,9 @@
       newset.profile = data;
       newset.values = data.values;
       newset.rename(data.name);
-      newset.value.text(DiabloCalc[statList[this.curstat].func || "formatNumber"](newset.values[this.curstat] || 0, 0, 1000));
+      newset.icon.removeClass().addClass("class-icon class-" + data.class + " " + (data.gender || "female"));
+      newset.value.text((statList[this.curstat].shortName || statList[this.curstat].name) + ": " +
+        DiabloCalc[statList[this.curstat].func || "formatNumber"](newset.values[this.curstat] || 0, 0, 1000));
       this.datasets.push(newset);
       for (var i = 0; i < this.datasets.length; ++i) {
         this.datasets[i].del.removeClass("disabled");
@@ -372,21 +415,68 @@
       this.fixval();
     },
     changestat: function(stat) {
-      this.curstat = stat;
+      var so = stat;
+      if (statList[stat]) {
+        this.curstat = stat;
+      } else {
+        this.curstatEx = stat;
+        stat = this.curstat;
+      }
       for (var i = 0; i < this.datasets.length; ++i) {
         if (this.datasets[i].values) {
-          this.datasets[i].value.text(DiabloCalc[statList[stat].func || "formatNumber"](this.datasets[i].values[stat], 0, 1000));
+          this.datasets[i].value.text((statList[stat].shortName || statList[stat].name) + ": " +
+            DiabloCalc[statList[stat].func || "formatNumber"](this.datasets[i].values[stat], 0, 1000));
         }
       }
       this.update();
+      if (!statList[so]) {
+        var st = so.split("$");
+        if (st.length === 2) return st[0] + " &mdash; " + st[1];
+      }
     },
     fixval: function() {
       var index = this.curset.pos;
       this.curset.points[index].values = this.curset.values = getValue(DiabloCalc.getStats(), this.curset.points[index].values);
       var value = this.curset.values[this.curstat];
-      this.curset.value.text(DiabloCalc[statList[this.curstat].func || "formatNumber"](value || 0, 0, 1000));
-      this.line.datasets[0].points[index].value = value;
-      this.line.update();
+      this.curset.icon.removeClass().addClass("class-icon class-" + DiabloCalc.charClass + " " + (DiabloCalc.gender || "female"));
+      this.curset.value.text((statList[this.curstat].shortName || statList[this.curstat].name) + ": " +
+        DiabloCalc[statList[this.curstat].func || "formatNumber"](value || 0, 0, 1000));
+      if (!this.curstatEx) {
+        this.line.datasets[0].points[index].value = value;
+        this.line.update();
+      }
+    },
+    fixdata: function(data) {
+      var index = this.curset.pos;
+      this.curset.points[index].skillData = data;
+      if (this.curstatEx) {
+        var sp = this.curstatEx.split("$");
+        if (sp.length === 2 && data[sp[0]] && sp[1] in data[sp[0]].data) {
+          this.line.datasets[0].points[index].value = data[sp[0]].data[sp[1]];
+          this.line.update();
+        } else {
+          delete this.curstatEx;
+          this.fixval();
+        }
+      }
+    },
+    generateList: function(opts) {
+      var val = opts.val();
+      opts.empty();
+      for (var stat in statList) {
+        opts.append("<option value=\"" + stat + (val === stat ? "\" selected=\"selected" : "") + "\">" + statList[stat].name + "</option>");
+      }
+      var data = this.last().skillData;
+      if (data) {
+        for (var x in data) {
+          if ($.isEmptyObject(data[x].data)) continue;
+          var og = "<optgroup label=\"" + x + "\">";
+          for (var y in data[x].data) {
+            og += "<option value=\"" + x + "$" + y + (val === (x+"$"+y) ? "\" selected=\"selected" : "") + "\">" + y + "</option>";
+          }
+          opts.append(og + "</optgroup>");
+        }
+      }
     },
     last: function() {
       return this.curset.points[this.curset.pos];
@@ -491,11 +581,15 @@
     chart.last().values.simdps = dps;
     chart.fixval();
   };
+  DiabloCalc.register("changeGender", function() {
+    chart.fixval();
+  });
 
   var cacheSlots = {};
   var cacheSkills;
   var cacheParagon;
   function onImportEnd(mode, values) {
+    var oldSlots = cacheSlots;
     cacheSlots = {};
     for (var slot in DiabloCalc.itemSlots) {
       cacheSlots[slot] = DiabloCalc.getSlot(slot);
@@ -506,13 +600,43 @@
     case "import": chart.reset(_L("Import Profile"), values); break;
     case "class": chart.reset(_L("Change Class")); break;
     case "load": chart.reset(_L("Load Profile"), values); break;
+    case "global": chart.add(newGlobalState(oldSlots, chart.last())); break;
     }
+  }
+  function deepEquals(a, b) {
+    if (a === b) return true;
+    if (!(a instanceof Object && b instanceof Object)) return false;
+    for (var key in a) {
+      if (a.hasOwnProperty(key) !== b.hasOwnProperty(key)) {
+        return false;
+      } else if (typeof a[key] !== typeof b[key]) {
+        return false;
+      }
+    }
+    for (var key in b) {
+      if (a.hasOwnProperty(key) !== b.hasOwnProperty(key)) {
+        return false;
+      } else if (typeof a[key] !== typeof b[key]) {
+        return false;
+      }
+      if (a[key] instanceof Object) {
+        if (!deepEquals(a[key], b[key])) {
+          return false;
+        }
+      } else if (a[key] !== b[key]) {
+        return false;
+      }
+    }
+    return true;
   }
   function onUpdateSlot(slot, reason) {
     var prev = cacheSlots[slot];
     if (!prev) prev = null;
     cacheSlots[slot] = DiabloCalc.getSlot(slot);
     if (!prev && !cacheSlots[slot]) {
+      return;
+    }
+    if (deepEquals(prev, cacheSlots[slot])) {
       return;
     }
     var last = chart.last();
@@ -553,22 +677,22 @@
     chart.add(newParagonState(prev, last));
   }
 
-  var frame = $(".timeline-frame");
-  var tlLeftBox = $("<div class=\"timeline-left-box\"></div>");
-  tlLeft = $("<ul></ul>").addClass("timeline-left");
-  tlRight = $("<div></div>").addClass("timeline-right");
-  frame.append(tlLeftBox.append(tlLeft)).append(tlRight);
-  tlLeftBox.resizable({
-    handles: "e",
-    minWidth: 100,
-    maxWidth: 280,
+  var leftFrame = $(".profiles-frame");
+  tlLeft = $("<ul class=\"profiles-list\"></ul>");
+  leftFrame.append(tlLeft);
+  tlRight = $(".timeline-frame");
+  leftFrame.resizable({
+    handles: "n",
+    minHeight: 120,
+    maxHeight: 400,
     resize: function(event, ui) {
-      tlRight.css("left", ui.size.width + 4);
+      leftFrame.css("top", "");
+      //tlRight.css("left", ui.size.width + 4);
     },
   });
   //tlLeft = DiabloCalc.addScroll(tlLeft, "y");
 
-  tlNewSet = $("<li class=\"timeline-set newset\"><b>" + _L("New set") + "</b></li>");
+  tlNewSet = $("<li class=\"profiles-set newset\"><b>" + _L("New set") + "</b></li>");
   tlNewSet.click(function(evt) {
     DiabloCalc.popupMenu(evt, _L.fixkey({
       "Blank set": function() {
@@ -594,8 +718,10 @@
   selStat.chosen({
     disable_search: true,
     inherit_select_classes: true,
+    populate_func: function() {chart.generateList(selStat);},
   }).change(function() {
-    chart.changestat($(this).val());
+    var name = chart.changestat($(this).val());
+    if (name) selStat.next().find(".chosen-single span").html(name);
   });
 
   cFrame = $("<div></div>").addClass("canvas-frame");
@@ -608,6 +734,9 @@
 
   DiabloCalc.register("updateStats", function() {
     chart.fixval();
+  });
+  DiabloCalc.register("skillData", function(data) {
+    chart.fixdata(data);
   });
   DiabloCalc.register("importEnd", onImportEnd);
   DiabloCalc.register("updateSlotItem", onUpdateSlot);
