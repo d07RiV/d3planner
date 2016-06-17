@@ -281,7 +281,7 @@
     updateUptime(id);
     if (buff.targets) {
       var tcount = (targets || this.target.count);
-      var maxTarget = (tcount <= this.target.eliteCount ? t0 + tcount : this.target.index + tcount - this.target.eliteCount);
+      var maxTarget = (tcount <= this.target.eliteCount ? tcount : this.target.index + tcount - this.target.eliteCount);
       for (var idx in buff.targets) {
         if (idx < maxTarget) {
           _reduceBuffDuration.call(this, dst, buff.targets[idx], amount);
