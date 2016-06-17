@@ -556,8 +556,6 @@
   };
 
   function jade6_apply(id, targets) {
-    var buff = Sim.buffs[id];
-    if (!buff) return 0;
     var total = 0;
     var tickrate = 12;
     var res = Sim.reduceBuffDuration(id, 300 * 60, targets);
