@@ -237,6 +237,27 @@ _L.patch.add({
     P41_Unique_Xbow_102: {
       flavor: "Because of the consummate skill required to construct them, Wojahnni heavy crossbows are reserved for the officer class. As the Assaulter's effectiveness is essential to the nation's military superiority, they are seldom found intact outside of Wojahn since there is a simple peg inserted in the weapon that, when pulled, causes it to fall to pieces.",
     },
+    P42_Crusader_FoH_Belt: {
+      flavor: "",
+    },
+    P42_Unique_Fist_013_x1: {
+      flavor: "Each scar left in its wake is a sin forgiven.",
+    },
+    P42_Unique_Mace_2H_002_x1: {
+      flavor: "The berserkers of Athskeleng could not be stopped, their intricately carved white maces turning red with the blood of their enemies.",
+    },
+    P42_Unique_Mojo_004: {
+      flavor: "The severed head of a homunculus is the source of much power for a knowledgeable witch doctor.",
+    },
+    P42_Unique_Ring_Haunt: {
+      flavor: "The warriors of the Teganze believe that every being senses the Unformed Land waiting for them, whether they realize it or not. This band can disrupt that connection, resulting in an emptiness that rivals even the most excruciating physical pain.",
+    },
+    P42_Unique_Wand_003_x1: {
+      flavor: "Crafted around a shard that fell from the sky during the Festival of Lights.",
+    },
+    P42_handXbow_norm_unique_03: {
+      flavor: "“Whispers abound of Kovan's insatiable lust for slaughtering the denizens of the Burning Hells. May the gods save the world if the day comes when he no longer has demons to fight” -Tales of the Wasteland",
+    },
     P4_Unique_Axe_1H_102: {
       flavor: "\"When I move to the unformed land, you may throw my skull at the unwise, and I will return long enough to invigorate you.\" -Mordullu's promise to his heirs.",
     },
@@ -1445,9 +1466,6 @@ _L.patch.add({
     },
     Unique_Mace_2H_001_x1: {
       flavor: "Many are the warriors who have fled in terror from the awesome might that is Crushbane.",
-    },
-    Unique_Mace_2H_002_x1: {
-      flavor: "The berserkers of Athskeleng could not be stopped, their intricately carved white maces turning red with the blood of their enemies.",
     },
     Unique_Mace_2H_003_x1: {
       flavor: "Arthef of the Dying Ones crafted this weapon to translate the misbegotten life of the undead into the living.",

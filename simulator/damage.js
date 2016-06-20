@@ -94,7 +94,11 @@
       dmgmul = stats.getSpecial("dmgmul", elem, ispet, data.skill, data.exclude);
       if (stats.gems.zei) {
         var dist = _choose(data.castInfo && data.castInfo.distance, data.distance, data.origin, Sim.target.distance);
-        dmgmul *= 1 + 0.01 * dist * (4 + 0.08 * stats.gems.zei) / 10;
+        dmgmul *= 1 + 0.01 * Math.min(50, dist) * (4 + 0.08 * stats.gems.zei) / 10;
+      }
+      if (stats.leg_starfire && elem === "lit") {
+        var dist = _choose(data.castInfo && data.castInfo.distance, data.distance, data.origin, Sim.target.distance);
+        dmgmul *= 1 + 0.15 * dist / 10;
       }
     }
     factor *= dmgmul;

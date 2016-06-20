@@ -695,8 +695,8 @@
     /*
     var exportRes = {};
     var exportList = [
-"skills.*.*.name",
-"passives.*.*.name",
+      "itemById.*.type",
+      "legendaryGems.*.id",
     ];
     for (var i = 0; i < exportList.length; ++i) {
       $.extend(true, exportRes, DiabloCalc.exportData(exportList[i]));

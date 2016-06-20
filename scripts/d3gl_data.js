@@ -2576,6 +2576,9 @@ DiabloCalc.webglItems = {
   P2_handXbow_norm_unique_03: {
     actor: 395305,
   },
+  P42_handXbow_norm_unique_03: {
+    actor: 395305,
+  },
   P2_mojo_norm_unique_02: {
     actor: 395199,
   },
@@ -4627,6 +4630,9 @@ DiabloCalc.webglItems = {
   Unique_Fist_013_x1: {
     actor: 130557,
   },
+  P42_Unique_Fist_013_x1: {
+    actor: 130557,
+  },
   Unique_Fist_015_x1: {
     actor: 223526,
   },
@@ -4655,6 +4661,9 @@ DiabloCalc.webglItems = {
     actor: 299427,
   },
   Unique_Flail_1H_106_x1: {
+    actor: 299428,
+  },
+  P42_Unique_Flail_1H_106_x1: {
     actor: 299428,
   },
   Unique_Flail_1H_107_x1: {
@@ -5434,6 +5443,9 @@ DiabloCalc.webglItems = {
   Unique_Mace_2H_002_x1: {
     actor: 190866,
   },
+  P42_Unique_Mace_2H_002_x1: {
+    actor: 190866,
+  },
   Unique_Mace_2H_003_x1: {
     actor: 59633,
   },
@@ -5521,7 +5533,13 @@ DiabloCalc.webglItems = {
   Unique_Mojo_003_x1: {
     actor: 194995,
   },
+  P42_Unique_Mojo_003_x1: {
+    actor: 194995,
+  },
   Unique_Mojo_004_p2: {
+    actor: 194991,
+  },
+  P42_Unique_Mojo_004: {
     actor: 194991,
   },
   Unique_Mojo_004_x1: {
@@ -6846,6 +6864,9 @@ DiabloCalc.webglItems = {
     actor: 182071,
   },
   Unique_Wand_003_x1: {
+    actor: 182074,
+  },
+  P42_Unique_Wand_003_x1: {
     actor: 182074,
   },
   Unique_Wand_006_x1: {
