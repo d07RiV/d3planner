@@ -413,6 +413,7 @@ DiabloCalc.simMapping = {
     madmonarchsscepter: {name: "Mad Monarch's Scepter", category: "Items", stat: "leg_madmonarchsscepter"},
     oculusring: {name: "Oculus Ring", category: "Items", stat: ["leg_oculusring", "leg_oculusring_p2"]},
     sledgeofathskeleng: {name: "Sledge of Athskeleng", category: "Items", stat: "leg_sledgeofathskeleng"},
+    gazingdemise: {name: "Gazing Demise", category: "Items", stat: "leg_gazingdemise"},
   },
   nyi: {
     "Unique_Ring_006_p2": true,
@@ -435,6 +436,5 @@ DiabloCalc.simMapping = {
     "Unique_Staff_101_x1": true,
     "Unique_Flail_2H_102_x1": true,
     "Unique_Sword_2H_104_x1": true,
-    "P42_Unique_Mojo_003_x1": true,
   },
 };

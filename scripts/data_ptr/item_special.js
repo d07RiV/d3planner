@@ -1228,7 +1228,7 @@ DiabloCalc.itemaffixes = {
     },
   },
 
-  leg_demonsdemise: {
+  leg_demonsdemise_p2: {
     params: [{min: 0, max: "passives.customengineering?6:4", name: "Spike Traps"}],
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["impale", "chakram", "elementalarrow", "multishot", "clusterarrow"], percent: this.params[0].val * 40}};

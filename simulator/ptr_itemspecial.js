@@ -1578,6 +1578,15 @@
     });
   };
 
+  affixes.leg_gazingdemise = function(amount) {
+    Sim.register("onhit", function(data) {
+      if (data.castInfo && data.castInfo.skill === "spiritbarrage" && data.castInfo.user && !data.castInfo.user.gazingdemise) {
+        data.castInfo.user.gazingdemise = true;
+        Sim.addBuff("gazingdemise", {dmgmul: {skills: ["spiritbarrage"], percent: 500}}, {maxstacks: 5, duration: 60});
+      }
+    });
+  };
+
 /*
   affixes.leg_thegrinreaper = function(amount) {
     var skills = {};
