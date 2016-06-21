@@ -470,7 +470,7 @@
 
   function bf_onhit(data) {
     var params = {duration: 180, targets: data.targets, firsttarget: data.firsttarget, status: "blinded"};
-    switch (rune) {
+    switch (data.castInfo.rune) {
     case "d": params.duration *= 2; break;
     case "c":
       Sim.addBuff("slowed", undefined, {duration: 300, targets: data.targets, firsttarget: data.firsttarget});

@@ -580,7 +580,7 @@ DiabloCalc.skills.witchdoctor = {
       e: "Manitou",
     },
     params: [{min: 0, max: 5, name: "Channeled for", buffs: false, show: function(rune, stats) {
-               return stats.leg_gazingdemise && rune !== "c" && rune !== "e";
+               return stats.leg_gazingdemise;
              }}],
     info: function(rune, stats) {
       var res;
@@ -592,7 +592,7 @@ DiabloCalc.skills.witchdoctor = {
       case "a": res = {"Damage": {elem: "col", coeff: 6, total: true}}; break;
       case "e": res = {"Damage": {elem: "col", coeff: 60, total: true}}; break;
       }
-      if (stats.leg_gazingdemise && this.params[0].val && rune !== "c" && rune !== "e") {
+      if (stats.leg_gazingdemise && this.params[0].val) {
         var pct = {};
         pct[DiabloCalc.itemById.P42_Unique_Mojo_003_x1.name] = this.params[0].val * 500;
         res["Damage"].percent = pct;
