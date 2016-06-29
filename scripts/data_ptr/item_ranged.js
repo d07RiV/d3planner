@@ -276,7 +276,7 @@ DiabloCalc.addItems([
     type: "handcrossbow",
     quality: "legendary",
     required: {
-      custom: {id: "leg_calamity", name: "Enemies Become Marked for Death", format: "Enemies you hit become Marked for Death.", args: 0},
+      custom: {id: "leg_calamity", name: "Enemies Become Marked for Death", format: "Automatically cast Marked for Death when you damage an enemy.", args: 0},
     },
     preset: ["mainstat"],
   },
@@ -618,7 +618,7 @@ DiabloCalc.addItems([
     type: "handcrossbow",
     quality: "legendary",
     required: {
-      custom: {id: "leg_thedemonsdemise_p2", name: "Bonus Damage per Trap", format: "Your next non-channeled Hatred spender deals 40%% additional damage for each Spike Trap that it detonates.", args: 0},
+      custom: {id: "leg_thedemonsdemise_p2", name: "Spike Trap Echo", format: "The blast from Spike Trap will damage all enemies again after 1 second.", args: 0},
     },
     preset: ["mainstat"],
   },
@@ -630,7 +630,7 @@ DiabloCalc.addItems([
     type: "wand",
     quality: "legendary",
     required: {
-      custom: {id: "leg_starfire", name: "Lightning Damage Bonus", format: "Lightning damage is increased by 15%% for every 10 yards you are from the target.", args: 0},
+      custom: {id: "leg_starfire", name: "Lightning Damage Bonus", format: "Lightning damage is increased by %d%% for every 10 yards you are from the target up to a maximum of 40 yards.", min: 10, max: 15},
     },
     preset: ["wpncol", "mainstat"],
   },

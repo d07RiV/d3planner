@@ -1583,7 +1583,7 @@ DiabloCalc.itemIcons = {
     1158788463,
   ],
   CeremonialDagger_1H_000: [
-    12,
+    13,
     3718098566,
   ],
   CeremonialDagger_1H_001: [
@@ -1591,15 +1591,15 @@ DiabloCalc.itemIcons = {
     3718098566,
   ],
   CeremonialDagger_1H_002: [
-    13,
+    14,
     3757233959,
   ],
   CeremonialDagger_1H_003: [
-    14,
+    15,
     3796369352,
   ],
   CeremonialDagger_1H_004: [
-    15,
+    16,
     3835504745,
   ],
   CeremonialDagger_1H_004a: [
@@ -1647,11 +1647,11 @@ DiabloCalc.itemIcons = {
     3835504745,
   ],
   CeremonialDagger_1H_301: [
-    16,
+    17,
     1122516398,
   ],
   CeremonialDagger_1H_302: [
-    17,
+    18,
     1161651791,
   ],
   CeremonialDagger_shadowClone_Hell: [
@@ -2454,6 +2454,10 @@ DiabloCalc.itemIcons = {
   CrusaderShield_207: [
     20,
     385579279,
+  ],
+  D2Shako: [
+    62,
+    3979523788,
   ],
   Dagger_001: [
     10,
@@ -5052,32 +5056,68 @@ DiabloCalc.itemIcons = {
     0,
     3900668713,
   ],
+  P42_Crusader_FoH_Belt: [
+    12,
+    4190690435,
+  ],
+  P42_Unique_BarbBelt_EQ: [
+    2,
+    2924855902,
+  ],
+  P42_Unique_Bracer_SpikeTrap: [
+    9,
+    3105160607,
+  ],
+  P42_Unique_Fist_013_x1: [
+    4,
+    2044264076,
+  ],
+  P42_Unique_Mojo_003_x1: [
+    1,
+    1988227274,
+  ],
+  P42_Unique_Mojo_004: [
+    2,
+    1988227273,
+  ],
+  P42_Unique_Ring_Haunt: [
+    6,
+    1358569230,
+  ],
+  P42_Unique_Wand_003_x1: [
+    3,
+    3529085734,
+  ],
+  P42_handXbow_norm_unique_03: [
+    0,
+    2024325239,
+  ],
   P4_Unique_Axe_1H_102: [
     0,
     3176082878,
   ],
   P4_Unique_Belt_01: [
-    12,
+    13,
     1977707944,
   ],
   P4_Unique_Belt_02: [
-    13,
+    14,
     3949660645,
   ],
   P4_Unique_Belt_03: [
-    14,
+    15,
     668305700,
   ],
   P4_Unique_Belt_04: [
-    15,
+    16,
     342963131,
   ],
   P4_Unique_Belt_05: [
-    16,
+    17,
     342963130,
   ],
   P4_Unique_Belt_06: [
-    17,
+    18,
     3608448237,
   ],
   P4_Unique_Belt_07: [
@@ -5089,39 +5129,39 @@ DiabloCalc.itemIcons = {
     1834351555,
   ],
   P4_Unique_Bracer_004: [
-    9,
+    10,
     2863060588,
   ],
   P4_Unique_Bracer_101: [
-    10,
+    11,
     170020220,
   ],
   P4_Unique_Bracer_102: [
-    11,
+    12,
     1504548290,
   ],
   P4_Unique_Bracer_103: [
-    12,
+    13,
     3742178947,
   ],
   P4_Unique_Bracer_104: [
-    13,
+    14,
     3781314340,
   ],
   P4_Unique_Bracer_105: [
-    14,
+    15,
     130884827,
   ],
   P4_Unique_Bracer_106: [
-    15,
+    16,
     1661089862,
   ],
   P4_Unique_Bracer_107: [
-    16,
+    17,
     3898720519,
   ],
   P4_Unique_Bracer_108: [
-    17,
+    18,
     3020225501,
   ],
   P4_Unique_Bracer_110: [
@@ -5145,15 +5185,15 @@ DiabloCalc.itemIcons = {
     1244431431,
   ],
   P4_Unique_Dagger_002: [
-    1,
+    3,
     2391603172,
   ],
   P4_Unique_Fist_009_x1: [
-    4,
+    5,
     2239941041,
   ],
   P4_Unique_Fist_102: [
-    5,
+    6,
     278953465,
   ],
   P4_Unique_Flail_2H_001: [
@@ -5205,15 +5245,15 @@ DiabloCalc.itemIcons = {
     1983006134,
   ],
   P4_Unique_Mojo_001: [
-    1,
+    3,
     1988227277,
   ],
   P4_Unique_Mojo_002: [
-    2,
+    4,
     1988227271,
   ],
   P4_Unique_Mojo_003: [
-    3,
+    5,
     955628135,
   ],
   P4_Unique_Orb_001: [
@@ -5669,7 +5709,7 @@ DiabloCalc.itemIcons = {
     858776851,
   ],
   P4_Unique_Wand_010: [
-    3,
+    4,
     3450814948,
   ],
   P4_Unique_XBow_001: [
@@ -7415,6 +7455,10 @@ DiabloCalc.itemIcons = {
     13,
     1983006107,
   ],
+  TransmogAxe_241_003: [
+    2,
+    51607924,
+  ],
   TransmogAxe_241_004: [
     14,
     1983006108,
@@ -8104,7 +8148,7 @@ DiabloCalc.itemIcons = {
     1569455952,
   ],
   Unique_BarbBelt_002_x1: [
-    2,
+    3,
     1569455952,
   ],
   Unique_BarbBelt_003: [
@@ -8120,7 +8164,7 @@ DiabloCalc.itemIcons = {
     9623867,
   ],
   Unique_BarbBelt_003_x1: [
-    18,
+    19,
     9623867,
   ],
   Unique_BarbBelt_004: [
@@ -8136,7 +8180,7 @@ DiabloCalc.itemIcons = {
     2924855902,
   ],
   Unique_BarbBelt_004_x1: [
-    3,
+    2,
     2924855902,
   ],
   Unique_BarbBelt_005: [
@@ -8244,7 +8288,7 @@ DiabloCalc.itemIcons = {
     746576486,
   ],
   Unique_Belt_001_x1: [
-    19,
+    20,
     746576486,
   ],
   Unique_Belt_002: [
@@ -8260,7 +8304,7 @@ DiabloCalc.itemIcons = {
     511764128,
   ],
   Unique_Belt_002_x1: [
-    20,
+    21,
     511764128,
   ],
   Unique_Belt_003: [
@@ -8276,11 +8320,11 @@ DiabloCalc.itemIcons = {
     307573260,
   ],
   Unique_Belt_003_p1: [
-    21,
+    22,
     307573260,
   ],
   Unique_Belt_003_x1: [
-    21,
+    22,
     307573260,
   ],
   Unique_Belt_004: [
@@ -8296,7 +8340,7 @@ DiabloCalc.itemIcons = {
     4104776313,
   ],
   Unique_Belt_004_x1: [
-    22,
+    23,
     4104776313,
   ],
   Unique_Belt_005: [
@@ -8312,7 +8356,7 @@ DiabloCalc.itemIcons = {
     289977125,
   ],
   Unique_Belt_005_x1: [
-    23,
+    24,
     289977125,
   ],
   Unique_Belt_006: [
@@ -8328,7 +8372,7 @@ DiabloCalc.itemIcons = {
     3496060044,
   ],
   Unique_Belt_006_x1: [
-    24,
+    25,
     3496060044,
   ],
   Unique_Belt_007: [
@@ -8344,7 +8388,7 @@ DiabloCalc.itemIcons = {
     4141667653,
   ],
   Unique_Belt_007_x1: [
-    25,
+    26,
     4141667653,
   ],
   Unique_Belt_008: [
@@ -8360,7 +8404,7 @@ DiabloCalc.itemIcons = {
     668305700,
   ],
   Unique_Belt_008_x1: [
-    14,
+    15,
     668305700,
   ],
   Unique_Belt_009: [
@@ -8376,7 +8420,7 @@ DiabloCalc.itemIcons = {
     550899521,
   ],
   Unique_Belt_009_x1: [
-    26,
+    27,
     550899521,
   ],
   Unique_Belt_010: [
@@ -8392,7 +8436,7 @@ DiabloCalc.itemIcons = {
     590034914,
   ],
   Unique_Belt_010_x1: [
-    27,
+    28,
     590034914,
   ],
   Unique_Belt_012: [
@@ -8408,7 +8452,7 @@ DiabloCalc.itemIcons = {
     2510932953,
   ],
   Unique_Belt_012_x1: [
-    28,
+    29,
     2510932953,
   ],
   Unique_Belt_013: [
@@ -8424,7 +8468,7 @@ DiabloCalc.itemIcons = {
     1310169712,
   ],
   Unique_Belt_013_x1: [
-    29,
+    30,
     1310169712,
   ],
   Unique_Belt_014: [
@@ -8440,7 +8484,7 @@ DiabloCalc.itemIcons = {
     500906865,
   ],
   Unique_Belt_014_x1: [
-    30,
+    31,
     500906865,
   ],
   Unique_Belt_015: [
@@ -8456,19 +8500,19 @@ DiabloCalc.itemIcons = {
     2618965635,
   ],
   Unique_Belt_015_x1: [
-    31,
+    32,
     2618965635,
   ],
   Unique_Belt_101_x1: [
-    32,
+    33,
     4190690405,
   ],
   Unique_Belt_102_p1: [
-    33,
+    34,
     4190690406,
   ],
   Unique_Belt_102_p2: [
-    33,
+    34,
     4190690406,
   ],
   Unique_Belt_102_x1: [
@@ -8476,35 +8520,35 @@ DiabloCalc.itemIcons = {
     4190690406,
   ],
   Unique_Belt_103_x1: [
-    34,
+    35,
     4190690407,
   ],
   Unique_Belt_104_p2: [
-    35,
+    36,
     4190690408,
   ],
   Unique_Belt_104_x1: [
-    35,
+    36,
     4190690408,
   ],
   Unique_Belt_105_x1: [
-    36,
+    37,
     4190690409,
   ],
   Unique_Belt_106_x1: [
-    37,
+    38,
     4190690433,
   ],
   Unique_Belt_107_x1: [
-    38,
+    39,
     4190690434,
   ],
   Unique_Belt_108_p2: [
-    39,
+    12,
     4190690435,
   ],
   Unique_Belt_108_x1: [
-    39,
+    12,
     4190690435,
   ],
   Unique_Belt_Set_02_x1: [
@@ -8986,7 +9030,7 @@ DiabloCalc.itemIcons = {
     2745654409,
   ],
   Unique_Bracer_001_x1: [
-    18,
+    19,
     2745654409,
   ],
   Unique_Bracer_002: [
@@ -9002,7 +9046,7 @@ DiabloCalc.itemIcons = {
     2823925195,
   ],
   Unique_Bracer_002_x1: [
-    19,
+    20,
     2823925195,
   ],
   Unique_Bracer_003: [
@@ -9018,7 +9062,7 @@ DiabloCalc.itemIcons = {
     2784789802,
   ],
   Unique_Bracer_003_x1: [
-    20,
+    21,
     2784789802,
   ],
   Unique_Bracer_004: [
@@ -9034,7 +9078,7 @@ DiabloCalc.itemIcons = {
     2863060588,
   ],
   Unique_Bracer_004_x1: [
-    9,
+    10,
     2863060588,
   ],
   Unique_Bracer_005: [
@@ -9050,7 +9094,7 @@ DiabloCalc.itemIcons = {
     2902195981,
   ],
   Unique_Bracer_005_x1: [
-    21,
+    22,
     2902195981,
   ],
   Unique_Bracer_006: [
@@ -9082,7 +9126,7 @@ DiabloCalc.itemIcons = {
     2706519016,
   ],
   Unique_Bracer_007_x1: [
-    22,
+    23,
     2706519016,
   ],
   Unique_Bracer_009: [
@@ -9098,7 +9142,7 @@ DiabloCalc.itemIcons = {
     1948416707,
   ],
   Unique_Bracer_009_x1: [
-    23,
+    24,
     1948416707,
   ],
   Unique_Bracer_010: [
@@ -9114,7 +9158,7 @@ DiabloCalc.itemIcons = {
     3958851592,
   ],
   Unique_Bracer_010_x1: [
-    24,
+    25,
     3958851592,
   ],
   Unique_Bracer_011: [
@@ -9130,23 +9174,23 @@ DiabloCalc.itemIcons = {
     189924668,
   ],
   Unique_Bracer_011_x1: [
-    25,
+    26,
     189924668,
   ],
   Unique_Bracer_101_x1: [
-    26,
+    27,
     3105160604,
   ],
   Unique_Bracer_102_x1: [
-    27,
+    28,
     3105160605,
   ],
   Unique_Bracer_103_x1: [
-    28,
+    29,
     3105160606,
   ],
   Unique_Bracer_104_x1: [
-    29,
+    9,
     3105160607,
   ],
   Unique_Bracer_105_x1: [
@@ -9186,7 +9230,7 @@ DiabloCalc.itemIcons = {
     1997394245,
   ],
   Unique_CeremonialDagger_001_x1: [
-    3,
+    4,
     1997394245,
   ],
   Unique_CeremonialDagger_002: [
@@ -9202,7 +9246,7 @@ DiabloCalc.itemIcons = {
     2193071210,
   ],
   Unique_CeremonialDagger_002_x1: [
-    4,
+    5,
     2193071210,
   ],
   Unique_CeremonialDagger_003: [
@@ -9218,7 +9262,7 @@ DiabloCalc.itemIcons = {
     1919123459,
   ],
   Unique_CeremonialDagger_003_x1: [
-    5,
+    6,
     1919123459,
   ],
   Unique_CeremonialDagger_004: [
@@ -9234,7 +9278,7 @@ DiabloCalc.itemIcons = {
     2036529638,
   ],
   Unique_CeremonialDagger_004_x1: [
-    6,
+    7,
     2036529638,
   ],
   Unique_CeremonialDagger_006: [
@@ -9250,7 +9294,7 @@ DiabloCalc.itemIcons = {
     1879988066,
   ],
   Unique_CeremonialDagger_006_x1: [
-    7,
+    8,
     1879988066,
   ],
   Unique_CeremonialDagger_008: [
@@ -9282,7 +9326,7 @@ DiabloCalc.itemIcons = {
     2075665031,
   ],
   Unique_CeremonialDagger_009_x1: [
-    8,
+    9,
     2075665031,
   ],
   Unique_CeremonialDagger_011: [
@@ -9298,19 +9342,19 @@ DiabloCalc.itemIcons = {
     2114800424,
   ],
   Unique_CeremonialDagger_011_x1: [
-    9,
+    10,
     2114800424,
   ],
   Unique_CeremonialDagger_101_x1: [
-    10,
+    11,
     4070856842,
   ],
   Unique_CeremonialDagger_102_x1: [
-    11,
+    12,
     4109992235,
   ],
   Unique_CeremonialDagger_Promo_01_x1: [
-    18,
+    19,
     823205472,
   ],
   Unique_ChestArmor_028: [
@@ -10209,7 +10253,7 @@ DiabloCalc.itemIcons = {
     2357347220,
   ],
   Unique_Fist_003_x1: [
-    6,
+    7,
     2357347220,
   ],
   Unique_Fist_004: [
@@ -10225,7 +10269,7 @@ DiabloCalc.itemIcons = {
     3296596652,
   ],
   Unique_Fist_004_x1: [
-    7,
+    8,
     3296596652,
   ],
   Unique_Fist_005: [
@@ -10241,7 +10285,7 @@ DiabloCalc.itemIcons = {
     2083399469,
   ],
   Unique_Fist_005_x1: [
-    8,
+    9,
     2083399469,
   ],
   Unique_Fist_006: [
@@ -10257,7 +10301,7 @@ DiabloCalc.itemIcons = {
     2161670255,
   ],
   Unique_Fist_006_x1: [
-    9,
+    10,
     2161670255,
   ],
   Unique_Fist_007: [
@@ -10305,7 +10349,7 @@ DiabloCalc.itemIcons = {
     2239941041,
   ],
   Unique_Fist_009_x1: [
-    4,
+    5,
     2239941041,
   ],
   Unique_Fist_010: [
@@ -10321,7 +10365,7 @@ DiabloCalc.itemIcons = {
     3335732045,
   ],
   Unique_Fist_010_x1: [
-    10,
+    11,
     3335732045,
   ],
   Unique_Fist_011: [
@@ -10337,7 +10381,7 @@ DiabloCalc.itemIcons = {
     3374867438,
   ],
   Unique_Fist_011_x1: [
-    11,
+    12,
     3374867438,
   ],
   Unique_Fist_012: [
@@ -10353,7 +10397,7 @@ DiabloCalc.itemIcons = {
     2279076434,
   ],
   Unique_Fist_012_x1: [
-    12,
+    13,
     2279076434,
   ],
   Unique_Fist_013: [
@@ -10369,7 +10413,7 @@ DiabloCalc.itemIcons = {
     2044264076,
   ],
   Unique_Fist_013_x1: [
-    13,
+    4,
     2044264076,
   ],
   Unique_Fist_015: [
@@ -11804,7 +11848,7 @@ DiabloCalc.itemIcons = {
     1988227272,
   ],
   Unique_Mojo_002_x1: [
-    4,
+    6,
     1988227272,
   ],
   Unique_Mojo_003: [
@@ -11820,7 +11864,7 @@ DiabloCalc.itemIcons = {
     1988227274,
   ],
   Unique_Mojo_003_x1: [
-    5,
+    1,
     1988227274,
   ],
   Unique_Mojo_004: [
@@ -11836,11 +11880,11 @@ DiabloCalc.itemIcons = {
     1988227273,
   ],
   Unique_Mojo_004_p2: [
-    6,
+    2,
     1988227273,
   ],
   Unique_Mojo_004_x1: [
-    6,
+    2,
     1988227273,
   ],
   Unique_Mojo_008: [
@@ -11872,7 +11916,7 @@ DiabloCalc.itemIcons = {
     1988227271,
   ],
   Unique_Mojo_009_x1: [
-    2,
+    4,
     1988227271,
   ],
   Unique_Mojo_010: [
@@ -16397,7 +16441,7 @@ DiabloCalc.itemIcons = {
     3529085734,
   ],
   Unique_Wand_003_x1: [
-    4,
+    3,
     3529085734,
   ],
   Unique_Wand_006: [
@@ -16445,7 +16489,7 @@ DiabloCalc.itemIcons = {
     3450814948,
   ],
   Unique_Wand_010_x1: [
-    3,
+    4,
     3450814948,
   ],
   Unique_Wand_012: [
@@ -17257,13 +17301,5 @@ DiabloCalc.itemIcons = {
   x1_Topaz_10: [
     0,
     633576440,
-  ],
-  D2Shako: [
-    62,
-    3979523788,
-  ],
-  TransmogAxe_241_003: [
-    2,
-    51607924,
   ],
 };

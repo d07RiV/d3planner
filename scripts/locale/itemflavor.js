@@ -238,13 +238,13 @@ _L.patch.add({
       flavor: "Because of the consummate skill required to construct them, Wojahnni heavy crossbows are reserved for the officer class. As the Assaulter's effectiveness is essential to the nation's military superiority, they are seldom found intact outside of Wojahn since there is a simple peg inserted in the weapon that, when pulled, causes it to fall to pieces.",
     },
     P42_Crusader_FoH_Belt: {
-      flavor: "",
+      flavor: "\"Khassett, one of the more accomplished Crusaders, was known for smithing his own armor in righteous flame believing in efficiency above all else.\" -Abd al-Hazir",
+    },
+    P42_Unique_BarbBelt_EQ: {
+      flavor: "No belt is too big. Except this one.",
     },
     P42_Unique_Fist_013_x1: {
       flavor: "Each scar left in its wake is a sin forgiven.",
-    },
-    P42_Unique_Mace_2H_002_x1: {
-      flavor: "The berserkers of Athskeleng could not be stopped, their intricately carved white maces turning red with the blood of their enemies.",
     },
     P42_Unique_Mojo_004: {
       flavor: "The severed head of a homunculus is the source of much power for a knowledgeable witch doctor.",

@@ -420,7 +420,7 @@ DiabloCalc.skills.crusader = {
     },
     active: false,
     buffs: {
-      d: {chctaken: 20},
+      d: {chctaken: 8},
     },
   },
   provoke: {
@@ -560,7 +560,7 @@ DiabloCalc.skills.crusader = {
       x: {ias: 7},
       a: {ias: 7, lph: 21457},
       b: {ias: 7},
-      c: {ias: 7, chd: 100},
+      c: {ias: 7, chd: 50},
       d: {ias: 7, rcr_wrath: 50},
       e: {ias: 7},
     },
@@ -925,7 +925,7 @@ DiabloCalc.partybuffs.crusader = {
       x: {ias: 7},
       a: {ias: 7, lph: 21457},
       b: {ias: 7},
-      c: {ias: 7, chd: 100},
+      c: {ias: 7, chd: 50},
       d: {ias: 7}, // <- difference
       e: {ias: 7},
     },

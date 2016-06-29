@@ -608,7 +608,8 @@
   affixes.leg_calamity = function(amount) {
     Sim.register("onhit", function(data) {
       if (!data.pet) {
-        Sim.addBuff("calamity", {dmgtaken: 20}, {duration: 1800, targets: data.targets, firsttarget: data.firsttarget});
+        Sim.cast("markedfordeath");
+        //Sim.addBuff("calamity", {dmgtaken: 20}, {duration: 1800, targets: data.targets, firsttarget: data.firsttarget});
       }
     });
   };
@@ -780,14 +781,6 @@
           },
         });
         next = Sim.time + 300;
-      }
-    });
-  };
-
-  affixes.leg_gyananakashu = function(amount) {
-    Sim.register("oncast", function(data) {
-      if (data.skill === "lashingtailkick") {
-        Sim.damage({type: "line", speed: 1, pierce: true, radius: 10, coeff: amount * 0.01});
       }
     });
   };
@@ -1235,7 +1228,7 @@
   affixes.leg_thetwistedsword = function(amount) {
     var buffname;
     function update() {
-      var stacks = Math.min(8, Sim.getBuff("energytwister") + 2 * Sim.getBuff("ragingstorm"));
+      var stacks = Math.min(5, Sim.getBuff("energytwister") + 2 * Sim.getBuff("ragingstorm"));
       buffname = Sim.setBuffStacks(buffname, {dmgmul: {skills: ["energytwister"], percent: amount}}, stacks);
     }
     Sim.watchBuff("energytwister", update);
@@ -1565,24 +1558,12 @@
   };
 
   affixes.leg_cordoftherighteous = function(amount) {
-    Sim.addBaseStats({dmgmul: {skills: ["fistoftheheavens"], percent: 150}});
+    Sim.addBaseStats({dmgmul: {skills: ["fistoftheheavens"], percent: amount}});
   };
-  affixes.leg_sledgeofathskeleng = function(amount) {
+  affixes.leg_girdleofgiants = function(amount) {
     Sim.register("oncast", function(data) {
       if (data.skill === "seismicslam") {
-        Sim.addBuff("sledgeofathskeleng", undefined, {duration: 900, maxstacks: 3, stacks: 3});
-      } else if (data.skill === "earthquake" && Sim.getBuff("sledgeofathskeleng")) {
-        Sim.removeBuff("sledgeofathskeleng", 1);
-        return {percent: 100};
-      }
-    });
-  };
-
-  affixes.leg_gazingdemise = function(amount) {
-    Sim.register("onhit", function(data) {
-      if (data.castInfo && data.castInfo.skill === "spiritbarrage" && data.castInfo.user && !data.castInfo.user.gazingdemise) {
-        data.castInfo.user.gazingdemise = true;
-        Sim.addBuff("gazingdemise", {dmgmul: {skills: ["spiritbarrage"], percent: 500}}, {maxstacks: 5, duration: 60});
+        Sim.addBuff("girdleofgiants", {dmgmul: {skills: ["earthquake"], percent: amount}}, {duration: 180});
       }
     });
   };

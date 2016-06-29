@@ -120,7 +120,7 @@ asheara's: todo
           }
         }
       }
-      Sim.setBuffStacks("firebird_6pc", {dmgmul: 100}, Math.min(stacks, 20));
+      Sim.setBuffStacks("firebird_6pc", {dmgmul: 120, dmgred: 3}, Math.min(stacks, 20));
     });
   };
 

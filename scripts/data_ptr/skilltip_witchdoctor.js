@@ -18,7 +18,7 @@ DiabloCalc.skilltips.witchdoctor = {
     x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/witchdoctor_acidcloud.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">175</span> Mana</p><p>Cause acid to rain down, dealing an initial <span class=\"d3-color-green\">300%</span> weapon damage as Poison, followed by <span class=\"d3-color-green\">360%</span> weapon damage as Poison over <span class=\"d3-color-green\">3</span> seconds to enemies who remain in the area.</p> <p class=\"special\">Decay</p> <p class=\"subtle\">Unlocked at level <em>22</em>.</p> </div> </div>",
   },
   bigbadvoodoo: {
-    a: "<p>The Fetish increases the damage of all nearby allies by <span class=\"d3-color-green\">30%</span>.</p> <p class=\"subtle\">Unlocked at level <em>44</em>.</p>",
+    a: "<p>The Fetish increases the damage of all nearby allies by <span class=\"d3-color-green\">15%</span>.</p> <p class=\"subtle\">Unlocked at level <em>44</em>.</p>",
     b: "<p>Increase the duration of the ritual to <span class=\"d3-color-green\">30</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>31</em>.</p>",
     c: "<p>The ritual heals all nearby allies for <span class=\"d3-color-green\">5%</span> of their maximum Life per second and reduces all damage taken by <span class=\"d3-color-green\">20%</span>.</p> <p class=\"subtle\">Unlocked at level <em>50</em>.</p>",
     d: "<p>The ritual restores <span class=\"d3-color-green\">250</span> Mana per second while standing in the ritual area.</p> <p class=\"subtle\">Unlocked at level <em>37</em>.</p>",
@@ -31,7 +31,7 @@ DiabloCalc.skilltips.witchdoctor = {
       e: "phy",
       x: "phy",
     },
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/witchdoctor_bigbadvoodoo.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">120</span> seconds</p><p>Conjure a Fetish that begins a ritual dance that increases the attack speed and movement speed of all nearby allies by <span class=\"d3-color-green\">20%</span> for <span class=\"d3-color-green\">20</span> seconds.</p> <p class=\"special\">Voodoo</p> <p class=\"subtle\">Unlocked at level <em>25</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/witchdoctor_bigbadvoodoo.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">120</span> seconds</p><p>Conjure a Fetish that begins a ritual dance that increases the attack speed and movement speed of all nearby allies by <span class=\"d3-color-green\">15%</span> for <span class=\"d3-color-green\">20</span> seconds.</p> <p class=\"special\">Voodoo</p> <p class=\"subtle\">Unlocked at level <em>25</em>.</p> </div> </div>",
   },
   corpsespiders: {
     a: "<p>Throw a jar with fire spiders that return <span class=\"d3-color-green\">3</span> Mana to you per hit.</p> <p class=\"subtle\">Unlocked at level <em>55</em>.</p>",
@@ -132,7 +132,7 @@ DiabloCalc.skilltips.witchdoctor = {
   haunt: {
     a: "<p>The spirit returns <span class=\"d3-color-green\">4291</span> Life per second.</p><p>Haunt's damage turns into Fire.</p> <p class=\"subtle\">Unlocked at level <em>18</em>.</p>",
     b: "<p>If there are no enemies left, the spirit will linger for up to <span class=\"d3-color-green\">10</span> seconds looking for new enemies.</p> <p class=\"subtle\">Unlocked at level <em>35</em>.</p>",
-    c: "<p>Haunted enemies take <span class=\"d3-color-green\">20%</span> more damage from all sources.</p><p>Haunt's damage turns into Poison.</p> <p class=\"subtle\">Unlocked at level <em>48</em>.</p>",
+    c: "<p>Haunted enemies take <span class=\"d3-color-green\">20%</span> more damage from your attacks.</p><p>Haunt's damage turns into Poison.</p> <p class=\"subtle\">Unlocked at level <em>48</em>.</p>",
     d: "<p>The spirit returns <span class=\"d3-color-green\">13</span> Mana per second.</p><p>Haunt's damage turns into Physical.</p> <p class=\"subtle\">Unlocked at level <em>57</em>.</p>",
     e: "<p>Release two spirits with every cast.</p> <p class=\"subtle\">Unlocked at level <em>23</em>.</p>",
     elements: {
@@ -146,11 +146,11 @@ DiabloCalc.skilltips.witchdoctor = {
     x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/witchdoctor_haunt.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">50</span> Mana</p><p>Haunt an enemy with a spirit, dealing <span class=\"d3-color-green\">4000%</span> weapon damage as Cold over <span class=\"d3-color-green\">12</span> seconds. If the enemy dies, the spirit will haunt another nearby enemy.</p><p><span class=\"d3-color-yellow\">An enemy can only be affected by one Haunt at a time.</span></p> <p class=\"special\">Secondary</p> <p class=\"subtle\">Unlocked at level <em>12</em>.</p> </div> </div>",
   },
   hex: {
-    a: "<p>Summon a giant toad that pulls in enemies, briefly swallows them whole, then spits them back out with a layer of goo that deals <span class=\"d3-color-green\">750%</span> weapon damage as Poison over <span class=\"d3-color-green\">5</span> seconds, Slows them, and increases their damage taken by <span class=\"d3-color-green\">25%</span>.</p> <p class=\"subtle\">Unlocked at level <em>43</em>.</p>",
+    a: "<p>Summon a giant toad that pulls in enemies, briefly swallows them whole, then spits them back out with a layer of goo that deals <span class=\"d3-color-green\">750%</span> weapon damage as Poison over <span class=\"d3-color-green\">5</span> seconds, Slows them, and increases their damage taken by <span class=\"d3-color-green\">15%</span>.</p> <p class=\"subtle\">Unlocked at level <em>43</em>.</p>",
     b: "<p>Transform into an angry chicken for up to <span class=\"d3-color-green\">2</span> seconds that can explode for <span class=\"d3-color-green\">1350%</span> weapon damage as Poison to all enemies within <span class=\"d3-color-green\">12</span> yards.</p> <p class=\"subtle\">Unlocked at level <em>36</em>.</p>",
     c: "<p>Hexed enemies explode when killed, dealing <span class=\"d3-color-green\">500%</span> weapon damage as Fire to all enemies within <span class=\"d3-color-green\">8</span> yards.</p> <p class=\"subtle\">Unlocked at level <em>58</em>.</p>",
     d: "<p>The Fetish Shaman will periodically heal allies for <span class=\"d3-color-green\">32185</span> Life.</p> <p class=\"subtle\">Unlocked at level <em>26</em>.</p>",
-    e: "<p>Increases the magnitude of the hex to <span class=\"d3-color-green\">30%</span> additional damage.</p> <p class=\"subtle\">Unlocked at level <em>31</em>.</p>",
+    e: "<p>Hexed enemies take <span class=\"d3-color-green\">15%</span> additional damage.</p> <p class=\"subtle\">Unlocked at level <em>31</em>.</p>",
     elements: {
       a: "psn",
       b: "psn",
@@ -159,7 +159,7 @@ DiabloCalc.skilltips.witchdoctor = {
       e: "psn",
       x: "phy",
     },
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/witchdoctor_hex.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">15</span> seconds</p><p>Summon a Fetish Shaman for <span class=\"d3-color-green\">12</span> seconds that will hex groups of enemies into chickens. Hexed enemies are unable to perform offensive actions and take <span class=\"d3-color-green\">15%</span> additional damage.</p> <p class=\"special\">Defensive</p> <p class=\"subtle\">Unlocked at level <em>22</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/witchdoctor_hex.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">15</span> seconds</p><p>Summon a Fetish Shaman for <span class=\"d3-color-green\">12</span> seconds that will hex groups of enemies into chickens. Hexed enemies are unable to perform offensive actions.</p> <p class=\"special\">Defensive</p> <p class=\"subtle\">Unlocked at level <em>22</em>.</p> </div> </div>",
   },
   horrify: {
     a: "<p>Gain <span class=\"d3-color-green\">50%</span> additional Armor for <span class=\"d3-color-green\">8</span> seconds after casting Horrify.</p> <p class=\"subtle\">Unlocked at level <em>44</em>.</p>",
@@ -194,7 +194,7 @@ DiabloCalc.skilltips.witchdoctor = {
     x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/witchdoctor_locust_swarm.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">300</span> Mana</p><p>Unleash a plague of locusts that swarms an enemy, dealing <span class=\"d3-color-green\">1040%</span> weapon damage as Poison over <span class=\"d3-color-green\">8</span> seconds.</p><p>The locusts will jump to additional nearby enemies.</p> <p class=\"special\">Secondary</p> <p class=\"subtle\">Unlocked at level <em>21</em>.</p> </div> </div>",
   },
   massconfusion: {
-    a: "<p>All enemies in the area of Mass Confusion take <span class=\"d3-color-green\">30%</span> additional damage for <span class=\"d3-color-green\">12</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>46</em>.</p>",
+    a: "<p>All enemies in the area of Mass Confusion deal <span class=\"d3-color-green\">30%</span> less damage for <span class=\"d3-color-green\">12</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>46</em>.</p>",
     b: "<p>Up to <span class=\"d3-color-green\">10</span> enemies who are not Confused become Stunned for <span class=\"d3-color-green\">3</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>43</em>.</p>",
     c: "<p>Amid the confusion, a giant spirit rampages through enemies, dealing <span class=\"d3-color-green\">400%</span> weapon damage per second as Physical to enemies it passes through.</p> <p class=\"subtle\">Unlocked at level <em>54</em>.</p>",
     d: "<p>Reduce the cooldown of Mass Confusion to <span class=\"d3-color-green\">30</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>26</em>.</p>",
@@ -292,7 +292,7 @@ DiabloCalc.skilltips.witchdoctor = {
   spiritbarrage: {
     a: "<p>Gain <span class=\"d3-color-green\">6437</span> Life each time Spirit Barrage hits.</p> <p class=\"subtle\">Unlocked at level <em>44</em>.</p>",
     b: "<p>An additional <span class=\"d3-color-green\">3</span> spirits seek out other enemies and deal <span class=\"d3-color-green\">65%</span> weapon damage as Fire.</p> <p class=\"subtle\">Unlocked at level <em>32</em>.</p>",
-    c: "<p>Summon a spectre that deals <span class=\"d3-color-green\">675%</span> weapon damage as Cold over <span class=\"d3-color-green\">5</span> seconds to all enemies within <span class=\"d3-color-green\">10</span> yards.</p><p>You can have a maximum of <span class=\"d3-color-green\">3</span> Phantasms out at one time.</p> <p class=\"subtle\">Unlocked at level <em>37</em>.</p>",
+    c: "<p>Summon a spectre that deals <span class=\"d3-color-green\">750%</span> weapon damage as Cold over <span class=\"d3-color-green\">5</span> seconds to all enemies within <span class=\"d3-color-green\">10</span> yards.</p><p>You can have a maximum of <span class=\"d3-color-green\">3</span> Phantasms out at one time.</p> <p class=\"subtle\">Unlocked at level <em>37</em>.</p>",
     d: "<p>Gain <span class=\"d3-color-green\">12</span> Mana each time Spirit Barrage hits.</p> <p class=\"subtle\">Unlocked at level <em>23</em>.</p>",
     e: "<p>Summon a spectre that hovers over you, unleashing spirit bolts at nearby enemies for <span class=\"d3-color-green\">6000%</span> weapon damage as Cold over <span class=\"d3-color-green\">20</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>59</em>.</p>",
     elements: {
@@ -325,7 +325,7 @@ DiabloCalc.skilltips.witchdoctor = {
     a: "<p>Your Zombie Dogs burst into flames, burning nearby enemies for <span class=\"d3-color-green\">80%</span> of your weapon damage as Fire every second.</p> <p class=\"subtle\">Unlocked at level <em>40</em>.</p>",
     b: "<p>Your Zombie Dogs absorb <span class=\"d3-color-green\">10%</span> of all damage done to you.</p> <p class=\"subtle\">Unlocked at level <em>28</em>.</p>",
     c: "<p>Your Zombie Dogs gain an infectious bite that deals <span class=\"d3-color-green\">120%</span> of your weapon damage as Poison over <span class=\"d3-color-green\">3</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>12</em>.</p>",
-    d: "<p>Enemies who hit or are hit by your Zombie Dogs are <span class=\"d3-color-green\">Chilled</span> for <span class=\"d3-color-green\">3</span> seconds and take <span class=\"d3-color-green\">15%</span> increased damage from all sources.</p> <p class=\"subtle\">Unlocked at level <em>19</em>.</p>",
+    d: "<p>Enemies who hit or are hit by your Zombie Dogs are <span class=\"d3-color-green\">Chilled</span> for <span class=\"d3-color-green\">3</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>19</em>.</p>",
     e: "<p>Your Zombie Dogs heal you for <span class=\"d3-color-green\">100%</span> of your Life On Hit with every attack.</p> <p class=\"subtle\">Unlocked at level <em>54</em>.</p>",
     elements: {
       a: "fir",

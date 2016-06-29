@@ -319,7 +319,7 @@ DiabloCalc.itemSets = {
         {format: "Dealing Fire damage with one of your skills causes the enemy to take 1000%% weapon damage as Fire per second for 3 seconds. This effect can be repeated a second and third time by different skills. If an enemy is burning due to three different skills simultaneously the enemy will Ignite, dealing 3000%% weapon damage per second until they die."},
       ],
       "6": [
-        {format: "Your damage is increased by 100%% for each nearby enemy that is Ignited up to a maximum bonus of 2000%%. You always receive the maximum bonus whenever a nearby Elite monster is Ignited."},
+        {format: "Your damage is increased by 120%% and damage taken reduced by 3%% for each enemy that is Ignited. This effect can stack up to 20 times. You always receive the maximum bonus whenever a nearby Elite monster is Ignited."},
       ],
     },
   },
@@ -398,7 +398,7 @@ DiabloCalc.itemSets = {
     order: ["gloves", "boots", "pants", "shoulders", "helm", "chestarmor"],
     bonuses: {
       "2": [
-        {format: "Enemies hit by your primary skills, Acid Cloud, Firebats, Zombie Charger, Zombie Dogs, Gargantuan, Grasp of the Dead, Piranhas, or Wall of Death are afflicted by Necrosis, becoming Slowed, taking 1500%% weapon damage every second, and taking 20%% increased damage from all sources for 10 seconds."},
+        {format: "Enemies hit by your primary skills, Acid Cloud, Firebats, Zombie Charger, Zombie Dogs, Gargantuan, Grasp of the Dead, Piranhas, or Wall of Death are afflicted by Necrosis, becoming Slowed, taking 1500%% weapon damage every second, and taking 20%% increased damage from your attacks for 10 seconds."},
       ],
       "4": [
         {format: "After applying Necrosis to an enemy, you take 60%% reduced damage for 10 seconds."},

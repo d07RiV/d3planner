@@ -384,7 +384,7 @@
     });
   }
   function dogs_chilled_onhit(data) {
-    Sim.addBuff("chilledtothebone", {dmgtaken: 15}, {duration: 180, status: "chilled",
+    Sim.addBuff("chilledtothebone", undefined, {duration: 180, status: "chilled",
       targets: data.targets, firsttarget: data.firsttarget});
   }
   function dogs_ontick(data) {
@@ -500,7 +500,7 @@
     },
     oncast: function(rune) {
       if (rune === "a" || Sim.stats.set_arachyr_4pc) {
-        var buffs = {dmgtaken: 25};
+        var buffs = {dmgtaken: 15};
         Sim.addBuff("toadofhugeness", buffs, {
           duration: 301,
           tickrate: 30,
@@ -524,7 +524,7 @@
         tickrate: 180,
         tickinitial: 1,
         ontick: function() {
-          Sim.addBuff("hex", {dmgtaken: (rune === "e" ? 30 : 15)}, {
+          Sim.addBuff("hex", {dmgtaken: (rune === "e" ? 15 : 0)}, {
             duration: 180,
             status: "charmed",
             targets: Sim.getTargets(12),
@@ -652,7 +652,7 @@
     oncast: function(rune) {
       var targets = Sim.getTargets(30);
       if (rune === "a") {
-        Sim.addBuff("paranoia", {dmgtaken: 30}, {duration: 720, targets: targets});
+        Sim.addBuff("paranoia", undefined, {duration: 720, targets: targets});
       }
       if (rune === "c") {
         Sim.addBuff(undefined, undefined, {
@@ -739,15 +739,6 @@
       case "b":
         Sim.damage({delay: 30, count: 3, coeff: 0.65});
         return {delay: 30, count: 4, coeff: 1.5, onhit: sb_onhit};
-      case "c":
-        Sim.addBuff("phantasm", undefined, {
-          maxstacks: 3,
-          duration: 300,
-          tickrate: 30,
-          tickinitial: 1,
-          ontick: {type: "area", range: 10, coeff: 1.35 / 2},
-        });
-        break;
       case "a": return {delay: 30, count: 4, coeff: 1.5, onhit: sb_onhit};
       case "e":
         Sim.addBuff("manitou", undefined, {
@@ -756,6 +747,19 @@
           ontick: {coeff: 1.5},
         });
         break;
+      }
+      if (rune === "c" || Sim.stats.leg_gazingdemise) {
+        var buffs = undefined;
+        if (Sim.stats.leg_gazingdemise) {
+          buffs = {dmgmul: {skills: ["spiritbarrage"], percent: Sim.stats.leg_gazingdemise}};
+        }
+        Sim.addBuff("phantasm", buffs, {
+          maxstacks: 3,
+          duration: 300,
+          tickrate: 30,
+          tickinitial: 1,
+          ontick: {type: "area", range: 10, coeff: 1.5 / 2},
+        });
       }
     },
     proctable: {x: 0.25, d: 0.25, b: 0.1667, c: 0.125, a: 0.25, e: 0.03},
@@ -967,13 +971,13 @@
       return 120 * (Sim.stats.passives.tribalrites ? 0.75 : 1);
     },
     oncast: function(rune) {
-      var buffs = {ias: 20, extrams: 20};
+      var buffs = {ias: 15, extrams: 15};
       var params = {duration: 1200};
       switch (rune) {
       case "b": params.duration = 1800; break;
       case "c": buffs.dmgred = 20; break;
       case "d": buffs.manaregen = 250; break;
-      case "a": buffs.damage = 30; break;
+      case "a": buffs.damage = 15; break;
       }
       Sim.addBuff("bigbadvoodoo", buffs, params);
     },

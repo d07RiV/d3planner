@@ -304,7 +304,6 @@ DiabloCalc.skills.witchdoctor = {
     },
     active: true,
     buffs: {
-      d: {dmgtaken: 15},
       b: {dmgred: 10},
     },
   },
@@ -409,12 +408,9 @@ DiabloCalc.skills.witchdoctor = {
     buffs: function(rune, stats) {
       var res;
       switch (rune) {
-      case "x": res = {dmgtaken: 15}; break;
-      case "d": res = {dmgtaken: 15}; break;
-      case "e": res = {dmgtaken: 30}; break;
+      case "e": res = {dmgtaken: 15}; break;
       case "b": res = {extrams: 50 + (stats.set_manajuma_2pc ? 100 : 0)}; break;
-      case "a": res = {dmgtaken: 25}; break;
-      case "c": res = {dmgtaken: 15}; break;
+      case "a": res = {dmgtaken: 15}; break;
       }
       if (stats.set_arachyr_4pc) {
         res.dmgtaken = Math.max(res.dmgtaken || 0, 25);
@@ -538,9 +534,6 @@ DiabloCalc.skills.witchdoctor = {
       c: {"DPS": {elem: "phy", coeff: 4, total: true}, "Uptime": {duration: 12, cooldown: "60*(passives.tribalrites?0.75:1)"}},
     },
     active: false,
-    buffs: {
-      a: {dmgtaken: 30},
-    },
   },
   zombiecharger: {
     id: "zombie-charger",
@@ -579,7 +572,7 @@ DiabloCalc.skills.witchdoctor = {
       a: "Phlebotomize",
       e: "Manitou",
     },
-    params: [{min: 0, max: 5, name: "Channeled for", buffs: false, show: function(rune, stats) {
+    params: [{min: 0, max: 3, name: "Phantasms", buffs: false, show: function(rune, stats) {
                return stats.leg_gazingdemise;
              }}],
     info: function(rune, stats) {
@@ -588,17 +581,9 @@ DiabloCalc.skills.witchdoctor = {
       case "x": res = {"Damage": {elem: "col", coeff: 6, total: true}}; break;
       case "d": res = {"Damage": {elem: "col", coeff: 6, total: true}}; break;
       case "b": res = {"Damage": {elem: "fir", coeff: 6, total: true}, "Spirit Damage": {elem: "fir", coeff: 0.65}}; break;
-      case "c": res = {"Damage": {elem: "col", coeff: 6.75, total: true}}; break;
+      case "c": res = {"Damage": {elem: "col", coeff: 7.5, total: true}}; break;
       case "a": res = {"Damage": {elem: "col", coeff: 6, total: true}}; break;
       case "e": res = {"Damage": {elem: "col", coeff: 60, total: true}}; break;
-      }
-      if (stats.leg_gazingdemise && this.params[0].val) {
-        var pct = {};
-        pct[DiabloCalc.itemById.P42_Unique_Mojo_003_x1.name] = this.params[0].val * 500;
-        res["Damage"].percent = pct;
-        if (res["Spirit Damage"]) {
-          res["Spirit Damage"].percent = pct;
-        }
       }
       if (rune === "c") {
         res["DPS"] = {sum: true, "Damage": {count: 3, divide: 5}};
@@ -608,6 +593,18 @@ DiabloCalc.skills.witchdoctor = {
         res["DPS"] = {sum: true, "Damage": {speed: 1.2, fpa: 57.142834, round: "up"}};
         if (res["Spirit Damage"]) {
           res["DPS"]["Spirit Damage"] = {speed: 1.2, count: 3, fpa: 57.142834, round: "up", nobp: true};
+        }
+      }
+      if (stats.leg_gazingdemise && this.params[0].val) {
+        var pct = {};
+        pct[DiabloCalc.itemById.P42_Unique_Mojo_003_x1.name] = this.params[0].val * stats.leg_gazingdemise;
+        res["Damage"].percent = pct;
+        if (res["Spirit Damage"]) {
+          res["Spirit Damage"].percent = pct;
+        }
+        if (rune !== "c") {
+          res["Phantasm Damage"] = {elem: res["Damage"].elem, coeff: 7.5, total: true, percent: pct};
+          res["DPS"]["Phantasm Damage"] = {count: this.params[0].val, divide: 5};
         }
       }
       return $.extend({"Cost": {cost: 100}}, res);
@@ -758,12 +755,12 @@ DiabloCalc.skills.witchdoctor = {
     },
     active: false,
     buffs: {
-      x: {ias: 20, extrams: 20},
-      b: {ias: 20, extrams: 20},
-      d: {ias: 20, extrams: 20, manaregen: 250},
-      a: {ias: 20, extrams: 20, damage: 30},
-      c: {ias: 20, extrams: 20, dmgred: 20},
-      e: {ias: 20, extrams: 20},
+      x: {ias: 15, extrams: 15},
+      b: {ias: 15, extrams: 15},
+      d: {ias: 15, extrams: 15, manaregen: 250},
+      a: {ias: 15, extrams: 15, damage: 15},
+      c: {ias: 15, extrams: 15, dmgred: 20},
+      e: {ias: 15, extrams: 15},
     },
   },
   fetisharmy: {
@@ -931,20 +928,11 @@ DiabloCalc.passives.witchdoctor = {
   },
 };
 DiabloCalc.partybuffs.witchdoctor = {
-  haunt: {
-    runelist: "c",
-  },
   summonzombiedogs: { // ptr
     runelist: "d",
   },
   hex: {
-    runelist: "*",
-  },
-  massconfusion: {
-    runelist: "a",
-    buffs: function(stats) {
-      return {dmgtaken: 30};
-    },
+    runelist: "ae",
   },
   piranhas: {
     runelist: "x",

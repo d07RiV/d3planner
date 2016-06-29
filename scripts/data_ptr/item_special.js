@@ -58,9 +58,6 @@ DiabloCalc.itemaffixes = {
   leg_andarielsvisage_p2: {
     info: {"Damage": {elem: "psn", coeff: "$1/100"}},
   },
-  leg_gyananakashu: {
-    info: {"Damage": {elem: "fir", coeff: "$1/100"}},
-  },
   leg_themindseye: {
     active: false,
     buffs: function(value, stats) {
@@ -244,9 +241,12 @@ DiabloCalc.itemaffixes = {
     },
   },*/
   leg_calamity: {
+    check: true,
     active: true,
     buffs: function(value, stats) {
-      return {dmgtaken: 20};
+      if (!stats.skills.markedfordeath) {
+        return {dmgtaken: 15};
+      }
     },
   },
 
@@ -362,7 +362,7 @@ DiabloCalc.itemaffixes = {
   set_firebird_6pc: {
     params: [{min: 0, max: 20, name: "Stacks"}],
     buffs: function(value, stats) {
-      return {dmgmul: this.params[0].val * 100};
+      return {dmgmul: this.params[0].val * 120, dmgred: 3 * this.params[0].val};
     },
   },
   set_sunwuko_2pc: {
@@ -1108,7 +1108,7 @@ DiabloCalc.itemaffixes = {
     },
   },
   leg_thetwistedsword: {
-    params: [{min: 0, max: 8, val: 0, name: "Stacks"}],
+    params: [{min: 0, max: 5, val: 0, name: "Stacks"}],
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["energytwister"], percent: this.params[0].val * value[0]}};
     },
@@ -1215,23 +1215,20 @@ DiabloCalc.itemaffixes = {
     },
   },
   leg_cordoftherighteous: {
-    buffs: {dmgmul: {skills: ["fistoftheheavens"], percent: 150}},
-  },
-  leg_sledgeofathskeleng: {
-    buffs: {dmgmul: {skills: ["earthquake"], percent: 100}},
-  },
-
-  leg_starfire: {
-    params: [{min: 0, max: 50, name: "Distance"}],
     buffs: function(value, stats) {
-      return {dmgmul: {elems: ["lit"], percent: this.params[0].val * 15 / 10}};
+      return {dmgmul: {skills: ["fistoftheheavens"], percent: value[0]}};
+    },
+  },
+  leg_girdleofgiants: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["earthquake"], percent: value[0]}};
     },
   },
 
-  leg_demonsdemise_p2: {
-    params: [{min: 0, max: "passives.customengineering?6:4", name: "Spike Traps"}],
+  leg_starfire: {
+    params: [{min: 0, max: 40, name: "Distance"}],
     buffs: function(value, stats) {
-      return {dmgmul: {skills: ["impale", "chakram", "elementalarrow", "multishot", "clusterarrow"], percent: this.params[0].val * 40}};
+      return {dmgmul: {elems: ["lit"], percent: this.params[0].val * value[0] / 10}};
     },
   },
 

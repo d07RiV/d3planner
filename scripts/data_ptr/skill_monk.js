@@ -228,7 +228,7 @@ DiabloCalc.skills.monk = {
     },
     range: {x: 10, a: 10, d: 15, e: 10},
     active: true,
-    activetip: "First 5 enemies",
+    activetip: "First 5-7 enemies",
     activeshow: function(rune, stats) {
       return !!stats.leg_scarbringer;
     },
@@ -242,15 +242,25 @@ DiabloCalc.skills.monk = {
       case "e": res = {"Damage": {elem: "lit", coeff: 7.55}}; break;
       case "c": res = {"Damage": {elem: "col", coeff: 7.55}}; break;
       }
+      if (stats.leg_gyananakashu) {
+        res["Fireball Damage"] = {elem: "fir", coeff: 0.01 * stats.leg_gyananakashu};
+      }
       if (this.active && stats.leg_scarbringer) {
         res["Damage"].percent = {};
-        res["Damage"].percent[DiabloCalc.itemById.P42_Unique_Fist_013_x1.name] = 1000;
+        res["Damage"].percent[DiabloCalc.itemById.P42_Unique_Fist_013_x1.name] = 300;
         if (res["Burn Damage"]) {
           res["Burn Damage"].percent = res["Damage"].percent;
         }
       }
-      return $.extend({"Cost": {cost: 50}, "DPS": {sum: true,
+      res = $.extend({"Cost": {cost: 50}, "DPS": {sum: true,
         "Damage": {fpa: 57.3913, speed: (stats.leg_riveradancers ? 1.5 : 1)}}}, res);
+      if (res["Fireball Damage"]) {
+        res["DPS"]["Fireball Damage"] = {fpa: 57.3913, speed: (stats.leg_riveradancers ? 1.5 : 1), nobp: true};
+      }
+      if (res["Burn Damage"]) {
+        res["DPS"]["Burn Damage"] = {fpa: 57.3913, speed: (stats.leg_riveradancers ? 1.5 : 1), nobp: true};
+      }
+      return res;
     },
   },
   tempestrush: {
@@ -442,7 +452,6 @@ DiabloCalc.skills.monk = {
     buffs: function(rune, stats) {
       var res = {dmgred: 55};
       if (rune === "d") res.regen = 35779 + (stats.regen || 0) * 0.07;
-      if (rune === "e") res.dmgtaken = 30;
       return res;
     },
   },
@@ -520,7 +529,7 @@ DiabloCalc.skills.monk = {
     },
     active: false,
     buffs: {
-      c: {dmgtaken: 20},
+      c: {dmgtaken: 15},
     },
   },
   sweepingwind: {
@@ -707,7 +716,7 @@ DiabloCalc.skills.monk = {
     },
     info: {
       "*": {"Uptime": {duration: 15, cooldown: 60}},
-      b: {"Healing": "@40232+0.1*healbonus"},
+      b: {"Healing": "@16093+0.04*healbonus"},
       d: {"Extra Damage": {elem: "fir", coeff: 3.53}},
     },
     active: false,
@@ -836,18 +845,18 @@ DiabloCalc.skills.monk = {
     },
     active: false,
     buffs: {
-      x: {dmgtaken: 10},
+      x: {dmgtaken: 8},
       a: {dmgtaken: 8},
-      e: {dmgtaken: 10},
-      c: {dmgtaken: 10},
-      d: {dmgtaken: 10},
-      b: {dmgtaken: 10},
+      e: {dmgtaken: 8},
+      c: {dmgtaken: 8},
+      d: {dmgtaken: 8},
+      b: {dmgtaken: 8},
     },
     passive: function(rune, stats) {
-      var base = 10 * (stats.set_inna_2pc ? 2 : 1);
+      var base = 8 * (stats.set_inna_2pc ? 2 : 1);
       switch (rune) {
       case "x": return {dmgtaken: base};
-      case "a": return {dmgtaken: base + 6};
+      case "a": return {dmgtaken: base + 4};
       case "e": return {dmgtaken: base};
       case "c": return {dmgtaken: base};
       case "d": return {dmgtaken: base};

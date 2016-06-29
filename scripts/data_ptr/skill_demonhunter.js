@@ -539,7 +539,7 @@ DiabloCalc.skills.demonhunter = {
     active: false,
     buffs: function(rune, stats) {
       if (rune == "c" || stats.set_marauder_2pc) {
-        return {dmgmul: 30};
+        return {dmgmul: 15};
       }
     },
     passive: function(rune, stats) {
@@ -572,12 +572,12 @@ DiabloCalc.skills.demonhunter = {
     },
     active: true,
     buffs: {
-      x: {dmgtaken: 20},
-      b: {dmgtaken: 20},
+      x: {dmgtaken: 15},
+      b: {dmgtaken: 15},
       c: {dmgtaken: 15},
-      a: {dmgtaken: 20},
-      d: {dmgtaken: 20},
-      e: {dmgtaken: 20},
+      a: {dmgtaken: 15},
+      d: {dmgtaken: 15},
+      e: {dmgtaken: 15},
     },
   },
   fanofknives: {
@@ -621,14 +621,21 @@ DiabloCalc.skills.demonhunter = {
       e: "Lightning Rod",
       d: "Scatter",
     },
-    info: {
-      "*": {"Cost": {cost: 10}},
-      x: {"Damage": {elem: "fir", coeff: 9.5}},
-      b: {"Damage": {elem: "col", coeff: 13.3}},
-      c: {"Damage": {elem: "fir", coeff: 11.5}},
-      a: {"Damage": {elem: "phy", coeff: 12.2}},
-      e: {"Damage": {elem: "lit", coeff: 13.8}},
-      d: {"Damage": {elem: "fir", coeff: 9.5}},
+    info: function(rune, stats) {
+      var res;
+      switch (rune) {
+      case "x": res = {"Damage": {elem: "fir", coeff: 11.6}}; break;
+      case "b": res = {"Damage": {elem: "col", coeff: 20.2}}; break;
+      case "c": res = {"Damage": {elem: "fir", coeff: 19.0}}; break;
+      case "a": res = {"Damage": {elem: "phy", coeff: 19.3}}; break;
+      case "e": res = {"Damage": {elem: "lit", coeff: 20.1}}; break;
+      case "d": res = {"Damage": {elem: "fir", coeff: 9.6}}; break;
+      }
+      if (stats.leg_thedemonsdemise_p2 || rune === "d") {
+        var count = (stats.leg_thedemonsdemise_p2 && rune === "d" ? 4 : 2);
+        res["Total Damage"] = {sum: true, "Damage": {count: count}};
+      }
+      return $.extend({"Cost": {cost: 15}}, res);
     },
   },
   sentry: {
@@ -797,7 +804,7 @@ DiabloCalc.skills.demonhunter = {
     },
     active: true,
     buffs: {
-      b: {chc_taken: 15},
+      b: {chc_taken: 8},
     },
   },
   clusterarrow: {
@@ -1105,7 +1112,7 @@ DiabloCalc.partybuffs.demonhunter = {
         buffs.regen = 5364;
         buffs.resist_percent = 20;
       }
-      if (this.runevals.c) buffs.dmgmul = 30;
+      if (this.runevals.c) buffs.dmgmul = 15;
     },
   },
   markedfordeath: {

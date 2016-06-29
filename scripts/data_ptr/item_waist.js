@@ -301,6 +301,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_BarbBelt_004_x1",
     name: "Girdle of Giants",
+    suffix: _L("Legacy"),
     type: "mightybelt",
     quality: "legendary",
     affixes: {
@@ -668,14 +669,29 @@ DiabloCalc.addItems([
 
   {
     id: "P42_Crusader_FoH_Belt",
-    name: "Cord of the Righteous",
+    name: "Khassett's Cord of Righteousness",
     suffix: _L("PTR"),
     type: "belt",
     quality: "legendary",
     required: {
-      custom: {id: "leg_cordoftherighteous", name: "Bonus FoH Damage", format: "Fist of the Heavens costs 40%% less Wrath and does 150%% more damage.", args: 0},
+      custom: {id: "leg_cordoftherighteous", name: "Bonus FoH Damage", format: "Fist of the Heavens costs 40%% less Wrath and does %d%% more damage.", min: 130, max: 170},
     },
     preset: ["mainstat"],
+  },
+
+  {
+    id: "P42_Unique_BarbBelt_EQ",
+    name: "Girdle of Giants",
+    suffix: _L("PTR"),
+    type: "mightybelt",
+    quality: "legendary",
+    affixes: {
+      ias: "iasNormal",
+    },
+    required: {
+      custom: {id: "leg_girdleofgiants", name: "Earthquake Damage Bonus", format: "Seismic Slam increases Earthquake damage by %d%% for 3 seconds.", min: 80, max: 100},
+    },
+    preset: ["mainstat", "ias", "maxfury"],
   },
 
 ]);

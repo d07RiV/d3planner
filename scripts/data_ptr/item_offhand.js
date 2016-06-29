@@ -808,7 +808,7 @@ DiabloCalc.addItems([
     type: "mojo",
     quality: "legendary",
     required: {
-      custom: {id: "leg_gazingdemise", name: "Spirit Barrage Channel Bonus", format: "Spirit Barrage deals 500%% increased damage for every second it's channeled into an enemy stacking up to 5 times.", args: 0},
+      custom: {id: "leg_gazingdemise", name: "Spirit Barrage Phantasm Bonus", format: "Spirit Barrage gains the Phantasm rune. Each active Phantasm increases the damage of Spirit Barrage by %d%%.", min: 40, max: 50},
     },
     preset: ["mainstat", "regen", "manaregen"],
     primary: 6,
@@ -828,7 +828,7 @@ DiabloCalc.addItems([
     primary: 6,
   },
 
-  {
+  /*{
     id: "P42_Unique_Quiver_006_x1",
     name: "Fletcher's Pride",
     suffix: _L("PTR"),
@@ -838,6 +838,6 @@ DiabloCalc.addItems([
       custom: {id: "leg_fletcherspride", name: "Spike Trap Bonuses", format: "Spike Traps gain the Impaling Spines rune and are deployed twice as fast.", args: 0},
     },
     preset: ["mainstat", "rcr"],
-  },
+  },*/
 
 ]);

@@ -649,7 +649,7 @@
         Sim.addResource(50, "hatred");
       }
       if (rune === "c" || Sim.stats.set_marauder_2pc) {
-        Sim.addBuff("wolfcompanion", {dmgmul: 30}, {duration: 600});
+        Sim.addBuff("wolfcompanion", {dmgmul: 15}, {duration: 600});
       }
     },
     oninit: function(rune) {
@@ -720,7 +720,7 @@
       if (rune === "c") {
         Sim.addBuff("markedfordeath", {dmgtaken: 15}, {duration: 800 * dm, targets: Sim.getTargets(15)});
       } else {
-        Sim.addBuff("markedfordeath", {dmgtaken: 20}, {duration: 1800 * dm, targets: 1});
+        Sim.addBuff("markedfordeath", {dmgtaken: 15}, {duration: 1800 * dm, targets: 1});
       }
     },
     oninit: function(rune) {
@@ -754,7 +754,7 @@
         Sim.register("onkill", function(data) {
           if (Sim.getBuff("markedfordeath", data.target)) {
             var dm = (Sim.stats.passives.customengineering ? 2 : 1);
-            Sim.addBuff("markedfordeath", {dmgtaken: 20}, {duration: 1800 * dm, targets: 3, firsttarget: "new"});
+            Sim.addBuff("markedfordeath", {dmgtaken: 15}, {duration: 1800 * dm, targets: 3, firsttarget: "new"});
           }
         });
       }
@@ -795,50 +795,52 @@
     //weapon: "mainhand",
     frames: 57.142845,
     speed: function(rune, aps) {
-      return aps * (Sim.stats.leg_fletcherspride ? 2 : 1);
+      return aps * (Sim.stats.leg_tragoulcoils_p2 ? 2 : 1);
     },
     cost: 10,
     oncast: function(rune) {
       var params = {
-        maxstacks: 4 + (Sim.stats.passives.customengineering ? 2 : 0),
+        maxstacks: 2 + (Sim.stats.passives.customengineering ? 1 : 0),
       };
-      if (rune === "a" || Sim.stats.leg_fletcherspride) {
+      if (rune === "a" || Sim.stats.leg_tragoulcoils_p2) {
         Sim.damage({type: "area", range: 8, coeff: 0, proc: 0, onhit: Sim.apply_effect("immobilized", 180)});
       }
       if (rune === "d") {
         params.stacks = 2;
+        params.maxstacks *= 2;
       }
       Sim.addBuff("spiketrap", undefined, params);
     },
     oninit: function(rune) {
       Sim.register("oncast", function(data) {
-        if ((data.cost && data.skill !== "spiketrap") || (rune === "c" && data.generate)) {
+        if ((rune !== "c" && data.cost && data.skill !== "spiketrap") || (rune === "c" && data.generate)) {
           var stacks = Sim.getBuff("spiketrap");
           if (!stacks) return;
           Sim.removeBuff("spiketrap");
-          var dmg = {type: "area", range: 8, coeff: 9.5, count: stacks};
+          var dmg = {type: "area", range: 8, coeff: 11.6, count: stacks};
           switch (rune) {
           case "b":
-            dmg.coeff = 13.3;
+            dmg.coeff = 20.2;
             dmg.onhit = Sim.apply_effect("slowed", 180);
             break;
-          case "c": dmg.coeff = 11.5; break;
-          case "a": dmg.coeff = 12.2; break;
+          case "c": dmg.coeff = 19.0; break;
+          case "a": dmg.coeff = 19.3; break;
           case "e":
             dmg.range = 10;
-            dmg.coeff = 13.8 / 3;
+            dmg.coeff = 20.1 / 3;
             Sim.damage(Sim.extend({delay: 3}, dmg));
             Sim.damage(Sim.extend({delay: 6}, dmg));
             break;
+          case "d": dmg.coeff = 9.6; break;
+          }
+          if (Sim.stats.leg_thedemonsdemise_p2) {
+            Sim.damage(Sim.extend({delay: 60}, dmg));
           }
           Sim.damage(dmg);
-          if (Sim.stats.leg_thedemonsdemise_p2 && data.cost && !data.channeling) {
-            return {percent: 40 * stacks};
-          }
         }
       });
     },
-    elem: {x: "fir", b: "col", c: "fir", a: "fir", e: "lit", d: "fir"},
+    elem: {x: "fir", b: "col", c: "fir", a: "phy", e: "lit", d: "fir"},
     proctable: {x: 0.15, b: 0.15, c: 0.333, a: 0.15, e: 0.15, d: 0.05},
   };
 
@@ -1016,7 +1018,7 @@
       switch (rune) {
       case "b":
         dmg.onhit = function(data) {
-          Sim.addBuff("windchill", {chctaken: 15}, {duration: 180, targets: data.targets, firsttarget: data.firsttarget});
+          Sim.addBuff("windchill", {chctaken: 8}, {duration: 180, targets: data.targets, firsttarget: data.firsttarget});
         };
         break;
       case "e":

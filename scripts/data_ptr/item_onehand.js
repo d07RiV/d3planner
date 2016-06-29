@@ -1164,7 +1164,7 @@ DiabloCalc.addItems([
   {
     id: "P4_Unique_Dagger_002",
     name: "Voo's Juicer",
-    type: "dagger",
+    type: "ceremonialknife",
     quality: "legendary",
     affixes: {
       skill_witchdoctor_spiritbarrage: {min: 45, max: 60},
@@ -1271,7 +1271,7 @@ DiabloCalc.addItems([
     type: "sword",
     quality: "legendary",
     required: {
-      custom: {id: "leg_thetwistedsword", name: "Energy Twister Damage Bonus", format: "Energy Twister damage is increased by %d%% for each Energy Twister you have out up to a maximum of 8.", min: 125, max: 150},
+      custom: {id: "leg_thetwistedsword", name: "Energy Twister Damage Bonus", format: "Energy Twister damage is increased by %d%% for each Energy Twister you have out up to a maximum of 5.", min: 125, max: 150},
     },
     preset: ["mainstat"],
   },
@@ -1338,9 +1338,9 @@ DiabloCalc.addItems([
     type: "fistweapon",
     quality: "legendary",
     required: {
-      custom: {id: "leg_scarbringer", name: "Bonus Lashing Tail Kick Damage", format: "Lashing Tail Kick does 1000%% more damage to the first 5 enemies hit.", args: 0},
+      custom: {id: "leg_scarbringer", name: "Bonus Target Count", format: "The damage of Lashing Tail Kick is increased by 300%% to the first %d enemies hit.", min: 5, max: 7},
     },
-    preset: ["wpnhol", "bleed"],
+    preset: ["wpnhol", "mainstat"],
   },
 
   {

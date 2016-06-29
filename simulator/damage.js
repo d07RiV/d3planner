@@ -98,7 +98,7 @@
       }
       if (stats.leg_starfire && elem === "lit") {
         var dist = _choose(data.castInfo && data.castInfo.distance, data.distance, data.origin, Sim.target.distance);
-        dmgmul *= 1 + 0.15 * dist / 10;
+        dmgmul *= 1 + 0.01 * stats.leg_starfire * Math.min(dist, 40) / 10;
       }
     }
     factor *= dmgmul;

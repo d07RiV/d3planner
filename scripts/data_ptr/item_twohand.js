@@ -922,7 +922,7 @@ DiabloCalc.addItems([
     preset: ["mainstat"],
   },
 
-  {
+/*  {
     id: "P42_Unique_Mace_2H_002_x1",
     name: "Sledge of Athskeleng",
     suffix: _L("PTR"),
@@ -936,6 +936,6 @@ DiabloCalc.addItems([
     },
     preset: ["wpnphy", "mainstat", "damage", "ms"],
     primary: 5,
-  },
+  },*/
 
 ]);
