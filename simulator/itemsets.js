@@ -531,7 +531,7 @@ asheara's: todo
 
   affixes.set_immortalking_4pc = function() {
     Sim.register("resourceloss", function(data) {
-      if (data.type === "fury") {
+      if (data.type === "fury" && data.castInfo && data.castInfo.offensive) {
         var ticks = Sim.random("immortalking_4pc", 1, data.amount / 10, true);
         while (ticks--) {
           Sim.reduceCooldown("wrathoftheberserker", 180);

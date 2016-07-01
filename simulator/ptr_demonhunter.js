@@ -797,7 +797,7 @@
     speed: function(rune, aps) {
       return aps * (Sim.stats.leg_tragoulcoils_p2 ? 2 : 1);
     },
-    cost: 10,
+    cost: 15,
     oncast: function(rune) {
       var params = {
         maxstacks: 2 + (Sim.stats.passives.customengineering ? 1 : 0),
