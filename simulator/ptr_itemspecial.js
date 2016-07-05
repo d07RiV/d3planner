@@ -1215,7 +1215,7 @@
   affixes.leg_shieldoffury = function(amount) {
     var buffname;
     Sim.register("onhit_proc", function(data) {
-      if (data.castInfo && data.castInfo === "heavensfury" && !data.castInfo.triggered) {
+      if (data.castInfo && data.castInfo.skill === "heavensfury" && !data.castInfo.triggered) {
         buffname = Sim.addBuff(buffname, {dmgmul: {skills: ["heavensfury"], percent: amount}}, {
           maxstacks: 999,
           stacks: data.count,
