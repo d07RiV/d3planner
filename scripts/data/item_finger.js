@@ -139,7 +139,7 @@ DiabloCalc.addItems([
     type: "ring",
     quality: "legendary",
     affixes: {
-      hitfear: "onhitSmall",
+      hitfear: {min: 1.0, max: 5.1, step: 0.1},
     },
     required: {
       custom: {id: "leg_rechelsringoflarceny", name: "Increased Speed on Fear", format: "Gain %d%% increased movement speed for 4 seconds after Fearing an enemy.", min: 45, max: 60},
