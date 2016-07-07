@@ -374,7 +374,7 @@ DiabloCalc.addItems([
     affixes: {
       skill_witchdoctor_fetisharmy: {min: 20, max: 25},
     },
-    preset: ["mainstat", "chc", "manaregen", "skill_witchdoctor_fetisharmy"],
+    preset: ["mainstat", "vit", "chc", "skill_witchdoctor_fetisharmy"],
     primary: 6,
     secondary: 1,
   },
