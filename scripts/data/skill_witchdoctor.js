@@ -341,6 +341,7 @@ DiabloCalc.skills.witchdoctor = {
     active: false,
     buffs: {
       a: {armor_percent: 50},
+      e: {extrams: 20},
     },
   },
   spiritwalk: {

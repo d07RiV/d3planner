@@ -1207,5 +1207,11 @@ DiabloCalc.itemaffixes = {
       return {cdrint: value[0]};
     },
   },
+  leg_rechelsringoflarceny: {
+    active: false,
+    buffs: function(value, stats) {
+      return {extrams: value[0]};
+    },
+  },
 
 };

@@ -1231,5 +1231,11 @@ DiabloCalc.itemaffixes = {
       return {dmgmul: {elems: ["lit"], percent: this.params[0].val * value[0] / 10}};
     },
   },
+  leg_rechelsringoflarceny: {
+    active: false,
+    buffs: function(value, stats) {
+      return {extrams: value[0]};
+    },
+  },
 
 };
