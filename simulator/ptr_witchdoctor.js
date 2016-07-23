@@ -737,7 +737,8 @@
       case "x": return {delay: 30, count: 4, coeff: 1.5, onhit: sb_onhit};
       case "d": return {delay: 30, count: 4, coeff: 1.5, onhit: sb_onhit};
       case "b":
-        Sim.damage({delay: 30, count: 3, coeff: 0.65});
+        var targets = Math.min(3, Sim.target.count);
+        Sim.damage({delay: 30, targets: targets, count: 3 / targets, coeff: 0.65});
         return {delay: 30, count: 4, coeff: 1.5, onhit: sb_onhit};
       case "a": return {delay: 30, count: 4, coeff: 1.5, onhit: sb_onhit};
       case "e":

@@ -737,7 +737,8 @@
       case "x": return {delay: 30, count: 4, coeff: 1.5, onhit: sb_onhit};
       case "d": return {delay: 30, count: 4, coeff: 1.5, onhit: sb_onhit};
       case "b":
-        Sim.damage({delay: 30, count: 3, coeff: 0.65});
+        var targets = Math.min(3, Sim.target.count);
+        Sim.damage({delay: 30, targets: targets, count: 3 / targets, coeff: 0.65});
         return {delay: 30, count: 4, coeff: 1.5, onhit: sb_onhit};
       case "c":
         Sim.addBuff("phantasm", undefined, {
@@ -905,6 +906,7 @@
 
   var nextEnrage = 0;
   function garg_ontick(data) {
+    debugger;
     switch (data.stack.castInfo.rune) {
     case "a":
       if (Sim.time >= nextEnrage) {
@@ -913,14 +915,14 @@
       }
       data.ias = (Sim.getBuff("restlessgiant" ? 35 : 0));
       break;
-    case "b": Sim.damage({pet: true, distance: 5, type: "area", range: 15, coeff: Sim.stats.info.aps * data.coeff, onhit: data.onhit}); break;
-    case "d": Sim.damage({pet: true, distance: 5, type: "area", range: 5, coeff: Sim.stats.info.aps * data.coeff, onhit: data.onhit}); break;
+    case "b": Sim.damage({pet: true, distance: 5, type: "area", range: 15, coeff: Sim.stats.info.aps * data.coeff, onhit: data.onhit}); return;
+    case "d": Sim.damage({pet: true, distance: 5, type: "area", range: 5, coeff: Sim.stats.info.aps * data.coeff, onhit: data.onhit}); return;
     case "e":
       if (Sim.time >= (data.slamNext || 0)) {
         Sim.damage({pet: true, distance: 5, type: "area", range: 5, coeff: 2 * Sim.stats.info.aps * data.coeff, onhit: Sim.apply_effect("stunned", 180)});
         data.slamNext = Sim.time + 600;
-        return 114;
       }
+      break;
     }
     Sim.damage({pet: true, distance: 5, coeff: Sim.stats.info.aps * data.coeff, onhit: data.onhit});
   }
