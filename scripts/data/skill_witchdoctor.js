@@ -150,7 +150,8 @@ DiabloCalc.skills.witchdoctor = {
       if (stats.leg_deadlyrebirth && rune !== "b") {
         res["Corpse Damage"] = {elem: res["Damage"].elem, coeff: 4.2, total: true};
       }
-      var toex = {"Cost": {cost: (rune === "c" ? 0 : 150)}};
+      var toex = {};
+      if (rune !== "c") toex["Cost"] = {cost: 150};
       if (!stats.leg_wilkensreach) toex["Cooldown"] = {cooldown: (rune === "d" ? 4 : 8)};
       return $.extend(toex, res);
     },

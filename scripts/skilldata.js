@@ -413,7 +413,7 @@
         // OPTION 2
         // sum = true, queue for processing later
         sumlines.push(stat);
-      } else if (fmt.cooldown && fmt.duration) {
+      } else if (fmt.cooldown !== undefined && fmt.duration !== undefined) {
         // OPTION 3
         // cooldown AND duration, skill, cdr, after, tip 
         var duration = execString(fmt.duration);
@@ -451,7 +451,7 @@
         }
         tip += "</p></div>";
         result[stat].tip = tip;
-      } else if (fmt.cooldown) {
+      } else if (fmt.cooldown !== undefined) {
         // OPTION 4
         // cooldown, skill, cdr (no tip)
         var cooldown = execString(fmt.cooldown);
@@ -470,7 +470,7 @@
         cooldown = Math.max(0.5, cooldown * (1 - 0.01 * (stats.cdr || 0)));
         result[stat].value = cooldown;
         result[stat].text = _L("{0} seconds").format(parseFloat(cooldown.toFixed(2)));
-      } else if (fmt.cost) {
+      } else if (fmt.cost !== undefined) {
         // OPTION 5
         // cost, rcr, skill, speed/fpa, weapon, round
         var resource = (fmt.resource || DC.classes[DC.charClass].resources[0]);
@@ -525,7 +525,7 @@
           result[stat].value = cost;
           result[stat].text = parseFloat(cost.toFixed(2)) + " " + DC.resources[resource];
         }
-      } else if (fmt.value) {
+      } else if (fmt.value !== undefined) {
         // OPTION 6
         // value (just value), tip
         if (typeof fmt.value === "number") {
