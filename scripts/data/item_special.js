@@ -58,9 +58,6 @@ DiabloCalc.itemaffixes = {
   leg_andarielsvisage_p2: {
     info: {"Damage": {elem: "psn", coeff: "$1/100"}},
   },
-  leg_gyananakashu: {
-    info: {"Damage": {elem: "fir", coeff: "$1/100"}},
-  },
   leg_themindseye: {
     active: false,
     buffs: function(value, stats) {
@@ -244,9 +241,12 @@ DiabloCalc.itemaffixes = {
     },
   },*/
   leg_calamity: {
+    check: true,
     active: true,
     buffs: function(value, stats) {
-      return {dmgtaken: 20};
+      if (!stats.skills.markedfordeath) {
+        return {dmgtaken: 15};
+      }
     },
   },
 
@@ -352,28 +352,17 @@ DiabloCalc.itemaffixes = {
     info: {"Meteor Damage": {elem: "fir", coeff: 16.48, addcoeff: [6.25], total: true, skill: "meteor"}},
   },
   set_firebird_4pc: {
+    params: [{min: 0, max: 3, name: "Stacks", buffs: false}],
     info: function(value, stats) {
-      var res = {};
-      res["Infinite Threshold"] = {
-        value: stats.info.mainhand.wpnphy.max * stats.info.critfactor * (1 + 0.01 * (stats.dmgfir || 0)) * 90.9,
-        tip: "Amount of damage needed to reach the infinite DoT effect."
-      };
-      res["DPS"] = {elem: "fir", coeff: 30, total: true/*, chc: (DiabloCalc.isSkillActive("conflagration") ? -6 : 0)*/};
-      return res;
+      if (this.params[0].val) {
+        return {"DPS": {elem: "fir", coeff: 10 * this.params[0].val, total: true}};
+      }
     },
   },
   set_firebird_6pc: {
-    params: [{min: 0, max: function() {return this.active ? 10 : 60;}, val: 0, name: "Whites", buffs: false}],
-    active: true,
-    activetip: "Elites burning",
+    params: [{min: 0, max: 20, name: "Stacks"}],
     buffs: function(value, stats) {
-      return {dmgmul: this.params[0].val * 40 + 2000};
-    },
-    inactive: function(value, stats) {
-      return {dmgmul: this.params[0].val * 40};
-    },
-    info: function(value, stats) {
-      return {"Damage": (this.params[0].val * 40 + (this.active ? 2000 : 0)) + "%"};
+      return {dmgmul: this.params[0].val * 120, dmgred: 3 * this.params[0].val};
     },
   },
   set_sunwuko_2pc: {
@@ -571,6 +560,30 @@ DiabloCalc.itemaffixes = {
       }
     },
   },
+  leg_homunculus: {
+    check: true,
+    info: function(value, stats) {
+      if (DiabloCalc.charClass === "witchdoctor" && !stats.skills.summonzombiedogs) {
+        return DiabloCalc.skills.witchdoctor.summonzombiedogs.info.call(this, "x", stats);
+      }
+    },
+  },
+  leg_homunculus_p2: {
+    check: true,
+    info: function(value, stats) {
+      if (DiabloCalc.charClass === "witchdoctor" && !stats.skills.summonzombiedogs) {
+        return DiabloCalc.skills.witchdoctor.summonzombiedogs.info.call(this, "x", stats);
+      }
+    },
+  },
+  leg_homunculus_p3: {
+    check: true,
+    info: function(value, stats) {
+      if (DiabloCalc.charClass === "witchdoctor" && !stats.skills.summonzombiedogs) {
+        return DiabloCalc.skills.witchdoctor.summonzombiedogs.info.call(this, "x", stats);
+      }
+    },
+  },
 
   set_magnumopus_6pc: {
     active: true,
@@ -619,7 +632,7 @@ DiabloCalc.itemaffixes = {
   },
   set_storms_6pc: {
     active: true,
-    buffs: {dmgmul: {skills: ["fistsofthunder", "deadlyreach", "cripplingwave", "wayofthehundredfists"], percent: 300}},
+    buffs: {dmgmul: {skills: ["fistsofthunder", "deadlyreach", "cripplingwave", "wayofthehundredfists"], percent: 1250}},
   },
   leg_triumvirate: {
     active: true,
@@ -633,18 +646,6 @@ DiabloCalc.itemaffixes = {
     params: [{min: 0, max: 3, name: "Stacks"}],
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["arcaneorb"], percent: value[0] * this.params[0].val}};
-    },
-  },
-  leg_wojahnniassaulter: {
-    params: [{min: 0, max: 4, name: "Channeled for"}],
-    buffs: function(value, stats) {
-      return {dmgmul: {skills: ["rapidfire"], percent: value[0] * this.params[0].val}};
-    },
-  },
-  leg_wojahnniassaulter_p2: {
-    params: [{min: 0, max: 4, name: "Channeled for"}],
-    buffs: function(value, stats) {
-      return {dmgmul: {skills: ["rapidfire"], percent: value[0] * this.params[0].val}};
     },
   },
   leg_denial: {
@@ -707,7 +708,7 @@ DiabloCalc.itemaffixes = {
     active: true,
     check: true,
     buffs: function(value, stats) {
-      if (stats.skills.summonzombiedogs || stats.leg_homunculus) {
+      if (stats.skills.summonzombiedogs || stats.leg_homunculus || stats.leg_homunculus_p2 || stats.leg_homunculus_p3) {
         return {dmgred: value[0]};
       }
     }
@@ -1037,6 +1038,12 @@ DiabloCalc.itemaffixes = {
       return {dmgmul: value[0]};
     },
   },
+  leg_ringofemptiness_p2: {
+    active: true,
+    buffs: function(value, stats) {
+      return {dmgmul: value[0]};
+    },
+  },
   leg_elusivering: {
     active: true,
     buffs: function(value, stats) {
@@ -1101,7 +1108,7 @@ DiabloCalc.itemaffixes = {
     },
   },
   leg_thetwistedsword: {
-    params: [{min: 0, max: 8, val: 0, name: "Stacks"}],
+    params: [{min: 0, max: 5, val: 0, name: "Stacks"}],
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["energytwister"], percent: this.params[0].val * value[0]}};
     },
@@ -1205,6 +1212,23 @@ DiabloCalc.itemaffixes = {
     active: false,
     buffs: function(value, stats) {
       return {cdrint: value[0]};
+    },
+  },
+  leg_cordoftherighteous: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["fistoftheheavens"], percent: value[0]}};
+    },
+  },
+  leg_girdleofgiants: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["earthquake"], percent: value[0]}};
+    },
+  },
+
+  leg_starfire: {
+    params: [{min: 0, max: 40, name: "Distance"}],
+    buffs: function(value, stats) {
+      return {dmgmul: {elems: ["lit"], percent: this.params[0].val * value[0] / 10}};
     },
   },
   leg_rechelsringoflarceny: {

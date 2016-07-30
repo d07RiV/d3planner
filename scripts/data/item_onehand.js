@@ -682,6 +682,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Fist_013_x1",
     name: "Scarbringer",
+    suffix: _L("Legacy"),
     type: "fistweapon",
     quality: "legendary",
     preset: ["wpnhol", "bleed"],
@@ -803,6 +804,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Flail_1H_106_x1",
     name: "Darklight",
+    suffix: _L("Legacy"),
     type: "flail",
     quality: "legendary",
     required: {
@@ -1162,7 +1164,7 @@ DiabloCalc.addItems([
   {
     id: "P4_Unique_Dagger_002",
     name: "Voo's Juicer",
-    type: "dagger",
+    type: "ceremonialknife",
     quality: "legendary",
     affixes: {
       skill_witchdoctor_spiritbarrage: {min: 45, max: 60},
@@ -1269,7 +1271,7 @@ DiabloCalc.addItems([
     type: "sword",
     quality: "legendary",
     required: {
-      custom: {id: "leg_thetwistedsword", name: "Energy Twister Damage Bonus", format: "Energy Twister damage is increased by %d%% for each Energy Twister you have out up to a maximum of 8.", min: 125, max: 150},
+      custom: {id: "leg_thetwistedsword", name: "Energy Twister Damage Bonus", format: "Energy Twister damage is increased by %d%% for each Energy Twister you have out up to a maximum of 5.", min: 125, max: 150},
     },
     preset: ["mainstat"],
   },
@@ -1327,6 +1329,30 @@ DiabloCalc.addItems([
       custom: {id: "leg_crystalfist", name: "Dashing Strike Damage Reduction", format: "Dashing Strike reduces your damage taken by %d%% for 6 seconds.", min: 40, max: 50},
     },
     preset: ["mainstat"],
+  },
+
+  {
+    id: "P42_Unique_Fist_013_x1",
+    name: "Scarbringer",
+    suffix: _L("PTR"),
+    type: "fistweapon",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_scarbringer", name: "Bonus Target Count", format: "The damage of Lashing Tail Kick is increased by 300%% to the first %d enemies hit.", min: 5, max: 7},
+    },
+    preset: ["wpnhol", "mainstat"],
+  },
+
+  {
+    id: "Unique_Flail_1H_106_x1",
+    name: "Darklight",
+    suffix: _L("PTR"),
+    type: "flail",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_darklight_p2", name: "Chance to Cast Fist of the Heavens Twice", format: "Fist of the Heavens has a %d%% chance to be cast twice.", min: 45, max: 60},
+    },
+    preset: ["wpnlit", "mainstat"],
   },
 
 ]);

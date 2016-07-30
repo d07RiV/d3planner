@@ -419,11 +419,16 @@
   skills.fistoftheheavens = {
     offensive: true,
     frames: 58.181816,
-    cost: 30,
+    cost: function(rune) {
+      return 30 * (Sim.stats.leg_cordoftherighteous ? 0.6 : 1);
+    },
     oncast: function(rune) {
       foh_cast(rune, 0);
       if (Sim.stats.leg_darklight && Sim.random("darklight", Sim.stats.leg_darklight * 0.01)) {
         foh_cast(rune, Sim.target.distance);
+      }
+      if (Sim.stats.leg_darklight_p2 && Sim.random("darklight_p2", Sim.stats.leg_darklight_p2 * 0.01)) {
+        foh_cast(rune, 0);
       }
     },
     proctable: 0.1,
@@ -563,7 +568,7 @@
     case "a": Sim.addBuff("penitence", {regen: 2682}, {maxstacks: 999, refresh: false,
       stacks: Sim.random("penitence", 1, data.targets, true), duration: 180}); break;
     case "c": duration = 600; break;
-    case "d": Sim.addBuff("resolved", {chctaken: 20}, {duration: 360, targets: data.targets}); break;
+    case "d": Sim.addBuff("resolved", {chctaken: 8}, {duration: 360, targets: data.targets}); break;
     case "e": Sim.addBuff("debilitate", {edmgred: 40}, {duration: 360, targets: data.targets}); break;
     }
     Sim.addBuff("immobilized", undefined, {duration: duration, targets: data.targets});
@@ -762,7 +767,7 @@
       switch (rune) {
       case "a": buffs.lph = 21457; break;
       case "b": Sim.damage({type: "area", self: true, range: 10, coeff: 0, onhit: Sim.apply_effect("stunned", 300)}); break;
-      case "c": buffs.chd = 100; break;
+      case "c": buffs.chd = 50; break;
       case "d": buffs.rcr_wrath = 50; break;
       }
       Sim.addBuff("lawsofvalor", buffs, {duration: 300 + (Sim.stats.passives.longarmofthelaw ? 300 : 0)});
@@ -899,7 +904,10 @@
     oncast: function(rune) {
       var buffs = {dmgmul: 35, wrathregen: 5};
       if (Sim.stats.set_akkhan_2pc) buffs.rcr = 50;
-      if (Sim.stats.set_akkhan_6pc) buffs.dmgmul = {list: [35, 450]};
+      if (Sim.stats.set_akkhan_6pc) {
+        buffs.dmgmul = {list: [35, 600]};
+        buffs.dmgred = 15;
+      }
       if (rune === "b" || Sim.stats.leg_akkhansaddendum) buffs.wrathregen = 10;
       if (rune === "c") {
         for (var id in skills) {

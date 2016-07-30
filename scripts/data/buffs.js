@@ -6,10 +6,10 @@ DiabloCalc.partybuffs.items = {
     stat: "dmgtaken",
     classes: ["demonhunter"],
   },
-  leg_calamity: {
+  /*leg_calamity: {
     buffs: function() {return {dmgtaken: 20};},
     classes: ["demonhunter"],
-  },
+  },*/
   leg_strongarmbracers: {
     stat: "dmgtaken",
   },

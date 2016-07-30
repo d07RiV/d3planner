@@ -210,6 +210,9 @@ DiabloCalc.skills.demonhunter = {
       b: "High Velocity",
       a: "Bombardment",
     },
+    params: [{min: 0, max: 4, name: "Channeled for", buffs: false, show: function(rune, stats) {
+               return stats.leg_wojahnniassaulter || stats.leg_wojahnniassaulter_p2;
+             }}],
     info: function(rune, stats) {
       var res;
       switch (rune) {
@@ -219,6 +222,14 @@ DiabloCalc.skills.demonhunter = {
       case "c": res = {"Tick Damage": {elem: "phy", coeff: 6.85}, "Rocket Damage": {elem: "phy", coeff: 1.45, passives: {ballistics: 100}}}; break;
       case "b": res = {"Tick Damage": {elem: "lit", coeff: 6.85}}; break;
       case "a": res = {"Tick Damage": {elem: "fir", coeff: 5.45, passives: {grenadier: 10}}}; break;
+      }
+      if ((stats.leg_wojahnniassaulter || stats.leg_wojahnniassaulter_p2) && this.params[0].val) {
+        var pct = {};
+        pct[DiabloCalc.itemById.Unique_Xbow_102_x1.name] = this.params[0].val * (stats.leg_wojahnniassaulter || stats.leg_wojahnniassaulter_p2);
+        res["Tick Damage"].percent = pct;
+        if (res["Rocket Damage"]) {
+          res["Rocket Damage"].percent = pct;
+        }
       }
       var cost = {"Cost": {cost: (rune === "d" ? 10 : 20)}};
       if (!stats.leg_sinseekers) cost["Channeling Cost"] = {cost: 6, slowest: true, fpa: (rune === "a" ? 20 : 10)};
@@ -528,7 +539,7 @@ DiabloCalc.skills.demonhunter = {
     active: false,
     buffs: function(rune, stats) {
       if (rune == "c" || stats.set_marauder_2pc) {
-        return {dmgmul: 30};
+        return {dmgmul: 15};
       }
     },
     passive: function(rune, stats) {
@@ -561,12 +572,12 @@ DiabloCalc.skills.demonhunter = {
     },
     active: true,
     buffs: {
-      x: {dmgtaken: 20},
-      b: {dmgtaken: 20},
+      x: {dmgtaken: 15},
+      b: {dmgtaken: 15},
       c: {dmgtaken: 15},
-      a: {dmgtaken: 20},
-      d: {dmgtaken: 20},
-      e: {dmgtaken: 20},
+      a: {dmgtaken: 15},
+      d: {dmgtaken: 15},
+      e: {dmgtaken: 15},
     },
   },
   fanofknives: {
@@ -610,18 +621,21 @@ DiabloCalc.skills.demonhunter = {
       e: "Lightning Rod",
       d: "Scatter",
     },
-    info: {
-      "*": {"Cost": {cost: 30}},
-      x: {"Damage": {elem: "fir", coeff: 3.4}},
-      b: {"Damage": {elem: "col", coeff: 5.75}},
-      c: {"Damage": {elem: "fir", coeff: 9.15}},
-      a: {"Damage": {elem: "fir", coeff: 9.3}},
-      e: {"Damage": {elem: "lit", coeff: 8.8}},
-      d: {"Damage": {elem: "fir", coeff: 3.4}},
-    },
-    active: false,
-    buffs: {
-      b: {dmgtaken: 20},
+    info: function(rune, stats) {
+      var res;
+      switch (rune) {
+      case "x": res = {"Damage": {elem: "fir", coeff: 11.6}}; break;
+      case "b": res = {"Damage": {elem: "col", coeff: 20.2}}; break;
+      case "c": res = {"Damage": {elem: "fir", coeff: 19.0}}; break;
+      case "a": res = {"Damage": {elem: "phy", coeff: 19.3}}; break;
+      case "e": res = {"Damage": {elem: "lit", coeff: 20.1}}; break;
+      case "d": res = {"Damage": {elem: "fir", coeff: 9.6}}; break;
+      }
+      if (stats.leg_thedemonsdemise_p2 || rune === "d") {
+        var count = (stats.leg_thedemonsdemise_p2 && rune === "d" ? 4 : 2);
+        res["Total Damage"] = {sum: true, "Damage": {count: count}};
+      }
+      return $.extend({"Cost": {cost: 15}}, res);
     },
   },
   sentry: {
@@ -790,7 +804,7 @@ DiabloCalc.skills.demonhunter = {
     },
     active: true,
     buffs: {
-      b: {chc_taken: 15},
+      b: {chc_taken: 8},
     },
   },
   clusterarrow: {
@@ -1098,7 +1112,7 @@ DiabloCalc.partybuffs.demonhunter = {
         buffs.regen = 5364;
         buffs.resist_percent = 20;
       }
-      if (this.runevals.c) buffs.dmgmul = 30;
+      if (this.runevals.c) buffs.dmgmul = 15;
     },
   },
   markedfordeath: {

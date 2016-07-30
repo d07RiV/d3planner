@@ -282,10 +282,11 @@ DiabloCalc.addItems([
   {
     id: "Unique_Mojo_003_x1",
     name: "Gazing Demise",
+    suffix: _L("Legacy"),
     type: "mojo",
     quality: "legendary",
     preset: ["mainstat", "regen", "manaregen"],
-    primary: 5,
+    primary: 6,
     secondary: 1,
   },
 
@@ -304,6 +305,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Mojo_004_p2",
     name: "Homunculus",
+    suffix: _L("Legacy"),
     type: "mojo",
     quality: "legendary",
     required: {
@@ -518,6 +520,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Quiver_006_x1",
     name: "Fletcher's Pride",
+    suffix: _L("Legacy"),
     type: "quiver",
     quality: "legendary",
     preset: ["mainstat", "rcr"],
@@ -797,5 +800,44 @@ DiabloCalc.addItems([
     },
     preset: ["mainstat", "chc"],
   },
+
+  {
+    id: "P42_Unique_Mojo_003_x1",
+    name: "Gazing Demise",
+    suffix: _L("PTR"),
+    type: "mojo",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_gazingdemise", name: "Spirit Barrage Phantasm Bonus", format: "Spirit Barrage gains the Phantasm rune. Each active Phantasm increases the damage of Spirit Barrage by %d%%.", min: 40, max: 50},
+    },
+    preset: ["mainstat", "regen", "manaregen"],
+    primary: 6,
+  },
+
+  {
+    id: "P42_Unique_Mojo_004",
+    name: "Homunculus",
+    suffix: _L("PTR"),
+    type: "mojo",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_homunculus_p3", name: "Spawn Zombie Dogs", format: "A Zombie Dog is automatically summoned to your side every 2 seconds.", args: 0},
+      skill_witchdoctor_sacrifice: {min: 50, max: 60, noblock: true},
+    },
+    preset: ["mainstat", "chc", "maxmana"],
+    primary: 6,
+  },
+
+  /*{
+    id: "P42_Unique_Quiver_006_x1",
+    name: "Fletcher's Pride",
+    suffix: _L("PTR"),
+    type: "quiver",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_fletcherspride", name: "Spike Trap Bonuses", format: "Spike Traps gain the Impaling Spines rune and are deployed twice as fast.", args: 0},
+    },
+    preset: ["mainstat", "rcr"],
+  },*/
 
 ]);

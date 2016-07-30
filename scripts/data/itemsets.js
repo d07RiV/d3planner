@@ -316,10 +316,10 @@ DiabloCalc.itemSets = {
         {format: "When you die, a meteor falls from the sky and revives you. This effect has a 60 second cooldown."},
       ],
       "4": [
-        {format: "Dealing Fire damage causes the enemy to take the same amount of damage over 3 seconds, stacking up to 3000%% weapon damage as Fire per second. After reaching 3000%% damage per second the enemy will Ignite, burning until they die."},
+        {format: "Dealing Fire damage with one of your skills causes the enemy to take 1000%% weapon damage as Fire per second for 3 seconds. This effect can be repeated a second and third time by different skills. If an enemy is burning due to three different skills simultaneously the enemy will Ignite, dealing 3000%% weapon damage per second until they die."},
       ],
       "6": [
-        {format: "Your damage is increased by 40%% for each enemy that is Ignited. Elites that are Ignited increase your damage by 2000%%. You can only have one Elite damage bonus active at a time."},
+        {format: "Your damage is increased by 120%% and damage taken reduced by 3%% for each enemy that is Ignited. This effect can stack up to 20 times. You always receive the maximum bonus whenever a nearby Elite monster is Ignited."},
       ],
     },
   },
@@ -398,7 +398,7 @@ DiabloCalc.itemSets = {
     order: ["gloves", "boots", "pants", "shoulders", "helm", "chestarmor"],
     bonuses: {
       "2": [
-        {format: "Enemies hit by your primary skills, Acid Cloud, Firebats, Zombie Charger, Zombie Dogs, Gargantuan, Grasp of the Dead, Piranhas, or Wall of Death are afflicted by Necrosis, becoming Slowed, taking 1500%% weapon damage every second, and taking 20%% increased damage from all sources for 10 seconds."},
+        {format: "Enemies hit by your primary skills, Acid Cloud, Firebats, Zombie Charger, Zombie Dogs, Gargantuan, Grasp of the Dead, Piranhas, or Wall of Death are afflicted by Necrosis, becoming Slowed, taking 1500%% weapon damage every second, and taking 20%% increased damage from your attacks for 10 seconds."},
       ],
       "4": [
         {format: "After applying Necrosis to an enemy, you take 60%% reduced damage for 10 seconds."},
@@ -523,7 +523,7 @@ DiabloCalc.itemSets = {
         {format: "Dashing Strike now spends 75 Spirit, but refunds a Charge when it does."},
       ],
       "6": [
-        {format: "Your Spirit Generators increase the weapon damage of Dashing Strike to 12500%% for 6 seconds and Dashing Strike increases the damage of your Spirit Generators by 300%% for 6 seconds."},
+        {format: "Your Spirit Generators increase the weapon damage of Dashing Strike to 12500%% for 6 seconds and Dashing Strike increases the damage of your Spirit Generators by 1250%% for 6 seconds."},
       ],
     },
   },
@@ -540,7 +540,7 @@ DiabloCalc.itemSets = {
         {format: "Reduce the cooldown of Akarat's Champion by 50%%."},
       ],
       "6": [
-        {format: "While Akarat's Champion is active, you deal 450%% increased damage."},
+        {format: "While Akarat's Champion is active, you deal 600%% increased damage and take 15%% less damage."},
       ],
     },
   },

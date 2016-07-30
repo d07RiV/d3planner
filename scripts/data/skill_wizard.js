@@ -181,7 +181,7 @@ DiabloCalc.skills.wizard = {
       return res;
     },
     active: false,
-    params: [{rune: "b", min: 0, max: 20, val: 0, name: "Enemies Hit", inf: true}],
+    params: [{rune: "b", min: 0, max: 15, val: 0, name: "Enemies Hit"}],
     buffs: function(rune, stats) {
       if (rune === "b" && this.params[0].val) {
         return {dmgmul: {elems: ["lit"], percent: this.params[0].val * 2}};
@@ -425,7 +425,7 @@ DiabloCalc.skills.wizard = {
     },
     params: [{min: 1, max: "leg_serpentssparker?2:1", name: "Hydras", buffs: false},
              {min: 0, max: 50, val: 5, name: "Distance", buffs: false, show: function(rune, stats) {
-               return rune === "d" || (stats.gems.zei !== undefined);
+               return rune === "d" || (stats.gems.zei !== undefined) || (rune === "b" && stats.leg_starfire);
              }}],
     info: function(rune, stats) {
       var res;
@@ -443,6 +443,11 @@ DiabloCalc.skills.wizard = {
           res[key].exclude = ["zei"];
           res[key].percent = {};
           res[key].percent[DiabloCalc.legendaryGems.zei.name] = this.params[1].val * (4 + 0.08 * stats.gems.zei) / 10;
+        }
+        if (rune === "b" && stats.leg_starfire) {
+          res[key].exclude = ["P42_Unique_Wand_003_x1"];
+          res[key].percent = {};
+          res[key].percent[DiabloCalc.itemById.P42_Unique_Wand_003_x1.name] = this.params[1].val * stats.leg_starfire / 10;
         }
         res["DPS"] = {sum: true};
         res["DPS"][key] = {pet: (rune === "a" ? 86 : 76.300583), area: false, speed: 1, count: 3 * this.params[0].val};
@@ -813,6 +818,8 @@ DiabloCalc.passives.wizard = {
     id: "power-hungry",
     name: "Power Hungry",
     index: 0,
+    active: true,
+    buffs: {dmgmul: {pet: false, percent: 30}},
   },
   blur: {
     id: "blur",
@@ -1032,13 +1039,6 @@ DiabloCalc.partybuffs.wizard = {
 
   coldblooded: {},
   conflagration: {},
-  elementalexposure: {
-    params: [{min: 0, max: 4, val: 0, name: "Stacks"}],
-    boxnames: ["Primordial Soul"],
-    buffs: function(stats) {
-      return {dmgtaken: this.params[0].val * (this.boxvals[0] ? 10 : 5)};
-    },
-  },
 };
 DiabloCalc.extraskills.wizard = {
   archon_arcanestrike: {

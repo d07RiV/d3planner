@@ -92,8 +92,8 @@ DiabloCalc.gemColors = {
       amount: [6, 10, 50, 100, 600, 4000, 8000, 14000, 26000, 38000],
     },
     head: {
-      stat: "mf",
-      amount: [9, 11, 17, 19, 25, 33, 35, 37, 39, 41],
+      stat: "rcr",
+      amount: [4.5, 5, 6.5, 7, 8.5, 10.5, 11, 11.5, 12, 12.5],
     },
     other: {
       stat: "int",
@@ -271,12 +271,12 @@ DiabloCalc.legendaryGems = {
     types: ["finger", "neck"],
     effects: [
       {
-        format: "While under any control-impairing effects, reduce all damage taken by %.1f%%.",
-        value: [30],
-        delta: [0.4],
+        format: "Each hit done increases healing received by %.2f%% for 5 seconds. Stacks up to 10 times.",
+        value: [1],
+        delta: [0.02],
       },
       {
-        format: "Heal for 20%% of maximum life when hit by a control-impairing effect.",
+        format: "You are immune from control impairing effects.",
       },
     ],
   },
@@ -369,7 +369,7 @@ DiabloCalc.legendaryGems = {
         delta: [0.5],
       },
       {
-        format: "Primary skills heal you for 4%% of maximum health on hit.",
+        format: "Hits with primary abilities heal you for 4%% of your maximum health.",
       },
     ],
     buffs: function(level, stats) {

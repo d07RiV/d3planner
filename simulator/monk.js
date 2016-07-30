@@ -319,13 +319,18 @@
     elem: {x: "phy", b: "lit", c: "fir", a: "hol", d: "phy", e: "col"},
   };
 
+  function ltk_scar_fix() {
+    if (Sim.stats.leg_scarbringer) {
+      this.factor = (this.factor || 1) * (1 + 3 * Math.min(Sim.stats.leg_scarbringer, this.targets) / this.targets);
+    }
+  }
   function ltk_vulture_onhit(data) {
     Sim.addBuff(undefined, undefined, {
       duration: 181,
       tickrate: 60,
       targets: data.targets,
       firsttarget: data.firsttarget,
-      ontick: {coeff: 2.3 / 3},
+      ontick: {coeff: 2.3 / 3, fix: ltk_scar_fix},
     });
   }
   skills.lashingtailkick = {
@@ -335,13 +340,32 @@
     speed: function(rune, aps) {
       return aps * (Sim.stats.leg_riveradancers ? 1.5 : 1);
     },
-    oncast: {
-      x: {type: "cone", width: 180, range: 10, coeff: 7.55},
-      a: {type: "cone", width: 180, range: 10, coeff: 7.55, onhit: ltk_vulture_onhit},
-      d: {type: "area", self: true, range: 15, coeff: 8.25},
-      b: {type: "line", range: 50, speed: 0.8, radius: 5, pierce: true, coeff: 7.55},
-      e: {type: "cone", width: 180, range: 10, coeff: 7.55, onhit: Sim.apply_effect("stunned", 120)},
-      c: {type: "area", range: 10, coeff: 7.55, onhit: Sim.apply_effect("chilled", 180)},
+    oncast: function(rune) {
+      var dmg = {type: "cone", width: 180, range: 10, coeff: 7.55};
+      switch (rune) {
+      case "a": dmg.onhit = ltk_vulture_onhit; break;
+      case "d":
+        dmg = {type: "area", self: true, range: 15, coeff: 8.25};
+        break;
+      case "b":
+        dmg = {type: "line", range: 50, speed: 0.8, radius: 5, pierce: true, coeff: 7.55};
+        break;
+      case "e":
+        dmg.onhit = Sim.apply_effect("stunned", 120);
+        break;
+      case "c":
+        dmg = {type: "area", range: 10, coeff: 7.55, onhit: Sim.apply_effect("chilled", 180)};
+        break; 
+      }
+      if (Sim.stats.leg_scarbringer) {
+        dmg.fix = ltk_scar_fix;
+      }
+      if (Sim.stats.leg_gyananakashu) {
+        Sim.pushCastInfo(Sim.extend({}, Sim.castInfo(), {triggered: "leg_gyananakashu", trigExplicit: true}));
+        Sim.damage({type: "line", speed: 1, pierce: true, radius: 10, coeff: Sim.stats.leg_gyananakashu * 0.01});
+        Sim.popCastInfo();
+      }
+      return dmg;
     },
     proctable: {x: 0.667, a: 0.5, d: 0.5, b: 0.5, e: 0.667, c: 0.8},
     elem: {x: "phy", a: "fir", d: "phy", b: "fir", e: "lit", c: "col"},
@@ -566,7 +590,7 @@
         params.duration = 480;
         break;
       case "e":
-        Sim.addBuff("forbiddenpalace", {dmgtaken: 30}, {
+        Sim.addBuff("forbiddenpalace", undefined, {
           status: "slowed",
           targets: Sim.getTargets(11, Sim.target.distance),
           aura: true,
@@ -654,7 +678,7 @@
     var buffs;
     switch (Sim.stats.skills.explodingpalm) {
     case "c":
-      buffs = {dmgtaken: 20};
+      buffs = {dmgtaken: 15};
       break;
     case "b":
       delete params.ontick;
@@ -1048,7 +1072,7 @@
       }
       if (rune === "b") {
         Sim.register("oncast", function(data) {
-          Sim.healing({type: "area", range: 30, self: true, amount: 40232 + 0.1 * (Sim.stats.healbonus || 0)});
+          Sim.healing({type: "area", range: 30, self: true, amount: 16093 + 0.04 * (Sim.stats.healbonus || 0)});
         });
       }
     },
@@ -1149,16 +1173,16 @@
       return 50 * (Sim.stats.passives.chantofresonance ? 0.5 : 1);
     },
     oncast: function(rune) {
-      Sim.addBuff("mantraofconviction_active", {dmgtaken: (rune === "a" ? 8 : 10)}, {duration: 180});
+      Sim.addBuff("mantraofconviction_active", {dmgtaken: 8}, {duration: 180});
     },
     oninit: function(rune) {
-      var buffs = {dmgtaken: 10};
+      var buffs = {dmgtaken: 8};
       if (Sim.stats.set_inna_2pc) {
-        buffs.dmgtaken += 10;
+        buffs.dmgtaken += 8;
       }
       var params = undefined;
       switch (rune) {
-      case "a": buffs.dmgtaken += 6; break;
+      case "a": buffs.dmgtaken += 4; break;
       case "c": params = {status: "slowed"}; break;
       case "b":
         params = {

@@ -649,7 +649,7 @@
         Sim.addResource(50, "hatred");
       }
       if (rune === "c" || Sim.stats.set_marauder_2pc) {
-        Sim.addBuff("wolfcompanion", {dmgmul: 30}, {duration: 600});
+        Sim.addBuff("wolfcompanion", {dmgmul: 15}, {duration: 600});
       }
     },
     oninit: function(rune) {
@@ -720,7 +720,7 @@
       if (rune === "c") {
         Sim.addBuff("markedfordeath", {dmgtaken: 15}, {duration: 800 * dm, targets: Sim.getTargets(15)});
       } else {
-        Sim.addBuff("markedfordeath", {dmgtaken: 20}, {duration: 1800 * dm, targets: 1});
+        Sim.addBuff("markedfordeath", {dmgtaken: 15}, {duration: 1800 * dm, targets: 1});
       }
     },
     oninit: function(rune) {
@@ -754,7 +754,7 @@
         Sim.register("onkill", function(data) {
           if (Sim.getBuff("markedfordeath", data.target)) {
             var dm = (Sim.stats.passives.customengineering ? 2 : 1);
-            Sim.addBuff("markedfordeath", {dmgtaken: 20}, {duration: 1800 * dm, targets: 3, firsttarget: "new"});
+            Sim.addBuff("markedfordeath", {dmgtaken: 15}, {duration: 1800 * dm, targets: 3, firsttarget: "new"});
           }
         });
       }
@@ -794,47 +794,53 @@
     offensive: true,
     //weapon: "mainhand",
     frames: 57.142845,
-    cost: 30,
+    speed: function(rune, aps) {
+      return aps * (Sim.stats.leg_tragoulcoils_p2 ? 2 : 1);
+    },
+    cost: 15,
     oncast: function(rune) {
       var params = {
-        maxstacks: 3 * (Sim.stats.passives.customengineering ? 2 : 1),
-        refresh: false,
-        duration: 151,
-        tickrate: 30,
-        tickinitial: 90,
-        ontick: {type: "area", range: 8, distance: Sim.target.distance, coeff: 3.4},
+        maxstacks: 2 + (Sim.stats.passives.customengineering ? 1 : 0),
       };
-      switch (rune) {
-      case "b":
-        params.ontick.coeff = 5.75;
-        params.duration = 91;
-        params.ontick.onhit = st_echoing_onhit;
-        break;
-      case "c":
-        params.duration = 61;
-        params.tickinitial = 60;
-        params.ontick = {type: "area", range: 12, coeff: 9.15};
-        if (Sim.stats.leg_thedemonsdemise) {
-          delete params.duration;
-        }
-        break;
-      case "a":
-        params.duration = 181;
-        params.tickrate = 180;
-        params.ontick.coeff = 9.3;
-        break;
-      case "e":
-        params.duration = 91;
-        params.ontick.onhit = function(data) {
-          Sim.damage({targets: Sim.target.count, count: 10, coeff: 0.88});
-        };
-        break;
-      case "d":
-        params.stacks = 3;
+      if (rune === "a" || Sim.stats.leg_tragoulcoils_p2) {
+        Sim.damage({type: "area", range: 8, coeff: 0, proc: 0, onhit: Sim.apply_effect("immobilized", 180)});
+      }
+      if (rune === "d") {
+        params.stacks = 2;
+        params.maxstacks *= 2;
       }
       Sim.addBuff("spiketrap", undefined, params);
     },
-    elem: {x: "fir", b: "col", c: "fir", a: "fir", e: "lit", d: "fir"},
+    oninit: function(rune) {
+      Sim.register("oncast", function(data) {
+        if ((rune !== "c" && data.cost && data.skill !== "spiketrap") || (rune === "c" && data.generate)) {
+          var stacks = Sim.getBuff("spiketrap");
+          if (!stacks) return;
+          Sim.removeBuff("spiketrap");
+          var dmg = {type: "area", range: 8, coeff: 11.6, count: stacks};
+          switch (rune) {
+          case "b":
+            dmg.coeff = 20.2;
+            dmg.onhit = Sim.apply_effect("slowed", 180);
+            break;
+          case "c": dmg.coeff = 19.0; break;
+          case "a": dmg.coeff = 19.3; break;
+          case "e":
+            dmg.range = 10;
+            dmg.coeff = 20.1 / 3;
+            Sim.damage(Sim.extend({delay: 3}, dmg));
+            Sim.damage(Sim.extend({delay: 6}, dmg));
+            break;
+          case "d": dmg.coeff = 9.6; break;
+          }
+          if (Sim.stats.leg_thedemonsdemise_p2) {
+            Sim.damage(Sim.extend({delay: 60}, dmg));
+          }
+          Sim.damage(dmg);
+        }
+      });
+    },
+    elem: {x: "fir", b: "col", c: "fir", a: "phy", e: "lit", d: "fir"},
     proctable: {x: 0.15, b: 0.15, c: 0.333, a: 0.15, e: 0.15, d: 0.05},
   };
 
@@ -1012,7 +1018,7 @@
       switch (rune) {
       case "b":
         dmg.onhit = function(data) {
-          Sim.addBuff("windchill", {chctaken: 15}, {duration: 180, targets: data.targets, firsttarget: data.firsttarget});
+          Sim.addBuff("windchill", {chctaken: 8}, {duration: 180, targets: data.targets, firsttarget: data.firsttarget});
         };
         break;
       case "e":

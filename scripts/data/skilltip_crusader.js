@@ -165,7 +165,7 @@ DiabloCalc.skilltips.crusader = {
     a: "<p>For every enemy upon whom you pass judgment, you heal for <span class=\"d3-color-green\">2682</span> Life per second for <span class=\"d3-color-green\">3</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>27</em>.</p>",
     b: "<p>All enemies are drawn toward the center of the judged area.</p> <p class=\"subtle\">Unlocked at level <em>31</em>.</p>",
     c: "<p>Increase the duration of the Immobilize to <span class=\"d3-color-green\">10</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>37</em>.</p>",
-    d: "<p>Damage dealt to judged enemies has an <span class=\"d3-color-green\">20%</span> increased chance to be a Critical Hit.</p> <p class=\"subtle\">Unlocked at level <em>43</em>.</p>",
+    d: "<p>Damage dealt to judged enemies has an <span class=\"d3-color-green\">8%</span> increased chance to be a Critical Hit.</p> <p class=\"subtle\">Unlocked at level <em>43</em>.</p>",
     e: "<p>Enemies in the judged area deal <span class=\"d3-color-green\">40%</span> reduced damage for <span class=\"d3-color-green\">6</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>59</em>.</p>",
     elements: {
       a: "phy",
@@ -228,7 +228,7 @@ DiabloCalc.skilltips.crusader = {
   lawsofvalor: {
     a: "<p><span class=\"d3-color-gold\">Active:</span> Empowering the Law also increases your Life on Hit by <span class=\"d3-color-green\">21457</span>.</p> <p class=\"subtle\">Unlocked at level <em>21</em>.</p>",
     b: "<p><span class=\"d3-color-gold\">Active:</span> Empowering the Law also grants you a <span class=\"d3-color-green\">100%</span> chance to Stun all enemies within <span class=\"d3-color-green\">10</span> yards for <span class=\"d3-color-green\">5</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>25</em>.</p>",
-    c: "<p><span class=\"d3-color-gold\">Active:</span> Empowering the Law also increases your Critical Hit Damage by <span class=\"d3-color-green\">100%</span>.</p> <p class=\"subtle\">Unlocked at level <em>33</em>.</p>",
+    c: "<p><span class=\"d3-color-gold\">Active:</span> Empowering the Law also increases your Critical Hit Damage by <span class=\"d3-color-green\">50%</span>.</p> <p class=\"subtle\">Unlocked at level <em>33</em>.</p>",
     d: "<p><span class=\"d3-color-gold\">Active:</span> Empowering the law also reduces the Wrath cost of all skills by <span class=\"d3-color-green\">50%</span> for <span class=\"d3-color-green\">5</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>45</em>.</p>",
     e: "<p><span class=\"d3-color-gold\">Active:</span> While the Law is empowered, each enemy killed increases the duration by <span class=\"d3-color-green\">1</span> second, up to a maximum of <span class=\"d3-color-green\">10</span> seconds of increased time.</p> <p class=\"subtle\">Unlocked at level <em>54</em>.</p>",
     elements: {

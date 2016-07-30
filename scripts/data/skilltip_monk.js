@@ -6,7 +6,7 @@ DiabloCalc.skilltips.monk = {
     b: "<p>Each enemy you Blind restores <span class=\"d3-color-green\">10</span> Spirit.</p> <p class=\"subtle\">Unlocked at level <em>28</em>.</p>",
     c: "<p>Blinded enemies are also slowed by <span class=\"d3-color-green\">80%</span> for <span class=\"d3-color-green\">5</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>19</em>.</p>",
     d: "<p>Increase the duration enemies are blinded to <span class=\"d3-color-green\">6</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>12</em>.</p>",
-    e: "<p>Enemies that are Blinded deal <span class=\"d3-color-green\">40%</span> reduced damage for <span class=\"d3-color-green\">5</span> seconds after the Blind wears off.</p> <p class=\"subtle\">Unlocked at level <em>41</em>.</p>",
+    e: "<p>Enemies that are Blinded deal <span class=\"d3-color-green\">25%</span> reduced damage for <span class=\"d3-color-green\">5</span> seconds after the Blind wears off.</p> <p class=\"subtle\">Unlocked at level <em>41</em>.</p>",
     elements: {
       a: "hol",
       b: "hol",
@@ -99,7 +99,7 @@ DiabloCalc.skilltips.monk = {
   },
   epiphany: {
     a: "<p>Infuse yourself with sand, reducing damage taken by <span class=\"d3-color-green\">50%</span>.</p> <p class=\"subtle\">Unlocked at level <em>62</em>.</p>",
-    b: "<p>Imbue yourself with water, causing your abilities to heal yourself and allies within <span class=\"d3-color-green\">30</span> yards for <span class=\"d3-color-green\">40232</span> Life.</p><p>Heal amount is increased by <span class=\"d3-color-green\">10%</span> of your Health Globe Healing Bonus.</p> <p class=\"subtle\">Unlocked at level <em>65</em>.</p>",
+    b: "<p>Imbue yourself with water, causing your abilities to heal yourself and allies within <span class=\"d3-color-green\">30</span> yards for <span class=\"d3-color-green\">16093</span> Life.</p><p>Heal amount is increased by <span class=\"d3-color-green\">4%</span> of your Health Globe Healing Bonus.</p> <p class=\"subtle\">Unlocked at level <em>65</em>.</p>",
     c: "<p>Increases the bonus Spirit regeneration from Epiphany to <span class=\"d3-color-green\">45</span>.</p> <p class=\"subtle\">Unlocked at level <em>67</em>.</p>",
     d: "<p>Engulf yourself in flames, causing your attacks to assault enemies for <span class=\"d3-color-green\">353%</span> weapon damage as Fire.</p> <p class=\"subtle\">Unlocked at level <em>69</em>.</p>",
     e: "<p>Charge yourself with Lightning, causing your next attack after moving <span class=\"d3-color-green\">10</span> yards to Stun enemies for <span class=\"d3-color-green\">1.5</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>63</em>.</p>",
@@ -116,7 +116,7 @@ DiabloCalc.skilltips.monk = {
   explodingpalm: {
     a: "<p>Exploding Palm arcs up to <span class=\"d3-color-green\">15</span> yards to another target.</p><p>Exploding Palm's damage turns into Lightning.</p> <p class=\"subtle\">Unlocked at level <em>44</em>.</p>",
     b: "<p>Exploding Palm no longer causes the enemy to bleed, but if the enemy dies while affected by Exploding Palm, they explode for <span class=\"d3-color-green\">6305%</span> weapon damage as Cold.</p> <p class=\"subtle\">Unlocked at level <em>36</em>.</p>",
-    c: "<p>Enemies hit take <span class=\"d3-color-green\">20%</span> additional damage for <span class=\"d3-color-green\">9</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>18</em>.</p>",
+    c: "<p>Enemies hit take <span class=\"d3-color-green\">15%</span> additional damage for <span class=\"d3-color-green\">9</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>18</em>.</p>",
     d: "<p>If the enemy explodes after bleeding, gain <span class=\"d3-color-green\">15</span> Spirit for each enemy caught in the blast.</p><p>Exploding Palm's damage turns into Holy.</p> <p class=\"subtle\">Unlocked at level <em>25</em>.</p>",
     e: "<p>Instead of bleeding, the enemy will burn for <span class=\"d3-color-green\">1875%</span> weapon damage as Fire over <span class=\"d3-color-green\">9</span> seconds. If the enemy dies while burning, it explodes causing all nearby enemies to burn for <span class=\"d3-color-green\">3260%</span> weapon damage as Fire over <span class=\"d3-color-green\">3</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>51</em>.</p>",
     elements: {
@@ -150,7 +150,7 @@ DiabloCalc.skilltips.monk = {
     b: "<p>Inner Sanctuary duration is increased to <span class=\"d3-color-green\">8</span> seconds and cannot be passed by enemies.</p> <p class=\"subtle\">Unlocked at level <em>26</em>.</p>",
     c: "<p>Allies inside Inner Sanctuary are also immune to control impairing effects.</p> <p class=\"subtle\">Unlocked at level <em>37</em>.</p>",
     d: "<p>Allies inside Inner Sanctuary are healed for <span class=\"d3-color-green\">35779</span> every second.</p><p>Heal amount is increased by <span class=\"d3-color-green\">7%</span> of your Life per Second.</p> <p class=\"subtle\">Unlocked at level <em>31</em>.</p>",
-    e: "<p>Enemies inside Inner Sanctuary take <span class=\"d3-color-green\">30%</span> increased damage and have their movement speed reduced by <span class=\"d3-color-green\">80%</span>.</p> <p class=\"subtle\">Unlocked at level <em>58</em>.</p>",
+    e: "<p>Enemies inside Inner Sanctuary have their movement speed reduced by <span class=\"d3-color-green\">80%</span>.</p> <p class=\"subtle\">Unlocked at level <em>58</em>.</p>",
     elements: {
       a: "hol",
       b: "hol",
@@ -178,7 +178,7 @@ DiabloCalc.skilltips.monk = {
     x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/monk_lashingtailkick.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">50</span> Spirit</p><p>Unleash a deadly roundhouse kick that deals <span class=\"d3-color-green\">755%</span> weapon damage as Physical.</p> <p class=\"special\">Secondary</p> <p class=\"subtle\">Unlocked at level <em>2</em>.</p> </div> </div>",
   },
   mantraofconviction: {
-    a: "<p><span class=\"d3-color-gold\">Passive:</span> Increase the strength of Mantra of Conviction so that enemies take <span class=\"d3-color-green\">16%</span> increased damage.</p> <p class=\"subtle\">Unlocked at level <em>35</em>.</p>",
+    a: "<p><span class=\"d3-color-gold\">Passive:</span> Increase the strength of Mantra of Conviction so that enemies take <span class=\"d3-color-green\">12%</span> increased damage.</p> <p class=\"subtle\">Unlocked at level <em>35</em>.</p>",
     b: "<p><span class=\"d3-color-gold\">Passive:</span> Enemies affected by Mantra of Conviction take <span class=\"d3-color-green\">38%</span> weapon damage per second as Holy.</p> <p class=\"subtle\">Unlocked at level <em>60</em>.</p>",
     c: "<p><span class=\"d3-color-gold\">Passive:</span> Mantra of Conviction also slows the movement speed of enemies by <span class=\"d3-color-green\">80%</span>.</p> <p class=\"subtle\">Unlocked at level <em>47</em>.</p>",
     d: "<p><span class=\"d3-color-gold\">Passive:</span> Killing an enemy that is affected by Mantra of Conviction grants you and your allies <span class=\"d3-color-green\">30%</span> increased movement speed for <span class=\"d3-color-green\">3</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>55</em>.</p>",
@@ -191,7 +191,7 @@ DiabloCalc.skilltips.monk = {
       e: "phy",
       x: "phy",
     },
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/x1_monk_mantraofconviction_v2.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">50</span> Spirit</p><p><span class=\"d3-color-gold\">Active:</span> Damage bonus is increased to <span class=\"d3-color-green\">20%</span> for <span class=\"d3-color-green\">3</span> seconds.</p><p><span class=\"d3-color-gold\">Passive:</span> Enemies within <span class=\"d3-color-green\">30</span> yards of you take <span class=\"d3-color-green\">10%</span> increased damage.</p><p><span class=\"d3-color-yellow\">Only one Mantra may be active at a time.</span></p> <p class=\"special\">Mantras</p> <p class=\"subtle\">Unlocked at level <em>30</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('http://media.blizzard.com/d3/icons/skills/64/x1_monk_mantraofconviction_v2.png'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">50</span> Spirit</p><p><span class=\"d3-color-gold\">Active:</span> Damage bonus is increased to <span class=\"d3-color-green\">16%</span> for <span class=\"d3-color-green\">3</span> seconds.</p><p><span class=\"d3-color-gold\">Passive:</span> Enemies within <span class=\"d3-color-green\">30</span> yards of you take <span class=\"d3-color-green\">8%</span> increased damage.</p><p><span class=\"d3-color-yellow\">Only one Mantra may be active at a time.</span></p> <p class=\"special\">Mantras</p> <p class=\"subtle\">Unlocked at level <em>30</em>.</p> </div> </div>",
   },
   mantraofhealing: {
     a: "<p><span class=\"d3-color-gold\">Passive:</span> Increase the Life regeneration granted by Mantra of Healing to <span class=\"d3-color-green\">21457</span> Life per Second.</p><p>Heal amount is increased by <span class=\"d3-color-green\">7%</span> of your Life per Second.</p> <p class=\"subtle\">Unlocked at level <em>31</em>.</p>",

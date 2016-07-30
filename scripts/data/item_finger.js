@@ -491,6 +491,7 @@ DiabloCalc.addItems([
   {
     id: "P4_Unique_Ring_01",
     name: "Ring of Emptiness",
+    suffix: _L("Legacy"),
     type: "ring",
     quality: "legendary",
     required: {
@@ -566,6 +567,18 @@ DiabloCalc.addItems([
       custom: {id: "leg_haloofkarini", name: "Damage Reduction", format: "You take %d%% less damage for 3 seconds after your Storm Armor electrocutes an enemy more than 30 yards away.", min: 45, max: 60},
     },
     preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P42_Unique_Ring_Haunt",
+    name: "Ring of Emptiness",
+    suffix: _L("PTR"),
+    type: "ring",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_ringofemptiness_p2", name: "Bonus Damage on Afflicted Targets", format: "You deal %d%% increased damage to enemies affected by both your Haunt and Locust Swarm.", min: 250, max: 300},
+    },
+    preset: ["mainstat", "chc"],
   },
 
 ]);

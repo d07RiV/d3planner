@@ -276,7 +276,7 @@ DiabloCalc.addItems([
     type: "handcrossbow",
     quality: "legendary",
     required: {
-      custom: {id: "leg_calamity", name: "Enemies Become Marked for Death", format: "Enemies you hit become Marked for Death.", args: 0},
+      custom: {id: "leg_calamity", name: "Enemies Become Marked for Death", format: "Automatically cast Marked for Death when you damage an enemy.", args: 0},
     },
     preset: ["mainstat"],
   },
@@ -341,6 +341,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Wand_003_x1",
     name: "Starfire",
+    suffix: _L("Legacy"),
     type: "wand",
     quality: "legendary",
     preset: ["wpncol", "mainstat"],
@@ -487,11 +488,12 @@ DiabloCalc.addItems([
     id: "P2_handXbow_norm_unique_03",
     local: true,
     name: "The Demon's Demise",
+    suffix: _L("Legacy"),
     type: "handcrossbow",
     quality: "legendary",
-    required: {
+/*    required: {
       custom: {id: "leg_thedemonsdemise", name: "Sticky Trap Chains", format: "Spike Trap - Sticky Trap spreads to nearby enemies when it explodes.", args: 0},
-    },
+    },*/
     preset: ["mainstat"],
   },
 
@@ -606,6 +608,31 @@ DiabloCalc.addItems([
       custom: {id: "leg_wojahnniassaulter_p2", name: "Rapid Fire Ramp-Up", format: "Rapid Fire deals %d%% increased damage for every half second that you channel. Stacks up to 4 times.", min: 60, max: 75},
     },
     preset: ["mainstat"],
+  },
+
+  {
+    id: "P42_handXbow_norm_unique_03",
+    local: true,
+    name: "The Demon's Demise",
+    suffix: _L("PTR"),
+    type: "handcrossbow",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_thedemonsdemise_p2", name: "Spike Trap Echo", format: "The blast from Spike Trap will damage all enemies again after 1 second.", args: 0},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P42_Unique_Wand_003_x1",
+    name: "Starfire",
+    suffix: _L("PTR"),
+    type: "wand",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_starfire", name: "Lightning Damage Bonus", format: "Lightning damage is increased by %d%% for every 10 yards you are from the target up to a maximum of 40 yards.", min: 10, max: 15},
+    },
+    preset: ["wpncol", "mainstat"],
   },
 
 ]);

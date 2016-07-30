@@ -144,6 +144,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Mace_2H_002_x1",
     name: "Sledge of Athskeleng",
+    suffix: _L("Legacy"),
     type: "mace2h",
     quality: "legendary",
     affixes: {
@@ -920,5 +921,21 @@ DiabloCalc.addItems([
     },
     preset: ["mainstat"],
   },
+
+/*  {
+    id: "P42_Unique_Mace_2H_002_x1",
+    name: "Sledge of Athskeleng",
+    suffix: _L("PTR"),
+    type: "mace2h",
+    quality: "legendary",
+    affixes: {
+      ms: "msNormal",
+    },
+    required: {
+      custom: {id: "leg_sledgeofathskeleng", name: "Earthquake Damage Bonus", format: "Seismic Slam increases the damage of your next 3 Earthquakes by 100%% for 15 seconds.", args: 0},
+    },
+    preset: ["wpnphy", "mainstat", "damage", "ms"],
+    primary: 5,
+  },*/
 
 ]);

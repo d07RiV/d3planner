@@ -84,31 +84,43 @@ asheara's: todo
   affixes.set_firebird_4pc = function() {
     if (Sim.stats.charClass !== "wizard") return;
     function fb_ontick(data) {
-      Sim.damage({elem: "fir", coeff: Math.min(30, data.coeff) / 4, firsttarget: data.buff.target});
+      Sim.damage({elem: "fir", coeff: data.coeff / 4, firsttarget: data.buff.target});
     }
     function fb_onapply(data) {
-      if (data.coeff >= 30) {
-        Sim.refreshBuff("firebird_4pc", "infinite", data.buff.target);
-      }
+      data.skills = {};
+      data.skills[data.skill] = true;
+      data.coeff = 10;
     }
     function fb_onrefresh(data, newdata) {
-      data.coeff = Math.min(30, data.coeff + newdata.coeff);
-      fb_onapply(data);
+      if (!data.skills[newdata.skill]) {
+        data.skills[newdata.skill] = true;
+        if (data.coeff < 30) {
+          data.coeff += 10;
+          if (data.coeff === 30) {
+            Sim.refreshBuff("firebird_4pc", "infinite", data.buff.target);
+          }
+        }
+      }
     }
     Sim.register("onhit", function(data) {
-      if (data.elem === "fir" && data.triggered !== "set_firebird_4pc") {
-        var coeff = data.damage / Sim.stats.info.mainhand.wpnphy.max / Sim.stats.info.critfactor /
-          (1 + 0.01 * (Sim.stats.dmgfir || 0)) / 3.03;
-        Sim.addBuff("firebird_4pc", undefined, {data: {coeff: coeff}, targets: data.targets, firsttarget: data.firsttarget,
+      if (data.elem === "fir" && data.triggered !== "set_firebird_4pc" && data.castInfo && data.castInfo.skill) {
+        Sim.addBuff("firebird_4pc", undefined, {data: {skill: data.castInfo.skill}, targets: data.targets, firsttarget: data.firsttarget,
           duration: 180, tickrate: 15, onapply: fb_onapply, onrefresh: fb_onrefresh, ontick: fb_ontick});
       }
     });
   };
   affixes.set_firebird_6pc = function() {
     Sim.watchBuff("firebird_4pc", function(data) {
-      var targets = Sim.getBuffTargets("firebird_4pc");
-      var stacks = Math.min((Sim.target.elite ? 49 : 0) + targets, 60);
-      Sim.setBuffStacks("firebird_6pc", {dmgmul: 40}, stacks);
+      var buff = Sim.buffs.firebird_4pc;
+      var stacks = 0;
+      if (buff && buff.targets) {
+        for (var id in buff.targets) {
+          if (buff.targets[id].data.coeff && buff.targets[id].data.coeff >= 30) {
+            stacks += (id < Sim.target.eliteCount ? 20 : 1);
+          }
+        }
+      }
+      Sim.setBuffStacks("firebird_6pc", {dmgmul: 120, dmgred: 3}, Math.min(stacks, 20));
     });
   };
 
@@ -453,7 +465,7 @@ asheara's: todo
         Sim.addBuff("storms_6pc_ds", undefined, {duration: 360});
       } else if (data.skill === "dashingstrike") {
         Sim.addBuff("storms_6pc_gen", {dmgmul:
-          {skills: ["fistsofthunder", "deadlyreach", "cripplingwave", "wayofthehundredfists"], percent: 300}}, {duration: 360});
+          {skills: ["fistsofthunder", "deadlyreach", "cripplingwave", "wayofthehundredfists"], percent: 1250}}, {duration: 360});
       }
     });
   };

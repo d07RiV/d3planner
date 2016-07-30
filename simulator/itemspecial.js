@@ -608,7 +608,8 @@
   affixes.leg_calamity = function(amount) {
     Sim.register("onhit", function(data) {
       if (!data.pet) {
-        Sim.addBuff("calamity", {dmgtaken: 20}, {duration: 1800, targets: data.targets, firsttarget: data.firsttarget});
+        Sim.cast("markedfordeath");
+        //Sim.addBuff("calamity", {dmgtaken: 20}, {duration: 1800, targets: data.targets, firsttarget: data.firsttarget});
       }
     });
   };
@@ -718,8 +719,8 @@
       }
     });
   };
-  affixes.leg_homunculus = affixes.leg_homunculus_p2 = function(amount) {
-    if (this == "leg_homunculus_p2") amount = 2;
+  affixes.leg_homunculus = affixes.leg_homunculus_p2 = affixes.leg_homunculus_p3 = function(amount) {
+    if (this == "leg_homunculus_p2" || this == "leg_homunculus_p3") amount = 2;
     Sim.after(amount * 60, function spawn() {
       Sim.cast("summonzombiedogs");
       Sim.after(amount * 60, spawn);
@@ -780,14 +781,6 @@
           },
         });
         next = Sim.time + 300;
-      }
-    });
-  };
-
-  affixes.leg_gyananakashu = function(amount) {
-    Sim.register("oncast", function(data) {
-      if (data.skill === "lashingtailkick") {
-        Sim.damage({type: "line", speed: 1, pierce: true, radius: 10, coeff: amount * 0.01});
       }
     });
   };
@@ -1125,7 +1118,7 @@
       }
     });
   };
-  affixes.leg_ringofemptiness = function(amount) {
+  affixes.leg_ringofemptiness = affixes.leg_ringofemptiness_p2 = function(amount) {
     var buffname;
     function update() {
       if (Sim.getBuff("haunt") && Sim.getBuff("locustswarm")) {
@@ -1222,7 +1215,7 @@
   affixes.leg_shieldoffury = function(amount) {
     var buffname;
     Sim.register("onhit_proc", function(data) {
-      if (data.castInfo && data.castInfo === "heavensfury" && !data.castInfo.triggered) {
+      if (data.castInfo && data.castInfo.skill === "heavensfury" && !data.castInfo.triggered) {
         buffname = Sim.addBuff(buffname, {dmgmul: {skills: ["heavensfury"], percent: amount}}, {
           maxstacks: 999,
           stacks: data.count,
@@ -1235,7 +1228,7 @@
   affixes.leg_thetwistedsword = function(amount) {
     var buffname;
     function update() {
-      var stacks = Math.min(8, Sim.getBuff("energytwister") + 2 * Sim.getBuff("ragingstorm"));
+      var stacks = Math.min(5, Sim.getBuff("energytwister") + 2 * Sim.getBuff("ragingstorm"));
       buffname = Sim.setBuffStacks(buffname, {dmgmul: {skills: ["energytwister"], percent: amount}}, stacks);
     }
     Sim.watchBuff("energytwister", update);
@@ -1560,6 +1553,17 @@
     Sim.register("onkill", function(data) {
       if (data.hit && data.hit.elem === "col" && Sim.random("winterflurry", amount * 0.01)) {
         Sim.damage({type: "area", range: 19, coeff: 0, elem: "col", onhit: Sim.apply_effect("frozen", 120)});
+      }
+    });
+  };
+
+  affixes.leg_cordoftherighteous = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["fistoftheheavens"], percent: amount}});
+  };
+  affixes.leg_girdleofgiants = function(amount) {
+    Sim.register("oncast", function(data) {
+      if (data.skill === "seismicslam") {
+        Sim.addBuff("girdleofgiants", {dmgmul: {skills: ["earthquake"], percent: amount}}, {duration: 180});
       }
     });
   };

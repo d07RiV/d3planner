@@ -95,6 +95,7 @@ DiabloCalc.simMapping = {
 
     archon_stacks: {name: "Archon - Stacks", category: "Skills", classes: ["wizard"], skill: ["archon"]},
 
+    powerhungry: {name: "Power Hungry", category: "Passives", classes: ["wizard"], passive: "powerhungry"},
     conflagration: {name: "Conflagration", category: "Passives", classes: ["wizard"], passive: "conflagration"},
     arcanedynamo: {name: "Arcane Dynamo", category: "Passives", classes: ["wizard"], passive: "arcanedynamo"},
     unwaveringwill: {name: "Unwavering Will", category: "Passives", classes: ["wizard"], passive: "unwaveringwill"},
@@ -165,7 +166,7 @@ DiabloCalc.simMapping = {
     provokethepack: {name: "Sacrifice - Provoke the Pack", category: "Skills", classes: ["witchdoctor"], skill: ["sacrifice", "a"]},
     massconfusion: {name: "Mass Confusion", category: "Skills", classes: ["witchdoctor"], skill: ["massconfusion"]},
     paranoia: {name: "Mass Confusion - Paranoia", category: "Skills", classes: ["witchdoctor"], skill: ["massconfusion", "a"]},
-    phantasm: {name: "Spirit Barrage - Phantasm", category: "Skills", classes: ["witchdoctor"], skill: ["spiritbarrage", "c"]},
+    phantasm: {name: "Spirit Barrage - Phantasm", category: "Skills", classes: ["witchdoctor"], skill: ["spiritbarrage", "c"], stat: "leg_gazingdemise"},
     manitou: {name: "Spirit Barrage - Manitou", category: "Skills", classes: ["witchdoctor"], skill: ["spiritbarrage", "e"]},
     acidcloud: {name: "Acid Cloud", category: "Skills", classes: ["witchdoctor"], skill: ["acidcloud"]},
     acidcloud_blob: {name: "Acid Cloud - Lob Blob Bomb", category: "Skills", classes: ["witchdoctor"], skill: ["acidcloud", "c"]},
@@ -374,7 +375,7 @@ DiabloCalc.simMapping = {
     moonlightward: {name: "Moonlight Ward", category: "Items", stat: "leg_moonlightward"},
     schaefershammer: {name: "Schaefer's Hammer", category: "Items", stat: "leg_schaefershammer_p2"},
     fulminator: {name: "Fulminator", category: "Items", stat: "leg_fulminator"},
-    calamity: {name: "Calamity", category: "Items", stat: "leg_calamity"},
+    //calamity: {name: "Calamity", category: "Items", stat: "leg_calamity"},
     pusspitter: {name: "Pus Spitter", category: "Items", stat: "leg_pusspitter"},
     strongarmbracers: {name: "Strongarm Bracers", category: "Items", stat: "leg_strongarmbracers"},
     rechelsringoflarceny: {name: "Rechel's Ring of Larceny", category: "Items", stat: "leg_rechelsringoflarceny"},
@@ -412,6 +413,8 @@ DiabloCalc.simMapping = {
     bootsofdisregard: {name: "Boots of Disregard", category: "Items", stat: "leg_bootsofdisregard"},
     madmonarchsscepter: {name: "Mad Monarch's Scepter", category: "Items", stat: "leg_madmonarchsscepter"},
     oculusring: {name: "Oculus Ring", category: "Items", stat: ["leg_oculusring", "leg_oculusring_p2"]},
+    girdleofgiants: {name: "Girdle of Giants", category: "Items", stat: "leg_girdleofgiants"},
+    gazingdemise: {name: "Gazing Demise", category: "Items", stat: "leg_gazingdemise"},
   },
   nyi: {
     "Unique_Ring_006_p2": true,

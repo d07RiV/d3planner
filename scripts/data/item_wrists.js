@@ -131,6 +131,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Bracer_104_x1",
     name: "Trag'Oul Coils",
+    suffix: _L("Legacy"),
     type: "bracers",
     quality: "legendary",
     required: {
@@ -453,6 +454,18 @@ DiabloCalc.addItems([
       custom: {id: "leg_ashnagarrsblood", name: "Shield Increase", format: "Increases the potency of your shields by %d%%.", min: 75, max: 100},
     },
     preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P42_Unique_Bracer_SpikeTrap",
+    name: "Trag'Oul Coils",
+    suffix: _L("PTR"),
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_tragoulcoils_p2", name: "Spike Trap Bonuses", format: "Spike Traps gain the Impaling Spines rune and are deployed twice as fast.", args: 0},
+    },
+    preset: ["mainstat"],
   },
 
 ]);

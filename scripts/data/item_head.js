@@ -494,7 +494,7 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       skill_monk_lashingtailkick: {min: 75, max: 100},
-      custom: {id: "leg_gyananakashu", name: "Fireball Damage", format: "Lashing Tail Kick releases a piercing fireball that deals %d%% weapon damage as Fire to enemies within 10 yards on impact.", min: 525, max: 700},
+      custom: {id: "leg_gyananakashu", name: "Fireball Damage", format: "Lashing Tail Kick releases a piercing fireball that deals %d%% weapon damage as Fire to enemies within 10 yards on impact.", min: 1050, max: 1400},
     },
     preset: ["mainstat", "sockets"],
     primary: 5,

@@ -242,8 +242,8 @@
         });
         break;
       case "b": return {type: "line", coeff: 1.745, count: 2, range: 45, radius: 15, pierce: true, speed: 0.5, onhit: function(event) {
-        var stacks = Math.ceil(event.targets);
-        Sim.addBuff("spark", undefined, {stacks: stacks, maxstacks: stacks});
+        var stacks = Math.min(15, Math.ceil(event.targets));
+        Sim.addBuff("spark", undefined, {stacks: stacks, maxstacks: 15});
       }};
       case "d":
         Sim.addBuff("scorch", undefined, {duration: 300, tickrate: 6, ontick: ao_scorch_ontick});
@@ -1187,17 +1187,10 @@
 
   Sim.passives = {
     powerhungry: function() {
-      Sim.register("onglobe", function() {
-        Sim.addBuff("powerhungry", undefined, {maxstacks: 10});
-      });
-      Sim.register("clearcast", function(data) {
-        if (Sim.getBuff("powerhungry")) {
-          if (!data.dry) {
-            Sim.removeBuff("powerhungry", 1);
-          }
-          return true;
-        }
-      });
+      var tgt = Math.round(Sim.getTargets(30, Sim.target.distance));
+      if (tgt < Sim.target.count) {
+        Sim.addBuff("powerhungry", {dmgmul: {pet: false, percent: 30}}, {targets: Sim.target.count - tgt, aura: true});
+      }
     },
     blur: {dmgred: 17},
     evocation: {cdr: 20},

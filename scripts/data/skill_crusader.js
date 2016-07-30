@@ -300,7 +300,7 @@ DiabloCalc.skills.crusader = {
       e: "Retribution",
     },
     info: {
-      "*": {"Cost": {cost: 30}},
+      "*": {"Cost": {cost: 30, rcr: "leg_cordoftherighteous?40:0"}},
       x: {"Damage": {elem: "lit", coeff: 5.45}, "Bolt Damage": {elem: "lit", coeff: 2.25}},
       d: {"Damage": {elem: "hol", coeff: 5.45}, "Bolt Damage": {elem: "hol", coeff: 2.25}, "Zap Damage": {elem: "hol", coeff: 0.4}},
       a: {"Damage": {elem: "fir", coeff: 5.45}, "Bolt Damage": {elem: "fir", coeff: 2.25}, "Storm Damage": {elem: "fir", coeff: 1, total: true}},
@@ -420,7 +420,7 @@ DiabloCalc.skills.crusader = {
     },
     active: false,
     buffs: {
-      d: {chctaken: 20},
+      d: {chctaken: 8},
     },
   },
   provoke: {
@@ -560,7 +560,7 @@ DiabloCalc.skills.crusader = {
       x: {ias: 7},
       a: {ias: 7, lph: 21457},
       b: {ias: 7},
-      c: {ias: 7, chd: 100},
+      c: {ias: 7, chd: 50},
       d: {ias: 7, rcr_wrath: 50},
       e: {ias: 7},
     },
@@ -704,7 +704,10 @@ DiabloCalc.skills.crusader = {
       if (rune === "d" || stats.leg_akkhansaddendum) res.armor_percent = 150;
       if (rune === "e") res.ias = 15;
       if (stats.set_akkhan_2pc) res.rcr = 50;
-      if (stats.set_akkhan_6pc) res.dmgmul = {list: [35, 450]};
+      if (stats.set_akkhan_6pc) {
+        res.dmgmul = {list: [35, 600]};
+        res.dmgred = 15;
+      }
       return res;
     },
   },
@@ -922,7 +925,7 @@ DiabloCalc.partybuffs.crusader = {
       x: {ias: 7},
       a: {ias: 7, lph: 21457},
       b: {ias: 7},
-      c: {ias: 7, chd: 100},
+      c: {ias: 7, chd: 50},
       d: {ias: 7}, // <- difference
       e: {ias: 7},
     },
