@@ -275,7 +275,7 @@
     if (data.castInfo.rune === "d") {
       params.data.leech = 2.5;
     }
-    for (var i = 0; i < data.targets; ++i) {
+    for (var i = 0; i < data.count; ++i) {
       params.firsttarget = (Sim.getBuffTargets("haunt") < 5 ? "new" : undefined);
       Sim.addBuff("haunt", data.castInfo.rune === "c" && {dmgtaken: 20}, params);
     }
