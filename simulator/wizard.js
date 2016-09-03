@@ -973,13 +973,7 @@
     if (Sim.stats.leg_theswami || Sim.stats.leg_theswami_p3) {
       var stacks = Sim.getBuff("archon_stacks");
       Sim.removeBuff("theswami");
-      var stats = {dmgmul: 6};
-      if (Sim.stats.set_vyr_4pc) {
-        stats.ias = 1;
-        stats.armor_percent = 1;
-        stats.resist_percent = 1;
-      }
-      Sim.addBuff("theswami", stats, {stacks: stacks, duration: 60 * (Sim.stats.leg_theswami_p3 || Sim.stats.leg_theswami)});
+      Sim.addBuff("theswami", undefined, {stacks: stacks, duration: 60 * (Sim.stats.leg_theswami_p3 || Sim.stats.leg_theswami)});
     }
     Sim.removeBuff("archon_stacks");
   }
@@ -991,13 +985,7 @@
     oncast: function(rune) {
       Sim.removeBuff("archon_stacks");
       if (Sim.stats.leg_fazulasimprobablechain || Sim.stats.leg_fazulasimprobablechain_p2) {
-        var stats = {dmgmul: 6};
-        if (Sim.stats.set_vyr_4pc) {
-          stats.ias = 1;
-          stats.armor_percent = 1;
-          stats.resist_percent = 1;
-        }
-        Sim.addBuff("archon_stacks", stats, {maxstacks: 9999, stacks:
+        Sim.addBuff("archon_stacks", undefined, {maxstacks: 9999, stacks:
           Sim.stats.leg_fazulasimprobablechain || Sim.stats.leg_fazulasimprobablechain_p2});
       }
       if (rune === "e" || Sim.stats.set_vyr_2pc) {
@@ -1011,15 +999,21 @@
     oninit: function(rune) {
       Sim.register("onkill", function(data) {
         if (Sim.getBuff("archon")) {
-          var stats = {dmgmul: 6};
-          if (Sim.stats.set_vyr_4pc) {
-            stats.ias = 1;
-            stats.armor_percent = 1;
-            stats.resist_percent = 1;
-          }
-          Sim.addBuff("archon_stacks", stats, {maxstacks: 9999});
+          Sim.addBuff("archon_stacks", undefined, {maxstacks: 9999});
         }
       });
+      var buffname;
+      function update() {
+        var stats = {dmgmul: 6};
+        if (Sim.stats.set_vyr_4pc) {
+          stats.ias = 1;
+          stats.armor_percent = 1;
+          stats.resist_percent = 1;
+        }
+        buffname = Sim.setBuffStacks(buffname, stats, Sim.getBuff("archon_stacks") + Sim.getBuff("theswami"));
+      }
+      Sim.watchBuff("archon_stacks", update);
+      Sim.watchBuff("theswami", update);
     },
     default_elem: {x: "arc", e: "fir", c: "arc", d: "lit", b: "col", a: "arc"},
     elem: function(rune) {

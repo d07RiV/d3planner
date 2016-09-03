@@ -561,7 +561,7 @@
       tooltipWrapper.css("max-width", "");
       tooltipContent.removeClass().addClass("d3-tooltip-wrapper-inner");
 
-      var html = "<div class=\"d3-tooltip d3-tooltip-item\">";
+      var html = "<div class=\"d3-tooltip d3-tooltip-item\"><div class=\"d3-tooltip-item-wrapper\">";
       html += "<div class=\"tooltip-head tooltip-head-white\"><h3 class=\"d3-color-white\">" + (item.name || "Unknown item") + "</h3></div>";
 
       var iconType = "square";
@@ -597,6 +597,7 @@
       if (item.flavor) {
         html += "<div class=\"tooltip-extension\"><div class=\"flavor\">" + item.flavor + "</div></div>";
       }
+      html += "</div></div>";
 
       tooltipContent.html(html);
       show(node);
@@ -747,6 +748,18 @@
 
       var outer = $("<div class=\"d3-tooltip d3-tooltip-item\"></div>");
       _content.append(outer);
+      var outerWrapper = $("<div class=\"d3-tooltip-item-wrapper" + (data.ancient ? " d3-tooltip-item-wrapper-AncientLegendary" : "") + "\"></div>");
+      outer.append(outerWrapper);
+      outer = outerWrapper;
+
+      outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-left\"></div>");
+      outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-right\"></div>");
+      outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-top\"></div>");
+      outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-bottom\"></div>");
+      outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-top-left\"></div>");
+      outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-top-right\"></div>");
+      outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-bottom-left\"></div>");
+      outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-bottom-right\"></div>");
 
       outer.append("<div class=\"tooltip-head tooltip-head-" + color + "\"><h3 class=\"d3-color-" + color + "\">" + item.name + "</h3></div>");
 

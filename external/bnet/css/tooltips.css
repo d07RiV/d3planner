@@ -120,6 +120,79 @@
   .d3-tooltip-item .effect-bg .item-type,
   .d3-tooltip-item .effect-bg .item-armor-weapon { text-shadow: 0 0 5px black, 0 0 5px black, 0 0 5px black; } /* makes the text readable when a background is used */
 
+  /* ancient item borders */
+  .d3-tooltip-item-wrapper .d3-tooltip-item-wrapper { positon: relative; }
+  .d3-tooltip-item-wrapper .d3-tooltip-item-border { display: none; position: absolute; }
+  .d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-AncientLegendary .d3-tooltip-item-border {
+    display: block;
+    height: 100%;
+    background-repeat: repeat-y;
+  }
+  .d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-AncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-left {
+    background-image: url("../images/tooltip/Ancient-Frame-LeftBorder-2.png");
+    left: -20px;
+    width: 20px;
+    z-index: 1000;
+  }
+  .d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-AncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-right {
+    background-image: url("../images/tooltip/Ancient-Frame-RightBorder-2.png");
+    right: -20px;
+    width: 20px;
+    z-index: 1000;
+  }
+  .d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-AncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-top {
+    background-image: url("../images/tooltip/Ancient-Frame-TopBorder-2.png");
+    background-position: center;
+    top: -22px;
+    height: 22px;
+    width: 100%;
+    z-index: 1000;
+  }
+  .d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-AncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-bottom {
+    background-image: url("../images/tooltip/Ancient-Frame-BottomBorder-2.png");
+    background-position: center;
+    bottom: -26px;
+    height: 26px;
+    width: 100%;
+    z-index: 1000;
+  }
+  .d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-AncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-top-left {
+    background-image: url("../images/tooltip/Ancient-Frame-TopLeftBorder-2.png");
+    background-position: center;
+    top: -5px;
+    left: -10px;
+    height: 26px;
+    width: 26px;
+    z-index: 1010;
+  }
+  .d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-AncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-bottom-left {
+    background-image: url("../images/tooltip/Ancient-Frame-BottomLeftBorder-2.png");
+    background-position: center;
+    bottom: -7px;
+    left: -10px;
+    height: 26px !important;
+    width: 26px !important;
+    z-index: 1010;
+  }
+  .d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-AncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-top-right {
+    background-image: url("../images/tooltip/Ancient-Frame-TopRightBorder-2.png");
+    background-position: center;
+    top: -5px;
+    right: -10px;
+    height: 26px !important;
+    width: 26px !important;
+    z-index: 1010;
+  }
+  .d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-AncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-bottom-right {
+    background-image: url("../images/tooltip/Ancient-Frame-BottomRightBorder-2.png");
+    background-position: center;
+    bottom: -8px;
+    right: -9px;
+    height: 26px !important;
+    width: 26px !important;
+    z-index: 1010;
+  }
+
   /* skill tooltips */
   .d3-tooltip-skill .tooltip-body { padding-left: 85px; }
   .d3-tooltip-skill .d3-icon-skill { position: absolute; left: 10px; top: 10px; }

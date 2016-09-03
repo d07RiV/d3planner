@@ -761,18 +761,18 @@ DiabloCalc.skills.wizard = {
       return res;
     },
     active: false,
-    //params: [(DiabloCalc.itemaffixes&&DiabloCalc.itemaffixes.leg_theswami.params[0]||
-    //  {min: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)",
-    //   max: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)+50", val: "min", name: "Stacks", inf: true, buffs: false}),
-    //  {min: 0, max: 20, val: 20, name: "Chantodo's", buffs: false, show: function(rune, stats) {
-    //    return !!stats.set_chantodo_2pc;
-    //  }}],
-    params: [
+    params: [(DiabloCalc.itemaffixes&&DiabloCalc.itemaffixes.leg_theswami.params[0]||
       {min: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)",
-       max: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)+50", val: "min", name: "Stacks", inf: true},
+       max: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)+50", val: "min", name: "Stacks", inf: true, buffs: false}),
       {min: 0, max: 20, val: 20, name: "Chantodo's", buffs: false, show: function(rune, stats) {
         return !!stats.set_chantodo_2pc;
       }}],
+    //params: [
+    //  {min: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)",
+    //   max: "(leg_fazulasimprobablechain||leg_fazulasimprobablechain_p2)+50", val: "min", name: "Stacks", inf: true},
+    //  {min: 0, max: 20, val: 20, name: "Chantodo's", buffs: false, show: function(rune, stats) {
+    //    return !!stats.set_chantodo_2pc;
+    //  }}],
     buffs: function(rune, stats) {
       var res = {dmgmul: {list: [30, 6 * this.params[0].val]}, armor_percent: 150, resist_percent: 150};
       if (stats.set_vyr_4pc) {
