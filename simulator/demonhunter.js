@@ -803,7 +803,7 @@
         maxstacks: 2 + (Sim.stats.passives.customengineering ? 1 : 0),
       };
       if (rune === "a" || Sim.stats.leg_tragoulcoils_p2) {
-        Sim.damage({type: "area", range: 8, coeff: 0, proc: 0, onhit: Sim.apply_effect("immobilized", 180)});
+        Sim.damage({type: "area", range: 8, coeff: 0, proc: 0, onhit: Sim.apply_effect("rooted", 180)});
       }
       if (rune === "d") {
         params.stacks = 2;

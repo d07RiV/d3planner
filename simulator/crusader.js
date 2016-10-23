@@ -107,7 +107,7 @@
         Sim.damage({delay: 30, type: "area", range: 3, count: primary + secondary, coeff: 0.6});
       }
       var onhit;
-      if (rune === "b") onhit = Sim.apply_effect("immobilized", 60, 0.2);
+      if (rune === "b") onhit = Sim.apply_effect("rooted", 60, 0.2);
       if (rune === "d") {
         Sim.addBuff("reaping", {regen: 6437}, {duration: 120, maxstacks: 4, stacks: primary + secondary});
       }
@@ -571,7 +571,7 @@
     case "d": Sim.addBuff("resolved", {chctaken: 8}, {duration: 360, targets: data.targets}); break;
     case "e": Sim.addBuff("debilitate", {edmgred: 40}, {duration: 360, targets: data.targets}); break;
     }
-    Sim.addBuff("immobilized", undefined, {duration: duration, targets: data.targets});
+    Sim.addBuff("rooted", undefined, {duration: duration, targets: data.targets});
   }
   skills.judgment = {
     offensive: true,
@@ -940,7 +940,7 @@
 
   function hf_ontick(data) {
     var coeff = data.coeff;
-    if (Sim.stats.leg_braceroffury && (Sim.stats.blinded || Sim.stats.immobilized || Sim.stats.stunned)) {
+    if (Sim.stats.leg_braceroffury && (Sim.stats.blinded || Sim.stats.rooted || Sim.stats.stunned)) {
       coeff *= 1 + 0.01 * Sim.stats.leg_braceroffury;
     }
     Sim.damage({type: "area", range: data.range, coeff: coeff});

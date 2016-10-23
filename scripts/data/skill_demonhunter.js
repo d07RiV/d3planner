@@ -616,8 +616,8 @@ DiabloCalc.skills.demonhunter = {
     col: 1,
     runes: {
       b: "Echoing Blast",
-      c: "Sticky Trap",
-      a: "Long Fuse",
+      c: "Custom Trigger",
+      a: "Impaling Spines",
       e: "Lightning Rod",
       d: "Scatter",
     },
