@@ -85,6 +85,7 @@ DiabloCalc.addItems([
     quality: "legendary",
     affixes: {
       pickup: {min: 6, max: 7},
+      healbonus: {min: 5978, max: 38625},
     },
     preset: ["pickup", "healbonus"],
   },
