@@ -459,7 +459,6 @@ DiabloCalc.addItems([
   {
     id: "P42_Unique_Bracer_SpikeTrap",
     name: "Trag'Oul Coils",
-    suffix: _L("PTR"),
     type: "bracers",
     quality: "legendary",
     required: {

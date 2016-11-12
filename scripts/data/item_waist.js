@@ -670,7 +670,6 @@ DiabloCalc.addItems([
   {
     id: "P42_Crusader_FoH_Belt",
     name: "Khassett's Cord of Righteousness",
-    suffix: _L("PTR"),
     type: "belt",
     quality: "legendary",
     required: {
@@ -682,7 +681,6 @@ DiabloCalc.addItems([
   {
     id: "P42_Unique_BarbBelt_EQ",
     name: "Girdle of Giants",
-    suffix: _L("PTR"),
     type: "mightybelt",
     quality: "legendary",
     affixes: {

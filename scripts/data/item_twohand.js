@@ -925,7 +925,6 @@ DiabloCalc.addItems([
 /*  {
     id: "P42_Unique_Mace_2H_002_x1",
     name: "Sledge of Athskeleng",
-    suffix: _L("PTR"),
     type: "mace2h",
     quality: "legendary",
     affixes: {

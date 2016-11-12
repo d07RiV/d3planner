@@ -613,8 +613,8 @@ DiabloCalc.skills.monk = {
       case "e": res = {"Damage": {elem: "hol", coeff: 8.77}, "Total Damage": {sum: true, "Damage": {count: hits}}}; break;
       }
       if (stats.set_uliana_4pc) {
-        res["Damage"].factor = {};
-        res["Damage"].factor[DiabloCalc.itemSets.uliana.name] = 2 * hits;
+        res["Damage"].factors = {};
+        res["Damage"].factors[DiabloCalc.itemSets.uliana.name] = 2 * hits;
       }
       if (stats.leg_gungdogear && stats.set_uliana_6pc) {
         var ep_rune = (stats.skills.explodingpalm || "x");

@@ -2576,9 +2576,6 @@ DiabloCalc.webglItems = {
   P2_handXbow_norm_unique_03: {
     actor: 395305,
   },
-  P42_handXbow_norm_unique_03: {
-    actor: 395305,
-  },
   P2_mojo_norm_unique_02: {
     actor: 395199,
   },
@@ -2663,6 +2660,30 @@ DiabloCalc.webglItems = {
   },
   P41_Unique_Xbow_102: {
     actor: 271889,
+  },
+  P42_Unique_Fist_013_x1: {
+    actor: 130557,
+  },
+  P42_Unique_Mojo_003_x1: {
+    actor: 194995,
+  },
+  P42_Unique_Mojo_004: {
+    actor: 194991,
+  },
+  P42_Unique_Wand_003_x1: {
+    actor: 182074,
+  },
+  P42_handXbow_norm_unique_03: {
+    actor: 395305,
+  },
+  P43_Unique_Dagger_003_x1: {
+    actor: 195174,
+  },
+  P43_Unique_Fist_003_x1: {
+    actor: 196472,
+  },
+  P43_Unique_Sword_2H_012_x1: {
+    actor: 198960,
   },
   P4_Unique_Axe_1H_102: {
     actor: 271597,
@@ -4630,9 +4651,6 @@ DiabloCalc.webglItems = {
   Unique_Fist_013_x1: {
     actor: 130557,
   },
-  P42_Unique_Fist_013_x1: {
-    actor: 130557,
-  },
   Unique_Fist_015_x1: {
     actor: 223526,
   },
@@ -4661,9 +4679,6 @@ DiabloCalc.webglItems = {
     actor: 299427,
   },
   Unique_Flail_1H_106_x1: {
-    actor: 299428,
-  },
-  P42_Unique_Flail_1H_106_x1: {
     actor: 299428,
   },
   Unique_Flail_1H_107_x1: {
@@ -5443,9 +5458,6 @@ DiabloCalc.webglItems = {
   Unique_Mace_2H_002_x1: {
     actor: 190866,
   },
-  P42_Unique_Mace_2H_002_x1: {
-    actor: 190866,
-  },
   Unique_Mace_2H_003_x1: {
     actor: 59633,
   },
@@ -5533,13 +5545,7 @@ DiabloCalc.webglItems = {
   Unique_Mojo_003_x1: {
     actor: 194995,
   },
-  P42_Unique_Mojo_003_x1: {
-    actor: 194995,
-  },
   Unique_Mojo_004_p2: {
-    actor: 194991,
-  },
-  P42_Unique_Mojo_004: {
     actor: 194991,
   },
   Unique_Mojo_004_x1: {
@@ -6866,9 +6872,6 @@ DiabloCalc.webglItems = {
   Unique_Wand_003_x1: {
     actor: 182074,
   },
-  P42_Unique_Wand_003_x1: {
-    actor: 182074,
-  },
   Unique_Wand_006_x1: {
     actor: 193355,
   },
@@ -7212,6 +7215,99 @@ DiabloCalc.webglItems = {
     name: "Gul’dan’s Secret",
     promo: true,
     type: "source",
+  },
+  p43_RetroArmor_001: {
+    armortype: 5,
+    look: 65,
+  },
+  p43_RetroArmor_002: {
+    armortype: 5,
+    look: 65,
+  },
+  p43_RetroAxe_001: {
+    actor: 456930,
+  },
+  p43_RetroHelm_001: {
+    actor: {
+      "238284": 288029,
+      "238286": 324765,
+      "3285": 138005,
+      "3301": 138002,
+      "4717": 62879,
+      "4721": 138007,
+      "6481": 138008,
+      "6485": 138009,
+      "6526": 138010,
+      "6544": 4477,
+      "74706": 138006,
+      "75207": 138011,
+    },
+  },
+  p43_RetroHelm_002: {
+    actor: {
+      "238284": 288029,
+      "238286": 324765,
+      "3285": 138005,
+      "3301": 138002,
+      "4717": 62879,
+      "4721": 138007,
+      "6481": 138008,
+      "6485": 138009,
+      "6526": 138010,
+      "6544": 4477,
+      "74706": 138006,
+      "75207": 138011,
+    },
+  },
+  p43_RetroHelm_003: {
+    actor: {
+      "238284": 288029,
+      "238286": 324765,
+      "3285": 138005,
+      "3301": 138002,
+      "4717": 62879,
+      "4721": 138007,
+      "6481": 138008,
+      "6485": 138009,
+      "6526": 138010,
+      "6544": 4477,
+      "74706": 138006,
+      "75207": 138011,
+    },
+  },
+  p43_RetroStaff_001: {
+    actor: 456929,
+  },
+  p43_RetroSword_002: {
+    actor: 456931,
+  },
+  p43_RetroSword_1H_001: {
+    actor: 456927,
+  },
+  p43_RetroTransmog_WirtsLeg: {
+    actor: 455668,
+    name: "Wirt's Leg",
+    promo: true,
+    type: "mace",
+  },
+  p4_Helm_norm_anniversary_01: {
+    actor: {
+      "238284": 455122,
+      "238286": 455158,
+      "3285": 455305,
+      "3301": 455302,
+      "4717": 455259,
+      "4721": 455247,
+      "6481": 455244,
+      "6485": 455240,
+      "6526": 455212,
+      "6544": 455195,
+      "74706": 455286,
+      "75207": 455283,
+    },
+    name: "Red Soul Shard",
+    promo: true,
+    type: "helm",
   },
 };
 DiabloCalc.webglActors = {
@@ -17589,6 +17685,117 @@ DiabloCalc.webglActors = {
     hair: 3,
   },
   "450340": {
+    enable: {
+      "2": 0,
+    },
+  },
+  "455122": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 0,
+  },
+  "455158": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 0,
+  },
+  "455195": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 0,
+  },
+  "455212": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 0,
+  },
+  "455240": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 0,
+  },
+  "455244": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 0,
+  },
+  "455247": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 0,
+  },
+  "455259": {
+    enable: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+    },
+    hair: 1,
+  },
+  "455283": {
+    enable: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+    },
+    hair: 3,
+  },
+  "455286": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 0,
+  },
+  "455302": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 0,
+  },
+  "455305": {
+    enable: {
+      "0": 0,
+      "1": 0,
+    },
+    hair: 0,
+  },
+  "455668": {
+    enable: {
+      "2": 0,
+    },
+  },
+  "456927": {
+    enable: {
+      "2": 0,
+    },
+  },
+  "456929": {
+    enable: {
+      "2": 0,
+    },
+  },
+  "456930": {
+    enable: {
+      "2": 0,
+    },
+  },
+  "456931": {
     enable: {
       "2": 0,
     },

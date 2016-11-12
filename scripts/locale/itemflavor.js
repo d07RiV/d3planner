@@ -231,6 +231,9 @@ _L.patch.add({
     P41_Unique_Quiver_001: {
       flavor: "The demon hunter Augustine liked to use the right projectile for every occasion. She was thrilled to discover this quiver in an ancient barrow.",
     },
+    P41_Unique_Ring_01: {
+      flavor: "\"See the man dance! Oh, wait, my lightning is making him do that.\" -Karini the Wizard.",
+    },
     P41_Unique_Ring_02: {
       flavor: "Unscrupulous merchants have often duplicated this much sought-after ring to sell to the unwary.",
     },
@@ -243,8 +246,14 @@ _L.patch.add({
     P42_Unique_BarbBelt_EQ: {
       flavor: "No belt is too big. Except this one.",
     },
+    P42_Unique_Bracer_SpikeTrap: {
+      flavor: "\"The guardian shall ever maintain his eternal watch over those who serve and protect the balance.\" —Excerpt from the Books of Kalan",
+    },
     P42_Unique_Fist_013_x1: {
       flavor: "Each scar left in its wake is a sin forgiven.",
+    },
+    P42_Unique_Mojo_003_x1: {
+      flavor: "The eyes of fallen warriors peer into the darkness to see what you cannot.",
     },
     P42_Unique_Mojo_004: {
       flavor: "The severed head of a homunculus is the source of much power for a knowledgeable witch doctor.",
@@ -257,6 +266,27 @@ _L.patch.add({
     },
     P42_handXbow_norm_unique_03: {
       flavor: "“Whispers abound of Kovan's insatiable lust for slaughtering the denizens of the Burning Hells. May the gods save the world if the day comes when he no longer has demons to fight” -Tales of the Wasteland",
+    },
+    P43_AkkhanSet_Amulet: {
+      flavor: "\"Let the crusader's neck be graced with a protective amulet that will shield its wearer from harm, just as faith shields the souls of the devout from all peril.\" -Akkhan",
+    },
+    P43_Unique_Belt_001_x1: {
+      flavor: "Bound according to the precepts of Anrach.",
+    },
+    P43_Unique_Belt_005_x1: {
+      flavor: "Forged in the pits of the Burning Hells using dismembered demons as raw materials.",
+    },
+    P43_Unique_Dagger_003_x1: {
+      flavor: "A precision instrument for a master of the blade.",
+    },
+    P43_Unique_Fist_003_x1: {
+      flavor: "Those who survive the winter fever retain the strength of the madness it brings.",
+    },
+    P43_Unique_Ring_021_x1: {
+      flavor: "Crafted by the healers of Viz-jun to protect their warriors from harm.",
+    },
+    P43_Unique_Sword_2H_012_x1: {
+      flavor: "The Boosenian smiths forged swords with a technique centuries beyond their time. Few craftsmen have been able to replicate the quality of their work. ",
     },
     P4_Unique_Axe_1H_102: {
       flavor: "\"When I move to the unformed land, you may throw my skull at the unwise, and I will return long enough to invigorate you.\" -Mordullu's promise to his heirs.",
@@ -2304,6 +2334,42 @@ _L.patch.add({
     p2_Unique_Ring_Wizard_001: {
       flavor: "Frostsmith Arlyse labored on the glacier for many months, seeking to harness the power of deep winter. In the spring, her tribe found her frozen corpse a short distance from her camp, holding this ring up to the heavens.",
     },
+    p43_RetroAmulet_001: {
+      flavor: "It seems to see what you see not...\n",
+    },
+    p43_RetroArmor_001: {
+      flavor: "This armor is so powerful that only the most conniving adventurers could dream of obtaining it.",
+    },
+    p43_RetroArmor_002: {
+      flavor: "\"Just before Arkaine died, his armor was hidden away in a secret vault. It is said that when this holy armor is again needed, a hero will arise to don Valor once more. Perhaps you are that hero...\" \n\n—Deckard Cain",
+    },
+    p43_RetroAxe_001: {
+      flavor: "Encrusted in dried blood and gore, this cleaver still mysteriously smells of fresh meat.",
+    },
+    p43_RetroHelm_001: {
+      flavor: "\" This cap was left in one of the rooms by a magician that stayed here some time ago. Perhaps it may be of some value to you.\" \n\n—Ogden\n",
+    },
+    p43_RetroHelm_002: {
+      flavor: "This looks just like the crown of the Black King, but less tarnished and aged...",
+    },
+    p43_RetroHelm_003: {
+      flavor: "\"May those who wear this helm meet a better fate than my own, ever guided by loyalty and honor.\" \n\n—Lachdanan\n",
+    },
+    p43_RetroRing_001: {
+      flavor: "\"I arranged pieces of the stone within a silver ring that my father left me. I hope it serves you well.\" \n\n—Griswold",
+    },
+    p43_RetroRing_002: {
+      flavor: "The ring glitters with a subtle illumination that seems to drive back any nearby shadows.",
+    },
+    p43_RetroStaff_001: {
+      flavor: "This staff bears an aura of foreboding. It is rumored to have been created by the Archangel Itherael.",
+    },
+    p43_RetroSword_002: {
+      flavor: "\"Give a man a sword and you can make him a warrior. Teach a man to forge and you can raise an army.\" \n-Griswold",
+    },
+    p43_RetroSword_1H_001: {
+      flavor: "The royal blacksmith received an order to create this sword for King Leoric, but it was canceled a short time later, meaning this weapon never should have existed...",
+    },
     x1_Amulet_norm_unique_25: {
       flavor: "The Hellfire Amulet is truly a badge of dedication to those who, at great cost to themselves, have sworn their lives to eradicating the demon scourge from the lands of Sanctuary. ",
     },
@@ -2380,6 +2446,9 @@ _L.patch.add({
     },
     simplicity: {
       flavor: "\"A simple task performed a thousand times may seem a drudgery, yet the power it creates is immeasurable.\" - Matriarch Lian Rasmussen\n",
+    },
+    soulshard: {
+      flavor: "This looks just like it was part of the infamous Red Soulstone. But that's impossible... It was destroyed long ago.\n",
     },
     stricken: {
       flavor: "After the defeat of Malthael, Diadra the Scholar wandered the world. She studied the gem cutters of Xiansai, and brought their secrets back to Westmarch. Bane of the Stricken is the first gem to come out of her Westmarch workshop.",
@@ -2540,6 +2609,12 @@ _L.patch.add({
     },
     Unique_Sword_1H_Promo_01_x1: {
       flavor: "\"The malleability of mortal soulstuff is remarkable. I wonder to what other ends I might put it.\" —Author Unknown, Armis Mortem",
+    },
+    p43_RetroTransmog_WirtsLeg: {
+      flavor: "\"Poor Wirt. I did all that was possible for the child, but I know that he despises that wooden peg I was forced to attach to his leg. His wounds were hideous. No one--and especially such a young child--should have to suffer the way he did.\" \n\n—Pepin",
+    },
+    p4_Helm_norm_anniversary_01: {
+      flavor: "This looks just like it was part of the infamous Red Soulstone. But that's impossible... It was destroyed long ago.",
     },
   },
 });

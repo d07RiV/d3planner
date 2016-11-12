@@ -804,7 +804,6 @@ DiabloCalc.addItems([
   {
     id: "P42_Unique_Mojo_003_x1",
     name: "Gazing Demise",
-    suffix: _L("PTR"),
     type: "mojo",
     quality: "legendary",
     required: {
@@ -817,7 +816,6 @@ DiabloCalc.addItems([
   {
     id: "P42_Unique_Mojo_004",
     name: "Homunculus",
-    suffix: _L("PTR"),
     type: "mojo",
     quality: "legendary",
     required: {
@@ -831,7 +829,6 @@ DiabloCalc.addItems([
   /*{
     id: "P42_Unique_Quiver_006_x1",
     name: "Fletcher's Pride",
-    suffix: _L("PTR"),
     type: "quiver",
     quality: "legendary",
     required: {

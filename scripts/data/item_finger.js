@@ -572,7 +572,6 @@ DiabloCalc.addItems([
   {
     id: "P42_Unique_Ring_Haunt",
     name: "Ring of Emptiness",
-    suffix: _L("PTR"),
     type: "ring",
     quality: "legendary",
     required: {

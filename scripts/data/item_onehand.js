@@ -1334,7 +1334,6 @@ DiabloCalc.addItems([
   {
     id: "P42_Unique_Fist_013_x1",
     name: "Scarbringer",
-    suffix: _L("PTR"),
     type: "fistweapon",
     quality: "legendary",
     required: {
@@ -1346,7 +1345,6 @@ DiabloCalc.addItems([
   {
     id: "Unique_Flail_1H_106_x1",
     name: "Darklight",
-    suffix: _L("PTR"),
     type: "flail",
     quality: "legendary",
     required: {

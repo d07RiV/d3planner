@@ -614,7 +614,6 @@ DiabloCalc.addItems([
     id: "P42_handXbow_norm_unique_03",
     local: true,
     name: "The Demon's Demise",
-    suffix: _L("PTR"),
     type: "handcrossbow",
     quality: "legendary",
     required: {
@@ -626,7 +625,6 @@ DiabloCalc.addItems([
   {
     id: "P42_Unique_Wand_003_x1",
     name: "Starfire",
-    suffix: _L("PTR"),
     type: "wand",
     quality: "legendary",
     required: {

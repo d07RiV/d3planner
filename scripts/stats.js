@@ -396,7 +396,7 @@
                 if (active && leg.buffs) {
                   var list = leg.buffs(data.gems[i][1], this);
                   for (var stat in list) {
-                    this.add(stat, list[stat], factor, data.gems[i][0]);
+                    this.add(stat, list[stat], /*factor*/1, data.gems[i][0]);
                   }
                 } else {
                   if (active) {
@@ -405,11 +405,11 @@
                       id = "gem_" + data.gems[i][0];
                       statInfo[id] = leg.effects[0];
                     }
-                    this.add(id, getGemValue(leg.effects[0], data.gems[i][1]), factor, data.gems[i][0]);
+                    this.add(id, getGemValue(leg.effects[0], data.gems[i][1]), /*factor*/1, data.gems[i][0]);
                   } else if (leg.inactive) {
                     var list = leg.inactive(data.gems[i][1], this);
                     for (var stat in list) {
-                      this.add(stat, list[stat], factor, data.gems[i][0]);
+                      this.add(stat, list[stat], /*factor*/1, data.gems[i][0]);
                     }
                   }
 
@@ -419,7 +419,7 @@
                       id = "gem_" + data.gems[i][0] + "_25";
                       statInfo[id] = leg.effects[1];
                     }
-                    this.add(id, getGemValue(leg.effects[1], data.gems[i][1]), factor, data.gems[i][0]);
+                    this.add(id, getGemValue(leg.effects[1], data.gems[i][1]), /*factor*/1, data.gems[i][0]);
                   }
                 }
               }
