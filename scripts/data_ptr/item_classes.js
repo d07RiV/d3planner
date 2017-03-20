@@ -204,7 +204,7 @@ DiabloCalc.itemPowerClasses = {
   leg_triumvirate: "wizard",
   leg_triumvirate_p2: "wizard",
   leg_tzokrinsgaze: "monk",
-  leg_ukhapianserpent: "witchdoctor",
+  leg_uhkapianserpent: "witchdoctor",
   leg_unrelentingphalanx: "crusader",
   leg_unstablescepter: "wizard",
   leg_vallasbequest: "demonhunter",

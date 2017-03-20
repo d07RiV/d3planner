@@ -704,7 +704,7 @@ DiabloCalc.itemaffixes = {
     active: false,
     buffs: {dmgred: 50},
   },
-  leg_ukhapianserpent: {
+  leg_uhkapianserpent: {
     active: true,
     check: true,
     buffs: function(value, stats) {

@@ -341,11 +341,11 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Mojo_008_x1",
-    name: "Ukhapian Serpent",
+    name: "Uhkapian Serpent",
     type: "mojo",
     quality: "legendary",
     required: {
-      custom: {id: "leg_ukhapianserpent", name: "Redirect Damage to Zombie Dogs", format: "%d%% of the damage you take is redirected to your Zombie Dogs.", min: 25, max: 30},
+      custom: {id: "leg_uhkapianserpent", name: "Redirect Damage to Zombie Dogs", format: "%d%% of the damage you take is redirected to your Zombie Dogs.", min: 25, max: 30},
     },
     preset: ["mainstat", "chc"],
   },
