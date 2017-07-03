@@ -61,20 +61,22 @@ asheara's: todo
     var elems = {"fir": "tal_6pc_fire", "col": "tal_6pc_cold", "arc": "tal_6pc_arcane", "lit": "tal_6pc_lightning"};
     var elems2 = {"fir": "tal_6pc_fire2", "col": "tal_6pc_cold2", "arc": "tal_6pc_arcane2", "lit": "tal_6pc_lightning2"};
     Sim.register("oncast", function(data) {
-      if (data.offensive && data.elem && elems[data.elem]) {
-        if (!Sim.getBuff(elems[data.elem])) {
-          Sim.addBuff(elems[data.elem], undefined, {duration: 480});
+      var elem = data.elem;
+      if (data.skill === "archon") elem = "fir";
+      if (data.offensive && elem && elems[elem]) {
+        if (!Sim.getBuff(elems[elem])) {
+          Sim.addBuff(elems[elem], undefined, {duration: 480});
           for (var id in elems) {
             Sim.refreshBuff(elems[id], 480);
           }
           Sim.addBuff("tal_6pc", {dmgmul: 750}, {maxstacks: 4, duration: 480});
-        } else if (Sim.getBuff("tal_6pc") === 4 && !Sim.getBuff(elems2[data.elem])) {
+        } else if (Sim.getBuff("tal_6pc") === 4 && !Sim.getBuff(elems2[elem])) {
           var dur = Sim.getBuffDuration("tal_6pc") + 120;
           for (var id in elems) {
             Sim.refreshBuff(elems[id], dur);
             Sim.removeBuff(elems2[id]);
           }
-          Sim.addBuff(elems2[data.elem], undefined, {duration: dur});
+          Sim.addBuff(elems2[elem], undefined, {duration: dur});
           Sim.refreshBuff("tal_6pc", dur);
         }
       }
