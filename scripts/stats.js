@@ -570,11 +570,6 @@
       this.info.res_factor = 1 / (1 + this.info.resavg / (this.info.level * 5));
       this.info.defense_factor = this.info.armor_factor * this.info.res_factor * (1 - 0.01 * (this.edef || 0) / 2) * this.info.defavg;
       this.info.toughness = this.info.hp / this.info.defense_factor / (1 - 0.01 * (this.dodge || 0));
-      if (isNaN(this.info.toughness)) {
-        debugger;
-        //this.info.defense_factor = this.info.armor_factor * this.info.res_factor * (1 - 0.01 * (this.edef || 0) / 2) * this.info.defavg;
-        //this.info.toughness = this.info.hp / this.info.defense_factor / (1 - 0.01 * (this.dodge || 0));
-      }
 
       this.info.toughpervit = this.info.toughness / this.info.hp * 100 * hpPerVit * (1 + 0.01 * (this.life || 0));
       this.info.toughperlife = this.info.toughness * 0.01 / (1 + 0.01 * (this.life || 0));

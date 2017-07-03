@@ -1391,6 +1391,4 @@ DiabloCalc.itemaffixes = {
     active: true,
     buffs: {dmgmul: {skills: ["bonespear"], percent: 3000}},
   },
-  set_jesseth_2pc: {
-  },
 };

@@ -315,7 +315,7 @@ DiabloCalc.skills.necromancer = {
     info: function(rune, stats) {
       var res = {"Damage": {elem: "phy", pet: true, coeff: 0.5}, "DPS": {sum: true, "Damage": {pet: 50, speed: 1, count: this.params[0].val}}, "Cost": {cost: 50, rcr: stats.passives.commanderoftherisendead ? 30 : 0}};
       var allRunes = false;
-      if (stats.leg_bloodsongmail && DiabloCalc.skills.necromancer.landofthedead.active) {
+      if (stats.leg_bloodsongmail && stats.skills.landofthedead && DiabloCalc.skills.necromancer.landofthedead.active) {
         allRunes = true;
       }
       if (allRunes || rune === "a") res["Cost"].cost = 25;
@@ -367,7 +367,7 @@ DiabloCalc.skills.necromancer = {
       return res;
     },
     active: false,
-    params: [{rune: "c", min: 0, max: 10, val: 0, name: "Corpses"}],
+    params: [{rune: "c", min: 0, max: 10, val: 0, name: "Corpses Consumed"}],
     buffs: function(rune, stats) {
       var res = {};
       if (rune === "e") res.chctaken = 10;
@@ -474,7 +474,7 @@ DiabloCalc.skills.necromancer = {
       "*": {"Cost": {cost: 10, rcr: "passives.eternaltorment?50:0"}},
     },
     active: false,
-    params: [{rune: "ad", min: 0, max: 20, val: 0, name: "Enemies"}],
+    params: [{rune: "ad", min: 0, max: 20, val: 0, name: "Enemies Hit"}],
     buffs: function(rune, stats) {
       if (rune === "a") return {regen: this.params[0].val * 751};
       if (rune === "d") return {regen_percent: this.params[0].val};
@@ -714,7 +714,7 @@ DiabloCalc.passives.necromancer = {
     name: "Draw Life",
     index: 14,
     active: true,
-    params: [{min: 0, max: 20, inf: true, name: "Enemies"}],
+    params: [{min: 0, max: 20, inf: true, name: "Nearby Enemies"}],
     buffs: function(stats) {
       return {regen_percent: 10 * this.params[0].val};
     },
@@ -761,6 +761,4 @@ DiabloCalc.partybuffs.necromancer = {
   commandgolem: {
     runelist: "e",
   },
-};
-DiabloCalc.extraskills.necromancer = {
 };
