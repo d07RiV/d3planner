@@ -323,7 +323,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Pants_Set_02_p3",
     local: true,
-    name: "Arachyr’s Legs",
+    name: "Arachyr's Legs",
     type: "pants",
     quality: "set",
     set: "arachyr",
@@ -388,6 +388,64 @@ DiabloCalc.addItems([
     },
     preset: ["mainstat", "elemental", "sockets"],
     primary: 5,
+  },
+
+  {
+    id: "P6_Necro_Set_1_Pants",
+    name: "Rathma's Skeletal Legplates",
+    type: "pants",
+    quality: "set",
+    set: "rathma",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P6_Necro_Set_2_Pants",
+    name: "Trag'Oul's Hide",
+    type: "pants",
+    quality: "set",
+    set: "trangoul",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P6_Necro_Set_3_Pants",
+    name: "Inarius's Reticence",
+    type: "pants",
+    quality: "set",
+    set: "inarius",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P6_Necro_Set_4_Pants",
+    name: "Pestilence Incantations",
+    type: "pants",
+    quality: "set",
+    set: "pestilence",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P6_Necro_Unique_Pants_21",
+    name: "Golemskin Breeches",
+    type: "pants",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_golemskinbreeches", name: "Golem Damage Bonus", format: "Your Golem's damage is increased by %d%% and you take 30%% less damage while it is alive.", min: 100, max: 125},
+    },
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P6_Necro_Unique_Pants_22",
+    name: "Defiler Cuisses",
+    type: "pants",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_defilercuisses", name: "Bone Spirit Damage per Stack", format: "Your Bone Spirit's damage is increased by %d%% for every second it is active.", min: 75, max: 100},
+    },
+    preset: ["mainstat", "sockets"],
   },
 
 ]);

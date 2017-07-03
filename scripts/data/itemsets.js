@@ -316,7 +316,7 @@ DiabloCalc.itemSets = {
         {format: "When you die, a meteor falls from the sky and revives you. This effect has a 60 second cooldown."},
       ],
       "4": [
-        {format: "Dealing Fire damage with one of your skills causes the enemy to take 1000%% weapon damage as Fire per second for 3 seconds. This effect can be repeated a second and third time by different skills. If an enemy is burning due to three different skills simultaneously the enemy will Ignite, dealing 3000%% weapon damage per second until they die."},
+        {format: "Dealing Fire damage with one of your skills causes the enemy to take 1000%% weapon damage as Fire per second for 3 seconds. This effect can be repeated a second and third time by different skills. If an enemy is burning due to three different skills simultaneously the enemy will Ignite, taking 3000%% weapon damage per second until they die."},
       ],
       "6": [
         {format: "Your damage is increased by 120%% and damage taken reduced by 3%% for each enemy that is Ignited. This effect can stack up to 20 times. You always receive the maximum bonus whenever a nearby Elite monster is Ignited."},
@@ -370,7 +370,7 @@ DiabloCalc.itemSets = {
         {format: "Sentries deal 400% increased damage and cast Elemental Arrow, Chakram, Impale, Multishot, and Cluster Arrow when you do."},
       ],
       "6": [
-        {format: "Your primary skills, Elemental Arrow, Chakram, Impale, Multishot, Cluster Arrow, Companions, and Vengeance deal 800%% increased damage for every active Sentry."},
+        {format: "Your primary skills, Elemental Arrow, Chakram, Impale, Multishot, Cluster Arrow, Companions, and Vengeance deal 1200%% increased damage for every active Sentry."},
       ],
     },
   },
@@ -387,7 +387,7 @@ DiabloCalc.itemSets = {
         {format: "You and your pets take 3% less damage for every Fetish you have alive."},
       ],
       "6": [
-        {format: "Enemies hit by your Mana spenders take 1500%% more damage from your pets for 8 seconds."},
+        {format: "Enemies hit by your Mana spenders take 2500%% more damage from your pets for 8 seconds."},
       ],
     },
   },
@@ -489,7 +489,7 @@ DiabloCalc.itemSets = {
         {format: "Gain the base effect of all four Mantras at all times."},
       ],
       "6": [
-        {format: "Gain the five runed Mystic Allies at all times and your damage is increased by 50%% for each Mystic Ally you have out."},
+        {format: "Gain the five runed Mystic Allies at all times and your damage is increased by 125%% for each Mystic Ally you have out."},
       ],
     },
   },
@@ -554,10 +554,10 @@ DiabloCalc.itemSets = {
         {format: "Every use of Shield Bash and Sweep Attack reduces the cooldown of your Laws and Defensive Skills by 1 second."},
       ],
       "4": [
-        {format: "Increase the damage of Shield Bash and Sweep Attack by 750%%."},
+        {format: "Increase the damage of Shield Bash and Sweep Attack by 2500%%."},
       ],
       "6": [
-        {format: "Every use of Shield Bash or Sweep Attack that hits an enemy grants 50%% increased Attack Speed and 10%% damage reduction for 8 seconds. This effect stacks up to 5 times."},
+        {format: "Every use of Shield Bash or Sweep Attack that hits an enemy grants 50%% increased Attack Speed and 15%% damage reduction for 8 seconds. This effect stacks up to 5 times."},
       ],
     },
   },
@@ -568,13 +568,13 @@ DiabloCalc.itemSets = {
     order: ["gloves", "boots", "pants", "helm", "shoulders", "chestarmor"],
     bonuses: {
       "2": [
-        {format: "Casting Arcane Orb, Energy Twister, Explosive Blast, Magic Missile, Shock Pulse, Spectral Blade, or Wave of Force reduces the cooldown of Slow Time by 2 seconds."},
+        {format: "Casting Arcane Orb, Energy Twister, Explosive Blast, Magic Missile, Shock Pulse, Spectral Blade, or Wave of Force reduces the cooldown of Slow Time by 3 seconds."},
       ],
       "4": [
-        {format: "You take 50%% reduced damage while you have a Slow Time active. Allies inside your Slow Time gain half benefit."},
+        {format: "You take 60%% reduced damage while you have a Slow Time active. Allies inside your Slow Time gain half benefit."},
       ],
       "6": [
-        {format: "Enemies affected by your Slow Time take 2000%% increased damage from your Arcane Orb, Energy Twister, Explosive Blast, Magic Missile, Shock Pulse, Spectral Blade, and Wave of Force abilities."},
+        {format: "Enemies affected by your Slow Time and for 5 seconds after exiting take 3500%% increased damage from your Arcane Orb, Energy Twister, Explosive Blast, Magic Missile, Shock Pulse, Spectral Blade, and Wave of Force abilities."},
       ],
     },
   },
@@ -608,7 +608,7 @@ DiabloCalc.itemSets = {
         {format: "During Whirlwind you gain 50%% damage reduction and your applied Rends deal triple damage."},
       ],
       "6": [
-        {format: "Whirlwind gains the effect of the Dust Devils rune and Dust Devils damage is increased to 2500%% weapon damage."},
+        {format: "Whirlwind gains the effect of the Dust Devils rune and all Whirlwind damage is increased by 800%%."},
       ],
     },
   },
@@ -659,7 +659,7 @@ DiabloCalc.itemSets = {
         {format: "Hex gains the effect of the Toad of Hugeness rune. After summoning a Toad of Hugeness is active, you gain 50%% damage reduction and heal for 10%% of your maximum Life per second for 15 seconds."},
       ],
       "6": [
-        {format: "The damage of your creature skills is increased by 1500%%. Creature skills are Corpse Spiders, Plague of Toads, Firebats, Locust Swarm, Hex, and Piranhas."},
+        {format: "The damage of your creature skills is increased by 2400%%. Creature skills are Corpse Spiders, Plague of Toads, Firebats, Locust Swarm, Hex, and Piranhas."},
       ],
     },
   },
@@ -672,6 +672,86 @@ DiabloCalc.itemSets = {
       "2": [
         {format: "Increases the duration of Steed Charge by 2 seconds. In addition, killing an enemy reduces the cooldown of Steed Charge by 1 second."},
         {format: "Gain 100%% increased damage while using Steed Charge and for 5 seconds after it ends."},
+      ],
+    },
+  },
+
+  rathma: {
+    name: "Bones of Rathma",
+    class: "necromancer",
+    order: [],
+    bonuses: {
+      "2": [
+        {format: "Your minions have a chance to reduce the cooldown of Army of the Dead by 1 second each time they deal damage."},
+      ],
+      "4": [
+        {format: "You gain 1%% damage reduction for 15 seconds each time one of your minions deal damage. Max 50 stacks."},
+      ],
+      "6": [
+        {format: "Each active Skeletal Mage increases the damage of your minions and Army of the Dead by 250%%."},
+      ],
+    },
+  },
+
+  trangoul: {
+    name: "Trag'Oul's Avatar",
+    class: "necromancer",
+    order: [],
+    bonuses: {
+      "2": [
+        {format: "Blood Rush gains the effect of every rune."},
+      ],
+      "4": [
+        {format: "While at full Life, your healing from skills is added to your maximum Life for 45 seconds, up to 100%% more."},
+      ],
+      "6": [
+        {format: "Your Life-spending abilities deal 3300%% increased damage but cost twice as much Life. Your healing from skills is increased by 100%%."},
+      ],
+    },
+  },
+
+  inarius: {
+    name: "Grace of Inarius",
+    class: "necromancer",
+    order: [],
+    bonuses: {
+      "2": [
+        {format: "Bone Armor damage is increased by 1000%%."},
+      ],
+      "4": [
+        {format: "Bone Armor grants an additional 2%% damage reduction per enemy hit."},
+      ],
+      "6": [
+        {format: "Bone Armor also activates a swirling tornado of bone, damaging nearby enemies for 750%% weapon damage and increasing the damage they take from the Necromancer by 2750%%."},
+      ],
+    },
+  },
+
+  pestilence: {
+    name: "Pestilence Master's Shroud",
+    class: "necromancer",
+    order: [],
+    bonuses: {
+      "2": [
+        {format: "Each corpse you consume fires a Corpse Lance at a nearby enemy."},
+      ],
+      "4": [
+        {format: "Each enemy you hit with Bone Spear reduces your damage taken by 2%%, up to a maximum of 50%%. Lasts 15 seconds."},
+      ],
+      "6": [
+        {format: "Each corpse you consume grants you an Empowered Bone Spear charge that increases the damage of your next Bone Spear by 3000%%."},
+      ],
+    },
+  },
+
+  jesseth: {
+    name: "Jesseth Arms",
+    class: "necromancer",
+    order: [],
+    bonuses: {
+      "2": [
+        {format: "When the target of your Command Skeletons dies, your skeletons are automatically commanded to attack a nearby target."},
+        {format: "While your skeletons are commanded to attack a target, all of your minions deal 400%% increased damage."},
       ],
     },
   },

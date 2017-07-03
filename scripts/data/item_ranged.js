@@ -498,7 +498,8 @@ DiabloCalc.addItems([
   },
 
   {
-    id: "P3_Unique_HandXBow_005",
+    id: "P43_Unique_HandXBow_005",
+    ids: ["P3_Unique_HandXBow_005"],
     local: true,
     name: "Valla's Bequest",
     type: "handcrossbow",

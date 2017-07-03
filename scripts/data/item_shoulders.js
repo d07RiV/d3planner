@@ -84,7 +84,7 @@ DiabloCalc.addItems([
     type: "shoulders",
     quality: "legendary",
     affixes: {
-      pickup: {min: 6, max: 7},
+      pickup: {min: 1, max: 7},
       healbonus: {min: 5978, max: 38625},
     },
     preset: ["pickup", "healbonus"],
@@ -276,7 +276,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Shoulder_Set_02_p3",
     local: true,
-    name: "Arachyr’s Mantle",
+    name: "Arachyr's Mantle",
     type: "shoulders",
     quality: "set",
     set: "arachyr",
@@ -305,7 +305,7 @@ DiabloCalc.addItems([
 
   {
     id: "P4_Unique_Shoulder_101",
-    name: "Lefebvre’s Soliloquy",
+    name: "Lefebvre's Soliloquy",
     type: "shoulders",
     quality: "legendary",
     required: {
@@ -332,6 +332,64 @@ DiabloCalc.addItems([
     quality: "set",
     set: "shadow",
     preset: ["mainstat", "resall"],
+  },
+
+  {
+    id: "P6_Necro_Set_1_Shoulders",
+    name: "Rathma's Spikes",
+    type: "shoulders",
+    quality: "set",
+    set: "rathma",
+    preset: ["mainstat", "cdr"],
+  },
+
+  {
+    id: "P6_Necro_Set_2_Shoulders",
+    name: "Trag'Oul's Heart",
+    type: "shoulders",
+    quality: "set",
+    set: "trangoul",
+    preset: ["mainstat", "regen"],
+  },
+
+  {
+    id: "P6_Necro_Set_3_Shoulders",
+    name: "Inarius's Martyrdom",
+    type: "shoulders",
+    quality: "set",
+    set: "inarius",
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P6_Necro_Set_4_Shoulders",
+    name: "Pestilence Defense",
+    type: "shoulders",
+    quality: "set",
+    set: "pestilence",
+    preset: ["mainstat", "rcr"],
+  },
+
+  {
+    id: "P6_Necro_Unique_Shoulders_21",
+    name: "Corpsewhisper Pauldrons",
+    type: "shoulders",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_corpsewhisperpauldrons", name: "Corpse Lance Damage per Stack", format: "Corpse Lance damage is increased by %d%% for 3 seconds when you consume a corpse. Max 20 stacks.", min: 25, max: 30},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P6_Necro_Unique_Shoulders_22",
+    name: "Razeth's Volition",
+    type: "shoulders",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_razethsvolition", name: "Skeletal Mage Gains Gift of Death", format: "Skeletal Mage gains the effect of the Gift of Death rune.", args: 0},
+    },
+    preset: ["mainstat", "rcr"],
   },
 
 ]);

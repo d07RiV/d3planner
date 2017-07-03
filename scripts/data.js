@@ -479,7 +479,7 @@
             get: function() {
               var val = 0;
               if (DiabloCalc.getStats) {
-                var stats = DiabloCalc.getStats();
+                var stats = DiabloCalc.getStats(true);
                 val = (typeof min === "string" ? stats.execString(min) : min.call(info, stats));
               }
               var step = (param.step || 1);
@@ -493,7 +493,7 @@
             get: function() {
               var val = 0;
               if (DiabloCalc.getStats) {
-                var stats = DiabloCalc.getStats();
+                var stats = DiabloCalc.getStats(true);
                 val = (typeof max === "string" ? stats.execString(max) : max.call(info, stats));
               }
               var step = (param.step || 1);
@@ -698,7 +698,22 @@
     /*
     var exportRes = {};
     var exportList = [
-    "itemById.*.required.custom.id",
+      "itemById.*.type",
+      "itemById.*.class",
+      "itemById.*.suffix",
+      "itemTypes.*.class",
+      "itemTypes.*.slot",
+      "itemTypes.*.name",
+      "itemTypes.*.weapon",
+      "itemTypes.*.required",
+      "itemTypes.*.generic",
+      "itemSlots.*.name",
+      "metaSlots.*.name",
+      "classes.*.name",
+      "statLimits.legendary",
+      "legendaryGems.*.id",
+      "gemQualities",
+      "gemColors.*.id",
     ];
     for (var i = 0; i < exportList.length; ++i) {
       $.extend(true, exportRes, DiabloCalc.exportData(exportList[i]));
@@ -851,7 +866,7 @@
         type: type,
         quality: "rare",
       };
-      if (newit.id == "custom") {
+      if (newit.id == "custom" || newit.id == "customwpn") {
         newit.local = true;
       }
       DiabloCalc.items.push(newit);

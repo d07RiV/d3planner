@@ -262,4 +262,55 @@ DiabloCalc.addItems([
     preset: ["mainstat", "sockets"],
   },
 
+  {
+    id: "P43_AkkhanSet_Amulet",
+    name: "Talisman of Akkhan",
+    type: "amulet",
+    quality: "set",
+    set: "akkhan",
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "p43_RetroAmulet_001",
+    name: "Optic Amulet",
+    suffix: _L("Retro"),
+    type: "amulet",
+    quality: "magic",
+    preset: ["resall", "meleedef"],
+  },
+
+  {
+    id: "P6_Unique_Amulet_01",
+    name: "The Johnstone",
+    type: "amulet",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_thejohnstone", name: "Corpse Skill Bonus Damage", format: "Each corpse consumed in the Land of the Dead grants a stack of Macabre Knowledge. Macabre Knowledge increases the damage of Corpse Lance and Corpse Explosion by %d%% while outside Land of the Dead.", min: 150, max: 200},
+    },
+    preset: ["mainstat", "chd"],
+  },
+
+  {
+    id: "P6_Unique_Amulet_02",
+    name: "Haunted Visions",
+    type: "amulet",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_hauntedvisions", name: "Double Simulacrum Duration", format: "Simulacrum now drains 5%% of your maximum life every second and lasts twice as long.", args: 0},
+    },
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P6_Unique_Amulet_03",
+    name: "Wisdom of Kalan",
+    type: "amulet",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_wisdomofkalan", name: "Max Bone Armor Stacks", format: "Increases the maximum stacks of Bone Armor by 5.", args: 0},
+    },
+    preset: ["mainstat", "ias"],
+  },
+
 ]);

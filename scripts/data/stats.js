@@ -21,10 +21,10 @@
     wpnlit: {name: "Lightning Damage", args: 2, elemental: "lightning", damage: true, elem: "lit", id: "Damage#Lightning (pair)", src: ["Damage_Weapon_Min#Lightning", "Damage_Weapon_Delta#Lightning"], srctype: "delta"},
     wpnhol: {name: "Holy Damage", args: 2, elemental: "holy", damage: true, elem: "hol", id: "Damage#Holy (pair)", src: ["Damage_Weapon_Min#Holy", "Damage_Weapon_Delta#Holy"], srctype: "delta"},
 
-    dmgphy: {name: "Physical Damage Increase", format: "Physical skills deal %d%% more damage.", classes: ["demonhunter", "monk", "witchdoctor", "crusader", "barbarian"], utility: true, id: "Damage_Dealt_Percent_Bonus#Physical", percent: true},
-    dmgfir: {name: "Fire Damage Increase", format: "Fire skills deal %d%% more damage.", utility: true, elemental: "fire", id: "Damage_Dealt_Percent_Bonus#Fire", percent: true},
-    dmgcol: {name: "Cold Damage Increase", format: "Cold skills deal %d%% more damage.", classes: ["wizard", "demonhunter", "witchdoctor", "barbarian", "monk"], utility: true, elemental: "cold", id: "Damage_Dealt_Percent_Bonus#Cold", percent: true},
-    dmgpsn: {name: "Poison Damage Increase", format: "Poison skills deal %d%% more damage.", classes: ["witchdoctor"], utility: true, elemental: "poison", id: "Damage_Dealt_Percent_Bonus#Poison", percent: true},
+    dmgphy: {name: "Physical Damage Increase", format: "Physical skills deal %d%% more damage.", classes: ["demonhunter", "monk", "witchdoctor", "crusader", "barbarian", "necromancer"], utility: true, id: "Damage_Dealt_Percent_Bonus#Physical", percent: true},
+    dmgfir: {name: "Fire Damage Increase", format: "Fire skills deal %d%% more damage.", classes: ["wizard", "demonhunter", "witchdoctor", "barbarian", "monk", "crusader"], utility: true, elemental: "fire", id: "Damage_Dealt_Percent_Bonus#Fire", percent: true},
+    dmgcol: {name: "Cold Damage Increase", format: "Cold skills deal %d%% more damage.", classes: ["wizard", "demonhunter", "witchdoctor", "barbarian", "monk", "necromancer"], utility: true, elemental: "cold", id: "Damage_Dealt_Percent_Bonus#Cold", percent: true},
+    dmgpsn: {name: "Poison Damage Increase", format: "Poison skills deal %d%% more damage.", classes: ["witchdoctor", "necromancer"], utility: true, elemental: "poison", id: "Damage_Dealt_Percent_Bonus#Poison", percent: true},
     dmgarc: {name: "Arcane Damage Increase", format: "Arcane skills deal %d%% more damage.", classes: ["wizard"], utility: true, elemental: "arcane", id: "Damage_Dealt_Percent_Bonus#Arcane", percent: true},
     dmglit: {name: "Lightning Damage Increase", format: "Lightning skills deal %d%% more damage.", classes: ["wizard", "demonhunter", "barbarian", "monk", "crusader"], utility: true, elemental: "lightning", id: "Damage_Dealt_Percent_Bonus#Lightning", percent: true},
     dmghol: {name: "Holy Damage Increase", format: "Holy skills deal %d%% more damage.", classes: ["monk", "crusader"], utility: true, elemental: "holy", id: "Damage_Dealt_Percent_Bonus#Holy", percent: true},
@@ -37,7 +37,7 @@
 
     str: {name: "Strength", classes: ["barbarian", "crusader", "templar"], id: "Strength_Item"},
     dex: {name: "Dexterity", classes: ["demonhunter", "monk", "scoundrel"], id: "Dexterity_Item"},
-    int: {name: "Intelligence", classes: ["wizard", "witchdoctor", "enchantress"], id: "Intelligence_Item"},
+    int: {name: "Intelligence", classes: ["wizard", "witchdoctor", "necromancer", "enchantress"], id: "Intelligence_Item"},
     str_percent: {name: "Strength"},
     dex_percent: {name: "Dexterity"},
     int_percent: {name: "Intelligence"},
@@ -81,6 +81,7 @@
     rcr_fury: {name: "Fury Cost Reduction", dr: true, class: "barbarian"},
     rcr_wrath: {name: "Wrath Cost Reduction", dr: true, class: "crusader"},
     rcr_spirit: {name: "Spirit Cost Reduction", dr: true, class: "monk"},
+    rcr_essence: {name: "Essence Cost Reduction", dr: true, class: "necromancer"},
 
     firetaken: {name: "Fire Damage Taken", format: "%d%% more Fire damage taken.", id: "Amplify_Damage_Type_Percent#Fire", percent: true},
     colddef: {name: "Cold Damage Reduction", format: "Reduces damage from Cold attacks by %d%%.", dr: true, id: "Damage_Type_Percent_Reduction#Cold", percent: true},
@@ -100,6 +101,7 @@
     lifewrath: {name: "Life per Wrath Spent", format: "Gain %d Life per Wrath Spent", class: "crusader", utility: true, id: "Spending_Resource_Heals_Percent#Faith"},
     wrathregen: {name: "Wrath Regeneration", format: "Increases Wrath Regeneration by %.2f per Second", class: "crusader", utility: true, id: "Resource_Regen_Per_Second#Faith", srcs: ["Resource_Regen_Per_Second#Wrath", "Resource_Regen_Per_Second#Faith"]},
     manaperkill: {name: "Mana per Kill", format: "Grants %d Mana per Kill", class: "witchdoctor", utility: true, id: "Resource_On_Kill#Mana"},
+    essenceregen: {name: "Essence Regeneration", format: "Increases Essence Regeneration by %d", class: "necromancer", utility: true, id: "Resource_Regen_Per_Second#Essence"},
 
     ms: {name: "Movement Speed", format: "+%d%% Movement Speed", utility: true, id: "Movement_Speed", percent: true},
     extrams: {name: "Movement Speed"},
@@ -132,6 +134,8 @@
     maxspirit: {name: "Maximum Spirit", class: "monk", secondary: true, utility: true, id: "Resource_Max_Bonus#Spirit"},
     maxfury: {name: "Maximum Fury", class: "barbarian", secondary: true, utility: true, id: "Resource_Max_Bonus#Fury"},
     maxwrath: {name: "Maximum Wrath", class: "crusader", secondary: true, utility: true, id: "Resource_Max_Bonus#Faith"},
+    maxessence: {name: "Maximum Essence", class: "necromancer", secondary: true, utility: true, id: "Resource_Max_Bonus#Essence"},
+    maxessence_percent: {name: "Maximum Essence", class: "necromancer"},
 
     damage_demons: {name: "Damage to Demons", format: "+%d%% Damage to Demons", secondary: true, utility: true, id: "Damage_Percent_Bonus_Vs_Monster_Type#Demon", percent: true},
     damage_beasts: {name: "Damage to Beasts", format: "+%d%% Damage to Beasts", secondary: true, utility: true, id: "Damage_Percent_Bonus_Vs_Monster_Type#Beast", percent: true},
@@ -143,7 +147,6 @@
     gf: {name: "Gold Find", format: "+%d%% Extra Gold from Monsters", secondary: true, utility: true, id: "Gold_Find", percent: true},
     mf: {name: "Magic Find", format: "%d%% Better Chance of Finding Magical Items", secondary: true, utility: true, id: "Magic_Find", percent: true},
     laek: {name: "Life per Kill", format: "+%d Life after Each Kill", secondary: true, id: "Hitpoints_On_Kill"},
-    healbonus: {name: "Health Globe Healing Bonus", format: "Health Globes and Potions Grant +%d Life.", secondary: true, id: "Health_Globe_Bonus_Health"}, 
     firethorns: {name: "Fire Thorns", format: "Ranged and melee attackers take %d Fire damage per hit", secondary: true, utility: true, id: "Thorns_Fixed#Fire"},
     thorns: {name: "Thorns", format: "+%d Thorns Damage", secondary: true, utility: true, id: "Thorns_Fixed#Physical"},
     ccr: {name: "Crowd Control Reduction", format: "Reduces duration of control impairing effects by %d%%", dr: true, secondary: true, utility: true, id: "CrowdControl_Reduction", percent: true},
@@ -152,6 +155,7 @@
     pickup: {name: "Bonus to Gold/Globe Radius", format: "Increases Gold and Health Pickup by %d Yards.", secondary: true, utility: true, id: "Gold_PickUp_Radius"},
     lvlreq: {name: "Level Reduction", format: "Level Requirement Reduced by %d", secondary: true, utility: true, id: "Item_Level_Requirement_Reduction"},
     dura: {name: "Ignores Durability Loss", format: "Ignores Durability Loss", args: 0, secondary: true, utility: true, id: "Item_Indestructible"},
+    healbonus: {name: "Health Globe Healing Bonus", format: "Health Globes and Potions Grant +%d Life.", secondary: true, id: "Health_Globe_Bonus_Health"}, 
 
     hitfear: {name: "Fear on Hit", format: "%.1f%% Chance to Fear on Hit", secondary: true, utility: true, dr: true, id: "On_Hit_Fear_Proc_Chance", srcs: ["On_Hit_Fear_Proc_Chance", "Weapon_On_Hit_Fear_Proc_Chance"], percent: true},
     hitstun: {name: "Stun on Hit", format: "%.1f%% Chance to Stun on Hit", secondary: true, utility: true, dr: true, id: "On_Hit_Stun_Proc_Chance", srcs: ["On_Hit_Fear_Stun_Chance", "Weapon_On_Hit_Stun_Proc_Chance"], percent: true},
@@ -164,7 +168,7 @@
 
     caldesanns_str: {name: "Bonus Strength", format: "+%d Strength", classes: ["barbarian", "crusader", "templar"], caldesanns: true},
     caldesanns_dex: {name: "Bonus Dexterity", format: "+%d Dexterity", classes: ["demonhunter", "monk", "scoundrel"], caldesanns: true},
-    caldesanns_int: {name: "Bonus Intelligence", format: "+%d Intelligence", classes: ["wizard", "witchdoctor", "enchantress"], caldesanns: true},
+    caldesanns_int: {name: "Bonus Intelligence", format: "+%d Intelligence", classes: ["wizard", "witchdoctor", "necromancer", "enchantress"], caldesanns: true},
     caldesanns_vit: {name: "Bonus Vitality", format: "+%d Vitality", caldesanns: true},
 
     petias: {name: "Pet Attack Speed"},
@@ -182,6 +186,7 @@
     fury: "Fury",
     spirit: "Spirit",
     wrath: "Wrath",
+    essence: "Essence",
   };
   DiabloCalc.statGroupNames = {
     "weapon": "Weapon Damage",
@@ -202,7 +207,7 @@
     "onhit": ["hitfear", "hitstun", "hitblind", "hitfreeze", "hitchill", "hitslow", "hitimmobilize", "hitknockback"],
     "resource": ["apregen", "apoc", "hatredregen", "manaregen", "lifespirit", "spiritregen",
                  "lifefury", "furyregen", "lifewrath", "wrathregen", "manaperkill",
-                 "maxap", "maxdisc", "maxmana", "maxspirit", "maxfury", "maxwrath"],
+                 "maxap", "maxdisc", "maxmana", "maxspirit", "maxfury", "maxwrath", "essenceregen", "maxessence"],
     "caldesanns": ["caldesanns_str", "caldesanns_dex", "caldesanns_int", "caldesanns_vit"],
     "skill_wizard_head": [
       "skill_wizard_disintegrate",
@@ -332,16 +337,36 @@
       "skill_crusader_smite",
       "skill_crusader_slash",
     ],
+    "skill_necromancer_head": [
+      "skill_necromancer_bonespear",
+      "skill_necromancer_deathnova",
+      "skill_necromancer_skeletalmage",
+    ],
+    "skill_necromancer_torso": [
+      "skill_necromancer_commandskeletons",
+      "skill_necromancer_commandgolem",
+      "skill_necromancer_revive",
+      "skill_necromancer_bonearmor",
+      "skill_necromancer_bonespirit",
+      "skill_necromancer_corpseexplosion",
+      "skill_necromancer_corpselance",
+    ],
+    "skill_necromancer_legs": [
+      "skill_necromancer_bonespikes",
+      "skill_necromancer_grimscythe",
+      "skill_necromancer_siphonblood",
+    ],
     "skill_wizard": ["skill_wizard_head", "skill_wizard_torso", "skill_wizard_legs"],
     "skill_demonhunter": ["skill_demonhunter_head", "skill_demonhunter_torso", "skill_demonhunter_legs"],
     "skill_barbarian": ["skill_barbarian_head", "skill_barbarian_torso", "skill_barbarian_legs"],
     "skill_witchdoctor": ["skill_witchdoctor_head", "skill_witchdoctor_torso", "skill_witchdoctor_legs"],
     "skill_monk": ["skill_monk_head", "skill_monk_torso", "skill_monk_legs"],
     "skill_crusader": ["skill_crusader_head", "skill_crusader_torso", "skill_crusader_legs"],
-    "skill_head": ["skill_wizard_head", "skill_demonhunter_head", "skill_barbarian_head", "skill_monk_head", "skill_witchdoctor_head", "skill_crusader_head"],
-    "skill_torso": ["skill_wizard_torso", "skill_demonhunter_torso", "skill_barbarian_torso", "skill_monk_torso", "skill_witchdoctor_torso", "skill_crusader_torso"],
-    "skill_legs": ["skill_wizard_legs", "skill_demonhunter_legs", "skill_barbarian_legs", "skill_monk_legs", "skill_witchdoctor_legs", "skill_crusader_legs"],
-    "skill": ["skill_wizard", "skill_demonhunter", "skill_barbarian", "skill_monk", "skill_witchdoctor", "skill_crusader"],
+    "skill_necromancer": ["skill_necromancer_head", "skill_necromancer_torso", "skill_necromancer_legs"],
+    "skill_head": ["skill_wizard_head", "skill_demonhunter_head", "skill_barbarian_head", "skill_monk_head", "skill_witchdoctor_head", "skill_crusader_head", "skill_necromancer_head"],
+    "skill_torso": ["skill_wizard_torso", "skill_demonhunter_torso", "skill_barbarian_torso", "skill_monk_torso", "skill_witchdoctor_torso", "skill_crusader_torso", "skill_necromancer_torso"],
+    "skill_legs": ["skill_wizard_legs", "skill_demonhunter_legs", "skill_barbarian_legs", "skill_monk_legs", "skill_witchdoctor_legs", "skill_crusader_legs", "skill_necromancer_legs"],
+    "skill": ["skill_wizard", "skill_demonhunter", "skill_barbarian", "skill_monk", "skill_witchdoctor", "skill_crusader", "skill_necromancer"],
 
     "any": [
       "weapon", "damage", "elemental", "mainstat", "vit",
@@ -372,7 +397,7 @@
     },
     secondary: {
       "Resistance": ["resist"],
-      "Resource": ["maxap", "maxdisc", "maxmana", "maxspirit", "maxwrath", "maxfury"],
+      "Resource": ["maxap", "maxdisc", "maxmana", "maxspirit", "maxwrath", "maxfury", "maxessence"],
       "Defensive": ["rangedef", "meleedef", "ccr"],
       "Life": ["laek", "healbonus", "pickup"],
       "Chance on Hit": ["onhit"],

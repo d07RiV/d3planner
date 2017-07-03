@@ -115,6 +115,7 @@
     //}
 
     return {
+      tags: data.tags,
       targets: Math.min(data.targets || 1, Sim.target.count),
       firsttarget: data.firsttarget,
       count: (data.count || 1),
@@ -196,32 +197,39 @@
     if (data.pierce) {
       var hits = tcount * area;
       if (data.pierce !== true) {
-        hits = Sim.math.limitedAverage(area, tcount, data.pierce);
+        hits = Sim.math.limitedAverage(area, tcount, data.pierce + 1);
       }
       data.count = hitCount;
       data.targets = hits;
-      data.distance = origin;
+      var ratio = Math.max(0, hits - 1) / Math.max(tcount * area - 1, 0.01);
+      var impact = (distance !== undefined ? Math.min(Sim.target.radius, Math.abs(origin - distance)) : 0);
+      impact *= 1 - ratio;
+      data.distance = origin - impact;
     } else {
       data.count = hitCount;
       data.targets = 1 - Math.pow(1 - area, tcount);
-      if (data.area && tcount > 1) {
-        var ta = Math.PI * Math.pow(data.area + Sim.target.size, 2);
-        ta = Math.min(ta, Sim.target.area) / Sim.target.area;
-        var targets = (tcount - 1) * ta;
-        if (data.areamax) {
-          targets = Sim.math.limitedAverage(ta, tcount - 1, data.areamax);
-        }
-        if (data.areacoeff || data.areadelay) {
-          secondary = Sim.extend({}, data);
-          secondary.targets *= targets;
-          secondary.coeff = (data.areacoeff || data.coeff);
-          secondary.delay = data.areadelay;
-          delete secondary.onhit;
-        } else {
-          data.targets *= 1 + targets;
-        }
-      }
       data.distance = distance + size;
+    }
+    if (data.area && tcount > 1) {
+      var impact = (distance !== undefined ? Math.min(Sim.target.radius, Math.abs(origin - distance)) : 0);
+      var ta = Sim.math.circleIntersection(impact, data.area + Sim.target.size, Sim.target.radius);
+      //var ta = Math.PI * Math.pow(data.area + Sim.target.size, 2);
+      ta = Math.min(ta, Sim.target.area) / Sim.target.area;
+      var targets = (tcount - 1) * ta;
+      if (data.areamax) {
+        targets = Sim.math.limitedAverage(ta, tcount - 1, data.areamax);
+      }
+      if (data.areacoeff || data.areadelay) {
+        secondary = Sim.extend({}, data);
+        secondary.count *= secondary.targets;
+        secondary.targets = targets;
+        secondary.coeff = (data.areacoeff || data.coeff);
+        secondary.delay = data.areadelay;
+        delete secondary.onhit;
+      } else {
+        data.count *= data.targets;
+        data.targets = 1 + targets;
+      }
     }
     if (data.speed) {
       var delay = distance / data.speed;

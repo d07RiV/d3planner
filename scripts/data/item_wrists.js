@@ -123,7 +123,7 @@ DiabloCalc.addItems([
     type: "bracers",
     quality: "legendary",
     required: {
-      custom: {id: "leg_strongarmbracers", name: "Damage Bonus on Knockback", format: "Enemies hit by knockbacks suffer %d%% increased damage for 5 seconds when they land.", min: 20, max: 30},
+      custom: {id: "leg_strongarmbracers", name: "Damage Bonus on Knockback", format: "Enemies hit by knockbacks suffer %d%% increased damage for 6 seconds.", min: 20, max: 30},
     },
     preset: ["mainstat", "vit"],
   },
@@ -352,7 +352,7 @@ DiabloCalc.addItems([
   {
     id: "P4_Unique_Bracer_102",
     local: true,
-    name: "Lakumba’s Ornament",
+    name: "Lakumba's Ornament",
     type: "bracers",
     quality: "legendary",
     required: {
@@ -364,7 +364,7 @@ DiabloCalc.addItems([
   {
     id: "P4_Unique_Bracer_103",
     local: true,
-    name: "Akkhan’s Manacles",
+    name: "Akkhan's Manacles",
     type: "bracers",
     quality: "legendary",
     required: {
@@ -412,7 +412,7 @@ DiabloCalc.addItems([
   {
     id: "P4_Unique_Bracer_107",
     local: true,
-    name: "Cesar’s Memento",
+    name: "Cesar's Memento",
     type: "bracers",
     quality: "legendary",
     required: {
@@ -447,7 +447,7 @@ DiabloCalc.addItems([
 
   {
     id: "P4_Unique_Bracer_004",
-    name: "Ashnagarr’s Blood Bracer",
+    name: "Ashnagarr's Blood Bracer",
     type: "bracers",
     quality: "legendary",
     required: {

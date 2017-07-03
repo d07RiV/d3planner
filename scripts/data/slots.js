@@ -77,6 +77,8 @@ DiabloCalc.statLimits = {
     wrathregenLarge: {min: 3.37, max: 3.67, step: 0.01},
     maxwrathNormal: {min: 6, max: 7},
     maxwrathLarge: {min: 12, max: 14},
+    maxessenceNormal: {min: 15, max: 18},
+    maxessenceLarge: {min: 30, max: 36},
     hatredregenNormal: {min: 1.18, max: 1.33, step: 0.01},
     maxdiscNormal: {min: 8, max: 10},
     bleedNormal: {min: 32, max: 37, min2: 300, max2: 400},
@@ -182,6 +184,8 @@ DiabloCalc.statLimits = {
     wrathregenLarge: {min: 3.7, max: 4.00, step: 0.01},
     maxwrathNormal: {min: 8, max: 10},
     maxwrathLarge: {min: 16, max: 20},
+    maxessenceNormal: {min: 18, max: 20},
+    maxessenceLarge: {min: 36, max: 40},
     hatredregenNormal: {min: 1.35, max: 1.50, step: 0.01},
     maxdiscNormal: {min: 9, max: 12},
     bleedNormal: {min: 34, max: 39, min2: 300, max2: 400},
@@ -210,6 +214,13 @@ DiabloCalc.statLimits = {
     any: {step: "any"},
   },
   ancient: {
+    sockets1: {min: 1, max: 1},
+    sockets2: {min: 1, max: 2},
+    sockets3: {min: 1, max: 3},
+    sockets4: {min: 1, max: 4},
+    sockets5: {min: 1, max: 5},
+    sockets6: {min: 1, max: 6},
+
     attrLarge: {min: 825, max: 1000}, //!
     attrSmall: {min: 550, max: 650}, //!
     attrVeryLarge: {min: 1237, max: 1465}, //!
@@ -256,6 +267,7 @@ DiabloCalc.statLimits = {
       DiabloCalc.statLimits.rare[stat] = DiabloCalc.statLimits.legendary[stat];
     }
   }
+  DiabloCalc.statLimits.primal = $.extend({}, DiabloCalc.statLimits.ancient);
 })();
 DiabloCalc.itemSlots = {
   follower: {
@@ -270,7 +282,7 @@ DiabloCalc.itemSlots = {
   },
   head: {
     name: "Head",
-    classes: ["wizard", "demonhunter", "barbarian", "witchdoctor", "monk", "crusader"],
+    classes: ["wizard", "demonhunter", "barbarian", "witchdoctor", "monk", "crusader", "necromancer"],
     affixes: {
       mainstat: "attrLarge",
       vit: "attrLarge",
@@ -303,7 +315,7 @@ DiabloCalc.itemSlots = {
   },
   shoulders: {
     name: "Shoulders",
-    classes: ["wizard", "demonhunter", "barbarian", "witchdoctor", "monk", "crusader"],
+    classes: ["wizard", "demonhunter", "barbarian", "witchdoctor", "monk", "crusader", "necromancer"],
     affixes: {
       mainstat: "attrSmall",
       vit: "attrSmall",
@@ -366,7 +378,7 @@ DiabloCalc.itemSlots = {
   },
   torso: {
     name: "Torso",
-    classes: ["wizard", "demonhunter", "barbarian", "witchdoctor", "monk", "crusader"],
+    classes: ["wizard", "demonhunter", "barbarian", "witchdoctor", "monk", "crusader", "necromancer"],
     affixes: {
       mainstat: "attrSmall",
       vit: "attrSmall",
@@ -397,7 +409,7 @@ DiabloCalc.itemSlots = {
   },
   waist: {
     name: "Waist",
-    classes: ["wizard", "demonhunter", "barbarian", "witchdoctor", "monk", "crusader"],
+    classes: ["wizard", "demonhunter", "barbarian", "witchdoctor", "monk", "crusader", "necromancer"],
     affixes: {
       mainstat: "attrSmall",
       vit: "attrSmall",
@@ -423,7 +435,7 @@ DiabloCalc.itemSlots = {
   },
   hands: {
     name: "Hands",
-    classes: ["wizard", "demonhunter", "barbarian", "witchdoctor", "monk", "crusader"],
+    classes: ["wizard", "demonhunter", "barbarian", "witchdoctor", "monk", "crusader", "necromancer"],
     affixes: {
       mainstat: "attrLarge",
       vit: "attrLarge",
@@ -453,7 +465,7 @@ DiabloCalc.itemSlots = {
   },
   wrists: {
     name: "Wrists",
-    classes: ["wizard", "demonhunter", "barbarian", "witchdoctor", "monk", "crusader"],
+    classes: ["wizard", "demonhunter", "barbarian", "witchdoctor", "monk", "crusader", "necromancer"],
     affixes: {
       elemental: "elementalDamage",
       mainstat: "attrSmall",
@@ -481,7 +493,7 @@ DiabloCalc.itemSlots = {
   },
   legs: {
     name: "Legs",
-    classes: ["wizard", "demonhunter", "barbarian", "witchdoctor", "monk", "crusader"],
+    classes: ["wizard", "demonhunter", "barbarian", "witchdoctor", "monk", "crusader", "necromancer"],
     affixes: {
       mainstat: "attrSmall",
       vit: "attrSmall",
@@ -508,7 +520,7 @@ DiabloCalc.itemSlots = {
   },
   feet: {
     name: "Feet",
-    classes: ["wizard", "demonhunter", "barbarian", "witchdoctor", "monk", "crusader"],
+    classes: ["wizard", "demonhunter", "barbarian", "witchdoctor", "monk", "crusader", "necromancer"],
     affixes: {
       mainstat: "attrSmall",
       vit: "attrSmall",
@@ -650,7 +662,11 @@ DiabloCalc.metaSlots = {
   },
   custom: {
     name: "Custom",
-    slots: ["head", "shoulders", "neck", "torso", "waist", "hands", "wrists", "legs", "feet", "leftfinger", "rightfinger", "mainhand", "offhand"],
+    slots: ["head", "shoulders", "neck", "torso", "waist", "hands", "wrists", "legs", "feet", "leftfinger", "rightfinger", "offhand"],
+  },
+  customwpn: {
+    name: "Custom",
+    slots: ["mainhand", "offhand"],
   },
 };
 DiabloCalc.itemTypes = {
@@ -792,7 +808,7 @@ DiabloCalc.itemTypes = {
   },
   axe: {
     slot: "onehand",
-    classes: ["wizard", "witchdoctor", "demonhunter", "barbarian", "monk", "crusader", "templar"],
+    classes: ["wizard", "witchdoctor", "demonhunter", "barbarian", "monk", "crusader", "necromancer", "templar"],
     name: "Axe",
     attack: "melee",
     affixes: {
@@ -808,7 +824,7 @@ DiabloCalc.itemTypes = {
   },
   dagger: {
     slot: "onehand",
-    classes: ["wizard", "witchdoctor", "demonhunter", "barbarian", "monk", "crusader", "templar"],
+    classes: ["wizard", "witchdoctor", "demonhunter", "barbarian", "monk", "crusader", "necromancer", "templar"],
     name: "Dagger",
     attack: "melee",
     affixes: {
@@ -824,7 +840,7 @@ DiabloCalc.itemTypes = {
   },
   mace: {
     slot: "onehand",
-    classes: ["wizard", "witchdoctor", "demonhunter", "barbarian", "monk", "crusader", "templar"],
+    classes: ["wizard", "witchdoctor", "demonhunter", "barbarian", "monk", "crusader", "necromancer", "templar"],
     name: "Mace",
     attack: "melee",
     affixes: {
@@ -840,7 +856,7 @@ DiabloCalc.itemTypes = {
   },
   spear: {
     slot: "onehand",
-    classes: ["wizard", "witchdoctor", "demonhunter", "barbarian", "monk", "crusader", "templar"],
+    classes: ["wizard", "witchdoctor", "demonhunter", "barbarian", "monk", "crusader", "necromancer", "templar"],
     name: "Spear",
     attack: "melee",
     affixes: {
@@ -856,7 +872,7 @@ DiabloCalc.itemTypes = {
   },
   sword: {
     slot: "onehand",
-    classes: ["wizard", "witchdoctor", "demonhunter", "barbarian", "monk", "crusader", "templar"],
+    classes: ["wizard", "witchdoctor", "demonhunter", "barbarian", "monk", "crusader", "necromancer", "templar"],
     name: "Sword",
     attack: "melee",
     affixes: {
@@ -961,6 +977,23 @@ DiabloCalc.itemTypes = {
     },
     generic: "Wand_302",
   },
+  scythe: {
+    slot: "onehand",
+    class: "necromancer",
+    name: "Scythe",
+    attack: "melee",
+    affixes: {
+      weapon: "damage1HNormal",
+      maxessence: "maxessenceNormal",
+    },
+    weapon: {
+      speed: 1.3,
+      min: 249,
+      max: 461,
+      type: "swing",
+    },
+    generic: "Scythe_1H_004",
+  },
   handcrossbow: {
     slot: "onehand",
     class: "demonhunter",
@@ -981,7 +1014,7 @@ DiabloCalc.itemTypes = {
   },
   axe2h: {
     slot: "twohand",
-    classes: ["wizard", "witchdoctor", "barbarian", "monk", "crusader", "enchantress"],
+    classes: ["wizard", "witchdoctor", "barbarian", "monk", "crusader", "necromancer", "enchantress"],
     name: "Two-Handed Axe",
     attack: "melee",
     affixes: {
@@ -997,7 +1030,7 @@ DiabloCalc.itemTypes = {
   },
   mace2h: {
     slot: "twohand",
-    classes: ["wizard", "witchdoctor", "barbarian", "monk", "crusader", "enchantress"],
+    classes: ["wizard", "witchdoctor", "barbarian", "monk", "crusader", "necromancer", "enchantress"],
     name: "Two-Handed Mace",
     attack: "melee",
     affixes: {
@@ -1013,7 +1046,7 @@ DiabloCalc.itemTypes = {
   },
   polearm: {
     slot: "twohand",
-    classes: ["witchdoctor", "barbarian", "monk", "crusader"],
+    classes: ["witchdoctor", "barbarian", "monk", "crusader", "necromancer"],
     name: "Polearm",
     attack: "melee",
     affixes: {
@@ -1029,7 +1062,7 @@ DiabloCalc.itemTypes = {
   },
   staff: {
     slot: "twohand",
-    classes: ["wizard", "witchdoctor", "monk", "enchantress"],
+    classes: ["wizard", "witchdoctor", "monk", "necromancer", "enchantress"],
     name: "Staff",
     attack: "melee",
     affixes: {
@@ -1045,7 +1078,7 @@ DiabloCalc.itemTypes = {
   },
   sword2h: {
     slot: "twohand",
-    classes: ["wizard", "witchdoctor", "barbarian", "monk", "crusader", "enchantress"],
+    classes: ["wizard", "witchdoctor", "barbarian", "monk", "crusader", "necromancer", "enchantress"],
     name: "Two-Handed Sword",
     attack: "melee",
     affixes: {
@@ -1117,9 +1150,26 @@ DiabloCalc.itemTypes = {
     },
     generic: "MightyWeapon2H_302",
   },
+  scythe2h: {
+    slot: "twohand",
+    class: "necromancer",
+    name: "Two-Handed Scythe",
+    attack: "melee",
+    affixes: {
+      weapon: "damage2H",
+      maxessence: "maxessenceLarge",
+    },
+    weapon: {
+      speed: 1.1,
+      min: 1461,
+      max: 1607,
+      type: "swing2h",
+    },
+    generic: "Scythe_2H_004",
+  },
   bow: {
     slot: "twohand",
-    classes: ["wizard", "witchdoctor", "demonhunter", "scoundrel"],
+    classes: ["wizard", "witchdoctor", "demonhunter", "necromancer", "scoundrel"],
     name: "Bow",
     attack: "bow",
     affixes: {
@@ -1141,7 +1191,7 @@ DiabloCalc.itemTypes = {
   },
   crossbow: {
     slot: "twohand",
-    classes: ["wizard", "witchdoctor", "demonhunter", "scoundrel"],
+    classes: ["wizard", "witchdoctor", "demonhunter", "necromancer", "scoundrel"],
     name: "Crossbow",
     attack: "bow",
     affixes: {
@@ -1271,6 +1321,21 @@ DiabloCalc.itemTypes = {
     },
     generic: "Quiver_207",
   },
+  phylactery: {
+    slot: "offhand",
+    class: "necromancer",
+    name: "Phylactery",
+    affixes: {
+      area: "areaSmall",
+      cdr: "cdrSmall",
+      rcr: "rcrSmall",
+      skill_necromancer: "skillNormal",
+    },
+    required: {
+      wpnphy: "damageOffhand",
+    },
+    generic: "NecromancerTalisman_004",
+  },
   custom: {
     slot: "custom",
     name: "Custom Item",
@@ -1279,6 +1344,21 @@ DiabloCalc.itemTypes = {
       sockets: "sockets3",
     },
     generic: "custom",
+  },
+  customwpn: {
+    slot: "customwpn",
+    name: "Custom Weapon",
+    affixes: {
+      any: "any",
+      sockets: "sockets3",
+    },
+    weapon: {
+      speed: 1,
+      min: 0,
+      max: 0,
+      type: "swing",
+    },
+    generic: "customwpn",
   },
 };
 DiabloCalc.qualities = {
@@ -1298,10 +1378,12 @@ DiabloCalc.qualities = {
     prefix: "Legendary",
     color: "orange",
     ancient: "Ancient Legendary",
+    primal: "Primal Ancient Legendary",
   },
   set: {
     prefix: "Set",
     color: "green",
     ancient: "Ancient Set",
+    primal: "Primal Ancient Set",
   },
 };

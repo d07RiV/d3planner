@@ -90,6 +90,8 @@
   .d3-tooltip .tooltip-head-orange { background-position: 0 -160px; }
   .d3-tooltip .tooltip-head-purple { background-position: 0 -200px; }
   .d3-tooltip .tooltip-head-green  { background-position: 0 -240px; }
+	.d3-tooltip .d3-tooltip-item-wrapper-PrimalAncientLegendary .tooltip-head-orange { background-position: 0 -280px; }
+	.d3-tooltip .d3-tooltip-item-wrapper-PrimalAncientLegendary .tooltip-head-green  { background-position: 0 -320px; }
 
   /* body */
   .d3-tooltip .tooltip-body { position: relative; padding: 10px; }
@@ -120,10 +122,11 @@
   .d3-tooltip-item .effect-bg .item-type,
   .d3-tooltip-item .effect-bg .item-armor-weapon { text-shadow: 0 0 5px black, 0 0 5px black, 0 0 5px black; } /* makes the text readable when a background is used */
 
-  /* ancient item borders */
+	/* ancient and primal ancient item borders */
   .d3-tooltip-item-wrapper .d3-tooltip-item-wrapper { positon: relative; }
   .d3-tooltip-item-wrapper .d3-tooltip-item-border { display: none; position: absolute; }
-  .d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-AncientLegendary .d3-tooltip-item-border {
+	.d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-AncientLegendary .d3-tooltip-item-border,
+	.d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-PrimalAncientLegendary .d3-tooltip-item-border {
     display: block;
     height: 100%;
     background-repeat: repeat-y;
@@ -134,12 +137,24 @@
     width: 20px;
     z-index: 1000;
   }
+	.d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-PrimalAncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-left {
+		background-image: url("../images/tooltip/PrimalAncient-Frame-LeftBorder.png");
+		left: -20px;
+		width: 20px;
+		z-index: 1000;
+	}
   .d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-AncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-right {
     background-image: url("../images/tooltip/Ancient-Frame-RightBorder-2.png");
     right: -20px;
     width: 20px;
     z-index: 1000;
   }
+	.d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-PrimalAncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-right {
+		background-image: url("../images/tooltip/PrimalAncient-Frame-RightBorder.png");
+		right: -20px;
+		width: 20px;
+		z-index: 1000;
+	}
   .d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-AncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-top {
     background-image: url("../images/tooltip/Ancient-Frame-TopBorder-2.png");
     background-position: center;
@@ -148,6 +163,14 @@
     width: 100%;
     z-index: 1000;
   }
+	.d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-PrimalAncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-top {
+		background-image: url("../images/tooltip/PrimalAncient-Frame-TopBorder.png");
+		background-position: center;
+		top: -26px;
+		height: 39px;
+		width: 100%;
+		z-index: 1000;
+	}
   .d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-AncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-bottom {
     background-image: url("../images/tooltip/Ancient-Frame-BottomBorder-2.png");
     background-position: center;
@@ -156,6 +179,14 @@
     width: 100%;
     z-index: 1000;
   }
+	.d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-PrimalAncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-bottom {
+		background-image: url("../images/tooltip/PrimalAncient-Frame-BottomBorder.png");
+		background-position: center;
+		bottom: -31px;
+		height: 31px;
+		width: 100%;
+		z-index: 1000;
+	}
   .d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-AncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-top-left {
     background-image: url("../images/tooltip/Ancient-Frame-TopLeftBorder-2.png");
     background-position: center;
@@ -165,6 +196,14 @@
     width: 26px;
     z-index: 1010;
   }
+	.d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-PrimalAncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-top-left {
+		background-image: url("../images/tooltip/PrimalAncient-Frame-TopLeftBorder.png");
+		top: -22px;
+		left: -11px;
+		height: 35px;
+		width: 27px;
+		z-index: 1010;
+	}
   .d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-AncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-bottom-left {
     background-image: url("../images/tooltip/Ancient-Frame-BottomLeftBorder-2.png");
     background-position: center;
@@ -174,6 +213,14 @@
     width: 26px !important;
     z-index: 1010;
   }
+	.d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-PrimalAncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-bottom-left {
+		background-image: url("../images/tooltip/PrimalAncient-Frame-BottomLeftBorder.png");
+		bottom: -20px;
+		left: -11px;
+		height: 36px !important;
+		width: 31px !important;
+		z-index: 1010;
+	}
   .d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-AncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-top-right {
     background-image: url("../images/tooltip/Ancient-Frame-TopRightBorder-2.png");
     background-position: center;
@@ -183,6 +230,14 @@
     width: 26px !important;
     z-index: 1010;
   }
+	.d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-PrimalAncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-top-right {
+		background-image: url("../images/tooltip/PrimalAncient-Frame-TopRightBorder.png");
+		top: -25px;
+		right: -11px;
+		height: 37px !important;
+		width: 36px !important;
+		z-index: 1010;
+	}
   .d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-AncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-bottom-right {
     background-image: url("../images/tooltip/Ancient-Frame-BottomRightBorder-2.png");
     background-position: center;
@@ -192,6 +247,14 @@
     width: 26px !important;
     z-index: 1010;
   }
+	.d3-tooltip-item-wrapper.d3-tooltip-item-wrapper-PrimalAncientLegendary .d3-tooltip-item-border.d3-tooltip-item-border-bottom-right {
+		background-image: url("../images/tooltip/PrimalAncient-Frame-BottomRightBorder.png");
+		bottom: -14px;
+		right: -11px;
+		height: 34px !important;
+		width: 40px !important;
+		z-index: 1010;
+	}
 
   /* skill tooltips */
   .d3-tooltip-skill .tooltip-body { padding-left: 85px; }

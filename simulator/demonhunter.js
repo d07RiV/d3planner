@@ -280,7 +280,7 @@
     Sim.addBuff("coldgrenade", undefined, {
       duration: 180,
       tickrate: 30,
-      ontick: {type: "area", range: 6, coeff: 0.2 * (Sim.stats.passives.grenadier ? 1.1 : 1), onhit: Sim.apply_effect("chilled", 30)},
+      ontick: {type: "area", range: 6, coeff: 0.2 * (Sim.stats.passives.grenadier ? 1.1 : 1), onhit: Sim.apply_effect("chilled", 30), tags: ["grenade"]},
     });
   }
   skills.grenade = {
@@ -294,13 +294,14 @@
     oncast: function(rune) {
       var mod_damage = (Sim.stats.passives.grenadier ? 1.1 : 1);
       var mod_range = (Sim.stats.passives.grenadier ? 1.2 : 1);
+      var pierce = _buriza();
       switch (rune) {
-      case "x": return {type: "line", speed: 1, area: 6 * mod_range, coeff: 1.6 * mod_damage};
-      case "d": return {type: "line", speed: 1, area: 6 * mod_range, coeff: 1.6 * mod_damage};
-      case "b": return {type: "line", speed: 1, area: 9 * mod_range, coeff: 2 / 3 * mod_damage, count: 3};
-      case "c": return {type: "line", speed: 1, area: 6 * mod_range, coeff: 1.6 * mod_damage, count: 3, fan: 30};
-      case "e": return {type: "line", speed: 1, area: 6 * mod_range, coeff: 1.6 * mod_damage, onhit: Sim.apply_effect("stunned", 90, 0.2)};
-      case "a": return {type: "line", speed: 1, area: 6 * mod_range, coeff: 1.6 * mod_damage, onhit: grenade_cold_onhit};
+      case "x": return {type: "line", pierce: pierce, speed: 1, area: 6 * mod_range, coeff: 1.6 * mod_damage, tags: ["grenade"]};
+      case "d": return {type: "line", pierce: pierce, speed: 1, area: 6 * mod_range, coeff: 1.6 * mod_damage, tags: ["grenade"]};
+      case "b": return {type: "line", pierce: pierce, speed: 1, area: 9 * mod_range, coeff: 2 / 3 * mod_damage, count: 3, tags: ["grenade"]};
+      case "c": return {type: "line", pierce: pierce, speed: 1, area: 6 * mod_range, coeff: 1.6 * mod_damage, count: 3, fan: 30, tags: ["grenade"]};
+      case "e": return {type: "line", pierce: pierce, speed: 1, area: 6 * mod_range, coeff: 1.6 * mod_damage, onhit: Sim.apply_effect("stunned", 90, 0.2), tags: ["grenade"]};
+      case "a": return {type: "line", pierce: pierce, speed: 1, area: 6 * mod_range, coeff: 1.6 * mod_damage, onhit: grenade_cold_onhit, tags: ["grenade"]};
       }
     },
     proctable: {x: 0.667, d: 0.667, b: 0.25, c: 0.4, e: 0.667, a: 0.165},
@@ -328,13 +329,14 @@
       if (Sim.stats.set_shadow_6pc) {
         Sim.damage({type: "line", speed: 2, coeff: 400, proc: 0});
       }
+      var count = (Sim.stats.leg_holypointshot ? 3 : 1);
       switch (rune) {
-      case "x": return {pierce: pierce, type: "line", speed: 2, coeff: 7.5};
-      case "b": return {pierce: pierce, type: "line", speed: 2, coeff: 7.5, onhit: impale_impact_onhit};
-      case "c": return {pierce: pierce, type: "line", speed: 2, coeff: 7.5, onhit: impale_burn_onhit};
-      case "a": return {pierce: true, type: "line", speed: 2, coeff: 7.5};
-      case "d": return {delay: Sim.target.distance / 2, targets: 3 * (1 + (pierce || 0)), coeff: 7.5};
-      case "e": return {pierce: pierce, type: "line", speed: 2, coeff: 7.5, chd: 3.3};
+      case "x": return {pierce: pierce, type: "line", speed: 2, coeff: 7.5, fan: 20, count: count};
+      case "b": return {pierce: pierce, type: "line", speed: 2, coeff: 7.5, onhit: impale_impact_onhit, fan: 20, count: count};
+      case "c": return {pierce: pierce, type: "line", speed: 2, coeff: 7.5, onhit: impale_burn_onhit, fan: 20, count: count};
+      case "a": return {pierce: true, type: "line", speed: 2, coeff: 7.5, fan: 20, count: count};
+      case "d": return {delay: Sim.target.distance / 2, targets: 3 * (1 + (pierce || 0)), coeff: 7.5, fan: 20, count: count};
+      case "e": return {pierce: pierce, type: "line", speed: 2, coeff: 7.5, chd: 3.3, fan: 20, count: count};
       }
     },
     proctable: {x: 1, b: 1, c: 0.5, a: 0.4, d: 0.4, e: 1},
@@ -364,6 +366,7 @@
         dmg.coeff *= 1.1;
         dmg.area *= 1.2;
       }
+      dmg.tags = ["grenade"];
     } else {
       dmg.pierce = (_buriza() || 0) + (data.rune === "b" ? 1 : 0);
     }
@@ -800,14 +803,14 @@
     cost: 15,
     oncast: function(rune) {
       var params = {
-        maxstacks: 2 + (Sim.stats.passives.customengineering ? 1 : 0),
+        maxstacks: 4 + (Sim.stats.passives.customengineering ? 1 : 0),
       };
       if (rune === "a" || Sim.stats.leg_tragoulcoils_p2) {
         Sim.damage({type: "area", range: 8, coeff: 0, proc: 0, onhit: Sim.apply_effect("rooted", 180)});
       }
       if (rune === "d") {
         params.stacks = 2;
-        params.maxstacks *= 2;
+        //params.maxstacks *= 2;
       }
       Sim.addBuff("spiketrap", undefined, params);
     },
@@ -826,12 +829,14 @@
           case "c": dmg.coeff = 19.0; break;
           case "a": dmg.coeff = 19.3; break;
           case "e":
+            delete dmg.type;
+            dmg.targets = 3;
             dmg.range = 10;
-            dmg.coeff = 20.1 / 3;
+            dmg.coeff = 67.0 / 3;
             Sim.damage(Sim.extend({delay: 3}, dmg));
             Sim.damage(Sim.extend({delay: 6}, dmg));
             break;
-          case "d": dmg.coeff = 9.6; break;
+          //case "d": dmg.coeff = 9.6; break;
           }
           if (Sim.stats.leg_thedemonsdemise_p2) {
             Sim.damage(Sim.extend({delay: 60}, dmg));
@@ -936,7 +941,7 @@
             Sim.damage({type: "line", pierce: true, coeff: 0.6 * factor, count: 4});
             if (rune === "c") {
               Sim.damage({type: "line", speed: 1, coeff: 1.5 * (Sim.stats.passives.grenadier ? 1.1 : 1) * factor,
-                area: 6 * (Sim.stats.passives.grenadier ? 1.2 : 1), count: 2});
+                area: 6 * (Sim.stats.passives.grenadier ? 1.2 : 1), count: 2, tags: ["grenade"]});
             } else if (rune === "a") {
               Sim.damage({delay: 15, coeff: 1.2 * factor, onhit: Sim.apply_effect("frozen", 180)});
             } else {
@@ -955,13 +960,14 @@
   };
 
   function strafe_ontick(data) {
-    var dmg = {type: "line", pierce: data.rune !== "a" && _buriza(), coeff: 6.75 / 4};
+    var dmg = {type: "line", pierce: _buriza(), coeff: 6.75 / 4};
     switch (data.rune) {
     case "e": dmg.chd = 1.4; break;
     case "a":
       dmg.speed = 1;
       dmg.coeff = 4.6 * (Sim.stats.passives.grenadier ? 1.1 : 1);
       dmg.area = 9 * (Sim.stats.passives.grenadier ? 1.2 : 1);
+      dmg.tags = ["grenade"];
       break;
     case "c":
       if (data.rocket) {
@@ -1053,10 +1059,10 @@
       var rk_dmg = (Sim.stats.passives.ballistics ? 2 : 1);
       switch (rune) {
       case "x":
-        Sim.damage({type: "area", radius: 8, inner: 4, range: 5 * gr_aoe, coeff: 2.5 * gr_dmg});
+        Sim.damage({type: "area", radius: 8, inner: 4, range: 5 * gr_aoe, coeff: 2.5 * gr_dmg, count: 4, tags: ["grenade"]});
         break;
       case "e":
-        Sim.damage({type: "area", radius: 8, inner: 4, range: 5 * gr_aoe, coeff: 2.5 * gr_dmg});
+        Sim.damage({type: "area", radius: 8, inner: 4, range: 5 * gr_aoe, coeff: 2.5 * gr_dmg, count: 4, tags: ["grenade"]});
         dmg.onhit = Sim.apply_effect("stunned", 90);
         break;
       case "b":
@@ -1066,15 +1072,16 @@
         Sim.damage({delay: 48, targets: 3, coeff: 4.5 * rk_dmg});
         break;
       case "c":
-        Sim.damage({delay: 10, type: "area", origin: Sim.target.distance - 15, range: 5 * gr_aoe, coeff: 6.5 * gr_dmg});
-        Sim.damage({delay: 20, type: "area", origin: Sim.target.distance - 20, range: 5 * gr_aoe, coeff: 6.5 * gr_dmg});
-        Sim.damage({delay: 30, type: "area", origin: Sim.target.distance - 24, range: 5 * gr_aoe, coeff: 6.5 * gr_dmg});
-        Sim.damage({delay: 40, type: "area", origin: Sim.target.distance - 26.5, range: 5 * gr_aoe, coeff: 6.5 * gr_dmg});
-        Sim.damage({delay: 50, type: "area", origin: Sim.target.distance - 27.5, range: 5 * gr_aoe, coeff: 6.5 * gr_dmg});
+        Sim.damage({delay: 10, type: "area", origin: Sim.target.distance - 15, range: 5 * gr_aoe, coeff: 6.5 * gr_dmg, tags: ["grenade"]});
+        Sim.damage({delay: 20, type: "area", origin: Sim.target.distance - 20, range: 5 * gr_aoe, coeff: 6.5 * gr_dmg, tags: ["grenade"]});
+        Sim.damage({delay: 30, type: "area", origin: Sim.target.distance - 24, range: 5 * gr_aoe, coeff: 6.5 * gr_dmg, tags: ["grenade"]});
+        Sim.damage({delay: 40, type: "area", origin: Sim.target.distance - 26.5, range: 5 * gr_aoe, coeff: 6.5 * gr_dmg, tags: ["grenade"]});
+        Sim.damage({delay: 50, type: "area", origin: Sim.target.distance - 27.5, range: 5 * gr_aoe, coeff: 6.5 * gr_dmg, tags: ["grenade"]});
         dmg.delay = 60;
         dmg.origin = Sim.target.distance - 35;
         break;
       case "a":
+        Sim.damage({type: "area", radius: 8, inner: 4, range: 5 * gr_aoe, coeff: 2.5 * gr_dmg, count: 4, tags: ["grenade"]});
         dmg.coeff = 8.5;
         break;
       }
@@ -1114,7 +1121,7 @@
         duration = 180;
         break;
       case "c":
-        dmg = {type: "area", range: 7 * (Sim.stats.passives.grenadier ? 1.2 : 1), coeff: 2.9 * (Sim.stats.passives.grenadier ? 1.1 : 1)};
+        dmg = {type: "area", range: 7 * (Sim.stats.passives.grenadier ? 1.2 : 1), coeff: 2.9 * (Sim.stats.passives.grenadier ? 1.1 : 1), tags: ["grenade"]};
         tickrate = 6;
         duration = 120;
         break;

@@ -459,16 +459,18 @@
         if (params.firsttarget === "new") {
           var tgt = Sim.target.list();
           for (var idx in tgt) {
-            if (!tlist[idx]) {
-              tindex.push(idx);
+            if (!tlist[tgt[idx]] && tcount > 0) {
+              tindex.push(tgt[idx]);
               --tcount;
             }
           }
           delete params.firsttarget;
         }
-        var tl = this.target.list({targets: tcount, firsttarget: params.firsttarget});
-        for (var i = 0; i < tl.length; ++i) {
-          tindex.push(tl[i]);
+        if (tcount > 0) {
+          var tl = this.target.list({targets: tcount, firsttarget: params.firsttarget});
+          for (var i = 0; i < tl.length; ++i) {
+            tindex.push(tl[i]);
+          }
         }
       }
 

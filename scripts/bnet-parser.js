@@ -47,7 +47,7 @@
       }
     }
     if (data.attributesRaw.Ancient_Rank && data.attributesRaw.Ancient_Rank.max) {
-      result.ancient = true;
+      result.ancient = (data.attributesRaw.Ancient_Rank.max === 2.0 ? "primal" : true);
     }
     var item = DiabloCalc.itemById[result.id];
     var customStat;
@@ -159,6 +159,10 @@
     }
     if (data.attributesRaw.Damage_Percent_Reduction_From_Ranged) {
       result.stats.rangedef = [data.attributesRaw.Damage_Percent_Reduction_From_Ranged.max * 100];
+    }
+    if (data.attributesRaw.CubeEnchantedGemType && data.attributesRaw.CubeEnchantedGemRank) {
+      result.stats[["caldesanns_vit", "caldesanns_dex", "caldesanns_str", "caldesanns_int"][data.attributesRaw.CubeEnchantedGemType.max - 1]] =
+        [data.attributesRaw.CubeEnchantedGemRank.max * 5];
     }
 
     result.imported = {

@@ -326,7 +326,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Gloves_Set_02_p3",
     local: true,
-    name: "Arachyr’s Claws ",
+    name: "Arachyr's Claws ",
     type: "gloves",
     quality: "set",
     set: "arachyr",
@@ -361,6 +361,64 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       custom: {id: "leg_frostburn_p2", name: "Cold Damage", format: "Cold skills deal %d%% increased damage and have a 50%% chance to Freeze enemies.", min: 15, max: 20},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P6_Necro_Set_1_Gloves",
+    name: "Rathma's Macabre Vambraces",
+    type: "gloves",
+    quality: "set",
+    set: "rathma",
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P6_Necro_Set_2_Gloves",
+    name: "Trag'Oul's Claws",
+    type: "gloves",
+    quality: "set",
+    set: "trangoul",
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P6_Necro_Set_3_Gloves",
+    name: "Inarius's Will",
+    type: "gloves",
+    quality: "set",
+    set: "inarius",
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P6_Necro_Set_4_Gloves",
+    name: "Pestilence Gloves",
+    type: "gloves",
+    quality: "set",
+    set: "pestilence",
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P6_Necro_Unique_Gloves_21",
+    name: "Moribund Gauntlets",
+    type: "gloves",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_moribundgauntlets", name: "Golem Sheds Corpses", format: "Your Golem sheds a corpse every second.", args: 0},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P6_Necro_Unique_Gloves_22",
+    name: "Grasps of Essence",
+    type: "gloves",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_graspsofessence", name: "Corpse Explosion Damage Bonus", format: "When an exploded corpse damages at least one enemy, your Corpse Explosion deals %d%% increased damage for 6 seconds, stacking up to 5 times.", min: 75, max: 100},
     },
     preset: ["mainstat", "chc"],
   },

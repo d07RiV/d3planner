@@ -15,7 +15,7 @@ DiabloCalc.addItems([
     type: "helm",
     quality: "legendary",
     required: {
-      custom: {id: "leg_brokencrown", name: "Extra Gem Drops", format: "Whenever a gem drops, a gem of the type socketed into your helmet also drops.", args: 0},
+      custom: {id: "leg_brokencrown", name: "Extra Gem Drops", format: "Whenever a gem drops, a gem of the type socketed into your helmet also drops. This effect does not apply to Legendary Gems.", args: 0},
     },
     preset: ["mainstat", "sockets"],
   },
@@ -36,7 +36,7 @@ DiabloCalc.addItems([
     type: "helm",
     quality: "legendary",
     required: {
-      custom: {id: "leg_leoricscrown", name: "Increased Gem Effects", format: "Increase the effect of any gem socketed into your helm by %d%%.", min: 75, max: 100,
+      custom: {id: "leg_leoricscrown", name: "Increased Gem Effects", format: "Increase the effect of any gem socketed into your helm by %d%%. This effect does not apply to Legendary Gems.", min: 75, max: 100,
         altformat: "Increase the effect of any gem socketed into this item by %d%%."},
     },
     preset: ["mainstat", "sockets"],
@@ -683,7 +683,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Helm_Set_02_p3",
     local: true,
-    name: "Arachyr’s Visage",
+    name: "Arachyr's Visage",
     type: "helm",
     quality: "set",
     set: "arachyr",
@@ -738,6 +738,91 @@ DiabloCalc.addItems([
     type: "helm",
     quality: "set",
     set: "shadow",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "p43_RetroHelm_001",
+    name: "Harlequin Crest",
+    suffix: _L("Retro"),
+    type: "helm",
+    quality: "magic",
+    preset: ["vit", "resall"],
+  },
+
+  {
+    id: "p43_RetroHelm_002",
+    name: "The Undead Crown",
+    suffix: _L("Retro"),
+    type: "helm",
+    quality: "magic",
+    preset: ["laek"],
+  },
+
+  {
+    id: "p43_RetroHelm_003",
+    name: "Veil of Steel",
+    suffix: _L("Retro"),
+    type: "helm",
+    quality: "magic",
+    preset: ["mainstat", "vit", "resall"],
+  },
+
+  {
+    id: "P6_Necro_Set_1_Helm",
+    name: "Rathma's Skull Helm",
+    type: "helm",
+    quality: "set",
+    set: "rathma",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P6_Necro_Set_2_Helm",
+    name: "Trag'Oul's Guise",
+    type: "helm",
+    quality: "set",
+    set: "trangoul",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P6_Necro_Set_3_Helm",
+    name: "Inarius's Understanding",
+    type: "helm",
+    quality: "set",
+    set: "inarius",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P6_Necro_Set_4_Helm",
+    name: "Pestilence Mask",
+    type: "helm",
+    quality: "set",
+    set: "pestilence",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P6_Necro_Unique_Helm_21",
+    name: "Mask of Scarlet Death",
+    type: "helm",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_maskofscarletdeath", name: "Revive Damage per Corpse", format: "Revive now consumes all corpses to raise a minion that deals %d%% more damage per corpse.", min: 125, max: 150},
+    },
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P6_Necro_Unique_Helm_22",
+    name: "Fate's Vow",
+    type: "helm",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_fatesvow", name: "Army of the Dead Gains Unconventional Warfare", format: "Army of the Dead gains the effect of the Unconventional Warfare rune.", args: 0},
+    },
     preset: ["mainstat", "sockets"],
   },
 

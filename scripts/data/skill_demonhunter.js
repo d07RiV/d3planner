@@ -21,6 +21,18 @@ DiabloCalc.demonhunter = {
     }
   },
 };
+function hellcat_param(runes) {
+  return {min: 0, max: "leg_hellcatwaistguard", val: 0, name: "Bounces", buffs: false, show: function(rune, stats) {
+               return !!stats.leg_hellcatwaistguard && (!runes || runes.indexOf(rune) >= 0);
+         }};
+}
+function hellcat_percent(stats, param) {
+  if (stats.leg_hellcatwaistguard && param) {
+    var pct = {};
+    pct[DiabloCalc.itemById.P43_Unique_Belt_005_x1.name] = (param >= stats.leg_hellcatwaistguard ? 800 : 50 * param);
+    return pct;
+  }
+}
 DiabloCalc.skills.demonhunter = {
   hungeringarrow: {
     id: "hungering-arrow",
@@ -140,14 +152,20 @@ DiabloCalc.skills.demonhunter = {
       e: "Stun Grenade",
       a: "Cold Grenade",
     },
-    info: {
-      "*": {"DPS": {sum: true, "Damage": {speed: 1, ias: "leg_hunterswrath?30:0", fpa: 56.470554}}},
-      x: {"Damage": {elem: "fir", coeff: 1.6, passives: {grenadier: 10}}},
-      d: {"Damage": {elem: "fir", coeff: 1.6, passives: {grenadier: 10}}},
-      b: {"Damage": {elem: "fir", coeff: 2, passives: {grenadier: 10}}},
-      c: {"Damage": {elem: "fir", coeff: 1.6, passives: {grenadier: 10}}},
-      e: {"Damage": {elem: "lit", coeff: 1.6, passives: {grenadier: 10}}},
-      a: {"Damage": {elem: "col", coeff: 1.6, passives: {grenadier: 10}}, "Cloud Damage": {elem: "col", coeff: 1.2, passives: {grenadier: 10}, total: true}},
+    params: [hellcat_param()],
+    info: function(rune, stats) {
+      var res = {"DPS": {sum: true, "Damage": {speed: 1, ias: "leg_hunterswrath?30:0", fpa: 56.470554}},
+                 "Damage": {elem: "fir", coeff: 1.6, passives: {grenadier: 10}}};
+      if (rune === "b") {
+        res["Damage"].coeff = 2;
+      } else if (rune === "e") {
+        res["Damage"].elem = "lit";
+      } else if (rune === "a") {
+        res["Damage"].elem = "col";
+        res["Cloud Damage"] = {elem: "col", coeff: 1.2, passives: {grenadier: 10}, total: true};
+      }
+      res["Damage"].percent = hellcat_percent(stats, this.params[0].val);
+      return res;
     },
   },
   impale: {
@@ -189,10 +207,18 @@ DiabloCalc.skills.demonhunter = {
       if (res["Sentry Damage"]) total["Sentry Damage"] = {count: sentries};
       if (res["Burn Damage"]) total["Burn Damage"] = {};
       if (res["Sentry Burn Damage"]) total["Sentry Burn Damage"] = {count: sentries};
-      if (!$.isEmptyObject(total)) {
-        total.sum = true;
+      if (!$.isEmptyObject(total) || stats.leg_holypointshot) {
         total["Damage"] = {};
+        if (stats.leg_holypointshot) {
+          for (var k in total) {
+            total[k].count = (total[k].count || 1) * 3;
+          }
+        }
+        total.sum = true;
         res["Total Damage"] = total;
+        res["DPS"] = {sum: true, "Total Damage": {speed: 1, fpa: 58.064510, round: "up"}};
+      } else {
+        res["DPS"] = {sum: true, "Damage": {speed: 1, fpa: 58.064510, round: "up"}};
       }
       return res;
     },
@@ -212,7 +238,8 @@ DiabloCalc.skills.demonhunter = {
     },
     params: [{min: 0, max: 4, name: "Channeled for", buffs: false, show: function(rune, stats) {
                return stats.leg_wojahnniassaulter || stats.leg_wojahnniassaulter_p2;
-             }}],
+             }},
+             hellcat_param("a")],
     info: function(rune, stats) {
       var res;
       switch (rune) {
@@ -221,12 +248,12 @@ DiabloCalc.skills.demonhunter = {
       case "e": res = {"Tick Damage": {elem: "col", coeff: 6.85}}; break;
       case "c": res = {"Tick Damage": {elem: "phy", coeff: 6.85}, "Rocket Damage": {elem: "phy", coeff: 1.45, passives: {ballistics: 100}}}; break;
       case "b": res = {"Tick Damage": {elem: "lit", coeff: 6.85}}; break;
-      case "a": res = {"Tick Damage": {elem: "fir", coeff: 5.45, passives: {grenadier: 10}}}; break;
+      case "a": res = {"Tick Damage": {elem: "fir", coeff: 5.45, passives: {grenadier: 10}, percent: hellcat_percent(stats, this.params[1].val)}}; break;
       }
       if ((stats.leg_wojahnniassaulter || stats.leg_wojahnniassaulter_p2) && this.params[0].val) {
         var pct = {};
         pct[DiabloCalc.itemById.Unique_Xbow_102_x1.name] = this.params[0].val * (stats.leg_wojahnniassaulter || stats.leg_wojahnniassaulter_p2);
-        res["Tick Damage"].percent = pct;
+        res["Tick Damage"].percent = $.extend(res["Tick Damage"].percent || {}, pct);
         if (res["Rocket Damage"]) {
           res["Rocket Damage"].percent = pct;
         }
@@ -628,8 +655,8 @@ DiabloCalc.skills.demonhunter = {
       case "b": res = {"Damage": {elem: "col", coeff: 20.2}}; break;
       case "c": res = {"Damage": {elem: "fir", coeff: 19.0}}; break;
       case "a": res = {"Damage": {elem: "phy", coeff: 19.3}}; break;
-      case "e": res = {"Damage": {elem: "lit", coeff: 20.1}}; break;
-      case "d": res = {"Damage": {elem: "fir", coeff: 9.6}}; break;
+      case "e": res = {"Damage": {elem: "lit", coeff: 67.0}}; break;
+      case "d": res = {"Damage": {elem: "fir", coeff: 11.6}}; break;
       }
       if (stats.leg_thedemonsdemise_p2 || rune === "d") {
         var count = (stats.leg_thedemonsdemise_p2 && rune === "d" ? 4 : 2);
@@ -733,6 +760,7 @@ DiabloCalc.skills.demonhunter = {
       c: "Rocket Storm",
       a: "Demolition",
     },
+    params: [hellcat_param("a")],
     info: function(rune, stats) {
       var res;
       switch (rune) {
@@ -741,7 +769,7 @@ DiabloCalc.skills.demonhunter = {
       case "d": res = {"Tick Damage": {elem: "lit", coeff: 6.75}}; break;
       case "e": res = {"Tick Damage": {elem: "phy", coeff: 6.75, chd: 140}}; break;
       case "c": res = {"Tick Damage": {elem: "fir", coeff: 6.75}, "Rocket Damage": {elem: "fir", coeff: 1.3, passives: {ballistics: 100}}}; break;
-      case "a": res = {"Grenade Damage": {elem: "fir", coeff: 4.6, passives: {grenadier: 10}}}; break;
+      case "a": res = {"Grenade Damage": {elem: "fir", coeff: 4.6, passives: {grenadier: 10}, percent: hellcat_percent(stats, this.params[0].val)}}; break;
       }
       res = $.extend({"Cost": {cost: 12, slowest: true, fpa: (rune === "a" ? 30 : 15)}}, res);
       if (res["Tick Damage"]) res["Tick Damage"].divide = {"Base Speed": 4};
@@ -820,6 +848,7 @@ DiabloCalc.skills.demonhunter = {
       c: "Cluster Bombs",
       a: "Loaded for Bear",
     },
+    params: [hellcat_param("xeca")],
     info: function(rune, stats) {
       var res;
       switch (rune) {
@@ -834,6 +863,9 @@ DiabloCalc.skills.demonhunter = {
       if (stats.leg_manticore) {
         res["Cost"].rcr = stats.leg_manticore;
       }
+      if (res["Grenade Damage"]) {
+        res["Grenade Damage"].percent = hellcat_percent(stats, this.params[0].val);
+      }
       var sentries = (stats.skills.sentry || stats.leg_helltrapper ? DiabloCalc.skills.demonhunter.sentry.params[0].val : 0);
       if (stats.set_marauder_4pc && sentries) {
         var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
@@ -841,7 +873,7 @@ DiabloCalc.skills.demonhunter = {
         res["Sentry Damage"] = $.extend({}, res["Damage"], ext);
         DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Damage"], stats);
         if (res["Grenade Damage"]) {
-          res["Sentry Grenade Damage"] = $.extend({}, res["Grenade Damage"], ext);
+          res["Sentry Grenade Damage"] = $.extend(true, {}, res["Grenade Damage"], ext);
           DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Grenade Damage"], stats);
         }
         if (res["Rocket Damage"]) {
@@ -854,7 +886,7 @@ DiabloCalc.skills.demonhunter = {
         "Damage": {},
       };
       if (res["Sentry Damage"]) total["Sentry Damage"] = {count: sentries};
-      if (res["Grenade Damage"]) total["Grenade Damage"] = {count: (rune == "c" ? 6 : 4)};
+      if (res["Grenade Damage"]) total["Grenade Damage"] = {count: (rune == "c" ? 5 : 4)};
       if (res["Sentry Grenade Damage"]) total["Sentry Grenade Damage"] = {count: sentries * (rune == "c" ? 6 : 4)};
       if (res["Rocket Damage"]) total["Rocket Damage"] = {};
       if (res["Sentry Rocket Damage"]) total["Sentry Rocket Damage"] = {count: sentries};
@@ -931,6 +963,7 @@ DiabloCalc.skills.demonhunter = {
       c: "Anathema",
       d: "Flying Strike",
     },
+    params: [hellcat_param("c")],
     info: function(rune, stats) {
       var res;
       switch (rune) {
@@ -938,7 +971,7 @@ DiabloCalc.skills.demonhunter = {
       case "b": res = {"Damage": {elem: "phy", weapon: "mainhand", coeff: 35, total: true}}; break;
       case "a": res = {"Damage": {elem: "lit", weapon: "mainhand", coeff: 28, total: true}}; break;
       case "e": res = {"Damage": {elem: "fir", weapon: "mainhand", coeff: 46, total: true}}; break;
-      case "c": res = {"Damage": {elem: "fir", weapon: "mainhand", coeff: 58, passives: {grenadier: 10}, total: true}}; break;
+      case "c": res = {"Damage": {elem: "fir", weapon: "mainhand", coeff: 58, passives: {grenadier: 10}, total: true, percent: hellcat_percent(stats, this.params[0].val)}}; break;
       case "d": res = {"Damage": {elem: "col", weapon: "mainhand", coeff: 38, total: true}}; break;
       }
       res = $.extend({"Cooldown": {cooldown: 30}}, res);
@@ -1114,6 +1147,9 @@ DiabloCalc.partybuffs.demonhunter = {
       }
       if (this.runevals.c) buffs.dmgmul = 15;
     },
+  },
+  sentry: {
+    runelist: "e",
   },
   markedfordeath: {
     runelist: "*",

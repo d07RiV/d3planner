@@ -124,6 +124,27 @@
     background-image: url(images/class-crusader-passive.png);
   }
 }
+#char-info.female .class-necromancer.class-icon {
+  background-image: url(images/necromancer_female.png) !important;
+}
+.class-necromancer {
+  &.class-icon {
+    background-image: url(images/necromancer_male.png) !important;
+    &.female {
+      background-image: url(images/necromancer_female.png) !important;
+    }
+  }
+  .paperdoll-background {
+    background-image: url(paperdoll/necromancer_male.jpg);
+  }
+  &.female .paperdoll-background { background-image: url(paperdoll/necromancer_female.jpg); }
+  .skill-icon {
+    background-image: url(images/class-necromancer.png);
+  }
+  .passive-icon {
+    background-image: url(images/class-necromancer-passive.png);
+  }
+}
 .class-templar.class-icon {
   background-image: url("images/templar.png") !important;
 }

@@ -333,6 +333,7 @@
       ontick: {coeff: 2.3 / 3, fix: ltk_scar_fix},
     });
   }
+  var gnk_time = 0;
   skills.lashingtailkick = {
     offensive: true,
     cost: 50,
@@ -360,7 +361,7 @@
       if (Sim.stats.leg_scarbringer) {
         dmg.fix = ltk_scar_fix;
       }
-      if (Sim.stats.leg_gyananakashu) {
+      if (Sim.stats.leg_gyananakashu && !Sim.castInfo().triggered) {
         Sim.pushCastInfo(Sim.extend({}, Sim.castInfo(), {triggered: "leg_gyananakashu", trigExplicit: true}));
         Sim.damage({type: "line", speed: 1, pierce: true, radius: 10, coeff: Sim.stats.leg_gyananakashu * 0.01});
         Sim.popCastInfo();
@@ -874,9 +875,10 @@
       return (rune === "d" ? 14 : 30) * (1 - 0.01 * (Sim.stats.leg_theflowofeternity_p2 || Sim.stats.leg_theflowofeternity || 0));
     },
     oncast: function(rune) {
+      var triggered = Sim.castInfo().triggered;
       var params = {
-        duration: (Sim.stats.leg_lionsclaw ? 72 : 61),
-        tickrate: (Sim.stats.leg_lionsclaw ? 5 : 9),
+        duration: (!triggered && Sim.stats.leg_lionsclaw ? 72 : 61),
+        tickrate: (!triggered && Sim.stats.leg_lionsclaw ? 5 : 9),
         tickinitial: 6,
         data: {target: -1, rune: rune},
         ontick: function(data) {
@@ -897,7 +899,7 @@
             dmg.range = 7;
             dmg.coeff = 8.77;
           }
-          if (Sim.stats.set_uliana_4pc) {
+          if (Sim.stats.set_uliana_4pc && !triggered) {
             dmg.coeff *= 2 * (7 + (Sim.stats.leg_lionsclaw ? 7 : 0));
           }
           Sim.damage(dmg);

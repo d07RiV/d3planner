@@ -38,7 +38,7 @@ var exceptions = {
 var job = {
 //  "chinese/scripts/locale": "uglifyjs",
 //  "scripts/d3gl_data.js": "uglifyjs",
-//  "scripts/d3gl.js": "uglifyjs",
+//  "scripts/data_ptr": "uglifyjs",
   "scripts" : "uglifyjs",
   "css": "less",
   "simulator": "uglifyjs",

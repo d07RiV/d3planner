@@ -80,6 +80,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Dagger_003_x1",
     name: "The Barber",
+    suffix: _L("Legacy"),
     type: "dagger",
     quality: "legendary",
     affixes: {
@@ -398,7 +399,7 @@ DiabloCalc.addItems([
     type: "sword",
     quality: "legendary",
     required: {
-      custom: {id: "leg_rimeheart", name: "Chance to Deal a Lot of Damage", format: "10%% chance on hit to instantly deal 10000%% weapon damage as Cold to enemies that are Frozen.", args: 0},
+      custom: {id: "leg_rimeheart", name: "Chance to Deal a Lot of Damage", format: "20%% chance on hit to instantly deal 10000%% weapon damage as Cold to enemies that are Frozen.", args: 0},
     },
     preset: ["wpncol", "mainstat"],
   },
@@ -670,6 +671,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Fist_003_x1",
     name: "Rabid Strike",
+    suffix: _L("Legacy"),
     type: "fistweapon",
     quality: "legendary",
     affixes: {
@@ -1036,7 +1038,7 @@ DiabloCalc.addItems([
   {
     id: "P1_fistWeapon_norm_unique_01",
     local: true,
-    name: "Lion’s Claw",
+    name: "Lion's Claw",
     type: "fistweapon",
     quality: "legendary",
     required: {
@@ -1351,6 +1353,131 @@ DiabloCalc.addItems([
       custom: {id: "leg_darklight_p2", name: "Chance to Cast Fist of the Heavens Twice", format: "Fist of the Heavens has a %d%% chance to be cast twice.", min: 45, max: 60},
     },
     preset: ["wpnlit", "mainstat"],
+  },
+
+  {
+    id: "P43_Unique_Dagger_003_x1",
+    name: "The Barber",
+    suffix: _L("Legacy"),
+    type: "dagger",
+    quality: "legendary",
+    affixes: {
+      chd: {min: 31, max: 35},
+    },
+    required: {
+      custom: {id: "leg_thebarber", name: "Spirit Barrage Explosion Damage", format: "Instead of dealing direct damage, your Spirit Barrage now accumulates on the target. When you stop casting, it explodes dealing %d%% of the accumulated damage to all enemies within 15 yards.", min: 225, max: 250},
+    },
+    preset: ["mainstat", "damage", "chd"],
+  },
+
+  {
+    id: "P43_Unique_Fist_003_x1",
+    name: "Rabid Strike",
+    type: "fistweapon",
+    quality: "legendary",
+    affixes: {
+      chd: {min: 31, max: 35},
+    },
+    required: {
+      custom: {id: "leg_rabidstrike", name: "Epiphany Teleport Echoes Spenders", format: "Spirit spenders that teleport you while Epiphany is active are also mimicked on a nearby target for free.", args: 0},
+    },
+    preset: ["wpnpsn", "mainstat", "chd"],
+  },
+
+  {
+    id: "p43_RetroAxe_001",
+    name: "The Butcher's Cleaver",
+    suffix: _L("Retro"),
+    type: "axe",
+    quality: "magic",
+    preset: ["mainstat", "damage", "dura"],
+  },
+
+  {
+    id: "p43_RetroSword_002",
+    name: "Griswold's Edge",
+    suffix: _L("Retro"),
+    type: "sword",
+    quality: "magic",
+    preset: ["damage", "weaponias"],
+  },
+
+  {
+    id: "p43_RetroSword_1H_001",
+    name: "King's Sword of Haste",
+    suffix: _L("Retro"),
+    type: "sword",
+    quality: "magic",
+    affixes: {
+      ms: "msNormal",
+    },
+    preset: ["damage", "ms"],
+  },
+
+  {
+    id: "P5_Unique_Dagger_003_x1",
+    name: "The Barber",
+    type: "ceremonialknife",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_thebarber", name: "Spirit Barrage Explosion Damage", format: "Instead of dealing direct damage, your Spirit Barrage now accumulates on the target. When you stop casting, it explodes dealing %d%% of the accumulated damage to all enemies within 15 yards.", min: 225, max: 250},
+    },
+    preset: ["mainstat", "wpncol"],
+  },
+
+  {
+    id: "P6_Unique_Scythe1H_01",
+    name: "Funerary Pick",
+    type: "scythe",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_funerarypick", name: "Extra Siphon Blood Targets", format: "Siphon Blood drains blood from 2 additional targets.", args: 0},
+    },
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "P6_Unique_Scythe1H_02",
+    name: "Trag'Oul's Corroded Fang",
+    type: "scythe",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_trangoulscorrodedfang", name: "Bonus Damage to Cursed", format: "The Cursed Scythe rune for Grim Scythe now has a 100%% chance to apply a curse and you deal %d%% increased damage to cursed enemies.", min: 150, max: 200},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P6_Unique_Scythe1H_03",
+    name: "Scythe of the Cycle",
+    type: "scythe",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_scytheofthecycle", name: "Secondary Skill Damage Bonus", format: "Your Secondary skills deal %d%% additional damage while Bone Armor is active but reduce the remaining duration of Bone Armor by 4 seconds.", min: 250, max: 300},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P6_Unique_Scythe1H_04",
+    name: "Jesseth Skullscythe",
+    type: "scythe",
+    quality: "set",
+    set: "jesseth",
+    preset: ["mainstat", "weaponias"],
+    secondary: 2,
+  },
+
+  {
+    id: "P6_Unique_Spear_01",
+    name: "Spear of Jairo",
+    type: "spear",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_spearofjairo", name: "Bonus Thorns per Cursed Enemy", format: "Your Thorns is increased by %d%% for every enemy afflicted by one of your curses.", min: 10, max: 15},
+    },
+    preset: ["wpnphy", "mainstat"],
+    secondary: 3,
   },
 
 ]);

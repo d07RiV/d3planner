@@ -321,7 +321,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Boots_Set_02_p3",
     local: true,
-    name: "Arachyr’s Stride",
+    name: "Arachyr's Stride",
     type: "boots",
     quality: "set",
     set: "arachyr",
@@ -377,6 +377,64 @@ DiabloCalc.addItems([
       custom: {id: "leg_nilfursboast_p2", name: "Meteor Damage Bonus", format: "Increase the damage of Meteor by 200%%. When your Meteor hits 3 or fewer enemies, the damage is increased by %d%%.", min: 275, max: 350},
     },
     preset: ["mainstat", "resall"],
+  },
+
+  {
+    id: "P6_Necro_Set_1_Boots",
+    name: "Rathma's Ossified Sabatons",
+    type: "boots",
+    quality: "set",
+    set: "rathma",
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "P6_Necro_Set_2_Boots",
+    name: "Trag'Oul's Stalwart Greaves",
+    type: "boots",
+    quality: "set",
+    set: "trangoul",
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "P6_Necro_Set_3_Boots",
+    name: "Inarius's Perseverance",
+    type: "boots",
+    quality: "set",
+    set: "inarius",
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "P6_Necro_Set_4_Boots",
+    name: "Pestilence Battle Boots",
+    type: "boots",
+    quality: "set",
+    set: "pestilence",
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "P6_Necro_Unique_Boots_21",
+    name: "Steuart's Greaves",
+    type: "boots",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_steuartsgreaves", name: "Blood Rush Movement Speed", format: "You gain %d%% increased movement speed for 2 seconds after using Blood Rush.", min: 40, max: 50},
+    },
+    preset: ["mainstat", "ms"],
+  },
+
+  {
+    id: "P6_Necro_Unique_Boots_22",
+    name: "Bryner's Journey",
+    type: "boots",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_brynersjourney", name: "Chance to Cast Bone Nova", format: "Attacking with Bone Spikes has a %d%% chance to cast a Bone Nova at the target location.", min: 20, max: 30},
+    },
+    preset: ["mainstat"],
   },
 
 ]);

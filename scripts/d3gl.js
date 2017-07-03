@@ -481,7 +481,7 @@ $.ajaxTransport("+binary", function(options, originalOptions, jqXHR){
       gl.activeTexture(gl.TEXTURE0);
       gl.bindTexture(gl.TEXTURE_2D, tint && this.material.tintbase(appearance) || this.material.diffuse(appearance));
       gl.activeTexture(gl.TEXTURE1);
-      gl.bindTexture(gl.TEXTURE_2D, tint && this.material.tintmask(appearance) || null);
+      gl.bindTexture(gl.TEXTURE_2D, tint && this.material.tintmask(appearance) || getTexture(gl, 0));
       if (tint) {
         gl.uniform3f(gl.u_TintLoc, tint.r, tint.g, tint.b);
       }
@@ -528,6 +528,8 @@ $.ajaxTransport("+binary", function(options, originalOptions, jqXHR){
       gl.activeTexture(gl.TEXTURE0);
       gl.bindTexture(gl.TEXTURE_2D, null);
       gl.activeTexture(gl.TEXTURE1);
+      gl.bindTexture(gl.TEXTURE_2D, null);
+      gl.activeTexture(gl.TEXTURE2);
       gl.bindTexture(gl.TEXTURE_2D, null);
     }
   };
@@ -754,7 +756,7 @@ $.ajaxTransport("+binary", function(options, originalOptions, jqXHR){
   function _animType(mh, oh) {
     var mhw = (mh && DC.itemTypes[mh] && DC.itemTypes[mh].weapon && DC.itemTypes[mh].weapon.type);
     var ohw = (oh && DC.itemTypes[oh] && DC.itemTypes[oh].weapon && DC.itemTypes[oh].weapon.type);
-    if (oh === "source" || oh === "mojo" || oh === "quiver") {
+    if (oh === "source" || oh === "mojo" || oh === "phylactery" || oh === "quiver") {
       switch (mhw) {
       case undefined: return 11;
       case "swing": return 12;

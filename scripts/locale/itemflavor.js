@@ -177,9 +177,6 @@ _L.patch.add({
     P3_Unique_Bracer_107: {
       flavor: "It is claimed that Arachyr was able to restore the vital life essence of his followers by using creatures spawned from the realm that lies between our world and the Unformed Land.",
     },
-    P3_Unique_HandXBow_005: {
-      flavor: "Valla was one of the most lethal Demon Hunters ever known, until her abrupt disappearance. Some claim that she still lives, fighting in another land. Her body was never found, but she did leave behind her prized possession: this bow.",
-    },
     P3_Unique_Mighty_1H_006: {
       flavor: "It takes a sturdy weapon to survive on the shores of the Frozen Sea.",
     },
@@ -246,14 +243,8 @@ _L.patch.add({
     P42_Unique_BarbBelt_EQ: {
       flavor: "No belt is too big. Except this one.",
     },
-    P42_Unique_Bracer_SpikeTrap: {
-      flavor: "\"The guardian shall ever maintain his eternal watch over those who serve and protect the balance.\" —Excerpt from the Books of Kalan",
-    },
     P42_Unique_Fist_013_x1: {
       flavor: "Each scar left in its wake is a sin forgiven.",
-    },
-    P42_Unique_Mojo_003_x1: {
-      flavor: "The eyes of fallen warriors peer into the darkness to see what you cannot.",
     },
     P42_Unique_Mojo_004: {
       flavor: "The severed head of a homunculus is the source of much power for a knowledgeable witch doctor.",
@@ -281,6 +272,12 @@ _L.patch.add({
     },
     P43_Unique_Fist_003_x1: {
       flavor: "Those who survive the winter fever retain the strength of the madness it brings.",
+    },
+    P43_Unique_HandXBow_005: {
+      flavor: "Valla was one of the most lethal Demon Hunters ever known, until her abrupt disappearance. Some claim that she still lives, fighting in another land. Her body was never found, but she did leave behind her prized possession: this bow.",
+    },
+    P43_Unique_Quiver_001: {
+      flavor: "Bolts pulled from this quiver instinctively seek out demonic blood.",
     },
     P43_Unique_Ring_021_x1: {
       flavor: "Crafted by the healers of Viz-jun to protect their warriors from harm.",
@@ -429,9 +426,6 @@ _L.patch.add({
     P4_Unique_Polearm_01: {
       flavor: "With this, one warrior can hold back an army.",
     },
-    P4_Unique_Quiver_001: {
-      flavor: "Bolts pulled from this quiver instinctively seek out demonic blood.",
-    },
     P4_Unique_Ring_01: {
       flavor: "The warriors of the Teganze believe that every being senses the Unformed Land waiting for them, whether they realize it or not. This band can disrupt that connection, resulting in an emptiness that rivals even the most excruciating physical pain.",
     },
@@ -442,7 +436,7 @@ _L.patch.add({
       flavor: "Once worn by the self-appointed guardians of Sanctuary, who were said to feel no fear.",
     },
     P4_Unique_Ring_05: {
-      flavor: "“Seems designed to reduce damage, but I’m not sure how it works. Obviously, it failed its previous owner. Hopefully it will work better for you.”  -Haedrig",
+      flavor: "\"Seems designed to reduce damage, but I’m not sure how it works. Obviously, it failed its previous owner. Hopefully it will work better for you.\"  —Haedrig",
     },
     P4_Unique_Shield_Set_01_x1: {
       flavor: "\"My master used to claim a flail and a horse are all that is needed to see the crusade to its conclusion. I'd bring along a shield as well, just to be safe.\" -Norvald the Crusader",
@@ -473,6 +467,186 @@ _L.patch.add({
     },
     P4_flail2H_norm_unique_01: {
       flavor: "\"Let no crusader succumb to their base emotions, for they are to be the mere vessels of Zakarum’s righteous punishment, and the purveyors of his mercy.\" -Akkhan",
+    },
+    P5_Unique_Dagger_003_x1: {
+      flavor: "A precision instrument for a master of the blade.",
+    },
+    P5_Unique_Quiver_004_x1: {
+      flavor: "Crafted by the Wandering Priest of the Low Hills during an ecstatic trance, this quiver bestows a blessing on the arrows it carries.",
+    },
+    P6_Necro_Set_1_Boots: {
+      flavor: "Each fragment of this armor came from a corpse that died at a different age. Fully assembled, they represent a thousand years of death.",
+    },
+    P6_Necro_Set_1_Chest: {
+      flavor: "Mendeln declared that all priests would display bones in their armor as symbols of their mastery over death.",
+    },
+    P6_Necro_Set_1_Gloves: {
+      flavor: "Master Necromancers are honored with a few bones from the skeleton minions that once served Rathma. These artifacts are generally used in the priest's gloves.",
+    },
+    P6_Necro_Set_1_Helm: {
+      flavor: "No known being, living or dead, possesses a skull like this one. Its origins lie in mystery, like the fate of Rathma himself.",
+    },
+    P6_Necro_Set_1_Pants: {
+      flavor: "The bones of many creatures have been artfully arranged in this protective armor that is based on Rathma's own design.",
+    },
+    P6_Necro_Set_1_Shoulders: {
+      flavor: "The twin skulls represent the forces of light and darkness, each balanced on the shoulders of a Priest of Rathma.",
+    },
+    P6_Necro_Set_2_Boots: {
+      flavor: "The protectors of the Balance must stand on the edge of two worlds, accepted by neither, masters of both.",
+    },
+    P6_Necro_Set_2_Chest: {
+      flavor: "Trag'Oul believed that war on Sanctuary could devour all of existence if left unchecked.",
+    },
+    P6_Necro_Set_2_Gloves: {
+      flavor: "Most live and die without ever knowing why. The wisdom of Trag'Oul opens the way for those who wish to comprehend their greater purpose.",
+    },
+    P6_Necro_Set_2_Helm: {
+      flavor: "Trag'Oul, guardian of Sanctuary, was the teacher of Rathma, and the first to understand the Balance. Those who follow the One Who Is Forever will always stand sentinel over this world.",
+    },
+    P6_Necro_Set_2_Pants: {
+      flavor: "Though his fate is tied to that of Sanctuary, none have seen the guardian Trag'Oul for years beyond count. The implications are dire, but the Priests of Rathma have not lost faith.",
+    },
+    P6_Necro_Set_2_Shoulders: {
+      flavor: "Life and death flow through the Cycle as blood flows through veins.",
+    },
+    P6_Necro_Set_3_Boots: {
+      flavor: "When the power of the nephalem became a threat, Inarius sought to have them weakened at any cost.",
+    },
+    P6_Necro_Set_3_Chest: {
+      flavor: "Few angels have ever willingly abandoned the High Heavens. From the moment Inarius created Sanctuary, he knew that he would never be welcome again in the land of his birth.",
+    },
+    P6_Necro_Set_3_Gloves: {
+      flavor: "Inarius would stop at nothing to end the war between angels and demons.",
+    },
+    P6_Necro_Set_3_Helm: {
+      flavor: "Inarius was the first of the angels to truly look into the heart of a demon.",
+    },
+    P6_Necro_Set_3_Pants: {
+      flavor: "Inarius became watchful as the first nephalem grew up. His own son, Linarian, later known as Rathma, is said to have inherited his father's stoicism.",
+    },
+    P6_Necro_Set_3_Shoulders: {
+      flavor: "Inarius was sent to be tortured eternally in the Hells for creating the world of Sanctuary. In this punishment, he has been denied even the freedom of death.",
+    },
+    P6_Necro_Set_4_Boots: {
+      flavor: "\"Be ready to cross long distances and difficult terrain. The Balance is seldom disturbed in a series of convenient locations.\" —Deathspeaker Mykan",
+    },
+    P6_Necro_Set_4_Chest: {
+      flavor: "Deathspeaker Mykan was a gifted leader of the Priests of Rathma who wrote many of their strongest spells in the early years of the order. He was well known for his sharp wits and even sharper tongue.",
+    },
+    P6_Necro_Set_4_Gloves: {
+      flavor: "\"You may use death magic, but you are not invulnerable. Wear good armor, and maintain it well.\" —Deathspeaker Mykan",
+    },
+    P6_Necro_Set_4_Helm: {
+      flavor: "\"When wielding the powers of blight, it is wise to wear protect your face.\" —Deathspeaker Mykan",
+    },
+    P6_Necro_Set_4_Pants: {
+      flavor: "\"Keep your spells close, lest your enemies get closer.\" —Deathspeaker Mykan",
+    },
+    P6_Necro_Set_4_Shoulders: {
+      flavor: "\"If all else fails, the pointed tips of your pauldrons can gouge into an enemy's flesh, distracting them while you cast your final spell. You didn't think they were merely for show, did you?\" —Deathspeaker Mykan",
+    },
+    P6_Necro_Unique_Boots_21: {
+      flavor: "\"Stand your ground firmly enough, and your foes may start to question their own standing.\" —Steuart the Bold",
+    },
+    P6_Necro_Unique_Boots_22: {
+      flavor: "Though they have seen every corner of Sanctuary, these boots seem ready for another adventure.",
+    },
+    P6_Necro_Unique_Chest_21: {
+      flavor: "The rustling of the scales sounds like a spray of blood hitting the ground.",
+    },
+    P6_Necro_Unique_Chest_22: {
+      flavor: "Originally fashioned for a king's burial, it was instead entrusted to a Priest of Rathma, who began the tradition of passing it on to the worthiest champions of the necropolis.",
+    },
+    P6_Necro_Unique_Gloves_21: {
+      flavor: "Death is the state that unites all things. That which seems alive is only waiting to die.",
+    },
+    P6_Necro_Unique_Gloves_22: {
+      flavor: "You feel attuned to the life force in all beings.",
+    },
+    P6_Necro_Unique_Helm_21: {
+      flavor: "It grins at you unsettlingly.",
+    },
+    P6_Necro_Unique_Helm_22: {
+      flavor: "\"This helm belongs to those who are dead. All who have worn it have died, and all who wear it yet shall follow.\" —Unknown",
+    },
+    P6_Necro_Unique_Pants_21: {
+      flavor: "Clad in the flesh of a golem, you begin to feel a greater affinity with them.",
+    },
+    P6_Necro_Unique_Pants_22: {
+      flavor: "Walk as though you are one with the night.",
+    },
+    P6_Necro_Unique_Shoulders_21: {
+      flavor: "Commune with the dead. Speak in their tongue. Learn their secrets.",
+    },
+    P6_Necro_Unique_Shoulders_22: {
+      flavor: "If one did not fear Razeth, one feared the dark powers of his minions.",
+    },
+    P6_Unique_Amulet_01: {
+      flavor: "The stone in the center of the amulet glimmers with unfathomable power and potential.",
+    },
+    P6_Unique_Amulet_02: {
+      flavor: "The spirits of the dead are never far. Search for them only a little, and they shall appear.",
+    },
+    P6_Unique_Amulet_03: {
+      flavor: "\"All we know may yet come to a great and terrible end if we do not intervene.\" —Excerpt from the Books of Kalan",
+    },
+    P6_Unique_Belt_01: {
+      flavor: "Once worn by a steadfast soul with a taste for victory.",
+    },
+    P6_Unique_Phylactery_01: {
+      flavor: "The hourglass glows with the essence of several lives that ended too soon.",
+    },
+    P6_Unique_Phylactery_02: {
+      flavor: "When this bell tolls, the dead will always answer.",
+    },
+    P6_Unique_Phylactery_03: {
+      flavor: "The face within the center of the cross is the shrunken visage of an ancient priest of Rathma. He appears to be judging you unfavorably.",
+    },
+    P6_Unique_Phylactery_04: {
+      flavor: "Forged as a gift for the union between the leaders of the Haroutunian Clan and House Chien. This brooch was favored by Lady Aerisrose, and is said to reflect her power and beauty.",
+    },
+    P6_Unique_Ring_01: {
+      flavor: "Like the Great Cycle of Being, this ring has no beginning and no end. Named for its owner, the Master Necromancer Nailuj, it has aided many in their trials, and has been eagerly sought ever since.",
+    },
+    P6_Unique_Ring_02: {
+      flavor: "\"Let fear strike my enemies in the moment of their greatest weakness. Let their suffering embalm them as death comes.\" —Passage from the Prayer of Briggs",
+    },
+    P6_Unique_Ring_03: {
+      flavor: "\"How curious. The day we cross paths is also the day of your passing.\"—Necromancer Krysbin",
+    },
+    P6_Unique_Ring_04: {
+      flavor: "Forged to protect a loved one, this ring gleams with its own perfect light.",
+    },
+    P6_Unique_Scythe1H_01: {
+      flavor: "Smooth as gleaming bone, this weapon could butcher a corpse in a matter of seconds in the right hands.",
+    },
+    P6_Unique_Scythe1H_02: {
+      flavor: "It whispers your name from realms beyond.",
+    },
+    P6_Unique_Scythe1H_03: {
+      flavor: "\"The Great Cycle of Being always begins anew... but not for you.\" —Master Necromancer Jostan",
+    },
+    P6_Unique_Scythe1H_04: {
+      flavor: "This assembly of sharpened bones will make you a true artist in combat.",
+    },
+    P6_Unique_Scythe2H_01: {
+      flavor: "In an unparalleled display of summoning prowess, Master Necromancer Maltorius raised the tallest golem in history--until this spike was cut from it.",
+    },
+    P6_Unique_Scythe2H_02: {
+      flavor: "The favored weapon of Master Necromancer Ordan, renowned teacher of the Priests of Rathma. He was so devoted to this weapon that he would rather part with his life than have it leave his side.",
+    },
+    P6_Unique_Scythe2H_03: {
+      flavor: "The swiftest of the Priests of Rathma, Reilena could weave her way through enemies with the grace of a dancer, leaving only bones in her wake.",
+    },
+    P6_Unique_Scythe2H_04: {
+      flavor: "A weapon of mysterious origins that seems to cut more deeply when you're cutting it a little close in battle.",
+    },
+    P6_Unique_Shield_01: {
+      flavor: "\"Your defenses must therefore be as flexible and inventive as the enemies you face.\" -Necromancer Jesseth",
+    },
+    P6_Unique_Spear_01: {
+      flavor: "\"An enemy's suffering is naught but the greatest pleasure.\" —Necromancer Jairo",
     },
     Unique_Amulet_001_x1: {
       flavor: "This garish amulet, once worn by an over large imp, makes time an insignificant thing.",
@@ -883,7 +1057,7 @@ _L.patch.add({
       flavor: "Sulam met an unfortunate end when he tried to harvest the flesh of a demon that was not actually dead. He was never able to complete this, the last piece of his set. Fortunately, he left the plans for its construction.",
     },
     Unique_Bracer_101_x1: {
-      flavor: "\"After a long search through the eastern lands, the noble leaders of House Chien chose the Artoun Clan for their personal guard. These loyal protectors are easily recognized by the distinctive armguards they wear out of pride for their service.\" —Abd al-Hazir, The Xiansai Chronicles",
+      flavor: "\"After a long search through the eastern lands, the noble leaders of House Chien chose the Haroutunian \nClan for their personal guard. These loyal protectors are easily recognized by the distinctive armguards they wear out of pride for their service.\" —Abd al-Hazir, The Xiansai Chronicles",
     },
     Unique_Bracer_102_x1: {
       flavor: "These bracers were first worn in the distant past by members of the Partha Guard. Though musty from age, they retain power that has protected the city for centuries.",
@@ -2448,7 +2622,7 @@ _L.patch.add({
       flavor: "\"A simple task performed a thousand times may seem a drudgery, yet the power it creates is immeasurable.\" - Matriarch Lian Rasmussen\n",
     },
     soulshard: {
-      flavor: "This looks just like it was part of the infamous Red Soulstone. But that's impossible... It was destroyed long ago.\n",
+      flavor: "This looks just like it was part of the infamous Red Soulstone. But that's impossible... It was destroyed long ago.",
     },
     stricken: {
       flavor: "After the defeat of Malthael, Diadra the Scholar wandered the world. She studied the gem cutters of Xiansai, and brought their secrets back to Westmarch. Bane of the Stricken is the first gem to come out of her Westmarch workshop.",
@@ -2612,9 +2786,6 @@ _L.patch.add({
     },
     p43_RetroTransmog_WirtsLeg: {
       flavor: "\"Poor Wirt. I did all that was possible for the child, but I know that he despises that wooden peg I was forced to attach to his leg. His wounds were hideous. No one--and especially such a young child--should have to suffer the way he did.\" \n\n—Pepin",
-    },
-    p4_Helm_norm_anniversary_01: {
-      flavor: "This looks just like it was part of the infamous Red Soulstone. But that's impossible... It was destroyed long ago.",
     },
   },
 });

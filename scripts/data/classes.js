@@ -46,6 +46,13 @@ DiabloCalc.classes = {
     imageSuffixAlt: "demonhunter_female",
     resources: ["wrath"],
   },
+  necromancer: {
+    name: "Necromancer",
+    primary: "int",
+    imageSuffix: "necromancer_male",
+    imageSuffixAlt: "necromancer_female",
+    resources: ["essence"],
+  },
   templar: {
     name: "Templar",
     follower: true,

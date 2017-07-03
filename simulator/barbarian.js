@@ -323,11 +323,14 @@
       switch (rune) {
       case "a": dmg.coeff = 7.35; dmg.onhit = Sim.apply_effect("knockback", 30); break;
       case "b":
-        Sim.addBuff(undefined, undefined, {
-          duration: 121,
-          tickrate: 30,
-          ontick: {type: "cone", width: 50, range: 50, coeff: 0.575},
-        });
+        if (!Sim.castInfo().triggered) {
+          Sim.addBuff(undefined, undefined, {
+            duration: 121,
+            tickrate: 30,
+            ontick: {type: "cone", width: 50, range: 50, coeff: 0.15 * Sim.resources.fury / 4},
+          });
+          Sim.spendResource(Sim.resources.fury);
+        }
         break;
       case "e": dmg.coeff = 7.55; dmg.onhit = Sim.apply_effect("chilled", 60); break;
       }
@@ -346,7 +349,7 @@
   var _devils_angle = 0;
   function ww_devils_ontick(data) {
     var info = Sim.castInfo();
-    var coeff = (Sim.stats.set_wastes_6pc ? 25 : 1.2) * Sim.stats.info[info && info.weapon || "mainhand"].speed;
+    var coeff = 1.8 * (Sim.stats.set_wastes_6pc ? 2.8 : 1) * Sim.stats.info[info && info.weapon || "mainhand"].speed;
     Sim.damage({type: "line", range: 30, speed: 1, pierce: true, radius: 3, angle: _devils_angle, coeff: coeff});
     _devils_angle = (_devils_angle + 60) % 360;
     //data.buff.params.tickrate = Math.floor(30 / Sim.stats.info[info && info.weapon || "mainhand"].speed);
@@ -358,20 +361,20 @@
     Sim.addResource(data.targets);
   }
   function ww_ontick(data) {
-    var dmg = {type: "area", range: 9, self: true, coeff: 3.4 / 3};
+    var dmg = {type: "area", range: 9, self: true, coeff: 3.4 * 2 / 3};
     switch (data.rune) {
     case "d": dmg.onhit = ww_shear_onhit; break;
-    case "a": dmg.coeff = 4 / 3; break;
+    case "a": dmg.coeff = 4 * 2 / 3; break;
     }
     if (Sim.stats.leg_skullgrasp) {
-      dmg.coeff += Sim.stats.leg_skullgrasp / 300;
+      dmg.coeff += Sim.stats.leg_skullgrasp * 2 / 300;
     }
     Sim.damage(dmg);
   }
   skills.whirlwind = {
     offensive: true,
     frames: 26.66666,
-    channeling: 20,
+    channeling: 40,
     cost: function(rune) {
       var speed = Sim.stats.info[Sim.curweapon || "mainhand"].speed;
       return 7 / speed + 3;
@@ -574,6 +577,7 @@
     offensive: true,
     secondary: true,
     weapon: "mainhand",
+    //charges: 3,
     frames: 32,
     cooldown: 12,
     oncast: function(rune) {

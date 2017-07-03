@@ -36,7 +36,7 @@
     buff: makeNumeric(Sim.getBuff),
     buffmin: makeNumeric(Sim.getBuffDurationLast, 60),
     buffmax: makeNumeric(Sim.getBuffDuration, 60),
-    bufftgt: makeNumeric(Sim.getBuffTargets, 60),
+    bufftgt: makeNumeric(Sim.getBuffTargets),
     resource: makeNumeric(getResource),
     resourcepct: makeNumeric(getResourcePct),
     cooldown: makeNumeric(Sim.getCooldown),

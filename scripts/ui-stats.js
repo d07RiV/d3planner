@@ -127,7 +127,7 @@
     for (var i = 0; i < statList.length; ++i) {
       for (var j = 0; j < statList[i].stats.length; ++j) {
         var info = statList[i].stats[j];
-        if (info.separator) {
+        if (!info.line || info.separator) {
           continue;
         }
         if (info.classes && info.classes.indexOf(charClass) < 0) {
@@ -189,6 +189,9 @@
     section.append(ul);
     for (var j = 0; j < statList[i].stats.length; ++j) {
       var info = statList[i].stats[j];
+      if (info.stat && !info.name && !DiabloCalc.stats[info.stat]) {
+        continue;
+      }
       info.line = $("<li></li>");
       statMap[info.stat] = info;
       ul.append(info.line);

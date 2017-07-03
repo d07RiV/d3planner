@@ -364,6 +364,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Sword_2H_012_x1",
     name: "Faithful Memory",
+    suffix: _L("Legacy"),
     type: "sword2h",
     quality: "legendary",
     affixes: {
@@ -875,7 +876,7 @@ DiabloCalc.addItems([
 
   {
     id: "P4_flail2H_norm_unique_01",
-    name: "Akkhan’s Leniency",
+    name: "Akkhan's Leniency",
     type: "flail2h",
     quality: "legendary",
     required: {
@@ -936,5 +937,72 @@ DiabloCalc.addItems([
     preset: ["wpnphy", "mainstat", "damage", "ms"],
     primary: 5,
   },*/
+
+  {
+    id: "P43_Unique_Sword_2H_012_x1",
+    name: "Faithful Memory",
+    type: "sword2h",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_faithfulmemory", name: "Blessed Hammer Bonus Damage", format: "Each enemy hit by Falling Sword increases the damage of Blessed Hammer by %d%% for 10 seconds. Max 10 stacks.", min: 50, max: 60},
+    },
+    preset: ["wpnhol", "mainstat"],
+  },
+
+  {
+    id: "p43_RetroStaff_001",
+    name: "Archangel's Staff of the Apocalypse",
+    suffix: _L("Retro"),
+    type: "staff",
+    quality: "magic",
+    affixes: {
+      chd: {min: 31, max: 35},
+    },
+    preset: ["chd"],
+  },
+
+  {
+    id: "P6_Unique_Scythe2H_01",
+    name: "Maltorius' Petrified Spike",
+    type: "scythe2h",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_maltoriuspetrifiedspike", name: "Bone Spear Damage Bonus", format: "Bone Spear now costs 40 Essence and deals %d%% increased damage.", min: 375, max: 450},
+    },
+    preset: ["mainstat", "damage"],
+  },
+
+  {
+    id: "P6_Unique_Scythe2H_02",
+    name: "Bloodtide Blade",
+    type: "scythe2h",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_bloodtideblade", name: "Death Nova Damage per Enemy", format: "Death Nova deals %d%% increased damage for every enemy within 15 yards.", min: 20, max: 30},
+    },
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "P6_Unique_Scythe2H_03",
+    name: "Reilena's Shadowhook",
+    type: "scythe2h",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_reilenasshadowhook", name: "Bone Spikes Essence per Enemy", format: "Every point of Maximum Essence increases your damage by 0.5%% and Bone Spikes generates %d additional Essence for each enemy hit.", min: 2, max: 5},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P6_Unique_Scythe2H_04",
+    name: "Nayr's Black Death",
+    type: "scythe2h",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_nayrsblackdeath", name: "Poison Skill Damage per Stack", format: "Each different poison skill you use increases the damage of your poison skills by %d%% for 15 seconds.", min: 50, max: 65},
+    },
+    preset: ["mainstat"],
+  },
 
 ]);

@@ -282,7 +282,7 @@ DiabloCalc.skills.monk = {
     activeshow: function(rune, stats) {
       return !!stats.leg_balance;
     },
-    params: [{rune: "e", min: 1, max: 100, name: "Flurry Stacks", buffs: false, inf: true}],
+    params: [{rune: "e", min: 1, max: 500, name: "Flurry Stacks", buffs: false}],
     info: function(rune, stats) {
       var res;
       switch (rune) {

@@ -527,4 +527,27 @@ DiabloCalc.legendaryGems = {
       },
     ],
   },
+  soulshard: {
+    id: "Unique_Gem_022_x1",
+    name: "Red Soul Shard",
+    types: ["head"],
+    check: true,
+    active: false,
+    effects: [
+      {
+        format: "Periodically struggle for control, unleashing a ring of Fire that inflicts %d%% weapon damage to enemies it passes through.",
+        value: [12500],
+        delta: [50],
+      },
+      {
+        format: "After gaining a level, your resource costs are removed and cooldowns on skills are reduced by 75%% for 30 seconds.",
+      },
+    ],
+    info: function(level, stats) {
+      return {"Damage": {elem: "fir", coeff: 125 + 0.5 * level}};
+    },
+    buffs: function(level, stats) {
+      if (level >= 25) return {cdr: 75, rcr: 100};
+    },
+  },
 };

@@ -1,7 +1,7 @@
 // this is the only file that is required for the english version to work
 _L.add({
   "ui-import.js": {
-    BNImportNotice: "The battle.net import is missing some information that needs to be corrected manually after import:\n<ul><li>Paragon point distribution</li>\n<li>Caldesann's Despair enchants</li>\n<li>Ancient offhand damage rolls</li></ul>",
+    BNImportNotice: "The battle.net import is missing some information that needs to be corrected manually after import:\n<ul><li>Paragon point distribution</li>\n<li>Ancient offhand damage rolls</li></ul>",
   },
   uiStats: [
     {
@@ -614,6 +614,27 @@ _L.add({
           sourcedecimal: 0,
           percent: true,
           tooltip: "Wrath Cost Reduction: $1\n* Can be increased by items.",
+        },
+
+        {
+          stat: "maxessence",
+          classes: ["necromancer"],
+          tooltip: "Maximum Essence: $1\n* Can be increased by skills and items.",
+        },
+        {
+          name: "Essence Regeneration/Second",
+          stat: "essenceregen",
+          decimal: 1,
+          classes: ["necromancer"],
+          tooltip: "Essence Regenerated per Second: $1\n* Can be increased by skills and items.",
+        },
+        {
+          stat: "rcr_essence",
+          classes: ["necromancer"],
+          decimal: 1,
+          sourcedecimal: 0,
+          percent: true,
+          tooltip: "Essence Cost Reduction: $1\n* Can be increased by items.",
         },
       ],
     },

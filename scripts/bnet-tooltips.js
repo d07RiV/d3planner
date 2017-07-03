@@ -462,6 +462,7 @@
       offhand: "default",
       follower: "square",
       custom: "square",
+      customwpn: "square",
     };
     function formatBonus(format, values, spans, stat) {
       if (!(values instanceof Array)) {
@@ -612,7 +613,7 @@
           var types = (DiabloCalc.getOffhandTypes && slot === "offhand" ? DiabloCalc.getOffhandTypes() : DiabloCalc.itemSlots[slot].types);
           for (var type in types) {
             if (types[type].classes && types[type].classes.indexOf(DiabloCalc.charClass) < 0) continue;
-            slotSize.custom = slotSize[DiabloCalc.itemTypes[type].slot];
+            slotSize.custom = slotSize.customwpn = slotSize[DiabloCalc.itemTypes[type].slot];
             break;
           }
           perfection = DiabloCalc.itemPerfection(slot);
@@ -624,12 +625,12 @@
             var types = (DiabloCalc.getOffhandTypes && slot === "offhand" ? DiabloCalc.getOffhandTypes() : DiabloCalc.itemSlots[slot].types);
             for (var type in types) {
               if (types[type].classes && types[type].classes.indexOf(DiabloCalc.charClass) < 0) continue;
-              slotSize.custom = slotSize[DiabloCalc.itemTypes[type].slot];
+              slotSize.custom = slotSize.customwpn = slotSize[DiabloCalc.itemTypes[type].slot];
               break;
             }
           } else {
             data.custom = _side;
-            slotSize.custom = "square";
+            slotSize.custom = slotSize.customwpn = "square";
           }
           _side = undefined;
         }
@@ -637,7 +638,7 @@
         compare = !_side;
         data = slot;
         slot = undefined;
-        slotSize.custom = "square";
+        slotSize.custom = slotSize.customwpn = "square";
         perfection = DiabloCalc.itemPerfection(data);
       }
       if (!data || !DiabloCalc.itemById[data.id]) {
@@ -719,10 +720,12 @@
       }
       
       var icon = data.id;
-      if (icon == "custom" && slot) {
+      if ((icon == "custom" || icon == "customwpn") && slot) {
         var types = (DiabloCalc.getOffhandTypes && slot === "offhand" ? DiabloCalc.getOffhandTypes() : DiabloCalc.itemSlots[slot].types);
         for (var type in types) {
           if (types[type].classes && types[type].classes.indexOf(DiabloCalc.charClass) < 0) continue;
+          if (icon !== "customwpn" && DiabloCalc.itemTypes[type].weapon) continue;
+          if (icon === "customwpn" && !DiabloCalc.itemTypes[type].weapon) continue;
           icon = DiabloCalc.itemTypes[type].generic;
           break;
         }
@@ -748,7 +751,13 @@
 
       var outer = $("<div class=\"d3-tooltip d3-tooltip-item\"></div>");
       _content.append(outer);
-      var outerWrapper = $("<div class=\"d3-tooltip-item-wrapper" + (data.ancient ? " d3-tooltip-item-wrapper-AncientLegendary" : "") + "\"></div>");
+      var ttClass = "d3-tooltip-item-wrapper";
+      if (data.ancient === "primal") {
+        ttClass += " d3-tooltip-item-wrapper-PrimalAncientLegendary";
+      } else if (data.ancient) {
+        ttClass += " d3-tooltip-item-wrapper-AncientLegendary";
+      }
+      var outerWrapper = $("<div class=\"" + ttClass + "\"></div>");
       outer.append(outerWrapper);
       outer = outerWrapper;
 
@@ -783,7 +792,7 @@
       props.append("<ul class=\"item-type-right\"><li class=\"item-slot\">" + slotInfo.name + "</li>" + classSpecific + "</ul>");
       var qual = DiabloCalc.qualities[item.quality];
       props.append("<ul class=\"item-type\"><li class=\"d3-color-" + color + "\">" +
-        DiabloCalc.GenderPair(data.ancient && qual.ancient || qual.prefix, itemType.name) + "</li></ul>");
+        DiabloCalc.GenderPair((data.ancient === "primal" && qual.primal || (data.ancient && qual.ancient)) || qual.prefix, itemType.name) + "</li></ul>");
 
       if (data.stats.basearmor) {
         var armor, armor_max;

@@ -7,6 +7,9 @@
     if (!amount) {
       return;
     }
+    if (amount.source) {
+      return addStat(dst, stat, amount.value, factor, amount.source);
+    }
     var info = statInfo[stat];
     if (!factor) {
       factor = 1;
@@ -149,6 +152,9 @@
     case "crusader":
       this.maxwrath = 100;
       this.wrathregen = 2.5;
+      break;
+    case "necromancer":
+      this.maxessence = 200;
       break;
     }
   }
@@ -564,6 +570,11 @@
       this.info.res_factor = 1 / (1 + this.info.resavg / (this.info.level * 5));
       this.info.defense_factor = this.info.armor_factor * this.info.res_factor * (1 - 0.01 * (this.edef || 0) / 2) * this.info.defavg;
       this.info.toughness = this.info.hp / this.info.defense_factor / (1 - 0.01 * (this.dodge || 0));
+      if (isNaN(this.info.toughness)) {
+        debugger;
+        //this.info.defense_factor = this.info.armor_factor * this.info.res_factor * (1 - 0.01 * (this.edef || 0) / 2) * this.info.defavg;
+        //this.info.toughness = this.info.hp / this.info.defense_factor / (1 - 0.01 * (this.dodge || 0));
+      }
 
       this.info.toughpervit = this.info.toughness / this.info.hp * 100 * hpPerVit * (1 + 0.01 * (this.life || 0));
       this.info.toughperlife = this.info.toughness * 0.01 / (1 + 0.01 * (this.life || 0));
@@ -715,6 +726,11 @@
       this.addPercent("wrathregen", "resourcegen");
       this.addAbsolute("rcr_wrath", "rcr");
       break;
+    case "necromancer":
+      this.addPercent("maxessence", "maxessence_percent");
+      this.addPercent("essenceregen", "resourcegen");
+      this.addAbsolute("rcr_essence", "rcr");
+      break;
     }
   };
 
@@ -751,6 +767,7 @@
   };
   
   var statCache = null;
+  var finCache = null;
   function invalidate() {
     statCache = null;
     DC.trigger("updateStats");
@@ -765,12 +782,17 @@
       DC.addSkillBonuses(stats);
     }
     stats.finalize();
+    finCache = stats;
     return stats;
   }
-  DC.getStats = function() {
+  DC.getStats = function(complete) {
+    if (complete && finCache) {
+      return finCache;
+    }
     if (statCache) {
       return statCache;
     }
+    computeStats(undefined, true);
     computeStats(undefined, true);
     return statCache;
   };

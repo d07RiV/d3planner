@@ -187,6 +187,12 @@
   gems.boyarsky = function(level) {
     Sim.addBaseStats({thorns: 16000 + 800 * level});
   };
+  gems.soulshard = function(level) {
+    Sim.after(1500 + 300, function ontick() {
+      Sim.damage({type: "line", speed: 0.7, coeff: 125 + 0.5 * level, range: 80, count: 8, fan: 360/8, merged: true, angle: 360/16, elem: "fir"});
+      Sim.after(1500 + 300, ontick);
+    });
+  };
 
   affixes.leg_wandofwoh = function() {
     function docast(data) {
@@ -551,7 +557,7 @@
   affixes.leg_rimeheart = function(amount) {
     var next = 0;
     Sim.register("onhit_proc", function(data) {
-      if (Sim.time >= next && Sim.stats.frozen && Sim.random("rimeheart", 0.1 * data.proc, data.targets * data.count)) {
+      if (Sim.time >= next && Sim.stats.frozen && Sim.random("rimeheart", 0.2 * data.proc, data.targets * data.count)) {
         Sim.damage({elem: "col", coeff: 100});
         next = Sim.time + 6;
       }
@@ -693,13 +699,11 @@
   };
 
   affixes.leg_strongarmbracers = function(amount) {
-    var prevKnockback = 0;
     Sim.register("updatestats", function(data) {
       var count = data.stats.countStatus("knockback");
-      if (count || prevKnockback) {
-        Sim.addBuff("strongarmbracers", {dmgtaken: amount / Sim.target.count * Math.max(count, prevKnockback)}, {duration: 300});
+      if (count) {
+        Sim.addBuff("strongarmbracers", {dmgtaken: amount / Sim.target.count}, {duration: 360});
       }
-      prevKnockback = count;
     });
   };
   affixes.leg_rechelsringoflarceny = function(amount) {
@@ -1484,7 +1488,7 @@
     Sim.register("oncast", function(data) {
       if (data.skill === "sweepattack") {
         var stacks = Sim.getBuff("denial");
-        if (denial) {
+        if (stacks) {
           Sim.removeBuff("denial");
           return {percent: amount * stacks};
         }
@@ -1564,6 +1568,107 @@
     Sim.register("oncast", function(data) {
       if (data.skill === "seismicslam") {
         Sim.addBuff("girdleofgiants", {dmgmul: {skills: ["earthquake"], percent: amount}}, {duration: 180});
+      }
+    });
+  };
+
+  affixes.leg_saffronwrap = function(amount) {
+    Sim.register("onhit_proc", function(data) {
+      if (data.castInfo && data.castInfo.skill === "overpower" && data.castInfo.user && !data.castInfo.user.saffronwrap) {
+        data.castInfo.user.saffronwrap = true;
+        Sim.setBuffStacks("saffronwrap", undefined, Math.min(20, Sim.random("saffronwrap", 1, data.targets, true)));
+      }
+    });
+    Sim.register("oncast", function(data) {
+      if (data.skill === "overpower") {
+        var stacks = Sim.getBuff("saffronwrap");
+        if (stacks) {
+          Sim.removeBuff("saffronwrap");
+          return {percent: amount * stacks};
+        }
+      }
+    });
+  };
+
+  affixes.leg_faithfulmemory = function(amount) {
+    Sim.register("onhit_proc", function(data) {
+      if (data.castInfo && data.castInfo.skill === "fallingsword" && data.castInfo.user && !data.castInfo.user.faithfulmemory) {
+        data.castInfo.user.faithfulmemory = true;
+        Sim.removeBuff("faithfulmemory");
+        Sim.addBuff("faithfulmemory", {dmgmul: {skills: ["blessedhammer"], percent: amount}},
+          {duration: 600, stacks: Math.min(10, Sim.random("faithfulmemory", 1, data.targets, true))});
+      }
+    });
+  };
+
+  affixes.leg_hellcatwaistguard = function(amount) {
+    var h_cache = {};
+    function num_hits(radius, origin, jumps) {
+      var data = {};
+      data.radius = Sim.target.radius;
+      data.size = Sim.target.size + radius;
+      data.origin = origin;
+      data.jumps = jumps;
+      data.targets = Sim.target.count;
+      var str = JSON.stringify(data);
+      if (!h_cache[str]) h_cache[str] = do_compute(data);
+      return h_cache[str];
+
+      function do_compute(data) {
+        var rng = new Math.seedrandom("hellcatwaistguard");
+        var a0 = Math.PI * data.radius * data.radius;
+        var jd = 10.0;
+
+        var counts = [];
+        for (var i = 0; i < data.jumps; ++i) {
+          counts.push(0);
+        }
+        for (var i = 0; i < 1000; ++i) {
+          var d = data.origin;
+          for (var j = 0; j < data.jumps; ++j) {
+            var area = Sim.math.circleIntersection(d, data.size, data.radius);
+            counts[j] += 0.001 * Math.min(area, a0) / a0 * data.targets;
+            var x, y;
+            do {
+              x = (rng() * 2 - 1) * jd;
+              y = (rng() * 2 - 1) * jd;
+            } while (x * x + y * y > jd * jd);
+            x += d;
+            d = Math.sqrt(x * x + y * y);
+          }
+        }
+        return counts;
+      }
+    }
+
+    Sim.register("onhit", function(data) {
+      if (data.tags && data.tags.indexOf("grenade") >= 0 && data.origdata) {
+        var origin = 0;
+        if (data.origdata.origin !== undefined) {
+          origin = data.origdata.origin;
+        } else if (data.origdata.type === "area" && data.origdata.radius !== undefined) {
+          origin = 2 / 3 * (data.origdata.radius - (data.origdata.inner || 0));
+        } else if (data.origdata.type === "line" && data.origdata.distance !== undefined) {
+          origin = Math.min(Sim.target.radius, Math.abs(Sim.target.distance - data.origdata.distance));
+        }
+        var area = (data.origdata.area || data.origdata.range || 0);
+        var counts = num_hits(area, origin, amount);
+        Sim.pushCastInfo(data.castInfo);
+        for (var i = 1; i <= amount; ++i) {
+          Sim.damage({coeff: data.origdata.coeff * (i == amount ? 8 : 0.5 * i), targets: counts[i - 1], count: data.count * 0.5, proc: 0});
+        }
+        Sim.popCastInfo();
+      }
+    });
+  };
+
+  affixes.leg_rabidstrike = function(amount) {
+    var skills = ["waveoflight", "lashingtailkick", "cyclonestrike", "explodingpalm", "sevensidedstrike"];
+    Sim.register("oncast", function(data) {
+      if (skills.indexOf(data.skill) >= 0) {
+        Sim.after(6, function() {
+          Sim.cast(data.skill, data.rune, true, true);
+        });
       }
     });
   };

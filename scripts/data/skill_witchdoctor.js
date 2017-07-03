@@ -4,12 +4,12 @@ if (!DiabloCalc.extraskills) DiabloCalc.extraskills = {};
 if (!DiabloCalc.passives) DiabloCalc.passives = {};
 if (!DiabloCalc.partybuffs) DiabloCalc.partybuffs = {};
 DiabloCalc.skillcat.witchdoctor = {
-  primary: "primary",
-  secondary: "secondary",
-  defensive: "defensive",
-  terror: "terror",
-  decay: "decay",
-  voodoo: "voodoo",
+  primary: "Primary",
+  secondary: "Secondary",
+  defensive: "Defensive",
+  terror: "Terror",
+  decay: "Decay",
+  voodoo: "Voodoo",
 };
 DiabloCalc.skills.witchdoctor = {
   poisondart: {

@@ -379,7 +379,7 @@ DiabloCalc.addItems([
     id: "Unique_Chest_Set_02_p3",
     usealt: true,
     local: true,
-    name: "Arachyr’s Carapace",
+    name: "Arachyr's Carapace",
     type: "chestarmor",
     quality: "set",
     set: "arachyr",
@@ -433,6 +433,85 @@ DiabloCalc.addItems([
     type: "chestarmor",
     quality: "set",
     set: "earth",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "p43_RetroArmor_001",
+    name: "Godly Plate of the Whale",
+    suffix: _L("Retro"),
+    type: "chestarmor",
+    quality: "magic",
+    preset: ["vit", "meleedef"],
+  },
+
+  {
+    id: "p43_RetroArmor_002",
+    name: "Arkaine's Valor",
+    suffix: _L("Retro"),
+    type: "chestarmor",
+    quality: "magic",
+    affixes: {
+      ccr: "ccrNormal",
+    },
+    preset: ["vit", "ccr"],
+  },
+
+  {
+    id: "P6_Necro_Set_1_Chest",
+    name: "Rathma's Ribcage Plate",
+    type: "chestarmor",
+    quality: "set",
+    set: "rathma",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P6_Necro_Set_2_Chest",
+    name: "Trag'Oul's Scales",
+    type: "chestarmor",
+    quality: "set",
+    set: "trangoul",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P6_Necro_Set_3_Chest",
+    name: "Inarius's Conviction",
+    type: "chestarmor",
+    quality: "set",
+    set: "inarius",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P6_Necro_Set_4_Chest",
+    name: "Pestilence Robe",
+    type: "chestarmor",
+    quality: "set",
+    set: "pestilence",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P6_Necro_Unique_Chest_21",
+    name: "Bloodsong Mail",
+    type: "chestarmor",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_bloodsongmail", name: "Command Skeletons Damage", format: "While in the Land of the Dead, Command Skeletons gains the effect of all runes and deals %d%% additional damage.", min: 100, max: 125},
+    },
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P6_Necro_Unique_Chest_22",
+    name: "Requiem Cereplate",
+    type: "chestarmor",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_requiemcereplate", name: "Devour Restoration Over Time", format: "Devour restores an additional %d%% Essence and Life. In addition, when Devour restores Essence or Life above your maximum, the excess is granted over 3 seconds.", min: 75, max: 100},
+    },
     preset: ["mainstat", "sockets"],
   },
 

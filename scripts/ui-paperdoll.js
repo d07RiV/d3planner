@@ -1,9 +1,11 @@
 (function() {
   function getItemIcon(slot, data) {
-    if (data.id == "custom") {
+    if (data.id == "custom" || data.id == "customwpn") {
       var types = (slot === "offhand" ? DiabloCalc.getOffhandTypes() : DiabloCalc.itemSlots[slot].types);
       for (var type in types) {
         if (types[type].classes && types[type].classes.indexOf(DiabloCalc.charClass) < 0) continue;
+        if (data.id !== "customwpn" && DiabloCalc.itemTypes[type].weapon) continue;
+        if (data.id === "customwpn" && !DiabloCalc.itemTypes[type].weapon) continue;
         return DiabloCalc.getItemIcon(DiabloCalc.itemTypes[type].generic);
       }
     }

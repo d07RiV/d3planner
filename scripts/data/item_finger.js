@@ -15,6 +15,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Ring_021_x1",
     name: "Manald Heal",
+    suffix: _L("Legacy"),
     type: "ring",
     quality: "legendary",
     affixes: {
@@ -233,7 +234,7 @@ DiabloCalc.addItems([
     type: "ring",
     quality: "legendary",
     affixes: {
-      block: "blockRelic",
+      block: {min: 12, max: 16},
       ccr: {min: 35, max: 50},
     },
     preset: ["mainstat", "block", "ccr"],
@@ -420,7 +421,7 @@ DiabloCalc.addItems([
     type: "ring",
     quality: "set",
     set: "zunimassa",
-    preset: ["mainstat", "cdr"],
+    preset: ["mainstat", "sockets"],
   },
 
   {
@@ -517,7 +518,7 @@ DiabloCalc.addItems([
     type: "ring",
     quality: "legendary",
     required: {
-      block: "blockRelic",
+      block: {min: 12, max: 16},
       custom: {id: "leg_justicelantern", name: "Block to Damage Reduction", format: "Gain damage reduction equal to %d%% of your Block Chance.", min: 45, max: 55},
       ccr: {min: 35, max: 50},
     },
@@ -578,6 +579,79 @@ DiabloCalc.addItems([
       custom: {id: "leg_ringofemptiness_p2", name: "Bonus Damage on Afflicted Targets", format: "You deal %d%% increased damage to enemies affected by both your Haunt and Locust Swarm.", min: 250, max: 300},
     },
     preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P43_Unique_Ring_021_x1",
+    name: "Manald Heal",
+    type: "ring",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_manaldheal", name: "Damage on Paralysis", format: "Enemies stunned with Paralysis also take %d%% weapon damage as Lightning.", min: 13000, max: 14000},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "p43_RetroRing_001",
+    name: "Empyrean Band",
+    suffix: _L("Retro"),
+    type: "ring",
+    quality: "magic",
+    preset: ["mainstat", "ccr"],
+  },
+
+  {
+    id: "p43_RetroRing_002",
+    name: "Ring of Truth",
+    suffix: _L("Retro"),
+    type: "ring",
+    quality: "magic",
+    preset: ["vit", "resall"],
+  },
+
+  {
+    id: "P6_Unique_Ring_01",
+    name: "Circle of Nailuj's Evol",
+    type: "ring",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_circleofnailujsevol", name: "Extra Skeletal Mage Duration", format: "You now raise an additional Skeletal Mage with each cast and they last an additional %d seconds.", min: 2, max: 4},
+    },
+    preset: ["mainstat", "chd"],
+  },
+
+  {
+    id: "P6_Unique_Ring_02",
+    name: "Briggs' Wrath",
+    type: "ring",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_briggswrath", name: "Curses Pull Enemies", format: "Uncursed enemies are pulled to the target location when a curse is applied to them.", args: 0},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P6_Unique_Ring_03",
+    name: "Krysbin's Sentence",
+    type: "ring",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_krysbinssentence", name: "Damage Against Impaired Enemies", format: "You deal %d%% increased damage against slowed enemies or triple this bonus against enemies afflicted by any other type of control-impairing effect.", min: 75, max: 100},
+    },
+    preset: ["mainstat", "ias"],
+  },
+
+  {
+    id: "P6_Unique_Ring_04",
+    name: "Lornelle's Sunstone",
+    type: "ring",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_lornellessunstone", name: "Damage Reduction per Missing Life", format: "Your damage reduction is increased by %.2f%% for every 1%% Life you are missing.", min: 0.75, max: 0.95, step: 0.01},
+    },
+    preset: ["mainstat"],
   },
 
 ]);

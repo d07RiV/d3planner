@@ -574,7 +574,7 @@
     frames: 58.536537,
     cooldown: 12,
     oncast: function(rune) {
-      Sim.removeBuff("soulharvest");
+      //Sim.removeBuff("soulharvest");
       var targets = Math.ceil(Sim.getTargets(18, Sim.target.distance));
       var buffs = {int_percent: 3};
       if (rune === "d" || Sim.stats.set_jadeharvester_4pc) {
@@ -591,7 +591,7 @@
       if (Sim.stats.leg_lakumbasornament) {
         buffs.dmgred = 6;
       }
-      Sim.addBuff("soulharvest", buffs, {duration: duration, stacks: targets, maxstacks: Sim.stats.leg_sacredharvester ? 10 : 5});
+      Sim.addBuff("soulharvest", buffs, {refresh: false, duration: duration, stacks: targets, maxstacks: Sim.stats.leg_sacredharvester ? 10 : 5});
       if (rune === "e" || Sim.stats.set_jadeharvester_4pc) {
         Sim.damage({type: "area", range: 18, self: true, coeff: 6.3});
       }
@@ -723,29 +723,53 @@
   };
 
   function sb_onhit(data) {
+    if (Sim.stats.leg_thebarber) {
+      Sim.addBuff("thebarber", undefined, {
+        maxstacks: 1000,
+        duration: 120,
+        targets: data.targets,
+          onrefresh: function(data, newdata) {
+          data.coeff += newdata.coeff;
+        },
+        onexpire: function(data) {
+          Sim.damage({type: "area", range: 15, coeff: data.coeff * 0.01 * Sim.stats.leg_thebarber});
+        },
+        data: {coeff: data.count * (data.origdata.  thebarber || 0)},
+      });
+    }
     if (data.castInfo.rune === "d" || Sim.stats.leg_voosjuicer) {
       Sim.addResource(12 * data.targets);
     }
   }
+  function sb_hit(data) {
+    if (!data) return;
+    if (Sim.stats.leg_thebarber) {
+      data.thebarber = (data.coeff || 1);
+      data.coeff = 0;
+    }
+    Sim.damage(data);
+  }
   skills.spiritbarrage = {
     offensive: true,
     frames: 57.142834,
-    speed: 1.2,
+    speed: function(rune, aps) {
+      return aps * 1.2;
+    },
     cost: 100,
     oncast: function(rune) {
       switch (rune) {
-      case "x": return {delay: 30, count: 4, coeff: 1.5, onhit: sb_onhit};
-      case "d": return {delay: 30, count: 4, coeff: 1.5, onhit: sb_onhit};
+      case "x": return sb_hit({delay: 30, count: 4, coeff: 1.5, onhit: sb_onhit});
+      case "d": return sb_hit({delay: 30, count: 4, coeff: 1.5, onhit: sb_onhit});
       case "b":
         var targets = Math.min(3, Sim.target.count);
         Sim.damage({delay: 30, targets: targets, count: 3 / targets, coeff: 0.65});
-        return {delay: 30, count: 4, coeff: 1.5, onhit: sb_onhit};
-      case "a": return {delay: 30, count: 4, coeff: 1.5, onhit: sb_onhit};
+        return sb_hit({delay: 30, count: 4, coeff: 1.5, onhit: sb_onhit});
+      case "a": return sb_hit({delay: 30, count: 4, coeff: 1.5, onhit: sb_onhit});
       case "e":
         Sim.addBuff("manitou", undefined, {
           duration: 1201,
           tickrate: 30,
-          ontick: {coeff: 1.5},
+          ontick: function() {sb_hit({coeff: 1.5});},
         });
         break;
       }
@@ -759,7 +783,7 @@
           duration: 300,
           tickrate: 30,
           tickinitial: 1,
-          ontick: {type: "area", range: 10, coeff: 1.5 / 2},
+          ontick: function() {sb_hit({type: "area", range: 10, coeff: 1.5 / 2});},
         });
       }
     },

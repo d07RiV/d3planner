@@ -462,7 +462,7 @@
       }
 
       var selfbuffs = {};
-      if (Sim.stats.set_magnumopus_4pc) selfbuffs.dmgred = 50;
+      if (Sim.stats.set_magnumopus_4pc) selfbuffs.dmgred = 60;
       if (rune === "e" || Sim.stats.leg_crownoftheprimus) selfbuffs.ias = 10;
       if (selfbuffs.dmgred || selfbuffs.ias) {
         st_self = Sim.addBuff(st_self, selfbuffs, {duration: 900});
@@ -1222,6 +1222,11 @@
       Sim.register("onhit_proc", function(data) {
         if (data.elem === "lit") {
           func(data);
+          if (Sim.stats.leg_manaldheal) {
+            Sim.pushCastInfo({triggered: "leg_manaldheal"});
+            Sim.damage({count: data.targets * data.count * 0.15, coeff: Sim.stats.leg_manaldheal * 0.01, elem: "lit"});
+            Sim.popCastInfo();
+          }
         }
       });
     },

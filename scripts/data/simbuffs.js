@@ -415,6 +415,9 @@ DiabloCalc.simMapping = {
     oculusring: {name: "Oculus Ring", category: "Items", stat: ["leg_oculusring", "leg_oculusring_p2"]},
     girdleofgiants: {name: "Girdle of Giants", category: "Items", stat: "leg_girdleofgiants"},
     gazingdemise: {name: "Gazing Demise", category: "Items", stat: "leg_gazingdemise"},
+    saffronwrap: {name: "Saffron Wrap", category: "Items", stat: "leg_saffronwrap"},
+    faithfulmemory: {name: "Faithful Memory", category: "Items", stat: "leg_faithfulmemory"},
+    thebarber: {name: "The Barber", category: "Items", stat: "leg_thebarber"},
   },
   nyi: {
     "Unique_Ring_006_p2": true,

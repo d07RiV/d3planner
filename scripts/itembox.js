@@ -178,11 +178,6 @@
     var itemSlot = DC.itemTypes[type].slot;
     var limits = getLimits(id, ancient);
     var stats = {};
-    if (ancient && required !== "only") {
-      mergeStats(stats, limits, {
-        caldesanns: {step: 5, min: 5, max: 1000},
-      });
-    }
     if (DC.metaSlots[itemSlot]) {
       mergeStatsSub(stats, limits, DC.metaSlots[itemSlot], required);
     } else {
@@ -190,6 +185,26 @@
     }
     mergeStatsSub(stats, limits, DC.itemTypes[type], required);
     mergeStatsSub(stats, limits, DC.itemById[id], required);
+    if (ancient === "primal") {
+      for (var stat in stats) {
+        //if (DC.stats[stat] && DC.stats[stat].base) continue;
+        if ((stats[stat].max && stats[stat].min < stats[stat].max) || (stats[stat].max2 && stats[stat].min2 < stats[stat].max2)) {
+          stats[stat] = $.extend({}, stats[stat]);
+          if (stats[stat].best === "min") {
+            if (stats[stat].max) stats[stat].max = stats[stat].min;
+            if (stats[stat].max2) stats[stat].max2 = stats[stat].min2;
+          } else {
+            if (stats[stat].max) stats[stat].min = stats[stat].max;
+            if (stats[stat].max2) stats[stat].min2 = stats[stat].max2;
+          }
+        }
+      }
+    }
+    if (ancient && required !== "only") {
+      mergeStats(stats, limits, {
+        caldesanns: {step: 5, min: 5, max: 1000},
+      });
+    }
     return stats;
   };
 
@@ -238,12 +253,18 @@
     }
     var types = DC.itemSlots.offhand.types;
     var result = {};
+    var wpn = false;
     for (var type in types) {
       var typeData = types[type];
       if (twohand && type !== "quiver") continue;
       if (noDual && typeData.slot === "onehand" && type !== "handcrossbow") continue;
       result[type] = typeData;
+      if (typeData.classes && typeData.classes.indexOf(DC.charClass) < 0) {
+        continue;
+      }
+      if (type !== "customwpn" && typeData.weapon) wpn = true;
     }
+    if (!wpn) delete result.customwpn;
     return result;
   };
   DC.isItemAllowed = function(slot, id, mhtype) {
@@ -887,8 +908,19 @@
     this.transmogs = $("<select class=\"item-info-item\"></select>");
     this.dyes = $("<select class=\"item-info-item item-info-dye\"></select>");
     this.equipSet = $("<span class=\"item-info-equipset\">" + _L("Equip full set") + "</span>").hide();
-    this.ancient = $("<input type=\"checkbox\"></input>");
-    this.ancientTip = $("<label class=\"item-info-ancient\"></label>").append(this.ancient).append(_L("Ancient")).hide();
+    this.ancientSel = $("<select class=\"item-info-ancient\"><option value=\"false\">" + _L("Normal") + "</option><option value=\"true\">" + _L("Ancient") + "</option><option value=\"primal\">" + _L("Primal Ancient") + "</option></select>");
+    //this.ancientTip = $("<label class=\"item-info-ancient\"></label>").append(this.ancient).append(_L("Ancient")).hide();
+    Object.defineProperty(this, "ancient", {get: function() {
+      var value = this.ancientSel.val();
+      if (value === "primal") return value;
+      if (value === "true") return true;
+      return false;
+    }, set: function(v) {
+      if (v === "primal") v = "primal";
+      else if (v) v = "true";
+      else v = "false";
+      this.ancientSel.val(v);
+    }});
     this.statsDiv = $("<ul class=\"item-info-statlist chosen-noframe\"></ul>");
     this.typeSpan = $("<span style=\"display: inline-block; vertical-align: top\"></span>");
     this.itemSpan = $("<span style=\"display: inline-block; vertical-align: top\"></span>");
@@ -931,7 +963,7 @@
     }
     this.div.append($("<div></div>").append(this.typeSpan.append(this.type)).append(this.itemSpan.append(this.item)));
     this.typeSpan.append(this.equipSet);
-    this.itemSpan.append(this.ancientTip);
+    this.itemSpan.append(this.ancientSel);
     this.div.append(this.importDiv, this.statsDiv);
 
     this.equipSet.click(function() {self.onEquipSet();});
@@ -952,7 +984,7 @@
 
     this.div.append(this.itemMod.append(this.transmogs, this.dyes));
 
-    this.ancient.change(function() {
+    this.ancientSel.change(function() {
       self.updateItem();
       self.updateLimits();
     });
@@ -1014,7 +1046,7 @@
     chosen_addIcons(this.item, function(id) {
       var type = this.type.val() || (DC.itemById[id] && DC.itemById[id].type);
       var icon = DC.itemIcons[id];
-      if (type === "custom" && this.slot) {
+      if ((type === "custom" || type == "customwpn") && this.slot) {
         var types = (DC.getOffhandTypes && this.slot === "offhand" ? DC.getOffhandTypes() : DC.itemSlots[this.slot].types);
         for (var t in types) {
           if (types[t].classes && types[t].classes.indexOf(DC.charClass) < 0) continue;
@@ -1046,7 +1078,9 @@
       }
     });
     DC.chosenTips(this.transmogs, function(id) {
-      if (DC.tooltip && DC.webglItems[id]) {
+      if (DC.tooltip && DC.itemById[id] && DC.itemById[id].quality !== "rare") {
+        DC.tooltip.showItem(this, id);
+      } else if (DC.tooltip && DC.webglItems[id]) {
         DC.tooltip.showExtraItem(this, id);
       }
     });
@@ -1103,12 +1137,12 @@
   };
   // return stat => limits mapping for selected item quality
   DC.ItemBox.prototype.getLimits = function() {
-    return getLimits(this.item.val(), this.ancient.prop("checked"));
+    return getLimits(this.item.val(), this.ancient);
   };
   // return a dictionary of possible stats=>limits for selected item
   // required = (false | true | "only") to return only enchantable stats, both, or only fixed stats
   DC.ItemBox.prototype.getItemAffixes = function(required) {
-    return DC.getItemAffixesById(this.item.val(), this.ancient.prop("checked"), required);
+    return DC.getItemAffixesById(this.item.val(), this.ancient, required);
   };
   // add more boxes for primary/secondary stats
   DC.ItemBox.prototype.updateStatCounts = function() {
@@ -1179,7 +1213,7 @@
         this.stats.splice(index, 1);
       }
     }
-    if (this.imported && this.ancient.prop("checked") && !cald) {
+    if (this.imported && this.ancient && !cald) {
       this.onAddStat("caldesanns");
     }
     while (usedPrimary < numStats[0]) {
@@ -1242,7 +1276,7 @@
     }
 
     var ohstat = false;
-    if ((this.type.val() === "source" || this.type.val() === "mojo") && this.ancient.prop("checked")) {
+    if ((this.type.val() === "source" || this.type.val() === "mojo") && this.ancient) {
       ohstat = "wpnphy";
     }
     for (var i = 0; i < this.stats.length; ++i) {
@@ -1398,7 +1432,7 @@
   };
   // triggered when item quality changes (ancient checkbox)
   DC.ItemBox.prototype.updateLimits = function() {
-    var ancient = this.ancient.prop("checked");
+    var ancient = this.ancient;
     for (var i = 0; i < this.stats.length; ++i) {
       var stat = this.stats[i].list.val();
       if (!ancient && DC.stats[stat] && DC.stats[stat].caldesanns) {
@@ -1459,7 +1493,7 @@
     }
     if ($.isEmptyObject(list)) return false;
     if (dry) return true;
-    var ancient = !!this.ancient.prop("checked");
+    var ancient = this.ancient;
     for (var slot in list) {
       DC.setSlot(slot, DC.makeItem(list[slot], undefined, ancient));
     }
@@ -1499,7 +1533,7 @@
       this.statsDiv.empty();
       this.stats = [];
       this.badstats.hide();
-      this.ancientTip.hide();
+      this.ancientSel.hide();
       return;
     }
     this.nonRecursive = true;
@@ -1520,9 +1554,9 @@
     }
     var numStats = DC.getStatCount(id);
     if (DC.qualities[DC.itemById[id].quality].ancient) {
-      this.ancientTip.show();
+      this.ancientSel.show();
     } else {
-      this.ancientTip.hide();
+      this.ancientSel.hide();
     }
     var remaining = [];
     for (var i = 0; i < this.stats.length; ++i) {
@@ -1670,11 +1704,11 @@
     if (this.item.val() !== data.id) {
       return false;
     }
-    this.ancient.prop("checked", !!data.ancient);
+    this.ancient = data.ancient;
     if (DC.qualities[item.quality].ancient) {
-      this.ancientTip.show();
+      this.ancientSel.show();
     } else {
-      this.ancientTip.hide();
+      this.ancientSel.hide();
     }
     this.item.trigger("chosen:updated");
     this.statsDiv.empty();
@@ -1768,7 +1802,7 @@
       stats: {},
     };
     if (DC.qualities[item.quality].ancient) {
-      data.ancient = this.ancient.prop("checked");
+      data.ancient = this.ancient;
     }
     for (var i = 0; i < this.stats.length; ++i) {
       var stat = this.stats[i].list.val();
@@ -1996,7 +2030,7 @@
       var itemList = [];
       for (var type in types) {
         var typeData = types[type];
-        if (type === "custom") continue;
+        if (type === "custom" || type === "customwpn") continue;
         if (this.charClass && typeData.classes && typeData.classes.indexOf(this.charClass) < 0) {
           continue;
         }

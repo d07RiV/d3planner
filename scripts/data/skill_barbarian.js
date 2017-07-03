@@ -269,16 +269,20 @@ DiabloCalc.skills.barbarian = {
     activeshow: function(rune, stats) {
       return !!stats.leg_bracersofdestruction;
     },
+    params: [{rune: "b", min: 0, max: "maxfury", name: "Fury", buffs: false}],
     info: function(rune, stats) {
       var res;
       switch (rune) {
       case "x": res = {"Damage": {elem: "phy", coeff: 6.2}}; break;
       case "c": res = {"Cost": {cost: 22}, "Damage": {elem: "lit", coeff: 6.2}}; break;
       case "a": res = {"Damage": {elem: "fir", coeff: 7.35}}; break;
-      case "b": res = {"DPS": {sum: true, "Damage": {speed: 1, fpa: 58.666656, round: "up"}, "Rumble Damage": {speed: 1, fpa: 58.666656, round: "up", nobp: true}},
-        "Damage": {elem: "phy", coeff: 6.2}, "Rumble Damage": {elem: "phy", coeff: 2.3}}; break;
+      case "b": res = {"DPS": {sum: true, "Damage": {speed: 1, fpa: 58.666656, round: "up"}}, "Damage": {elem: "phy", coeff: 6.2}}; break;
       case "d": res = {"Damage": {elem: "phy", coeff: 6.2}}; break;
       case "e": res = {"Damage": {elem: "col", coeff: 7.55}}; break;
+      }
+      if (rune === "b" && this.params[0].val) {
+        res["Rumble Damage"] = {elem: "phy", coeff: 0.15 * this.params[0].val};
+        res["DPS"]["Rumble Damage"] = {speed: 1, fpa: 58.666656, round: "up", nobp: true};
       }
       if (this.active && stats.leg_bracersofdestruction) {
         res["Damage"].percent = {};
@@ -311,15 +315,19 @@ DiabloCalc.skills.barbarian = {
       case "d": res = {"Tick Damage": {elem: "lit", coeff: 3.4}}; break;
       case "a": res = {"Tick Damage": {elem: "fir", coeff: 4}}; break;
       }
-      res = $.extend({"Cost": {cost: 7 / stats.info.aps + 3, fpa: 20}}, res);
-      res["Tick Damage"].divide = {"Base Speed": 3};
+      res = $.extend({"Cost": {cost: 7 / stats.info.aps + 3, fpa: 40}}, res);
+      res["Tick Damage"].divide = {"Base Speed": 1.5};
       if (stats.leg_skullgrasp) {
         res["Tick Damage"].addcoeff = [stats.leg_skullgrasp / 100];
       }
       if (rune == "b" || stats.set_wastes_6pc) {
-        res["Tornado Damage"] = {elem: res["Tick Damage"].elem, coeff: (stats.set_wastes_6pc ? 25 : 1.2)};
+        var pct = {};
+        if (stats.set_wastes_6pc) {
+          pct[DiabloCalc.itemSets.wastes] = 180;
+        }
+        res["Tornado Damage"] = {elem: res["Tick Damage"].elem, coeff: 1.8, percent: pct};
       }
-      res["DPS"] = {sum: true, "Tick Damage": {speed: 1, fpa: 20}};
+      res["DPS"] = {sum: true, "Tick Damage": {speed: 1, fpa: 40}};
       if (res["Tornado Damage"]) res["DPS"]["Tornado Damage"] = {speed: 1, fpa: 30};
       return res;
     },
@@ -490,14 +498,25 @@ DiabloCalc.skills.barbarian = {
       c: "Revel",
     },
     range: 9,
-    info: {
-      "*": {"Cooldown": {cooldown: 12}},
-      x: {"Damage": {weapon: "mainhand", elem: "phy", coeff: 3.8}},
-      b: {"Damage": {weapon: "mainhand", elem: "phy", coeff: 3.8}},
-      a: {"Damage": {weapon: "mainhand", elem: "lit", coeff: 3.8}},
-      e: {"Damage": {weapon: "mainhand", elem: "col", coeff: 3.8}},
-      d: {"Damage": {weapon: "mainhand", elem: "phy", coeff: 3.8}},
-      c: {"Damage": {weapon: "mainhand", elem: "fir", coeff: 7.6}},
+    params: [{min: 0, max: 20, val: 0, name: function() {
+               return DiabloCalc.itemById.P43_Unique_Belt_001_x1.name;
+             }, buffs: false, show: function(rune, stats) {
+               return !!stats.leg_saffronwrap;
+             }}],
+    info: function(rune, stats) {
+      var res = {"Cooldown": {cooldown: 12}, "Damage": {weapon: "mainhand", elem: "phy", coeff: 3.8}};
+      if (rune === "a") res["Damage"].elem = "lit";
+      if (rune === "e") res["Damage"].elem = "col";
+      if (rune === "c") {
+        res["Damage"].elem = "fir";
+        res["Damage"].coeff = 7.6;
+      }
+      if (stats.leg_saffronwrap && this.params[0].val) {
+        var pct = {};
+        pct[DiabloCalc.itemById.P43_Unique_Belt_001_x1.name] = stats.leg_saffronwrap * this.params[0].val;
+        res["Damage"].percent = pct;
+      }
+      return res;
     },
     active: false,
     buffs: {

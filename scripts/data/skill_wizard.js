@@ -321,7 +321,7 @@ DiabloCalc.skills.wizard = {
       var res = {};
       if (rune === "a" || stats.leg_crownoftheprimus) res.dmgtaken = 15;
       if (rune === "e" || stats.leg_crownoftheprimus) res.ias = 10;
-      if (stats.set_magnumopus_4pc) res.dmgred = 50;
+      if (stats.set_magnumopus_4pc) res.dmgred = 60;
       return res;
     },
   },
@@ -691,10 +691,11 @@ DiabloCalc.skills.wizard = {
     },
     range: {x: 12, d: 12, c: 12, a: 12, b: 18, e: 12},
     info: {
-      "*": {"Cost": {cost: 20}, "Damage": null, "DPS": {sum: true, "Damage": {count: "leg_wandofwoh?4:1", cd: 6, speed: 1, fpa: 56.249996, round: "up", nobp: true}}},
+      "*": {"Cost": {cost: 20}, "Cooldown": {cooldown: 6}, "Damage": null,
+        "DPS": {sum: true, "Damage": {count: "leg_wandofwoh?4:1", cd: 6, speed: 1, fpa: 56.249996, round: "up", nobp: true}}},
       x: {"Damage": {elem: "arc", coeff: 9.45}},
       d: {"Damage": {elem: "arc", coeff: 14.85}},
-      c: {"Damage": {elem: "lit", coeff: 9.45}, "DPS": {sum: true, "Damage": {count: "leg_wandofwoh?4:1", cd: 3, speed: 1, fpa: 56.249996, round: "up", nobp: true}}},
+      c: {"Cooldown": {cooldown: 3}, "Damage": {elem: "lit", coeff: 9.45}, "DPS": {sum: true, "Damage": {count: "leg_wandofwoh?4:1", cd: 3, speed: 1, fpa: 56.249996, round: "up", nobp: true}}},
       a: {"Damage": {elem: "fir", coeff: 9.09}},
       b: {"Damage": {elem: "col", coeff: 9.9}},
       e: {"Damage": {elem: "fir", coeff: 5.2}, "DPS": {sum: true, "Damage": {count: "leg_wandofwoh?12:3", cd: 6, speed: 1, fpa: 56.249996, round: "up", nobp: true}}},
@@ -707,7 +708,7 @@ DiabloCalc.skills.wizard = {
     row: 5,
     col: 1,
     runes: {
-      c: "Simulacrum",
+      c: "Hard Light",
       b: "Duplicates",
       e: "Mocking Demise",
       d: "Extension of Will",
@@ -998,13 +999,21 @@ DiabloCalc.passives.wizard = {
       return elems;
     },
     active: true,
-    buffs: function(stats) {
-      var elems = DiabloCalc.passives.wizard.elementalexposure.getElems(stats, "ee");
-      return {dmgtaken: Object.keys(elems).length * (stats.leg_primordialsoul ? 10 : 5)};
-    },
     info: function(stats) {
       var elems = DiabloCalc.passives.wizard.elementalexposure.getElems(stats, "ee");
-      return {"Damage Bonus": (Object.keys(elems).length * (stats.leg_primordialsoul ? 10 : 5)) + "%"};
+      var list = [];
+      for (var e in elems) {
+        list.push(DiabloCalc.elements[e]);
+      }
+      if (list.length) {
+        return {"Active Elements": list.join(", ")};
+      }
+    },
+    params: [{min: 0, max: function(stats) {
+      return Object.keys(DiabloCalc.passives.wizard.elementalexposure.getElems(stats, "ee")).length;
+    }, name: "Stacks"}],
+    buffs: function(stats) {
+      return {dmgtaken: (stats.leg_primordialsoul ? 10 : 5) * this.params[0].val};
     },
   },
 };

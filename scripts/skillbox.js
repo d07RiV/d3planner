@@ -622,6 +622,23 @@
         }
         evt.stopPropagation();
       });
+
+      if (info.boxnames) {
+        this.boxes = [];
+        this.boxlabels = [];
+        for (var i = 0; i < info.boxnames.length; ++i) {
+          var box = $("<input type=\"checkbox\"></input>");
+          var boxlabel = $("<label class=\"passive-apply\">" + _L(info.boxnames[i]) + "</label>").prepend(box);
+          this.boxes.push(box);
+          this.boxlabels.push(boxlabel);
+          this.params.before(boxlabel);
+          boxlabel.toggle(info.active !== false);
+          box.click((function(i) {return function() {
+            info.boxvals[i] = $(this).prop("checked");
+            DC.trigger("updateSkills");
+          };})(i));
+        }
+      }
     },
     getInfo: function() {
       return this.affix && DC.itemaffixes[this.affix];
@@ -640,6 +657,12 @@
         this.name.html(title);
       } else if (item) {
         this.name.text(item.name);
+      }
+
+      if (this.boxlabels) {
+        for (var i = 0; i < this.boxlabels.length; ++i) {
+          this.boxlabels[i].toggle(info.active !== false);
+        }
       }
     },
     getCurInfo: function(info, stats) {
@@ -779,6 +802,12 @@
       return kanaiCache[this.namebox.val()];
     },
     onChangeItem: function() {
+      if (this.boxlabels) {
+        for (var i = 0; i < this.boxlabels.length; ++i) {
+          this.boxlabels[i].remove();
+        }
+        delete this.boxlabels;
+      }
       var id = this.namebox.val();
       var item = DC.itemById[id];
       var box = this.namebox;
@@ -805,6 +834,22 @@
           info.affixid = affix.id;
         }
         kanaiCache[id] = info;
+      }
+      if (info.boxnames) {
+        this.boxes = [];
+        this.boxlabels = [];
+        for (var i = 0; i < info.boxnames.length; ++i) {
+          var box = $("<input type=\"checkbox\"></input>");
+          var boxlabel = $("<label class=\"passive-apply\">" + _L(info.boxnames[i]) + "</label>").prepend(box);
+          this.boxes.push(box);
+          this.boxlabels.push(boxlabel);
+          this.params.before(boxlabel);
+          boxlabel.toggle(info.active !== false);
+          box.click((function(i) {return function() {
+            info.boxvals[i] = $(this).prop("checked");
+            DC.trigger("updateSkills");
+          };})(i));
+        }
       }
       this.updateParams();
     },
@@ -871,6 +916,11 @@
           delete this.info;
         }
         return;
+      }
+      if (this.boxlabels) {
+        for (var i = 0; i < this.boxlabels.length; ++i) {
+          this.boxlabels[i].toggle(info.active !== false);
+        }
       }
     },
     getCurInfo: function(info, stats) {

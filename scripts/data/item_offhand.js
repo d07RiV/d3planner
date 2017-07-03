@@ -96,10 +96,11 @@ DiabloCalc.addItems([
       maxmana: "maxmanaNormal",
       maxspirit: "maxspiritNormal",
       maxwrath: "maxwrathNormal",
+      maxessence: "maxessenceNormal",
     },
     preset: ["mainstat", "elemental", "resource"],
-    primary: 5,
-    secondary: 1,
+    primary: 4,
+    secondary: 2,
   },
 
   {
@@ -272,6 +273,9 @@ DiabloCalc.addItems([
     name: "Piro Marella",
     type: "crusadershield",
     quality: "legendary",
+    affixes: {
+      maxwrath: {min: 6, max: 7},
+    },
     required: {
       custom: {id: "leg_piromarella", name: "Shield Bash Cost Reduction", format: "Reduces the Wrath cost of Shield Bash by %d%%.", min: 40, max: 50},
     },
@@ -538,6 +542,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Quiver_004_x1",
     name: "Holy Point Shot",
+    suffix: _L("Legacy"),
     type: "quiver",
     quality: "legendary",
     affixes: {
@@ -651,7 +656,7 @@ DiabloCalc.addItems([
   {
     id: "P2_mojo_norm_unique_02",
     local: true,
-    name: "Henri’s Perquisition",
+    name: "Henri's Perquisition",
     type: "mojo",
     quality: "legendary",
     required: {
@@ -745,7 +750,8 @@ DiabloCalc.addItems([
   },
 
   {
-    id: "P4_Unique_Quiver_001",
+    id: "P43_Unique_Quiver_001",
+    ids: ["P4_Unique_Quiver_001"],
     name: "Sin Seekers",
     type: "quiver",
     quality: "legendary",
@@ -829,6 +835,7 @@ DiabloCalc.addItems([
   /*{
     id: "P42_Unique_Quiver_006_x1",
     name: "Fletcher's Pride",
+    suffix: _L("PTR"),
     type: "quiver",
     quality: "legendary",
     required: {
@@ -836,5 +843,74 @@ DiabloCalc.addItems([
     },
     preset: ["mainstat", "rcr"],
   },*/
+
+  {
+    id: "P5_Unique_Quiver_004_x1",
+    name: "Holy Point Shot",
+    type: "quiver",
+    quality: "legendary",
+    affixes: {
+      elemental: "elementalDamage",
+    },
+    required: {
+      custom: {id: "leg_holypointshot", name: "Extra Impale Knives", format: "Impale throws two additional knives.", args: 0},
+    },
+    preset: ["mainstat", "elemental"],
+  },
+
+  {
+    id: "P6_Unique_Phylactery_01",
+    name: "Lost Time",
+    type: "phylactery",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_losttime", name: "Cold Skill Movement Speed", format: "Your cold skills reduce the movement speed of enemies by 30%%. In addition, your movement speed is increased by %d%% for 5 seconds. Maximum 5 stacks.", min: 4, max: 5},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P6_Unique_Phylactery_02",
+    name: "Bone Ringer",
+    type: "phylactery",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_boneringer", name: "Command Skeleton Damage Bonus", format: "The damage bonus of Command Skeletons increases by %d%% per second they spend attacking the same target.", min: 25, max: 30},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P6_Unique_Phylactery_03",
+    name: "Leger's Disdain",
+    type: "phylactery",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_legersdisdain", name: "Grim Scythe Damage per Essence", format: "Grim Scythe deals an additional %d%% damage for each point of essence it restores.", min: 7, max: 10},
+    },
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "P6_Unique_Phylactery_04",
+    name: "Iron Rose",
+    type: "phylactery",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_ironrose", name: "Chance to Cast Blood Nova", format: "Attacking with Siphon Blood has a %d%% chance to cast a free Blood Nova.", min: 40, max: 50},
+    },
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "P6_Unique_Shield_01",
+    name: "Jesseth Skullshield",
+    type: "shield",
+    quality: "set",
+    set: "jesseth",
+    preset: ["mainstat", "cdr"],
+    primary: 5,
+    secondary: 1,
+  },
 
 ]);

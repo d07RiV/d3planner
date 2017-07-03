@@ -348,7 +348,7 @@
   };
 
   Sim.lastCastId = 0;
-  Sim.cast = function(id, rune, triggered) {
+  Sim.cast = function(id, rune, triggered, ispet) {
     var skill = this.skills[id];
     if (!skill) return false;
     var rune = rune || this.stats.skills[id] || "x";
@@ -409,6 +409,9 @@
       } else if (castInfo.pet) {
         // summoning pets should not display the trigger item
         castInfo.triggered = triggered = id;
+      } else if (ispet) {
+        castInfo.weapon = "mainhand";
+        castInfo.pet = true;
       }
       castInfo.trigExplicit = trigExplicit;
     } else {

@@ -233,6 +233,11 @@ DiabloCalc.skills.crusader = {
     activeshow: function(rune, stats) {
       return !!stats.leg_guardofjohanna;
     },
+    params: [{min: 0, max: 10, val: 0, name: function() {
+               return DiabloCalc.itemById.P43_Unique_Sword_2H_012_x1.name;
+             }, buffs: false, show: function(rune, stats) {
+               return stats.leg_faithfulmemory && stats.skills.fallingsword;
+             }}],
     info: function(rune, stats) {
       var res;
       switch (rune) {
@@ -246,6 +251,13 @@ DiabloCalc.skills.crusader = {
       if (this.active && stats.leg_guardofjohanna) {
         res["Damage"].percent = {};
         res["Damage"].percent[DiabloCalc.itemById.Unique_Shield_103_x1.name] = stats.leg_guardofjohanna;
+      }
+      if (stats.leg_faithfulmemory && stats.skills.fallingsword && this.params[0].val) {
+        var pct = {};
+        pct[DiabloCalc.itemById.P43_Unique_Sword_2H_012_x1.name] = stats.leg_faithfulmemory * this.params[0].val;
+        for (var key in res) {
+          res[key].percent = $.extend(res[key].percent || {}, pct);
+        }
       }
       res["DPS"] = {sum: true, "Damage": {fpa: 57.777767, speed: 1.2 * (stats.leg_johannasargument ? 2 : 1), round: "up"}};
       return $.extend({"Cost": {cost: 10}}, res);
@@ -335,6 +347,7 @@ DiabloCalc.skills.crusader = {
         var dmg = DiabloCalc.skills.crusader.shieldbash.info(stats.skills.shieldbash, stats)["Damage"];
         dmg.elem = (rune === "c" ? "phy" : "hol");
         dmg.factors = {"Stacks": this.params[0].val};
+        dmg.skill = "shieldbash";
         res["Shield Bash Damage"] = dmg;
       }
       return res;

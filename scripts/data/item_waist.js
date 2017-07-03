@@ -25,6 +25,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Belt_001_x1",
     name: "Saffron Wrap",
+    suffix: _L("Legacy"),
     type: "belt",
     quality: "legendary",
     affixes: {
@@ -188,6 +189,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Belt_005_x1",
     name: "Hellcat Waistguard",
+    suffix: _L("Legacy"),
     type: "belt",
     quality: "legendary",
     affixes: {
@@ -550,7 +552,7 @@ DiabloCalc.addItems([
   {
     id: "P3_Unique_Belt_02",
     suffix: _L("Legacy"),
-    name: "Fazula’s Improbable Chain",
+    name: "Fazula's Improbable Chain",
     type: "belt",
     quality: "legendary",
     required: {
@@ -636,7 +638,7 @@ DiabloCalc.addItems([
   {
     id: "P4_Unique_Belt_06",
     local: true,
-    name: "Hergbrash’s Binding",
+    name: "Hergbrash's Binding",
     type: "belt",
     quality: "legendary",
     required: {
@@ -647,7 +649,7 @@ DiabloCalc.addItems([
 
   {
     id: "P4_Unique_Belt_07",
-    name: "Fazula’s Improbable Chain",
+    name: "Fazula's Improbable Chain",
     type: "belt",
     quality: "legendary",
     required: {
@@ -673,7 +675,7 @@ DiabloCalc.addItems([
     type: "belt",
     quality: "legendary",
     required: {
-      custom: {id: "leg_cordoftherighteous", name: "Bonus FoH Damage", format: "Fist of the Heavens costs 40%% less Wrath and does %d%% more damage.", min: 130, max: 170},
+      custom: {id: "leg_cordoftherighteous", name: "Bonus FoH Damage", format: "Fist of the Heavens costs 40%% less Wrath and deals %d%% more damage.", min: 130, max: 170},
     },
     preset: ["mainstat"],
   },
@@ -690,6 +692,39 @@ DiabloCalc.addItems([
       custom: {id: "leg_girdleofgiants", name: "Earthquake Damage Bonus", format: "Seismic Slam increases Earthquake damage by %d%% for 3 seconds.", min: 80, max: 100},
     },
     preset: ["mainstat", "ias", "maxfury"],
+  },
+
+  {
+    id: "P43_Unique_Belt_001_x1",
+    name: "Saffron Wrap",
+    type: "belt",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_saffronwrap", name: "Overpower Damage Bonus", format: "The damage of your next Overpower is increased by %d%% for each enemy hit. Max 20 enemies.", min: 40, max: 50},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P43_Unique_Belt_005_x1",
+    name: "Hellcat Waistguard",
+    type: "belt",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_hellcatwaistguard", name: "Grenade Bounces", format: "Grenades have a chance to bounce %d times dealing an additional 50%% damage on each bounce. This bonus is increased to 800%% on the final bounce.", min: 3, max: 5},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P6_Unique_Belt_01",
+    name: "Dayntee's Binding",
+    type: "belt",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_daynteesbinding", name: "Decrepify Damage Reduction", format: "You gain an additional %d%% damage reduction when there is an enemy afflicted by your Decrepify.", min: 40, max: 50},
+    },
+    preset: ["mainstat"],
   },
 
 ]);
