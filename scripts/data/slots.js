@@ -1330,6 +1330,7 @@ DiabloCalc.itemTypes = {
       cdr: "cdrSmall",
       rcr: "rcrSmall",
       skill_necromancer: "skillNormal",
+      maxessence: "maxessenceNormal",
     },
     required: {
       wpnphy: "damageOffhand",

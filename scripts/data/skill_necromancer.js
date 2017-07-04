@@ -359,7 +359,7 @@ DiabloCalc.skills.necromancer = {
       var res = {"Damage": {elem: "phy", pet: true, coeff: 4.5}, "DPS": {sum: true, "Damage": {pet: 90, speed: 1}}, "Cooldown": {cooldown: 45, cdr: stats.passives.commanderoftherisendead ? 30 : 0}};
       switch (rune) {
       case "e": res["Damage"].elem = "col"; break;
-      case "a": break; //TODO:
+      case "a": res["Activation Damage"] = {elem: "phy", pet: true, coeff: 20.0, total: true}; break;
       case "c": res["Damage"].elem = "psn"; break;
       }
       return res;
