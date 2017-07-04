@@ -789,7 +789,7 @@
         limits ? limits.min : undefined,
         limits ? limits.max : undefined,
         limits ? limits.step : 1,
-        statDiff && !nosetvalue && (limits.best || "max"));
+        statDiff && !nosetvalue && (limits && limits.best || "max"));
       this.value.blur();
     } else {
       this.value.hide();
@@ -800,7 +800,7 @@
         limits ? limits.min2 : undefined,
         limits ? limits.max2 : undefined,
         limits ? limits.step2 : 1,
-        statDiff && !nosetvalue && (limits.best || "max"));
+        statDiff && !nosetvalue && (limits && limits.best || "max"));
       this.value2.blur();
     } else {
       this.value2.hide();

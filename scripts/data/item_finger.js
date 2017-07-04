@@ -353,6 +353,7 @@ DiabloCalc.addItems([
       maxmana: "maxmanaNormal",
       maxspirit: "maxspiritNormal",
       maxwrath: "maxwrathNormal",
+      maxessence: "maxessenceNormal",
     },
     required: {
       edmg: {min: 25, max: 30},
