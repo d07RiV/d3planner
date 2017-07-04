@@ -112,13 +112,17 @@ DiabloCalc.skills.necromancer = {
     range: 0,
     params: [{rune: "c", min: 0, max: 10, inf: true, val: 0, name: "Enemies Hit", buffs: false},
              {rune: "a", min: 0, max: 10, val: 0, name: "Enemies Hit"}],
-    info: {
-      "*": {"Damage": {elem: "phy", coeff: 5.0}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58.0645, round: "up"}}, "Cost": {cost: "leg_maltoriuspetrifiedspike?40:20"}},
-      c: {"Damage": {elem: "psn", coeff: 5.0, percent: {"Bonus": "15*$1"}}},
-      e: {"Damage": {elem: "phy", coeff: 3.0}},
-      a: {"Damage": {elem: "col", coeff: 5.0}},
-      b: {"Damage": {elem: "phy", coeff: 5.0}},
-      d: {"Damage": {elem: "phy", coeff: 6.5}},
+    info: function(rune, stats) {
+      var res = {"Damage": {elem: "phy", coeff: 5.0}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58.0645, round: "up"}}, "Cost": {cost: 20}};
+      if (stats.leg_maltoriuspetrifiedspike) res["Cost"].cost = 40;
+      if (rune === "c") { res["Damage"].elem = "psn"; res["Damage"].percent = {"Bonus": 15 * this.params[0].val}; }
+      if (rune === "e") res["Damage"].coeff = 3.0;
+      if (rune === "a") res["Damage"].elem = "col";
+      if (rune === "d") res["Damage"].coeff = 6.5;
+      if (stats.skills.simulacrum && DiabloCalc.skills.necromancer.simulacrum.active) {
+        res["DPS"]["Damage"].count = (stats.skills.simulacrum === "d" ? 3 : 2);
+      }
+      return res;
     },
     buffs: function(rune, stats) {
       if (rune === "a") {
@@ -140,7 +144,7 @@ DiabloCalc.skills.necromancer = {
       c: "Life Support",
     },
     range: 60,
-    params: [{min: 0, max: 10, inf: true, val: 1, name: "Count", buffs: false},
+    params: [{min: 0, max: 10, val: 1, name: "Count", buffs: false},
              {rune: "e", min: 0, max: 10, name: "Stacks"},
              {rune: "b", min: 0, max: "maxessence", name: "Essence", buffs: false}],
     info: {
@@ -172,18 +176,13 @@ DiabloCalc.skills.necromancer = {
       c: "Blood Nova",
     },
     range: 0,
-    params: [{min: 0, max: 20, inf: true, val: 0, name: "Enemies", buffs: false, show: function(rune, stats) {
-               return !!stats.leg_bloodtideblade;
-             }}],
     info: function(rune, stats) {
-      var res = {"Damage": {elem: "psn", coeff: 3.5}, "Cost": {cost: 20}};
+      var res = {"Damage": {elem: "psn", coeff: 3.5}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58.0645, round: "up"}}, "Cost": {cost: 20}};
       if (rune === "a") res["Damage"] = {elem: "phy", coeff: 2.25};
       if (rune === "b") res["Damage"] = {elem: "phy", coeff: 4.75};
       if (rune === "c") res["Damage"] = {elem: "phy", coeff: 4.5};
-      if (stats.leg_bloodtideblade) {
-        var pct = {};
-        pct[DiabloCalc.itemById.P6_Unique_Scythe2H_02.name] = stats.leg_bloodtideblade * this.params[0].val;
-        res["Damage"].percent = pct;
+      if (stats.skills.simulacrum && DiabloCalc.skills.necromancer.simulacrum.active) {
+        res["DPS"]["Damage"].count = (stats.skills.simulacrum === "d" ? 3 : 2);
       }
       return res;
     },
@@ -265,11 +264,10 @@ DiabloCalc.skills.necromancer = {
     },
     range: 0,
     active: true,
-    params: [{rune: "c", min: 0, max: 25, val: 0, name: "Stacks"}],
+    params: [{rune: "ec", min: 0, max: 25, val: 0, name: "Stacks"}],
     buffs: function(rune, stats) {
-      if (rune === "c") {
-        return {rcr_essence: 2 * this.params[0].val};
-      }
+      if (rune === "e") return {life: 2 * this.params[0].val};
+      if (rune === "c") return {rcr_essence: 2 * this.params[0].val};
     },
   },
   revive: {
@@ -497,7 +495,7 @@ DiabloCalc.skills.necromancer = {
     info: {
       "*": {"Cost": {cost: 10, rcr: "passives.eternaltorment?50:0"}},
       c: {"Damage": {elem: "phy", coeff: 1.00}},
-      e: {"Range": "@15+pickup*0.5"},
+      e: {"Range": "@15+pickup*0.5", "Cost": null},
     },
     active: false,
     buffs: function(rune, stats) {
@@ -617,6 +615,9 @@ DiabloCalc.skills.necromancer = {
       "*": {"Cooldown": {cooldown: 120}},
     },
     active: false,
+    activeshow: function(rune, stats) {
+      return true;
+    },
     buffs: {
       a: {maxessence_percent: 100},
     },
@@ -716,7 +717,7 @@ DiabloCalc.passives.necromancer = {
     active: true,
     params: [{min: 0, max: 20, inf: true, name: "Nearby Enemies"}],
     buffs: function(stats) {
-      return {regen_percent: 10 * this.params[0].val};
+      return {regen_bonus: 10 * this.params[0].val};
     },
   },
   serration: {

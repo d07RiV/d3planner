@@ -1262,7 +1262,14 @@ DiabloCalc.itemaffixes = {
   },
 
   leg_brynersjourney: {
-    info: {"Damage": {elem: "phy", coeff: 4.75, skill: "deathnova"}},
+    info: function(value, stats) {
+      var res = {"Damage": {elem: "phy", coeff: 4.75, skill: "deathnova"}};
+      if (stats.skills.simulacrum && DiabloCalc.skills.necromancer.simulacrum.active) {
+        res["Damage"].factors = {};
+        res["Damage"].factors[DiabloCalc.skills.necromancer.simulacrum.name] = (stats.skills.simulacrum === "d" ? 3 : 2);
+      }
+      return res;
+    },
   },
   leg_graspsofessence: {
     params: [{min: 0, max: 5, name: "Stacks"}],
@@ -1276,9 +1283,9 @@ DiabloCalc.itemaffixes = {
     },
   },
   leg_thejohnstone: {
-    params: [{min: 0, max: 200, name: "Stacks"}],
+    active: false,
     buffs: function(value, stats) {
-      return {dmgmul: {skills: ["corpselance", "corpseexplosion"], percent: value[0] * this.params[0].val}};
+      return {dmgmul: {skills: ["corpselance", "corpseexplosion"], percent: value[0]}};
     },
   },
   leg_losttime: {
@@ -1288,7 +1295,14 @@ DiabloCalc.itemaffixes = {
     },
   },
   leg_ironrose: {
-    info: {"Damage": {elem: "phy", coeff: 4.50, skill: "deathnova"}},
+    info: function(value, stats) {
+      var res = {"Damage": {elem: "phy", coeff: 4.50, skill: "deathnova"}};
+      if (stats.skills.simulacrum && DiabloCalc.skills.necromancer.simulacrum.active) {
+        res["Damage"].factors = {};
+        res["Damage"].factors[DiabloCalc.skills.necromancer.simulacrum.name] = (stats.skills.simulacrum === "d" ? 3 : 2);
+      }
+      return res;
+    },
   },
   leg_krysbinssentence: {
     active: false,
@@ -1390,5 +1404,12 @@ DiabloCalc.itemaffixes = {
   set_pestilence_6pc: {
     active: true,
     buffs: {dmgmul: {skills: ["bonespear"], percent: 3000}},
+  },
+
+  leg_bloodtideblade: {
+    params: [{min: 0, max: 20, inf: true, val: 0, name: "Enemies"}],
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["deathnova"], percent: value[0] * this.params[0].val}};
+    },
   },
 };
