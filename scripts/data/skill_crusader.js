@@ -458,9 +458,11 @@ DiabloCalc.skills.crusader = {
       e: {"Uptime": {duration: 4, cooldown: 20}},
     },
     active: false,
+    params: [{rune: "a", min: 0, max: 10, inf: true, name: "Stacks"}],
     buffs: function(rune, stats) {
       var res = {};
       if (stats.leg_votoyiasspiker) res.thorns_taken = 100;
+      if (rune === "a") res.lph = 1073 * this.params[0].val;
       if (rune === "e") res.block_percent = 50;
       return res;
     },
