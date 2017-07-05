@@ -768,7 +768,7 @@
         _L("Choose {0}").format(kanaiTypes[this.kanai].name) : "") + "</option>");
       var groups = {};
       $.each(DC.items, function(index, item) {
-        if (!item.required || !item.required.custom) return;
+        if (!item.required || !item.required.custom || item.required.custom.cube === false) return;
         if (DC.options.hideLegacy && item.suffix === _L("Legacy")) return;
         var customId = item.required.custom.id;
         if (item.classes && item.classes.indexOf(DC.charClass) < 0) return;

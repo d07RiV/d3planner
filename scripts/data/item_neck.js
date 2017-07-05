@@ -72,7 +72,7 @@ DiabloCalc.addItems([
     type: "amulet",
     quality: "legendary",
     required: {
-      custom: {id: "leg_ancestorsgrace", name: "Revive", format: "When receiving fatal damage, you are instead restored to 100%% of maximum Life and resources. This item is destroyed in the process.", args: 0},
+      custom: {id: "leg_ancestorsgrace", name: "Revive", format: "When receiving fatal damage, you are instead restored to 100%% of maximum Life and resources. This item is destroyed in the process.", args: 0, cube: false},
     },
     preset: ["mainstat", "vit"],
   },
