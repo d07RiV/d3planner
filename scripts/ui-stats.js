@@ -78,12 +78,15 @@
         function fmtNumber(amount) {
           return DiabloCalc.formatNumber(amount, decimal, 1000) + percent;
         }
+        function fmtColor(amount) {
+          return "<span class=\"d3-color-" + (amount >= 0 ? "green" : "red") + "\">" + fmtNumber(amount) + "</span>";
+        }
 
         for (var src in sources) {
           if (DiabloCalc.sourceNames[src]) {
             text += "<br/><span class=\"tooltip-icon-nobullet\"></span><span class=\"d3-color-" + (sources[src] ? "gold" : "gray") + "\">" + DiabloCalc.sourceNames[src] + "</span>: ";
             if (sources[src]) {
-              text += "<span class=\"d3-color-green\">" + fmtNumber(sources[src]) + "</span>";
+              text += fmtColor(sources[src]);
               if (limits[src]) {
                 text += " <span class=\"d3-color-gray\">(" + fmtNumber(limits[src].min) + "-" + fmtNumber(limits[src].max) + ")</span>";
               }
@@ -94,7 +97,7 @@
         }
         for (var i = 0; i < exlist.length; ++i) {
           text += "<br/><span class=\"tooltip-icon-nobullet\"></span><span class=\"d3-color-gold\">" + exlist[i][0] + "</span>: ";
-          text += "<span class=\"d3-color-green\">" + fmtNumber(exlist[i][1]) + "</span>";
+          text += fmtColor(exlist[i][1]);
         }
       }
     }

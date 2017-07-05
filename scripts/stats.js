@@ -518,6 +518,11 @@
       this.armor += (this.basearmor || 0);
       this.addPercent("armor", "armor_percent");
 
+      if (this.passives.holdyourground && this.dodge) {
+        this.sources.dodge.holdyourground = -this.dodge;
+        this.dodge = 0;
+      }
+
       addStat(this, "blockamount", [0, 0]);
       this.addPercent("blockamount", "blockamount_percent");
       addStat(this, "block", this.baseblock, 1, "baseblock");
