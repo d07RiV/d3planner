@@ -432,8 +432,10 @@ DiabloCalc.skills.crusader = {
       e: {"Uptime": {duration: 6, cooldown: 20}},
     },
     active: false,
-    buffs: {
-      d: {chctaken: 8},
+    params: [{rune: "a", min: 0, max: 10, inf: true, name: "Stacks"}],
+    buffs: function(rune, stats) {
+      if (rune === "a") return {regen: 2682 * this.params[0].val};
+      if (rune === "d") return {chctaken: 8};
     },
   },
   provoke: {
