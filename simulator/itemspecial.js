@@ -996,14 +996,14 @@
     Sim.addBaseStats({skill_witchdoctor_massconfusion_cooldown: amount});
   };
   affixes.leg_aquilacuirass = function(amount) {
-    Sim.after(15, function check() {
+    (function check() {
       if (Sim.getResource() / Sim.getMaxResource() > amount * 0.01) {
         Sim.addBuff("aquilacuirass", {dmgred: 50});
       } else {
         Sim.removeBuff("aquilacuirass");
       }
       Sim.after(15, check);
-    });
+    })();
   };
   affixes.leg_heartofiron = function(amount) {
     Sim.addBaseStats({vit_to_thorns: amount});
