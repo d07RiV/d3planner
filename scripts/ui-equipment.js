@@ -763,7 +763,12 @@
   });
   var eqmod = $("<ul></ul>");
   tab.append(eqmod);
-  eqmod.append("<li><span class=\"link-like eqmod-ancient\">" + _L("Make all items Ancient") + "</span></li>");
+  var make_mod = "<select class=\"eqmod-ancient-type\">";
+  make_mod += "<option value=\"false\">" + _L("Normal") + "</option>";
+  make_mod += "<option value=\"true\">" + _L("Ancient") + "</option>";
+  make_mod += "<option value=\"primal\">" + _L("Primal Ancient") + "</option>";
+  make_mod += "</select>";
+  eqmod.append("<li><span class=\"link-like eqmod-ancient\">" + _L("Make all items {0}").format(make_mod) + "</span></li>");
   eqmod.append("<li><span class=\"link-like eqmod-maxstat\">" + _L("Change all stats to {0}%").format(
     "<input class=\"eqmod-maxstat-value\" type=\"number\" min=\"0\" max=\"100\" value=\"100\"/>") + "</span></li>");
   var in_level = "<input class=\"eqmod-enchant-level\" type=\"number\" min=\"0\" max=\"200\" value=\"100\"/>";
@@ -780,12 +785,15 @@
 
   $(".eqmod-ancient").click(function() {
     DiabloCalc.importStart();
+    var val = $(".eqmod-ancient-type").val();
+    if (val === "true") val = true;
+    else if (val !== "primal") val = false;
     for (var slot in DiabloCalc.itemSlots) {
       var data = DiabloCalc.getSlot(slot);
       if (!data) continue;
-      if (!data.ancient) {
+      if ((data.ancient || false) !== val) {
         data = $.extend(true, {}, data);
-        data.ancient = true;
+        data.ancient = val;
         delete data.enchant;
         delete data.imported;
         DiabloCalc.setSlot(slot, data);
@@ -862,8 +870,14 @@
     }
     DiabloCalc.importEnd("global");
   });
-  $(".eqmod-maxstat-value, .eqmod-enchant-level, .eqmod-enchant-type").click(function(e) {
+  $(".eqmod-ancient-type, .eqmod-maxstat-value, .eqmod-enchant-level, .eqmod-enchant-type").click(function(e) {
     e.stopPropagation();
+  });
+  $(".eqmod-ancient-type").change(function() {
+    $(".eqmod-ancient").click();
+  });
+  $(".eqmod-maxstat-value").change(function() {
+    $(".eqmod-maxstat").click();
   });
 
   var saveTip = $("<span class=\"status\"></span>").hide();
