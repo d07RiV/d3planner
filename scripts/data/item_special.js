@@ -1365,7 +1365,7 @@ DiabloCalc.itemaffixes = {
   set_rathma_6pc: {
     buffs: function(value, stats) {
       if (stats.skills.skeletalmage) {
-        var amount = 250 * DiabloCalc.skills.necromancer.skeletalmage.params[0].val;
+        var amount = Math.min(2500, 625 * DiabloCalc.skills.necromancer.skeletalmage.params[0].val);
         return {dmgmul: {list: [{pet: true, percent: amount}, {skills: ["armyofthedead"], percent: amount}]}};
       }
     },

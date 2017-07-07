@@ -41,7 +41,7 @@ var job = {
 //  "scripts/data_ptr": "uglifyjs",
   "scripts" : "uglifyjs",
 //  "css": "less",
-//  "simulator": "uglifyjs",
+  "simulator": "uglifyjs",
 //  "external/canvasjs.js": "uglifyjs",
 //  "external/J3DIMath.js": "uglifyjs",
 //  "external/md5.js": "uglifyjs",
