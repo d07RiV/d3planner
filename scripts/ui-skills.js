@@ -160,13 +160,22 @@
         this.popup.css("top", Math.max(60, offs.top + slot.header.height() - 300));
       }
       this.disabled = {};
+      var exclusive = {};
       for (var i = 0; i < skills.length; ++i) {
         if (skills[i] !== slot && skills[i].skill) {
           this.disabled[skills[i].skill[0]] = true;
+          var info = DiabloCalc.skills[DiabloCalc.charClass][skills[i].skill[0]];
+          if (info && info.exclusive) {
+            exclusive[info.exclusive] = skills[i].skill[0];
+          }
         }
       }
       for (var sk in this.skills) {
-        if (slot === skills[0] && DiabloCalc.skills[DiabloCalc.charClass][sk].nolmb) {
+        var info = DiabloCalc.skills[DiabloCalc.charClass][sk];
+        if (slot === skills[0] && info && info.nolmb) {
+          this.disabled[sk] = true;
+        }
+        if (info && info.exclusive && exclusive[info.exclusive] && exclusive[info.exclusive] !== sk) {
           this.disabled[sk] = true;
         }
         this.enable(sk, !this.disabled[sk]);
