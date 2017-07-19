@@ -775,7 +775,7 @@ DiabloCalc.addItems([
     type: "sword2h",
     quality: "legendary",
     required: {
-      custom: {id: "leg_corruptedashbringer", name: "Burn Damage", format: "Chance on kill to raise a skeleton to fight for you. Upon accumulating 5 skeletons, they explode for 1000%% weapon damage and the sword transforms into Ashbringer for a short time. Attacking with Ashbringer burns your target for %d%% weapon damage as Holy.", min: 4500, max: 6000},
+      custom: {id: "leg_corruptedashbringer", name: "Burn Damage", format: "Chance on kill to raise a skeleton to fight for you. Upon accumulating 5 skeletons, they explode for 1000%% weapon damage and the sword transforms into Ashbringer for a short time. Attacking with Ashbringer burns your target for %d%% weapon damage as Holy.", min: 4500, max: 6000, cube: false},
       damage_undead: {min: 9, max: 15},
     },
     preset: ["mainstat", "wpnpsn", "laek"],
