@@ -244,7 +244,7 @@
       });
     }
 
-    if ((fmt.thorns === "normal" || fmt.thorns === "bad" || fmt.thorns === "special") && stats.thorns_taken) {
+    if ((fmt.thorns === "normal" || fmt.thorns === "bad"/*|| fmt.thorns === "special"*/) && stats.thorns_taken) {
       factors.push({
         name: DC.itemById.Unique_Shield_104_x1.name,
         percent: stats.thorns_taken,

@@ -71,7 +71,7 @@
     var dmgtaken = stats.getSpecial("dmgtaken", elem, ispet, data.skill, data.exclude);
     if (data.thorns === "normal" || data.thorns === "bad" || data.thorns === "special") {
       factor *= 1 + 0.01 * dmgtaken;
-      factor *= 1 + 0.01 * (stats.thorns_taken || 0);
+      if (data.thorns !== "special") factor *= 1 + 0.01 * (stats.thorns_taken || 0);
     } else {
       dibs += dmgtaken;
     }
