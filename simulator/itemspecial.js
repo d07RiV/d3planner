@@ -1193,10 +1193,12 @@
     var buffname;
     Sim.register("onhit_proc", function(data) {
       if (data.castInfo && data.castInfo.skill === "impale" && data.castInfo.user && !data.castInfo.user.karleispoint) {
-        if (buffname && Sim.getBuff(buffname)) {
-          Sim.addResource(amount);
+        for (var i = (data.count || 1); i > 0; --i) {
+          if (buffname && Sim.getBuff(buffname)) {
+            Sim.addResource(amount);
+          }
+          buffname = Sim.addBuff(buffname, undefined, {targets: 1, firsttarget: data.firsttarget});
         }
-        buffname = Sim.addBuff(buffname, undefined, {targets: 1, firsttarget: data.firsttarget});
         data.castInfo.user.karleispoint = true;
       }
     });
