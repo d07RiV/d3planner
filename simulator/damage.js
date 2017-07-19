@@ -60,7 +60,7 @@
       if (triggered && triggered !== data.skill) {
         factor *= 1 + 0.01 * (stats[prefix + triggered] || 0);
       }
-    } else {
+    } else if (data.thorns !== "special") {
       dibs += (stats[prefix + (data.skill || triggered)] || 0);
     }
 
@@ -78,7 +78,7 @@
 
     factor *= 1 + 0.01 * dibs;
 
-    var elemental = (data.thorns !== "special" && srcelem && stats["dmg" + srcelem] || 0);
+    var elemental = (/*data.thorns !== "special" &&*/ srcelem && stats["dmg" + srcelem] || 0);
     if (ispet) elemental += (stats.petdamage || 0);
     factor *= 1 + 0.01 * elemental;
 
