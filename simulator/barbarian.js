@@ -349,7 +349,7 @@
   var _devils_angle = 0;
   function ww_devils_ontick(data) {
     var info = Sim.castInfo();
-    var coeff = 1.8 * (Sim.stats.set_wastes_6pc ? 2.8 : 1) * Sim.stats.info[info && info.weapon || "mainhand"].speed;
+    var coeff = 1.8 * /*(Sim.stats.set_wastes_6pc ? 2.8 : 1) * */Sim.stats.info[info && info.weapon || "mainhand"].speed;
     Sim.damage({type: "line", range: 30, speed: 1, pierce: true, radius: 3, angle: _devils_angle, coeff: coeff});
     _devils_angle = (_devils_angle + 60) % 360;
     //data.buff.params.tickrate = Math.floor(30 / Sim.stats.info[info && info.weapon || "mainhand"].speed);

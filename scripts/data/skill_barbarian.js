@@ -321,11 +321,11 @@ DiabloCalc.skills.barbarian = {
         res["Tick Damage"].addcoeff = [stats.leg_skullgrasp / 100];
       }
       if (rune == "b" || stats.set_wastes_6pc) {
-        var pct = {};
-        if (stats.set_wastes_6pc) {
-          pct[DiabloCalc.itemSets.wastes] = 180;
-        }
-        res["Tornado Damage"] = {elem: res["Tick Damage"].elem, coeff: 1.8, percent: pct};
+        //var pct = {};
+        //if (stats.set_wastes_6pc) {
+        //  pct[DiabloCalc.itemSets.wastes] = 180;
+        //}
+        res["Tornado Damage"] = {elem: res["Tick Damage"].elem, coeff: 1.8/*, percent: pct*/};
       }
       res["DPS"] = {sum: true, "Tick Damage": {speed: 1, fpa: 40}};
       if (res["Tornado Damage"]) res["DPS"]["Tornado Damage"] = {speed: 1, fpa: 30};
