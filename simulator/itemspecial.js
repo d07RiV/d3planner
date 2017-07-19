@@ -1675,6 +1675,14 @@
     });
   };
 
+  affixes.leg_omrynschain = function(amount) {
+    Sim.register("oncast", function(data) {
+      if (data.skill === "vault") {
+        Sim.cast("caltrops");
+      }
+    });
+  };
+
 /*
   affixes.leg_thegrinreaper = function(amount) {
     var skills = {};
