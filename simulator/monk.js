@@ -58,7 +58,7 @@
     oncast: function(rune) {
       var index = this.sequence.step();
       if (rune === "a") {
-        Sim.damage({type: "area", range: 6, coeff: 1.2, onhit: (index === 2 && Sim.apply_effect("knockback", 30))});
+        Sim.damage({type: "area", range: 6, coeff: 1.2, onhit: (index === 2 && Sim.apply_effect("knockback", 30)), cmod: (index < 2 ? -1 : 0)});
       }
       var onhit;
       if (rune === "c") onhit = fot_static_onhit;
@@ -67,8 +67,8 @@
         return {coeff: 2, onhit: onhit};
       } else {
         var targets = Sim.getTargets(6);
-        if (rune === "b") {
-          Sim.damage({targets: 3, coeff: 2.4, onhit: onhit});
+        if (rune === "b" && Sim.target.count > 1) {
+          Sim.damage({targets: Math.min(Sim.target.count - 1, 3), coeff: 2.4, onhit: onhit});
         }
         return {coeff: 4 / targets, targets: targets, onhit: onhit};
       }
