@@ -184,7 +184,7 @@
     var bonuses = {};
     // skill damage
     var skillid = (fmt.skill || (options.skill && options.skill[0]));
-    if (skillid) {
+    if (skillid && fmt.thorns !== "special") {
       var bonus = stats["skill_" + DC.charClass + "_" + skillid];
       if (bonus) {
         bonuses["Skill %"] = bonus;
@@ -252,7 +252,7 @@
     }
 
     // elemental/pet damage
-    if (((srcelem && stats["dmg" + srcelem]) || (fmt.pet && stats.petdamage)) && fmt.thorns !== "special") {
+    if (((srcelem && stats["dmg" + srcelem]) || (fmt.pet && stats.petdamage)) /*&& fmt.thorns !== "special"*/) {
       var bonuses = {};
       if (srcelem && stats["dmg" + srcelem]) {
         bonuses[DC.elements[srcelem]] = stats["dmg" + srcelem];
