@@ -592,6 +592,13 @@
     }
     Sim.damage({type: "line", origin: origin, pierce: true, range: range, radius: 5, coeff: 0.99});
   }
+  function hydra_lit_onhit(data) {
+    if (Sim.stats.passives.paralysis && Sim.stats.leg_manaldheal) {
+      Sim.pushCastInfo({triggered: "leg_manaldheal"});
+      Sim.damage({count: data.targets * data.count * 0.15, coeff: Sim.stats.leg_manaldheal * 0.01 * Sim.stats.info.aps, elem: "lit"});
+      Sim.popCastInfo();
+    }
+  }
   function hydra_ontick(data) {
     var origin = 5;
     if (Sim.params.hydra) {
@@ -605,7 +612,7 @@
       Sim.damage({type: "line", origin: origin, speed: 1, range: 50, coeff: 2.05, area: 7.5, count: 3});
       break;
     case "b":
-      Sim.damage({distance: origin, coeff: 2.55, count: 3});
+      Sim.damage({distance: origin, coeff: 2.55, count: 3, onhit: hydra_lit_onhit});
       break;
     case "c":
       Sim.damage({type: "line", origin: origin, speed: 1, range: 50, coeff: 1.55, area: 8, count: 3});

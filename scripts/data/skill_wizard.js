@@ -437,6 +437,9 @@ DiabloCalc.skills.wizard = {
       case "a": res = {"Damage": {elem: "col", pet: true, coeff: 2.55}}; break;
       case "d": res = {"Tick Damage": {elem: "fir", pet: true, coeff: 0.99, total: true}}; break;
       }
+      if (rune === "b" && stats.passives.paralysis && stats.leg_manaldheal) {
+        res["Manald Heal Damage"] = {elem: "lit", coeff: stats.leg_manaldheal * 0.01, pet: true, aps: true};
+      }
       if (rune !== "d") {
         var key = (rune === "c" ? "Burn Damage" : "Damage");
         if (stats.gems.zei !== undefined) {
