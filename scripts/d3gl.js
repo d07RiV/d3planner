@@ -479,7 +479,7 @@ $.ajaxTransport("+binary", function(options, originalOptions, jqXHR){
     if (this.material) {
 //      gl.uniform1f(gl.u_alphaLoc, this.material.alpha(appearance));
       gl.activeTexture(gl.TEXTURE0);
-      gl.bindTexture(gl.TEXTURE_2D, tint && this.material.tintbase(appearance) || this.material.diffuse(appearance));
+      gl.bindTexture(gl.TEXTURE_2D, /*tint && this.material.tintbase(appearance) || */this.material.diffuse(appearance));
       gl.activeTexture(gl.TEXTURE1);
       gl.bindTexture(gl.TEXTURE_2D, tint && this.material.tintmask(appearance) || getTexture(gl, 0));
       if (tint) {
