@@ -254,7 +254,7 @@
     // elemental/pet damage
     if (((srcelem && stats["dmg" + srcelem]) || (fmt.pet && stats.petdamage)) && !fmt.manald/*&& fmt.thorns !== "special"*/) {
       var bonuses = {};
-      if (srcelem && stats["dmg" + srcelem] && !) {
+      if (srcelem && stats["dmg" + srcelem]) {
         bonuses[DC.elements[srcelem]] = stats["dmg" + srcelem];
       }
       if (fmt.pet && stats.petdamage) {
