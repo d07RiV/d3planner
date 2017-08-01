@@ -142,7 +142,7 @@
     var primary = 4, secondary = 2;
     if (item.primary !== undefined) {
       primary = item.primary;
-    } else if (["quiver", "source", "mojo"].indexOf(item.type) >= 0) {
+    } else if (["quiver", "source", "mojo", "phylactery"].indexOf(item.type) >= 0) {
       primary = 5;
     }
     if (item.secondary !== undefined) {

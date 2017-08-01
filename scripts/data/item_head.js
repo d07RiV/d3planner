@@ -756,6 +756,9 @@ DiabloCalc.addItems([
     suffix: _L("Retro"),
     type: "helm",
     quality: "magic",
+    affixes: {
+      laek: "laekLarge",
+    },
     preset: ["laek"],
   },
 
