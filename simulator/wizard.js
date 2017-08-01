@@ -595,7 +595,7 @@
   function hydra_lit_onhit(data) {
     if (Sim.stats.passives.paralysis && Sim.stats.leg_manaldheal) {
       Sim.pushCastInfo({triggered: "leg_manaldheal"});
-      Sim.damage({count: data.targets * data.count * 0.15, coeff: Sim.stats.leg_manaldheal * 0.01 * Sim.stats.info.aps, elem: "lit"});
+      Sim.damage({count: data.targets * data.count * 0.15, coeff: Sim.stats.leg_manaldheal * 0.01 * Sim.stats.info.aps, elem: "lit", manald: true});
       Sim.popCastInfo();
     }
   }
@@ -1231,7 +1231,7 @@
           func(data);
           if (Sim.stats.leg_manaldheal) {
             Sim.pushCastInfo({triggered: "leg_manaldheal"});
-            Sim.damage({count: data.targets * data.count * 0.15, coeff: Sim.stats.leg_manaldheal * 0.01, elem: "lit"});
+            Sim.damage({count: data.targets * data.count * 0.15, coeff: Sim.stats.leg_manaldheal * 0.01, elem: "lit", manald: true});
             Sim.popCastInfo();
           }
         }

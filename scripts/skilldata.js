@@ -184,7 +184,7 @@
     var bonuses = {};
     // skill damage
     var skillid = (fmt.skill || (options.skill && options.skill[0]));
-    if (skillid && fmt.thorns !== "special") {
+    if (skillid && fmt.thorns !== "special" && !fmt.manald) {
       var bonus = stats["skill_" + DC.charClass + "_" + skillid];
       if (bonus) {
         bonuses["Skill %"] = bonus;
@@ -252,9 +252,9 @@
     }
 
     // elemental/pet damage
-    if (((srcelem && stats["dmg" + srcelem]) || (fmt.pet && stats.petdamage)) /*&& fmt.thorns !== "special"*/) {
+    if (((srcelem && stats["dmg" + srcelem]) || (fmt.pet && stats.petdamage)) && !fmt.manald/*&& fmt.thorns !== "special"*/) {
       var bonuses = {};
-      if (srcelem && stats["dmg" + srcelem]) {
+      if (srcelem && stats["dmg" + srcelem] && !) {
         bonuses[DC.elements[srcelem]] = stats["dmg" + srcelem];
       }
       if (fmt.pet && stats.petdamage) {
@@ -268,9 +268,14 @@
 
     // elite damage
     if (DC.options.showElites && stats.edmg) {
-      factors.push({
+      var edmg = stats.edmg;
+      if (fmt.manald) {
+        edmg -= (stats.leg_thefurnace || 0);
+        if (stats.gem_powerful_25) edmg -= 15;
+      }
+      if (edmg) factors.push({
         name: DC.stats.edmg.name,
-        percent: stats.edmg,
+        percent: edmg,
       });
     }
 

@@ -54,14 +54,16 @@
     chd *= 0.01;
 
     var ispet = data.pet || (data.castInfo && data.castInfo.pet);
-    var prefix = "skill_" + Sim.stats.charClass + "_";
-    if (ispet) {
-      factor *= 1 + 0.01 * (stats[prefix + data.skill] || 0);
-      if (triggered && triggered !== data.skill) {
-        factor *= 1 + 0.01 * (stats[prefix + triggered] || 0);
+    if (!data.manald) {
+      var prefix = "skill_" + Sim.stats.charClass + "_";
+      if (ispet) {
+        factor *= 1 + 0.01 * (stats[prefix + data.skill] || 0);
+        if (triggered && triggered !== data.skill) {
+          factor *= 1 + 0.01 * (stats[prefix + triggered] || 0);
+        }
+      } else if (data.thorns !== "special") {
+        dibs += (stats[prefix + (data.skill || triggered)] || 0);
       }
-    } else if (data.thorns !== "special") {
-      dibs += (stats[prefix + (data.skill || triggered)] || 0);
     }
 
     var elem = (data.elem === "max" ? stats.info.maxelem : data.elem);
@@ -78,11 +80,15 @@
 
     factor *= 1 + 0.01 * dibs;
 
-    var elemental = (/*data.thorns !== "special" &&*/ srcelem && stats["dmg" + srcelem] || 0);
-    if (ispet) elemental += (stats.petdamage || 0);
+    var elemental = (/*data.thorns !== "special" &&*/ !data.manald && srcelem && stats["dmg" + srcelem] || 0);
+    if (ispet && !data.manald) elemental += (stats.petdamage || 0);
     factor *= 1 + 0.01 * elemental;
 
     var edmg = 0.01 * (stats.edmg || 0);
+    if (data.manald) {
+      edmg -= (stats.leg_thefurnace || 0) * 0.01;
+      if (stats.gem_powerful_25) edmg -= 0.15;
+    }
     var bossdmg = 0.01 * (stats.bossdmg || 0);
     factor *= 1 + Sim.target.elite * edmg + Sim.target.boss * (1 + edmg) * bossdmg;
     if (Sim.target.type) {

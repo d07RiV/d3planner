@@ -1251,7 +1251,7 @@ DiabloCalc.itemaffixes = {
     },
   },
   leg_manaldheal: {
-    info: {"Damage": {elem: "lit", coeff: "$1/100"}},
+    info: {"Damage": {elem: "lit", coeff: "$1/100", manald: true}},
   },
 
   leg_steuartsgreaves: {
