@@ -240,6 +240,8 @@ DiabloCalc.skills.necromancer = {
         res["Damage"].percent = pct;
         if (res["Additional Damage"]) res["Additional Damage"].percent = pct;
       }
+      res["DPS"] = {sum: true, "Damage": {speed: 1, fpa: 12}};
+      if (res["Additional Damage"]) res["DPS"]["Additional Damage"] = {speed: 1, fpa: 12, nobp: true};
       return res;
     },
     active: true,

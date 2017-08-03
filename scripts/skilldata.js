@@ -755,7 +755,7 @@
                       _L(data.name || src), fmtValue(frames, 0, "white"), "<span class=\"d3-color-white\">" + DC.formatNumber(aps, 2, 10000) + "</span>");
                     if (data.speed) {
                       if (frames > 6) {
-                        var next = data.pet / (frames - 5) / tnt + 0.00005;
+                        var next = data.pet / (frames - 5) / tnt + 0.000051;
                         //bpTip += "<br/><span class=\"tooltip-icon-nobullet\"></span>Next breakpoint: <span class=\"d3-color-white\">" + DC.formatNumber(next, 4, 10000) + "</span>" +
                         //  " character APS (<span class=\"d3-color-white\">" + DC.formatNumber(data.pet / (frames - 5) + 0.00005, 4, 10000) + "</span> pet APS)";
                         //bpTip += " (<span class=\"d3-color-green\">+" + DC.formatNumber(100 * (frames / (frames - 6) - 1), 1) + "%</span> DPS)";
@@ -768,10 +768,10 @@
                       }
                       bpTip += "</p><table><tr>" + _L("<th>FPA</th><th>APS</th><th>Pet APS</th><th>Delta</th>") + "</tr>";
                       for (var curfpa = Math.ceil(Math.floor(data.pet) / 6) * 6; curfpa >= 6; curfpa -= 6) {
-                        var curaps = Math.max(1, data.pet / (curfpa + 1) / tnt + 0.00005);
+                        var curaps = Math.max(1, data.pet / (curfpa + 1) / tnt + 0.000051);
                         if (data.pet / (curfpa + 1) > 5) break;
                         bpTip += "<tr" + (curfpa === frames ? " class=\"current\"" : "") + "><td>" + curfpa + "</td>";
-                        bpTip += "<td>" + curaps.toFixed(4) + "</td><td>" + Math.max(1, data.pet / (curfpa + 1) + 0.00005).toFixed(4) + "</td>";
+                        bpTip += "<td>" + curaps.toFixed(4) + "</td><td>" + Math.max(1, data.pet / (curfpa + 1) + 0.000051).toFixed(4) + "</td>";
                         var delta = 100 * (frames / curfpa - 1);
                         bpTip += "<td class=\"" + (delta < 0 ? "d3-color-red" : (delta > 0 ? "d3-color-green" : "d3-color-gray")) + "\">";
                         bpTip += (delta < 0 ? delta.toFixed(1) : "+" + delta.toFixed(1)) + "%</td></tr>";
@@ -855,8 +855,8 @@
                     if (data.speed) {
                       if (framesmh && framesoh) {
                         if (framesmh > 1 && framesoh > 1) {
-                          var nextmh = data.fpa / (framesmh - fpadelta) / dspeed + 0.00005;
-                          var nextoh = data.fpa / (framesoh - fpadelta) / dspeed + 0.00005;
+                          var nextmh = data.fpa / (framesmh - fpadelta) / dspeed + 0.000051;
+                          var nextoh = data.fpa / (framesoh - fpadelta) / dspeed + 0.000051;
                           var next = Math.min(nextmh / stats.info.mainhand.speed, nextoh / stats.info.offhand.speed);
                           nextmh = next * stats.info.mainhand.speed;
                           nextoh = next * stats.info.offhand.speed;
@@ -870,8 +870,8 @@
                               "<span class=\"d3-color-white\">" + iasneed + "%</span>");
                           }
                         }
-                        var prevmh = data.fpa / (framesmh + 1 - fpadelta) / dspeed - 0.00005;
-                        var prevoh = data.fpa / (framesoh + 1 - fpadelta) / dspeed - 0.00005;
+                        var prevmh = data.fpa / (framesmh + 1 - fpadelta) / dspeed - 0.000051;
+                        var prevoh = data.fpa / (framesoh + 1 - fpadelta) / dspeed - 0.000051;
                         var prev = Math.max(prevmh / stats.info.mainhand.speed, prevoh / stats.info.offhand.speed);
                         prevmh = prev * stats.info.mainhand.speed;
                         prevoh = prev * stats.info.offhand.speed;
@@ -881,7 +881,7 @@
                           fpaDelta(prevmh, prevoh));
                       } else {
                         if (frames > 1) {
-                          var next = data.fpa / (frames - fpadelta) / dspeed + 0.00005;
+                          var next = data.fpa / (frames - fpadelta) / dspeed + 0.000051;
                           bpTip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Next breakpoint: {0} APS ({1} DPS)").format(
                             "<span class=\"d3-color-white\">" + DC.formatNumber(next, 4, 10000) + "</span>", fpaDelta(next));
                           if (data.speed) {
@@ -891,7 +891,7 @@
                               "<span class=\"d3-color-white\">" + iasneed + "%</span>");
                           }
                         }
-                        var prev = data.fpa / (frames + 1 - fpadelta) / dspeed - 0.00005;
+                        var prev = data.fpa / (frames + 1 - fpadelta) / dspeed - 0.000051;
                         bpTip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Previous breakpoint: {0} APS ({1} DPS)").format(
                           "<span class=\"d3-color-white\">" + DC.formatNumber(prev, 4, 10000) + "</span>", fpaDelta(prev));
                       }
@@ -911,7 +911,7 @@
                         }
                         maxaps = Math.max(maxaps * 1.2, maxaps + 0.5);
                         for (var curfpa = Math.floor(data.fpa) + fpadelta; curfpa >= 1; curfpa -= 1) {
-                          var curaps = Math.max(1, data.fpa / (curfpa + 1 - fpadelta) / dspeed + 0.00005);
+                          var curaps = Math.max(1, data.fpa / (curfpa + 1 - fpadelta) / dspeed + 0.000051);
                           if (curaps > maxaps && list.length % 3 == 0) break;
                           /*if (fpa != Math.floor(data.fpa) + fpadelta && fpa != 1 && fpa != fpa0 && fpa != fpa1 &&
                               fpa % 5 != 0 && Math.abs(fpa - fpa0) > 2 && Math.abs(fpa - fpa1) > 2) {

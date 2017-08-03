@@ -811,7 +811,7 @@
     if (Sim.stats.charClass !== "monk") return;
     var next = 0;
     Sim.register("oncast", function(data) {
-      if (Sim.time >= next && data.offensive && Sim.random("flyingdragon", 0.05)) {
+      if (Sim.time >= next && data.offensive && Sim.random("flyingdragon", 0.04) {
         Sim.addBuff("flyingdragon", {weaponaps_percent: 100}, {duration: 420});
         next = Sim.time + 300;
       }

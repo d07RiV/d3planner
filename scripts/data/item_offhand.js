@@ -345,7 +345,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Mojo_008_x1",
-    name: "Ukhapian Serpent",
+    name: "Uhkapian Serpent",
     type: "mojo",
     quality: "legendary",
     required: {
