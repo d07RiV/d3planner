@@ -786,8 +786,8 @@ DiabloCalc.itemaffixes = {
       var res = {dmgmul: stacks * 6};
       if (stats.set_vyr_4pc) {
         res.ias = stacks * 1.0;
-        res.armor_percent += stacks * 1.0;
-        res.resist_percent += stacks * 1.0;
+        res.armor_percent = stacks * 1.0;
+        res.resist_percent = stacks * 1.0;
       }
       return res;
     },
