@@ -148,12 +148,12 @@ DiabloCalc.skills.necromancer = {
              {rune: "e", min: 0, max: 10, name: "Stacks"},
              {rune: "b", min: 0, max: "maxessence", name: "Essence", buffs: false}],
     info: {
-      "*": {"Damage": {elem: "phy", pet: true, coeff: 2.0}, "DPS": {sum: true, "Damage": {pet: 60, speed: 1}}, "Total DPS": {sum: true, "DPS": {count: "$1"}}, "Cost": {cost: 40}},
-      a: {"Damage": {elem: "phy", pet: true, coeff: 2.0}},
-      d: {"Damage": {elem: "psn", pet: true, coeff: 2.0}, "Aura DPS": {elem: "psn", total: true, coeff: 1.0}, "DPS": {sum: true, "Damage": {pet: 60, speed: 1}, "Aura DPS": {}}},
-      e: {"Damage": {elem: "col", pet: true, coeff: 4.0}, "DPS": {sum: true, "Damage": {pet: 120, speed: 1}}},
-      b: {"Damage": {elem: "phy", pet: true, coeff: 2.0, percent: {"Essence Consumed": "$3*3"}}},
-      c: {"Damage": {elem: "phy", pet: true, coeff: 2.0}},
+      "*": {"Damage": {elem: "phy", pet: true, aps: true, coeff: 2.0}, "DPS": {sum: true, "Damage": {pet: 30}}, "Total DPS": {sum: true, "DPS": {count: "$1"}}, "Cost": {cost: 40}},
+      a: {"Damage": {elem: "phy", pet: true, aps: true, coeff: 2.0}},
+      d: {"Damage": {elem: "psn", pet: true, aps: true, coeff: 2.0}, "Aura DPS": {elem: "psn", total: true, aps: true, coeff: 1.0}, "DPS": {sum: true, "Damage": {pet: 30}, "Aura DPS": {}}},
+      e: {"Damage": {elem: "col", pet: true, aps: true, coeff: 4.0}, "DPS": {sum: true, "Damage": {pet: 60}}},
+      b: {"Damage": {elem: "phy", pet: true, aps: true, coeff: 2.0, percent: {"Essence Consumed": "$3*3"}}},
+      c: {"Damage": {elem: "phy", pet: true, aps: true, coeff: 2.0}},
     },
     active: true,
     buffs: function(rune, stats) {
