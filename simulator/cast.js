@@ -174,10 +174,10 @@
   };
   Sim.getCharges = function(id) {
     var skill = this.skills[id];
-    var rune = rune || this.stats.skills[id];
+    var rune = this.stats.skills[id];
     if (!skill || !rune) return 0;
     var cd = this.cooldowns[id];
-    var charges = Sim.getProp(skill, "charges", data.rune);
+    var charges = Sim.getProp(skill, "charges", rune);
     return (cd && cd.charges !== undefined ? cd.charges : charges);
   };
 
