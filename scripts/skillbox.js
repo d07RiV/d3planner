@@ -727,6 +727,14 @@
           return "<span style=\"background: url(css/items/" + item.type + ".png) 0 -" + (24 * icon[0]) + "px no-repeat\"></span>";
         }
       });
+      DC.chosen_fixSearch(this.namebox, function(id, callback) {
+        var item = DC.itemById[id];
+        if (!item) return;
+        if (callback(item.name)) return true;
+        if (item.required && item.required.custom && callback(item.required.custom.format)) {
+          return true;
+        }
+      });
 
       this.setItemEffect();
       this.header.mouseover(function() {

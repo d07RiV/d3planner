@@ -332,7 +332,19 @@
       };
     }
   };
+  function chosen_fixSearch(elem, callback, self) {
+    var csn = elem.data("chosen");
+    if (csn) {
+      var osearch = csn.search_string_match;
+      csn.search_string_match = function(text, regex, value) {
+        return callback.call(self || this, value, function(txt) {
+          return osearch.call(csn, txt, regex);
+        });
+      };
+    }
+  };
   DiabloCalc.chosen_addIcons = chosen_addIcons;
+  DiabloCalc.chosen_fixSearch = chosen_fixSearch;
 
   function StatLine(box, type, required, current) {
     this.box = box;
@@ -1057,6 +1069,14 @@
       }
       if (icon !== undefined) {
         return "<span style=\"background: url(css/items/" + type + ".png) 0 -" + (24 * icon[0]) + "px no-repeat\"></span>";
+      }
+    }, this);
+    chosen_fixSearch(this.item, function(id, callback) {
+      var item = DC.itemById[id];
+      if (!item) return;
+      if (callback(item.name)) return true;
+      if (item.required && item.required.custom && callback(item.required.custom.format)) {
+        return true;
       }
     }, this);
     chosen_addIcons(this.transmogs, function(id) {

@@ -246,6 +246,9 @@ _L.patch.add({
     P42_Unique_Fist_013_x1: {
       flavor: "Each scar left in its wake is a sin forgiven.",
     },
+    P42_Unique_Flail_1H_106_x1: {
+      flavor: "The cold-tempered steel of this weapon cradles a mote of pale light. Ancient beyond measure, its creator and original purpose is unknown, but the flail is now revered by the crusaders as a symbol for the role they play in the world: a light to pierce the darkness.",
+    },
     P42_Unique_Mojo_004: {
       flavor: "The severed head of a homunculus is the source of much power for a knowledgeable witch doctor.",
     },
@@ -474,6 +477,156 @@ _L.patch.add({
     P5_Unique_Quiver_004_x1: {
       flavor: "Crafted by the Wandering Priest of the Low Hills during an ecstatic trance, this quiver bestows a blessing on the arrows it carries.",
     },
+    P61_CruShield_norm_unique_01: {
+      flavor: "Frydehr was near death, his wounds outnumbered only by his foes. It was then that he discovered that the depth of a crusader’s wrath is far greater than anyone had ever suspected.",
+    },
+    P61_Necro_Unique_Boots_21: {
+      flavor: "\"Stand your ground firmly enough, and your foes may start to question their own standing.\" —Steuart the Bold",
+    },
+    P61_Necro_Unique_Helm_22: {
+      flavor: "\"This helm belongs to those who are dead. All who have worn it have died, and all who wear it yet shall follow.\" —Unknown",
+    },
+    P61_Necro_Unique_Pants_21: {
+      flavor: "Clad in the flesh of a golem, you begin to feel a greater affinity with them.",
+    },
+    P61_Necro_Unique_Pants_22: {
+      flavor: "Walk as though you are one with the night.",
+    },
+    P61_Unique_BarbBelt_EQ: {
+      flavor: "No belt is too big. Except this one.",
+    },
+    P61_Unique_Belt_007: {
+      flavor: "\"Unbearable creatures of the night plagued the Bakuli Jungle region. They were dangerous and not easily seen. It was a wonder that we all survived.\" -Account of Tapeks, Krum, Astraelly, Tanooki, Franklin, Kuan, and Tiget, the last known group of adventurers to pass through alive.",
+    },
+    P61_Unique_Belt_01: {
+      flavor: "Once worn by a steadfast soul with a taste for victory.",
+    },
+    P61_Unique_Belt_03: {
+      flavor: "All that was ever found of Uliana after her disappearance.",
+    },
+    P61_Unique_Bow_104_x1: {
+      flavor: "A terrifying Demon Hunter from Xiansai, Yang was known for his resourcefulness, his prowess at multishot, and his icy contempt for failure.",
+    },
+    P61_Unique_Bracer_100: {
+      flavor: "“These bracers appear to utilize primal forces channeled from the ground itself. Interesting, to say the least.” -Abd al-hazir",
+    },
+    P61_Unique_Bracer_104: {
+      flavor: "Those that cannot see the truth of the Light will suffer its wrath. ",
+    },
+    P61_Unique_Bracer_105: {
+      flavor: "“I do not care if these were forged in long dead furnaces by the Ancients themselves. They help me crush my enemies; that is all that matters.” -Aletur of Sescheron",
+    },
+    P61_Unique_Bracer_107: {
+      flavor: "Against the will of the Patriarchs, Cesar kept a lock of her hair, weaving it into his bracers. They filled him with calm, just as she always had. He never spoke of her again, but neither did he forget.",
+    },
+    P61_Unique_Bracer_108_x1: {
+      flavor: "Ranslor, the chief crafter to the High Vizjerei, was concerned that the power contained within these bracers would prove too much for even the most seasoned warrior, so he scoured waterfront taverns for unfortunate souls to test them. After several catastrophic failures, he was so certain he had solved the problem he tried them himself. The bracers were found by his assistant in a pile of ash.",
+    },
+    P61_Unique_CombatStaff_2H_001: {
+      flavor: "\"We must walk the middle way between chaos and order, and not allow our emotions to sway us.\" —Tenets of the Veradani",
+    },
+    P61_Unique_CombatStaff_2H_003_x1: {
+      flavor: "Fills the air with calming fragrances as your opponent feels the weight of your displeasure.",
+    },
+    P61_Unique_CruShield_102_x1: {
+      flavor: "\"Centuries ago, the mysterious and morbid warrior Jekang found staunch allies among the crusaders of Zakarum. He fought alongside that order for many years, and when he left for lands unknown, he made a parting gift of his grim tower shield.\" —Rennold's Catalogue of Arms",
+    },
+    P61_Unique_Dagger_101_x1: {
+      flavor: "Those who argued with the Demon Hunter Karlei quickly learned that she could make her point with devastating effect.",
+    },
+    P61_Unique_Dagger_102_x1: {
+      flavor: "Legend has it that on hot days, Lord Greenstone enjoyed cooling himself with the wind of hurled knives.",
+    },
+    P61_Unique_Fist_009_x1: {
+      flavor: "The corrupt magistrate of Az'Turrasq punished petty crime at a whim in the name of order. Innocent and guilty alike were crippled or killed by the hundreds during his terrible reign. ",
+    },
+    P61_Unique_Fist_013_x1: {
+      flavor: "Each scar left in its wake is a sin forgiven.",
+    },
+    P61_Unique_Flail_1H_105_x1: {
+      flavor: "Clearly a weapon of great renown, this flail once belonged to Sir Tomas, the Gyrfalcon. This knight was heralded for his bravery and speed, and he took the gyrfalcon as his coat of arms, soaring to victory many times beneath its wings.",
+    },
+    P61_Unique_Flail_2H_103_x1: {
+      flavor: "\"When the unholy creature stalking Harstead was finally slain, the town's clergy commissioned the construction of this massive weapon. Adorned with a weight fashioned in the fiend’s terrible visage, the flail was meant to serve as a warning to any fell invader.\" —Rennold's Catalogue of Arms",
+    },
+    P61_Unique_Flail_2H_104: {
+      flavor: "Covered in delicate Skatsimi runes, the blades of this ornate ancient weapon are sharp enough to draw blood with but a finger's caress.",
+    },
+    P61_Unique_Mighty_2H_001: {
+      flavor: "A mighty symbol of Tyrael, the archangel of Justice, though never actually used by him. Stolen from the Courts of Justice in the High Heavens by renegade angels.",
+    },
+    P61_Unique_Mighty_2H_006: {
+      flavor: "Korr took all his anger and despair and poured them into the creation of a weapon that would speak to the majesty of Arreat for ages to come.",
+    },
+    P61_Unique_Orb_003: {
+      flavor: "The Triumvirate is composed of the three basic elements of creation.",
+    },
+    P61_Unique_Orb_004: {
+      flavor: "“There were three - Borax the barbarian, Patel the wizard, and Zatheria the demon hunter. They drew on their unwavering bond to each other to keep from falling to the twisted lord and his minions. Tired, cornered, and near death, they readied themselves for their final assault.” - Chronicles of the North\n",
+    },
+    P61_Unique_Phylactery_01: {
+      flavor: "The hourglass glows with the essence of several lives that ended too soon.",
+    },
+    P61_Unique_Phylactery_03: {
+      flavor: "The face within the center of the cross is the shrunken visage of an ancient priest of Rathma. He appears to be judging you unfavorably.",
+    },
+    P61_Unique_Polearm_01: {
+      flavor: "With this, one warrior can hold back an army.",
+    },
+    P61_Unique_Quiver_007: {
+      flavor: "\"Marteks would not flee before their superior numbers. He knew the time of his death was at hand. He stood his ground, loosing arrow after arrow as he was slowly overwhelmed.\" —Tales of the Wasteland",
+    },
+    P61_Unique_Ring_01: {
+      flavor: "This finger belonged to an Umbaru priest who had lost his legs and would summon smaller gargantuans to carry him to rituals. Although he has long since gone to Mbwiru Eikura, his finger remains a conduit to his strange practices.",
+    },
+    P61_Unique_Ring_02: {
+      flavor: "Unscrupulous merchants have often duplicated this much sought-after ring to sell to the unwary.",
+    },
+    P61_Unique_Ring_03: {
+      flavor: "\"See the man dance! Oh, wait, my lightning is making him do that.\" -Karini the Wizard.",
+    },
+    P61_Unique_Ring_05: {
+      flavor: "\"Seems designed to reduce damage, but I’m not sure how it works. Obviously, it failed its previous owner. Hopefully it will work better for you.\"  —Haedrig",
+    },
+    P61_Unique_Scythe1H_03: {
+      flavor: "\"The Great Cycle of Being always begins anew... but not for you.\" —Master Necromancer Jostan",
+    },
+    P61_Unique_Scythe2H_01: {
+      flavor: "In an unparalleled display of summoning prowess, Master Necromancer Maltorius raised the tallest golem in history--until this spike was cut from it.",
+    },
+    P61_Unique_Scythe2H_02: {
+      flavor: "The favored weapon of Master Necromancer Ordan, renowned teacher of the Priests of Rathma. He was so devoted to this weapon that he would rather part with his life than have it leave his side.",
+    },
+    P61_Unique_Scythe2H_04: {
+      flavor: "A weapon of mysterious origins that seems to cut more deeply when you're cutting it a little close in battle.",
+    },
+    P61_Unique_Shield_007: {
+      flavor: "A veritable wall of wood and iron denying those who would seek to do you harm.",
+    },
+    P61_Unique_Shield_106_x1: {
+      flavor: "Those who deny the Light will be forced to reckon with its power.",
+    },
+    P61_Unique_Staff_001: {
+      flavor: "Without the correct tools, forming energy into Firebats can be taxing.",
+    },
+    P61_Unique_Sword_2H_007_x1: {
+      flavor: "The Blade of Prophecy was lost until a champion worthy to carry it into battle emerged.",
+    },
+    P61_Unique_Sword_2H_012_x1: {
+      flavor: "The Boosenian smiths forged swords with a technique centuries beyond their time. Few craftsmen have been able to replicate the quality of their work. ",
+    },
+    P61_Unique_VoodooMask_102_x1: {
+      flavor: "Long ago, a powerful witch doctor named Jeram waged a one-man war on the khazra after they slew his family. To pursue his vendetta, Jeram crafted this terrible mask, capable of calling all manner of beasts and the walking dead to his service. Those who came across the ruined khazra villages—with their dead half devoured, swollen with venom, and scorched by fire—knew it could only be Jeram's work.",
+    },
+    P61_Unique_Wand_101_x1: {
+      flavor: "Long before Xiansai's unification, in a time of legend, the mercurial mage Woh and his companions whisked their way across the land in a magical pagoda, righting wrongs and putting an end to strife. Woh has since been reincarnated many times, but in each incarnation, this wand invariably finds its way back to its master's hand.",
+    },
+    P61_Unique_XBow_001: {
+      flavor: "The flying quills of the manticore's tail are filled with lethal toxin.",
+    },
+    P61_Wand_norm_unique_02: {
+      flavor: "“Yet another item allegedly taken from Vyr’s armory after his demise. It uses the inherent instability of Arcane power to enhance its destructive efficiency.” - High Councilor Valthek’s Compendium of Exotic Weaponry",
+    },
     P6_Necro_Set_1_Boots: {
       flavor: "Each fragment of this armor came from a corpse that died at a different age. Fully assembled, they represent a thousand years of death.",
     },
@@ -538,7 +691,7 @@ _L.patch.add({
       flavor: "\"You may use death magic, but you are not invulnerable. Wear good armor, and maintain it well.\" —Deathspeaker Mykan",
     },
     P6_Necro_Set_4_Helm: {
-      flavor: "\"When wielding the powers of blight, it is wise to wear protect your face.\" —Deathspeaker Mykan",
+      flavor: "\"When wielding the powers of blight, it is wise to protect your face.\" —Deathspeaker Mykan",
     },
     P6_Necro_Set_4_Pants: {
       flavor: "\"Keep your spells close, lest your enemies get closer.\" —Deathspeaker Mykan",

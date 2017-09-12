@@ -2926,6 +2926,9 @@ DiabloCalc.webglItems = {
   P42_Unique_Fist_013_x1: {
     actor: 130557,
   },
+  P42_Unique_Flail_1H_106_x1: {
+    actor: 299428,
+  },
   P42_Unique_Mojo_003_x1: {
     actor: 194995,
   },
@@ -3168,6 +3171,123 @@ DiabloCalc.webglItems = {
   },
   P5_Unique_Dagger_003_x1: {
     actor: 195174,
+  },
+  P61_CruShield_norm_unique_01: {
+    actor: 405429,
+  },
+  P61_Necro_Unique_Boots_21: {
+    armortype: 1,
+    look: 2190352866,
+  },
+  P61_Necro_Unique_Helm_22: {
+    actor: {
+      "454021": 467605,
+      "454402": 471812,
+    },
+  },
+  P61_Necro_Unique_Pants_21: {
+    armortype: 1,
+    look: 2190352866,
+  },
+  P61_Necro_Unique_Pants_22: {
+    armortype: 5,
+    look: 2190352867,
+  },
+  P61_Unique_Bow_104_x1: {
+    actor: 319407,
+  },
+  P61_Unique_CombatStaff_2H_001: {
+    actor: 195145,
+  },
+  P61_Unique_CombatStaff_2H_003_x1: {
+    actor: 192342,
+  },
+  P61_Unique_CruShield_102_x1: {
+    actor: 299412,
+  },
+  P61_Unique_Dagger_101_x1: {
+    actor: 271728,
+  },
+  P61_Unique_Dagger_102_x1: {
+    actor: 271731,
+  },
+  P61_Unique_Fist_009_x1: {
+    actor: 175937,
+  },
+  P61_Unique_Fist_013_x1: {
+    actor: 130557,
+  },
+  P61_Unique_Flail_1H_105_x1: {
+    actor: 299427,
+  },
+  P61_Unique_Flail_2H_103_x1: {
+    actor: 299436,
+  },
+  P61_Unique_Flail_2H_104: {
+    actor: 299437,
+  },
+  P61_Unique_Mighty_2H_001: {
+    actor: 193657,
+  },
+  P61_Unique_Mighty_2H_006: {
+    actor: 195138,
+  },
+  P61_Unique_Orb_003: {
+    actor: 195325,
+  },
+  P61_Unique_Orb_004: {
+    actor: 399319,
+  },
+  P61_Unique_Phylactery_01: {
+    actor: 467582,
+  },
+  P61_Unique_Phylactery_03: {
+    actor: 462250,
+  },
+  P61_Unique_Polearm_01: {
+    actor: 191570,
+  },
+  P61_Unique_Scythe1H_03: {
+    actor: 467579,
+  },
+  P61_Unique_Scythe2H_01: {
+    actor: 467598,
+  },
+  P61_Unique_Scythe2H_02: {
+    actor: 467599,
+  },
+  P61_Unique_Scythe2H_04: {
+    actor: 467594,
+  },
+  P61_Unique_Shield_007: {
+    actor: 152666,
+  },
+  P61_Unique_Shield_106_x1: {
+    actor: 298190,
+  },
+  P61_Unique_Staff_001: {
+    actor: 184228,
+  },
+  P61_Unique_Sword_2H_007_x1: {
+    actor: 184184,
+  },
+  P61_Unique_Sword_2H_012_x1: {
+    actor: 198960,
+  },
+  P61_Unique_VoodooMask_102_x1: {
+    actor: {
+      "6481": 299449,
+      "6485": 299446,
+    },
+  },
+  P61_Unique_Wand_101_x1: {
+    actor: 272086,
+  },
+  P61_Unique_XBow_001: {
+    actor: 221760,
+  },
+  P61_Wand_norm_unique_02: {
+    actor: 380733,
   },
   P6_Necro_Set_1_Boots: {
     armortype: 5,
@@ -7446,6 +7566,8 @@ DiabloCalc.webglItems = {
       "238286": 271775,
       "3285": 271775,
       "3301": 271775,
+      "454021": 271775,
+      "454402": 271775,
       "4717": 271775,
       "4721": 271775,
       "6481": 271775,
@@ -7525,6 +7647,8 @@ DiabloCalc.webglItems = {
       "238286": 376463,
       "3285": 376463,
       "3301": 376463,
+      "454021": 376463,
+      "454402": 376463,
       "4717": 376463,
       "4721": 376463,
       "6481": 376463,
@@ -7993,7 +8117,7 @@ DiabloCalc.webglItems = {
     look: 65,
   },
   p43_RetroAxe_001: {
-    actor: 3246,
+    actor: 456930,
   },
   p43_RetroHelm_001: {
     actor: {
@@ -8001,8 +8125,6 @@ DiabloCalc.webglItems = {
       "238286": 324765,
       "3285": 138005,
       "3301": 138002,
-      "454021": 460168,
-      "454402": 460218,
       "4717": 62879,
       "4721": 138007,
       "6481": 138008,
@@ -8019,8 +8141,6 @@ DiabloCalc.webglItems = {
       "238286": 324765,
       "3285": 138005,
       "3301": 138002,
-      "454021": 460168,
-      "454402": 460218,
       "4717": 62879,
       "4721": 138007,
       "6481": 138008,
@@ -8037,8 +8157,6 @@ DiabloCalc.webglItems = {
       "238286": 324765,
       "3285": 138005,
       "3301": 138002,
-      "454021": 460168,
-      "454402": 460218,
       "4717": 62879,
       "4721": 138007,
       "6481": 138008,
@@ -8050,13 +8168,13 @@ DiabloCalc.webglItems = {
     },
   },
   p43_RetroStaff_001: {
-    actor: 5483,
+    actor: 456929,
   },
   p43_RetroSword_002: {
-    actor: 5516,
+    actor: 456931,
   },
   p43_RetroSword_1H_001: {
-    actor: 5516,
+    actor: 456927,
   },
   p43_RetroTransmog_WirtsLeg: {
     actor: 455668,
@@ -18566,6 +18684,26 @@ DiabloCalc.webglActors = {
       "2": 0,
     },
   },
+  "456927": {
+    enable: {
+      "2": 0,
+    },
+  },
+  "456929": {
+    enable: {
+      "2": 0,
+    },
+  },
+  "456930": {
+    enable: {
+      "2": 0,
+    },
+  },
+  "456931": {
+    enable: {
+      "2": 0,
+    },
+  },
   "457978": {
     enable: {
       "0": 0,
@@ -19887,8 +20025,6 @@ DiabloCalc.webglActors = {
   },
   "470273": {
     enable: {
-      "0": 0,
-      "1": 0,
       "2": 0,
     },
   },

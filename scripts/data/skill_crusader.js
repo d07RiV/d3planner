@@ -286,8 +286,10 @@ DiabloCalc.skills.crusader = {
       case "d": res = {"Damage": {elem: "hol", coeff: 4.3, addcoeff: [[2.5, "block/100"]]}, "Fragment Damage": {elem: "hol", coeff: 1.7}}; break;
       case "e": res = {"Damage": {elem: "hol", coeff: 4.3, addcoeff: [[2.5, "block/100"]]}}; break;
       }
+      res["DPS"] = {sum: true, "Damage": {fpa: 58.06451, speed: 1, round: "up"}};
       if (stats.leg_akkhansmanacles) {
         res["First Target Damage"] = {sum: true, "Damage": {factor: 1 + stats.leg_akkhansmanacles * 0.01}};
+        res["First Target DPS"] = {sum: true, "First Target Damage": {fpa: 58.06451, speed: 1, round: "up", nobp: true}};
       }
       res = $.extend({"Cost": {cost: "leg_gyrfalconsfoote?0:20"}}, res);
       return res;

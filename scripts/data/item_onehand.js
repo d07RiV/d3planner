@@ -1345,7 +1345,7 @@ DiabloCalc.addItems([
   },
 
   {
-    id: "Unique_Flail_1H_106_x1",
+    id: "P42_Unique_Flail_1H_106_x1",
     name: "Darklight",
     type: "flail",
     quality: "legendary",

@@ -40,7 +40,7 @@ var job = {
 //  "scripts/d3gl_data.js": "uglifyjs",
 //  "scripts/data_ptr": "uglifyjs",
   "scripts" : "uglifyjs",
-//  "css": "less",
+  "css": "less",
   "simulator": "uglifyjs",
 //  "external/canvasjs.js": "uglifyjs",
 //  "external/J3DIMath.js": "uglifyjs",
@@ -48,7 +48,7 @@ var job = {
 //  "external/bnet/css/tooltips.css": "less",
 //  "external/chosen.css": "less",
 //  "external/jquery-ui.js": "uglifyjs",
-//  "external/chosen.jquery.js": "uglifyjs",
+  "external/chosen.jquery.js": "uglifyjs",
 //  "external/jquery.cookie.js": "uglifyjs",
 //  "external/Chart.js": "uglifyjs",
 };
