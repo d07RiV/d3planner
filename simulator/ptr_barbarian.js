@@ -369,6 +369,9 @@
     if (Sim.stats.leg_skullgrasp) {
       dmg.coeff += Sim.stats.leg_skullgrasp * 2 / 300;
     }
+    if (Sim.stats.set_wastes_4pc) {
+      Sim.addBuff("wastes_4pc", {dmgred: 50, dmgmul: {skills: ["rend"], percent: 200}}, {duration: 180 + data.buff.params.duration});
+    }
     Sim.damage(dmg);
   }
   skills.whirlwind = {
@@ -394,10 +397,6 @@
       if (Sim.stats.set_bulkathos_2pc) {
         base.buffs.extrams = 30;
         base.buffs.ias = 30;
-      }
-      if (Sim.stats.set_wastes_4pc) {
-        base.buffs.dmgred = 50;
-        base.buffs.dmgmul = {skills: ["rend"], percent: 200};
       }
       Sim.channeling("whirlwind", this.channeling, ww_ontick, data, base);
     },
@@ -804,7 +803,7 @@
       if (rune === "e") {
         Sim.register("onhit_proc", function(data) {
           if (Sim.getBuff("battlerage")) {
-            var targets = Sim.getTargets(15, 0) - 1;
+            var targets = Sim.getTargets(20, 0) - 1;
             if (targets > 0) Sim.trigger("onhit", {
               targets: targets * data.targets,
               firsttarget: Sim.target.next(data),

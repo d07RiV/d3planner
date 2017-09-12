@@ -166,7 +166,7 @@ DiabloCalc.skills.wizard = {
       case "c": res = {"Damage": {elem: "arc", coeff: 2.65}}; break;
       case "b": res = {"Damage": {elem: "lit", coeff: 3.49}}; break;
       case "d": res = {"Damage": {elem: "fir", coeff: 2.21}, "Burn Damage": {elem: "fir", coeff: 7.34, total: true}}; break;
-      case "e": res = {"Explosion Damage": {elem: "col", coeff: 3.93}, "Projectile Damage": {elem: "col", coeff: 2.62}, "Shard Damage": {elem: "col", coeff: 1.28}}; break;
+      case "e": res = {"Explosion Damage": {elem: "col", coeff: 3.93}, "Projectile Damage": {elem: "col", coeff: 2.62}, "Shard Damage": {elem: "col", coeff: 1.31}}; break;
       }
       if (stats.leg_unstablescepter) {
         var factor = {};

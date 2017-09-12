@@ -249,9 +249,9 @@
         Sim.addBuff("scorch", undefined, {duration: 300, tickrate: 6, ontick: ao_scorch_ontick});
         return {type: "line", coeff: 2.21, range: 50, radius: 6, pierce: true, speed: 1, count: count};
       case "e":
-        Sim.damage({type: "area", origin: Sim.target.distance - 30, coeff: 3.93, range: 15, delay: 30 / 0.6, count: count});
-        Sim.damage({type: "line", coeff: 2.62, pierce: true, range: 30, speed: 0.6, radius: 15});
-        Sim.damage({type: "line", coeff: 1.28, pierce: true, range: 30, radius: 15, delay: 30 / 0.6 + 0.6, proc: 0.013});
+        Sim.damage({type: "area", origin: Sim.target.distance - 30, coeff: 9.50, range: 15, delay: 30 / 0.6, count: count});
+        Sim.damage({type: "line", coeff: 6.35, pierce: true, range: 30, speed: 0.6, radius: 15});
+        Sim.damage({type: "line", coeff: 3.15, pierce: true, range: 30, radius: 15, delay: 30 / 0.6 + 0.6, proc: 0.013});
       }
     },
     oninit: function(rune) {
@@ -1016,6 +1016,10 @@
           stats.ias = 1;
           stats.armor_percent = 1;
           stats.resist_percent = 1;
+        }
+        if (Sim.stats.set_vyr_6pc) {
+          stats.dmgred = 0.15;
+          stats.dmgmul = 25;
         }
         buffname = Sim.setBuffStacks(buffname, stats, Sim.getBuff("archon_stacks") + Sim.getBuff("theswami"));
       }

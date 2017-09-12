@@ -251,7 +251,7 @@
     }
   }
   function jade2_onrefresh(data) {
-    Sim.damage({coeff: data.coeff * 600});
+    Sim.damage({coeff: data.coeff * 2400}); // 480 * 5
   }
   function haunt_onhit(data) {
     var params = {
@@ -263,7 +263,7 @@
       ontick: haunt_ontick,
     };
     if (Sim.stats.passives.creepingdeath) {
-      params.duration = 3600 * 60;
+      params.duration = 14400 * 60;
     }
     if (Sim.stats.leg_quetzalcoatl) {
       params.duration /= 2;
@@ -340,7 +340,7 @@
         params.data.coeff = 1.85 / 5;
       }
       if (Sim.stats.passives.creepingdeath) {
-        params.duration = 3600 * 60;
+        params.duration = 14400 * 60;
       }
       if (Sim.stats.leg_quetzalcoatl) {
         params.duration /= 2;
@@ -558,7 +558,7 @@
   function jade6_apply(id, targets) {
     var total = 0;
     var tickrate = 12;
-    var res = Sim.reduceBuffDuration(id, 300 * 60, targets);
+    var res = Sim.reduceBuffDuration(id, 1200 * 60, targets);
     for (var i = 0; i < res.length; ++i) {
       var stack = res[i].buff;
       Sim.pushCastInfo(stack.castInfo);
@@ -606,6 +606,7 @@
           chc: 0,
           distance: Sim.target.distance,
         });
+        Sim.addBuff("jadeharvester_6pc", {dmgred: 50}, {duration: 12 * 60});
       }
     },
     proctable: {e: 0.25},
@@ -888,7 +889,7 @@
     }
     var duration = 60;
     if (data.castInfo.rune === "d") duration = 480;
-    if (Sim.stats.passives.creepingdeath) duration = 3600 * 60;
+    if (Sim.stats.passives.creepingdeath) duration = 14400 * 60;
     Sim.addBuff("piranhas", {dmgtaken: 15}, {duration: duration,
       targets: data.targets, firsttarget: data.firsttarget});
     if (data.castInfo.rune === "e") {

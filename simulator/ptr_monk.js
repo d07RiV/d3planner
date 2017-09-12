@@ -95,7 +95,7 @@
             var coeff = 0.3;
             if (Sim.stats.set_shenlong_2pc) {
               // dirty fix
-              coeff *= 1 + 0.015 * (Sim.resources.spirit || 0);
+              coeff *= 1 + 0.02 * (Sim.resources.spirit || 0);
             }
             Sim.damage({targets: tlist, count: data.proc * count, coeff: coeff, proc: 0});
           }
@@ -412,7 +412,7 @@
       case "a": dmg.onhit = Sim.apply_effect("knockback", 30); break;
       }
       if (rune === "e") {
-        Sim.addBuff("flurry", undefined, {maxstacks: 9999});
+        Sim.addBuff("flurry", undefined, {maxstacks: 100});
       }
       if (Sim.stats.leg_balance || Sim.stats.leg_balance_p6) dmg.fix = tr_balance_fix;
       return Sim.channeling("tempestrush", this.channeling, tr_ontick, {dmg: dmg}, params);
@@ -906,7 +906,7 @@
             dmg.coeff = 8.77;
           }
           if (Sim.stats.set_uliana_4pc && !triggered) {
-            dmg.coeff *= 2 * (7 + (Sim.stats.leg_lionsclaw ? 7 : 0));
+            dmg.coeff *= 7.77 * (7 + (Sim.stats.leg_lionsclaw ? 7 : 0));
           }
           Sim.damage(dmg);
         },

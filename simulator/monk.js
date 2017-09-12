@@ -409,7 +409,7 @@
       case "a": dmg.onhit = Sim.apply_effect("knockback", 30); break;
       }
       if (rune === "e") {
-        Sim.addBuff("flurry", undefined, {maxstacks: 9999});
+        Sim.addBuff("flurry", undefined, {maxstacks: 500});
       }
       if (Sim.stats.leg_balance) dmg.fix = tr_balance_fix;
       return Sim.channeling("tempestrush", this.channeling, tr_ontick, {dmg: dmg}, params);

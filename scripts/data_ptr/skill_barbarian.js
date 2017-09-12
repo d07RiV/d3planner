@@ -341,10 +341,6 @@ DiabloCalc.skills.barbarian = {
         res.extrams = 30;
         res.ias = 30;
       }
-      if (stats.set_wastes_4pc) {
-        res.dmgred = 50;
-        res.dmgmul = {skills: ["rend"], percent: 200};
-      }
       if (!$.isEmptyObject(res)) {
         return res;
       }

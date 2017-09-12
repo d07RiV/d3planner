@@ -540,11 +540,11 @@
     Sim.register("oncast", function(data) {
       if (data.offensive && Sim.time >= next && Sim.random("wizardspike", amount * 0.01)) {
         Sim.damage({skill: "arcaneorb", elem: "col", type: "area",
-          origin: Sim.target.distance - 30, coeff: 3.93, range: 15, delay: 30 / 0.6});
+          origin: Sim.target.distance - 30, coeff: 9.50, range: 15, delay: 30 / 0.6});
         Sim.damage({skill: "arcaneorb", elem: "col", type: "line",
-          coeff: 2.62, pierce: true, range: 30, speed: 0.6, radius: 15});
+          coeff: 6.35, pierce: true, range: 30, speed: 0.6, radius: 15});
         Sim.damage({skill: "arcaneorb", elem: "col", type: "line",
-          coeff: 1.28, pierce: true, range: 30, radius: 15, delay: 30 / 0.6 + 0.6, proc: 0.013});
+          coeff: 3.15, pierce: true, range: 30, radius: 15, delay: 30 / 0.6 + 0.6, proc: 0.013});
         next = Sim.time + 120;
       }
     });

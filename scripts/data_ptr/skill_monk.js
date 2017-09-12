@@ -41,7 +41,7 @@ DiabloCalc.skills.monk = {
       }
       if (stats.set_shenlong_2pc) {
         var percent = {};
-        percent[DiabloCalc.itemSets.shenlong.name] = this.params[0].val * 1.5;
+        percent[DiabloCalc.itemSets.shenlong.name] = this.params[0].val * 2;
         for (var k in res) {
           res[k].percent = percent;
         }
@@ -88,7 +88,7 @@ DiabloCalc.skills.monk = {
       }
       if (stats.set_shenlong_2pc) {
         var percent = {};
-        percent[DiabloCalc.itemSets.shenlong.name] = this.params[0].val * 1.5;
+        percent[DiabloCalc.itemSets.shenlong.name] = this.params[0].val * 2;
         for (var k in res) {
           res[k].percent = percent;
         }
@@ -137,7 +137,7 @@ DiabloCalc.skills.monk = {
       }
       if (stats.set_shenlong_2pc) {
         var percent = {};
-        percent[DiabloCalc.itemSets.shenlong.name] = this.params[0].val * 1.5;
+        percent[DiabloCalc.itemSets.shenlong.name] = this.params[0].val * 2;
         for (var k in res) {
           res[k].percent = percent;
         }
@@ -188,7 +188,7 @@ DiabloCalc.skills.monk = {
       }
       if (stats.set_shenlong_2pc) {
         var percent = {};
-        percent[DiabloCalc.itemSets.shenlong.name] = this.params[0].val * 1.5;
+        percent[DiabloCalc.itemSets.shenlong.name] = this.params[0].val * 2;
         for (var k in res) {
           res[k].percent = percent;
         }
@@ -282,7 +282,7 @@ DiabloCalc.skills.monk = {
     activeshow: function(rune, stats) {
       return !!(stats.leg_balance || stats.leg_balance_p6);
     },
-    params: [{rune: "e", min: 1, max: 500, name: "Flurry Stacks", buffs: false}],
+    params: [{rune: "e", min: 1, max: 100, name: "Flurry Stacks", buffs: false}],
     info: function(rune, stats) {
       var res;
       switch (rune) {
@@ -550,18 +550,25 @@ DiabloCalc.skills.monk = {
       c: "Cyclone",
     },
     range: {x: 10, e: 10, a: 10, b: 14, d: 10, c: 10},
-    params: [{min: 1, max: "3+(leg_vengefulwind?3:1)+leg_vengefulwind_p2", name: "Stacks", buffs: false}],
-    info: {
-      "*": {"Cost": {cost: 75}},
-      x: {"DPS": {elem: "phy", aps: true, coeff: 1.05, factors: {"Stacks": "$1"}, total: true}},
-      e: {"DPS": {elem: "col", aps: true, coeff: 1.05, factors: {"Stacks": "$1"}, total: true}},
-      a: {"DPS": {elem: "phy", aps: true, coeff: 1.45, factors: {"Stacks": "$1"}, total: true}},
-      b: {"DPS": {elem: "fir", aps: true, coeff: 1.05, factors: {"Stacks": "$1"}, total: true}},
-      d: {"DPS": {elem: "hol", aps: true, coeff: 1.05, factors: {"Stacks": "$1"}, total: true}},
-      c: {"DPS": {elem: "lit", aps: true, coeff: 1.05, factors: {"Stacks": "$1"}, total: true}, "Tornado Damage": {elem: "lit", coeff: 0.95}},
+    params: [{min: 0, max: "3+(leg_vengefulwind?3:1)+leg_vengefulwind_p2", name: "Stacks", buffs: false}],
+    info: function(rune, stats) {
+      var res = {"Cost": {cost: 75}, "DPS": {elem: "phy", aps: true, coeff: 1.05, factors: {"Stacks": this.params[0].val}, total: true}};
+      if (rune === "e") res["DPS"].elem = "col";
+      if (rune === "a") res["DPS"].coeff = 1.45;
+      if (rune === "b") res["DPS"].elem = "fir";
+      if (rune === "d") res["DPS"].elem = "hol";
+      if (rune === "c") {
+        res["DPS"].elem = "lit";
+        res["Tornado Damage"] = {elem: "lit", coeff: 0.95};
+      }
+      if (!this.params[0].val) delete res["DPS"];
+      return res;
     },
     passive: function(rune, stats) {
-      if (rune === "d" && this.params[0].val >= 3) return {spiritregen: 8};
+      var buffs = {};
+      if (rune === "d" && this.params[0].val >= 3) buffs.spiritregen = 8;
+      if (stats.set_sunwuko_6pc && this.params[0].val) buffs.dmgmul = {skills: ["lashingtailkick", "tempestrush", "waveoflight"], percent: 600 * this.params[0].val};
+      return buffs;
     },
   },
   cyclonestrike: {
@@ -617,7 +624,7 @@ DiabloCalc.skills.monk = {
       }
       if (stats.set_uliana_4pc) {
         res["Damage"].factors = {};
-        res["Damage"].factors[DiabloCalc.itemSets.uliana.name] = 2 * hits;
+        res["Damage"].factors[DiabloCalc.itemSets.uliana.name] = 7.77 * hits;
       }
       if (stats.leg_gungdogear && stats.set_uliana_6pc) {
         var ep_rune = (stats.skills.explodingpalm || "x");

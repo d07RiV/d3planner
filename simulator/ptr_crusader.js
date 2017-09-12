@@ -255,11 +255,11 @@
     Sim.damage({type: "line", origin: (data.self ? Sim.target.distance : 0),
       range: range, angle: angle, coeff: 0.6, skill: "blessedhammer", elem: skills.blessedhammer.elem.b});
   }
-  function hammer_ll_onhit(event) {
-    if (Sim.random("limitless", 0.25, event.targets)) {
-      Sim.cast_hammer(false, true);
-    }
-  }
+  //function hammer_ll_onhit(event) {
+  //  if (Sim.random("limitless", 0.25, event.targets)) {
+  //    Sim.cast_hammer(false, true);
+  //  }
+  //}
   function hammer_ih_onhit(event) {
     var count = Sim.random("crushingblow", 0.35, event.targets, true);
     if (count) Sim.damage({type: "area", range: 6, coeff: 4.6,
@@ -279,7 +279,8 @@
       });
       break;
     case "c":
-      if (!clone) dmg.onhit = hammer_ll_onhit;
+      //if (!clone) dmg.onhit = hammer_ll_onhit;
+      dmg.coeff = 6.4;
       break;
     case "d": dmg.onhit = hammer_ih_onhit; break;
     }
@@ -905,8 +906,8 @@
       var buffs = {dmgmul: 35, wrathregen: 5};
       if (Sim.stats.set_akkhan_2pc) buffs.rcr = 50;
       if (Sim.stats.set_akkhan_6pc) {
-        buffs.dmgmul = {list: [35, 600]};
-        buffs.dmgred = 15;
+        buffs.dmgmul = {list: [35, 900]};
+        buffs.dmgred = 50;
       }
       if (rune === "b" || Sim.stats.leg_akkhansaddendum) buffs.wrathregen = 10;
       if (rune === "c") {

@@ -57,7 +57,7 @@ DiabloCalc.skilltips.barbarian = {
     b: "<p>Increase movement speed by <span class=\"d3-color-green\">15%</span>.</p> <p class=\"subtle\">Unlocked at level <em>31</em>.</p>",
     c: "<p>Critical Hits heal you and your pets for up to <span class=\"d3-color-green\">21457</span> Life.</p> <p class=\"subtle\">Unlocked at level <em>38</em>.</p>",
     d: "<p>Gain <span class=\"d3-color-green\">1%</span> Critical Hit Chance for each enemy within <span class=\"d3-color-green\">10</span> yards while under the effects of Battle Rage.</p> <p class=\"subtle\">Unlocked at level <em>46</em>.</p>",
-    e: "<p>Critical Hits cause an explosion of blood dealing <span class=\"d3-color-green\">20%</span> of the damage done to all other nearby enemies.</p> <p class=\"subtle\">Unlocked at level <em>54</em>.</p>",
+    e: "<p>Deal damage equal to <span class=\"d3-color-green\">20%</span> of your recent Critical Hits to enemies within <span class=\"d3-color-green\">20</span> yards every <span class=\"d3-color-green\">1</span> second.</p> <p class=\"subtle\">Unlocked at level <em>54</em>.</p>",
     elements: {
       a: "phy",
       b: "phy",

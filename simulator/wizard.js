@@ -251,7 +251,7 @@
       case "e":
         Sim.damage({type: "area", origin: Sim.target.distance - 30, coeff: 3.93, range: 15, delay: 30 / 0.6, count: count});
         Sim.damage({type: "line", coeff: 2.62, pierce: true, range: 30, speed: 0.6, radius: 15});
-        Sim.damage({type: "line", coeff: 1.28, pierce: true, range: 30, radius: 15, delay: 30 / 0.6 + 0.6, proc: 0.013});
+        Sim.damage({type: "line", coeff: 1.31, pierce: true, range: 30, radius: 15, delay: 30 / 0.6 + 0.6, proc: 0.013});
       }
     },
     oninit: function(rune) {

@@ -166,7 +166,7 @@ DiabloCalc.skills.wizard = {
       case "c": res = {"Damage": {elem: "arc", coeff: 2.65}}; break;
       case "b": res = {"Damage": {elem: "lit", coeff: 3.49}}; break;
       case "d": res = {"Damage": {elem: "fir", coeff: 2.21}, "Burn Damage": {elem: "fir", coeff: 7.34, total: true}}; break;
-      case "e": res = {"Explosion Damage": {elem: "col", coeff: 3.93}, "Projectile Damage": {elem: "col", coeff: 2.62}, "Shard Damage": {elem: "col", coeff: 1.28}}; break;
+      case "e": res = {"Explosion Damage": {elem: "col", coeff: 9.50}, "Projectile Damage": {elem: "col", coeff: 6.35}, "Shard Damage": {elem: "col", coeff: 3.15}}; break;
       }
       if (stats.leg_unstablescepter || stats.leg_unstablescepter_p6) {
         var factor = {};
@@ -749,9 +749,9 @@ DiabloCalc.skills.wizard = {
       res["Arcane Blast Damage"] = {elem: elem, coeff: 6.04};
       res["Arcane Strike DPS"] = {sum: true, "Arcane Strike Damage": {speed: 1, fpa: 57.599954, round: "up"}};
       if (stats.set_chantodo_2pc) {
-        res["Chantodo's DPS"] = {elem: "max", srcelem: DiabloCalc.skilltips.wizard.archon.elements[rune], coeff: 3.5};
+        res["Chantodo's DPS"] = {elem: "max", srcelem: DiabloCalc.skilltips.wizard.archon.elements[rune], coeff: 10};
         if (this.params[1].val) {
-          res["Chantodo's DPS"].addcoeff = [[3.5, this.params[1].val]];
+          res["Chantodo's DPS"].addcoeff = [[10, this.params[1].val]];
         }
       }
       if (rune === "a" || stats.set_vyr_2pc) {
@@ -783,6 +783,10 @@ DiabloCalc.skills.wizard = {
         res.ias = this.params[0].val * 1.0;
         res.armor_percent += this.params[0].val * 1.0;
         res.resist_percent += this.params[0].val * 1.0;
+      }
+      if (stats.set_vyr_6pc) {
+        res.dmgred = this.params[0].val * 0.15;
+        res.dmgmul.list[1] = this.params[0].val * 25;
       }
       return res;
     },

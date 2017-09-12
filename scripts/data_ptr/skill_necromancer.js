@@ -417,7 +417,7 @@ DiabloCalc.skills.necromancer = {
     range: 70,
     info: {
       "*": {"Cooldown": {cooldown: 120}},
-      c: {"Damage": {elem: "psn", coeff: 100.00, total: true}},
+      c: {"DPS": {elem: "psn", coeff: 1, total: true}, "Total Damage": {elem: "psn", coeff: 100.00, total: true}},
     },
     active: false,
     buffs: function(rune, stats) {
@@ -520,7 +520,7 @@ DiabloCalc.skills.necromancer = {
     },
     range: 70,
     info: function(rune, stats) {
-      var res = {"Damage": {elem: "phy", coeff: 1.25}, "Cost": {cost: 10}, "Cooldown": {cooldown: 10}};
+      var res = {"Damage": {elem: "phy", coeff: 1.25}, "Cooldown": {cooldown: 10}};
       if (rune === "a") res["Damage"].coeff = 1.45;
       if (rune === "c") res["Damage"].elem = "psn";
       if (rune === "b") res["Cooldown"].cooldown = 45;
