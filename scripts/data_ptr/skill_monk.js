@@ -483,7 +483,7 @@ DiabloCalc.skills.monk = {
         res["Cost"] = {cost: 75};
       }
       if (stats.set_storms_6pc && DiabloCalc.itemaffixes.set_storms_6pc.active) {
-        res["Damage"].coeff = 125;
+        res["Damage"].coeff = 130;
       }
       return $.extend({"Cooldown": {cooldown: 8}}, res);
     },

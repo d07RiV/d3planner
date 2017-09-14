@@ -690,7 +690,7 @@ DiabloCalc.addItems([
     type: "ring",
     quality: "legendary",
     required: {
-      custom: {id: "leg_haloofkarini_p6", name: "Damage Reduction", format: "You take %d%% less damage for 4 seconds after your Storm Armor electrocutes an enemy more than 15 yards away.", min: 60, max: 80},
+      custom: {id: "leg_haloofkarini_p6", name: "Damage Reduction", format: "You take %d%% less damage for 5 seconds after your Storm Armor electrocutes an enemy more than 15 yards away.", min: 60, max: 80},
     },
     preset: ["mainstat", "sockets"],
   },

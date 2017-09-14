@@ -504,6 +504,9 @@ _L.patch.add({
     P61_Unique_Belt_03: {
       flavor: "All that was ever found of Uliana after her disappearance.",
     },
+    P61_Unique_Boots_01: {
+      flavor: "The Horadrim Nilfur was so accurate in her spellcasting that she could call meteors to land at her feet.",
+    },
     P61_Unique_Bow_104_x1: {
       flavor: "A terrifying Demon Hunter from Xiansai, Yang was known for his resourcefulness, his prowess at multishot, and his icy contempt for failure.",
     },
@@ -558,6 +561,9 @@ _L.patch.add({
     P61_Unique_Mighty_2H_006: {
       flavor: "Korr took all his anger and despair and poured them into the creation of a weapon that would speak to the majesty of Arreat for ages to come.",
     },
+    P61_Unique_Orb_002: {
+      flavor: "“When you gaze long into the arcane realm, the arcane realm also gazes into you.” - Zoltun Kulle",
+    },
     P61_Unique_Orb_003: {
       flavor: "The Triumvirate is composed of the three basic elements of creation.",
     },
@@ -608,6 +614,12 @@ _L.patch.add({
     },
     P61_Unique_Staff_001: {
       flavor: "Without the correct tools, forming energy into Firebats can be taxing.",
+    },
+    P61_Unique_Staff_009: {
+      flavor: "Protector of the first counselor of Caldeum's Trade Consortium.",
+    },
+    P61_Unique_Sword_1H_112_x1: {
+      flavor: "The Quinblades are the only surviving weapons forged by master swordsmith Morad Peerse, each a unique expression of his craft. The aptly-named Deathwish was the last weapon he forged. Despairing over his unhappy life, Peerse decided to craft his masterwork. Pulling the red-hot blade from the forge, the smith fell upon it, quenching the sword in his own blood and imbuing it with an arcane shard of his very soul.",
     },
     P61_Unique_Sword_2H_007_x1: {
       flavor: "The Blade of Prophecy was lost until a champion worthy to carry it into battle emerged.",

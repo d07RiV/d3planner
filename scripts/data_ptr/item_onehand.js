@@ -1283,6 +1283,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Sword_1H_112_x1",
     name: "Deathwish",
+    suffix: _L("Legacy"),
     type: "sword",
     quality: "legendary",
     required: {
@@ -1541,7 +1542,7 @@ DiabloCalc.addItems([
     type: "flail",
     quality: "legendary",
     required: {
-      custom: {id: "leg_gyrfalconsfoote_p6", name: "Free Blessed Shield", format: "Removes the resource cost of Blessed Shield and increases its damage by %d%%.", min: 400, max: 500},
+      custom: {id: "leg_gyrfalconsfoote_p6", name: "Free Blessed Shield", format: "Removes the resource cost of Blessed Shield and increases its damage by %d%%.", min: 275, max: 350},
     },
     preset: ["mainstat"],
   },
@@ -1554,6 +1555,18 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       custom: {id: "leg_scytheofthecycle_p6", name: "Secondary Skill Damage Bonus", format: "Your Secondary skills deal %d%% additional damage while Bone Armor is active but reduce the remaining duration of Bone Armor by 4 seconds.", min: 350, max: 400},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Sword_1H_112_x1",
+    name: "Deathwish",
+    suffix: _L("PTR"),
+    type: "sword",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_deathwish_p6", name: "Damage Increase While Channeling", format: "While channeling Arcane Torrent, Disintegrate, or Ray of Frost, all damage is increased by %d%%.", min: 250, max: 325},
     },
     preset: ["mainstat"],
   },

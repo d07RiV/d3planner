@@ -526,7 +526,7 @@ DiabloCalc.skills.necromancer = {
       if (rune === "b") res["Cooldown"].cooldown = 45;
       if (rune === "e") res["Damage"].elem = "col";
       if (stats.set_inarius_6pc) {
-        res["DPS"] = {elem: res["Damage"].elem, coeff: 7.5, total: true};
+        res["DPS"] = {elem: res["Damage"].elem, coeff: 10, total: true};
       }
       return res;
     },
@@ -545,7 +545,7 @@ DiabloCalc.skills.necromancer = {
         res.dmgmul.list.push({source: "P61_Unique_Scythe1H_03", value: {skills: ["bonespear", "skeletalmage", "deathnova"], percent: stats.leg_scytheofthecycle_p6}});
       }
       if (stats.set_inarius_6pc) {
-        res.dmgmul.list.push({source: "set_inarius_6pc", value: 2750});
+        res.dmgmul.list.push({source: "set_inarius_6pc", value: 3750});
       }
       return res;
     },

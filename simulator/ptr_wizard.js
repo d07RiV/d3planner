@@ -249,9 +249,9 @@
         Sim.addBuff("scorch", undefined, {duration: 300, tickrate: 6, ontick: ao_scorch_ontick});
         return {type: "line", coeff: 2.21, range: 50, radius: 6, pierce: true, speed: 1, count: count};
       case "e":
-        Sim.damage({type: "area", origin: Sim.target.distance - 30, coeff: 9.50, range: 15, delay: 30 / 0.6, count: count});
-        Sim.damage({type: "line", coeff: 6.35, pierce: true, range: 30, speed: 0.6, radius: 15});
-        Sim.damage({type: "line", coeff: 3.15, pierce: true, range: 30, radius: 15, delay: 30 / 0.6 + 0.6, proc: 0.013});
+        Sim.damage({type: "area", origin: Sim.target.distance - 40, coeff: 9.50, range: 15, delay: 40 / 0.6, count: count});
+        Sim.damage({type: "line", coeff: 6.35, pierce: true, range: 40, speed: 0.6, radius: 15});
+        Sim.damage({type: "line", coeff: 3.15, pierce: true, range: 40, radius: 15, delay: 40 / 0.6 + 0.6, proc: 0.013});
       }
     },
     oninit: function(rune) {
@@ -666,9 +666,13 @@
 
   function meteor_nilfurs_fix() {
     if (this.targets <= 3) {
-      this.factor = 1 + 0.01 * (Sim.stats.leg_nilfursboast_p2 || Sim.stats.leg_nilfursboast || 0);
-    } else {
-      this.factor = (Sim.stats.leg_nilfursboast_p2 ? 3 : 2);
+      this.factor = 1 + 0.01 * (Sim.stats.leg_nilfursboast_p6 || Sim.stats.leg_nilfursboast_p2 || Sim.stats.leg_nilfursboast || 0);
+    } else if (Sim.stats.leg_nilfursboast_p6) {
+      this.factor = 7;
+    } else if (Sim.stats.leg_nilfursboast_p2) {
+      this.factor = 3;
+    } else if (Sim.stats.leg_nilfursboast) {
+      this.factor = 2;
     }
   }
   function meteor_ontick(data) {
@@ -679,7 +683,7 @@
       dmg.count = 7;
       dmg.spread = 25;
     }
-    if (Sim.stats.leg_nilfursboast || Sim.stats.leg_nilfursboast_p2) dmg.fix = meteor_nilfurs_fix;
+    if (Sim.stats.leg_nilfursboast || Sim.stats.leg_nilfursboast_p2 || Sim.stats.leg_nilfursboast_p6) dmg.fix = meteor_nilfurs_fix;
     Sim.damage(dmg);
   }
   function meteor_onhit(data) {
@@ -700,7 +704,7 @@
     offensive: true,
     frames: 57.142834,
     cost: function(rune) {
-      return 40 * (1 - 0.01 * (Sim.stats.leg_thegrandvizier || 0));
+      return 40 * (1 - 0.01 * ((Sim.stats.leg_thegrandvizier_p6 && 50) || Sim.stats.leg_thegrandvizier || 0));
     },
     cooldown: {a: 15},
     oncast: function(rune) {
@@ -720,7 +724,7 @@
       case "a": dmg = {delay: 75, type: "area", range: 18, coeff: 16.48}; break;
       }
       dmg.onhit = meteor_onhit;
-      if (Sim.stats.leg_nilfursboast || Sim.stats.leg_nilfursboast_p2) {
+      if (Sim.stats.leg_nilfursboast || Sim.stats.leg_nilfursboast_p2 || Sim.stats.leg_nilfursboast_p6) {
         dmg.fix = meteor_nilfurs_fix;
       }
       return dmg;

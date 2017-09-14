@@ -1060,11 +1060,14 @@
     Sim.addBaseStats({pickup: 20});
   };
 
-  affixes.leg_etchedsigil = function(amount) {
+  affixes.leg_etchedsigil = affixes.leg_etchedsigil_p6 = function(amount) {
     //TODO: fix mechanics
-    var list = [], index = 0;
+    var list = [], index = 0, buffs = undefined;
     for (var id in Sim.stats.skills) {
       if (["arcaneorb", "waveofforce", "energytwister", "hydra", "meteor", "blizzard", "explosiveblast", "blackhole"].indexOf(id) >= 0) list.push(id);
+    }
+    if (Sim.stats.leg_etchedsigil_p6) {
+      buffs = {dmgmul: {skills: list, percent: amount}};
     }
     var cds = {explosiveblast: 360, blackhole: 12 * 60};
     if (Sim.stats.skills.meteor === "a") cds.meteor = 15 * 60;
@@ -1079,7 +1082,7 @@
     function update() {
       if (Sim.getBuff("rayoffrost") || Sim.getBuff("arcanetorrent") || Sim.getBuff("disintegrate")) {
         if (!buffname || !Sim.getBuff(buffname)) {
-          buffname = Sim.addBuff(buffname, undefined, {
+          buffname = Sim.addBuff(buffname, buffs, {
             tickrate: 60,
             tickinitial: 1,
             ontick: function(data) {
@@ -1272,7 +1275,7 @@
     Sim.watchBuff("energytwister", update);
     Sim.watchBuff("ragingstorm", update);
   };
-  affixes.leg_deathwish = function(amount) {
+  affixes.leg_deathwish = affixes.leg_deathwish_p6 = function(amount) {
     Sim.register("updatestats", function(data) {
       if (data.stats.channeling) {
         data.stats.add("dmgmul", amount);
@@ -1507,7 +1510,7 @@
   affixes.leg_haloofkarini_p6 = function(amount) {
     Sim.register("onhit", function(data) {
       if (data.castInfo && data.castInfo.skill === "stormarmor" && data.distance > 15) {
-        Sim.addBuff("haloofkarini", {dmgred: amount}, {duration: 180});
+        Sim.addBuff("haloofkarini", {dmgred: amount}, {duration: 300});
       }
     });
   };

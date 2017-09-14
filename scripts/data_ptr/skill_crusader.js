@@ -35,7 +35,7 @@ DiabloCalc.skills.crusader = {
         res["Retaliate Damage"] = {elem: elem, coeff: 1.4};
       }
       if (stats.set_invoker_6pc) {
-        res["Thorns Damage"] = {thorns: "special", coeff: 27, elem: "phy", srcelem: "none"};
+        res["Thorns Damage"] = {thorns: "special", coeff: 54, elem: "phy", srcelem: "none"};
         res["DPS"]["Damage"].speed *= 1.5;
         res["DPS"]["Thorns Damage"] = $.extend({nobp: true}, res["DPS"]["Damage"]);
       }
@@ -76,7 +76,7 @@ DiabloCalc.skills.crusader = {
         "Damage": {elem: DiabloCalc.skilltips.crusader.slash.elements[rune], coeff: 2.3}};
       if (rune === "c") res["Damage"].chc = 20;
       if (stats.set_invoker_6pc) {
-        res["Thorns Damage"] = {thorns: "special", coeff: 27, elem: "phy"};
+        res["Thorns Damage"] = {thorns: "special", coeff: 54, elem: "phy"};
         res["DPS"]["Damage"].speed *= 1.5;
         res["DPS"]["Thorns Damage"] = $.extend({nobp: true}, res["DPS"]["Damage"]);
       }
@@ -727,7 +727,7 @@ DiabloCalc.skills.crusader = {
       if (rune === "e") res.ias = 15;
       if (stats.set_akkhan_2pc) res.rcr = 50;
       if (stats.set_akkhan_6pc) {
-        res.dmgmul = {list: [35, 900]};
+        res.dmgmul = {list: [35, 1000]};
         res.dmgred = 50;
       }
       return res;

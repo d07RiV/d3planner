@@ -480,29 +480,32 @@ DiabloCalc.skills.wizard = {
       b: "Meteor Shower",
       a: "Molten Impact",
     },
-    params: [{rune: "d", min: "40*(1-0.01*rcr_ap)*(1-0.01*leg_thegrandvizier)-rcrint", max: "maxap", name: "Arcane Power", buffs: false}],
+    params: [{rune: "d", min: "40*(1-0.01*rcr_ap)*(1-0.01*(leg_thegrandvizier_p6&&50||leg_thegrandvizier))-rcrint", max: "maxap", name: "Arcane Power", buffs: false}],
     active: true,
     activetip: "3 or fewer targets",
     activeshow: function(rune, stats) {
-      return !!stats.leg_nilfursboast;
+      return !!(stats.leg_nilfursboast || stats.leg_nilfursboast_p2 || stats.leg_nilfursboast_p6);
     },
     info: function(rune, stats) {
       var res = {
         x: {"Damage": {elem: "fir", coeff: 7.4, addcoeff: [2.35], total: 0}},
         e: {"Damage": {elem: "lit", coeff: 7.4, addcoeff: [2.35], total: 0}},
-        d: {"Damage": {elem: "arc", coeff: 7.4, addcoeff: [[0.2, "$1-40*(1-0.01*rcr_ap)*(1-0.01*leg_thegrandvizier)+rcrint"], 2.35], total: 1}},
+        d: {"Damage": {elem: "arc", coeff: 7.4, addcoeff: [[0.2, "$1-40*(1-0.01*rcr_ap)*(1-0.01*(leg_thegrandvizier_p6&&50||leg_thegrandvizier))+rcrint"], 2.35], total: 1}},
         c: {"Damage": {elem: "col", coeff: 7.4, addcoeff: [2.35], total: 0}},
         b: {"Damage": {elem: "fir", coeff: 2.77, addcoeff: [0.70], total: 0}, "Total Damage": {sum: true, "Damage": {count: 7}}, "Average Damage": {sum: true, tip: "Small target gets hit by 2.5 meteors, on average", "Damage": {count: 2.5}}},
         a: {"Cooldown": {cooldown: 15}, "Damage": {elem: "fir", coeff: 16.48, addcoeff: [6.25], total: 0}},
       }[rune];
-      if (stats.leg_nilfursboast_p2) {
+      if (stats.leg_nilfursboast_p6) {
+        res["Damage"].percent = {};
+        res["Damage"].percent[DiabloCalc.itemById.P61_Unique_Boots_01.name] = (this.active ? stats.leg_nilfursboast_p6 : 600);
+      } else if (stats.leg_nilfursboast_p2) {
         res["Damage"].percent = {};
         res["Damage"].percent[DiabloCalc.itemById.P41_Unique_Boots_01.name] = (this.active ? stats.leg_nilfursboast_p2 : 200);
       } else if (stats.leg_nilfursboast) {
         res["Damage"].percent = {};
         res["Damage"].percent[DiabloCalc.itemById.P2_Unique_Boots_01.name] = (this.active ? stats.leg_nilfursboast : 100);
       }
-      res = $.extend({"Cost": {cost: 40, rcr: "leg_thegrandvizier"}}, res);
+      res = $.extend({"Cost": {cost: 40, rcr: "leg_thegrandvizier_p6&&50||leg_thegrandvizier"}}, res);
       if (rune === "d" && DiabloCalc.isSkillActive("arcanedynamo")) {
         res["Damage"].percent = $.extend(res["Damage"].percent || {}, {"Arcane Dynamo (bug)": 60});
       }

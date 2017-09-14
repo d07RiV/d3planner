@@ -722,6 +722,7 @@ DiabloCalc.addItems([
   {
     id: "P4_Unique_Orb_002",
     name: "Etched Sigil",
+    suffix: _L("Legacy"),
     type: "source",
     quality: "legendary",
     required: {
@@ -917,7 +918,7 @@ DiabloCalc.addItems([
     type: "crusadershield",
     quality: "legendary",
     required: {
-      custom: {id: "leg_frydehrswrath_p6", name: "Condemn Damage Bonus", format: "Condemn has no cooldown and has its damage increased by %d%%, but instead costs 40 Wrath.", min: 450, max: 600},
+      custom: {id: "leg_frydehrswrath_p6", name: "Condemn Damage Bonus", format: "Condemn has no cooldown and has its damage increased by %d%%, but instead costs 40 Wrath.", min: 600, max: 800},
     },
     preset: ["mainstat"],
   },
@@ -929,7 +930,7 @@ DiabloCalc.addItems([
     type: "crusadershield",
     quality: "legendary",
     required: {
-      custom: {id: "leg_jekangbord_p6", name: "Blessed Shield Damage", format: "Blessed Shield ricochets to 6 additional enemies and has its damage increased by %d%%.", min: 300, max: 400},
+      custom: {id: "leg_jekangbord_p6", name: "Blessed Shield Damage", format: "Blessed Shield ricochets to 6 additional enemies and has its damage increased by %d%%.", min: 225, max: 300},
     },
     preset: ["mainstat"],
   },
@@ -989,7 +990,7 @@ DiabloCalc.addItems([
     type: "quiver",
     quality: "legendary",
     required: {
-      custom: {id: "leg_deadmanslegacy_p6", name: "Multishot Damage Bonus", format: "Multishot hits enemies below 60%% health twice and its damage is increased by %d%%.", min: 125, max: 150},
+      custom: {id: "leg_deadmanslegacy_p6", name: "Multishot Damage Bonus", format: "Multishot hits enemies below 60%% health twice and its damage is increased by %d%%.", min: 150, max: 200},
     },
     preset: ["mainstat", "chc"],
   },
@@ -1016,6 +1017,18 @@ DiabloCalc.addItems([
       custom: {id: "leg_shieldoffury_p6", name: "Heaven's Fury Ramp Up", format: "Each time an enemy takes damage from your Heaven's Fury, it increases the damage they take from your Heaven's Fury by %d%%.", min: 25, max: 30},
     },
     preset: ["mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Orb_002",
+    name: "Etched Sigil",
+    suffix: _L("PTR"),
+    type: "source",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_etchedsigil_p6", name: "Spender Damage Bonus", format: "While channeling Arcane Torrent, Disintegrate, or Ray of Frost, the damage of your Arcane Power Spenders is increased by %d%% and you also cast one of your other damaging Arcane Power Spenders every second.", min: 125, max: 150},
+    },
+    preset: ["mainstat", "chc"],
   },
 
 ]);

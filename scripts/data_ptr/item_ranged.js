@@ -637,7 +637,7 @@ DiabloCalc.addItems([
     type: "bow",
     quality: "legendary",
     required: {
-      custom: {id: "leg_yangsrecurve_p6", name: "Multishot Damage", format: "Multishot attacks 50%% faster and its damage is increased by %d%%.", min: 125, max: 150},
+      custom: {id: "leg_yangsrecurve_p6", name: "Multishot Damage", format: "Multishot attacks 50%% faster and its damage is increased by %d%%.", min: 150, max: 200},
     },
     preset: ["mainstat", "damage"],
     primary: 5,

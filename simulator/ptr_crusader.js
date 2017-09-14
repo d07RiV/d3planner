@@ -906,7 +906,7 @@
       var buffs = {dmgmul: 35, wrathregen: 5};
       if (Sim.stats.set_akkhan_2pc) buffs.rcr = 50;
       if (Sim.stats.set_akkhan_6pc) {
-        buffs.dmgmul = {list: [35, 900]};
+        buffs.dmgmul = {list: [35, 1000]};
         buffs.dmgred = 50;
       }
       if (rune === "b" || Sim.stats.leg_akkhansaddendum) buffs.wrathregen = 10;

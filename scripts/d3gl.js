@@ -883,9 +883,9 @@ $.ajaxTransport("+binary", function(options, originalOptions, jqXHR){
     var list = this.data[type];
     for (var id in list) {
       this.model.disable(list[id]);
-      if (id == key) {
-        this.model.enable(list[id], look, prio, nodepth, tint);
-      }
+    }
+    if (key in list) {
+      this.model.enable(list[key], look, prio, nodepth, tint);
     }
   };
   var _slotPrio = {legs: 0, hands: 1, torso: 2, feet: 3};

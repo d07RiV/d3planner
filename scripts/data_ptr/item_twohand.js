@@ -330,14 +330,13 @@ DiabloCalc.addItems([
   {
     id: "Unique_Staff_009_p1",
     name: "The Grand Vizier",
+    suffix: _L("Legacy"),
     type: "staff",
     quality: "legendary",
     required: {
-      skill_wizard_meteor: {min: 25, max: 30},
-      custom: {id: "leg_thegrandvizier", name: "Reduce Meteor Cost", format: "Reduces the Arcane Power cost of Meteor by %d%%.", min: 40, max: 50},
+      custom: {id: "leg_thegrandvizier", name: "Reduce Meteor Cost", format: "Reduces the Arcane Power cost of Meteor by %d%% and increases its damage by 30%%.", min: 40, max: 50},
     },
     preset: ["wpnfir", "mainstat"],
-    primary: 5,
   },
 
   {
@@ -1132,7 +1131,7 @@ DiabloCalc.addItems([
     type: "sword2h",
     quality: "legendary",
     required: {
-      custom: {id: "leg_bladeofprophecy_p6", name: "Condemn Explosions Chain", format: "Two Condemned enemies also trigger Condemn's explosion and the damage of Condemn is increased by %d%%.", min: 350, max: 450},
+      custom: {id: "leg_bladeofprophecy_p6", name: "Condemn Explosions Chain", format: "Two Condemned enemies also trigger Condemn's explosion and the damage of Condemn is increased by %d%%.", min: 600, max: 800},
     },
     preset: ["mainstat"],
   },
@@ -1147,6 +1146,18 @@ DiabloCalc.addItems([
       custom: {id: "leg_faithfulmemory_p6", name: "Blessed Hammer Bonus Damage", format: "Each enemy hit by Falling Sword increases the damage of Blessed Hammer by %d%% for 10 seconds. Max 10 stacks.", min: 60, max: 80},
     },
     preset: ["wpnhol", "mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Staff_009",
+    name: "The Grand Vizier",
+    suffix: _L("PTR"),
+    type: "staff",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_thegrandvizier_p6", name: "Meteor Damage Bonus", format: "Reduces the Arcane Power cost of Meteor by 50%% and increases its damage by %d%%.", min: 375, max: 500},
+    },
+    preset: ["wpnfir", "mainstat"],
   },
 
 ]);

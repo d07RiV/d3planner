@@ -195,7 +195,7 @@ DiabloCalc.skills.demonhunter = {
       var sentries = (stats.skills.sentry || stats.leg_helltrapper ? DiabloCalc.skills.demonhunter.sentry.params[0].val : 0);
       if (stats.set_marauder_4pc && sentries) {
         var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
-        ext.percent[DiabloCalc.itemSets.marauder.name] = 100;
+        ext.percent[DiabloCalc.itemSets.marauder.name] = 400;
         res["Sentry Damage"] = $.extend({}, res["Damage"], ext);
         DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Damage"], stats);
         if (res["Burn Damage"]) res["Sentry Burn Damage"] = $.extend({}, res["Burn Damage"], ext);
@@ -307,7 +307,7 @@ DiabloCalc.skills.demonhunter = {
         var sentries = (stats.skills.sentry || stats.leg_helltrapper ? DiabloCalc.skills.demonhunter.sentry.params[0].val : 0);
         if (stats.set_marauder_4pc && sentries) {
           var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
-          ext.percent[DiabloCalc.itemSets.marauder.name] = 100;
+          ext.percent[DiabloCalc.itemSets.marauder.name] = 400;
           res["Sentry Damage"] = $.extend({}, res["Damage"], ext);
           DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Damage"], stats);
         }
@@ -364,7 +364,7 @@ DiabloCalc.skills.demonhunter = {
       var sentries = (stats.skills.sentry || stats.leg_helltrapper ? DiabloCalc.skills.demonhunter.sentry.params[0].val : 0);
       if (stats.set_marauder_4pc && sentries) {
         var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
-        ext.percent[DiabloCalc.itemSets.marauder.name] = 100;
+        ext.percent[DiabloCalc.itemSets.marauder.name] = 400;
         res["Sentry Damage"] = $.extend(true, {}, res["Damage"], ext);
         DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Damage"], stats);
         if (res["Explosion Damage"]) {
@@ -807,7 +807,7 @@ DiabloCalc.skills.demonhunter = {
       var sentries = (stats.skills.sentry || stats.leg_helltrapper ? DiabloCalc.skills.demonhunter.sentry.params[0].val : 0);
       if (stats.set_marauder_4pc && sentries) {
         var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
-        ext.percent[DiabloCalc.itemSets.marauder.name] = 100;
+        ext.percent[DiabloCalc.itemSets.marauder.name] = 400;
         res["Sentry Damage"] = $.extend({}, res["Damage"], ext);
         DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Damage"], stats);
         if (res["Rocket Damage"]) {
@@ -869,7 +869,7 @@ DiabloCalc.skills.demonhunter = {
       var sentries = (stats.skills.sentry || stats.leg_helltrapper ? DiabloCalc.skills.demonhunter.sentry.params[0].val : 0);
       if (stats.set_marauder_4pc && sentries) {
         var ext = {pet: true, weapon: "mainhand", percent: {"Sentry %": stats.skill_demonhunter_sentry}};
-        ext.percent[DiabloCalc.itemSets.marauder.name] = 100;
+        ext.percent[DiabloCalc.itemSets.marauder.name] = 400;
         res["Sentry Damage"] = $.extend({}, res["Damage"], ext);
         DiabloCalc.skills.demonhunter.sentry.fixdmg(res["Sentry Damage"], stats);
         if (res["Grenade Damage"]) {
