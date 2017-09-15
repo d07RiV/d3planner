@@ -1819,6 +1819,12 @@
   affixes.leg_yangsrecurve_p6 = function(amount) {
     Sim.addBaseStats({dmgmul: {skills: ["multishot"], percent: amount}});
   };
+  affixes.leg_thegrandvizier = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["meteor"], percent: 30}});
+  };
+  affixes.leg_thegrandvizier_p6 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["meteor"], percent: amount}});
+  };
 /*
   affixes.leg_thegrinreaper = function(amount) {
     var skills = {};
