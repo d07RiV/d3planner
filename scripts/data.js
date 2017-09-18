@@ -698,12 +698,7 @@
     /*
     var exportRes = {};
     var exportList = [
-    "itemById.*.type",
-    "itemTypes.*.slot",
-    "itemTypes.*.generic",
-    "legendaryGems.*.id",
-    "gemQualities",
-    "gemColors.*.id",
+    "itemById.*.required.custom.id",
     ];
     for (var i = 0; i < exportList.length; ++i) {
       $.extend(true, exportRes, DiabloCalc.exportData(exportList[i]));

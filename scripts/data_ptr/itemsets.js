@@ -353,7 +353,7 @@ DiabloCalc.itemSets = {
         {format: "Shadow Power gains the effect of every rune and lasts forever."},
       ],
       "6": [
-        {format: "Impale deals an additional 40000% weapon damage to the first enemy hit."},
+        {format: "Impale deals an additional 50000% weapon damage to the first enemy hit."},
       ],
     },
   },
