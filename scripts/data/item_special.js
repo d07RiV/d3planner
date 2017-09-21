@@ -530,7 +530,7 @@ DiabloCalc.itemaffixes = {
         count += DiabloCalc.passives.witchdoctor.fetishsycophants.params[0].val;
       }
       if (count) {
-        return {dmgred: 2 * count};
+        return {dmgred: 3 * count};
       }
     },
   },
