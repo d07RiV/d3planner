@@ -188,7 +188,7 @@
     var targ = Sim.target.list();
     var tlist = [targ[0]];
     var tcount = (rune === "b" ? 4 : 2) * data.targets;
-    for (var i = tcount; i >= 1; --i) {
+    if (targ.length > 1) for (var i = tcount; i >= 1; --i) {
       tlist.push(targ[1 + es_target]);
       es_target = (es_target + 1) % (targ.length - 1);
     }
