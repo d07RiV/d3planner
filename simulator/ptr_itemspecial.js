@@ -835,7 +835,7 @@
     });
   };
 
-  affixes.leg_spiritguards = function(amount) {
+  affixes.leg_spiritguards = affixes.leg_spiritguards_p6 = function(amount) {
     if (Sim.stats.charClass !== "monk") return;
     Sim.register("oncast", function(data) {
       if (data.generate) {
@@ -857,7 +857,7 @@
     });
   };
 
-  affixes.leg_wrapsofclarity = function(amount) {
+  affixes.leg_wrapsofclarity = affixes.leg_wrapsofclarity_p6 = function(amount) {
     if (Sim.stats.charClass !== "demonhunter") return;
     Sim.register("oncast", function(data) {
       if (data.generate) {

@@ -483,7 +483,19 @@ DiabloCalc.itemaffixes = {
       return {dmgred: value[0]};
     },
   },
+  leg_spiritguards_p6: {
+    active: false,
+    buffs: function(value, stats) {
+      return {dmgred: value[0]};
+    },
+  },
   leg_wrapsofclarity: {
+    active: false,
+    buffs: function(value, stats) {
+      return {dmgred: value[0]};
+    },
+  },
+  leg_wrapsofclarity_p6: {
     active: false,
     buffs: function(value, stats) {
       return {dmgred: value[0]};

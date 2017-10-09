@@ -4635,6 +4635,10 @@ DiabloCalc.itemIcons = {
     1,
     1032622629,
   ],
+  P61_Unique_Bracer_109: [
+    1,
+    1032622629,
+  ],
   P2_Unique_Bracer_110: [
     2,
     1993693525,
@@ -4968,6 +4972,10 @@ DiabloCalc.itemIcons = {
     2179058646,
   ],
   P3_Unique_Bracer_103: [
+    4,
+    3059360894,
+  ],
+  P61_Unique_Bracer_103: [
     4,
     3059360894,
   ],

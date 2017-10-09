@@ -75,6 +75,9 @@ _L.patch.add({
     P2_Unique_Bracer_109: {
       flavor: "The Patriarchs say that when the spirit waxes, the dangers of this world wane.",
     },
+    P61_Unique_Bracer_109: {
+      flavor: "The Patriarchs say that when the spirit waxes, the dangers of this world wane.",
+    },
     P2_Unique_Bracer_110: {
       flavor: "The Elder Crusader Drakon believed in precision, and trained his apprentice to strike fewer targets, but with more power. \"Would you rather face ten opponents who are slightly injured? Or seven healthy opponents, who are distracted by the three corpses at your feet?\"",
     },
@@ -163,6 +166,9 @@ _L.patch.add({
       flavor: "“Always seeking to improve the Crusaders’ efficiency, Akkhan’s Master Blacksmith Gabriel crafted these bracers to ease the strain of summoning the Blessed Hammer.” -Rennold's Catalogue of Arms",
     },
     P3_Unique_Bracer_103: {
+      flavor: "Steadies the arm and brings calm certainty in the face of death.",
+    },
+    P61_Unique_Bracer_103: {
       flavor: "Steadies the arm and brings calm certainty in the face of death.",
     },
     P3_Unique_Bracer_104: {

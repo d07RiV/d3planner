@@ -246,6 +246,7 @@ DiabloCalc.addItems([
     id: "P2_Unique_Bracer_109",
     ids: ["ptr_SpiritGuards"],
     name: "Spirit Guards",
+    suffix: _L("Legacy"),
     type: "bracers",
     quality: "legendary",
     required: {
@@ -278,8 +279,8 @@ DiabloCalc.addItems([
 
   {
     id: "P3_Unique_Bracer_103",
-    local: true,
     name: "Wraps of Clarity",
+    suffix: _L("Legacy"),
     type: "bracers",
     quality: "legendary",
     required: {
@@ -522,6 +523,30 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       custom: {id: "leg_ranslorsfolly_p6", name: "Energy Twister Vortex", format: "The damage of Energy Twister is increased by %d%% and it periodically pulls in lesser enemies within 30 yards.", min: 225, max: 300},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P61_Unique_Bracer_103",
+    name: "Wraps of Clarity",
+    suffix: _L("PTR"),
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_wrapsofclarity_p6", name: "Damage Reduction", format: "Your Hatred Generators reduce your damage taken by %d%% for 5 seconds.", min: 40, max: 50},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P61_Unique_Bracer_109",
+    name: "Spirit Guards",
+    suffix: _L("PTR"),
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_spiritguards_p6", name: "Damage Reduction", format: "Your Spirit Generators reduce your damage taken by %d%% for 3 seconds.", min: 45, max: 60},
     },
     preset: ["mainstat", "chc"],
   },

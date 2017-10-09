@@ -1155,7 +1155,7 @@ DiabloCalc.addItems([
     type: "staff",
     quality: "legendary",
     required: {
-      custom: {id: "leg_thegrandvizier_p6", name: "Meteor Damage Bonus", format: "Reduces the Arcane Power cost of Meteor by 50%% and increases its damage by %d%%.", min: 375, max: 500},
+      custom: {id: "leg_thegrandvizier_p6", name: "Meteor Damage Bonus", format: "Reduces the Arcane Power cost of Meteor by 50%% and increases its damage by %d%%.", min: 300, max: 400},
     },
     preset: ["wpnfir", "mainstat"],
   },

@@ -678,7 +678,7 @@ DiabloCalc.addItems([
     type: "ring",
     quality: "legendary",
     required: {
-      custom: {id: "leg_skullgrasp_p6", name: "Whirlwind Damage", format: "Increase the damage of Whirlwind by %d%%", min: 400, max: 500},
+      custom: {id: "leg_skullgrasp_p6", name: "Whirlwind Damage", format: "Increase the damage of Whirlwind by %d%%", min: 300, max: 400},
     },
     preset: ["mainstat", "chc"],
   },
