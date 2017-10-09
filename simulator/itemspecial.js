@@ -194,7 +194,7 @@
     });
   };
 
-  affixes.leg_wandofwoh = function() {
+  affixes.leg_wandofwoh = function(amount) {
     function docast(data) {
       Sim.cast("explosiveblast", data.rune);
     }
@@ -281,7 +281,7 @@
       Sim.addBuff("coe_" + elem, {dmgmul: {elems: [elem], percent: amount}}, {duration: 240, onexpire: refresh});
     })();
   };
-  affixes.leg_obsidianringofthezodiac = function() {
+  affixes.leg_obsidianringofthezodiac = function(amount) {
     var rot = [];
     for (var id in Sim.stats.skills) rot.push(id);
     var current = 0;
@@ -1028,7 +1028,7 @@
   affixes.leg_oathkeeper = function(amount) {
     Sim.addBaseStats({dmgmul: {skills: ["bash", "cleave", "frenzy", "weaponthrow"], percent: amount}});
   };
-  affixes.leg_bladeofthetribes = function() {
+  affixes.leg_bladeofthetribes = function(amount) {
     Sim.register("oncast", function(data) {
       if (data.skill === "warcry" || data.skill === "threateningshout") {
         Sim.cast("avalanche", undefined, "soft");
