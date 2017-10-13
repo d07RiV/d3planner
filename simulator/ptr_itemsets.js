@@ -122,7 +122,7 @@ asheara's: todo
           }
         }
       }
-      Sim.setBuffStacks("firebird_6pc", {dmgmul: 250, dmgred: 3}, Math.min(stacks, 20));
+      Sim.setBuffStacks("firebird_6pc", {dmgmul: 200, dmgred: 3}, Math.min(stacks, 20));
     });
   };
 
@@ -154,7 +154,7 @@ asheara's: todo
     Sim.watchBuff("slowtime", function(data) {
       if (data.targets) {
         buffname = Sim.addBuff(buffname, {dmgmul: {skills: ["arcaneorb", "energytwister", "explosiveblast", "magicmissile",
-          "shockpulse", "spectralblade", "waveofforce"], percent: 4100}}, {targets: data.targets});
+          "shockpulse", "spectralblade", "waveofforce"], percent: 3800}}, {targets: data.targets});
       } else if (buffname) {
         Sim.after(300, function() {
           if (!Sim.getBuff("slowtime")) {
@@ -225,7 +225,7 @@ asheara's: todo
   affixes.set_natalya_6pc = function() {
     Sim.register("oncast", function(data) {
       if (data.skill === "rainofvengeance") {
-        Sim.addBuff("natalya_6pc", {dmgmul: 2500, dmgred: 60}, {duration: 600});
+        Sim.addBuff("natalya_6pc", {dmgmul: 3500, dmgred: 60}, {duration: 600});
       }
     });
   };
@@ -249,14 +249,14 @@ asheara's: todo
     Sim.register("oncast", function(data) {
       if (data.generate || list.indexOf(data.skill) >= 0) {
         var stacks = Sim.getBuff("sentry");
-        if (stacks) return {percent: stacks * 2500};
+        if (stacks) return {percent: stacks * 3000};
       }
     });
     // We can't put them together or else sentry spenders will get buffed too (we could avoid it by setting
     // pet=false, but then companion would have to be in a separate buff anyway).
     var buffname = undefined;
     Sim.watchBuff("sentry", function(data) {
-      buffname = Sim.setBuffStacks(buffname, {dmgmul: {skills: ["companion", "vengeance"], percent: 1200}}, data.stacks);
+      buffname = Sim.setBuffStacks(buffname, {dmgmul: {skills: ["companion", "vengeance"], percent: 3000}}, data.stacks);
     });
   };
 
@@ -332,8 +332,8 @@ asheara's: todo
         Sim.addBuff("helltooth_6pc", {
           dmgmul: {list: [
             {pet: false, skills: ["poisondart", "firebomb", "plagueoftoads", "acidcloud", "firebats", "zombiecharger",
-              "graspofthedead", "piranhas", "wallofdeath"], percent: 5100},
-            {skills: ["corpsespiders", "summonzombiedogs", "gargantuan"], percent: 5100},
+              "graspofthedead", "piranhas", "wallofdeath"], percent: 4400},
+            {skills: ["corpsespiders", "summonzombiedogs", "gargantuan"], percent: 4400},
           ]},
         }, {duration: 900});
       }
@@ -451,7 +451,7 @@ asheara's: todo
   affixes.set_sunwuko_6pc = function() {
     Sim.register("oncast", function(data) {
       if (["lashingtailkick", "tempestrush", "waveoflight"].indexOf(data.skill) >= 0) {
-        return {percent: 600 * Sim.getBuff("sweepingwind")};
+        return {percent: 1000 * Sim.getBuff("sweepingwind")};
       }
     });
   };
@@ -538,8 +538,8 @@ asheara's: todo
     });
   };
   affixes.set_light_6pc = function() {
-    Sim.addBaseStats({dmgmul: {skills: ["blessedhammer"], percent: 1250}});
-    Sim.addBaseStats({dmgmul: {skills: ["fallingsword"], percent: 500}});
+    Sim.addBaseStats({dmgmul: {skills: ["blessedhammer"], percent: 2000}});
+    Sim.addBaseStats({dmgmul: {skills: ["fallingsword"], percent: 1000}});
   };
 
   affixes.set_immortalking_4pc = function() {
@@ -590,7 +590,7 @@ asheara's: todo
     Sim.addBaseStats({dmgmul: {skills: ["rend"], percent: 500}});
   };
   affixes.set_wastes_6pc = function() {
-    Sim.addBaseStats({dmgmul: {skills: ["whirlwind"], percent: 3400}});
+    Sim.addBaseStats({dmgmul: {skills: ["whirlwind"], percent: 3000}});
   };
 
   affixes.set_jadeharvester_4pc = function() {

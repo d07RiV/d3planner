@@ -727,7 +727,7 @@ DiabloCalc.skills.crusader = {
       if (rune === "e") res.ias = 15;
       if (stats.set_akkhan_2pc) res.rcr = 50;
       if (stats.set_akkhan_6pc) {
-        res.dmgmul = {list: [35, 1000]};
+        res.dmgmul = {list: [35, 1500]};
         res.dmgred = 50;
       }
       return res;

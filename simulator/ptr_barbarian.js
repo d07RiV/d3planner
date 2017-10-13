@@ -395,8 +395,8 @@
         base.onexpire = ww_devils_onexpire;
       }
       if (Sim.stats.set_bulkathos_2pc) {
-        base.buffs.extrams = 30;
-        base.buffs.ias = 30;
+        base.buffs.extrams = 45;
+        base.buffs.ias = 45;
       }
       Sim.channeling("whirlwind", this.channeling, ww_ontick, data, base);
     },

@@ -46,8 +46,8 @@ DiabloCalc.itemSets = {
     tclass: "barbarian",
     bonuses: {
       "2": [
-        {stat: "furyregen", value: [10]},
-        {format: "During Whirlwind gain 30%% increased Attack Speed and Movement Speed."},
+        {stat: "furyregen", value: [15]},
+        {format: "During Whirlwind gain 45%% increased Attack Speed and Movement Speed."},
       ],
     },
   },
@@ -302,7 +302,7 @@ DiabloCalc.itemSets = {
         {format: "Archon stacks also increase your Attack Speed, Armor, and Resistances by 1%%."},
       ],
       "6": [
-        {format: "You gain 1 Archon stack when you hit with an Archon ability and Archon stacks also reduce damage taken by 0.15%% and have their damage bonus increased to 25%%."},
+        {format: "You gain 1 Archon stack when you hit with an Archon ability and Archon stacks also reduce damage taken by 0.15%% and have their damage bonus increased to 50%%."},
       ],
     },
   },
@@ -319,7 +319,7 @@ DiabloCalc.itemSets = {
         {format: "Dealing Fire damage with one of your skills causes the enemy to take 1000%% weapon damage as Fire per second for 3 seconds. This effect can be repeated a second and third time by different skills. If an enemy is burning due to three different skills simultaneously the enemy will Ignite, taking 3000%% weapon damage per second until they die."},
       ],
       "6": [
-        {format: "Your damage is increased by 250%% and damage taken reduced by 3%% for each enemy that is Ignited. This effect can stack up to 20 times. You always receive the maximum bonus whenever a nearby Elite monster is Ignited."},
+        {format: "Your damage is increased by 200%% and damage taken reduced by 3%% for each enemy that is Ignited. This effect can stack up to 20 times. You always receive the maximum bonus whenever a nearby Elite monster is Ignited."},
       ],
     },
   },
@@ -336,7 +336,7 @@ DiabloCalc.itemSets = {
         {format: "Rain of Vengeance deals 100% increased damage."},
       ],
       "6": [
-        {format: "After casting Rain of Vengenace, deal 2500%% increased damage and take 60%% reduced damage for 10 seconds."},
+        {format: "After casting Rain of Vengenace, deal 3500%% increased damage and take 60%% reduced damage for 10 seconds."},
       ],
     },
   },
@@ -370,7 +370,7 @@ DiabloCalc.itemSets = {
         {format: "Sentries deal 400% increased damage and cast Elemental Arrow, Chakram, Impale, Multishot, and Cluster Arrow when you do."},
       ],
       "6": [
-        {format: "Your primary skills, Elemental Arrow, Chakram, Impale, Multishot, Cluster Arrow, Companions, and Vengeance deal 2500%% increased damage for every active Sentry."},
+        {format: "Your primary skills, Elemental Arrow, Chakram, Impale, Multishot, Cluster Arrow, Companions, and Vengeance deal 3000%% increased damage for every active Sentry."},
       ],
     },
   },
@@ -404,7 +404,7 @@ DiabloCalc.itemSets = {
         {format: "After applying Necrosis to an enemy, you take 60%% reduced damage for 10 seconds."},
       ],
       "6": [
-        {format: "After casting Wall of Death, gain 5100%% increased damage for 15 seconds to your primary skills, Acid Cloud, Firebats, Zombie Charger, Zombie Dogs, Gargantuan, Grasp of the Dead, Piranhas, and Wall of Death."},
+        {format: "After casting Wall of Death, gain 4400%% increased damage for 15 seconds to your primary skills, Acid Cloud, Firebats, Zombie Charger, Zombie Dogs, Gargantuan, Grasp of the Dead, Piranhas, and Wall of Death."},
       ],
     },
   },
@@ -421,7 +421,7 @@ DiabloCalc.itemSets = {
         {format: "Soul Harvest gains the effect of every rune and has its cooldown reduced by 1 second every time you cast Haunt or Locust Swarm."},
       ],
       "6": [
-        {format: "Soul Harvest reduces damage taken by 50% for 12 seconds and consumes your damage over time effects on enemies, instantly dealing 1400 seconds worth of remaining damage."},
+        {format: "Soul Harvest reduces damage taken by 50% for 12 seconds and consumes your damage over time effects on enemies, instantly dealing 1650 seconds worth of remaining damage."},
       ],
     },
   },
@@ -506,7 +506,7 @@ DiabloCalc.itemSets = {
         {format: "Every second Sweeping Wind spawns a decoy next to the last enemy you hit that taunts nearby enemies and then explodes for 1000%% weapon damage for each stack of Sweeping Wind you have."},
       ],
       "6": [
-        {format: "Lashing Tail Kick, Tempest Rush, and Wave of Light have their damage increased by 600%% for each stack of Sweeping Wind you have."},
+        {format: "Lashing Tail Kick, Tempest Rush, and Wave of Light have their damage increased by 1000%% for each stack of Sweeping Wind you have."},
       ],
     },
   },
@@ -540,7 +540,7 @@ DiabloCalc.itemSets = {
         {format: "Reduce the cooldown of Akarat's Champion by 50%%."},
       ],
       "6": [
-        {format: "While Akarat's Champion is active, you deal 1000%% increased damage and take 50%% less damage."},
+        {format: "While Akarat's Champion is active, you deal 1500%% increased damage and take 50%% less damage."},
       ],
     },
   },
@@ -574,7 +574,7 @@ DiabloCalc.itemSets = {
         {format: "You take 60%% reduced damage while you have a Slow Time active. Allies inside your Slow Time gain half benefit."},
       ],
       "6": [
-        {format: "Enemies affected by your Slow Time and for 5 seconds after exiting take 4100%% increased damage from your Arcane Orb, Energy Twister, Explosive Blast, Magic Missile, Shock Pulse, Spectral Blade, and Wave of Force abilities."},
+        {format: "Enemies affected by your Slow Time and for 5 seconds after exiting take 3800%% increased damage from your Arcane Orb, Energy Twister, Explosive Blast, Magic Missile, Shock Pulse, Spectral Blade, and Wave of Force abilities."},
       ],
     },
   },
@@ -608,7 +608,7 @@ DiabloCalc.itemSets = {
         {format: "During Whirlwind and for 3 seconds after, you gain 50%% damage reduction and your applied Rends deal triple damage."},
       ],
       "6": [
-        {format: "Whirlwind gains the effect of the Dust Devils rune and all Whirlwind damage is increased by 3400%%."},
+        {format: "Whirlwind gains the effect of the Dust Devils rune and all Whirlwind damage is increased by 3000%%."},
       ],
     },
   },
@@ -625,7 +625,7 @@ DiabloCalc.itemSets = {
         {format: "You take 50%% less damage for 8 seconds after landing with Falling Sword."},
       ],
       "6": [
-        {format: "Increase the damage of Blessed Hammer by 1250%% and Falling Sword by 500%%."},
+        {format: "Increase the damage of Blessed Hammer by 2000%% and Falling Sword by 1000%%."},
       ],
     },
   },
@@ -739,7 +739,7 @@ DiabloCalc.itemSets = {
         {format: "Each enemy you hit with Bone Spear, Corpse Lance and Corpse Explosion reduces your damage taken by 2%%, up to a maximum of 50%%. Lasts 15 seconds."},
       ],
       "6": [
-        {format: "Each corpse you consume grants you an Empowered Bone Spear charge that increases the damage of your next Bone Spear by 4000%%. In addition, Corpse Lance and Corpse Explosion damage is increased by 2000%%."},
+        {format: "Each corpse you consume grants you an Empowered Bone Spear charge that increases the damage of your next Bone Spear by 3300%%. In addition, Corpse Lance and Corpse Explosion damage is increased by 1650%%."},
       ],
     },
   },

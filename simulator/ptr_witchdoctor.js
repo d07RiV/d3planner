@@ -263,7 +263,7 @@
       ontick: haunt_ontick,
     };
     if (Sim.stats.passives.creepingdeath) {
-      params.duration = 14400 * 60;
+      params.duration = 19800 * 60;
     }
     if (Sim.stats.leg_quetzalcoatl) {
       params.duration /= 2;
@@ -558,7 +558,7 @@
   function jade6_apply(id, targets) {
     var total = 0;
     var tickrate = 12;
-    var res = Sim.reduceBuffDuration(id, 1400 * 60, targets);
+    var res = Sim.reduceBuffDuration(id, 1650 * 60, targets);
     for (var i = 0; i < res.length; ++i) {
       var stack = res[i].buff;
       Sim.pushCastInfo(stack.castInfo);

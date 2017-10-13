@@ -368,7 +368,7 @@ DiabloCalc.itemaffixes = {
   set_firebird_6pc: {
     params: [{min: 0, max: 20, name: "Stacks"}],
     buffs: function(value, stats) {
-      return {dmgmul: this.params[0].val * 250, dmgred: 3 * this.params[0].val};
+      return {dmgmul: this.params[0].val * 200, dmgred: 3 * this.params[0].val};
     },
   },
   set_sunwuko_2pc: {
@@ -506,7 +506,7 @@ DiabloCalc.itemaffixes = {
   },
   set_natalya_6pc: {
     active: true,
-    buffs: {dmgmul: {percent: 2500, pet: false}, dmgred: 60},
+    buffs: {dmgmul: {percent: 3500, pet: false}, dmgred: 60},
   },
   set_zunimassa_4pc: {
     info: function(value, stats) {
@@ -558,8 +558,8 @@ DiabloCalc.itemaffixes = {
         var count = DiabloCalc.skills.demonhunter.sentry.params[0].val;
         return {dmgmul: {list: [
           {pet: false, skills: ["hungeringarrow", "entanglingshot", "bolas", "evasivefire", "grenade",
-            "chakram", "clusterarrow", "elementalarrow", "impale", "multishot", "vengeance"], percent: 2400 * count},
-          {skills: ["companion"], percent: 2500 * count},
+            "chakram", "clusterarrow", "elementalarrow", "impale", "multishot", "vengeance"], percent: 3000 * count},
+          {skills: ["companion"], percent: 3000 * count},
         ]}};
       }
     },
@@ -601,7 +601,7 @@ DiabloCalc.itemaffixes = {
 
   set_magnumopus_6pc: {
     active: true,
-    buffs: {dmgmul: {skills: ["arcaneorb", "energytwister", "explosiveblast", "magicmissile", "shockpulse", "spectralblade", "waveofforce"], percent: 4100}},
+    buffs: {dmgmul: {skills: ["arcaneorb", "energytwister", "explosiveblast", "magicmissile", "shockpulse", "spectralblade", "waveofforce"], percent: 3800}},
   },
 
   set_unhallowed_4pc: {
@@ -630,7 +630,7 @@ DiabloCalc.itemaffixes = {
     buffs: {dmgred: 50, dmgmul: {skills: ["rend"], percent: 200}},
   },
   set_wastes_6pc: {
-    buffs: {dmgmul: {skills: ["whirlwind"], percent: 3400}},
+    buffs: {dmgmul: {skills: ["whirlwind"], percent: 3000}},
   },
 
 /*  leg_nilfursboast: {
@@ -824,7 +824,7 @@ DiabloCalc.itemaffixes = {
       }
       if (stats.set_vyr_6pc) {
         res.dmgred = stacks * 0.15;
-        res.dmgmul = stacks * 25;
+        res.dmgmul = stacks * 50;
       }
       return res;
     },
@@ -843,8 +843,8 @@ DiabloCalc.itemaffixes = {
   },
   set_light_6pc: {
     buffs: {dmgmul: {list: [
-      {skills: ["blessedhammer"], percent: 1250},
-      {skills: ["fallingsword"], percent: 500},
+      {skills: ["blessedhammer"], percent: 2000},
+      {skills: ["fallingsword"], percent: 1000},
     ]}},
   },
   set_shenlong_2pc: {
@@ -863,8 +863,8 @@ DiabloCalc.itemaffixes = {
     buffs: function(value, stats) {
       return {dmgmul: {list: [
         {pet: false, skills: ["poisondart", "plagueoftoads", "firebomb", "acidcloud",
-           "firebats", "zombiecharger", "graspofthedead", "piranhas", "wallofdeath"], percent: 5100},
-        {skills: ["summonzombiedogs", "gargantuan", "corpsespiders"], percent: 5100},
+           "firebats", "zombiecharger", "graspofthedead", "piranhas", "wallofdeath"], percent: 4400},
+        {skills: ["summonzombiedogs", "gargantuan", "corpsespiders"], percent: 4400},
       ]}};
     },
   },
@@ -1539,10 +1539,10 @@ DiabloCalc.itemaffixes = {
   set_pestilence_6pc: {
     active: true,
     buffs: {dmgmul: {list: [
-      {skills: ["bonespear"], percent: 4000},
-      {skills: ["corpselance", "corpseexplosion"], percent: 2000},
+      {skills: ["bonespear"], percent: 3300},
+      {skills: ["corpselance", "corpseexplosion"], percent: 1650},
     ]}},
-    inactive: {dmgmul: {skills: ["corpselance", "corpseexplosion"], percent: 2000}},
+    inactive: {dmgmul: {skills: ["corpselance", "corpseexplosion"], percent: 1650}},
   },
 
   leg_bloodtideblade: {

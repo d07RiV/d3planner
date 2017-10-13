@@ -789,7 +789,7 @@ DiabloCalc.skills.wizard = {
       }
       if (stats.set_vyr_6pc) {
         res.dmgred = this.params[0].val * 0.15;
-        res.dmgmul.list[1] = this.params[0].val * 25;
+        res.dmgmul.list[1] = this.params[0].val * 50;
       }
       return res;
     },

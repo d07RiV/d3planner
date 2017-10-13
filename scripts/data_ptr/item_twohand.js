@@ -1119,7 +1119,7 @@ DiabloCalc.addItems([
     type: "staff",
     quality: "legendary",
     required: {
-      custom: {id: "leg_staffofchiroptera_p6", name: "Firebats Cost Reduction", format: "Firebats attacks 100%% faster, costs 75%% less Mana, and has its damage increased by %d%%.", min: 150, max: 200},
+      custom: {id: "leg_staffofchiroptera_p6", name: "Firebats Cost Reduction", format: "Firebats attacks 100%% faster, costs 75%% less Mana, and has its damage increased by %d%%.", min: 125, max: 150},
     },
     preset: ["mainstat"],
   },

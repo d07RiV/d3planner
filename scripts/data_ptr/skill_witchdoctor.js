@@ -445,7 +445,7 @@ DiabloCalc.skills.witchdoctor = {
         var haunt_dps, haunt_dur;
         if (haunt_rune) {
           var haunt_info = DiabloCalc.skills.witchdoctor.haunt.info(haunt_rune, stats);
-          haunt_dur = (stats.passives.creepingdeath ? 1400 : haunt_info["DPS"]["Damage"].divide);
+          haunt_dur = (stats.passives.creepingdeath ? 1650 : haunt_info["DPS"]["Damage"].divide);
           haunt_info = DiabloCalc.skill_processInfo(haunt_info, {skill: ["haunt", haunt_rune]});
           haunt_dps = haunt_info["DPS"].value;
         }
@@ -457,7 +457,7 @@ DiabloCalc.skills.witchdoctor = {
         var swarm_dps, swarm_dur;
         if (swarm_rune) {
           var swarm_info = DiabloCalc.skills.witchdoctor.locustswarm.info(swarm_rune, stats);
-          swarm_dur = (stats.passives.creepingdeath ? 1400 : swarm_info["DPS"]["Damage"].divide);
+          swarm_dur = (stats.passives.creepingdeath ? 1650 : swarm_info["DPS"]["Damage"].divide);
           swarm_info = DiabloCalc.skill_processInfo(swarm_info, {skill: ["locustswarm", swarm_rune]});
           swarm_dps = swarm_info["DPS"].value;
         }

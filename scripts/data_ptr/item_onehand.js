@@ -1494,7 +1494,7 @@ DiabloCalc.addItems([
     type: "dagger",
     quality: "legendary",
     required: {
-      custom: {id: "leg_karleispoint_p6", name: "Impale Damage Increase", format: "The damage of Impale is increased by %d%% and it returns 15 Hatred if it hits an enemy already Impaled.", min: 225, max: 300},
+      custom: {id: "leg_karleispoint_p6", name: "Impale Damage Increase", format: "The damage of Impale is increased by %d%% and it returns 15 Hatred if it hits an enemy already Impaled.", min: 300, max: 375},
     },
     preset: ["mainstat", "wpncol"],
   },

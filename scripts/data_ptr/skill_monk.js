@@ -567,7 +567,7 @@ DiabloCalc.skills.monk = {
     passive: function(rune, stats) {
       var buffs = {};
       if (rune === "d" && this.params[0].val >= 3) buffs.spiritregen = 8;
-      if (stats.set_sunwuko_6pc && this.params[0].val) buffs.dmgmul = {skills: ["lashingtailkick", "tempestrush", "waveoflight"], percent: 600 * this.params[0].val};
+      if (stats.set_sunwuko_6pc && this.params[0].val) buffs.dmgmul = {skills: ["lashingtailkick", "tempestrush", "waveoflight"], percent: 1000 * this.params[0].val};
       return buffs;
     },
   },

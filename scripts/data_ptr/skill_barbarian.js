@@ -338,8 +338,8 @@ DiabloCalc.skills.barbarian = {
     buffs: function(rune, stats) {
       var res = {};
       if (stats.set_bulkathos_2pc) {
-        res.extrams = 30;
-        res.ias = 30;
+        res.extrams = 45;
+        res.ias = 45;
       }
       if (!$.isEmptyObject(res)) {
         return res;
