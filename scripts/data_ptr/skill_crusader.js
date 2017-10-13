@@ -762,7 +762,7 @@ DiabloCalc.skills.crusader = {
       case "d": res = {"Cooldown": cd, "Damage": {elem: "lit", coeff: 17.1, total: true}}; break;
       case "e": res = {"Cost": {cost: 40}, "Damage": {elem: "hol", coeff: 9.6}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 57.777767}}}; break;
       }
-      if (rune == "e" && (stats.leg_fateofthefell || leg_fateofthefell_p6)) {
+      if (rune == "e" && (stats.leg_fateofthefell || stats.leg_fateofthefell_p6)) {
         res["DPS"]["Damage"].count = 3;
       }
       if ((stats.leg_braceroffury || stats.leg_braceroffury_p6) && this.active) {
