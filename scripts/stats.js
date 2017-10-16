@@ -318,14 +318,16 @@
         }
         if (data.ancient) ++this.info.ancients;
         if (itemType.weapon) {
+          var weapon = itemType.weapon;
+          if (item.weapon) weapon = $.extend({}, weapon, item.weapon);
           this.info[slot] = {
-            speed: itemType.weapon.speed * (1 + 0.01 * (data.stats.weaponias || [0])[0]),
+            speed: weapon.speed * (1 + 0.01 * (data.stats.weaponias || [0])[0]),
             ias: (data.stats.weaponias || [0])[0],
-            wpnphy: {min: itemType.weapon.min, max: itemType.weapon.max},
+            wpnphy: {min: weapon.min, max: weapon.max},
             damage: (data.stats.damage || [0])[0],
             type: item.type,
             slot: itemType.slot,
-            weaponClass: itemType.weapon.type,
+            weaponClass: weapon.type,
           };
         }
         if (item.set) {

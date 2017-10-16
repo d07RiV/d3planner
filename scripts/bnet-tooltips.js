@@ -817,9 +817,11 @@
       }
       if (itemType.weapon) {
         //TODO: fix quality
-        var speed = itemType.weapon.speed;
-        var dmgmin = itemType.weapon.min;
-        var dmgmax = itemType.weapon.max;
+        var weapon = itemType.weapon;
+        if (item.weapon) weapon = $.extend({}, weapon, item.weapon);
+        var speed = weapon.speed;
+        var dmgmin = weapon.min;
+        var dmgmax = weapon.max;
         var dmgmin_max, dmgmax_max, speed_max;
         if (data.gems) {
           for (var i = 0; i < data.gems.length; ++i) {

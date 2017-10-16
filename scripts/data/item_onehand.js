@@ -1422,6 +1422,12 @@ DiabloCalc.addItems([
     required: {
       custom: {id: "leg_thebarber", name: "Spirit Barrage Explosion Damage", format: "Instead of dealing direct damage, your Spirit Barrage now accumulates on the target. When you stop casting, it explodes dealing %d%% of the accumulated damage to all enemies within 15 yards.", min: 225, max: 250},
     },
+    weapon: {
+      speed: 1.5,
+      min: 107,
+      max: 321,
+      type: "thrust",
+    },
     preset: ["mainstat", "wpncol"],
   },
 
