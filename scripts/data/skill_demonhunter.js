@@ -138,6 +138,10 @@ DiabloCalc.skills.demonhunter = {
       }
       return $.extend({"DPS": {sum: true, "Damage": {speed: 1, ias: (stats.leg_hunterswrath ? 30 : 0), fpa: fpa, round: "up"}}}, res);
     },
+    active: false,
+    buffs: {
+      a: {armor_percent: 25},
+    },
   },
   grenade: {
     id: "grenade",
