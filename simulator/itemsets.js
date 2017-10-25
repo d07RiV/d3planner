@@ -122,7 +122,7 @@ asheara's: todo
           }
         }
       }
-      Sim.setBuffStacks("firebird_6pc", {dmgmul: 120, dmgred: 3}, Math.min(stacks, 20));
+      Sim.setBuffStacks("firebird_6pc", {dmgmul: 200, dmgred: 3}, Math.min(stacks, 20));
     });
   };
 
@@ -154,7 +154,7 @@ asheara's: todo
     Sim.watchBuff("slowtime", function(data) {
       if (data.targets) {
         buffname = Sim.addBuff(buffname, {dmgmul: {skills: ["arcaneorb", "energytwister", "explosiveblast", "magicmissile",
-          "shockpulse", "spectralblade", "waveofforce"], percent: 3500}}, {targets: data.targets});
+          "shockpulse", "spectralblade", "waveofforce"], percent: 3800}}, {targets: data.targets});
       } else if (buffname) {
         Sim.after(300, function() {
           if (!Sim.getBuff("slowtime")) {
@@ -182,7 +182,7 @@ asheara's: todo
               Sim.removeBuff(buff);
               return;
             }
-            Sim.damage({type: "area", range: 30, self: true, coeff: 3.5 * stacks, elem: "max", srcelem: elem});
+            Sim.damage({type: "area", range: 30, self: true, coeff: 10 * stacks, elem: "max", srcelem: elem});
           },
         });
       }
@@ -225,7 +225,7 @@ asheara's: todo
   affixes.set_natalya_6pc = function() {
     Sim.register("oncast", function(data) {
       if (data.skill === "rainofvengeance") {
-        Sim.addBuff("natalya_6pc", {dmgmul: 500, dmgred: 60}, {duration: 600});
+        Sim.addBuff("natalya_6pc", {dmgmul: 3500, dmgred: 60}, {duration: 600});
       }
     });
   };
@@ -249,14 +249,14 @@ asheara's: todo
     Sim.register("oncast", function(data) {
       if (data.generate || list.indexOf(data.skill) >= 0) {
         var stacks = Sim.getBuff("sentry");
-        if (stacks) return {percent: stacks * 1200};
+        if (stacks) return {percent: stacks * 3000};
       }
     });
     // We can't put them together or else sentry spenders will get buffed too (we could avoid it by setting
     // pet=false, but then companion would have to be in a separate buff anyway).
     var buffname = undefined;
     Sim.watchBuff("sentry", function(data) {
-      buffname = Sim.setBuffStacks(buffname, {dmgmul: {skills: ["companion", "vengeance"], percent: 1200}}, data.stacks);
+      buffname = Sim.setBuffStacks(buffname, {dmgmul: {skills: ["companion", "vengeance"], percent: 3000}}, data.stacks);
     });
   };
 
@@ -281,7 +281,7 @@ asheara's: todo
   affixes.set_unhallowed_6pc = function() {
     Sim.register("oncast", function(data) {
       if (data.generate || data.skill === "multishot") {
-        return {percent: 40 * (Sim.resources.disc || 0)};
+        return {percent: 100 * (Sim.resources.disc || 0)};
       }
     });
   };
@@ -295,7 +295,7 @@ asheara's: todo
         if (cost) cost = cost.x;
       }
       if (data.castInfo && cost) {
-        Sim.addBuff("zunimassa_6pc", {dmgmul: {pet: true, percent: 2500}}, {duration: 480, targets: data.targets, firsttarget: data.firsttarget});
+        Sim.addBuff("zunimassa_6pc", {dmgmul: {pet: true, percent: 5500}}, {duration: 480, targets: data.targets, firsttarget: data.firsttarget});
       }
     });
   };
@@ -305,8 +305,7 @@ asheara's: todo
       "summonzombiedogs", "gargantuan", "graspofthedead", "piranhas", "wallofdeath"];
     Sim.register("onhit", function(data) {
       if (data.castInfo && skills.indexOf(data.castInfo.skill) >= 0) {
-        var buffs = {dmgtaken: 20};
-        Sim.addBuff("helltooth_2pc", buffs, {
+        Sim.addBuff("helltooth_2pc", undefined, {
           status: "slowed",
           duration: 601,
           tickrate: 30,
@@ -333,8 +332,8 @@ asheara's: todo
         Sim.addBuff("helltooth_6pc", {
           dmgmul: {list: [
             {pet: false, skills: ["poisondart", "firebomb", "plagueoftoads", "acidcloud", "firebats", "zombiecharger",
-              "graspofthedead", "piranhas", "wallofdeath"], percent: 1400},
-            {skills: ["corpsespiders", "summonzombiedogs", "gargantuan"], percent: 1400},
+              "graspofthedead", "piranhas", "wallofdeath"], percent: 4400},
+            {skills: ["corpsespiders", "summonzombiedogs", "gargantuan"], percent: 4400},
           ]},
         }, {duration: 900});
       }
@@ -362,13 +361,13 @@ asheara's: todo
     });
   };
   affixes.set_arachyr_6pc = function() {
-    Sim.addBaseStats({dmgmul: {skills: ["corpsespiders", "plagueoftoads", "firebats", "hex", "locustswarm", "piranhas"], percent: 2400}});
+    Sim.addBaseStats({dmgmul: {skills: ["corpsespiders", "plagueoftoads", "firebats", "hex", "locustswarm", "piranhas"], percent: 4500}});
   };
 
   affixes.set_shenlong_2pc = function() {
     Sim.register("oncast", function(data) {
       if (data.generate) {
-        return {percent: Sim.resources.spirit * 1.5};
+        return {percent: Sim.resources.spirit * 2};
       }
     });
     Sim.register("updatestats", function(data) {
@@ -378,7 +377,7 @@ asheara's: todo
     });
     Sim.after(12, function check() {
       if (Sim.resources.spirit >= Sim.stats.maxspirit - 1) {
-        Sim.addBuff("shenlong_2pc", {dmgmul: 150}, {});
+        Sim.addBuff("shenlong_2pc", {dmgmul: 200}, {});
       } else if (Sim.resources.spirit <= 1) {
         Sim.removeBuff("shenlong_2pc");
       }
@@ -416,7 +415,7 @@ asheara's: todo
     }
     var buffname;
     Sim.watchBuff("mystically", function(data) {
-      buffname = Sim.setBuffStacks(buffname, {dmgmul: 125}, data.stacks);
+      buffname = Sim.setBuffStacks(buffname, {dmgmul: 150}, data.stacks);
     });
   };
 
@@ -451,11 +450,8 @@ asheara's: todo
   };
   affixes.set_sunwuko_6pc = function() {
     Sim.register("oncast", function(data) {
-      //TODO: don't consume a stack for every TR tick?
       if (["lashingtailkick", "tempestrush", "waveoflight"].indexOf(data.skill) >= 0) {
-        if (!Sim.getBuff("sweepingwind")) return;
-        Sim.removeBuff("sweepingwind", 1);
-        return {percent: 3000};
+        return {percent: 1000 * Sim.getBuff("sweepingwind")};
       }
     });
   };
@@ -470,7 +466,7 @@ asheara's: todo
         Sim.addBuff("storms_6pc_ds", undefined, {duration: 360});
       } else if (data.skill === "dashingstrike") {
         Sim.addBuff("storms_6pc_gen", {dmgmul:
-          {skills: ["fistsofthunder", "deadlyreach", "cripplingwave", "wayofthehundredfists"], percent: 1250}}, {duration: 360});
+          {skills: ["fistsofthunder", "deadlyreach", "cripplingwave", "wayofthehundredfists"], percent: 1300}}, {duration: 360});
       }
     });
   };
@@ -489,7 +485,7 @@ asheara's: todo
     });
   };
   affixes.set_uliana_6pc = function() {
-    Sim.addBaseStats({dmgmul: {skills: ["explodingpalm"], percent: 250}});
+    Sim.addBaseStats({dmgmul: {skills: ["explodingpalm"], percent: 2100}});
     Sim.register("onhit", function(data) {
       if (data.castInfo && data.castInfo.user && data.castInfo.skill === "sevensidedstrike" && Sim.getBuff("explodingpalm", data.firsttarget)) {
         Sim.explode_palm(data.firsttarget);
@@ -508,7 +504,7 @@ asheara's: todo
     });
   };
   affixes.set_roland_4pc = function() {
-    Sim.addBaseStats({dmgmul: {skills: ["shieldbash", "sweepattack"], percent: 2500}});
+    Sim.addBaseStats({dmgmul: {skills: ["shieldbash", "sweepattack"], percent: 3300}});
   };
   affixes.set_roland_6pc = function() {
     Sim.register("onhit", function(data) {
@@ -542,8 +538,8 @@ asheara's: todo
     });
   };
   affixes.set_light_6pc = function() {
-    Sim.addBaseStats({dmgmul: {skills: ["blessedhammer"], percent: 1250}});
-    Sim.addBaseStats({dmgmul: {skills: ["fallingsword"], percent: 500}});
+    Sim.addBaseStats({dmgmul: {skills: ["blessedhammer"], percent: 2000}});
+    Sim.addBaseStats({dmgmul: {skills: ["fallingsword"], percent: 1000}});
   };
 
   affixes.set_immortalking_4pc = function() {
@@ -560,7 +556,7 @@ asheara's: todo
   affixes.set_immortalking_6pc = function() {
     Sim.after(60, function check() {
       if (Sim.getBuff("wrathoftheberserker") && Sim.getBuff("calloftheancients")) {
-        Sim.addBuff("immortalking_6pc", {dmgmul: 400}, {duration: 72});
+        Sim.addBuff("immortalking_6pc", {dmgmul: 1500}, {duration: 72});
       }
       Sim.after(60, check);
     });
@@ -587,14 +583,14 @@ asheara's: todo
     });
   };
   affixes.set_earth_6pc = function() {
-    Sim.addBaseStats({dmgmul: {skills: ["earthquake", "avalanche", "leap", "groundstomp", "ancientspear", "seismicslam"], percent: 1200}});
+    Sim.addBaseStats({dmgmul: {skills: ["earthquake", "avalanche", "leap", "groundstomp", "ancientspear", "seismicslam"], percent: 5600}});
   };
 
   affixes.set_wastes_2pc = function() {
     Sim.addBaseStats({dmgmul: {skills: ["rend"], percent: 500}});
   };
   affixes.set_wastes_6pc = function() {
-    Sim.addBaseStats({dmgmul: {skills: ["whirlwind"], percent: 800}});
+    Sim.addBaseStats({dmgmul: {skills: ["whirlwind"], percent: 3000}});
   };
 
   affixes.set_jadeharvester_4pc = function() {
@@ -606,7 +602,7 @@ asheara's: todo
   };
 
   affixes.set_raekor_4pc = function() {
-    Sim.addBaseStats({dmgmul: {skills: ["furiouscharge"], percent: 300}});
+    Sim.addBaseStats({dmgmul: {skills: ["furiouscharge"], percent: 1000}});
   };
   affixes.set_raekor_6pc = function() {
     Sim.register("oncast", function(data) {
@@ -616,7 +612,7 @@ asheara's: todo
         var stacks = Math.min(5, Sim.getBuff("raekor_6pc"));
         if (stacks) {
           Sim.removeBuff("raekor_6pc", stacks);
-          return {percent: 750 * stacks};
+          return {percent: 2800 * stacks};
         }
       }
     });
@@ -672,7 +668,7 @@ asheara's: todo
   affixes.set_invoker_6pc = function() {
     Sim.register("onhit_proc", function(data) {
       if (data.castInfo && (data.castInfo.skill === "punish" || data.castInfo.skill === "slash") && data.castInfo.user && !data.castInfo.user.invoker_6pc) {
-        Sim.damage({thorns: "special", coeff: 8, elem: "phy", srcelem: "none"/*, elem: "phy", skill: data.castInfo.skill*/});
+        Sim.damage({thorns: "special", coeff: 54, elem: "phy", srcelem: "none"/*, elem: "phy", skill: data.castInfo.skill*/});
         data.castInfo.user.invoker_6pc = true;
       }
     });

@@ -286,7 +286,7 @@ DiabloCalc.addItems([
     type: "amulet",
     quality: "legendary",
     required: {
-      custom: {id: "leg_thejohnstone", name: "Corpse Skill Bonus Damage", format: "Each corpse consumed in the Land of the Dead grants a stack of Macabre Knowledge. Macabre Knowledge increases the damage of Corpse Lance and Corpse Explosion by %d%% while outside Land of the Dead.", min: 150, max: 200},
+      custom: {id: "leg_thejohnstone", name: "Corpse Skill Bonus Damage", format: "When Land of the Dead expires, you are granted 50 stacks of Macabre Knowledge. Macabre Knowledge increases the damage of Corpse Lance and Corpse Explosion by %d%%.", min: 150, max: 200},
     },
     preset: ["mainstat", "chd"],
   },

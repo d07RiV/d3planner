@@ -255,11 +255,11 @@
     Sim.damage({type: "line", origin: (data.self ? Sim.target.distance : 0),
       range: range, angle: angle, coeff: 0.6, skill: "blessedhammer", elem: skills.blessedhammer.elem.b});
   }
-  function hammer_ll_onhit(event) {
-    if (Sim.random("limitless", 0.25, event.targets)) {
-      Sim.cast_hammer(false, true);
-    }
-  }
+  //function hammer_ll_onhit(event) {
+  //  if (Sim.random("limitless", 0.25, event.targets)) {
+  //    Sim.cast_hammer(false, true);
+  //  }
+  //}
   function hammer_ih_onhit(event) {
     var count = Sim.random("crushingblow", 0.35, event.targets, true);
     if (count) Sim.damage({type: "area", range: 6, coeff: 4.6,
@@ -279,7 +279,8 @@
       });
       break;
     case "c":
-      if (!clone) dmg.onhit = hammer_ll_onhit;
+      //if (!clone) dmg.onhit = hammer_ll_onhit;
+      dmg.coeff = 6.4;
       break;
     case "d": dmg.onhit = hammer_ih_onhit; break;
     }
@@ -321,11 +322,11 @@
     offensive: true,
     frames: 58.06451,
     cost: function(rune) {
-      return (Sim.stats.leg_gyrfalconsfoote ? 0 : 20);
+      return (Sim.stats.leg_gyrfalconsfoote || Sim.stats.leg_gyrfalconsfoote_p6 ? 0 : 20);
     },
     oncast: function(rune) {
       var dmg = {delay: Math.floor(Sim.target.distance / 2), targets: 4, coeff: 4.3 + 0.025 * (Sim.stats.block || 0)};
-      if (Sim.stats.leg_jekangbord) dmg.targets += Sim.stats.leg_jekangbord;
+      if (Sim.stats.leg_jekangbord || Sim.stats.leg_jekangbord_p6) dmg.targets += ((Sim.stats.leg_jekangbord && 6) || Sim.stats.leg_jekangbord);
       switch (rune) {
       case "a": dmg.onhit = Sim.apply_effect("stunned", 120, 0.25); break;
       case "b": dmg.onhit = bs_combust_onhit; break;
@@ -335,7 +336,7 @@
         break;
       case "d":
         dmg.targets = 1;
-        Sim.damage({delay: dmg.delay, targets: Math.min(3 * (4 + (Sim.stats.leg_jekangbord || 0)), Sim.target.count - 1), coeff: 1.7});
+        Sim.damage({delay: dmg.delay, targets: Math.min(3 * (4 + ((Sim.stats.leg_jekangbord_p6 && 6) || Sim.stats.leg_jekangbord || 0)), Sim.target.count - 1), coeff: 1.7});
         break;
       case "e":
         delete dmg.delay;
@@ -659,7 +660,7 @@
     Sim.damage({type: "area", range: 15, coeff: 11.6, count: Math.min(2, data.targets)});
   }
   function condemn_retaliation_onhit(data) {
-    if (Sim.stats.leg_bladeofprophecy) condemn_bop_onhit(data);
+    if (Sim.stats.leg_bladeofprophecy || Sim.stats.leg_bladeofprophecy_p6) condemn_bop_onhit(data);
     Sim.reduceCooldown("condemn", 60 * data.targets);
   }
   skills.condemn = {
@@ -667,14 +668,14 @@
     secondary: true,
     frames: 36,
     cooldown: function(rune) {
-      return (Sim.stats.leg_frydehrswrath ? 0 : 15);
+      return (Sim.stats.leg_frydehrswrath || Sim.stats.leg_frydehrswrath_p6 ? 0 : 15);
     },
     cost: function(rune) {
-      return (Sim.stats.leg_frydehrswrath ? 40 : 0);
+      return (Sim.stats.leg_frydehrswrath || Sim.stats.leg_frydehrswrath_p6 ? 40 : 0);
     },
     oncast: function(rune) {
       var dmg = {delay: 180, type: "area", self: true, range: 15, coeff: 11.6};
-      if (Sim.stats.leg_bladeofprophecy) {
+      if (Sim.stats.leg_bladeofprophecy || Sim.stats.leg_bladeofprophecy_p6) {
         dmg.onhit = condemn_bop_onhit;
       }
       switch (rune) {
@@ -905,8 +906,8 @@
       var buffs = {dmgmul: 35, wrathregen: 5};
       if (Sim.stats.set_akkhan_2pc) buffs.rcr = 50;
       if (Sim.stats.set_akkhan_6pc) {
-        buffs.dmgmul = {list: [35, 600]};
-        buffs.dmgred = 15;
+        buffs.dmgmul = {list: [35, 1500]};
+        buffs.dmgred = 50;
       }
       if (rune === "b" || Sim.stats.leg_akkhansaddendum) buffs.wrathregen = 10;
       if (rune === "c") {
@@ -940,8 +941,8 @@
 
   function hf_ontick(data) {
     var coeff = data.coeff;
-    if (Sim.stats.leg_braceroffury && (Sim.stats.blinded || Sim.stats.rooted || Sim.stats.stunned)) {
-      coeff *= 1 + 0.01 * Sim.stats.leg_braceroffury;
+    if ((Sim.stats.leg_braceroffury || Sim.stats.leg_braceroffury_p6) && (Sim.stats.blinded || Sim.stats.rooted || Sim.stats.stunned)) {
+      coeff *= 1 + 0.01 * (Sim.stats.leg_braceroffury || Sim.stats.leg_braceroffury_p6);
     }
     Sim.damage({type: "area", range: data.range, coeff: coeff});
     if (data.count > 1) Sim.damage({type: "area", count: data.count - 1, origin: data.range * 2, range: data.range, coeff: coeff});
@@ -987,13 +988,13 @@
         break;
       case "e":
         var dmg = {type: "line", range: 55, radius: 3, pierce: true, coeff: 9.6};
-        if (Sim.stats.leg_fateofthefell) {
+        if (Sim.stats.leg_fateofthefell || Sim.stats.leg_fateofthefell_p6) {
           dmg.fan = 50;
           dmg.count = 3;
         }
         return dmg;
       }
-      if (Sim.stats.leg_fateofthefell) {
+      if (Sim.stats.leg_fateofthefell || Sim.stats.leg_fateofthefell_p6) {
         params.data.count += 2;
       }
       Sim.addBuff(undefined, undefined, params);

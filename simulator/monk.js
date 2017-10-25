@@ -95,7 +95,7 @@
             var coeff = 0.3;
             if (Sim.stats.set_shenlong_2pc) {
               // dirty fix
-              coeff *= 1 + 0.015 * (Sim.resources.spirit || 0);
+              coeff *= 1 + 0.02 * (Sim.resources.spirit || 0);
             }
             Sim.damage({targets: tlist, count: data.proc * count, coeff: coeff, proc: 0});
           }
@@ -323,6 +323,9 @@
     if (Sim.stats.leg_scarbringer) {
       this.factor = (this.factor || 1) * (1 + 3 * Math.min(Sim.stats.leg_scarbringer, this.targets) / this.targets);
     }
+    if (Sim.stats.leg_scarbringer_p6) {
+      this.factor = (this.factor || 1) * (1 + 0.01 * Sim.stats.leg_scarbringer_p6 * Math.min(7, this.targets) / this.targets);
+    }
   }
   function ltk_vulture_onhit(data) {
     Sim.addBuff(undefined, undefined, {
@@ -358,7 +361,7 @@
         dmg = {type: "area", range: 10, coeff: 7.55, onhit: Sim.apply_effect("chilled", 180)};
         break; 
       }
-      if (Sim.stats.leg_scarbringer) {
+      if (Sim.stats.leg_scarbringer || Sim.stats.leg_scarbringer_p6) {
         dmg.fix = ltk_scar_fix;
       }
       if (Sim.stats.leg_gyananakashu && !Sim.castInfo().triggered) {
@@ -373,7 +376,7 @@
   };
 
   function tr_balance_fix() {
-    if (Sim.stats.leg_balance && this.targets <= 3) {
+    if ((Sim.stats.leg_balance || Sim.stats.leg_balance_p6) && this.targets <= 3) {
       this.chc = 100;
     }
   }
@@ -409,9 +412,9 @@
       case "a": dmg.onhit = Sim.apply_effect("knockback", 30); break;
       }
       if (rune === "e") {
-        Sim.addBuff("flurry", undefined, {maxstacks: 500});
+        Sim.addBuff("flurry", undefined, {maxstacks: 100});
       }
-      if (Sim.stats.leg_balance) dmg.fix = tr_balance_fix;
+      if (Sim.stats.leg_balance || Sim.stats.leg_balance_p6) dmg.fix = tr_balance_fix;
       return Sim.channeling("tempestrush", this.channeling, tr_ontick, {dmg: dmg}, params);
     },
     oninit: function(rune) {
@@ -431,7 +434,7 @@
   skills.waveoflight = {
     offensive: true,
     cost: function(rune) {
-      return 75 * (1 - 0.01 * (Sim.stats.leg_incensetorchofthegrandtemple || 0));
+      return 75 * (1 - 0.01 * ((Sim.stats.leg_incensetorchofthegrandtemple_p6 && 50) || Sim.stats.leg_incensetorchofthegrandtemple || 0));
     },
     frames: 58.823528,
     oncast: function(rune) {
@@ -645,7 +648,7 @@
     oncast: function(rune) {
       var dmg = {type: "area", self: true, range: 10, coeff: 3.7};
       if (Sim.getBuff("storms_6pc_ds")) {
-        dmg.coeff = 125;
+        dmg.coeff = 130;
       }
       switch (rune) {
       case "b":
@@ -722,6 +725,9 @@
     }
     if (Sim.stats.leg_thefistofazturrasq_p2) {
       damage.coeff *= 1 + 0.01 * Sim.stats.leg_thefistofazturrasq_p2;
+    }
+    if (Sim.stats.leg_thefistofazturrasq_p6) {
+      damage.coeff *= 1 + 0.01 * Sim.stats.leg_thefistofazturrasq_p6;
     }
     Sim.pushCastInfo(Sim.getBuffCastInfo("explodingpalm", target));
     Sim.damage(damage);
@@ -900,7 +906,7 @@
             dmg.coeff = 8.77;
           }
           if (Sim.stats.set_uliana_4pc && !triggered) {
-            dmg.coeff *= 2 * (7 + (Sim.stats.leg_lionsclaw ? 7 : 0));
+            dmg.coeff *= 7.77 * (7 + (Sim.stats.leg_lionsclaw ? 7 : 0));
           }
           Sim.damage(dmg);
         },

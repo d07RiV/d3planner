@@ -195,6 +195,20 @@
   };
 
   affixes.leg_wandofwoh = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["explosiveblast"], percent: 100}});
+    function docast(data) {
+      Sim.cast("explosiveblast", data.rune);
+    }
+    Sim.register("oncast", function(data) {
+      if (data.skill === "explosiveblast") {
+        Sim.after(30, docast, {rune: data.rune});
+        Sim.after(60, docast, {rune: data.rune});
+        Sim.after(90, docast, {rune: data.rune});
+      }
+    });
+  };
+  affixes.leg_wandofwoh_p6 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["explosiveblast"], percent: amount}});
     function docast(data) {
       Sim.cast("explosiveblast", data.rune);
     }
@@ -210,7 +224,7 @@
   affixes.leg_thefurnace = function(amount) {
     Sim.addBaseStats({edmg: amount});
   };
-  affixes.leg_triumvirate = affixes.leg_triumvirate_p2 = function(amount) {
+  affixes.leg_triumvirate = affixes.leg_triumvirate_p2 = affixes.leg_triumvirate_p6 = function(amount) {
     Sim.register("oncast", function(data) {
       if (Sim.skills[data.skill] && Sim.skills[data.skill].signature) {
         Sim.addBuff("triumvirate", {dmgmul: {skills: ["arcaneorb"], percent: amount}}, {maxstacks: 3, duration: 360});
@@ -526,11 +540,11 @@
     Sim.register("oncast", function(data) {
       if (data.offensive && Sim.time >= next && Sim.random("wizardspike", amount * 0.01)) {
         Sim.damage({skill: "arcaneorb", elem: "col", type: "area",
-          origin: Sim.target.distance - 30, coeff: 3.93, range: 15, delay: 30 / 0.6});
+          origin: Sim.target.distance - 30, coeff: 9.50, range: 15, delay: 30 / 0.6});
         Sim.damage({skill: "arcaneorb", elem: "col", type: "line",
-          coeff: 2.62, pierce: true, range: 30, speed: 0.6, radius: 15});
+          coeff: 6.35, pierce: true, range: 30, speed: 0.6, radius: 15});
         Sim.damage({skill: "arcaneorb", elem: "col", type: "line",
-          coeff: 1.31, pierce: true, range: 30, radius: 15, delay: 30 / 0.6 + 0.6, proc: 0.013});
+          coeff: 3.15, pierce: true, range: 30, radius: 15, delay: 30 / 0.6 + 0.6, proc: 0.013});
         next = Sim.time + 120;
       }
     });
@@ -733,6 +747,9 @@
   affixes.leg_theshortmansfinger = function(amount) {
     Sim.addBaseStats({dmgmul: {skills: ["gargantuan"], percent: 200}});
   };
+  affixes.leg_theshortmansfinger_p6 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["gargantuan"], percent: amount}});
+  };
   affixes.leg_wormwood = function(amount) {
     Sim.after(30, function apply() {
       if (Sim.getTargets(16, Sim.target.distance)) {
@@ -818,7 +835,7 @@
     });
   };
 
-  affixes.leg_spiritguards = function(amount) {
+  affixes.leg_spiritguards = affixes.leg_spiritguards_p6 = function(amount) {
     if (Sim.stats.charClass !== "monk") return;
     Sim.register("oncast", function(data) {
       if (data.generate) {
@@ -831,7 +848,7 @@
     Sim.addBaseStats({dmgmul: {skills: ["hungeringarrow", "entanglingshot", "bolas", "evasivefire", "grenade"], percent: amount}});
   };
 
-  affixes.leg_bindingofthelost = function(amount) {
+  affixes.leg_bindingofthelost = affixes.leg_bindingofthelost_p6 = function(amount) {
     Sim.register("onhit", function(data) {
       if (data.castInfo && data.castInfo.skill === "sevensidedstrike") {
         //todo: damage reduction
@@ -840,7 +857,7 @@
     });
   };
 
-  affixes.leg_wrapsofclarity = function(amount) {
+  affixes.leg_wrapsofclarity = affixes.leg_wrapsofclarity_p6 = function(amount) {
     if (Sim.stats.charClass !== "demonhunter") return;
     Sim.register("oncast", function(data) {
       if (data.generate) {
@@ -927,10 +944,10 @@
     });
   };
 
-  affixes.leg_bracersofthefirstmen = function(amount) {
+  affixes.leg_bracersofthefirstmen = affixes.leg_bracersofthefirstmen_p6 = function(amount) {
     Sim.addBaseStats({dmgmul: {skills: ["hammeroftheancients"], percent: amount}});
   };
-  affixes.leg_maskofjeram = function(amount) {
+  affixes.leg_maskofjeram = affixes.leg_maskofjeram_p6 = function(amount) {
     Sim.addBaseStats({petdamage: amount});
   };
   affixes.leg_depthdiggers = function(amount) {
@@ -976,7 +993,7 @@
       }
     });
   };
-  affixes.leg_cesarsmemento = function(amount) {
+  affixes.leg_cesarsmemento = affixes.leg_cesarsmemento_p6 = function(amount) {
     function trigger(duration, targets) {
       Sim.addBuff("cesarsmemento", {dmgmul: {skills: ["tempestrush"], percent: amount}}, {duration: 300, targets: targets});
     }
@@ -1043,11 +1060,14 @@
     Sim.addBaseStats({pickup: 20});
   };
 
-  affixes.leg_etchedsigil = function(amount) {
+  affixes.leg_etchedsigil = affixes.leg_etchedsigil_p6 = function(amount) {
     //TODO: fix mechanics
-    var list = [], index = 0;
+    var list = [], index = 0, buffs = undefined;
     for (var id in Sim.stats.skills) {
       if (["arcaneorb", "waveofforce", "energytwister", "hydra", "meteor", "blizzard", "explosiveblast", "blackhole"].indexOf(id) >= 0) list.push(id);
+    }
+    if (Sim.stats.leg_etchedsigil_p6) {
+      buffs = {dmgmul: {skills: list, percent: amount}};
     }
     var cds = {explosiveblast: 360, blackhole: 12 * 60};
     if (Sim.stats.skills.meteor === "a") cds.meteor = 15 * 60;
@@ -1062,7 +1082,7 @@
     function update() {
       if (Sim.getBuff("rayoffrost") || Sim.getBuff("arcanetorrent") || Sim.getBuff("disintegrate")) {
         if (!buffname || !Sim.getBuff(buffname)) {
-          buffname = Sim.addBuff(buffname, undefined, {
+          buffname = Sim.addBuff(buffname, buffs, {
             tickrate: 60,
             tickinitial: 1,
             ontick: function(data) {
@@ -1115,7 +1135,7 @@
     Sim.watchStatus("frozen", trigger);
     Sim.watchStatus("stunned", trigger);
   };
-  affixes.leg_standoff = function(amount) {
+  affixes.leg_standoff = affixes.leg_standoff_p6 = function(amount) {
     Sim.register("oncast", function(data) {
       if (data.skill === "furiouscharge") {
         return {percent: Sim.stats.ms * amount * 0.01};
@@ -1149,7 +1169,7 @@
       Sim.after(15, update);
     });
   };
-  affixes.leg_bandofmight = function(amount) {
+  affixes.leg_bandofmight = affixes.leg_bandofmight_p6 = function(amount) {
     Sim.register("oncast", function(data) {
       if (data.skill === "furiouscharge" || data.skill === "groundstomp" || data.skill === "leap") {
         Sim.addBuff("bandofmight", {dmgred: amount}, {duration: 480});
@@ -1203,7 +1223,22 @@
       }
     });
   };
-  affixes.leg_lordgreenstonesfan = affixes.leg_lordgreenstonesfan_p2 = function(amount) {
+  affixes.leg_karleispoint_p6 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["impale"], percent: amount}});
+    var buffname;
+    Sim.register("onhit_proc", function(data) {
+      if (data.castInfo && data.castInfo.skill === "impale" && data.castInfo.user && !data.castInfo.user.karleispoint) {
+        for (var i = (data.count || 1); i > 0; --i) {
+          if (buffname && Sim.getBuff(buffname)) {
+            Sim.addResource(15);
+          }
+          buffname = Sim.addBuff(buffname, undefined, {targets: 1, firsttarget: data.firsttarget});
+        }
+        data.castInfo.user.karleispoint = true;
+      }
+    });
+  };
+  affixes.leg_lordgreenstonesfan = affixes.leg_lordgreenstonesfan_p2 = affixes.leg_lordgreenstonesfan_p6 = function(amount) {
     Sim.after(60, function tick() {
       Sim.addBuff("lordgreenstonesfan", undefined, {maxstacks: 30});
       Sim.after(60, tick);
@@ -1218,7 +1253,7 @@
       }
     });
   };
-  affixes.leg_shieldoffury = function(amount) {
+  affixes.leg_shieldoffury = affixes.leg_shieldoffury_p6 = function(amount) {
     var buffname;
     Sim.register("onhit_proc", function(data) {
       if (data.castInfo && data.castInfo.skill === "heavensfury" && !data.castInfo.triggered) {
@@ -1240,7 +1275,7 @@
     Sim.watchBuff("energytwister", update);
     Sim.watchBuff("ragingstorm", update);
   };
-  affixes.leg_deathwish = function(amount) {
+  affixes.leg_deathwish = affixes.leg_deathwish_p6 = function(amount) {
     Sim.register("updatestats", function(data) {
       if (data.stats.channeling) {
         data.stats.add("dmgmul", amount);
@@ -1252,6 +1287,13 @@
     Sim.register("onhit", function(data) {
       if (data.castInfo && data.castInfo.skill === "explosiveblast") {
         Sim.addBuff("orbofinfinitedepth", {dmgmul: amount, dmgred: 15}, {maxstacks: 4, duration: 360});
+      }
+    });
+  };
+  affixes.leg_orbofinfinitedepth_p6 = function(amount) {
+    Sim.register("onhit", function(data) {
+      if (data.castInfo && data.castInfo.skill === "explosiveblast") {
+        Sim.addBuff("orbofinfinitedepth", {dmgmul: amount, dmgred: 20}, {maxstacks: 4, duration: 360});
       }
     });
   };
@@ -1416,10 +1458,10 @@
       }
     });
   };
-  affixes.leg_skullgrasp_p2 = function(amount) {
+  affixes.leg_skullgrasp_p2 = affixes.leg_skullgrasp_p6 = function(amount) {
     Sim.addBaseStats({dmgmul: {skills: ["whirlwind"], percent: amount}});
   };
-  affixes.leg_bakulijunglewraps = function(amount) {
+  affixes.leg_bakulijunglewraps = affixes.leg_bakulijunglewraps_p6 = function(amount) {
     var buff;
     function update() {
       var list = Sim.listUnion(Sim.getBuffTargetList("locustswarm"), Sim.getBuffTargetList("piranhas"));
@@ -1465,6 +1507,13 @@
       }
     });
   };
+  affixes.leg_haloofkarini_p6 = function(amount) {
+    Sim.register("onhit", function(data) {
+      if (data.castInfo && data.castInfo.skill === "stormarmor" && data.distance > 15) {
+        Sim.addBuff("haloofkarini", {dmgred: amount}, {duration: 300});
+      }
+    });
+  };
   affixes.leg_flailoftheascended = function(amount) {
     Sim.register("onhit_proc", function(data) {
       if (data.castInfo && data.castInfo.skill === "shieldbash" && data.castInfo.user && !data.castInfo.user.foa && data.origdata) {
@@ -1480,7 +1529,7 @@
     });
   };
 
-  affixes.leg_denial = function(amount) {
+  affixes.leg_denial = affixes.leg_denial_p6 = function(amount) {
     Sim.register("onhit_proc", function(data) {
       if (data.castInfo && data.castInfo.skill === "sweepattack" && data.castInfo.user && !data.castInfo.user.denial) {
         data.castInfo.user.denial = true;
@@ -1498,9 +1547,18 @@
     });
   };
   affixes.leg_goldenflense = affixes.leg_goldenflense_p2 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["sweepattack"], percent: 200}});
     Sim.register("onhit_proc", function(data) {
       if (data.castInfo && data.castInfo.skill === "sweepattack") {
         Sim.addResource(data.targets * data.count * amount);
+      }
+    });
+  };
+  affixes.leg_goldenflense_p6 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["sweepattack"], percent: amount}});
+    Sim.register("onhit_proc", function(data) {
+      if (data.castInfo && data.castInfo.skill === "sweepattack") {
+        Sim.addResource(data.targets * data.count * 6);
       }
     });
   };
@@ -1566,7 +1624,7 @@
   affixes.leg_cordoftherighteous = function(amount) {
     Sim.addBaseStats({dmgmul: {skills: ["fistoftheheavens"], percent: amount}});
   };
-  affixes.leg_girdleofgiants = function(amount) {
+  affixes.leg_girdleofgiants = affixes.leg_girdleofgiants_p6 = function(amount) {
     Sim.register("oncast", function(data) {
       if (data.skill === "seismicslam") {
         Sim.addBuff("girdleofgiants", {dmgmul: {skills: ["earthquake"], percent: amount}}, {duration: 180});
@@ -1592,7 +1650,7 @@
     });
   };
 
-  affixes.leg_faithfulmemory = function(amount) {
+  affixes.leg_faithfulmemory = affixes.leg_faithfulmemory_p6 = function(amount) {
     Sim.register("onhit_proc", function(data) {
       if (data.castInfo && data.castInfo.skill === "fallingsword" && data.castInfo.user && !data.castInfo.user.faithfulmemory) {
         data.castInfo.user.faithfulmemory = true;
@@ -1683,6 +1741,90 @@
     });
   };
 
+  affixes.leg_balance = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["tempestrush"], percent: 200}});
+  };
+  affixes.leg_balance_p6 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["tempestrush"], percent: amount}});
+  };
+  affixes.leg_bladeofprophecy = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["condemn"], percent: 100}});
+  };
+  affixes.leg_bladeofprophecy_p6 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["condemn"], percent: amount}});
+  };
+  affixes.leg_deadmanslegacy = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["multishot"], percent: 100}});
+  };
+  affixes.leg_deadmanslegacy_p6 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["multishot"], percent: amount}});
+  };
+  affixes.leg_fateofthefell_p6 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["heavensfury"], percent: amount}});
+  };
+  affixes.leg_frydehrswrath = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["condemn"], percent: 200}});
+  };
+  affixes.leg_frydehrswrath_p6 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["condemn"], percent: amount}});
+  };
+  affixes.leg_furyofthevanishedpeak = affixes.leg_furyofthevanishedpeak_p2 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["seismicslam"], percent: 125}});
+  };
+  affixes.leg_furyofthevanishedpeak_p6 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["seismicslam"], percent: amount}});
+  };
+  affixes.leg_gavelofjudgment = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["hammeroftheancients"], percent: 100}});
+  };
+  affixes.leg_gavelofjudgment_p6 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["hammeroftheancients"], percent: amount}});
+  };
+  affixes.leg_gyrfalconsfoote_p6 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["blessedshield"], percent: amount}});
+  };
+  affixes.leg_incensetorchofthegrandtemple = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["waveoflight"], percent: 30}});
+  };
+  affixes.leg_incensetorchofthegrandtemple_p6 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["waveoflight"], percent: amount}});
+  };
+  affixes.leg_jekangbord = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["blessedshield"], percent: 200}});
+  };
+  affixes.leg_jekangbord_p6 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["blessedshield"], percent: amount}});
+  };
+  affixes.leg_manticore = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["clusterarrow"], percent: 80}});
+  };
+  affixes.leg_manticore_p6 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["clusterarrow"], percent: amount}});
+  };
+  affixes.leg_ranslorsfolly_p6 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["energytwister"], percent: amount}});
+  };
+  affixes.leg_staffofchiroptera = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["firebats"], percent: 60}});
+  };
+  affixes.leg_staffofchiroptera_p6 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["firebats"], percent: amount}});
+  };
+  affixes.leg_unstablescepter = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["arcaneorb"], percent: 65}});
+  };
+  affixes.leg_unstablescepter_p6 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["arcaneorb"], percent: amount}});
+  };
+  affixes.leg_yangsrecurve_p6 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["multishot"], percent: amount}});
+  };
+  affixes.leg_thegrandvizier = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["meteor"], percent: 30}});
+  };
+  affixes.leg_thegrandvizier_p6 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["meteor"], percent: amount}});
+  };
 /*
   affixes.leg_thegrinreaper = function(amount) {
     var skills = {};

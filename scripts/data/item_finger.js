@@ -482,10 +482,11 @@ DiabloCalc.addItems([
     id: "P2_Unique_Ring_02",
     ids: ["ptr_TheLittleMansFinger"],
     name: "The Short Man's Finger",
+    suffix: _L("Legacy"),
     type: "ring",
     quality: "legendary",
     required: {
-      custom: {id: "leg_theshortmansfinger", name: "Baby Gargantuans", format: "Gargantuan instead summons three smaller gargantuans each more powerful than before.", args: 0},
+      custom: {id: "leg_theshortmansfinger", name: "Baby Gargantuans", format: "Gargantuan instead summons three smaller gargantuans that have their damage increased by 200%%.", args: 0},
     },
     preset: ["mainstat", "chd"],
   },
@@ -530,6 +531,7 @@ DiabloCalc.addItems([
   {
     id: "P4_Unique_Ring_05",
     name: "Band of Might",
+    suffix: _L("Legacy"),
     type: "ring",
     quality: "legendary",
     required: {
@@ -552,6 +554,7 @@ DiabloCalc.addItems([
   {
     id: "P41_Unique_Ring_02",
     name: "Skull Grasp",
+    suffix: _L("Legacy"),
     type: "ring",
     quality: "legendary",
     required: {
@@ -563,6 +566,7 @@ DiabloCalc.addItems([
   {
     id: "P41_Unique_Ring_01",
     name: "Halo of Karini",
+    suffix: _L("Legacy"),
     type: "ring",
     quality: "legendary",
     required: {
@@ -653,6 +657,54 @@ DiabloCalc.addItems([
       custom: {id: "leg_lornellessunstone", name: "Damage Reduction per Missing Life", format: "Your damage reduction is increased by %.2f%% for every 1%% Life you are missing.", min: 0.75, max: 0.95, step: 0.01},
     },
     preset: ["mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Ring_01",
+    name: "The Short Man's Finger",
+    suffix: _L("PTR"),
+    type: "ring",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_theshortmansfinger_p6", name: "Baby Gargantuan Damage", format: "Gargantuan instead summons three smaller gargantuans that have their damage increased by %d%%.", min: 500, max: 650},
+    },
+    preset: ["mainstat", "chd"],
+  },
+
+  {
+    id: "P61_Unique_Ring_02",
+    name: "Skull Grasp",
+    suffix: _L("PTR"),
+    type: "ring",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_skullgrasp_p6", name: "Whirlwind Damage", format: "Increase the damage of Whirlwind by %d%%", min: 300, max: 400},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P61_Unique_Ring_03",
+    name: "Halo of Karini",
+    suffix: _L("PTR"),
+    type: "ring",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_haloofkarini_p6", name: "Damage Reduction", format: "You take %d%% less damage for 5 seconds after your Storm Armor electrocutes an enemy more than 15 yards away.", min: 60, max: 80},
+    },
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P61_Unique_Ring_05",
+    name: "Band of Might",
+    suffix: _L("PTR"),
+    type: "ring",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_bandofmight_p6", name: "Damage Reduction on Movement Skills", format: "After casting Furious Charge, Ground Stomp, or Leap, take %d%% reduced damage for 8 seconds.", min: 60, max: 80},
+    },
+    preset: ["mainstat", "chc"],
   },
 
 ]);

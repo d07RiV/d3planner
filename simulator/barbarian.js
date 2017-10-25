@@ -213,14 +213,14 @@
 
   function hota_gavel_onhit(data) {
     if (data.targets <= 3) {
-      Sim.addResource(Sim.stats.leg_gavelofjudgment || 0);
+      Sim.addResource((Sim.stats.leg_gavelofjudgment_p6 && 25) || Sim.stats.leg_gavelofjudgment || 0);
     }
   }
   skills.hammeroftheancients = {
     offensive: true,
     frames: 56.666664,
     speed: function(rune, aps) {
-      return aps * (Sim.stats.leg_bracersofthefirstmen ? 1.5 : 1);
+      return aps * (Sim.stats.leg_bracersofthefirstmen || Sim.stats.leg_bracersofthefirstmen_p6 ? 1.5 : 1);
     },
     cost: 20,
     oncast: function(rune) {
@@ -230,7 +230,7 @@
       case "a": dmg.coeff = 6.4; break;
       case "c": dmg.onhit = Sim.apply_effect("chilled", 120); break;
       }
-      if (Sim.stats.leg_gavelofjudgment) {
+      if (Sim.stats.leg_gavelofjudgment || Sim.stats.leg_gavelofjudgment_p6) {
         dmg.onhit = _chain(dmg.onhit, hota_gavel_onhit);
       }
       return dmg;
@@ -308,15 +308,15 @@
   };
 
   function ss_bod_fix() {
-    if (Sim.stats.leg_bracersofdestruction) {
-      this.factor = (this.factor || 1) * (1 + 0.01 * Sim.stats.leg_bracersofdestruction * Math.min(5, this.targets) / this.targets);
+    if (Sim.stats.leg_bracersofdestruction || Sim.stats.leg_bracersofdestruction_p6) {
+      this.factor = (this.factor || 1) * (1 + 0.01 * (Sim.stats.leg_bracersofdestruction || Sim.stats.leg_bracersofdestruction_p6) * Math.min(5, this.targets) / this.targets);
     }
   }
   skills.seismicslam = {
     offensive: true,
     frames: 58.666656,
     cost: function(rune) {
-      return (rune === "c" ? 22 : 30) * (1 - 0.01 * (Sim.stats.leg_furyofthevanishedpeak || Sim.stats.leg_furyofthevanishedpeak_p2 || 0));
+      return (rune === "c" ? 22 : 30) * (1 - 0.01 * ((Sim.stats.leg_furyofthevanishedpeak_p6 && 50) || Sim.stats.leg_furyofthevanishedpeak || Sim.stats.leg_furyofthevanishedpeak_p2 || 0));
     },
     oncast: function(rune) {
       var dmg = {type: "cone", width: 50, range: 50, coeff: 6.2};
@@ -337,7 +337,7 @@
       if (Sim.stats.passives.noescape && Sim.target.distance > 15) {
         dmg.factor = 1.3;
       }
-      if (Sim.stats.leg_bracersofdestruction) {
+      if (Sim.stats.leg_bracersofdestruction || Sim.stats.leg_bracersofdestruction_p6) {
         dmg.fix = ss_bod_fix;
       }
       return dmg;
@@ -369,6 +369,9 @@
     if (Sim.stats.leg_skullgrasp) {
       dmg.coeff += Sim.stats.leg_skullgrasp * 2 / 300;
     }
+    if (Sim.stats.set_wastes_4pc) {
+      Sim.addBuff("wastes_4pc", {dmgred: 50, dmgmul: {skills: ["rend"], percent: 200}}, {duration: 180 + data.buff.params.duration});
+    }
     Sim.damage(dmg);
   }
   skills.whirlwind = {
@@ -392,12 +395,8 @@
         base.onexpire = ww_devils_onexpire;
       }
       if (Sim.stats.set_bulkathos_2pc) {
-        base.buffs.extrams = 30;
-        base.buffs.ias = 30;
-      }
-      if (Sim.stats.set_wastes_4pc) {
-        base.buffs.dmgred = 50;
-        base.buffs.dmgmul = {skills: ["rend"], percent: 200};
+        base.buffs.extrams = 45;
+        base.buffs.ias = 45;
       }
       Sim.channeling("whirlwind", this.channeling, ww_ontick, data, base);
     },
@@ -804,7 +803,7 @@
       if (rune === "e") {
         Sim.register("onhit_proc", function(data) {
           if (Sim.getBuff("battlerage")) {
-            var targets = Sim.getTargets(15, 0) - 1;
+            var targets = Sim.getTargets(20, 0) - 1;
             if (targets > 0) Sim.trigger("onhit", {
               targets: targets * data.targets,
               firsttarget: Sim.target.next(data),

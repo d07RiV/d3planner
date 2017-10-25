@@ -6,7 +6,7 @@ DiabloCalc.skilltips.wizard = {
     b: "<p>Lob an electrified orb over enemies that zaps them for <span class=\"d3-color-green\">349%</span> weapon damage as Lightning and increases the damage of the next Lightning spell you cast by <span class=\"d3-color-green\">2%</span> for every enemy hit up to a maximum of <span class=\"d3-color-green\">15</span>.</p> <p class=\"subtle\">Unlocked at level <em>32</em>.</p>",
     c: "<p>Create <span class=\"d3-color-green\">4</span> Arcane Orbs that orbit you, exploding for <span class=\"d3-color-green\">265%</span> weapon damage as Arcane when enemies get close. </p> <p class=\"subtle\">Unlocked at level <em>20</em>.</p>",
     d: "<p>Launch a burning orb that deals <span class=\"d3-color-green\">221%</span> weapon damage as Fire. The orb leaves behind a wall of Fire that deals <span class=\"d3-color-green\">734%</span> weapon damage as Fire over <span class=\"d3-color-green\">5</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>45</em>.</p>",
-    e: "<p>Create an orb of frozen death that shreds an area with ice bolts, dealing <span class=\"d3-color-green\">393%</span> weapon damage as Cold.</p> <p class=\"subtle\">Unlocked at level <em>55</em>.</p>",
+    e: "<p>Create an orb of frozen death that shreds an area with ice bolts, dealing <span class=\"d3-color-green\">950%</span> weapon damage as Cold.</p> <p class=\"subtle\">Unlocked at level <em>55</em>.</p>",
     elements: {
       a: "arc",
       b: "lit",

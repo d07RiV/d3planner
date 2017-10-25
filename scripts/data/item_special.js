@@ -90,7 +90,7 @@ DiabloCalc.itemaffixes = {
     info: {"Damage": {thorns: "normal", coeff: "$1/100", elem: "phy"}},
   },
   leg_wizardspike: {
-    info: {"Explosion Damage": {elem: "col", coeff: 3.93, skill: "arcaneorb"}, "Projectile Damage": {elem: "col", coeff: 2.62, skill: "arcaneorb"}, "Shard Damage": {elem: "col", coeff: 1.31, skill: "arcaneorb"}},
+    info: {"Explosion Damage": {elem: "col", coeff: 9.50, skill: "arcaneorb"}, "Projectile Damage": {elem: "col", coeff: 6.35, skill: "arcaneorb"}, "Shard Damage": {elem: "col", coeff: 3.15, skill: "arcaneorb"}},
   },
   leg_odynson: {
     info: {"Damage": {elem: "lit", coeff: 1.2}},
@@ -265,7 +265,7 @@ DiabloCalc.itemaffixes = {
     active: true,
     activetip: "3 or fewer targets",
     activeshow: function(rune, stats) {
-      return !!stats.leg_nilfursboast;
+      return !!(stats.leg_nilfursboast || stats.leg_nilfursboast_p2 || stats.leg_nilfursboast_p6);
     },
     info: function(value, stats) {
       var elems = DiabloCalc.passives.wizard.elementalexposure.getElems(stats, "tal2");
@@ -296,7 +296,10 @@ DiabloCalc.itemaffixes = {
           total[e].cdr = false;
         }
         var pct;
-        if (stats.leg_nilfursboast_p2) {
+        if (stats.leg_nilfursboast_p6) {
+          pct = {};
+          pct[DiabloCalc.itemById.P61_Unique_Boots_01.name] = (this.active ? stats.leg_nilfursboast_p6 : 600);
+        } else if (stats.leg_nilfursboast_p2) {
           pct = {};
           pct[DiabloCalc.itemById.P41_Unique_Boots_01.name] = (this.active ? stats.leg_nilfursboast_p2 : 200);
         } else if (stats.leg_nilfursboast) {
@@ -365,7 +368,7 @@ DiabloCalc.itemaffixes = {
   set_firebird_6pc: {
     params: [{min: 0, max: 20, name: "Stacks"}],
     buffs: function(value, stats) {
-      return {dmgmul: this.params[0].val * 120, dmgred: 3 * this.params[0].val};
+      return {dmgmul: this.params[0].val * 200, dmgred: 3 * this.params[0].val};
     },
   },
   set_sunwuko_2pc: {
@@ -382,12 +385,8 @@ DiabloCalc.itemaffixes = {
       return {"Damage": {elem: "max", coeff: 10 * stacks}};
     },
   },
-  set_sunwuko_6pc: {
-    active: true,
-    buffs: {dmgmul: {pet: false, skills: ["lashingtailkick", "tempestrush", "waveoflight"], percent: 3000}},
-  },
   set_roland_4pc: {
-    buffs: {dmgmul: {skills: ["sweepattack", "shieldbash"], percent: 2500}},
+    buffs: {dmgmul: {skills: ["sweepattack", "shieldbash"], percent: 3300}},
   },
   set_roland_6pc: {
     params: [{min: 0, max: 5, val: 0, name: "Stacks"}],
@@ -476,9 +475,15 @@ DiabloCalc.itemaffixes = {
   },
   set_immortalking_6pc: {
     active: true,
-    buffs: {dmgmul: {percent: 400}},
+    buffs: {dmgmul: {percent: 1500}},
   },
   leg_spiritguards: {
+    active: false,
+    buffs: function(value, stats) {
+      return {dmgred: value[0]};
+    },
+  },
+  leg_spiritguards_p6: {
     active: false,
     buffs: function(value, stats) {
       return {dmgred: value[0]};
@@ -490,12 +495,18 @@ DiabloCalc.itemaffixes = {
       return {dmgred: value[0]};
     },
   },
+  leg_wrapsofclarity_p6: {
+    active: false,
+    buffs: function(value, stats) {
+      return {dmgred: value[0]};
+    },
+  },
   set_natalya_4pc: {
     buffs: {dmgmul: {skills: ["rainofvengeance"], percent: 100}},
   },
   set_natalya_6pc: {
     active: true,
-    buffs: {dmgmul: {percent: 500, pet: false}, dmgred: 60},
+    buffs: {dmgmul: {percent: 3500, pet: false}, dmgred: 60},
   },
   set_zunimassa_4pc: {
     info: function(value, stats) {
@@ -536,7 +547,7 @@ DiabloCalc.itemaffixes = {
   },
   set_zunimassa_6pc: {
     active: true,
-    buffs: {dmgmul: {pet: true, percent: 2500}},
+    buffs: {dmgmul: {pet: true, percent: 5500}},
   },
   set_marauder_4pc: {
     buffs: {dmgmul: {skills: ["sentry"], percent: 400}},
@@ -547,8 +558,8 @@ DiabloCalc.itemaffixes = {
         var count = DiabloCalc.skills.demonhunter.sentry.params[0].val;
         return {dmgmul: {list: [
           {pet: false, skills: ["hungeringarrow", "entanglingshot", "bolas", "evasivefire", "grenade",
-            "chakram", "clusterarrow", "elementalarrow", "impale", "multishot", "vengeance"], percent: 1200 * count},
-          {skills: ["companion"], percent: 1200 * count},
+            "chakram", "clusterarrow", "elementalarrow", "impale", "multishot", "vengeance"], percent: 3000 * count},
+          {skills: ["companion"], percent: 3000 * count},
         ]}};
       }
     },
@@ -590,7 +601,7 @@ DiabloCalc.itemaffixes = {
 
   set_magnumopus_6pc: {
     active: true,
-    buffs: {dmgmul: {skills: ["arcaneorb", "energytwister", "explosiveblast", "magicmissile", "shockpulse", "spectralblade", "waveofforce"], percent: 3500}},
+    buffs: {dmgmul: {skills: ["arcaneorb", "energytwister", "explosiveblast", "magicmissile", "shockpulse", "spectralblade", "waveofforce"], percent: 3800}},
   },
 
   set_unhallowed_4pc: {
@@ -607,15 +618,19 @@ DiabloCalc.itemaffixes = {
       if (stats.leg_spinesofseethinghatred) {
         skills.push("chakram");
       }
-      return {dmgmul: {skills: skills, percent: this.params[0].val * 40}};
+      return {dmgmul: {skills: skills, percent: this.params[0].val * 100}};
     },
   },
 
   set_wastes_2pc: {
     buffs: {dmgmul: {skills: ["rend"], percent: 500}},
   },
+  set_wastes_4pc: {
+    active: true,
+    buffs: {dmgred: 50, dmgmul: {skills: ["rend"], percent: 200}},
+  },
   set_wastes_6pc: {
-    buffs: {dmgmul: {skills: ["whirlwind"], percent: 800}},
+    buffs: {dmgmul: {skills: ["whirlwind"], percent: 3000}},
   },
 
 /*  leg_nilfursboast: {
@@ -638,7 +653,7 @@ DiabloCalc.itemaffixes = {
   },
   set_storms_6pc: {
     active: true,
-    buffs: {dmgmul: {skills: ["fistsofthunder", "deadlyreach", "cripplingwave", "wayofthehundredfists"], percent: 1250}},
+    buffs: {dmgmul: {skills: ["fistsofthunder", "deadlyreach", "cripplingwave", "wayofthehundredfists"], percent: 1300}},
   },
   leg_triumvirate: {
     active: true,
@@ -654,7 +669,20 @@ DiabloCalc.itemaffixes = {
       return {dmgmul: {skills: ["arcaneorb"], percent: value[0] * this.params[0].val}};
     },
   },
+  leg_triumvirate_p6: {
+    active: true,
+    params: [{min: 0, max: 3, name: "Stacks"}],
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["arcaneorb"], percent: value[0] * this.params[0].val}};
+    },
+  },
   leg_denial: {
+    params: [{min: 0, max: 5, val: 0, name: "Stacks"}],
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["sweepattack"], percent: value[0] * this.params[0].val}};
+    },
+  },
+  leg_denial_p6: {
     params: [{min: 0, max: 5, val: 0, name: "Stacks"}],
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["sweepattack"], percent: value[0] * this.params[0].val}};
@@ -773,6 +801,11 @@ DiabloCalc.itemaffixes = {
       return {dmgmul: {skills: ["hammeroftheancients"], percent: value[0]}};
     },
   },
+  leg_bracersofthefirstmen_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["hammeroftheancients"], percent: value[0]}};
+    },
+  },
   leg_theswami: {
     check: true,
     active: true,
@@ -788,6 +821,10 @@ DiabloCalc.itemaffixes = {
         res.ias = stacks * 1.0;
         res.armor_percent = stacks * 1.0;
         res.resist_percent = stacks * 1.0;
+      }
+      if (stats.set_vyr_6pc) {
+        res.dmgred = stacks * 0.15;
+        res.dmgmul = stacks * 50;
       }
       return res;
     },
@@ -806,18 +843,17 @@ DiabloCalc.itemaffixes = {
   },
   set_light_6pc: {
     buffs: {dmgmul: {list: [
-      {skills: ["blessedhammer"], percent: 1250},
-      {skills: ["fallingsword"], percent: 500},
+      {skills: ["blessedhammer"], percent: 2000},
+      {skills: ["fallingsword"], percent: 1000},
     ]}},
   },
   set_shenlong_2pc: {
     active: true,
-    buffs: {dmgmul: 150},
+    buffs: {dmgmul: 200},
   },
   set_helltooth_2pc: {
     active: true,
     info: {"Necrosis DPS": {elem: "max", coeff: 15, total: true}},
-    buffs: {dmgtaken: 20},
   },
   set_helltooth_4pc: {
     active: true,
@@ -827,8 +863,8 @@ DiabloCalc.itemaffixes = {
     buffs: function(value, stats) {
       return {dmgmul: {list: [
         {pet: false, skills: ["poisondart", "plagueoftoads", "firebomb", "acidcloud",
-           "firebats", "zombiecharger", "graspofthedead", "piranhas", "wallofdeath"], percent: 1400},
-        {skills: ["summonzombiedogs", "gargantuan", "corpsespiders"], percent: 1400},
+           "firebats", "zombiecharger", "graspofthedead", "piranhas", "wallofdeath"], percent: 4400},
+        {skills: ["summonzombiedogs", "gargantuan", "corpsespiders"], percent: 4400},
       ]}};
     },
   },
@@ -836,7 +872,7 @@ DiabloCalc.itemaffixes = {
     info: {"DPS": {elem: "max", pet: true, coeff: 8, total: true}},
   },
   set_arachyr_6pc: {
-    buffs: {dmgmul: {skills: ["corpsespiders", "plagueoftoads", "firebats", "hex", "locustswarm", "piranhas"], percent: 2400}},
+    buffs: {dmgmul: {skills: ["corpsespiders", "plagueoftoads", "firebats", "hex", "locustswarm", "piranhas"], percent: 4500}},
   },
   leg_chilanikschain: {
     check: true,
@@ -863,13 +899,16 @@ DiabloCalc.itemaffixes = {
         if (stats.leg_thefistofazturrasq_p2) {
           expl[DiabloCalc.itemById.P4_Unique_Fist_009_x1.name] = stats.leg_thefistofazturrasq_p2;
         }
+        if (stats.leg_thefistofazturrasq_p6) {
+          expl[DiabloCalc.itemById.P61_Unique_Fist_009_x1.name] = stats.leg_thefistofazturrasq_p6;
+        }
         return {"Palm Damage": {elem: "phy", coeff: 12, total: true, skill: "explodingpalm"},
           "Palm Explosion Damage": {elem: "phy", coeff: 27.7, percent: expl, skill: "explodingpalm"}};
       }
     }
   },
   set_uliana_6pc: {
-    buffs: {dmgmul: {skills: ["explodingpalm"], percent: 250}},
+    buffs: {dmgmul: {skills: ["explodingpalm"], percent: 2100}},
   },
 
   leg_nagelring: {
@@ -879,16 +918,16 @@ DiabloCalc.itemaffixes = {
   },
 
   set_earth_6pc: {
-    buffs: {dmgmul: {skills: ["earthquake", "avalanche", "leap", "groundstomp", "ancientspear", "seismicslam"], percent: 1200}},
+    buffs: {dmgmul: {skills: ["earthquake", "avalanche", "leap", "groundstomp", "ancientspear", "seismicslam"], percent: 5600}},
   },
   set_raekor_4pc: {
-    buffs: {dmgmul: {skills: ["furiouscharge"], percent: 300}},
+    buffs: {dmgmul: {skills: ["furiouscharge"], percent: 1000}},
   },
   set_raekor_6pc: {
     params: [{min: 0, max: 5, val: 0, name: "Stacks"}],
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["hammeroftheancients", "rend", "seismicslam", "whirlwind",
-        "ancientspear", "earthquake"], percent: this.params[0].val * 750}};
+        "ancientspear", "earthquake"], percent: this.params[0].val * 2800}};
     },
   },
   set_danetta_2pc: {
@@ -908,7 +947,7 @@ DiabloCalc.itemaffixes = {
     },
     buffs: function(value, stats) {
       if (DiabloCalc.charClass !== "monk") return;
-      var res = {dmgmul: {pet: false, percent: 125 * 5 * (stats.leg_thecrudestboots ? 2 : 1)}};
+      var res = {dmgmul: {pet: false, percent: 150 * 5 * (stats.leg_thecrudestboots ? 2 : 1)}};
       if (!stats.skills.mystically) {
         $.extend(res, DiabloCalc.skills.monk.mystically.passive("x", stats));
       }
@@ -994,6 +1033,12 @@ DiabloCalc.itemaffixes = {
       return {dmgmul: {skills: ["tempestrush"], percent: value[0]}};
     },
   },
+  leg_cesarsmemento_p6: {
+    active: true,
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["tempestrush"], percent: value[0]}};
+    },
+  },
   leg_bindingsofthelessergods: {
     active: true,
     buffs: function(value, stats) {
@@ -1067,6 +1112,12 @@ DiabloCalc.itemaffixes = {
       return {dmgred: value[0]};
     },
   },
+  leg_bandofmight_p6: {
+    active: true,
+    buffs: function(value, stats) {
+      return {dmgred: value[0]};
+    },
+  },
   leg_lefebvressoliloquy: {
     active: true,
     buffs: function(value, stats) {
@@ -1090,7 +1141,7 @@ DiabloCalc.itemaffixes = {
     },
   },
   leg_akkhansleniency: {
-    params: [{min: 0, max: 50, inf: true, name: "Stacks"}],
+    params: [{min: 0, max: 50, val: 0, inf: true, name: "Stacks"}],
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["blessedshield"], percent: this.params[0].val * value[0]}};
     },
@@ -1107,7 +1158,19 @@ DiabloCalc.itemaffixes = {
       return {dmgmul: {skills: ["fanofknives"], percent: this.params[0].val * value[0]}};
     },
   },
+  leg_lordgreenstonesfan_p6: {
+    params: [{min: 0, max: 30, name: "Stacks"}],
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["fanofknives"], percent: this.params[0].val * value[0]}};
+    },
+  },
   leg_shieldoffury: {
+    params: [{min: 0, max: 10, inf: true, name: "Stacks"}],
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["heavensfury"], percent: this.params[0].val * value[0]}};
+    },
+  },
+  leg_shieldoffury_p6: {
     params: [{min: 0, max: 10, inf: true, name: "Stacks"}],
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["heavensfury"], percent: this.params[0].val * value[0]}};
@@ -1125,7 +1188,18 @@ DiabloCalc.itemaffixes = {
       return {dmgmul: value[0]};
     },
   },
+  leg_deathwish_p6: {
+    active: true,
+    buffs: function(value, stats) {
+      return {dmgmul: value[0]};
+    },
+  },
   leg_maskofjeram: {
+    buffs: function(value, stats) {
+      return {petdamage: value};
+    },
+  },
+  leg_maskofjeram_p6: {
     buffs: function(value, stats) {
       return {petdamage: value};
     },
@@ -1157,6 +1231,12 @@ DiabloCalc.itemaffixes = {
       return {dmgmul: this.params[0].val * value[0], dmgred: 15 * this.params[0].val};
     },
   },
+  leg_orbofinfinitedepth_p6: {
+    params: [{min: 0, max: 4, name: "Stacks"}],
+    buffs: function(value, stats) {
+      return {dmgmul: this.params[0].val * value[0], dmgred: 20 * this.params[0].val};
+    },
+  },
   leg_fragmentofdestiny: {
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["spectralblade"], percent: value[0]}};
@@ -1178,10 +1258,21 @@ DiabloCalc.itemaffixes = {
       return {dmgmul: {skills: ["whirlwind"], percent: value[0]}};
     },
   },
+  leg_skullgrasp_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["whirlwind"], percent: value[0]}};
+    },
+  },
   leg_johannasargument: {
     buffs: {dmgmul: {skills: ["blessedhammer"], percent: 100}},
   },
   leg_bakulijunglewraps: {
+    active: true,
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["firebats"], percent: value[0]}};
+    },
+  },
+  leg_bakulijunglewraps_p6: {
     active: true,
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["firebats"], percent: value[0]}};
@@ -1214,6 +1305,12 @@ DiabloCalc.itemaffixes = {
       return {dmgred: value[0]};
     },
   },
+  leg_haloofkarini_p6: {
+    active: false,
+    buffs: function(value, stats) {
+      return {dmgred: value[0]};
+    },
+  },
   leg_ingeom: {
     active: false,
     buffs: function(value, stats) {
@@ -1226,6 +1323,11 @@ DiabloCalc.itemaffixes = {
     },
   },
   leg_girdleofgiants: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["earthquake"], percent: value[0]}};
+    },
+  },
+  leg_girdleofgiants_p6: {
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["earthquake"], percent: value[0]}};
     },
@@ -1255,6 +1357,12 @@ DiabloCalc.itemaffixes = {
   },
 
   leg_steuartsgreaves: {
+    active: false,
+    buffs: function(value, stats) {
+      return {extrams: value[0]};
+    },
+  },
+  leg_steuartsgreaves_p6: {
     active: false,
     buffs: function(value, stats) {
       return {extrams: value[0]};
@@ -1294,6 +1402,12 @@ DiabloCalc.itemaffixes = {
       return {extrams: value[0] * this.params[0].val};
     },
   },
+  leg_losttime_p6: {
+    params: [{min: 0, max: 5, name: "Stacks"}],
+    buffs: function(value, stats) {
+      return {extrams: value[0] * this.params[0].val};
+    },
+  },
   leg_ironrose: {
     info: function(value, stats) {
       var res = {"Damage": {elem: "phy", coeff: 4.50, skill: "deathnova"}};
@@ -1328,12 +1442,33 @@ DiabloCalc.itemaffixes = {
       return {dmgmul: {skills: ["bonespear"], percent: value[0]}};
     },
   },
+  leg_maltoriuspetrifiedspike_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["bonespear"], percent: value[0]}};
+    },
+  },
   leg_reilenasshadowhook: {
     buffs: function(value, stats) {
       return {dmgmul: 0.5 * DiabloCalc.getStats(true).maxessence};
     },
   },
   leg_nayrsblackdeath: {
+    params: [{min: 0, max: function(stats) {
+      if (stats.charClass !== "necromancer") return 0;
+      var count = 0;
+      for (var sk in stats.skills) {
+        if (!DiabloCalc.skilltips.necromancer[sk]) continue;
+        if (DiabloCalc.skilltips.necromancer[sk].elements[stats.skills[sk]] === "psn") {
+          count += 1;
+        }
+      }
+      return count;
+    }, name: "Stacks"}],
+    buffs: function(value, stats) {
+      return {dmgmul: {elems: ["psn"], percent: this.params[0].val * value[0]}};
+    },
+  },
+  leg_nayrsblackdeath_p6: {
     params: [{min: 0, max: function(stats) {
       if (stats.charClass !== "necromancer") return 0;
       var count = 0;
@@ -1365,7 +1500,7 @@ DiabloCalc.itemaffixes = {
   set_rathma_6pc: {
     buffs: function(value, stats) {
       if (stats.skills.skeletalmage) {
-        var amount = Math.min(2500, 625 * DiabloCalc.skills.necromancer.skeletalmage.params[0].val);
+        var amount = Math.min(4000, 1000 * DiabloCalc.skills.necromancer.skeletalmage.params[0].val);
         return {dmgmul: {list: [{pet: true, percent: amount}, {skills: ["armyofthedead"], percent: amount}]}};
       }
     },
@@ -1403,13 +1538,195 @@ DiabloCalc.itemaffixes = {
   },
   set_pestilence_6pc: {
     active: true,
-    buffs: {dmgmul: {skills: ["bonespear"], percent: 3000}},
+    buffs: {dmgmul: {list: [
+      {skills: ["bonespear"], percent: 3300},
+      {skills: ["corpselance", "corpseexplosion"], percent: 1650},
+    ]}},
+    inactive: {dmgmul: {skills: ["corpselance", "corpseexplosion"], percent: 1650}},
   },
 
   leg_bloodtideblade: {
     params: [{min: 0, max: 20, inf: true, val: 0, name: "Enemies"}],
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["deathnova"], percent: value[0] * this.params[0].val}};
+    },
+  },
+  leg_bloodtideblade_p6: {
+    params: [{min: 0, max: 20, inf: true, val: 0, name: "Enemies"}],
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["deathnova"], percent: value[0] * this.params[0].val}};
+    },
+  },
+
+  leg_frydehrswrath: {
+    buffs: {dmgmul: {skills: ["condemn"], percent: 200}},
+  },
+  leg_frydehrswrath_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["condemn"], percent: value[0]}};
+    },
+  },
+  leg_unstablescepter: {
+    buffs: {dmgmul: {skills: ["arcaneorb"], percent: 65}},
+  },
+  leg_goldenflense: {
+    buffs: {dmgmul: {skills: ["sweepattack"], percent: 200}},
+  },
+  leg_goldenflense_p2: {
+    buffs: {dmgmul: {skills: ["sweepattack"], percent: 200}},
+  },
+  leg_gavelofjudgment: {
+    buffs: {dmgmul: {skills: ["hammeroftheancients"], percent: 100}},
+  },
+  leg_deadmanslegacy: {
+    buffs: {dmgmul: {skills: ["multishot"], percent: 100}},
+  },
+  leg_theshortmansfinger: {
+    buffs: {dmgmul: {skills: ["gargantuan"], percent: 200}},
+  },
+  leg_balance: {
+    buffs: {dmgmul: {skills: ["tempestrush"], percent: 200}},
+  },
+  leg_bladeofprophecy: {
+    buffs: {dmgmul: {skills: ["condemn"], percent: 100}},
+  },
+  leg_wandofwoh: {
+    buffs: {dmgmul: {skills: ["explosiveblast"], percent: 100}},
+  },
+  leg_furyofthevanishedpeak: {
+    buffs: {dmgmul: {skills: ["seismicslam"], percent: 125}},
+  },
+  leg_furyofthevanishedpeak_p2: {
+    buffs: {dmgmul: {skills: ["seismicslam"], percent: 125}},
+  },
+  leg_staffofchiroptera: {
+    buffs: {dmgmul: {skills: ["firebats"], percent: 60}},
+  },
+  leg_manticore: {
+    buffs: {dmgmul: {skills: ["clusterarrow"], percent: 80}},
+  },
+  leg_incensetorchofthegrandtemple: {
+    buffs: {dmgmul: {skills: ["waveoflight"], percent: 30}},
+  },
+  leg_jekangbord: {
+    buffs: {dmgmul: {skills: ["blessedshield"], percent: 200}},
+  },
+  leg_fatesvow_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["armyofthedead"], percent: value[0]}};
+    },
+  },
+  leg_daynteesbinding_p6: {
+    buffs: function(value, stats) {
+      return {dmgred: value[0]};
+    },
+  },
+  leg_yangsrecurve_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["multishot"], percent: value[0]}};
+    },
+  },
+  leg_ranslorsfolly_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["energytwister"], percent: value[0]}};
+    },
+  },
+  leg_balance_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["tempestrush"], percent: value[0]}};
+    },
+  },
+  leg_incensetorchofthegrandtemple_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["waveoflight"], percent: value[0]}};
+    },
+  },
+  leg_jekangbord_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["blessedshield"], percent: value[0]}};
+    },
+  },
+  leg_karleispoint_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["impale"], percent: value[0]}};
+    },
+  },
+  leg_gyrfalconsfoote_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["blessedshield"], percent: value[0]}};
+    },
+  },
+  leg_fateofthefell_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["heavensfury"], percent: value[0]}};
+    },
+  },
+  leg_goldenflense_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["sweepattack"], percent: value[0]}};
+    },
+  },
+  leg_gavelofjudgment_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["hammeroftheancients"], percent: value[0]}};
+    },
+  },
+  leg_furyofthevanishedpeak_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["seismicslam"], percent: value[0]}};
+    },
+  },
+  leg_deadmanslegacy_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["multishot"], percent: value[0]}};
+    },
+  },
+  leg_theshortmansfinger_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["gargantuan"], percent: value[0]}};
+    },
+  },
+  leg_staffofchiroptera_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["firebats"], percent: value[0]}};
+    },
+  },
+  leg_bladeofprophecy_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["condemn"], percent: value[0]}};
+    },
+  },
+  leg_wandofwoh_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["explosiveblast"], percent: value[0]}};
+    },
+  },
+  leg_manticore_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["clusterarrow"], percent: value[0]}};
+    },
+  },
+  leg_unstablescepter_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["arcaneorb"], percent: value[0]}};
+    },
+  },
+  set_jadeharvester_6pc: {
+    active: true,
+    buffs: {dmgred: 50},
+  },
+  leg_etchedsigil_p6: {
+    active: true,
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["arcaneorb", "waveofforce", "energytwister", "hydra", "meteor", "blizzard", "explosiveblast", "blackhole"], percent: value[0]}};
+    },
+  },
+  leg_thegrandvizier: {
+    buffs: {dmgmul: {skills: ["meteor"], percent: 30}},
+  },
+  leg_thegrandvizier_p6: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["meteor"], percent: value[0]}};
     },
   },
 };

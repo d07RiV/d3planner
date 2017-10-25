@@ -426,6 +426,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_VoodooMask_102_x1",
     name: "Mask of Jeram",
+    suffix: _L("Legacy"),
     type: "voodoomask",
     quality: "legendary",
     required: {
@@ -821,10 +822,35 @@ DiabloCalc.addItems([
   {
     id: "P6_Necro_Unique_Helm_22",
     name: "Fate's Vow",
+    suffix: _L("Legacy"),
     type: "helm",
     quality: "legendary",
     required: {
       custom: {id: "leg_fatesvow", name: "Army of the Dead Gains Unconventional Warfare", format: "Army of the Dead gains the effect of the Unconventional Warfare rune.", args: 0},
+    },
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P61_Necro_Unique_Helm_22",
+    name: "Fate's Vow",
+    suffix: _L("PTR"),
+    type: "helm",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_fatesvow_p6", name: "Army of the Dead Gains Unconventional Warfare", format: "Army of the Dead deals an additional %d%% damage and gains the effect of the Unconventional Warfare rune.", min: 200, max: 250},
+    },
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P61_Unique_VoodooMask_102_x1",
+    name: "Mask of Jeram",
+    suffix: _L("PTR"),
+    type: "voodoomask",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_maskofjeram_p6", name: "Pet Damage", format: "Pets deal %d%% increased damage.", min: 150, max: 200},
     },
     preset: ["mainstat", "sockets"],
   },

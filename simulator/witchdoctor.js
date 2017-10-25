@@ -203,13 +203,13 @@
     channeling: {x: 30, a: 60, d: 30, c: 30, b: 30, e: 30},
     frames: 87.804871,
     speed: function(rune, aps) {
-      return aps * (Sim.stats.leg_staffofchiroptera ? 2 : 1);
+      return aps * (Sim.stats.leg_staffofchiroptera || Sim.stats.leg_staffofchiroptera_p6 ? 2 : 1);
     },
     initialcost: function(rune) {
-      if (rune === "d") return 250 * (1 - 0.01 * (Sim.stats.leg_staffofchiroptera || 0));
+      if (rune === "d") return 250 * (1 - 0.01 * ((Sim.stats.leg_staffofchiroptera_p6 && 75) || Sim.stats.leg_staffofchiroptera || 0));
     },
     cost: function(rune) {
-      if (rune !== "d") return 125 * (1 - 0.01 * (Sim.stats.leg_staffofchiroptera || 0));
+      if (rune !== "d") return 125 * (1 - 0.01 * ((Sim.stats.leg_staffofchiroptera_p6 && 75) || Sim.stats.leg_staffofchiroptera || 0));
     },
     oncast: function(rune) {
       var dmg = {type: "cone", width: 40, range: 28, coeff: 4.75 / 2};
@@ -251,7 +251,7 @@
     }
   }
   function jade2_onrefresh(data) {
-    Sim.damage({coeff: data.coeff * 600});
+    Sim.damage({coeff: data.coeff * 560 * 5});
   }
   function haunt_onhit(data) {
     var params = {
@@ -263,7 +263,7 @@
       ontick: haunt_ontick,
     };
     if (Sim.stats.passives.creepingdeath) {
-      params.duration = 3600 * 60;
+      params.duration = 19800 * 60;
     }
     if (Sim.stats.leg_quetzalcoatl) {
       params.duration /= 2;
@@ -340,7 +340,7 @@
         params.data.coeff = 1.85 / 5;
       }
       if (Sim.stats.passives.creepingdeath) {
-        params.duration = 3600 * 60;
+        params.duration = 14400 * 60;
       }
       if (Sim.stats.leg_quetzalcoatl) {
         params.duration /= 2;
@@ -558,7 +558,7 @@
   function jade6_apply(id, targets) {
     var total = 0;
     var tickrate = 12;
-    var res = Sim.reduceBuffDuration(id, 300 * 60, targets);
+    var res = Sim.reduceBuffDuration(id, 1650 * 60, targets);
     for (var i = 0; i < res.length; ++i) {
       var stack = res[i].buff;
       Sim.pushCastInfo(stack.castInfo);
@@ -606,6 +606,7 @@
           chc: 0,
           distance: Sim.target.distance,
         });
+        Sim.addBuff("jadeharvester_6pc", {dmgred: 50}, {duration: 12 * 60});
       }
     },
     proctable: {e: 0.25},
@@ -888,7 +889,7 @@
     }
     var duration = 60;
     if (data.castInfo.rune === "d") duration = 480;
-    if (Sim.stats.passives.creepingdeath) duration = 3600 * 60;
+    if (Sim.stats.passives.creepingdeath) duration = 14400 * 60;
     Sim.addBuff("piranhas", {dmgtaken: 15}, {duration: duration,
       targets: data.targets, firsttarget: data.firsttarget});
     if (data.castInfo.rune === "e") {
@@ -971,7 +972,7 @@
       case "b": params.data.coeff = 5.85; break;
       case "d": params.data.coeff = 5.75; params.duration = 900; break;
       }
-      if (Sim.stats.leg_theshortmansfinger) {
+      if (Sim.stats.leg_theshortmansfinger || Sim.stats.leg_theshortmansfinger_p6) {
         params.stacks = 3;
       }
       Sim.petattack("gargantuan", undefined, params);

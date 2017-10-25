@@ -21,7 +21,7 @@ DiabloCalc.skilltips.crusader = {
   blessedhammer: {
     a: "<p>The hammer is engulfed in fire and has a <span class=\"d3-color-green\">25%</span> chance to scorch the ground over which it passes. Enemies who pass through the scorched ground take <span class=\"d3-color-green\">330%</span> weapon damage as Fire per second.</p> <p class=\"subtle\">Unlocked at level <em>18</em>.</p>",
     b: "<p>The hammer is charged with lightning that occasionally arcs between you and the hammer as it spirals through the air, dealing <span class=\"d3-color-green\">60%</span> weapon damage as Lightning to enemies caught in the arcs. </p> <p class=\"subtle\">Unlocked at level <em>22</em>.</p>",
-    c: "<p>When the hammer hits an enemy there is a <span class=\"d3-color-green\">50%</span> chance that a new hammer will be created at the location of the enemy hit.  This can only occur once per hammer.</p> <p class=\"subtle\">Unlocked at level <em>35</em>.</p>",
+    c: "<p>Increase the damage of Blessed Hammer to <span class=\"d3-color-green\">640%</span> weapon damage as Holy and increase its area of effect by <span class=\"d3-color-green\">20</span> yards.</p> <p class=\"subtle\">Unlocked at level <em>35</em>.</p>",
     d: "<p>The hammer Slows enemies it passes through and has a <span class=\"d3-color-green\">35%</span> chance to explode on impact, dealing <span class=\"d3-color-green\">460%</span> weapon damage as Physical and Stunning enemies within <span class=\"d3-color-green\">6</span> yards for <span class=\"d3-color-green\">1</span> second.</p> <p class=\"subtle\">Unlocked at level <em>48</em>.</p>",
     e: "<p>The Hammer now orbits you as you move.</p> <p class=\"subtle\">Unlocked at level <em>57</em>.</p>",
     elements: {

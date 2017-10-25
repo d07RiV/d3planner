@@ -14,6 +14,7 @@ DiabloCalc.addItems([
   {
     id: "P2_Unique_Shield_007",
     ids: ["ptr_Denial"],
+    suffix: _L("Legacy"),
     name: "Denial",
     type: "shield",
     quality: "legendary",
@@ -204,16 +205,13 @@ DiabloCalc.addItems([
   {
     id: "Unique_CruShield_102_x1",
     name: "Jekangbord",
+    suffix: _L("Legacy"),
     type: "crusadershield",
     quality: "legendary",
-    affixes: {
-      skill_crusader_blessedshield: {min: 150, max: 200},
-    },
     required: {
-      custom: {id: "leg_jekangbord", name: "Extra Blessed Shield Ricochets", format: "Blessed Shield ricochets to %d additional enemies.", min: 4, max: 6},
+      custom: {id: "leg_jekangbord", name: "Extra Blessed Shield Ricochets", format: "Blessed Shield ricochets to %d additional enemies and has its damage increased by 200%%.", min: 4, max: 6},
     },
-    preset: ["mainstat", "skill_crusader_blessedshield"],
-    primary: 5,
+    preset: ["mainstat"],
   },
 
   {
@@ -241,16 +239,13 @@ DiabloCalc.addItems([
   {
     id: "P1_CruShield_norm_unique_01",
     name: "Frydehr's Wrath",
+    suffix: _L("Legacy"),
     type: "crusadershield",
     quality: "legendary",
-    affixes: {
-      skill_crusader_condemn: {min: 150, max: 200},
-    },
     required: {
-      custom: {id: "leg_frydehrswrath", name: "Remove Condemn Cooldown", format: "Condemn has no cooldown but instead costs 40 Wrath.", args: 0},
+      custom: {id: "leg_frydehrswrath", name: "Remove Condemn Cooldown", format: "Condemn has no cooldown and has its damage increased by 200%%, but instead costs 40 Wrath.", args: 0},
     },
-    preset: ["mainstat", "skill_crusader_condemn"],
-    primary: 5,
+    preset: ["mainstat"],
   },
 
   {
@@ -633,16 +628,13 @@ DiabloCalc.addItems([
     id: "P2_Unique_Quiver_007",
     ids: ["ptr_DeadMansLegacy"],
     name: "Dead Man's Legacy",
+    suffix: _L("Legacy"),
     type: "quiver",
     quality: "legendary",
-    affixes: {
-      skill_demonhunter_multishot: {min: 75, max: 100},
-    },
     required: {
-      custom: {id: "leg_deadmanslegacy", name: "Double Multishot Threshold", format: "Multishot hits enemies below %d%% health twice.", min: 50, max: 60},
+      custom: {id: "leg_deadmanslegacy", name: "Double Multishot Threshold", format: "Multishot hits enemies below %d%% health twice and its damage is increased by 100%%.", min: 50, max: 60},
     },
-    preset: ["mainstat", "chc", "skill_demonhunter_multishot"],
-    primary: 6,
+    preset: ["mainstat", "chc"],
   },
 
   {
@@ -730,6 +722,7 @@ DiabloCalc.addItems([
   {
     id: "P4_Unique_Orb_002",
     name: "Etched Sigil",
+    suffix: _L("Legacy"),
     type: "source",
     quality: "legendary",
     required: {
@@ -741,6 +734,7 @@ DiabloCalc.addItems([
   {
     id: "P4_Unique_Orb_003",
     name: "Triumvirate",
+    suffix: _L("Legacy"),
     type: "source",
     quality: "legendary",
     required: {
@@ -777,6 +771,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Shield_106_x1",
     name: "Shield of Fury",
+    suffix: _L("Legacy"),
     type: "crusadershield",
     quality: "legendary",
     required: {
@@ -788,6 +783,7 @@ DiabloCalc.addItems([
   {
     id: "P4_Unique_Orb_004",
     name: "Orb of Infinite Depth",
+    suffix: _L("Legacy"),
     type: "source",
     quality: "legendary",
     required: {
@@ -861,6 +857,7 @@ DiabloCalc.addItems([
   {
     id: "P6_Unique_Phylactery_01",
     name: "Lost Time",
+    suffix: _L("Legacy"),
     type: "phylactery",
     quality: "legendary",
     required: {
@@ -883,6 +880,7 @@ DiabloCalc.addItems([
   {
     id: "P6_Unique_Phylactery_03",
     name: "Leger's Disdain",
+    suffix: _L("Legacy"),
     type: "phylactery",
     quality: "legendary",
     required: {
@@ -911,6 +909,126 @@ DiabloCalc.addItems([
     preset: ["mainstat", "cdr"],
     primary: 5,
     secondary: 1,
+  },
+
+  {
+    id: "P61_CruShield_norm_unique_01",
+    name: "Frydehr's Wrath",
+    suffix: _L("PTR"),
+    type: "crusadershield",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_frydehrswrath_p6", name: "Condemn Damage Bonus", format: "Condemn has no cooldown and has its damage increased by %d%%, but instead costs 40 Wrath.", min: 600, max: 800},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P61_Unique_CruShield_102_x1",
+    name: "Jekangbord",
+    suffix: _L("PTR"),
+    type: "crusadershield",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_jekangbord_p6", name: "Blessed Shield Damage", format: "Blessed Shield ricochets to 6 additional enemies and has its damage increased by %d%%.", min: 225, max: 300},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Orb_003",
+    name: "Triumvirate",
+    suffix: _L("PTR"),
+    type: "source",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_triumvirate_p6", name: "Arcane Orb Damage Increase", format: "Your Signature Spells increase the damage of Arcane Orb by %d%% for 6 seconds, stacking up to 3 times.", min: 300, max: 400},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P61_Unique_Orb_004",
+    name: "Orb of Infinite Depth",
+    suffix: _L("PTR"),
+    type: "source",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_orbofinfinitedepth_p6", name: "Damage Bonus", format: "Each time you hit an enemy with Explosive Blast your damage is increased by %d%% and your damage reduction is increased by 20%% for 6 seconds. This effect can stack up to 4 times.", min: 8, max: 10},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P61_Unique_Phylactery_01",
+    name: "Lost Time",
+    suffix: _L("PTR"),
+    type: "phylactery",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_losttime_p6", name: "Cold Skill Movement Speed", format: "Your cold skills reduce the movement speed of enemies by 30%%. In addition, your movement speed is increased by %d%% for 5 seconds.  Maximum 5 stacks.", min: 8, max: 10},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Phylactery_03",
+    name: "Leger's Disdain",
+    suffix: _L("PTR"),
+    type: "phylactery",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_legersdisdain_p6", name: "Grim Scythe Damage per Essence", format: "Grim Scythe deals an additional %d%% damage for each point of essence it restores.", min: 65, max: 80},
+    },
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "P61_Unique_Quiver_007",
+    name: "Dead Man's Legacy",
+    suffix: _L("PTR"),
+    type: "quiver",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_deadmanslegacy_p6", name: "Multishot Damage Bonus", format: "Multishot hits enemies below 60%% health twice and its damage is increased by %d%%.", min: 150, max: 200},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P61_Unique_Shield_007",
+    name: "Denial",
+    suffix: _L("PTR"),
+    type: "shield",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_denial_p6", name: "Sweep Attack Bonus", format: "Each enemy hit by your Sweep Attack increases the damage of your next Sweep Attack by %d%%, stacking up to 5 times.", min: 100, max: 125},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Shield_106_x1",
+    name: "Shield of Fury",
+    suffix: _L("PTR"),
+    type: "crusadershield",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_shieldoffury_p6", name: "Heaven's Fury Ramp Up", format: "Each time an enemy takes damage from your Heaven's Fury, it increases the damage they take from your Heaven's Fury by %d%%.", min: 25, max: 30},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Orb_002",
+    name: "Etched Sigil",
+    suffix: _L("PTR"),
+    type: "source",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_etchedsigil_p6", name: "Spender Damage Bonus", format: "While channeling Arcane Torrent, Disintegrate, or Ray of Frost, the damage of your Arcane Power Spenders is increased by %d%% and you also cast one of your other damaging Arcane Power Spenders every second.", min: 125, max: 150},
+    },
+    preset: ["mainstat", "chc"],
   },
 
 ]);

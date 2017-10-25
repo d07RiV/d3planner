@@ -499,7 +499,7 @@ DiabloCalc.addItems([
     type: "chestarmor",
     quality: "legendary",
     required: {
-      custom: {id: "leg_bloodsongmail", name: "Command Skeletons Damage", format: "While in the Land of the Dead, Command Skeletons gains the effect of all runes and deals %d%% additional damage.", min: 100, max: 125},
+      custom: {id: "leg_bloodsongmail", name: "Command Skeletons Damage", format: "While in the Land of the Dead, Command Skeletons deals %d%% additional damage and gains the effect of the Enforcer, Frenzy, Dark Mending and Freezing Grasp runes.", min: 100, max: 125},
     },
     preset: ["mainstat", "sockets"],
   },

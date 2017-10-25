@@ -201,7 +201,7 @@ DiabloCalc.skills.demonhunter = {
         if (res["Burn Damage"]) res["Sentry Burn Damage"] = $.extend({}, res["Burn Damage"], ext);
       }
       if (stats.set_shadow_6pc) {
-        res["First Target Bonus"] = {elem: res["Damage"].elem, coeff: 400};
+        res["First Target Bonus"] = {elem: res["Damage"].elem, coeff: 500};
       }
       var total = {};
       if (res["Sentry Damage"]) total["Sentry Damage"] = {count: sentries};
@@ -823,9 +823,9 @@ DiabloCalc.skills.demonhunter = {
         total.sum = true;
         total["Damage"] = {};
         res["Total Damage"] = total;
-        res["DPS"] = {sum: true, "Total Damage": {speed: 1, ias: (stats.leg_yangsrecurve ? 50 : 0), fpa: 56.666664, round: "up"}};
+        res["DPS"] = {sum: true, "Total Damage": {speed: 1, ias: ((stats.leg_yangsrecurve || stats.leg_yangsrecurve_p6) ? 50 : 0), fpa: 56.666664, round: "up"}};
       } else {
-        res["DPS"] = {sum: true, "Damage": {speed: 1, ias: (stats.leg_yangsrecurve ? 50 : 0), fpa: 56.666664, round: "up"}};
+        res["DPS"] = {sum: true, "Damage": {speed: 1, ias: ((stats.leg_yangsrecurve || stats.leg_yangsrecurve_p6) ? 50 : 0), fpa: 56.666664, round: "up"}};
       }
 
       return res;
@@ -860,8 +860,8 @@ DiabloCalc.skills.demonhunter = {
       case "a": res = {"Damage": {elem: "fir", coeff: 8.5}, "Grenade Damage": {elem: "fir", coeff: 2.5, passives: {grenadier:10}}}; break;
       }
       res = $.extend({"Cost": {cost: 40}}, res);
-      if (stats.leg_manticore) {
-        res["Cost"].rcr = stats.leg_manticore;
+      if (stats.leg_manticore || stats.leg_manticore_p6) {
+        res["Cost"].rcr = (stats.leg_manticore_p6 && 50 || stats.leg_manticore);
       }
       if (res["Grenade Damage"]) {
         res["Grenade Damage"].percent = hellcat_percent(stats, this.params[0].val);

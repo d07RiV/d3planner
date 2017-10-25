@@ -330,14 +330,13 @@ DiabloCalc.addItems([
   {
     id: "Unique_Staff_009_p1",
     name: "The Grand Vizier",
+    suffix: _L("Legacy"),
     type: "staff",
     quality: "legendary",
     required: {
-      skill_wizard_meteor: {min: 25, max: 30},
-      custom: {id: "leg_thegrandvizier", name: "Reduce Meteor Cost", format: "Reduces the Arcane Power cost of Meteor by %d%%.", min: 40, max: 50},
+      custom: {id: "leg_thegrandvizier", name: "Reduce Meteor Cost", format: "Reduces the Arcane Power cost of Meteor by %d%% and increases its damage by 30%%.", min: 40, max: 50},
     },
     preset: ["wpnfir", "mainstat"],
-    primary: 5,
   },
 
   {
@@ -417,16 +416,13 @@ DiabloCalc.addItems([
   {
     id: "Unique_Sword_2H_007_x1",
     name: "Blade of Prophecy",
+    suffix: _L("Legacy"),
     type: "sword2h",
     quality: "legendary",
-    affixes: {
-      skill_crusader_condemn: {min: 75, max: 100},
-    },
     required: {
-      custom: {id: "leg_bladeofprophecy", name: "Condemn Explosions Chain", format: "Two Condemned enemies also trigger Condemn's explosion.", args: 0},
+      custom: {id: "leg_bladeofprophecy", name: "Condemn Explosions Chain", format: "Two Condemned enemies also trigger Condemn's explosion and the damage of Condemn is increased by 100%%.", args: 0},
     },
-    preset: ["mainstat", "skill_crusader_condemn"],
-    primary: 5,
+    preset: ["mainstat"],
   },
 
   {
@@ -545,16 +541,13 @@ DiabloCalc.addItems([
   {
     id: "Unique_CombatStaff_2H_003_x1",
     name: "Incense Torch of the Grand Temple",
+    suffix: _L("Legacy"),
     type: "daibo",
     quality: "legendary",
-    affixes: {
-      skill_monk_waveoflight: {min: 25, max: 30},
-    },
     required: {
-      custom: {id: "leg_incensetorchofthegrandtemple", name: "Wave of Light Cost Reduction", format: "Reduces the Spirit cost of Wave of Light by %d%%.", min: 40, max: 50},
+      custom: {id: "leg_incensetorchofthegrandtemple", name: "Wave of Light Cost Reduction", format: "Reduces the Spirit cost of Wave of Light by %d%% and increases its damage by 30%%.", min: 40, max: 50},
     },
-    preset: ["mainstat", "skill_monk_waveoflight"],
-    primary: 5,
+    preset: ["mainstat"],
   },
 
   {
@@ -613,10 +606,11 @@ DiabloCalc.addItems([
   {
     id: "Unique_Flail_2H_103_x1",
     name: "Fate of the Fell",
+    suffix: _L("Legacy"),
     type: "flail2h",
     quality: "legendary",
     required: {
-      custom: {id: "leg_fateofthefell", name: "Holy Shotgun", format: "Gain two additional rays of Heaven\u2019s Fury.", args: 0},
+      custom: {id: "leg_fateofthefell", name: "Holy Shotgun", format: "Gain two additional rays of Heaven's Fury.", args: 0},
     },
     preset: ["wpnfir", "mainstat"],
   },
@@ -628,7 +622,7 @@ DiabloCalc.addItems([
     type: "flail2h",
     quality: "legendary",
     required: {
-      custom: {id: "leg_goldenflense", name: "Sweep Attack Restores Wrath", format: "Sweep Attack restores %d Wrath for each enemy hit.", min: 3, max: 4},
+      custom: {id: "leg_goldenflense", name: "Sweep Attack Restores Wrath", format: "Sweep Attack restores %d Wrath for each enemy hit and has its damage increased by 200%%.", min: 3, max: 4},
     },
     preset: ["mainstat"],
   },
@@ -637,16 +631,13 @@ DiabloCalc.addItems([
     id: "P2_Unique_Flail_2H_104",
     ids: ["p2_Unique_Flail_2H_104"],
     name: "Golden Flense",
+    suffix: _L("Legacy"),
     type: "flail2h",
     quality: "legendary",
-    affixes: {
-      skill_crusader_sweepattack: {min: 150, max: 200},
-    },
     required: {
-      custom: {id: "leg_goldenflense_p2", name: "Sweep Attack Restores Wrath", format: "Sweep Attack restores %d Wrath for each enemy hit.", min: 4, max: 6},
+      custom: {id: "leg_goldenflense_p2", name: "Sweep Attack Restores Wrath", format: "Sweep Attack restores %d Wrath for each enemy hit and has its damage increased by 200%%.", min: 4, max: 6},
     },
-    preset: ["mainstat", "skill_crusader_sweepattack"],
-    primary: 5,
+    preset: ["mainstat"],
   },
 
   {
@@ -692,7 +683,7 @@ DiabloCalc.addItems([
       skill_barbarian_seismicslam: {min: 25, max: 30},
     },
     required: {
-      custom: {id: "leg_furyofthevanishedpeak", name: "Seismic Slam Cost Reduction", format: "Reduces the Fury cost of Seismic Slam by %d%%.", min: 40, max: 50},
+      custom: {id: "leg_furyofthevanishedpeak", name: "Seismic Slam Cost Reduction", format: "Reduces the Fury cost of Seismic Slam by %d%% and increases its damage by 125%%.", min: 40, max: 50},
     },
     preset: ["mainstat", "skill_barbarian_seismicslam"],
     primary: 5,
@@ -722,16 +713,13 @@ DiabloCalc.addItems([
     id: "P2_Unique_Mighty_2H_001",
     ids: ["ptr_TheGavelofJudgment", "p2_Unique_Mighty_2H_001"],
     name: "The Gavel of Judgment",
+    suffix: _L("Legacy"),
     type: "mightyweapon2h",
     quality: "legendary",
-    affixes: {
-      skill_barbarian_hammeroftheancients: {min: 75, max: 100},
-    },
     required: {
-      custom: {id: "leg_gavelofjudgment", name: "Fury Returned", format: "Hammer of the Ancients returns %d Fury if it hits 3 or fewer enemies.", min: 20, max: 25},
+      custom: {id: "leg_gavelofjudgment", name: "Fury Returned", format: "The damage of Hammer of the Ancients is increased by 100%% and it returns %d Fury if it hits 3 or fewer enemies.", min: 20, max: 25},
     },
-    preset: ["wpnhol", "mainstat", "skill_barbarian_hammeroftheancients"],
-    primary: 5,
+    preset: ["wpnhol", "mainstat"],
     secondary: 2,
   },
 
@@ -801,16 +789,13 @@ DiabloCalc.addItems([
   {
     id: "P4_Unique_CombatStaff_2H_001",
     name: "Balance",
+    suffix: _L("Legacy"),
     type: "daibo",
     quality: "legendary",
-    affixes: {
-      skill_monk_tempestrush: {min: 150, max: 200},
-    },
     required: {
-      custom: {id: "leg_balance", name: "Tempest Rush Crit", format: "When your Tempest Rush hits 3 or fewer enemies, it gains 100%% Critical Hit Chance.", args: 0},
+      custom: {id: "leg_balance", name: "Tempest Rush Crit", format: "The damage of Tempest Rush is increased by 200%% and when your Tempest Rush hits 3 or fewer enemies, it gains 100%% Critical Hit Chance.", args: 0},
     },
-    preset: ["mainstat", "wpnhol", "skill_monk_tempestrush"],
-    primary: 5,
+    preset: ["mainstat", "wpnhol"],
   },
 
   {
@@ -842,6 +827,7 @@ DiabloCalc.addItems([
   {
     id: "P4_Unique_Polearm_01",
     name: "Standoff",
+    suffix: _L("Legacy"),
     type: "polearm",
     quality: "legendary",
     required: {
@@ -862,16 +848,13 @@ DiabloCalc.addItems([
   {
     id: "P4_Unique_Staff_001",
     name: "Staff of Chiroptera",
+    suffix: _L("Legacy"),
     type: "staff",
     quality: "legendary",
-    affixes: {
-      skill_witchdoctor_firebats: {min: 45, max: 60},
-    },
     required: {
-      custom: {id: "leg_staffofchiroptera", name: "Firebats Cost Reduction", format: "Firebats attacks 100%% faster and costs %d%% less Mana.", min: 70, max: 75},
+      custom: {id: "leg_staffofchiroptera", name: "Firebats Cost Reduction", format: "Firebats attacks 100%% faster, costs %d%% less Mana, and has its damage increased by 60%%.", min: 70, max: 75},
     },
-    preset: ["mainstat", "skill_witchdoctor_firebats"],
-    primary: 5,
+    preset: ["mainstat"],
   },
 
   {
@@ -888,17 +871,15 @@ DiabloCalc.addItems([
   {
     id: "P4_Unique_Mighty_2H_006",
     name: "Fury of the Vanished Peak",
+    suffix: _L("Legacy"),
     type: "mightyweapon2h",
     quality: "legendary",
-    affixes: {
-      skill_barbarian_seismicslam: {min: 100, max: 125},
-    },
     required: {
       lifefury: {min: 2500, max: 3000},
-      custom: {id: "leg_furyofthevanishedpeak_p2", name: "Seismic Slam Cost Reduction", format: "Reduces the Fury cost of Seismic Slam by %d%%.", min: 40, max: 50},
+      custom: {id: "leg_furyofthevanishedpeak_p2", name: "Seismic Slam Cost Reduction", format: "Reduces the Fury cost of Seismic Slam by %d%% and increases its damage by 125%%.", min: 40, max: 50},
     },
-    preset: ["mainstat", "skill_barbarian_seismicslam"],
-    primary: 6,
+    preset: ["mainstat"],
+    primary: 5,
   },
 
   {
@@ -941,6 +922,7 @@ DiabloCalc.addItems([
   {
     id: "P43_Unique_Sword_2H_012_x1",
     name: "Faithful Memory",
+    suffix: _L("Legacy"),
     type: "sword2h",
     quality: "legendary",
     required: {
@@ -964,6 +946,7 @@ DiabloCalc.addItems([
   {
     id: "P6_Unique_Scythe2H_01",
     name: "Maltorius' Petrified Spike",
+    suffix: _L("Legacy"),
     type: "scythe2h",
     quality: "legendary",
     required: {
@@ -975,10 +958,11 @@ DiabloCalc.addItems([
   {
     id: "P6_Unique_Scythe2H_02",
     name: "Bloodtide Blade",
+    suffix: _L("Legacy"),
     type: "scythe2h",
     quality: "legendary",
     required: {
-      custom: {id: "leg_bloodtideblade", name: "Death Nova Damage per Enemy", format: "Death Nova deals %d%% increased damage for every enemy within 15 yards.", min: 20, max: 30},
+      custom: {id: "leg_bloodtideblade", name: "Death Nova Damage per Enemy", format: "Death Nova deals %d%% increased damage for every enemy within 25 yards.", min: 20, max: 30},
     },
     preset: ["mainstat", "vit"],
   },
@@ -997,12 +981,183 @@ DiabloCalc.addItems([
   {
     id: "P6_Unique_Scythe2H_04",
     name: "Nayr's Black Death",
+    suffix: _L("Legacy"),
     type: "scythe2h",
     quality: "legendary",
     required: {
       custom: {id: "leg_nayrsblackdeath", name: "Poison Skill Damage per Stack", format: "Each different poison skill you use increases the damage of your poison skills by %d%% for 15 seconds.", min: 50, max: 65},
     },
     preset: ["mainstat"],
+  },
+
+  {
+    id: "P61_Unique_CombatStaff_2H_001",
+    name: "Balance",
+    suffix: _L("PTR"),
+    type: "daibo",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_balance_p6", name: "Tempest Rush Crit", format: "The damage of Tempest Rush is increased by %d%% and when your Tempest Rush hits 3 or fewer enemies, it gains 100%% Critical Hit Chance.", min: 450, max: 600},
+    },
+    preset: ["mainstat", "wpnhol"],
+  },
+
+  {
+    id: "P61_Unique_CombatStaff_2H_003_x1",
+    name: "Incense Torch of the Grand Temple",
+    suffix: _L("PTR"),
+    type: "daibo",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_incensetorchofthegrandtemple_p6", name: "Wave of Light Damage", format: "Reduces the Spirit cost of Wave of Light by 50%% and increases its damage by %d%%.", min: 450, max: 550},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Flail_2H_103_x1",
+    name: "Fate of the Fell",
+    suffix: _L("PTR"),
+    type: "flail2h",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_fateofthefell_p6", name: "Heaven's Fury Damage", format: "Heaven's Fury gains two additional rays and has its damage increased by %d%%.", min: 375, max: 500},
+    },
+    preset: ["wpnfir", "mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Flail_2H_104",
+    name: "Golden Flense",
+    suffix: _L("PTR"),
+    type: "flail2h",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_goldenflense_p6", name: "Sweep Attack Damage", format: "Sweep Attack restores 6 Wrath for each enemy hit and has its damage increased by %d%%.", min: 225, max: 300},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Mighty_2H_001",
+    name: "The Gavel of Judgment",
+    suffix: _L("PTR"),
+    type: "mightyweapon2h",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_gavelofjudgment_p6", name: "Fury Returned", format: "The damage of Hammer of the Ancients is increased by %d%% and it returns 25 Fury if it hits 3 or fewer enemies.", min: 600, max: 800},
+    },
+    preset: ["wpnhol", "mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Mighty_2H_006",
+    name: "Fury of the Vanished Peak",
+    suffix: _L("PTR"),
+    type: "mightyweapon2h",
+    quality: "legendary",
+    required: {
+      lifefury: {min: 2500, max: 3000},
+      custom: {id: "leg_furyofthevanishedpeak_p6", name: "Seismic Slam Cost Reduction", format: "Reduces the Fury cost of Seismic Slam by 50%% and increases its damage by %d%%.", min: 400, max: 500},
+    },
+    preset: ["mainstat"],
+    primary: 5,
+  },
+
+  {
+    id: "P61_Unique_Polearm_01",
+    name: "Standoff",
+    suffix: _L("PTR"),
+    type: "polearm",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_standoff_p6", name: "Furious Charge Bonus Damage", format: "Furious Charge deals increased damage equal to %d%% of your bonus movement speed.", min: 400, max: 500},
+    },
+    preset: ["mainstat", "wpncol"],
+  },
+
+  {
+    id: "P61_Unique_Scythe2H_01",
+    name: "Maltorius' Petrified Spike",
+    suffix: _L("PTR"),
+    type: "scythe2h",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_maltoriuspetrifiedspike_p6", name: "Bone Spear Damage Bonus", format: "Bone Spear now costs 40 Essence and deals %d%% increased damage.", min: 550, max: 700},
+    },
+    preset: ["mainstat", "damage"],
+  },
+
+  {
+    id: "P61_Unique_Scythe2H_02",
+    name: "Bloodtide Blade",
+    suffix: _L("PTR"),
+    type: "scythe2h",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_bloodtideblade_p6", name: "Death Nova Damage per Enemy", format: "Death Nova deals %d%% increased damage for every enemy within 25 yards.", min: 80, max: 100},
+    },
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "P61_Unique_Scythe2H_04",
+    name: "Nayr's Black Death",
+    suffix: _L("PTR"),
+    type: "scythe2h",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_nayrsblackdeath_p6", name: "Poison Skill Damage per Stack", format: "Each different poison skill you use increases the damage of your poison skills by %d%% for 15 seconds.", min: 75, max: 100},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Staff_001",
+    name: "Staff of Chiroptera",
+    suffix: _L("PTR"),
+    type: "staff",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_staffofchiroptera_p6", name: "Firebats Cost Reduction", format: "Firebats attacks 100%% faster, costs 75%% less Mana, and has its damage increased by %d%%.", min: 125, max: 150},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Sword_2H_007_x1",
+    name: "Blade of Prophecy",
+    suffix: _L("PTR"),
+    type: "sword2h",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_bladeofprophecy_p6", name: "Condemn Explosions Chain", format: "Two Condemned enemies also trigger Condemn's explosion and the damage of Condemn is increased by %d%%.", min: 600, max: 800},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Sword_2H_012_x1",
+    name: "Faithful Memory",
+    suffix: _L("PTR"),
+    type: "sword2h",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_faithfulmemory_p6", name: "Blessed Hammer Bonus Damage", format: "Each enemy hit by Falling Sword increases the damage of Blessed Hammer by %d%% for 10 seconds. Max 10 stacks.", min: 60, max: 80},
+    },
+    preset: ["wpnhol", "mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Staff_009",
+    name: "The Grand Vizier",
+    suffix: _L("PTR"),
+    type: "staff",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_thegrandvizier_p6", name: "Meteor Damage Bonus", format: "Reduces the Arcane Power cost of Meteor by 50%% and increases its damage by %d%%.", min: 300, max: 400},
+    },
+    preset: ["wpnfir", "mainstat"],
   },
 
 ]);

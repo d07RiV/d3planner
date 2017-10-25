@@ -166,9 +166,9 @@ DiabloCalc.skills.wizard = {
       case "c": res = {"Damage": {elem: "arc", coeff: 2.65}}; break;
       case "b": res = {"Damage": {elem: "lit", coeff: 3.49}}; break;
       case "d": res = {"Damage": {elem: "fir", coeff: 2.21}, "Burn Damage": {elem: "fir", coeff: 7.34, total: true}}; break;
-      case "e": res = {"Explosion Damage": {elem: "col", coeff: 3.93}, "Projectile Damage": {elem: "col", coeff: 2.62}, "Shard Damage": {elem: "col", coeff: 1.31}}; break;
+      case "e": res = {"Explosion Damage": {elem: "col", coeff: 9.50}, "Projectile Damage": {elem: "col", coeff: 6.35}, "Shard Damage": {elem: "col", coeff: 3.15}}; break;
       }
-      if (stats.leg_unstablescepter) {
+      if (stats.leg_unstablescepter || stats.leg_unstablescepter_p6) {
         var factor = {};
         factor[DiabloCalc.itemById.P1_Wand_norm_unique_02.name] = 2;
         if (rune === "e") {
@@ -480,29 +480,32 @@ DiabloCalc.skills.wizard = {
       b: "Meteor Shower",
       a: "Molten Impact",
     },
-    params: [{rune: "d", min: "40*(1-0.01*rcr_ap)*(1-0.01*leg_thegrandvizier)-rcrint", max: "maxap", name: "Arcane Power", buffs: false}],
+    params: [{rune: "d", min: "40*(1-0.01*rcr_ap)*(1-0.01*(leg_thegrandvizier_p6&&50||leg_thegrandvizier))-rcrint", max: "maxap", name: "Arcane Power", buffs: false}],
     active: true,
     activetip: "3 or fewer targets",
     activeshow: function(rune, stats) {
-      return !!stats.leg_nilfursboast;
+      return !!(stats.leg_nilfursboast || stats.leg_nilfursboast_p2 || stats.leg_nilfursboast_p6);
     },
     info: function(rune, stats) {
       var res = {
         x: {"Damage": {elem: "fir", coeff: 7.4, addcoeff: [2.35], total: 0}},
         e: {"Damage": {elem: "lit", coeff: 7.4, addcoeff: [2.35], total: 0}},
-        d: {"Damage": {elem: "arc", coeff: 7.4, addcoeff: [[0.2, "$1-40*(1-0.01*rcr_ap)*(1-0.01*leg_thegrandvizier)+rcrint"], 2.35], total: 1}},
+        d: {"Damage": {elem: "arc", coeff: 7.4, addcoeff: [[0.2, "$1-40*(1-0.01*rcr_ap)*(1-0.01*(leg_thegrandvizier_p6&&50||leg_thegrandvizier))+rcrint"], 2.35], total: 1}},
         c: {"Damage": {elem: "col", coeff: 7.4, addcoeff: [2.35], total: 0}},
         b: {"Damage": {elem: "fir", coeff: 2.77, addcoeff: [0.70], total: 0}, "Total Damage": {sum: true, "Damage": {count: 7}}, "Average Damage": {sum: true, tip: "Small target gets hit by 2.5 meteors, on average", "Damage": {count: 2.5}}},
         a: {"Cooldown": {cooldown: 15}, "Damage": {elem: "fir", coeff: 16.48, addcoeff: [6.25], total: 0}},
       }[rune];
-      if (stats.leg_nilfursboast_p2) {
+      if (stats.leg_nilfursboast_p6) {
+        res["Damage"].percent = {};
+        res["Damage"].percent[DiabloCalc.itemById.P61_Unique_Boots_01.name] = (this.active ? stats.leg_nilfursboast_p6 : 600);
+      } else if (stats.leg_nilfursboast_p2) {
         res["Damage"].percent = {};
         res["Damage"].percent[DiabloCalc.itemById.P41_Unique_Boots_01.name] = (this.active ? stats.leg_nilfursboast_p2 : 200);
       } else if (stats.leg_nilfursboast) {
         res["Damage"].percent = {};
         res["Damage"].percent[DiabloCalc.itemById.P2_Unique_Boots_01.name] = (this.active ? stats.leg_nilfursboast : 100);
       }
-      res = $.extend({"Cost": {cost: 40, rcr: "leg_thegrandvizier"}}, res);
+      res = $.extend({"Cost": {cost: 40, rcr: "leg_thegrandvizier_p6&&50||leg_thegrandvizier"}}, res);
       if (rune === "d" && DiabloCalc.isSkillActive("arcanedynamo")) {
         res["Damage"].percent = $.extend(res["Damage"].percent || {}, {"Arcane Dynamo (bug)": 60});
       }
@@ -749,9 +752,9 @@ DiabloCalc.skills.wizard = {
       res["Arcane Blast Damage"] = {elem: elem, coeff: 6.04};
       res["Arcane Strike DPS"] = {sum: true, "Arcane Strike Damage": {speed: 1, fpa: 57.599954, round: "up"}};
       if (stats.set_chantodo_2pc) {
-        res["Chantodo's DPS"] = {elem: "max", srcelem: DiabloCalc.skilltips.wizard.archon.elements[rune], coeff: 3.5};
+        res["Chantodo's DPS"] = {elem: "max", srcelem: DiabloCalc.skilltips.wizard.archon.elements[rune], coeff: 10};
         if (this.params[1].val) {
-          res["Chantodo's DPS"].addcoeff = [[3.5, this.params[1].val]];
+          res["Chantodo's DPS"].addcoeff = [[10, this.params[1].val]];
         }
       }
       if (rune === "a" || stats.set_vyr_2pc) {
@@ -783,6 +786,10 @@ DiabloCalc.skills.wizard = {
         res.ias = this.params[0].val * 1.0;
         res.armor_percent += this.params[0].val * 1.0;
         res.resist_percent += this.params[0].val * 1.0;
+      }
+      if (stats.set_vyr_6pc) {
+        res.dmgred = this.params[0].val * 0.15;
+        res.dmgmul.list[1] = this.params[0].val * 50;
       }
       return res;
     },

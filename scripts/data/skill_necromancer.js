@@ -52,15 +52,15 @@ DiabloCalc.skills.necromancer = {
     range: 6.5,
     params: [{rune: "c", name: "Stacks", min: 0, max: 15, val: 0},
              {min: 0, max: "0.999+maxessence/(12*(1+0.01*resourcegen))", name: "Enemies Hit", buffs: false, show: function(rune, stats) {
-               return !!stats.leg_legersdisdain;
+               return !!(stats.leg_legersdisdain || stats.leg_legersdisdain_p6);
              }}],
     info: function(rune, stats) {
       var res = {"Damage": {elem: "phy", coeff: 1.5}, "DPS": {sum: true, "Damage": {speed: "passives.swiftharvesting?1.15:1", fpa: 58.0645, round: "up"}}};
       if (rune === "e") res["Damage"].elem = "psn";
       if (rune === "c") res["Damage"].elem = "col";
-      if (stats.leg_legersdisdain) {
+      if (stats.leg_legersdisdain || stats.leg_legersdisdain_p6) {
         var pct = {};
-        pct[DiabloCalc.itemById.P6_Unique_Phylactery_03.name] = stats.leg_legersdisdain * Math.min(stats.maxessence, this.params[1].val * 12 * (1 + 0.01 * (stats.resourcegen || 0)));
+        pct[DiabloCalc.itemById.P6_Unique_Phylactery_03.name] = (stats.leg_legersdisdain || stats.leg_legersdisdain_p6) * Math.min(stats.maxessence, this.params[1].val * 12 * (1 + 0.01 * (stats.resourcegen || 0)));
         res["Damage"].percent = pct;
       }
       return res;
@@ -359,6 +359,7 @@ DiabloCalc.skills.necromancer = {
     range: 100,
     info: function(rune, stats) {
       var res = {"Damage": {elem: "phy", pet: true, coeff: 4.5}, "DPS": {sum: true, "Damage": {pet: 90, speed: 1}}, "Cooldown": {cooldown: 45, cdr: stats.passives.commanderoftherisendead ? 30 : 0}};
+      if (stats.leg_golemskinbreeches_p6) res["Cooldown"].cooldown -= stats.leg_golemskinbreeches_p6;
       switch (rune) {
       case "e": res["Damage"].elem = "col"; break;
       case "a": res["Activation Damage"] = {elem: "phy", pet: true, coeff: 20.0, total: true}; break;
@@ -392,7 +393,7 @@ DiabloCalc.skills.necromancer = {
     range: 45,
     info: function(rune, stats) {
       var res = {"Damage": {elem: "phy", coeff: 120.00, total: true}, "Cooldown": {cooldown: 120}};
-      if (stats.leg_fatesvow || rune === "c") res["Damage"].coeff = 500.00;
+      if (stats.leg_fatesvow || stats.leg_fatesvow_p6 || rune === "c") res["Damage"].coeff = 500.00;
       else if (rune === "a") res["Damage"].coeff = 140.0;
       else if (rune === "e") res["Damage"].coeff = 155.0;
       if (rune === "a") res["Damage"].elem = "psn";
@@ -416,7 +417,7 @@ DiabloCalc.skills.necromancer = {
     range: 70,
     info: {
       "*": {"Cooldown": {cooldown: 120}},
-      c: {"Damage": {elem: "psn", coeff: 100.00, total: true}},
+      c: {"DPS": {elem: "psn", coeff: 1, total: true}, "Total Damage": {elem: "psn", coeff: 100.00, total: true}},
     },
     active: false,
     buffs: function(rune, stats) {
@@ -519,13 +520,13 @@ DiabloCalc.skills.necromancer = {
     },
     range: 70,
     info: function(rune, stats) {
-      var res = {"Damage": {elem: "phy", coeff: 1.25}, "Cost": {cost: 10}, "Cooldown": {cooldown: 10}};
+      var res = {"Damage": {elem: "phy", coeff: 1.25}, "Cooldown": {cooldown: 10}};
       if (rune === "a") res["Damage"].coeff = 1.45;
       if (rune === "c") res["Damage"].elem = "psn";
       if (rune === "b") res["Cooldown"].cooldown = 45;
       if (rune === "e") res["Damage"].elem = "col";
       if (stats.set_inarius_6pc) {
-        res["DPS"] = {elem: res["Damage"].elem, coeff: 7.5, total: true};
+        res["DPS"] = {elem: res["Damage"].elem, coeff: 10, total: true};
       }
       return res;
     },
@@ -540,8 +541,11 @@ DiabloCalc.skills.necromancer = {
       if (stats.leg_scytheofthecycle) {
         res.dmgmul.list.push({source: "P6_Unique_Scythe1H_03", value: {skills: ["bonespear", "skeletalmage", "deathnova"], percent: stats.leg_scytheofthecycle}});
       }
+      if (stats.leg_scytheofthecycle_p6) {
+        res.dmgmul.list.push({source: "P61_Unique_Scythe1H_03", value: {skills: ["bonespear", "skeletalmage", "deathnova"], percent: stats.leg_scytheofthecycle_p6}});
+      }
       if (stats.set_inarius_6pc) {
-        res.dmgmul.list.push({source: "set_inarius_6pc", value: 2750});
+        res.dmgmul.list.push({source: "set_inarius_6pc", value: 3750});
       }
       return res;
     },
@@ -562,16 +566,16 @@ DiabloCalc.skills.necromancer = {
     range: 60,
     params: [{rune: "e", min: 0, max: 10, inf: true, val: 0, name: "Enemies Hit", buffs: false},
              {min: 0, max: 30, name: "Active Time", buffs: false, show: function(rune, stats) {
-               return !!stats.leg_defilercuisses;
+               return !!(stats.leg_defilercuisses || stats.leg_defilercuisses_p6);
              }}],
     info: function(rune, stats) {
       var res = {"Damage": {elem: "phy", coeff: 40.00}, "Cooldown": {cooldown: 15}};
       if (rune === "e") res["Damage"] = {elem: "col", coeff: 40.00, percent: {"Bonus": 15 * this.params[0].val}};
       if (rune === "b") res["Damage"].elem = "psn";
       if (rune === "d") res["Damage"] = {elem: "col", coeff: 12.50};
-      if (stats.leg_defilercuisses) {
+      if (stats.leg_defilercuisses || stats.leg_defilercuisses_p6) {
         var pct = {};
-        pct[DiabloCalc.itemById.P6_Necro_Unique_Pants_22.name] = stats.leg_defilercuisses * this.params[1].val;
+        pct[DiabloCalc.itemById.P6_Necro_Unique_Pants_22.name] = (stats.leg_defilercuisses || stats.leg_defilercuisses_p6) * this.params[1].val;
         res["Damage"].percent = pct;
       }
       return res;

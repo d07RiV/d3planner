@@ -429,6 +429,7 @@ DiabloCalc.addItems([
   {
     id: "P6_Necro_Unique_Pants_21",
     name: "Golemskin Breeches",
+    suffix: _L("Legacy"),
     type: "pants",
     quality: "legendary",
     required: {
@@ -440,10 +441,35 @@ DiabloCalc.addItems([
   {
     id: "P6_Necro_Unique_Pants_22",
     name: "Defiler Cuisses",
+    suffix: _L("Legacy"),
     type: "pants",
     quality: "legendary",
     required: {
       custom: {id: "leg_defilercuisses", name: "Bone Spirit Damage per Stack", format: "Your Bone Spirit's damage is increased by %d%% for every second it is active.", min: 75, max: 100},
+    },
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P61_Necro_Unique_Pants_21",
+    name: "Golemskin Breeches",
+    suffix: _L("PTR"),
+    type: "pants",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_golemskinbreeches_p6", name: "Golem Damage Bonus", format: "The cooldown on Command Golem is reduced by %d seconds and you take 30%% less damage while your golem is alive.", min: 20, max: 25},
+    },
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P61_Necro_Unique_Pants_22",
+    name: "Defiler Cuisses",
+    suffix: _L("PTR"),
+    type: "pants",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_defilercuisses_p6", name: "Bone Spirit Damage per Stack", format: "Your Bone Spirit's damage is increased by %d%% for every second it is active.", min: 400, max: 500},
     },
     preset: ["mainstat", "sockets"],
   },

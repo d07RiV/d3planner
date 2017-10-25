@@ -818,6 +818,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Flail_1H_105_x1",
     name: "Gyrfalcon's Foote",
+    suffix: _L("Legacy"),
     type: "flail",
     quality: "legendary",
     required: {
@@ -1247,6 +1248,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Dagger_101_x1",
     name: "Karlei's Point",
+    suffix: _L("Legacy"),
     type: "dagger",
     quality: "legendary",
     required: {
@@ -1281,6 +1283,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Sword_1H_112_x1",
     name: "Deathwish",
+    suffix: _L("Legacy"),
     type: "sword",
     quality: "legendary",
     required: {
@@ -1292,6 +1295,7 @@ DiabloCalc.addItems([
   {
     id: "P4_Unique_Fist_009_x1",
     name: "The Fist of Az'Turrasq",
+    suffix: _L("Legacy"),
     type: "fistweapon",
     quality: "legendary",
     required: {
@@ -1303,6 +1307,7 @@ DiabloCalc.addItems([
   {
     id: "P41_Unique_Dagger_102_x1",
     name: "Lord Greenstone's Fan",
+    suffix: _L("Legacy"),
     type: "dagger",
     quality: "legendary",
     required: {
@@ -1336,6 +1341,7 @@ DiabloCalc.addItems([
   {
     id: "P42_Unique_Fist_013_x1",
     name: "Scarbringer",
+    suffix: _L("Legacy"),
     type: "fistweapon",
     quality: "legendary",
     required: {
@@ -1456,6 +1462,7 @@ DiabloCalc.addItems([
   {
     id: "P6_Unique_Scythe1H_03",
     name: "Scythe of the Cycle",
+    suffix: _L("Legacy"),
     type: "scythe",
     quality: "legendary",
     required: {
@@ -1484,6 +1491,90 @@ DiabloCalc.addItems([
     },
     preset: ["wpnphy", "mainstat"],
     secondary: 3,
+  },
+
+  {
+    id: "P61_Unique_Dagger_101_x1",
+    name: "Karlei's Point",
+    suffix: _L("PTR"),
+    type: "dagger",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_karleispoint_p6", name: "Impale Damage Increase", format: "The damage of Impale is increased by %d%% and it returns 15 Hatred if it hits an enemy already Impaled.", min: 300, max: 375},
+    },
+    preset: ["mainstat", "wpncol"],
+  },
+
+  {
+    id: "P61_Unique_Dagger_102_x1",
+    name: "Lord Greenstone's Fan",
+    suffix: _L("PTR"),
+    type: "dagger",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_lordgreenstonesfan_p6", name: "Fan of Knives Damage Bonus", format: "Every second, gain %d%% increased damage for your next Fan of Knives. Stacks up to 30 times.", min: 300, max: 400},
+    },
+    preset: ["mainstat", "wpncol"],
+  },
+
+  {
+    id: "P61_Unique_Fist_009_x1",
+    name: "The Fist of Az'Turrasq",
+    suffix: _L("PTR"),
+    type: "fistweapon",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_thefistofazturrasq_p6", name: "Exploding Palm Explosion Damage", format: "Exploding Palm's on-death explosion damage is increased by %d%%.", min: 400, max: 500},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Fist_013_x1",
+    name: "Scarbringer",
+    suffix: _L("PTR"),
+    type: "fistweapon",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_scarbringer_p6", name: "Lashing Tail Kick Damage", format: "The damage of Lashing Tail Kick is increased by %d%% to the first 7 enemies hit.", min: 450, max: 600},
+    },
+    preset: ["wpnhol", "mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Flail_1H_105_x1",
+    name: "Gyrfalcon's Foote",
+    suffix: _L("PTR"),
+    type: "flail",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_gyrfalconsfoote_p6", name: "Free Blessed Shield", format: "Removes the resource cost of Blessed Shield and increases its damage by %d%%.", min: 275, max: 350},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Scythe1H_03",
+    name: "Scythe of the Cycle",
+    suffix: _L("PTR"),
+    type: "scythe",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_scytheofthecycle_p6", name: "Secondary Skill Damage Bonus", format: "Your Secondary skills deal %d%% additional damage while Bone Armor is active but reduce the remaining duration of Bone Armor by 4 seconds.", min: 350, max: 400},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Sword_1H_112_x1",
+    name: "Deathwish",
+    suffix: _L("PTR"),
+    type: "sword",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_deathwish_p6", name: "Damage Increase While Channeling", format: "While channeling Arcane Torrent, Disintegrate, or Ray of Frost, all damage is increased by %d%%.", min: 250, max: 325},
+    },
+    preset: ["mainstat"],
   },
 
 ]);

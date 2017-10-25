@@ -563,8 +563,8 @@ DiabloCalc.addItems([
 
   {
     id: "P3_Unique_Belt_03",
-    local: true,
     name: "Binding of the Lost",
+    suffix: _L("Legacy"),
     type: "belt",
     quality: "legendary",
     required: {
@@ -661,6 +661,7 @@ DiabloCalc.addItems([
   {
     id: "P41_Unique_Belt_007",
     name: "Bakuli Jungle Wraps",
+    suffix: _L("PTR"),
     type: "belt",
     quality: "legendary",
     required: {
@@ -683,6 +684,7 @@ DiabloCalc.addItems([
   {
     id: "P42_Unique_BarbBelt_EQ",
     name: "Girdle of Giants",
+    suffix: _L("Legacy"),
     type: "mightybelt",
     quality: "legendary",
     affixes: {
@@ -719,10 +721,62 @@ DiabloCalc.addItems([
   {
     id: "P6_Unique_Belt_01",
     name: "Dayntee's Binding",
+    suffix: _L("Legacy"),
     type: "belt",
     quality: "legendary",
     required: {
       custom: {id: "leg_daynteesbinding", name: "Decrepify Damage Reduction", format: "You gain an additional %d%% damage reduction when there is an enemy afflicted by your Decrepify.", min: 40, max: 50},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P61_Unique_BarbBelt_EQ",
+    name: "Girdle of Giants",
+    suffix: _L("PTR"),
+    type: "mightybelt",
+    quality: "legendary",
+    affixes: {
+      ias: "iasNormal",
+    },
+    required: {
+      custom: {id: "leg_girdleofgiants_p6", name: "Earthquake Damage Bonus", format: "Seismic Slam increases Earthquake damage by %d%% for 3 seconds.", min: 200, max: 250},
+    },
+    preset: ["mainstat", "ias", "maxfury"],
+  },
+
+  {
+    id: "P61_Unique_Belt_007",
+    name: "Bakuli Jungle Wraps",
+    suffix: _L("PTR"),
+    type: "belt",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_bakulijunglewraps_p6", name: "Extra Firebats Damage", format: "Firebats deals %d%% increased damage to enemies affected by Locust Swarm or Piranhas.", min: 250, max: 300},
+    },
+    preset: ["mainstat", "resall"],
+  },
+
+  {
+    id: "P61_Unique_Belt_01",
+    name: "Dayntee's Binding",
+    suffix: _L("PTR"),
+    type: "belt",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_daynteesbinding_p6", name: "Decrepify Damage Reduction", format: "You gain an additional %d%% damage reduction when there is an enemy afflicted by any of your curses.", min: 40, max: 50},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Belt_03",
+    name: "Binding of the Lost",
+    suffix: _L("PTR"),
+    type: "belt",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_bindingofthelost_p6", name: "Damage Reduction", format: "Each hit with Seven-Sided Strike grants %.1f%% damage reduction for 7 seconds.", min: 4, max: 5, step: 0.1},
     },
     preset: ["mainstat"],
   },

@@ -212,7 +212,7 @@ DiabloCalc.skills.barbarian = {
     range: 14,
     params: [{min: 0, max: "maxfury", name: "Fury", buffs: false}],
     info: {
-      "*": {"Cost": {cost: 20}, "DPS": {sum: true, "Damage": {speed: 1, ias: "leg_bracersofthefirstmen?50:0", fpa: 56.666664, round: "up"}}},
+      "*": {"Cost": {cost: 20}, "DPS": {sum: true, "Damage": {speed: 1, ias: "(leg_bracersofthefirstmen||leg_bracersofthefirstmen_p6)?50:0", fpa: 56.666664, round: "up"}}},
       x: {"Damage": {elem: "phy", coeff: 5.35, chc: "$1/5"}},
       b: {"Damage": {elem: "phy", coeff: 5.35, chc: "$1/5"}, "Shockwave Damage": {elem: "phy", coeff: 5.05}},
       a: {"Damage": {elem: "fir", coeff: 6.4, chc: "$1/5"}},
@@ -267,7 +267,7 @@ DiabloCalc.skills.barbarian = {
     active: true,
     activetip: "First 5 enemies",
     activeshow: function(rune, stats) {
-      return !!stats.leg_bracersofdestruction;
+      return !!(stats.leg_bracersofdestruction || stats.leg_bracersofdestruction_p6);
     },
     params: [{rune: "b", min: 0, max: "maxfury", name: "Fury", buffs: false}],
     info: function(rune, stats) {
@@ -284,11 +284,14 @@ DiabloCalc.skills.barbarian = {
         res["Rumble Damage"] = {elem: "phy", coeff: 0.15 * this.params[0].val};
         res["DPS"]["Rumble Damage"] = {speed: 1, fpa: 58.666656, round: "up", nobp: true};
       }
-      if (this.active && stats.leg_bracersofdestruction) {
+      if (this.active && (stats.leg_bracersofdestruction || stats.leg_bracersofdestruction_p6)) {
         res["Damage"].percent = {};
-        res["Damage"].percent[DiabloCalc.itemById.P3_Unique_Bracer_104.name] = stats.leg_bracersofdestruction;
+        res["Damage"].percent[DiabloCalc.itemById.P3_Unique_Bracer_104.name] = (stats.leg_bracersofdestruction || stats.leg_bracersofdestruction_p6);
       }
-      return $.extend({"Cost": {cost: 30, rcr: "leg_furyofthevanishedpeak||leg_furyofthevanishedpeak_p2"}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58.666656, round: "up"}}}, res);
+      var rcr = 0;
+      if (stats.leg_furyofthevanishedpeak_p6) rcr = 50;
+      else rcr = (stats.leg_furyofthevanishedpeak || stats.leg_furyofthevanishedpeak_p2 || 0);
+      return $.extend({"Cost": {cost: 30, rcr: rcr}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58.666656, round: "up"}}}, res);
     },
   },
   whirlwind: {
@@ -335,12 +338,8 @@ DiabloCalc.skills.barbarian = {
     buffs: function(rune, stats) {
       var res = {};
       if (stats.set_bulkathos_2pc) {
-        res.extrams = 30;
-        res.ias = 30;
-      }
-      if (stats.set_wastes_4pc) {
-        res.dmgred = 50;
-        res.dmgmul = {skills: ["rend"], percent: 200};
+        res.extrams = 45;
+        res.ias = 45;
       }
       if (!$.isEmptyObject(res)) {
         return res;
@@ -580,9 +579,9 @@ DiabloCalc.skills.barbarian = {
       if (stats.leg_vileward) {
         res["Extra Damage per Enemy"] = {elem: elem, coeff: coeff, factors: {"Vile Ward": stats.leg_vileward * 0.01}, total: true};
       }
-      if (stats.leg_standoff) {
+      if (stats.leg_standoff || stats.leg_standoff_p6) {
         var pct = {};
-        pct[DiabloCalc.itemById.P4_Unique_Polearm_01.name] = (stats.ms || 0) * 0.01 * stats.leg_standoff;
+        pct[DiabloCalc.itemById.P4_Unique_Polearm_01.name] = (stats.ms || 0) * 0.01 * (stats.leg_standoff || stats.leg_standoff_p6);
         res["Damage"].percent = pct;
         if (stats.leg_vileward) res["Extra Damage per Enemy"].percent = pct;
       }

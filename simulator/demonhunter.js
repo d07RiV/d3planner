@@ -327,7 +327,7 @@
     oncast: function(rune) {
       var pierce = (rune !== "a" && _buriza());
       if (Sim.stats.set_shadow_6pc) {
-        Sim.damage({type: "line", speed: 2, coeff: 400, proc: 0});
+        Sim.damage({type: "line", speed: 2, coeff: 500, proc: 0});
       }
       var count = (Sim.stats.leg_holypointshot ? 3 : 1);
       switch (rune) {
@@ -1005,8 +1005,8 @@
   };
 
   function ms_dml_fix() {
-    if (Sim.stats.leg_deadmanslegacy) {
-      var count = Sim.countTargetsBelow(Sim.stats.leg_deadmanslegacy * 0.01, this);
+    if (Sim.stats.leg_deadmanslegacy || Sim.stats.leg_deadmanslegacy_p6) {
+      var count = Sim.countTargetsBelow((Sim.stats.leg_deadmanslegacy_p6 && 60 || Sim.stats.leg_deadmanslegacy) * 0.01, this);
       if (count) {
         this.count = 1 + count / this.targets;
       }
@@ -1017,7 +1017,7 @@
     cost: {x: 25, d: 18, b: 25, e: 25, a: 25, c: 25},
     frames: 56.666664,
     speed: function(rune, aps) {
-      return aps * (Sim.stats.leg_yangsrecurve ? 1.5 : 1);
+      return aps * (Sim.stats.leg_yangsrecurve || Sim.stats.leg_yangsrecurve_p6 ? 1.5 : 1);
     },
     oncast: function(rune) {
       var dmg = {delay: Math.floor(Sim.target.distance / 2), type: "cone", width: 80, range: 75, coeff: 3.6};
@@ -1037,7 +1037,7 @@
         Sim.damage({targets: 3, coeff: 3 * (Sim.stats.passives.ballistics ? 2 : 1), fix: ms_dml_fix});
         break;
       }
-      if (Sim.stats.leg_deadmanslegacy) {
+      if (Sim.stats.leg_deadmanslegacy || Sim.stats.leg_deadmanslegacy_p6) {
         dmg.fix = ms_dml_fix;
       }
       return dmg;
@@ -1049,7 +1049,7 @@
   skills.clusterarrow = {
     offensive: true,
     cost: function(rune) {
-      return 40 * (1 - 0.01 * (Sim.stats.leg_manticore || 0));
+      return 40 * (1 - 0.01 * ((Sim.stats.leg_manticore_p6 && 50) || Sim.stats.leg_manticore || 0));
     },
     frames: 58.064510,
     oncast: function(rune) {

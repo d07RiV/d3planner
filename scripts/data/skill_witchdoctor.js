@@ -183,10 +183,10 @@ DiabloCalc.skills.witchdoctor = {
       case "e": res = {"Tick Damage": {elem: "fir", coeff: 4.25, divide: {"Base Speed": 2}, percent: {"Channeling": "$1*20"}}}; break;
       }
       res = $.extend({"Cost": null, "Channeling Cost": {cost: 125, fpa: 30}, "DPS": {sum: true, "Tick Damage": {speed: 1, fpa: 30}}}, res);
-      if (stats.leg_staffofchiroptera) {
+      if (stats.leg_staffofchiroptera || stats.leg_staffofchiroptera_p6) {
         res["DPS"]["Tick Damage"].speed *= 2;
-        if (res["Cost"]) res["Cost"].rcr = stats.leg_staffofchiroptera;
-        if (res["Channeling Cost"]) res["Channeling Cost"].rcr = stats.leg_staffofchiroptera;
+        if (res["Cost"]) res["Cost"].rcr = (stats.leg_staffofchiroptera_p6 && 75 || stats.leg_staffofchiroptera);
+        if (res["Channeling Cost"]) res["Channeling Cost"].rcr = (stats.leg_staffofchiroptera_p6 && 75 || stats.leg_staffofchiroptera);
       }
       return res;
     },
@@ -221,7 +221,7 @@ DiabloCalc.skills.witchdoctor = {
       }
       if (stats.set_jadeharvester_2pc) {
         res["Reapplication Damage"] = {elem: damage.elem, coeff: 40, divide: {"Base Duration": (stats.leg_quetzalcoatl ? 6 : 12)},
-          factors: {"Duration": 120}};
+          factors: {"Duration": 560}};
         res["Spam DPS"] = {sum: true, "DPS": {}, "Reapplication Damage": {speed: 1, fpa: 57.5, round: "up"}};
       }
       return $.extend({"Cost": {cost: 50}}, res);
@@ -445,7 +445,7 @@ DiabloCalc.skills.witchdoctor = {
         var haunt_dps, haunt_dur;
         if (haunt_rune) {
           var haunt_info = DiabloCalc.skills.witchdoctor.haunt.info(haunt_rune, stats);
-          haunt_dur = (stats.passives.creepingdeath ? 300 : haunt_info["DPS"]["Damage"].divide);
+          haunt_dur = (stats.passives.creepingdeath ? 1650 : haunt_info["DPS"]["Damage"].divide);
           haunt_info = DiabloCalc.skill_processInfo(haunt_info, {skill: ["haunt", haunt_rune]});
           haunt_dps = haunt_info["DPS"].value;
         }
@@ -457,7 +457,7 @@ DiabloCalc.skills.witchdoctor = {
         var swarm_dps, swarm_dur;
         if (swarm_rune) {
           var swarm_info = DiabloCalc.skills.witchdoctor.locustswarm.info(swarm_rune, stats);
-          swarm_dur = (stats.passives.creepingdeath ? 300 : swarm_info["DPS"]["Damage"].divide);
+          swarm_dur = (stats.passives.creepingdeath ? 1650 : swarm_info["DPS"]["Damage"].divide);
           swarm_info = DiabloCalc.skill_processInfo(swarm_info, {skill: ["locustswarm", swarm_rune]});
           swarm_dps = swarm_info["DPS"].value;
         }
@@ -717,11 +717,7 @@ DiabloCalc.skills.witchdoctor = {
     info: function(rune, stats) {
       var count = 1;
       var base = {pet: true, aps: true};
-      if (stats.leg_theshortmansfinger) {
-        count = 3;
-        base.percent = {};
-        base.percent[DiabloCalc.itemById.P2_Unique_Ring_02.name] = 200;
-      }
+      if (stats.leg_theshortmansfinger || stats.leg_theshortmansfinger_p6) count = 3;
       var res;
       switch (rune) {
       case "x": res = {"Damage": $.extend(base, {elem: "phy", coeff: 4.5})}; break;

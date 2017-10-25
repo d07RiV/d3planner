@@ -233,6 +233,7 @@ DiabloCalc.addItems([
     id: "Unique_Bracer_108_x1",
     ids: ["ptr_RanslorsFolly"],
     name: "Ranslor's Folly",
+    suffix: _L("Legacy"),
     type: "bracers",
     quality: "legendary",
     required: {
@@ -245,6 +246,7 @@ DiabloCalc.addItems([
     id: "P2_Unique_Bracer_109",
     ids: ["ptr_SpiritGuards"],
     name: "Spirit Guards",
+    suffix: _L("Legacy"),
     type: "bracers",
     quality: "legendary",
     required: {
@@ -277,8 +279,8 @@ DiabloCalc.addItems([
 
   {
     id: "P3_Unique_Bracer_103",
-    local: true,
     name: "Wraps of Clarity",
+    suffix: _L("Legacy"),
     type: "bracers",
     quality: "legendary",
     required: {
@@ -289,8 +291,8 @@ DiabloCalc.addItems([
 
   {
     id: "P3_Unique_Bracer_104",
-    local: true,
     name: "Bracers of Destruction",
+    suffix: _L("Legacy"),
     type: "bracers",
     quality: "legendary",
     required: {
@@ -301,8 +303,8 @@ DiabloCalc.addItems([
 
   {
     id: "P3_Unique_Bracer_105",
-    local: true,
     name: "Bracers of the First Men",
+    suffix: _L("Legacy"),
     type: "bracers",
     quality: "legendary",
     required: {
@@ -313,7 +315,6 @@ DiabloCalc.addItems([
 
   {
     id: "P3_Unique_Bracer_106",
-    local: true,
     name: "Jeram's Bracers",
     type: "bracers",
     quality: "legendary",
@@ -325,7 +326,6 @@ DiabloCalc.addItems([
 
   {
     id: "P3_Unique_Bracer_107",
-    local: true,
     name: "Coils of the First Spider",
     type: "bracers",
     quality: "legendary",
@@ -375,8 +375,8 @@ DiabloCalc.addItems([
 
   {
     id: "P4_Unique_Bracer_104",
-    local: true,
     name: "Bracer of Fury",
+    suffix: _L("Legacy"),
     type: "bracers",
     quality: "legendary",
     required: {
@@ -411,8 +411,8 @@ DiabloCalc.addItems([
 
   {
     id: "P4_Unique_Bracer_107",
-    local: true,
     name: "Cesar's Memento",
+    suffix: _L("Legacy"),
     type: "bracers",
     quality: "legendary",
     required: {
@@ -465,6 +465,90 @@ DiabloCalc.addItems([
       custom: {id: "leg_tragoulcoils_p2", name: "Spike Trap Bonuses", format: "Spike Traps gain the Impaling Spines rune and are deployed twice as fast.", args: 0},
     },
     preset: ["mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Bracer_100",
+    name: "Bracers of Destruction",
+    suffix: _L("PTR"),
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_bracersofdestruction_p6", name: "Seismic Slam Damage Increase", format: "Seismic Slam deals %d%% increased damage to the first 5 enemies it hits.", min: 400, max: 500},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P61_Unique_Bracer_104",
+    name: "Bracer of Fury",
+    suffix: _L("PTR"),
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_braceroffury_p6", name: "Heaven's Fury Damage on Blinded", format: "Heaven's Fury deals %d%% increased damage to enemies that are Blinded, Immobilized, or Stunned.", min: 300, max: 400},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P61_Unique_Bracer_105",
+    name: "Bracers of the First Men",
+    suffix: _L("PTR"),
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_bracersofthefirstmen_p6", name: "HotA Damage", format: "Hammer of the Ancients attacks 50%% faster and deals %d%% increased damage.", min: 375, max: 500},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P61_Unique_Bracer_107",
+    name: "Cesar's Memento",
+    suffix: _L("PTR"),
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_cesarsmemento_p6", name: "Tempest Rush Damage Bonus", format: "Enemies take %d%% increased damage from your Tempest Rush for 5 seconds after you hit them with a Blind, Freeze, or Stun.", min: 600, max: 800},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P61_Unique_Bracer_108_x1",
+    name: "Ranslor's Folly",
+    suffix: _L("PTR"),
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_ranslorsfolly_p6", name: "Energy Twister Vortex", format: "The damage of Energy Twister is increased by %d%% and it periodically pulls in lesser enemies within 30 yards.", min: 225, max: 300},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P61_Unique_Bracer_103",
+    name: "Wraps of Clarity",
+    suffix: _L("PTR"),
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_wrapsofclarity_p6", name: "Damage Reduction", format: "Your Hatred Generators reduce your damage taken by %d%% for 5 seconds.", min: 40, max: 50},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P61_Unique_Bracer_109",
+    name: "Spirit Guards",
+    suffix: _L("PTR"),
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_spiritguards_p6", name: "Damage Reduction", format: "Your Spirit Generators reduce your damage taken by %d%% for 3 seconds.", min: 45, max: 60},
+    },
+    preset: ["mainstat", "chc"],
   },
 
 ]);

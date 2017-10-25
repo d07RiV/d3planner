@@ -57,7 +57,7 @@ DiabloCalc.skilltips.barbarian = {
     b: "<p>Increase movement speed by <span class=\"d3-color-green\">15%</span>.</p> <p class=\"subtle\">Unlocked at level <em>31</em>.</p>",
     c: "<p>Critical Hits heal you and your pets for up to <span class=\"d3-color-green\">21457</span> Life.</p> <p class=\"subtle\">Unlocked at level <em>38</em>.</p>",
     d: "<p>Gain <span class=\"d3-color-green\">1%</span> Critical Hit Chance for each enemy within <span class=\"d3-color-green\">10</span> yards while under the effects of Battle Rage.</p> <p class=\"subtle\">Unlocked at level <em>46</em>.</p>",
-    e: "<p>Critical Hits cause an explosion of blood dealing <span class=\"d3-color-green\">20%</span> of the damage done to all other nearby enemies.</p> <p class=\"subtle\">Unlocked at level <em>54</em>.</p>",
+    e: "<p>Deal damage equal to <span class=\"d3-color-green\">20%</span> of your recent Critical Hits to enemies within <span class=\"d3-color-green\">20</span> yards every <span class=\"d3-color-green\">1</span> second.</p> <p class=\"subtle\">Unlocked at level <em>54</em>.</p>",
     elements: {
       a: "phy",
       b: "phy",
@@ -157,7 +157,7 @@ DiabloCalc.skilltips.barbarian = {
   groundstomp: {
     a: "<p>Enemies in the area also take <span class=\"d3-color-green\">575%</span> weapon damage as Fire.</p> <p class=\"subtle\">Unlocked at level <em>28</em>.</p>",
     b: "<p>Increase the area of effect to <span class=\"d3-color-green\">24</span> yards. Enemies are pulled closer before the strike lands.</p> <p class=\"subtle\">Unlocked at level <em>18</em>.</p>",
-    c: "<p>Enemies hit have a <span class=\"d3-color-green\">10%</span> chance to drop a health globe.</p> <p class=\"subtle\">Unlocked at level <em>54</em>.</p>",
+    c: "<p>Enemies hit have a chance to drop a health globe.</p> <p class=\"subtle\">Unlocked at level <em>54</em>.</p>",
     d: "<p>Increase Fury generated to <span class=\"d3-color-green\">30</span>.</p> <p class=\"subtle\">Unlocked at level <em>40</em>.</p>",
     e: "<p>Reduce the cooldown of Ground Stomp to <span class=\"d3-color-green\">8</span> seconds.</p><p>Enemies in the area have their movement speed slowed by <span class=\"d3-color-green\">80%</span> for <span class=\"d3-color-green\">8</span> seconds after they recover from being stunned.</p> <p class=\"subtle\">Unlocked at level <em>12</em>.</p>",
     elements: {
@@ -310,7 +310,7 @@ DiabloCalc.skilltips.barbarian = {
   threateningshout: {
     a: "<p>Affected enemies are also taunted to attack you for <span class=\"d3-color-green\">4</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>43</em>.</p>",
     b: "<p>Affected enemies also have their movement speed reduced by <span class=\"d3-color-green\">60%</span>.</p> <p class=\"subtle\">Unlocked at level <em>23</em>.</p>",
-    c: "<p>Enemies are badly shaken and have a <span class=\"d3-color-green\">15%</span> chance to drop health globes.</p> <p class=\"subtle\">Unlocked at level <em>37</em>.</p>",
+    c: "<p>Enemies are badly shaken and have a chance to drop health globes.</p> <p class=\"subtle\">Unlocked at level <em>37</em>.</p>",
     d: "<p>Enemies instead take <span class=\"d3-color-green\">25%</span> increased damage for <span class=\"d3-color-green\">6</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>28</em>.</p>",
     e: "<p>Enemies are severely demoralized. Each enemy has a <span class=\"d3-color-green\">100%</span> chance to flee in Fear for <span class=\"d3-color-green\">3</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>57</em>.</p>",
     elements: {

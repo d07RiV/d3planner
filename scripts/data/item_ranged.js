@@ -369,16 +369,13 @@ DiabloCalc.addItems([
   {
     id: "Unique_Wand_101_x1",
     name: "Wand of Woh",
+    suffix: _L("Legacy"),
     type: "wand",
     quality: "legendary",
-    affixes: {
-      skill_wizard_explosiveblast: {min: 75, max: 100},
-    },
     required: {
-      custom: {id: "leg_wandofwoh", name: "Quadruple Explosive Blast", format: "3 additional Explosive Blasts are triggered after casting Explosive Blast.", args: 0},
+      custom: {id: "leg_wandofwoh", name: "Quadruple Explosive Blast", format: "The damage of Explosive Blast is increased by 100%% and 3 additional blasts are triggered after casting Explosive Blast.", args: 0},
     },
-    preset: ["mainstat", "skill_wizard_explosiveblast"],
-    primary: 5,
+    preset: ["mainstat"],
   },
 
   {
@@ -518,6 +515,7 @@ DiabloCalc.addItems([
     id: "Unique_Bow_104_x1",
     local: true,
     name: "Yang's Recurve",
+    suffix: _L("Legacy"),
     type: "bow",
     quality: "legendary",
     required: {
@@ -531,11 +529,11 @@ DiabloCalc.addItems([
   {
     id: "P1_Wand_norm_unique_02",
     name: "Unstable Scepter",
+    suffix: _L("Legacy"),
     type: "wand",
     quality: "legendary",
     required: {
-      skill_wizard_arcaneorb: {min: 50, max: 65},
-      custom: {id: "leg_unstablescepter", name: "Double Arcane Orb Explosion", format: "Arcane Orb's explosion triggers an additional time.", args: 0},
+      custom: {id: "leg_unstablescepter", name: "Double Arcane Orb Explosion", format: "The damage of Arcane Orb is increased by 65%% and its explosion triggers an additional time.", args: 0},
     },
     preset: ["mainstat"],
     primary: 5,
@@ -577,15 +575,13 @@ DiabloCalc.addItems([
   {
     id: "P4_Unique_XBow_001",
     name: "Manticore",
+    suffix: _L("Legacy"),
     type: "crossbow",
     quality: "legendary",
-    affixes: {
-      skill_demonhunter_clusterarrow: {min: 60, max: 80},
-    },
     required: {
-      custom: {id: "leg_manticore", name: "Cluster Arrow Cost Reduction", format: "Reduces the Hatred cost of Cluster Arrow by %d%%.", min: 40, max: 50},
+      custom: {id: "leg_manticore", name: "Cluster Arrow Cost Reduction", format: "Reduces the Hatred cost of Cluster Arrow by %d%% and increases its damage by 80%%.", min: 40, max: 50},
     },
-    preset: ["mainstat", "wpnpsn", "skill_demonhunter_clusterarrow"],
+    preset: ["mainstat", "wpnpsn"],
     primary: 5,
   },
 
@@ -632,6 +628,55 @@ DiabloCalc.addItems([
       custom: {id: "leg_starfire", name: "Lightning Damage Bonus", format: "Lightning damage is increased by %d%% for every 10 yards you are from the target up to a maximum of 40 yards.", min: 10, max: 15},
     },
     preset: ["wpncol", "mainstat"],
+  },
+
+  {
+    id: "P61_Unique_Bow_104_x1",
+    name: "Yang's Recurve",
+    suffix: _L("PTR"),
+    type: "bow",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_yangsrecurve_p6", name: "Multishot Damage", format: "Multishot attacks 50%% faster and its damage is increased by %d%%.", min: 150, max: 200},
+    },
+    preset: ["mainstat", "damage"],
+    primary: 5,
+  },
+
+  {
+    id: "P61_Unique_Wand_101_x1",
+    name: "Wand of Woh",
+    suffix: _L("PTR"),
+    type: "wand",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_wandofwoh_p6", name: "Explosive Blast Damage Bonus", format: "The damage of Explosive Blast is increased by %d%% and 3 additional blasts are triggered after casting Explosive Blast.", min: 300, max: 400},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P61_Unique_XBow_001",
+    name: "Manticore",
+    suffix: _L("PTR"),
+    type: "crossbow",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_manticore_p6", name: "Cluster Arrow Damage Bonus", format: "Reduces the Hatred cost of Cluster Arrow by 50%% and increases its damage by %d%%.", min: 250, max: 300},
+    },
+    preset: ["mainstat", "wpnpsn"],
+  },
+
+  {
+    id: "P61_Wand_norm_unique_02",
+    name: "Unstable Scepter",
+    suffix: _L("PTR"),
+    type: "wand",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_unstablescepter_p6", name: "Arcane Orb Damage Bonus", format: "The damage of Arcane Orb is increased by %d%% and its explosion triggers an additional time.", min: 350, max: 450},
+    },
+    preset: ["mainstat"],
   },
 
 ]);

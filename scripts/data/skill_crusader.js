@@ -35,7 +35,7 @@ DiabloCalc.skills.crusader = {
         res["Retaliate Damage"] = {elem: elem, coeff: 1.4};
       }
       if (stats.set_invoker_6pc) {
-        res["Thorns Damage"] = {thorns: "special", coeff: 8, elem: "phy", srcelem: "none"};
+        res["Thorns Damage"] = {thorns: "special", coeff: 54, elem: "phy", srcelem: "none"};
         res["DPS"]["Damage"].speed *= 1.5;
         res["DPS"]["Thorns Damage"] = $.extend({nobp: true}, res["DPS"]["Damage"]);
       }
@@ -76,7 +76,7 @@ DiabloCalc.skills.crusader = {
         "Damage": {elem: DiabloCalc.skilltips.crusader.slash.elements[rune], coeff: 2.3}};
       if (rune === "c") res["Damage"].chc = 20;
       if (stats.set_invoker_6pc) {
-        res["Thorns Damage"] = {thorns: "special", coeff: 8, elem: "phy"};
+        res["Thorns Damage"] = {thorns: "special", coeff: 54, elem: "phy"};
         res["DPS"]["Damage"].speed *= 1.5;
         res["DPS"]["Thorns Damage"] = $.extend({nobp: true}, res["DPS"]["Damage"]);
       }
@@ -236,7 +236,7 @@ DiabloCalc.skills.crusader = {
     params: [{min: 0, max: 10, val: 0, name: function() {
                return DiabloCalc.itemById.P43_Unique_Sword_2H_012_x1.name;
              }, buffs: false, show: function(rune, stats) {
-               return stats.leg_faithfulmemory && stats.skills.fallingsword;
+               return (stats.leg_faithfulmemory || stats.leg_faithfulmemory_p6) && stats.skills.fallingsword;
              }}],
     info: function(rune, stats) {
       var res;
@@ -244,7 +244,7 @@ DiabloCalc.skills.crusader = {
       case "x": res = {"Damage": {elem: "hol", coeff: 3.2}}; break;
       case "a": res = {"Damage": {elem: "fir", coeff: 3.2}, "Scorch Damage": {elem: "fir", coeff: 3.3, total: true}}; break;
       case "b": res = {"Damage": {elem: "lit", coeff: 3.2}, "Arc Damage": {elem: "lit", coeff: 0.6}}; break;
-      case "c": res = {"Damage": {elem: "hol", coeff: 3.2}}; break;
+      case "c": res = {"Damage": {elem: "hol", coeff: 6.4}}; break;
       case "d": res = {"Damage": {elem: "phy", coeff: 3.2}, "Explosion Damage": {elem: "phy", coeff: 4.6}}; break;
       case "e": res = {"Damage": {elem: "hol", coeff: 3.2}}; break;
       }
@@ -252,9 +252,9 @@ DiabloCalc.skills.crusader = {
         res["Damage"].percent = {};
         res["Damage"].percent[DiabloCalc.itemById.Unique_Shield_103_x1.name] = stats.leg_guardofjohanna;
       }
-      if (stats.leg_faithfulmemory && stats.skills.fallingsword && this.params[0].val) {
+      if ((stats.leg_faithfulmemory || stats.leg_faithfulmemory_p6) && stats.skills.fallingsword && this.params[0].val) {
         var pct = {};
-        pct[DiabloCalc.itemById.P43_Unique_Sword_2H_012_x1.name] = stats.leg_faithfulmemory * this.params[0].val;
+        pct[DiabloCalc.itemById.P43_Unique_Sword_2H_012_x1.name] = (stats.leg_faithfulmemory || stats.leg_faithfulmemory_p6) * this.params[0].val;
         for (var key in res) {
           res[key].percent = $.extend(res[key].percent || {}, pct);
         }
@@ -291,7 +291,7 @@ DiabloCalc.skills.crusader = {
         res["First Target Damage"] = {sum: true, "Damage": {factor: 1 + stats.leg_akkhansmanacles * 0.01}};
         res["First Target DPS"] = {sum: true, "First Target Damage": {fpa: 58.06451, speed: 1, round: "up", nobp: true}};
       }
-      res = $.extend({"Cost": {cost: "leg_gyrfalconsfoote?0:20"}}, res);
+      res = $.extend({"Cost": {cost: "(leg_gyrfalconsfoote||leg_gyrfalconsfoote_p6)?0:20"}}, res);
       return res;
     },
     active: false,
@@ -513,7 +513,7 @@ DiabloCalc.skills.crusader = {
     },
     range: {x: 15, b: 15, e: 15, c: 15, d: 20, a: 15},
     info: {
-      "*": {"Cooldown": {cooldown: "leg_frydehrswrath?0:15"}, "Cost": {cost: "leg_frydehrswrath?40:0"}},
+      "*": {"Cooldown": {cooldown: "(leg_frydehrswrath||leg_frydehrswrath_p6)?0:15"}, "Cost": {cost: "(leg_frydehrswrath||leg_frydehrswrath_p6)?40:0"}},
       x: {"Damage": {elem: "hol", coeff: 11.6}},
       b: {"Damage": {elem: "hol", coeff: 11.6}},
       e: {"Damage": {elem: "hol", coeff: 11.6}},
@@ -727,8 +727,8 @@ DiabloCalc.skills.crusader = {
       if (rune === "e") res.ias = 15;
       if (stats.set_akkhan_2pc) res.rcr = 50;
       if (stats.set_akkhan_6pc) {
-        res.dmgmul = {list: [35, 600]};
-        res.dmgred = 15;
+        res.dmgmul = {list: [35, 1500]};
+        res.dmgred = 50;
       }
       return res;
     },
@@ -749,7 +749,7 @@ DiabloCalc.skills.crusader = {
     active: true,
     activetip: "Blinded",
     activeshow: function(rune, stats) {
-      return !!stats.leg_braceroffury;
+      return !!(stats.leg_braceroffury || stats.leg_braceroffury_p6);
     },
     info: function(rune, stats) {
       var res;
@@ -762,12 +762,12 @@ DiabloCalc.skills.crusader = {
       case "d": res = {"Cooldown": cd, "Damage": {elem: "lit", coeff: 17.1, total: true}}; break;
       case "e": res = {"Cost": {cost: 40}, "Damage": {elem: "hol", coeff: 9.6}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 57.777767}}}; break;
       }
-      if (rune == "e" && stats.leg_fateofthefell) {
+      if (rune == "e" && (stats.leg_fateofthefell || stats.leg_fateofthefell_p6)) {
         res["DPS"]["Damage"].count = 3;
       }
-      if (stats.leg_braceroffury && this.active) {
+      if ((stats.leg_braceroffury || stats.leg_braceroffury_p6) && this.active) {
         var pct = {};
-        pct[DiabloCalc.itemById.P4_Unique_Bracer_104.name] = stats.leg_braceroffury;
+        pct[DiabloCalc.itemById.P4_Unique_Bracer_104.name] = (stats.leg_braceroffury || stats.leg_braceroffury_p6);
         res["Damage"].percent = pct;
       }
       return res;

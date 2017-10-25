@@ -371,6 +371,7 @@ DiabloCalc.addItems([
   {
     id: "P41_Unique_Boots_01",
     name: "Nilfur's Boast",
+    suffix: _L("Legacy"),
     type: "boots",
     quality: "legendary",
     required: {
@@ -418,10 +419,11 @@ DiabloCalc.addItems([
   {
     id: "P6_Necro_Unique_Boots_21",
     name: "Steuart's Greaves",
+    suffix: _L("Legacy"),
     type: "boots",
     quality: "legendary",
     required: {
-      custom: {id: "leg_steuartsgreaves", name: "Blood Rush Movement Speed", format: "You gain %d%% increased movement speed for 2 seconds after using Blood Rush.", min: 40, max: 50},
+      custom: {id: "leg_steuartsgreaves", name: "Blood Rush Movement Speed", format: "You gain %d%% increased movement speed for 10 seconds after using Blood Rush.", min: 40, max: 50},
     },
     preset: ["mainstat", "ms"],
   },
@@ -435,6 +437,30 @@ DiabloCalc.addItems([
       custom: {id: "leg_brynersjourney", name: "Chance to Cast Bone Nova", format: "Attacking with Bone Spikes has a %d%% chance to cast a Bone Nova at the target location.", min: 20, max: 30},
     },
     preset: ["mainstat"],
+  },
+
+  {
+    id: "P61_Necro_Unique_Boots_21",
+    name: "Steuart's Greaves",
+    suffix: _L("PTR"),
+    type: "boots",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_steuartsgreaves_p6", name: "Blood Rush Movement Speed", format: "You gain %d%% increased movement speed for 10 seconds after using Blood Rush.", min: 75, max: 100},
+    },
+    preset: ["mainstat", "ms"],
+  },
+
+  {
+    id: "P61_Unique_Boots_01",
+    name: "Nilfur's Boast",
+    suffix: _L("PTR"),
+    type: "boots",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_nilfursboast_p6", name: "Meteor Damage Bonus", format: "Increase the damage of Meteor by 600%%. When your Meteor hits 3 or fewer enemies, the damage is increased by %d%%.", min: 675, max: 900},
+    },
+    preset: ["mainstat", "resall"],
   },
 
 ]);

@@ -41,7 +41,7 @@ DiabloCalc.skills.monk = {
       }
       if (stats.set_shenlong_2pc) {
         var percent = {};
-        percent[DiabloCalc.itemSets.shenlong.name] = this.params[0].val * 1.5;
+        percent[DiabloCalc.itemSets.shenlong.name] = this.params[0].val * 2;
         for (var k in res) {
           res[k].percent = percent;
         }
@@ -88,7 +88,7 @@ DiabloCalc.skills.monk = {
       }
       if (stats.set_shenlong_2pc) {
         var percent = {};
-        percent[DiabloCalc.itemSets.shenlong.name] = this.params[0].val * 1.5;
+        percent[DiabloCalc.itemSets.shenlong.name] = this.params[0].val * 2;
         for (var k in res) {
           res[k].percent = percent;
         }
@@ -137,7 +137,7 @@ DiabloCalc.skills.monk = {
       }
       if (stats.set_shenlong_2pc) {
         var percent = {};
-        percent[DiabloCalc.itemSets.shenlong.name] = this.params[0].val * 1.5;
+        percent[DiabloCalc.itemSets.shenlong.name] = this.params[0].val * 2;
         for (var k in res) {
           res[k].percent = percent;
         }
@@ -188,7 +188,7 @@ DiabloCalc.skills.monk = {
       }
       if (stats.set_shenlong_2pc) {
         var percent = {};
-        percent[DiabloCalc.itemSets.shenlong.name] = this.params[0].val * 1.5;
+        percent[DiabloCalc.itemSets.shenlong.name] = this.params[0].val * 2;
         for (var k in res) {
           res[k].percent = percent;
         }
@@ -230,7 +230,7 @@ DiabloCalc.skills.monk = {
     active: true,
     activetip: "First 5-7 enemies",
     activeshow: function(rune, stats) {
-      return !!stats.leg_scarbringer;
+      return !!(stats.leg_scarbringer || stats.leg_scarbringer_p6);
     },
     info: function(rune, stats) {
       var res;
@@ -245,9 +245,9 @@ DiabloCalc.skills.monk = {
       if (stats.leg_gyananakashu) {
         res["Fireball Damage"] = {elem: "fir", coeff: 0.01 * stats.leg_gyananakashu};
       }
-      if (this.active && stats.leg_scarbringer) {
+      if (this.active && (stats.leg_scarbringer || stats.leg_scarbringer_p6)) {
         res["Damage"].percent = {};
-        res["Damage"].percent[DiabloCalc.itemById.P42_Unique_Fist_013_x1.name] = 300;
+        res["Damage"].percent[DiabloCalc.itemById.P42_Unique_Fist_013_x1.name] = (stats.leg_scarbringer_p6 || 300);
         if (res["Burn Damage"]) {
           res["Burn Damage"].percent = res["Damage"].percent;
         }
@@ -280,9 +280,9 @@ DiabloCalc.skills.monk = {
     active: true,
     activetip: "3 or fewer targets",
     activeshow: function(rune, stats) {
-      return !!stats.leg_balance;
+      return !!(stats.leg_balance || stats.leg_balance_p6);
     },
-    params: [{rune: "e", min: 1, max: 500, name: "Flurry Stacks", buffs: false}],
+    params: [{rune: "e", min: 1, max: 100, name: "Flurry Stacks", buffs: false}],
     info: function(rune, stats) {
       var res;
       switch (rune) {
@@ -294,7 +294,7 @@ DiabloCalc.skills.monk = {
       case "a": res = {"Tick Damage": {elem: "fir", aps: true, coeff: 3.9}}; break;
       }
       res["Tick Damage"].divide = {"Speed Factor": 5};
-      if (stats.leg_balance && this.active) {
+      if ((stats.leg_balance || stats.leg_balance_p6) && this.active) {
         res["Tick Damage"].chc = 100;
       }
       return $.extend({"Cost": {cost: (rune === "d" ? 25 : 30), speed: 1}, "DPS": {sum: true, "Tick Damage": {aps: 5}}}, res);
@@ -344,7 +344,7 @@ DiabloCalc.skills.monk = {
         pct[DiabloCalc.itemById.P4_Unique_Fist_102.name] = (this.active ? stats.leg_kyoshirosblade : 150);
         for (var id in res) res[id].percent = pct;
       }
-      return $.extend({"Cost": {cost: 75, rcr: "leg_incensetorchofthegrandtemple"}}, res);
+      return $.extend({"Cost": {cost: 75, rcr: "leg_incensetorchofthegrandtemple_p6&&50||leg_incensetorchofthegrandtemple"}}, res);
     },
   },
   blindingflash: {
@@ -483,7 +483,7 @@ DiabloCalc.skills.monk = {
         res["Cost"] = {cost: 75};
       }
       if (stats.set_storms_6pc && DiabloCalc.itemaffixes.set_storms_6pc.active) {
-        res["Damage"].coeff = 125;
+        res["Damage"].coeff = 130;
       }
       return $.extend({"Cooldown": {cooldown: 8}}, res);
     },
@@ -516,6 +516,9 @@ DiabloCalc.skills.monk = {
       if (stats.leg_thefistofazturrasq_p2) {
         expl[DiabloCalc.itemById.P4_Unique_Fist_009_x1.name] = stats.leg_thefistofazturrasq_p2;
       }
+      if (stats.leg_thefistofazturrasq_p6) {
+        expl[DiabloCalc.itemById.P61_Unique_Fist_009_x1.name] = stats.leg_thefistofazturrasq_p6;
+      }
       var res;
       switch (rune) {
       case "x": res = {"Damage": {elem: "phy", coeff: 12, total: true}, "Explosion Damage": {elem: "phy", coeff: 27.7, percent: expl}}; break;
@@ -547,18 +550,25 @@ DiabloCalc.skills.monk = {
       c: "Cyclone",
     },
     range: {x: 10, e: 10, a: 10, b: 14, d: 10, c: 10},
-    params: [{min: 1, max: "3+(leg_vengefulwind?3:1)+leg_vengefulwind_p2", name: "Stacks", buffs: false}],
-    info: {
-      "*": {"Cost": {cost: 75}},
-      x: {"DPS": {elem: "phy", aps: true, coeff: 1.05, factors: {"Stacks": "$1"}, total: true}},
-      e: {"DPS": {elem: "col", aps: true, coeff: 1.05, factors: {"Stacks": "$1"}, total: true}},
-      a: {"DPS": {elem: "phy", aps: true, coeff: 1.45, factors: {"Stacks": "$1"}, total: true}},
-      b: {"DPS": {elem: "fir", aps: true, coeff: 1.05, factors: {"Stacks": "$1"}, total: true}},
-      d: {"DPS": {elem: "hol", aps: true, coeff: 1.05, factors: {"Stacks": "$1"}, total: true}},
-      c: {"DPS": {elem: "lit", aps: true, coeff: 1.05, factors: {"Stacks": "$1"}, total: true}, "Tornado Damage": {elem: "lit", coeff: 0.95}},
+    params: [{min: 0, max: "3+(leg_vengefulwind?3:1)+leg_vengefulwind_p2", name: "Stacks", buffs: false}],
+    info: function(rune, stats) {
+      var res = {"Cost": {cost: 75}, "DPS": {elem: "phy", aps: true, coeff: 1.05, factors: {"Stacks": this.params[0].val}, total: true}};
+      if (rune === "e") res["DPS"].elem = "col";
+      if (rune === "a") res["DPS"].coeff = 1.45;
+      if (rune === "b") res["DPS"].elem = "fir";
+      if (rune === "d") res["DPS"].elem = "hol";
+      if (rune === "c") {
+        res["DPS"].elem = "lit";
+        res["Tornado Damage"] = {elem: "lit", coeff: 0.95};
+      }
+      if (!this.params[0].val) delete res["DPS"];
+      return res;
     },
     passive: function(rune, stats) {
-      if (rune === "d" && this.params[0].val >= 3) return {spiritregen: 8};
+      var buffs = {};
+      if (rune === "d" && this.params[0].val >= 3) buffs.spiritregen = 8;
+      if (stats.set_sunwuko_6pc && this.params[0].val) buffs.dmgmul = {skills: ["lashingtailkick", "tempestrush", "waveoflight"], percent: 1000 * this.params[0].val};
+      return buffs;
     },
   },
   cyclonestrike: {
@@ -614,7 +624,7 @@ DiabloCalc.skills.monk = {
       }
       if (stats.set_uliana_4pc) {
         res["Damage"].factors = {};
-        res["Damage"].factors[DiabloCalc.itemSets.uliana.name] = 2 * hits;
+        res["Damage"].factors[DiabloCalc.itemSets.uliana.name] = 7.77 * hits;
       }
       if (stats.leg_gungdogear && stats.set_uliana_6pc) {
         var ep_rune = (stats.skills.explodingpalm || "x");
@@ -631,8 +641,8 @@ DiabloCalc.skills.monk = {
     },
     active: true,
     buffs: function(rune, stats) {
-      if (stats.leg_bindingofthelost) {
-        return {dmgred: stats.leg_bindingofthelost * (7 + (stats.leg_lionsclaw ? 7 : 0))};
+      if (stats.leg_bindingofthelost || stats.leg_bindingofthelost_p6) {
+        return {dmgred: (stats.leg_bindingofthelost || stats.leg_bindingofthelost_p6) * (7 + (stats.leg_lionsclaw ? 7 : 0))};
       }
     },
   },
