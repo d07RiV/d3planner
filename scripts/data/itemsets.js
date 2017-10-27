@@ -120,7 +120,7 @@ DiabloCalc.itemSets = {
     order: ["shoulders", "helm", "gloves", "bracers"],
     bonuses: {
       "2": [
-        {format: "Your Thorns damage now hits all enemies in a 15 yard radius around you. Each time you hit an enemy with Punish, Slash, or block an attack your Thorns is increased by 35% for 2 seconds."},
+        {format: "Your Thorns damage now hits all enemies in a 15 yard radius around you. Each time you hit an enemy with Punish, Slash, or block an attack your Thorns is increased by 140% for 2 seconds."},
       ],
       "4": [
         {format: "You take 50%% less damage for 20 seconds after damaging an enemy with Bombardment."},
