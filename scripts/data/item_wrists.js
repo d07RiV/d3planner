@@ -470,7 +470,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Bracer_100",
     name: "Bracers of Destruction",
-    suffix: _L("PTR"),
     type: "bracers",
     quality: "legendary",
     required: {
@@ -482,7 +481,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Bracer_104",
     name: "Bracer of Fury",
-    suffix: _L("PTR"),
     type: "bracers",
     quality: "legendary",
     required: {
@@ -494,7 +492,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Bracer_105",
     name: "Bracers of the First Men",
-    suffix: _L("PTR"),
     type: "bracers",
     quality: "legendary",
     required: {
@@ -506,7 +503,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Bracer_107",
     name: "Cesar's Memento",
-    suffix: _L("PTR"),
     type: "bracers",
     quality: "legendary",
     required: {
@@ -518,7 +514,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Bracer_108_x1",
     name: "Ranslor's Folly",
-    suffix: _L("PTR"),
     type: "bracers",
     quality: "legendary",
     required: {
@@ -530,7 +525,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Bracer_103",
     name: "Wraps of Clarity",
-    suffix: _L("PTR"),
     type: "bracers",
     quality: "legendary",
     required: {
@@ -542,7 +536,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Bracer_109",
     name: "Spirit Guards",
-    suffix: _L("PTR"),
     type: "bracers",
     quality: "legendary",
     required: {

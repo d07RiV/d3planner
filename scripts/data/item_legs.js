@@ -453,7 +453,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Necro_Unique_Pants_21",
     name: "Golemskin Breeches",
-    suffix: _L("PTR"),
     type: "pants",
     quality: "legendary",
     required: {
@@ -465,7 +464,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Necro_Unique_Pants_22",
     name: "Defiler Cuisses",
-    suffix: _L("PTR"),
     type: "pants",
     quality: "legendary",
     required: {

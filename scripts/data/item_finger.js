@@ -662,7 +662,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Ring_01",
     name: "The Short Man's Finger",
-    suffix: _L("PTR"),
     type: "ring",
     quality: "legendary",
     required: {
@@ -674,7 +673,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Ring_02",
     name: "Skull Grasp",
-    suffix: _L("PTR"),
     type: "ring",
     quality: "legendary",
     required: {
@@ -686,7 +684,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Ring_03",
     name: "Halo of Karini",
-    suffix: _L("PTR"),
     type: "ring",
     quality: "legendary",
     required: {
@@ -698,7 +695,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Ring_05",
     name: "Band of Might",
-    suffix: _L("PTR"),
     type: "ring",
     quality: "legendary",
     required: {

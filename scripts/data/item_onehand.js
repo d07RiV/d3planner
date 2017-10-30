@@ -1496,7 +1496,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Dagger_101_x1",
     name: "Karlei's Point",
-    suffix: _L("PTR"),
     type: "dagger",
     quality: "legendary",
     required: {
@@ -1508,7 +1507,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Dagger_102_x1",
     name: "Lord Greenstone's Fan",
-    suffix: _L("PTR"),
     type: "dagger",
     quality: "legendary",
     required: {
@@ -1520,7 +1518,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Fist_009_x1",
     name: "The Fist of Az'Turrasq",
-    suffix: _L("PTR"),
     type: "fistweapon",
     quality: "legendary",
     required: {
@@ -1532,7 +1529,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Fist_013_x1",
     name: "Scarbringer",
-    suffix: _L("PTR"),
     type: "fistweapon",
     quality: "legendary",
     required: {
@@ -1544,7 +1540,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Flail_1H_105_x1",
     name: "Gyrfalcon's Foote",
-    suffix: _L("PTR"),
     type: "flail",
     quality: "legendary",
     required: {
@@ -1556,7 +1551,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Scythe1H_03",
     name: "Scythe of the Cycle",
-    suffix: _L("PTR"),
     type: "scythe",
     quality: "legendary",
     required: {
@@ -1568,7 +1562,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Sword_1H_112_x1",
     name: "Deathwish",
-    suffix: _L("PTR"),
     type: "sword",
     quality: "legendary",
     required: {

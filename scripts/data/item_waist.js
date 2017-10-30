@@ -661,7 +661,6 @@ DiabloCalc.addItems([
   {
     id: "P41_Unique_Belt_007",
     name: "Bakuli Jungle Wraps",
-    suffix: _L("PTR"),
     type: "belt",
     quality: "legendary",
     required: {
@@ -733,7 +732,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_BarbBelt_EQ",
     name: "Girdle of Giants",
-    suffix: _L("PTR"),
     type: "mightybelt",
     quality: "legendary",
     affixes: {
@@ -748,7 +746,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Belt_007",
     name: "Bakuli Jungle Wraps",
-    suffix: _L("PTR"),
     type: "belt",
     quality: "legendary",
     required: {
@@ -760,7 +757,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Belt_01",
     name: "Dayntee's Binding",
-    suffix: _L("PTR"),
     type: "belt",
     quality: "legendary",
     required: {
@@ -772,7 +768,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Belt_03",
     name: "Binding of the Lost",
-    suffix: _L("PTR"),
     type: "belt",
     quality: "legendary",
     required: {

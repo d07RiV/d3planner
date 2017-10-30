@@ -442,7 +442,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Necro_Unique_Boots_21",
     name: "Steuart's Greaves",
-    suffix: _L("PTR"),
     type: "boots",
     quality: "legendary",
     required: {
@@ -454,7 +453,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Boots_01",
     name: "Nilfur's Boast",
-    suffix: _L("PTR"),
     type: "boots",
     quality: "legendary",
     required: {

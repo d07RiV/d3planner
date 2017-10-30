@@ -993,7 +993,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_CombatStaff_2H_001",
     name: "Balance",
-    suffix: _L("PTR"),
     type: "daibo",
     quality: "legendary",
     required: {
@@ -1005,7 +1004,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_CombatStaff_2H_003_x1",
     name: "Incense Torch of the Grand Temple",
-    suffix: _L("PTR"),
     type: "daibo",
     quality: "legendary",
     required: {
@@ -1017,7 +1015,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Flail_2H_103_x1",
     name: "Fate of the Fell",
-    suffix: _L("PTR"),
     type: "flail2h",
     quality: "legendary",
     required: {
@@ -1029,7 +1026,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Flail_2H_104",
     name: "Golden Flense",
-    suffix: _L("PTR"),
     type: "flail2h",
     quality: "legendary",
     required: {
@@ -1041,7 +1037,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Mighty_2H_001",
     name: "The Gavel of Judgment",
-    suffix: _L("PTR"),
     type: "mightyweapon2h",
     quality: "legendary",
     required: {
@@ -1053,7 +1048,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Mighty_2H_006",
     name: "Fury of the Vanished Peak",
-    suffix: _L("PTR"),
     type: "mightyweapon2h",
     quality: "legendary",
     required: {
@@ -1067,7 +1061,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Polearm_01",
     name: "Standoff",
-    suffix: _L("PTR"),
     type: "polearm",
     quality: "legendary",
     required: {
@@ -1079,7 +1072,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Scythe2H_01",
     name: "Maltorius' Petrified Spike",
-    suffix: _L("PTR"),
     type: "scythe2h",
     quality: "legendary",
     required: {
@@ -1091,7 +1083,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Scythe2H_02",
     name: "Bloodtide Blade",
-    suffix: _L("PTR"),
     type: "scythe2h",
     quality: "legendary",
     required: {
@@ -1103,7 +1094,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Scythe2H_04",
     name: "Nayr's Black Death",
-    suffix: _L("PTR"),
     type: "scythe2h",
     quality: "legendary",
     required: {
@@ -1115,7 +1105,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Staff_001",
     name: "Staff of Chiroptera",
-    suffix: _L("PTR"),
     type: "staff",
     quality: "legendary",
     required: {
@@ -1127,7 +1116,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Sword_2H_007_x1",
     name: "Blade of Prophecy",
-    suffix: _L("PTR"),
     type: "sword2h",
     quality: "legendary",
     required: {
@@ -1139,7 +1127,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Sword_2H_012_x1",
     name: "Faithful Memory",
-    suffix: _L("PTR"),
     type: "sword2h",
     quality: "legendary",
     required: {
@@ -1151,7 +1138,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Staff_009",
     name: "The Grand Vizier",
-    suffix: _L("PTR"),
     type: "staff",
     quality: "legendary",
     required: {

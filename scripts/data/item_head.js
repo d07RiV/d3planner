@@ -834,7 +834,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Necro_Unique_Helm_22",
     name: "Fate's Vow",
-    suffix: _L("PTR"),
     type: "helm",
     quality: "legendary",
     required: {
@@ -846,7 +845,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_VoodooMask_102_x1",
     name: "Mask of Jeram",
-    suffix: _L("PTR"),
     type: "voodoomask",
     quality: "legendary",
     required: {

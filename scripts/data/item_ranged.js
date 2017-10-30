@@ -633,7 +633,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Bow_104_x1",
     name: "Yang's Recurve",
-    suffix: _L("PTR"),
     type: "bow",
     quality: "legendary",
     required: {
@@ -647,7 +646,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Wand_101_x1",
     name: "Wand of Woh",
-    suffix: _L("PTR"),
     type: "wand",
     quality: "legendary",
     required: {
@@ -659,7 +657,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_XBow_001",
     name: "Manticore",
-    suffix: _L("PTR"),
     type: "crossbow",
     quality: "legendary",
     required: {
@@ -671,7 +668,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Wand_norm_unique_02",
     name: "Unstable Scepter",
-    suffix: _L("PTR"),
     type: "wand",
     quality: "legendary",
     required: {

@@ -914,7 +914,6 @@ DiabloCalc.addItems([
   {
     id: "P61_CruShield_norm_unique_01",
     name: "Frydehr's Wrath",
-    suffix: _L("PTR"),
     type: "crusadershield",
     quality: "legendary",
     required: {
@@ -926,7 +925,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_CruShield_102_x1",
     name: "Jekangbord",
-    suffix: _L("PTR"),
     type: "crusadershield",
     quality: "legendary",
     required: {
@@ -938,7 +936,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Orb_003",
     name: "Triumvirate",
-    suffix: _L("PTR"),
     type: "source",
     quality: "legendary",
     required: {
@@ -950,7 +947,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Orb_004",
     name: "Orb of Infinite Depth",
-    suffix: _L("PTR"),
     type: "source",
     quality: "legendary",
     required: {
@@ -962,7 +958,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Phylactery_01",
     name: "Lost Time",
-    suffix: _L("PTR"),
     type: "phylactery",
     quality: "legendary",
     required: {
@@ -974,7 +969,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Phylactery_03",
     name: "Leger's Disdain",
-    suffix: _L("PTR"),
     type: "phylactery",
     quality: "legendary",
     required: {
@@ -986,7 +980,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Quiver_007",
     name: "Dead Man's Legacy",
-    suffix: _L("PTR"),
     type: "quiver",
     quality: "legendary",
     required: {
@@ -998,7 +991,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Shield_007",
     name: "Denial",
-    suffix: _L("PTR"),
     type: "shield",
     quality: "legendary",
     required: {
@@ -1010,7 +1002,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Shield_106_x1",
     name: "Shield of Fury",
-    suffix: _L("PTR"),
     type: "crusadershield",
     quality: "legendary",
     required: {
@@ -1022,7 +1013,6 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Orb_002",
     name: "Etched Sigil",
-    suffix: _L("PTR"),
     type: "source",
     quality: "legendary",
     required: {
