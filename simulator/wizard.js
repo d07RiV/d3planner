@@ -990,6 +990,7 @@
   }
   skills.archon = {
     frames: 57.391354,
+    offensive: true,
     cooldown: function(rune) {
       return (rune === "d" || Sim.stats.set_vyr_2pc ? 100 : 120);
     },
