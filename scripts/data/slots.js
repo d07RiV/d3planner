@@ -1228,6 +1228,7 @@ DiabloCalc.itemTypes = {
       thorns: "thornsLarge",
       ccr: "ccrNormal",
       block: "blockShield",
+      maxessence: "maxessenceNormal",
     },
     required: {
       basearmor: "basearmorShield",
