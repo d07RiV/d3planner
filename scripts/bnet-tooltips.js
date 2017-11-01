@@ -1253,7 +1253,7 @@
         effects.append("<li class=\"gem-effect\"><span class=\"d3-color-gray\">" + _L("Weapon:") + "</span> " +
           fmtSlot(reg.weapon, !socketType || socketType === "weapon") + "</li>");
         effects.append("<li class=\"gem-effect\"><span class=\"d3-color-gray\">" + _L("Other:") + "</span> " +
-          fmtSlot(reg.other, socketType !== "helm" && socketType !== "weapon") + "</li>");
+          fmtSlot(reg.other, socketType !== "head" && socketType !== "weapon") + "</li>");
         props.append("<ul class=\"item-extras\"><li>" + _L("Account Bound") + "</li></ul><span class=\"clear\"><!--   --></span>");
       }
 

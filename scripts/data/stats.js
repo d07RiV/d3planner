@@ -73,7 +73,7 @@
     lph: {name: "Life per Hit", id: "Hitpoints_On_Hit"},
 
     cdr: {name: "Cooldown Reduction", dr: true, format: "Reduces cooldown of all skills by %.1f%%.", utility: true, id: "Power_Cooldown_Reduction_Percent_All", percent: true},
-    rcr: {name: "Resource Cost Reduction", dr: true, format: "Reduces all resource costs by %d%%.", utility: true, id: "Resource_Cost_Reduction_Percent_All", percent: true},
+    rcr: {name: "Resource Cost Reduction", dr: true, format: "Reduces all resource costs by %.1f%%.", utility: true, id: "Resource_Cost_Reduction_Percent_All", percent: true},
     rcr_ap: {name: "Arcane Power Cost Reduction", dr: true, class: "wizard"},
     rcr_hatred: {name: "Hatred Cost Reduction", dr: true, class: "demonhunter"},
     rcr_disc: {name: "Discipline Cost Reduction", dr: true, class: "demonhunter"},
