@@ -1671,7 +1671,7 @@
       data.jumps = jumps;
       data.targets = Sim.target.count;
       var str = JSON.stringify(data);
-      if (!h_cache[str]) h_cache[str] = do_compute(data);
+      if (!(str in h_cache)) h_cache[str] = do_compute(data);
       return h_cache[str];
 
       function do_compute(data) {
