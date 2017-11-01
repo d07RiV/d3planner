@@ -1387,7 +1387,7 @@ DiabloCalc.addItems([
     required: {
       custom: {id: "leg_rabidstrike", name: "Epiphany Teleport Echoes Spenders", format: "Spirit spenders that teleport you while Epiphany is active are also mimicked on a nearby target for free.", args: 0},
     },
-    preset: ["wpnpsn", "mainstat", "chd"],
+    preset: ["mainstat", "chd"],
   },
 
   {
