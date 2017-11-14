@@ -1139,7 +1139,7 @@
     var buffname;
     function update() {
       if (Sim.getBuff("haunt") && Sim.getBuff("locustswarm")) {
-        buffname = Sim.addBuff(buffname, {dmgmul: amount});
+        buffname = Sim.addBuff(buffname, {dmgmul: {percent: amount, pet: false}});
       } else if (buffname) {
         Sim.removeBuff(buffname);
       }
