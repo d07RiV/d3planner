@@ -246,11 +246,13 @@
   function MakeProfile(data, hero) {
     var id = hero.id;
     var li = $("<li></li>");
+    if (hero.views) li.attr("title", _L("{0} recent views").format(hero.views));
     li.append("<span class=\"class-icon class-" + hero.class + (hero.gender ? " " + hero.gender : "") + "\">&nbsp;</span>");
     li.click(function(evt) {
       loadProfile(evt, id);
     });
     li.append("<span class=\"profile-name" + (hero.value ? "" : " unnamed") + "\">" + (hero.value || _L("Unnamed profile")) + "</span>");
+    if (hero.author && hero.value) li.find(".profile-name").append("<span class=\"profile-author\">" + _L(" by {0}").format(hero.author) + "</span>");
     if (data.user) {
       li.append($("<span class=\"profile-overwrite\" title=\"" + _L("Update profile") + "\"></span>").click(function(evt) {
         evt.stopPropagation();
@@ -394,17 +396,29 @@
   }).hide();
   SaveDiv.append(Save.name, "<br/>", Save.button, Save.response);
 
-  Sections.append("<h3>" + _L("Load") + "</h3>");
+  Sections.append("<h3>" + _L("Search") + "</h3>");
   var LoadDiv = $("<div></div>");
   Sections.append(LoadDiv);
 
+  Load.cls = $("<select class=\"import-loadclass\"><option value=\"\">" + _L("Any Class") + "</option></select>");
+  for (var cls in DiabloCalc.classes) {
+    if (DiabloCalc.classes[cls].follower) continue;
+    Load.cls.append("<option value=\"" + cls + "\">" + DiabloCalc.classes[cls].name + "</option>");
+  }
+  Load.order = $("<select class=\"import-loadorder\"></select>");
+  Load.order.append("<option selected=\"selected\" value=\"popularity\">" + _L("Most popular first") + "</option>");
+  Load.order.append("<option value=\"date\">" + _L("Most recent first") + "</option>");
   Load.name = $("<input class=\"import-loadname\"></input>");
   Load.button = $("<input type=\"button\" value=\"" + _L("Search") + "\"></input>").click(function() {
-    Load.results.search({term: Load.name.val()});
+    Load.results.search({term: Load.name.val(), cls: Load.cls.val(), order: Load.order.val()});
   });
   Load.results = new DiabloCalc.SearchResults("search", MakeProfile);
-  LoadDiv.append(Load.name, Load.button, Load.results.div);
+  LoadDiv.append($("<div></div>").append(Load.cls, Load.order), $("<div></div>").append(Load.name, Load.button), Load.results.div);
 
+  DiabloCalc.register("changeClass", function() {
+    Load.cls.val(DiabloCalc.charClass);
+  });
+  Load.cls.val(DiabloCalc.charClass);
   Load.name.autocomplete({
     minLength: 2,
     select: function(event, ui) {
@@ -415,7 +429,8 @@
   that._renderItem = function(ul, item) {
     //var date = item.date;
     //date = date.substring(0, date.indexOf(" "));
-    return $("<li></li>").addClass("search-tip").append("<a class=\"class-icon class-" + item.class + "\">" + item.value + "</a>").appendTo(ul);
+    return $("<li></li>").addClass("search-tip").append("<a class=\"class-icon class-" + item.class + "\">" + item.value +
+      (item.author ? " <span class=\"profile-author\">" + _L(" by {0}").format(item.author) + "</span>" : "") + "</a>").appendTo(ul);
   };
   Load.name.autocomplete({
     source: function(request, response) {
@@ -424,7 +439,7 @@
       }
       that.xhr = $.ajax({
         url: "search",
-        data: request,
+        data: {term: request.term, cls: Load.cls.val(), order: Load.order.val()},
         dataType: "json",
         global: false,
         success: function(data) {
@@ -435,6 +450,22 @@
         },
       });
     },
+  });
+  Load.name.on("keypress", function(e) {
+    if (e.which === 13) {
+      Load.button.click();
+      Load.name.autocomplete("close");
+      if (that.xhr) {
+        that.xhr.abort();
+        delete that.xhr;
+      }
+      setTimeout(function() {
+        if (that.searching) {
+          clearTimeout(that.searching);
+          delete that.searching;
+        }
+      }, 1);
+    }
   });
 
   Sections.append("<h3>" + _L("My Profiles") + "</h3>");

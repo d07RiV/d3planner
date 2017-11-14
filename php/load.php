@@ -24,6 +24,9 @@ if (!$result || !mysql_num_rows($result)) {
     echo $row['data'];
     $date = time();
     mysql_query("UPDATE profiles SET accessed='$date' WHERE id=$id");
+
+    $weekno = (int)(time() / (7 * 24 * 3600));
+    mysql_query("INSERT INTO profileload (week, profile, requests) VALUES ($weekno, $id, 1) ON DUPLICATE KEY UPDATE requests=requests+1");
     include_once("actions.php");
     log_action('load', $id);
   }

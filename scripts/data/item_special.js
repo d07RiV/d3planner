@@ -1086,13 +1086,13 @@ DiabloCalc.itemaffixes = {
   leg_ringofemptiness: {
     active: true,
     buffs: function(value, stats) {
-      return {dmgmul: value[0]};
+      return {dmgmul: {pet: false, percent: value[0]}};
     },
   },
   leg_ringofemptiness_p2: {
     active: true,
     buffs: function(value, stats) {
-      return {dmgmul: value[0]};
+      return {dmgmul: {pet: false, percent: value[0]}};
     },
   },
   leg_elusivering: {

@@ -1062,12 +1062,9 @@
 
   affixes.leg_etchedsigil = affixes.leg_etchedsigil_p6 = function(amount) {
     //TODO: fix mechanics
-    var list = [], index = 0, buffs = undefined;
+    var list = [], index = 0;
     for (var id in Sim.stats.skills) {
       if (["arcaneorb", "waveofforce", "energytwister", "hydra", "meteor", "blizzard", "explosiveblast", "blackhole"].indexOf(id) >= 0) list.push(id);
-    }
-    if (Sim.stats.leg_etchedsigil_p6) {
-      buffs = {dmgmul: {skills: list, percent: amount}};
     }
     var cds = {explosiveblast: 360, blackhole: 12 * 60};
     if (Sim.stats.skills.meteor === "a") cds.meteor = 15 * 60;
@@ -1077,54 +1074,50 @@
     if (!list.length) return;
     var maxhydra = (Sim.stats.leg_serpentssparker ? 2 : 1);
 
-    var buffname;
+    var nextCast = 0;
 
-    function update() {
-      if (Sim.getBuff("rayoffrost") || Sim.getBuff("arcanetorrent") || Sim.getBuff("disintegrate")) {
-        if (!buffname || !Sim.getBuff(buffname)) {
-          buffname = Sim.addBuff(buffname, buffs, {
-            tickrate: 60,
-            tickinitial: 1,
-            ontick: function(data) {
-              for (var idx = 0; idx < list.length; ++idx) {
-                index = (index + 1) % list.length;
-                var id = list[index];
-                if (id === "hydra" && Sim.getBuff("hydra") >= maxhydra) {
-                  continue;
-                }
-                if (Sim.time >= (curcd[id] || 0)) {
-                  // fix to get the latest castId for channeled spells
-                  var source = (Sim.getBuffCastInfo("rayoffrost") || Sim.getBuffCastInfo("arcanetorrent") ||
-                                Sim.getBuffCastInfo("disintegrate"));
-                  if (source) data.buff.castInfo.castId = source.castId;
+    Sim.register("oncast", function(data) {
+      if (data.skill === "rayoffrost" || data.skill === "arcanetorrent" || data.skill === "disintegrate") {
+        if (Sim.time < nextCast) return;
+        nextCast = Sim.time + 60;
+        for (var idx = 0; idx < list.length; ++idx) {
+          index = (index + 1) % list.length;
+          var id = list[index];
+          if (id === "hydra" && Sim.getBuff("hydra") >= maxhydra) {
+            continue;
+          }
+          if (Sim.time >= (curcd[id] || 0)) {
+            // fix to get the latest castId for channeled spells
+            //var source = (Sim.getBuffCastInfo("rayoffrost") || Sim.getBuffCastInfo("arcanetorrent") ||
+            //              Sim.getBuffCastInfo("disintegrate"));
+            //if (source) data.buff.castInfo.castId = source.castId;
 
-                  Sim.cast(id);
+            Sim.cast(id);
 
-                  // fix for wand of woh
-                  if (id === "explosiveblast" && Sim.stats.leg_wandofwoh) {
-                    function docast() {Sim.cast("explosiveblast");}
-                    Sim.after(30, docast);
-                    Sim.after(60, docast);
-                    Sim.after(90, docast);
-                  }
+            // fix for wand of woh
+            if (id === "explosiveblast" && Sim.stats.leg_wandofwoh) {
+              function docast() {Sim.cast("explosiveblast");}
+              Sim.after(30, docast);
+              Sim.after(60, docast);
+              Sim.after(90, docast);
+            }
 
-                  if (cds[id]) {
-                    curcd[id] = Sim.time + (cds[id] - 60 * (Sim.stats.cdrint || 0)) * (1 - 0.01 * (Sim.stats.cdr || 0));
-                  }
-                  break;
-                }
-              }
-            },
-          });
+            if (cds[id]) {
+              curcd[id] = Sim.time + (cds[id] - 60 * (Sim.stats.cdrint || 0)) * (1 - 0.01 * (Sim.stats.cdr || 0));
+            }
+            break;
+          }
         }
-      } else if (buffname) {
-        Sim.removeBuff(buffname);
       }
-    }
+    });
 
-    Sim.watchBuff("rayoffrost", update);
-    Sim.watchBuff("arcanetorrent", update);
-    Sim.watchBuff("disintegrate", update);
+    if (Sim.stats.leg_etchedsigil_p6) {
+      Sim.register("updatestats", function(data) {
+        if (data.stats.channeling) {
+          data.stats.add("dmgmul", {skills: list, percent: amount});
+        }
+      });
+    }
   };
   affixes.leg_hammerjammers = function(amount) {
     function trigger(duration, targets) {

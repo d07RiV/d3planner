@@ -398,6 +398,10 @@
   }
 }
 
+.import-loadclass {
+  margin-right: 8px;
+  margin-bottom: 6px;
+}
 .import-loadname {
   width: 360px;
   margin-right: 8px;
@@ -429,7 +433,7 @@
       line-height: 24px;
     }
 
-    .unnamed {
+    .unnamed, .profile-author {
       color: #888;
     }
 
@@ -452,21 +456,29 @@
         position: absolute;
         right: 0;
         white-space: nowrap;
+        z-index: 2;
+        .theme-light & {
+          background-color: rgba(255, 255, 255, 0.8);
+          box-shadow: -10px 0 5px rgba(255, 255, 255, 0.8);
+        }
+        .theme-dark & {
+          background-color: rgba(18, 18, 18, 0.8);
+          box-shadow: -10px 0 5px rgba(18, 18, 18, 0.8);
+        }
       }
     }
 
     .profile-name {
       position: relative;
-      z-index: 2;
       .sliding & {
         position: static;
       }
       padding-right: 6px;
       .theme-light & {
-        background-color: rgba(255, 255, 255, 0.7);
+        background-color: rgba(255, 255, 255, 1);
       }
       .theme-dark & {
-        background-color: rgba(18, 18, 18, 0.7);
+        background-color: rgba(18, 18, 18, 1);
       }
     }
     .profile-overwrite {
@@ -483,19 +495,24 @@
     }
 
     &:hover {
+      .profile-name {
+        z-index: 3;
+      }
       .theme-light & {
         background-color: #88f;
-        .profile-name {
-          background-color: rgba(136, 136, 255, 0.7);
+        .profile-name, .date-saved span {
+          background-color: rgba(136, 136, 255, 1);
+          box-shadow: none;
         }
-        .unnamed {
+        .unnamed, .profile-author {
           color: #444;
         }
       }
       .theme-dark & {
         background-color: #448;
-        .profile-name {
-          background-color: rgba(68, 68, 136, 0.7);
+        .profile-name, .date-saved span {
+          background-color: rgba(68, 68, 136, 1);
+          box-shadow: none;
         }
       }
     }
@@ -841,9 +858,13 @@
     font-size: 16px;
     display: inline-block;
   }
+  .profile-author {
+    color: #888;
+  }
 }
 .popup-menu {
   position: absolute;
+  z-index: 100;
   .theme-light & {
     background-color: #fff;
   }
