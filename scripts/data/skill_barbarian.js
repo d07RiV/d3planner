@@ -287,6 +287,7 @@ DiabloCalc.skills.barbarian = {
       if (this.active && (stats.leg_bracersofdestruction || stats.leg_bracersofdestruction_p6)) {
         res["Damage"].percent = {};
         res["Damage"].percent[DiabloCalc.itemById.P3_Unique_Bracer_104.name] = (stats.leg_bracersofdestruction || stats.leg_bracersofdestruction_p6);
+        if (res["Rumble Damage"]) res["Rumble Damage"].percent = $.extend({}, res["Damage"].percent);
       }
       var rcr = 0;
       if (stats.leg_furyofthevanishedpeak_p6) rcr = 50;
