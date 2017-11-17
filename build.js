@@ -39,9 +39,9 @@ var job = {
 //  "chinese/scripts/locale": "uglifyjs",
 //  "scripts/d3gl_data.js": "uglifyjs",
 //  "scripts/data_ptr": "uglifyjs",
-//  "scripts" : "uglifyjs",
+  "scripts" : "uglifyjs",
   "css": "less",
-//  "simulator": "uglifyjs",
+  "simulator": "uglifyjs",
 //  "external/canvasjs.js": "uglifyjs",
 //  "external/J3DIMath.js": "uglifyjs",
 //  "external/md5.js": "uglifyjs",
@@ -80,7 +80,7 @@ var callbacks = {
   "uglifyjs": function(path) {
     var res;
     try {
-      res = UglifyJS.minify(path).code;
+      res = UglifyJS.minify(readFile(path)).code;
     } catch (err) {
       console.log(err);
     }

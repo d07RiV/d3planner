@@ -537,6 +537,7 @@
     }
     res.curstat = chart.curstat;
     res.class = res.profiles[0].class;
+    res.mainset = res.profiles[0].mainset;
     res.active = DiabloCalc.getActive("global");
     return res;
   };

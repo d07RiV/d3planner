@@ -263,6 +263,13 @@
     if (DiabloCalc.priority) {
       data.priority = DiabloCalc.priority.getData();
     }
+    data.mainset = "";
+    var stats = DiabloCalc.getStats();
+    for (var id in DiabloCalc.itemSets) {
+      if (stats["set_" + id + "_6pc"]) {
+        data.mainset = id;
+      }
+    }
     return data;
   };
   DiabloCalc.getAllProfiles = DiabloCalc.getProfile;
@@ -695,15 +702,16 @@
       DiabloCalc.itemById[DiabloCalc.items[i].id] = DiabloCalc.items[i];
     }
 
-    /*
+    //*
     var exportRes = {};
     var exportList = [
-    "itemById.*.required.custom.id",
+    "itemById.*.set",
     ];
     for (var i = 0; i < exportList.length; ++i) {
       $.extend(true, exportRes, DiabloCalc.exportData(exportList[i]));
     }
-    console.log(exportRes.toSource());
+    //console.log(exportRes.toSource());
+    console.log(JSON.stringify(exportRes, undefined, 2));
     //*/
 
     for (var cls in DiabloCalc.skills) {

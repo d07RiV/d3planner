@@ -398,13 +398,20 @@
   }
 }
 
-.import-loadclass {
-  margin-right: 8px;
-  margin-bottom: 6px;
-}
-.import-loadname {
-  width: 360px;
-  margin-right: 8px;
+.searchrow {
+  &.searchrow-1 {
+    margin-bottom: 6px;
+  }
+  input:not(:last-child), select:not(:last-child) {
+    margin-right: 8px;
+  }
+
+  input, select { box-sizing: content-box; }
+
+  .import-loadclass { width: 140px; }
+  .import-loadorder { width: 170px; }
+  .import-mainset { width: 260px; }
+  .import-loadname { width: 300px; }
 }
 .search-results {
   padding: 0;

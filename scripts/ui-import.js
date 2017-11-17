@@ -405,20 +405,33 @@
     if (DiabloCalc.classes[cls].follower) continue;
     Load.cls.append("<option value=\"" + cls + "\">" + DiabloCalc.classes[cls].name + "</option>");
   }
+  Load.mainset = $("<select class=\"import-mainset\"><option value=\"\">" + _L("Any Set") + "</option></select>");
   Load.order = $("<select class=\"import-loadorder\"></select>");
   Load.order.append("<option selected=\"selected\" value=\"popularity\">" + _L("Most popular first") + "</option>");
   Load.order.append("<option value=\"date\">" + _L("Most recent first") + "</option>");
-  Load.name = $("<input class=\"import-loadname\"></input>");
+  Load.name = $("<input class=\"import-loadname\" placeholder=\"" + _L("Profile name") + "\"></input>");
   Load.button = $("<input type=\"button\" value=\"" + _L("Search") + "\"></input>").click(function() {
-    Load.results.search({term: Load.name.val(), cls: Load.cls.val(), order: Load.order.val()});
+    Load.results.search({term: Load.name.val(), cls: Load.cls.val(), mainset: Load.mainset.val(), order: Load.order.val()});
   });
   Load.results = new DiabloCalc.SearchResults("search", MakeProfile);
-  LoadDiv.append($("<div></div>").append(Load.cls, Load.order), $("<div></div>").append(Load.name, Load.button), Load.results.div);
+  LoadDiv.append($("<div class=\"searchrow searchrow-1\"></div>").append(Load.cls, Load.mainset, Load.button), $("<div class=\"searchrow\"></div>").append(Load.name, Load.order), Load.results.div);
 
-  DiabloCalc.register("changeClass", function() {
-    Load.cls.val(DiabloCalc.charClass);
+  Load.cls.change(function() {
+    var val0 = Load.mainset.val(), val = "";
+    Load.mainset.empty();
+    Load.mainset.append("<option value=\"\">" + _L("Any Set") + "</option>");
+    var cls = Load.cls.val();
+    for (var id in DiabloCalc.itemSets) {
+      var set = DiabloCalc.itemSets[id];
+      if ((set.class === cls || set.tclass === cls) && set.bonuses[6]) {
+        Load.mainset.append("<option value=\"" + id + "\">" + set.name + "</option>");
+      }
+    }
   });
-  Load.cls.val(DiabloCalc.charClass);
+  DiabloCalc.register("changeClass", function() {
+    Load.cls.val(DiabloCalc.charClass).change();
+  });
+  Load.cls.val(DiabloCalc.charClass).change();
   Load.name.autocomplete({
     minLength: 2,
     select: function(event, ui) {
@@ -439,7 +452,7 @@
       }
       that.xhr = $.ajax({
         url: "search",
-        data: {term: request.term, cls: Load.cls.val(), order: Load.order.val()},
+        data: {term: request.term, cls: Load.cls.val(), mainset: Load.mainset.val(), order: Load.order.val()},
         dataType: "json",
         global: false,
         success: function(data) {
