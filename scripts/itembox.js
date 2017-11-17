@@ -137,7 +137,7 @@
   };
 
   // returns number of [primary, secondary] stats on the selected item
-  DC.getStatCount = function(id, stats) {
+  DC.getStatCount = function(id) {
     var item = DC.itemById[id];
     var primary = 4, secondary = 2;
     if (item.primary !== undefined) {

@@ -327,7 +327,7 @@
           Sim.addBuff(undefined, undefined, {
             duration: 121,
             tickrate: 30,
-            ontick: {type: "cone", width: 50, range: 50, coeff: 0.15 * Sim.resources.fury / 4},
+            ontick: {type: "cone", width: 50, range: 50, coeff: 0.15 * Sim.resources.fury / 4, fix: ss_bod_fix},
           });
           Sim.spendResource(Sim.resources.fury);
         }
