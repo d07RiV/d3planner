@@ -54,7 +54,42 @@
     item.affixes = {
       primary: counts,
       secondary: counts,
+      all: _stats(DC.getItemAffixesById(item.id, item.ancient, false)),
+      required: _stats(DC.getItemAffixesById(item.id, item.ancient, "only")),
+    };
+
+    item.state = {
+      primary: 0,
+      secondary: 0,
+      groups: {},
     };
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 })();

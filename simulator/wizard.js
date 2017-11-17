@@ -720,12 +720,17 @@
         }
         break;
       case "c": dmg = {delay: 75, type: "area", range: 12, coeff: 7.4}; break;
-      case "b": dmg = {delay: 75, type: "area", range: 12, coeff: 2.77, count: 7, spread: 25}; break;
+      case "b": dmg = {delay: 75, type: "area", range: 12, coeff: 2.77, spread: 25}; break;
       case "a": dmg = {delay: 75, type: "area", range: 18, coeff: 16.48}; break;
       }
       dmg.onhit = meteor_onhit;
       if (Sim.stats.leg_nilfursboast || Sim.stats.leg_nilfursboast_p2 || Sim.stats.leg_nilfursboast_p6) {
         dmg.fix = meteor_nilfurs_fix;
+      }
+      if (rune === "b") {
+        for (var i = 1; i < 7; ++i) {
+          Sim.damage(Sim.extend({}, dmg, {delay: 75 + i * 9}));
+        }
       }
       return dmg;
     },
