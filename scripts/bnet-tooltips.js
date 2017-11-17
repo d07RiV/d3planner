@@ -926,13 +926,14 @@
 
       for (var catType = 0; catType < 2; ++catType) {
         var category = null;
-        for (var stat in data.stats) {
-          if (stat == "sockets" || DiabloCalc.stats[stat].base) {
-            continue;
-          }
-          if ((catType == 0 && DiabloCalc.stats[stat].secondary) || (catType == 1 && !DiabloCalc.stats[stat].secondary)) {
-            continue;
-          }
+        var sorted = Object.keys(data.stats).filter(function(stat) {
+          if (stat === "sockets" || DiabloCalc.stats[stat].base) return false;
+          if (catType == 0 && DiabloCalc.stats[stat].secondary) return false;
+          if (catType == 1 && !DiabloCalc.stats[stat].secondary) return false;
+          return true;
+        });
+        sorted.sort(function(a, b) { return DiabloCalc.stats[a].prio - DiabloCalc.stats[b].prio; });
+        sorted.forEach(function(stat) {
           if (!category) {
             category = $("<p class=\"item-property-category\">" + (catType == 0 ? _L("Primary") : _L("Secondary")) + "</p>");
             effects.append(category);
@@ -973,7 +974,7 @@
           format = formatBonus(format, data.stats[stat], stat == "custom" ? 2 : 1,
             stat == "custom" ? (item.required && item.required.custom && item.required.custom.id) : stat);
           effects.append("<li class=\"d3-color-" + propColor + " d3-item-property-" + propType + "\"><p>" + format + range + "</p></li>");
-        }
+        });
       }
 
       if (data.varies || data.random) {

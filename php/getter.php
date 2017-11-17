@@ -1,5 +1,5 @@
 <?php
-require_once("config.php");
+require_once("config.inc.php");
 function EnumDir($dir) {
   $list = scandir("../$dir");
   $out = array();

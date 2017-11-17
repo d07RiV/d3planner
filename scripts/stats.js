@@ -95,13 +95,13 @@
     }
   }
 
-  function Stats() {
+  function Stats(charClass) {
     this.info = {
       level: parseInt($(".char-level").val()),
       gems: 0,
       ancients: 0,
     };
-    this.charClass = DC.charClass;
+    this.charClass = (charClass || DC.charClass);
     this.primary = DC.classes[this.charClass].primary;
 
     this.str = 7 + this.info.level;
@@ -298,158 +298,155 @@
     return total;
   };
 
-  Stats.prototype.loadItems = function(getSlot, nogems) {
-    if (!getSlot) {
-      getSlot = DC.getSlot;
-    }
-
-    var extraFx = {};
+  Stats.prototype.startLoad = function() {
+    this.extraFx = {};
     if (DiabloCalc.addExtraAffixes) {
-      DiabloCalc.addExtraAffixes(extraFx);
+      DiabloCalc.addExtraAffixes(this.extraFx);
     }
-    var setSlots = {};
-    for (var slot in DC.itemSlots) {
-      var data = getSlot(slot);
-      if (data && DC.itemById[data.id]) {
-        var item = DC.itemById[data.id];
-        var itemType = DC.itemTypes[item.type];
-        if (slot === "offhand") {
-          this.info.ohtype = item.type;
+    this.setSlots = {};
+  };
+  Stats.prototype.addItem = function(slot, data, nogems) {
+    if (!data || !DC.itemById[data.id]) return;
+    var item = DC.itemById[data.id];
+    var itemType = DC.itemTypes[item.type];
+    if (slot === "offhand") {
+      this.info.ohtype = item.type;
+    }
+    if (data.ancient) ++this.info.ancients;
+    if (itemType.weapon) {
+      var weapon = itemType.weapon;
+      if (item.weapon) weapon = $.extend({}, weapon, item.weapon);
+      this.info[slot] = {
+        speed: weapon.speed * (1 + 0.01 * (data.stats.weaponias || [0])[0]),
+        ias: (data.stats.weaponias || [0])[0],
+        wpnphy: {min: weapon.min, max: weapon.max},
+        damage: (data.stats.damage || [0])[0],
+        type: item.type,
+        slot: itemType.slot,
+        weaponClass: weapon.type,
+      };
+    }
+    if (item.set) {
+      this.info.sets[item.set] = (this.info.sets[item.set] || 0) + 1;
+      if (!this.setSlots[item.set]) {
+        this.setSlots[item.set] = slot;
+      }
+    }
+    for (var stat in data.stats) {
+      var statid = stat;
+      if (stat == "custom") {
+        statid = item.required.custom.id;
+        statInfo[statid] = item.required.custom;
+        statInfo[statid].nostack = true;
+        if (statInfo[statid].args === undefined) {
+          statInfo[statid].args = 1;
         }
-        if (data.ancient) ++this.info.ancients;
-        if (itemType.weapon) {
-          var weapon = itemType.weapon;
-          if (item.weapon) weapon = $.extend({}, weapon, item.weapon);
-          this.info[slot] = {
-            speed: weapon.speed * (1 + 0.01 * (data.stats.weaponias || [0])[0]),
-            ias: (data.stats.weaponias || [0])[0],
-            wpnphy: {min: weapon.min, max: weapon.max},
-            damage: (data.stats.damage || [0])[0],
-            type: item.type,
-            slot: itemType.slot,
-            weaponClass: weapon.type,
-          };
+        this.affixes[statid] = {
+          slot: slot,
+          value: data.stats[stat],
+        };
+      }
+      if (statInfo[statid].damage && itemType.weapon) {
+        if (slot === "mainhand") {
+          this.info.mhelement = DiabloCalc.stats[stat].elem;
         }
-        if (item.set) {
-          this.info.sets[item.set] = (this.info.sets[item.set] || 0) + 1;
-          if (!setSlots[item.set]) {
-            setSlots[item.set] = slot;
-          }
-        }
-        for (var stat in data.stats) {
-          var statid = stat;
-          if (stat == "custom") {
-            statid = item.required.custom.id;
-            statInfo[statid] = item.required.custom;
-            statInfo[statid].nostack = true;
-            if (statInfo[statid].args === undefined) {
-              statInfo[statid].args = 1;
+        addStat(this.info[slot], "wpnphy", data.stats[stat]);
+      } else if ((statid != "damage" && statid != "weaponias") || !itemType.weapon) {
+        addStat(this, statid, data.stats[stat], 1, slot);
+      }
+      if (stat == "regen") {
+        this.info.itemregen += data.stats[stat][0];
+      }
+    }
+    if (data.gems) {
+      var factor = 1;
+      if (data.stats.custom && item.required.custom.id == "leg_leoricscrown") {
+        factor = 1 + 0.01 * data.stats.custom[0];
+      }
+      if (slot === "head" && this.extraFx.leg_leoricscrown) {
+        factor = 1 + 0.01 * this.extraFx.leg_leoricscrown;
+      }
+      var slotInfo = (DC.metaSlots[itemType.slot] || DC.itemSlots[itemType.slot]);
+      var slotType = slotInfo.socketType;
+      if (slotType != "weapon" && slotType != "head") {
+        slotType = "other";
+      }
+      this.info.gems += data.gems.length;
+      for (var i = 0; i < data.gems.length; ++i) {
+        if (DC.legendaryGems[data.gems[i][0]]) {
+          function getGemValue(effect, level) {
+            var value, delta;
+            if (effect.realvalue) {
+              value = effect.realvalue.slice();
+              delta = effect.realdelta;
+            } else if (effect.value) {
+              value = effect.value.slice();
+              delta = effect.delta;
             }
-            this.affixes[statid] = {
-              slot: slot,
-              value: data.stats[stat],
-            };
-          }
-          if (statInfo[statid].damage && itemType.weapon) {
-            if (slot === "mainhand") {
-              this.info.mhelement = DiabloCalc.stats[stat].elem;
-            }
-            addStat(this.info[slot], "wpnphy", data.stats[stat]);
-          } else if ((statid != "damage" && statid != "weaponias") || !itemType.weapon) {
-            addStat(this, statid, data.stats[stat], 1, slot);
-          }
-          if (stat == "regen") {
-            this.info.itemregen += data.stats[stat][0];
-          }
-        }
-        if (data.gems) {
-          var factor = 1;
-          if (data.stats.custom && item.required.custom.id == "leg_leoricscrown") {
-            factor = 1 + 0.01 * data.stats.custom[0];
-          }
-          if (slot === "head" && extraFx.leg_leoricscrown) {
-            factor = 1 + 0.01 * extraFx.leg_leoricscrown;
-          }
-          var slotInfo = (DC.metaSlots[itemType.slot] || DC.itemSlots[itemType.slot]);
-          var slotType = slotInfo.socketType;
-          if (slotType != "weapon" && slotType != "head") {
-            slotType = "other";
-          }
-          this.info.gems += data.gems.length;
-          for (var i = 0; i < data.gems.length; ++i) {
-            if (DC.legendaryGems[data.gems[i][0]]) {
-              function getGemValue(effect, level) {
-                var value, delta;
-                if (effect.realvalue) {
-                  value = effect.realvalue.slice();
-                  delta = effect.realdelta;
-                } else if (effect.value) {
-                  value = effect.value.slice();
-                  delta = effect.delta;
-                }
-                if (!value) return [];
-                if (delta) {
-                  for (var i = 0; i < delta.length; ++i) {
-                    value[i] += delta[i] * level;
-                  }
-                }
-                return value;
-              }
-
-              var leg = DC.legendaryGems[data.gems[i][0]];
-              this.gems[data.gems[i][0]] = data.gems[i][1];
-
-              if (!nogems) {
-                var active = (DC.isGemActive && DC.isGemActive(data.gems[i][0]));
-                if (active && leg.buffs) {
-                  var list = leg.buffs(data.gems[i][1], this);
-                  for (var stat in list) {
-                    this.add(stat, list[stat], /*factor*/1, data.gems[i][0]);
-                  }
-                } else {
-                  if (active) {
-                    var id = leg.effects[0].stat;
-                    if (!id) {
-                      id = "gem_" + data.gems[i][0];
-                      statInfo[id] = leg.effects[0];
-                    }
-                    this.add(id, getGemValue(leg.effects[0], data.gems[i][1]), /*factor*/1, data.gems[i][0]);
-                  } else if (leg.inactive) {
-                    var list = leg.inactive(data.gems[i][1], this);
-                    for (var stat in list) {
-                      this.add(stat, list[stat], /*factor*/1, data.gems[i][0]);
-                    }
-                  }
-
-                  if (data.gems[i][1] >= 25 && (active || data.gems[i][0] == "powerful")) {
-                    var id = leg.effects[1].stat;
-                    if (!id) {
-                      id = "gem_" + data.gems[i][0] + "_25";
-                      statInfo[id] = leg.effects[1];
-                    }
-                    this.add(id, getGemValue(leg.effects[1], data.gems[i][1]), /*factor*/1, data.gems[i][0]);
-                  }
-                }
-              }
-            } else if (DC.gemColors[data.gems[i][1]]) {
-              var gem = DC.gemColors[data.gems[i][1]][slotType];
-              var value = [gem.amount[data.gems[i][0]]];
-              if (gem.stat == "wpnphy") {
-                value.push(value[0]);
-              }
-              if (statInfo[gem.stat].damage && itemType.weapon) {
-                addStat(this.info[slot], "wpnphy", value, factor);
-              } else {
-                this.add(gem.stat, value, factor, "gems");
+            if (!value) return [];
+            if (delta) {
+              for (var i = 0; i < delta.length; ++i) {
+                value[i] += delta[i] * level;
               }
             }
+            return value;
+          }
+
+          var leg = DC.legendaryGems[data.gems[i][0]];
+          this.gems[data.gems[i][0]] = data.gems[i][1];
+
+          if (!nogems) {
+            var active = (DC.isGemActive && DC.isGemActive(data.gems[i][0]));
+            if (active && leg.buffs) {
+              var list = leg.buffs(data.gems[i][1], this);
+              for (var stat in list) {
+                this.add(stat, list[stat], /*factor*/1, data.gems[i][0]);
+              }
+            } else {
+              if (active) {
+                var id = leg.effects[0].stat;
+                if (!id) {
+                  id = "gem_" + data.gems[i][0];
+                  statInfo[id] = leg.effects[0];
+                }
+                this.add(id, getGemValue(leg.effects[0], data.gems[i][1]), /*factor*/1, data.gems[i][0]);
+              } else if (leg.inactive) {
+                var list = leg.inactive(data.gems[i][1], this);
+                for (var stat in list) {
+                  this.add(stat, list[stat], /*factor*/1, data.gems[i][0]);
+                }
+              }
+
+              if (data.gems[i][1] >= 25 && (active || data.gems[i][0] == "powerful")) {
+                var id = leg.effects[1].stat;
+                if (!id) {
+                  id = "gem_" + data.gems[i][0] + "_25";
+                  statInfo[id] = leg.effects[1];
+                }
+                this.add(id, getGemValue(leg.effects[1], data.gems[i][1]), /*factor*/1, data.gems[i][0]);
+              }
+            }
+          }
+        } else if (DC.gemColors[data.gems[i][1]]) {
+          var gem = DC.gemColors[data.gems[i][1]][slotType];
+          var value = [gem.amount[data.gems[i][0]]];
+          if (gem.stat == "wpnphy") {
+            value.push(value[0]);
+          }
+          if (statInfo[gem.stat].damage && itemType.weapon) {
+            addStat(this.info[slot], "wpnphy", value, factor);
+          } else {
+            this.add(gem.stat, value, factor, "gems");
           }
         }
       }
     }
-    for (var id in extraFx) {
-      this.add(id, extraFx[id]);
+  };
+  Stats.prototype.finishLoad = function() {
+    for (var id in this.extraFx) {
+      this.add(id, this.extraFx[id]);
     }
+    delete this.extraFx;
     for (var set in this.info.sets) {
       var setInfo = DC.itemSets[set];
       var count = this.info.sets[set];
@@ -468,7 +465,7 @@
           }
 //          if (DC.itemaffixes[stat]) {
             this.affixes[stat] = {
-              slot: setSlots[set],
+              slot: this.setSlots[set],
               set: set,
               pieces: req,
               value: [],
@@ -477,6 +474,7 @@
         }
       }
     }
+    delete this.setSlots;
     var paragon = DC.getParagon();
     if (paragon) {
       for (var stat in paragon) {
@@ -497,8 +495,19 @@
       this.info.weaponClass = this.info.mainhand.weaponClass;
     }
   };
+  Stats.prototype.loadItems = function(getSlot, nogems) {
+    if (!getSlot) {
+      getSlot = DC.getSlot;
+    }
 
-  Stats.prototype.finalize = function(minimal) {
+    this.startLoad();
+    for (var slot in DC.itemSlots) {
+      this.addItem(slot, getSlot(slot));
+    }
+    this.finishLoad();
+  };
+
+  Stats.prototype.finalize = function(minimal, resmin) {
     this.chc = Math.min(75, this.chc);
     this.addAbsolute("chc", "extrachc");
     this.chc = Math.min(100, this.chc);
@@ -551,19 +560,17 @@
       this.info.hp = 36 + 4 * this.info.level + this.vit * hpPerVit;
       this.info.hp *= 1 + 0.01 * (this.life || 0);
 
-      addStat(this, "resphy", this.resall);
-      addStat(this, "resfir", this.resall);
-      addStat(this, "rescol", this.resall);
-      addStat(this, "reslit", this.resall);
-      addStat(this, "respsn", this.resall);
-      addStat(this, "resarc", this.resall);
-      this.addPercent("resphy", ["resist_percent", "resphy_percent"]);
-      this.addPercent("resfir", ["resist_percent", "resfir_percent"]);
-      this.addPercent("rescol", ["resist_percent", "rescol_percent"]);
-      this.addPercent("reslit", ["resist_percent", "reslit_percent"]);
-      this.addPercent("respsn", ["resist_percent", "respsn_percent"]);
-      this.addPercent("resarc", ["resist_percent", "resarc_percent"]);
-      this.info.resavg = (this.resphy + this.resfir + this.rescol + this.reslit + this.respsn + this.resarc) / 6;
+      var resists = ["resphy", "resfir", "rescol", "reslit", "respsn", "resarc"];
+      for (var i = 0; i < resists.length; ++i) addStat(this, resists[i], this.resall);
+      for (var i = 0; i < resists.length; ++i) this.addPercent(resists[i], ["resist_percent", resists[i] + "_percent"]);
+      this.info.resavg = 0;
+      this.info.resmin = 0;
+      for (var i = 0; i < resists.length; ++i) {
+        this.info.resmin += (this[resists[i]] < 0 ? -1 : 1) * Math.sqrt(Math.abs(this[resists[i]]));
+        this.info.resavg += this[resists[i]];
+      }
+      this.info.resavg /= 6;
+      this.info.resmin = (this.info.resmin < 0 ? -1 : 1) * (this.info.resmin * this.info.resmin) / 36;
       this.info.defavg = 1 - 0.01 * ((this.meleedef || 0) + (this.rangedef || 0)) * 0.333333;
       var nonphys = (this.nonphys || 0) * 0.01;
       this.info.defavg *= 1 - 0.01 * (this.physdef || 0) * 0.16663;
@@ -575,8 +582,11 @@
       this.info.defavg *= 1 - 0.01 * (this.dmgred || 0);
       this.info.armor_factor = 1 / (1 + this.armor / (this.info.level * 50));
       this.info.res_factor = 1 / (1 + this.info.resavg / (this.info.level * 5));
+      this.info.resmin_factor = 1 / (1 + this.info.resmin / (this.info.level * 5));
       this.info.defense_factor = this.info.armor_factor * this.info.res_factor * (1 - 0.01 * (this.edef || 0) / 2) * this.info.defavg;
+      this.info.defensemin_factor = this.info.armor_factor * this.info.resmin_factor * (1 - 0.01 * (this.edef || 0) / 2) * this.info.defavg;
       this.info.toughness = this.info.hp / this.info.defense_factor / (1 - 0.01 * (this.dodge || 0));
+      this.info.toughnessmin = this.info.hp / this.info.defensemin_factor / (1 - 0.01 * (this.dodge || 0));
 
       this.info.toughpervit = this.info.toughness / this.info.hp * 100 * hpPerVit * (1 + 0.01 * (this.life || 0));
       this.info.toughperlife = this.info.toughness * 0.01 / (1 + 0.01 * (this.life || 0));
@@ -652,6 +662,7 @@
       this.addPercent("regen", "regen_bonus");
       this.info.healing = (this.regen || 0) + (this.regen_percent || 0) * 0.01 * this.info.hp + (this.lph || 0) * this.info.aps + (this.laek || 0) * 0.16 + (this.healbonus || 0) * 0.08;
       this.info.recovery = this.info.healing * this.info.toughness / this.info.hp;
+      this.info.recoverymin = this.info.healing * this.info.toughnessmin / this.info.hp;
     }
 
     this.info.edps = this.info.dps * (1 + 0.01 * (this.edmg || 0));
@@ -737,7 +748,7 @@
   };
 
   Stats.prototype.clone = function() {
-    var res = new Stats();
+    var res = new Stats(this.charClass);
     for (var key in this) {
       if (this.hasOwnProperty(key)) {
         var val = this[key];

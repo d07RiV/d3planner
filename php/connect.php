@@ -1,5 +1,5 @@
 <?php
-require_once("config.php");
+require_once("config.inc.php");
 $mysql = mysql_connect($mysql_server, $mysql_user, $mysql_password);
 mysql_select_db($mysql_db);
 function pass_hash($pass) {

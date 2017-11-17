@@ -8,6 +8,7 @@ GetDocs(array(
   "scripts/itembox.js",
   "scripts/skilldata.js",
   "scripts/skillbox.js",
+  "scripts/optimizer.js",
   "scripts/account.js",
   "scripts/ui-paperdoll.js",
   "scripts/ui-equipment.js",
