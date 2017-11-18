@@ -300,7 +300,7 @@
         var res = (options.speed ? stats.info.dps : stats.info.dph);
         if (options.elem) res *= 1 + 0.01 * (stats[options.elem] || 0);
         if (options.elite) res *= 1 + 0.01 * (stats.edmg || 0);
-        if (options.skill) res *= 1 + 0.01 * (stats[options.skill] || 0);
+        if (options.skill) res *= (1 + 0.01 * ((stats.damage || 0) + (stats[options.skill] || 0))) / (1 + 0.01 * (stats.damage || 0));
         return res;
       },
     },
