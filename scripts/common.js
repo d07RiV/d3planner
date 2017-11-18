@@ -108,6 +108,30 @@
     });
   };
 
+  DC.simpleDialog = function(options) {
+    var dlg = $("<div><p>" + options.text + "</p></div>");
+    var buttons = [];
+    (options.buttons || [_L("Ok")]).forEach(function(text, index) {
+      buttons.push({
+        text: text,
+        click: function() {
+          if (!options.callback || options.callback(index) !== false) {
+            $(this).dialog("close");
+          }
+        },
+      });
+    });
+    dlg.dialog({
+      resizable: false,
+      title: options.title,
+      height: "auto",
+      width: 400,
+      modal: true,
+      buttons: buttons,
+      close: function() { dlg.remove(); },
+    });
+  };
+
   var curPopup;
   var curHideOnEscape;
   DC.showPopup = function(elem, hideOnEsc) {

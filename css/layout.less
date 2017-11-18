@@ -1265,15 +1265,109 @@
   }
   & + ul {
     list-style-type: none;
-    max-height: 100px;
+    max-height: 150px;
     margin: 0 47px;
     padding: 0;
     overflow-y: hidden;
     transition-property: all;
-  transition-duration: 0.5s;
-  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    transition-duration: 0.5s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
     li {
       margin: 3px 0;
+    }
+  }
+}
+
+.optimize-dialog {
+  overflow: visible !important;
+}
+.optimize-priority {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  .theme-light & {
+    border: 2px solid #ccf;
+  }
+  .theme-dark & {
+    border: 2px solid #448;
+  }
+  border-radius: 4px;
+  margin: 7px 0;
+  padding: 0 0 6px 27px;
+  z-index: 5;
+  .drop-ph {
+    margin: -3px 0;
+  }
+  .theme-light & .drop-ph {
+    border: 1px dotted #aaa;
+  }
+  .theme-dark & .drop-ph {
+    border: 1px dotted #333;
+  }
+  .optimize-priority-list {
+    display: block;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  .btn-add {
+    display: block;
+    padding-left: 20px;
+    font-size: 14px;
+    margin-top: 4px;
+    height: 16px;
+    cursor: pointer;
+    position: relative;
+    left: -20px;
+    z-index: 1;
+    &:hover {
+      background: url(images/plus_green.png) no-repeat;
+    }
+    .theme-dark & {
+      color: #88f;
+    }
+    .theme-light & {
+      color: #44f;
+    }
+  }
+  .optimize-priority-item {
+    position: relative;
+    .btn-remove {
+      position: absolute;
+      left: -20px;
+      top: 8px;
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      cursor: pointer;
+    }
+    &:not(.ui-sortable-helper) > .header:hover .btn-remove {
+      background: url(images/cross_red.png) no-repeat;
+    }
+
+    .option-box {
+      display: inline-block;
+      margin: 0 5px;
+    }
+    .option-drop {
+      margin: 0 5px;
+    }
+
+    .header {
+      cursor: move;
+      .chosen-container, select {
+        cursor: auto;
+      }
+      .chosen-single {
+        position: relative;
+      }
+      .optimize-stat {
+        width: 300px;
+        margin: 4px 0;
+      }
     }
   }
 }

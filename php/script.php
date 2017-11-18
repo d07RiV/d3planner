@@ -5,7 +5,7 @@ GetDocs(array(
   "external/jquery-ui.min.js",
   "external/spin.min.js",
   "external/jquery.cookie.min.js",
-  "external/chosen.jquery.min.js",
+  "external/chosen.jquery.js",
   "external/Chart.min.js",
   "external/jquery.mousewheel.min.js",
   "external/mwheelIntent.min.js",

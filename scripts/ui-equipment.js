@@ -768,6 +768,8 @@
   make_mod += "<option value=\"true\">" + _L("Ancient") + "</option>";
   make_mod += "<option value=\"primal\">" + _L("Primal Ancient") + "</option>";
   make_mod += "</select>";
+  var unlockLine = $("<li><span class=\"link-like eqmod-unlock\">" + _L("Unlock imported items") + "</span></li>");
+  eqmod.append(unlockLine);
   eqmod.append("<li><span class=\"link-like eqmod-ancient\">" + _L("Make all items {0}").format(make_mod) + "</span></li>");
   eqmod.append("<li><span class=\"link-like eqmod-maxstat\">" + _L("Change all stats to {0}%").format(
     "<input class=\"eqmod-maxstat-value\" type=\"number\" min=\"0\" max=\"100\" value=\"100\"/>") + "</span></li>");
@@ -782,6 +784,37 @@
     $(".eqmod-enchant-type").val(DiabloCalc.classes[DiabloCalc.charClass].primary);
   });
   $(".eqmod-enchant-type").val(DiabloCalc.classes[DiabloCalc.charClass].primary);
+  eqmod.append("<li><span class=\"link-like eqmod-optimize\">" + _L("Optimize items...") + "</span></li>");
+
+  function updateUnlockStatus() {
+    var imported = false;
+    for (var slot in DiabloCalc.itemSlots) {
+      var data = DiabloCalc.getSlot(slot);
+      if (data && data.imported) {
+        imported = true;
+        break;
+      }
+    }
+    unlockLine.toggle(imported);
+  }
+  DiabloCalc.register("updateSlotItem", updateUnlockStatus);
+  //DiabloCalc.register("updateSlotItem", updateUnlockStatus);
+  DiabloCalc.register("importEnd", updateUnlockStatus);
+
+  $(".eqmod-unlock").click(function() {
+    DiabloCalc.importStart();
+    for (var slot in DiabloCalc.itemSlots) {
+      var data = DiabloCalc.getSlot(slot);
+      if (!data) continue;
+      if (data.imported) {
+        data = $.extend(true, {}, data);
+        delete data.enchant;
+        delete data.imported;
+        DiabloCalc.setSlot(slot, data);
+      }
+    }
+    DiabloCalc.importEnd("global");
+  });
 
   $(".eqmod-ancient").click(function() {
     DiabloCalc.importStart();
@@ -801,42 +834,68 @@
     }
     DiabloCalc.importEnd("global");
   });
-  $(".eqmod-maxstat").click(function() {
-    DiabloCalc.importStart();
-    var value = (parseInt($(".eqmod-maxstat-value").val()) || 0) * 0.01;
+  $(".eqmod-maxstat").click(function(e) {
+    function runAction(unlock) {
+      DiabloCalc.importStart();
+      var value = (parseInt($(".eqmod-maxstat-value").val()) || 0) * 0.01;
+      for (var slot in DiabloCalc.itemSlots) {
+        var data = DiabloCalc.getSlot(slot);
+        if (!data) continue;
+        data = $.extend(true, {}, data);
+        if (unlock) {
+          delete data.enchant;
+          delete data.imported;
+        }
+        var stats = DiabloCalc.getItemAffixesById(data.id, data.ancient, true);
+        for (var st in data.stats) {
+          if (!stats[st]) continue;
+          if (data.imported && data.enchant !== st) continue;
+          if (DiabloCalc.stats[st] && DiabloCalc.stats[st].caldesanns) continue;
+          if (data.stats[st].length >= 1) {
+            var best = (stats[st].best || "max");
+            var worst = (best === "max" ? "min" : "max");
+            if (stats[st].min && stats[st].max) {
+              data.stats[st][0] = stats[st][worst] + (stats[st][best] - stats[st][worst]) * value;
+              if (stats[st].step !== "any") {
+                var step = (stats[st].step || 1);
+                data.stats[st][0] = Math.round(data.stats[st][0] / step) * step;
+              }
+            }
+          }
+          if (data.stats[st].length >= 2) {
+            if (stats[st].min2 && stats[st].max2) {
+              data.stats[st][1] = stats[st].min2 + (stats[st].max2 - stats[st].min2) * value;
+              if (stats[st].step2 !== "any") {
+                var step = (stats[st].step2 || 1);
+                data.stats[st][1] = Math.round(data.stats[st][1] / step) * step;
+              }
+            }
+          }
+        }
+        DiabloCalc.setSlot(slot, data);
+      }
+      DiabloCalc.importEnd("global");
+    }
+    var imported = false;
     for (var slot in DiabloCalc.itemSlots) {
       var data = DiabloCalc.getSlot(slot);
-      if (!data) continue;
-      data = $.extend(true, {}, data);
-      delete data.enchant;
-      delete data.imported;
-      var stats = DiabloCalc.getItemAffixesById(data.id, data.ancient, true);
-      for (var st in data.stats) {
-        if (!stats[st]) continue;
-        if (data.stats[st].length >= 1) {
-          var best = (stats[st].best || "max");
-          var worst = (best === "max" ? "min" : "max");
-          if (stats[st].min && stats[st].max) {
-            data.stats[st][0] = stats[st][worst] + (stats[st][best] - stats[st][worst]) * value;
-            if (stats[st].step !== "any") {
-              var step = (stats[st].step || 1);
-              data.stats[st][0] = Math.round(data.stats[st][0] / step) * step;
-            }
-          }
-        }
-        if (data.stats[st].length >= 2) {
-          if (stats[st].min2 && stats[st].max2) {
-            data.stats[st][1] = stats[st].min2 + (stats[st].max2 - stats[st].min2) * value;
-            if (stats[st].step2 !== "any") {
-              var step = (stats[st].step2 || 1);
-              data.stats[st][1] = Math.round(data.stats[st][1] / step) * step;
-            }
-          }
-        }
+      if (data && data.imported) {
+        imported = true;
+        break;
       }
-      DiabloCalc.setSlot(slot, data);
     }
-    DiabloCalc.importEnd("global");
+    if (imported) {
+      DiabloCalc.simpleDialog({
+        title: _L("Modify equipment"),
+        text: _L("Profile contains imported items. Only enchanted stats will be modified."),
+        buttons: [_L("Ok"), _L("Unlock"), _L("Cancel")],
+        callback: function(opt) {
+          if (opt === 0 || opt === 1) runAction(opt > 0);
+        },
+      });
+    } else {
+      runAction(true);
+    }
   });
   $(".eqmod-enchant").click(function() {
     DiabloCalc.importStart();
@@ -870,6 +929,9 @@
     }
     DiabloCalc.importEnd("global");
   });
+  $(".eqmod-optimize").click(function() {
+    DiabloCalc.Optimizer.dialog();
+  });
   $(".eqmod-ancient-type, .eqmod-maxstat-value, .eqmod-enchant-level, .eqmod-enchant-type").click(function(e) {
     e.stopPropagation();
   });
@@ -877,7 +939,15 @@
     $(".eqmod-ancient").click();
   });
   $(".eqmod-maxstat-value").change(function() {
-    $(".eqmod-maxstat").click();
+    var imported = false;
+    for (var slot in DiabloCalc.itemSlots) {
+      var data = DiabloCalc.getSlot(slot);
+      if (data && data.imported) {
+        imported = true;
+        break;
+      }
+    }
+    if (!imported) $(".eqmod-maxstat").click();
   });
 
   var saveTip = $("<span class=\"status\"></span>").hide();

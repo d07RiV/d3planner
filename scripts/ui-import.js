@@ -212,6 +212,19 @@
     });
   }
 
+  function validateObject(data, path, exceptions) {
+    for (var key in data) {
+      if (!data.hasOwnProperty(key)) continue;
+      var curpath = (path ? path + "." :  "") + key;
+      if (typeof data[key] === "string") {
+        if (exceptions && curpath.match(exceptions)) continue;
+        data[key] = data[key].replace(/[^a-zA-Z0-9_\-+\. ]/g, "");
+      } else if (typeof data[key] === "object") {
+        validateObject(data[key], curpath, exceptions);
+      }
+    }
+  }
+
   function doLoadProfile(id, errors) {
     var data = {id: id};
     if (errors) data.error = 1;
@@ -224,6 +237,7 @@
         if (window.history && window.history.replaceState) {
           window.history.replaceState({}, "", location.protocol + "//" + location.hostname + DiabloCalc.relPath + (errors ? "e" : "") + id);
         }
+        validateObject(data, "", /profiles\.[0-9]+\.name/);
         DiabloCalc.setAllProfiles(data, "load");
         $(".editframe").tabs("option", "active", 0);
       },

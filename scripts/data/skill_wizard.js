@@ -825,18 +825,18 @@ DiabloCalc.skills.wizard = {
   },
 };
 DiabloCalc.passives.wizard = {
+  blur: {
+    id: "blur",
+    name: "Blur",
+    index: 1,
+    buffs: {dmgred: 17},
+  },
   powerhungry: {
     id: "power-hungry",
     name: "Power Hungry",
     index: 0,
     active: true,
     buffs: {dmgmul: {pet: false, percent: 30}},
-  },
-  blur: {
-    id: "blur",
-    name: "Blur",
-    index: 1,
-    buffs: {dmgred: 17},
   },
   evocation: {
     id: "evocation",

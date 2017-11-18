@@ -545,7 +545,8 @@
       start: function() {
         self.list.find("select").trigger("chosen:close");
       },
-      end: function() {
+      stop: function() {
+        ui.item.css({position: "", left: "", top: ""});
         DC.trigger("updatePriority");
       },
     });
