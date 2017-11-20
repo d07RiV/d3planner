@@ -87,6 +87,7 @@
     });
   }
   function loadCharacter(evt, region, battletag, id, dead) {
+    DiabloCalc.activity("importchar");
     if (DiabloCalc.isModified && DiabloCalc.isModified()) {
       DiabloCalc.popupMenu(evt, _L.fixkey({
         "Discard current profile?": function() {
@@ -98,6 +99,7 @@
     }
   }
   function importProfile(region, battletag) {
+    DiabloCalc.activity("importprofile");
     battletag = battletag.replace("#", "-");
 
     Import.results.empty();
@@ -170,6 +172,7 @@
   }
 
   function saveProfile(id, all) {
+    DiabloCalc.activity("saveprofile");
     if (all === undefined) all = Save.allsets.prop("checked");
     var data = (all ? DiabloCalc.getAllProfiles() : DiabloCalc.getProfile());
     var box;
@@ -193,6 +196,7 @@
       success: function(response) {
         if (response.id) {
           var url = location.protocol + "//" + location.hostname + DiabloCalc.relPath + response.id;
+          DiabloCalc.session.profile = response.id;
           if (window.history && window.history.replaceState) {
             window.history.replaceState({}, "", url);
           }
@@ -234,6 +238,7 @@
       type: "POST",
       dataType: "json",
       success: function(data) {
+        DiabloCalc.session.profile = id;
         if (window.history && window.history.replaceState) {
           window.history.replaceState({}, "", location.protocol + "//" + location.hostname + DiabloCalc.relPath + (errors ? "e" : "") + id);
         }
@@ -246,6 +251,7 @@
     });
   }
   function loadProfile(evt, id, errors) {
+    DiabloCalc.activity("loadprofile");
     if (evt && DiabloCalc.isModified && DiabloCalc.isModified()) {
       DiabloCalc.popupMenu(evt, _L.fixkey({
         "Discard current profile?": function() {
@@ -425,6 +431,7 @@
   Load.order.append("<option value=\"date\">" + _L("Most recent first") + "</option>");
   Load.name = $("<input class=\"import-loadname\" placeholder=\"" + _L("Profile name") + "\"></input>");
   Load.button = $("<input type=\"button\" value=\"" + _L("Search") + "\"></input>").click(function() {
+    DiabloCalc.activity("search");
     Load.results.search({term: Load.name.val(), cls: Load.cls.val(), mainset: Load.mainset.val(), order: Load.order.val()});
   });
   Load.results = new DiabloCalc.SearchResults("search", MakeProfile);
@@ -449,6 +456,7 @@
   Load.name.autocomplete({
     minLength: 2,
     select: function(event, ui) {
+      DiabloCalc.activity("search");
       loadProfile(event, ui.item.id);
     },
   });

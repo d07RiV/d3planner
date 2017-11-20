@@ -690,6 +690,7 @@
 
   var saveTimeout;
   function doSaveStash() {
+    DiabloCalc.activity("stash");
     clearTimeout(saveTimeout);
     saveTimeout = undefined;
     if (!DiabloCalc.account.userName()) return;
@@ -802,6 +803,7 @@
   DiabloCalc.register("importEnd", updateUnlockStatus);
 
   $(".eqmod-unlock").click(function() {
+    DiabloCalc.activity("modunlock");
     DiabloCalc.importStart();
     for (var slot in DiabloCalc.itemSlots) {
       var data = DiabloCalc.getSlot(slot);
@@ -817,6 +819,7 @@
   });
 
   $(".eqmod-ancient").click(function() {
+    DiabloCalc.activity("modancient");
     DiabloCalc.importStart();
     var val = $(".eqmod-ancient-type").val();
     if (val === "true") val = true;
@@ -835,6 +838,7 @@
     DiabloCalc.importEnd("global");
   });
   $(".eqmod-maxstat").click(function(e) {
+    DiabloCalc.activity("modmaxstat");
     function runAction(unlock) {
       DiabloCalc.importStart();
       var value = (parseInt($(".eqmod-maxstat-value").val()) || 0) * 0.01;
@@ -898,6 +902,7 @@
     }
   });
   $(".eqmod-enchant").click(function() {
+    DiabloCalc.activity("modenchant");
     DiabloCalc.importStart();
     var value = (parseInt($(".eqmod-enchant-level").val()) || 1) * 5;
     var stat = "caldesanns_" + $(".eqmod-enchant-type").val();
@@ -930,6 +935,7 @@
     DiabloCalc.importEnd("global");
   });
   $(".eqmod-optimize").click(function() {
+    DiabloCalc.activity("modoptimize");
     DiabloCalc.Optimizer.dialog();
   });
   $(".eqmod-ancient-type, .eqmod-maxstat-value, .eqmod-enchant-level, .eqmod-enchant-type").click(function(e) {

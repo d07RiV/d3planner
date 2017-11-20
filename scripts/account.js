@@ -266,6 +266,7 @@
   function updateStatus() {
     $("body").toggleClass("logged-in", !!$.cookie("user_name"));
     if ($.cookie("user_name")) {
+      DiabloCalc.session.signedin = true;
       $(".left-banner").remove();
       $(".right-banner").remove();
     }

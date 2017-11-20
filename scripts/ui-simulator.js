@@ -1433,6 +1433,7 @@
     }
 
     this.start = function(data) {
+      DC.activity("simulate");
       data.type = "start";
       delete this.sampleData;
       this.initData = data;

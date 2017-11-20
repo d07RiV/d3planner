@@ -1233,6 +1233,7 @@ $.ajaxTransport("+binary", function(options, originalOptions, jqXHR){
   }
 
   var button = $("<span class=\"d3gl-toggle\"></span>").click(function() {
+    DiabloCalc.activity("modelview");
     if (!$canvas) {
       $canvas = $("<div class=\"d3gl-container\"><canvas width=\"520\" height=\"510\"></canvas></div>");
       $orig = $(".paperdoll-background");

@@ -38,7 +38,30 @@ DiabloCalc = {
     return res;
   },
   patch: {},
+  session: {
+    uid: MD5("" + Date.now() + Math.random()),
+    start: Math.floor(Date.now() / 1000),
+    activity: {},
+  },
+  activity: function(action) {
+    this.session.activity[action] = (this.session.activity[action] || 0) + 1;
+  },
+  report: function() {
+    this.session.duration = Math.floor(Date.now() / 1000) - this.session.start;
+    $.ajax({
+      url: "activity",
+      type: "POST",
+      data: JSON.stringify(this.session),
+      global: false,
+      processData: false,
+      contentType: "application/json",
+      dataType: "json",
+    });
+  },
 };
+//setInterval(function() {
+//  DiabloCalc.report();
+//}, 180000);
 (function() {
   var m = location.pathname.match(/^(\/.*\/)[^/]*$/);
   if (m) {
