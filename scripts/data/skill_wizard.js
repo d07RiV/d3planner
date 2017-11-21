@@ -168,14 +168,15 @@ DiabloCalc.skills.wizard = {
       case "d": res = {"Damage": {elem: "fir", coeff: 2.21}, "Burn Damage": {elem: "fir", coeff: 7.34, total: true}}; break;
       case "e": res = {"Explosion Damage": {elem: "col", coeff: 9.50}, "Projectile Damage": {elem: "col", coeff: 6.35}, "Shard Damage": {elem: "col", coeff: 3.15}}; break;
       }
-      if (stats.leg_unstablescepter || stats.leg_unstablescepter_p6) {
-        var factor = {};
-        factor[DiabloCalc.itemById.P1_Wand_norm_unique_02.name] = 2;
-        if (rune === "e") {
-          res["Explosion Damage"].factors = factor;
-        } else {
-          res["Damage"].factors = factor;
-        }
+      var count = (stats.leg_unstablescepter || stats.leg_unstablescepter_p6 ? 2 : 1);
+      res["DPS"] = {sum: true};
+      if (rune !== "e") {
+        res["DPS"]["Damage"] = {count: count, speed: 1, fpa: 57.857109, round: "up"};
+        if (rune === "d") res["DPS"]["Burn Damage"] = {count: 1};
+      } else {
+        res["DPS"]["Shard Damage"] = {speed: 1, fpa: 57.857109, round: "up", nobp: true};
+        res["DPS"]["Projectile Damage"] = {speed: 1, fpa: 57.857109, round: "up", nobp: true};
+        res["DPS"]["Explosion Damage"] = {count: count, speed: 1, fpa: 57.857109, round: "up"};
       }
       res = $.extend({"Cost": {cost: 30}}, res);
       return res;
