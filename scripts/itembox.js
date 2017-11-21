@@ -170,7 +170,7 @@
   DC.smartListStats = smartListStats;
   DC.getItemPreset = getItemPreset;
 
-  DC.getItemAffixesById = function(id, ancient, required) {
+  function getItemAffixesById_(id, ancient, required) {
     if (!id || !DC.itemById[id]) {
       return {};
     }
@@ -206,14 +206,40 @@
       });
     }
     return stats;
+  }
+  DC.getItemAffixesById = function(id, ancient, required) {
+    if (!required || required === "only") return getItemAffixesById_(id, ancient, required);
+    var afx = getItemAffixesById_(id, ancient, false);
+    var req = getItemAffixesById_(id, ancient, "only");
+    var dst = {};
+    for (var id in req) {
+      if ((id in afx) && req[id].noblock) {
+        function _add(x, y) {
+          if (DC.stats[id] && DC.stats[id].dr) {
+            return 100 - (100 - x) * (100 - y) / 100;
+          } else {
+            return x + y;
+          }
+        }
+        dst[id] = $.extend({}, req[id]);
+        if (afx[id].max) dst[id].max = _add(dst[id].max, afx[id].max);
+        if (afx[id].max2) dst[id].max2 = _add(dst[id].max2, afx[id].max2);
+      } else {
+        dst[id] = req[id];
+      }
+    }
+    for (var id in afx) {
+      if (!(id in req)) dst[id] = afx[id];
+    }
+    return dst;
   };
 
   DC.makeItem = function(id, custom, ancient) {
     var data = {id: id, stats: {}, ancient: (ancient || false)};
     var preset = getItemPreset(id);
-    var affixes = DC.getItemAffixesById(id, data.ancient, true);
+    var affixes = DC.getItemAffixesById(id, data.ancient, false);
     var required = DC.getItemAffixesById(id, data.ancient, "only");
-    function mkval(stat) {
+    function mkval(stat, affixes) {
       if (!affixes[stat]) return [0];
       var val = [];
       if (affixes[stat].max) {
@@ -228,12 +254,12 @@
       return val;
     }
     for (var stat in required) {
-      data.stats[stat] = (stat === "custom" && custom || mkval(stat));
+      data.stats[stat] = (stat === "custom" && custom || mkval(stat, required));
     }
     for (var i = 0; i < preset.length; ++i) {
       var list = smartListStats(preset[i], affixes, DC.charClass);
       if (list.length && !data.stats[list[0]]) {
-        data.stats[list[0]] = mkval(list[0]);
+        data.stats[list[0]] = mkval(list[0], affixes);
       }
     }
     if (data.stats.sockets) {
@@ -282,6 +308,25 @@
 
     return true;
   };
+  DC.trimStats = function(item) {
+    var affixes = DC.getItemAffixesById(item.id, item.ancient, true);
+    for (var stat in item.stats) {
+      if (affixes[stat]) {
+        var value = item.stats[stat];
+        if (value.length >= 1) {
+          if (affixes[stat].min) value[0] = Math.max(value[0], affixes[stat].min);
+          if (affixes[stat].max) value[0] = Math.min(value[0], affixes[stat].max);
+        }
+        if (value.length >= 2) {
+          if (affixes[stat].min2) value[1] = Math.max(value[1], affixes[stat].min2);
+          if (affixes[stat].max2) value[1] = Math.min(value[1], affixes[stat].max2);
+        }
+        item.stats[stat] = value;
+      } else {
+        delete item.stats[stat];
+      }
+    }
+  };
   DC.trimItem = function(slot, data, mhtype) {
     if (!data || !DC.itemById[data.id] || DC.itemSlots[slot].drop.inactive) return;
 
@@ -290,24 +335,8 @@
     var generic = DC.itemTypes[itemType].generic;
     if (!DC.isItemAllowed(slot, generic, mhtype)) return;
 
-    var newItem = {id: generic, stats: {}};
-    var affixes = DC.getItemAffixesById(generic, false, true);
-    for (var stat in data.stats) {
-      if (affixes[stat]) {
-        var value = [];
-        if (data.stats[stat].length >= 1) {
-          value.push(data.stats[stat][0]);
-          if (affixes[stat].min) value[0] = Math.max(value[0], affixes[stat].min);
-          if (affixes[stat].max) value[0] = Math.min(value[0], affixes[stat].max);
-        }
-        if (data.stats[stat].length >= 2) {
-          value.push(data.stats[stat][1]);
-          if (affixes[stat].min2) value[0] = Math.max(value[0], affixes[stat].min2);
-          if (affixes[stat].max2) value[0] = Math.min(value[0], affixes[stat].max2);
-        }
-        newItem.stats[stat] = value;
-      }
-    }
+    var newItem = {id: generic, stats: $.extend(true, {}, data.stats)};
+    DC.trimStats(newItem);
     if (data.gems && newItem.stats.sockets) {
       newItem.gems = [];
       for (var i = 0; i < data.gems.length && i < newItem.stats.sockets[0]; ++i) {
@@ -940,10 +969,12 @@
     this.importDiv = $("<div class=\"item-info-imported\">" + _L("Imported item ({0}, {1})").format(
       "<span class=\"link-like item-imported-reset\">" + _L("reset") + "</span>",
       "<span class=\"link-like item-imported-unlock\">" + _L("unlock") + "</span>") + "</div>");
+    this.unimportDiv = $("<div class=\"item-info-unimport\"><span class=\"link-like item-imported-lock\">" + _L("Lock item") + "</span></div>");
     this.stats = [];
 
     this.importReset = this.importDiv.find(".item-imported-reset");
     this.importUnlock = this.importDiv.find(".item-imported-unlock");
+    this.importLock = this.unimportDiv.find(".item-imported-lock");
     this.importReset.click(function() {
       var data = self.getData();
       if (data.imported) {
@@ -967,6 +998,9 @@
       delete data.imported;
       delete data.enchant;
       self.setItem(data);
+    });
+    this.importLock.click(function() {
+      self.lockItem();
     });
 
     this.div = $("<div class=\"item-info\"></div>");
@@ -995,6 +1029,7 @@
     this.div.append(this.badstats);
 
     this.div.append(this.itemMod.append(this.transmogs, this.dyes));
+    this.div.append(this.unimportDiv);
 
     this.ancientSel.change(function() {
       self.updateItem();
@@ -1535,6 +1570,18 @@
       this.type.trigger("chosen:updated");
       this.onChangeType();
       return;
+    }
+
+    if (id) {
+      this.itemSpan.show();
+      this.statsDiv.show();
+      this.add.show();
+      this.unimportDiv;
+    } else {
+      this.itemSpan.show();
+      this.statsDiv.hide();
+      this.add.hide();
+      this.unimportDiv.hide();
     }
 
     var self = this;
@@ -2087,15 +2134,6 @@
 
   DC.ItemBox.prototype.onChangeType = function(id) {
     var type = this.type.val();
-    if (DC.itemTypes[type]) {
-      this.itemSpan.show();
-      this.statsDiv.show();
-      this.add.show();
-    } else {
-      this.itemSpan.show();
-      this.statsDiv.hide();
-      this.add.hide();
-    }
     this.refreshItems(id);
 
     this.item.trigger("chosen:updated");
@@ -2132,6 +2170,54 @@
     if (this.charClass && typeData.classes && typeData.classes.indexOf(this.charClass) < 0) return false;
 
     return true;
+  };
+
+  DC.ItemBox.prototype.lockItem = function() {
+    var self = this;
+    var item = this.getData();
+
+    var dlg = $("<div class=\"optimize-dialog\"><p><i>" + _L("Locking an item allows only one stat to be enchanted, which can be useful for optimizing your gear when you can't import it from your profile.") + "</i></p></div>");
+    dlg.append("<div>" + _L("Enchant: {0}").format("<select></select>") + "</div>");
+    var select = dlg.find("select");
+    select.append("<option value=\"\">" + _L("Not enchanted") + "</option>");
+    var affixes = DC.getItemAffixesById(item.id, item.ancient, false);
+    var required = DC.getItemAffixesById(item.id, item.ancient, "only");
+    for (var stat in item.stats) {
+      if (!DC.stats[stat] || DC.stats[stat].base || DC.stats[stat].caldesanns) continue;
+      if (!affixes[stat] || affixes[stat].args < 0) continue;
+      if (required[stat] && (required[stat].args <= 0 || item.stats[stat][0] <= required[stat].max)) continue;
+      select.append("<option value=\"" + stat + "\">" + DC.stats[stat].name + "</option>");
+    }
+
+    var buttons = [
+      {
+        text: _L("Lock"),
+        click: function() {
+          var stat = select.val();
+          if (!stat) stat = undefined;
+          item.imported = {
+            enchant: stat,
+            stats: $.extend(true, {}, item.stats),
+          };
+          item.enchant = stat;
+          self.setItem(item);
+          $(this).dialog("close");
+        },
+      },
+    ];
+
+    dlg.dialog({
+      resizable: false,
+      title: _L("Lock item"),
+      height: "auto",
+      width: 350,
+      modal: true,
+      buttons: buttons,
+      close: function() { dlg.remove(); },
+      open: function() {
+        dlg.parent().css("overflow", "visible");
+      },
+    });
   };
 
 })();

@@ -239,6 +239,7 @@
   outer.parent().append(cubeLine);
   $.each(cube, function(type, elem) {
     elem.hover(function() {
+      if (!DiabloCalc.getSkills) return;
       var data = DiabloCalc.getSkills();
       if (data.kanai[type]) {
         DiabloCalc.tooltip.showItem(this, data.kanai[type]);

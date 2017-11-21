@@ -4,7 +4,7 @@
   DC.Optimizer = {
     perfection: 1,
     useGift: true,
-    unlock: true,
+    unlock: false,
   };
 
   function getValue(range) {
@@ -46,6 +46,15 @@
     else item.state.primary += 1;
     item.state.groups[stat.group || id] = true;
     var src = (value || item.affixes.all[id]);
+    if (item.imported && item.imported.stats && item.imported.stats[id]) {
+      var better = false;
+      for (var i = 0; i < src.length; ++i) {
+        if (src[i] > item.imported.stats[id][i]) {
+          better = true;
+        }
+      }
+      if (!better) src = $.extend([], item.imported.stats[id]);
+    }
     if (item.stats[id]) {
       if (stat.dr) {
         for (var i = 0; i < src.length; ++i) item.stats[id][i] = 100 - (100 - (item.stats[id][i] || 0)) * (100 - src[i]) / 100;
@@ -175,7 +184,12 @@
     var item = DC.getSlot(slot);
     if (!item) return;
     item = $.extend(true, {}, item);
-    item.stats = src.stats;
+    item.stats = {};
+    Object.keys(src.stats).sort(function(a, b) {
+      return (DC.stats[a] && DC.stats[a].prio || 0) - (DC.stats[b] && DC.stats[b].prio || 0);
+    }).forEach(function(id) {
+      item.stats[id] = src.stats[id];
+    });
     if (item.gems && item.stats.sockets && item.stats.sockets[0]) {
       if (!src.gems) src.gems = [];
       for (var i = 0; i < item.gems.length && src.gems.length < item.stats.sockets[0]; ++i) {
@@ -232,8 +246,17 @@
       var has = false, best = undefined;
       for (var j = 0; j < list.length; ++j) {
         if (item.stats[list[j]]) {
-          has = true;
-          break;
+          if (item.imported && item.imported.stats && item.imported.stats[list[j]]) {
+            has = true;
+            for (var k = 0; k < item.stats[list[j]].length; ++k) {
+              if (item.stats[list[j]][k] !== item.imported.stats[list[j]][k]) {
+                has = false;
+              }
+            }
+          } else {
+            has = true;
+          }
+          if (has) break;
         }
         if (!best && (!DC.stats[list[j]].classes || DC.stats[list[j]].classes.indexOf(DC.charClass) >= 0)) {
           best = list[j];
@@ -330,6 +353,75 @@
     },
   };
 
+  var BasicCompositeStats = $.extend({}, CompositeStats);
+
+  function SkillInfo(cls, skill) {
+    var info = DC.skills[cls][skill];
+    function process(stats) {
+      var options = {
+        stats: stats,
+        skill: [skill, stats.skills[skill] || "x"],
+        affix: info.affixid,
+        params: info.params,
+        getCurInfo_: DC.SkillBox.skill.prototype.getCurInfo_,
+        notip: true,
+      };
+      var curInfo = DC.SkillBox.skill.prototype.getCurInfo.call(options, info, stats);
+      var results = DC.skill_processInfo(curInfo, options);
+      var ret = {};
+      for (var id in results) {
+        if (curInfo[id] && (typeof curInfo[id] !== "object" || curInfo[id].cooldown !== undefined || curInfo[id].cost !== undefined || curInfo[id].value !== undefined)) continue;
+        if (results[id].value !== undefined) ret[id] = results[id].value;
+      }
+      return ret;
+    }
+    return {
+      name: info.name,
+      options: {
+        value: {type: "select", options: function() {
+          var results = process(DC.getStats());
+          var opt = {};
+          for (var name in results) {
+            opt[name] = _L(name);
+          }
+          return opt;
+        }},
+      },
+      stats: function(options, item) {
+        if (!item) return [];
+        var stats = DC.getStats();
+        var callopt = {skill: [skill, stats.skills[skill] || "x"], affix: info.affixid, params: info.params, getCurInfo_: DC.SkillBox.skill.prototype.getCurInfo_, notip: true};
+        var curInfo = DC.SkillBox.skill.prototype.getCurInfo.call(callopt, info, stats);
+        var result = CompositeStats.dps.stats({speed: true, elite: true}, item);
+        function _add(stat) { if (result.indexOf(stat) < 0) result.push(stat); }
+        function _addline(line) {
+          if (!line || typeof line !== "object") return;
+          if (line.sum) {
+            for (var id in line) {
+              _addline(curInfo[id]);
+            }
+          } else {
+            _add("skill_" + cls + "_" + (line && line.skill || skill));
+            if (line && line.elem) {
+              if (line.elem === "max") {
+                _add("dmg" + (stats.info.maxelem || "fir"));
+              } else {
+                _add("dmg" + line.elem);
+              }
+            }
+          }
+        }
+        _addline(curInfo[options.value]);
+        result.push("cdr", "rcr");
+        return result;
+      },
+      value: function(options, stats) {
+        var results = process(stats);
+        return (results[options.value] || 0);
+      },
+    };
+  }
+
   function finishStats(stats) {
     stats.finishLoad();
     if (DC.addSkillBonuses) {
@@ -363,30 +455,57 @@
       });
 
       var cache = {"0": item};
-      var bestValue = 0, bestMask = 0;
+      var bestValue = 0, bestItem = item;
       for (var mask = 1; mask < (1 << stats.length); ++mask) {
-        var prev = (mask & (mask - 1));
-        if (!cache[prev]) continue;
-        var curItem = backupItem(cache[prev]);
-        var statIndex = 0;
-        while (!(mask & (1 << statIndex))) {
-          ++statIndex;
+        var statIndex = -1;
+        if (item.imported && !item.enchant) {
+          for (var i = 0; i < stats.length; ++i) {
+            if ((mask & (1 << i)) && !item.imported.stats[stats[i]]) {
+              statIndex = i;
+            }
+          }
         }
-        var stat = stats[statIndex];
-        if (addStat(curItem, stat) && addPreset(curItem)) {
-          cache[mask] = curItem;
-          var tmpStats = baseStats.clone();
-          tmpStats.addItem(slot, curItem);
-          finishStats(tmpStats);
-          var value = comp.value(options, tmpStats);
-          if (value > bestValue) {
-            bestValue = value;
-            bestMask = mask;
+        if (statIndex < 0) {
+          statIndex = 0;
+          while (!(mask & (1 << statIndex))) {
+            ++statIndex;
+          }
+        }
+        var prev = mask - (1 << statIndex);
+        if (!cache[prev]) continue;
+
+        function tryStat(item, stat, value) {
+          item = backupItem(item);
+          if (addStat(item, stat, value) && addPreset(item)) {
+            var tmpStats = baseStats.clone();
+            tmpStats.addItem(slot, item);
+            finishStats(tmpStats);
+            var value = comp.value(options, tmpStats);
+            if (value > bestValue) {
+              bestValue = value;
+              bestItem = item;
+            }
+            return item;
+          }
+        }
+        if (item.imported && !item.enchant && item.imported.stats[stats[statIndex]]) {
+          cache[mask] = tryStat(cache[prev], stats[statIndex], item.imported.stats[stats[statIndex]]);
+
+          for (var i = 0; i < stats.length; ++i) {
+            if (!(mask & (1 << i))) continue;
+            prev = mask - (1 << i);
+            if (!cache[prev]) continue;
+            tryStat(cache[prev], stats[i]);
+          }
+        } else {
+          var curItem = tryStat(cache[prev], stats[statIndex]);
+          if (!item.imported || item.enchant) {
+            cache[mask] = curItem;
           }
         }
       }
 
-      item = items[slot] = cache[bestMask];
+      item = items[slot] = bestItem;
     }
 
     if (item.stats.sockets && item.gems.length < item.stats.sockets[0]) {
@@ -547,10 +666,18 @@
       var select = line.find("select");
 
       var group = "";
-      $.each(CompositeStats, function(stat, opt) {
+      $.each(BasicCompositeStats, function(stat, opt) {
         group += "<option value=\"" + stat + "\">" + opt.name + "</option>";
       });
       select.append("<optgroup label=\"" + _L("Composite Stats") + "\">" + group + "</optgroup>");
+
+      group = "";
+      DC.getSkills().skills.forEach(function(skill) {
+        var id = "skillinfo_" + DC.charClass + "_" + skill[0];
+        if (!CompositeStats[id]) CompositeStats[id] = SkillInfo(DC.charClass, skill[0]);
+        group += "<option value=\"" + id + "\">" + CompositeStats[id].name + "</option>";
+      });
+      if (group.length) select.append("<optgroup label=\"" + _L("Skill Values") + "\">" + group + "</optgroup>");
 
       var filterClass = (DC.options.limitStats ? DC.charClass : null);
       $.each(DC.statList, function(catType, catList) {
@@ -587,9 +714,13 @@
               opts.append(box);
             } else {
               var box = $("<select class=\"option-drop\"></select>");
-              $.each(data.options(), function(value, text) {
+              var options = data.options();
+              $.each(options, function(value, text) {
                 box.append("<option value=\"" + value + "\">" + text + "</option>");
               });
+              if (!((prio.options[id] || "") in options)) {
+                prio.options[id] = (Object.keys(options)[0] || "");
+              }
               box.val(prio.options[id]).change(function() {
                 prio.options[id] = $(this).val();
               });
@@ -609,9 +740,11 @@
       line.on("mouseenter", ".optimize-stat", function() {
         if (!DC.tooltip) return;
         if (!CompositeStats[prio.stat]) return;
+        var stats = CompositeStats[prio.stat].stats(prio.options);
+        if (!stats.length) return;
         var name = CompositeStats[prio.stat].name;
         var text = "<span class=\"d3-color-gold\">" + _L("Optimize {0} based on the following stats:").format(name) + "</span>";
-        CompositeStats[prio.stat].stats(prio.options).forEach(function(stat) {
+        stats.forEach(function(stat) {
           text += "<br/><span class=\"tooltip-icon-bullet\"></span>" + DC.stats[stat].name;
         });
         DC.tooltip.showHtml(this, text);

@@ -832,6 +832,7 @@
         data.ancient = val;
         delete data.enchant;
         delete data.imported;
+        DiabloCalc.trimStats(data);
         DiabloCalc.setSlot(slot, data);
       }
     }

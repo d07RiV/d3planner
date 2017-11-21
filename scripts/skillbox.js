@@ -241,6 +241,46 @@
     });
   };
 
+  SkillBoxBase.prototype.getCurInfo = function(info, stats) {
+    var curInfo = (this.getCurInfo_ && this.getCurInfo_(info, stats));
+    var elites = (DC.options.showElites ? 1 + 0.01 * (stats.edmg || 0) : 1);
+    if (typeof info.info === "function") {
+      if (curInfo) {
+        curInfo = $.extend({}, curInfo);
+        for (var stat in curInfo) {
+          if (typeof curInfo[stat] === "number") {
+            curInfo[stat] = DC.formatNumber(curInfo[stat] * elites, 0, 10000);
+          }
+        }
+      }
+    } else if (info.info) {
+      if (curInfo) {
+        curInfo = $.extend({}, curInfo);
+        for (var stat in curInfo) {
+          if (typeof curInfo[stat] !== "string") continue;
+          var expr = curInfo[stat];
+          var unmod = undefined;
+          if (expr[0] == '@' || expr[0] == '%') {
+            unmod = expr[0];
+            expr = expr.substring(1);
+          }
+          expr = DC.execString(expr, stats, info.affixid || this.affix, info.params);
+          if (typeof expr === "number") {
+            if (!unmod) expr *= elites;
+            if (unmod == "%") {
+              curInfo[stat] = Math.floor(expr) + "%";
+            } else {
+              curInfo[stat] = DC.formatNumber(expr, 0, 10000);
+            }
+          } else {
+            curInfo[stat] = expr;
+          }
+        }
+      }
+    }
+    return curInfo;
+  };
+
   SkillBoxBase.prototype.update = function() {
     var info = this.getInfo();
     if (!info) {
@@ -294,43 +334,7 @@
 
     var effects, curInfo;
 
-    var elites = (DC.options.showElites ? 1 + 0.01 * (stats.edmg || 0) : 1);
-
-    var curInfo = (this.getCurInfo && this.getCurInfo(info, stats));
-    if (typeof info.info === "function") {
-      if (curInfo) {
-        curInfo = $.extend({}, curInfo);
-        for (var stat in curInfo) {
-          if (typeof curInfo[stat] === "number") {
-            curInfo[stat] = DC.formatNumber(curInfo[stat] * elites, 0, 10000);
-          }
-        }
-      }
-    } else if (info.info) {
-      if (curInfo) {
-        curInfo = $.extend({}, curInfo);
-        for (var stat in curInfo) {
-          if (typeof curInfo[stat] !== "string") continue;
-          var expr = curInfo[stat];
-          var unmod = undefined;
-          if (expr[0] == '@' || expr[0] == '%') {
-            unmod = expr[0];
-            expr = expr.substring(1);
-          }
-          expr = DC.execString(expr, stats, info.affixid || this.affix, info.params);
-          if (typeof expr === "number") {
-            if (!unmod) expr *= elites;
-            if (unmod == "%") {
-              curInfo[stat] = Math.floor(expr) + "%";
-            } else {
-              curInfo[stat] = DC.formatNumber(expr, 0, 10000);
-            }
-          } else {
-            curInfo[stat] = expr;
-          }
-        }
-      }
-    }
+    var curInfo = this.getCurInfo(info, stats);
 
     if (curInfo) {
       var results = DC.skill_processInfo(curInfo, {affix: (info.affixid || this.affix), params: info.params, skill: this.skill});
@@ -454,7 +458,7 @@
       this.applybox.prop("checked", info.active !== false);
       this.apply.toggle(!!(info.activeshow ? info.activeshow(this.skill[1], stats) : DC.getSkillBonus(this.skill, stats)));
     },
-    getCurInfo: function(info, stats) {
+    getCurInfo_: function(info, stats) {
       if (typeof info.info === "function") {
         return info.info(this.skill[1], stats);
       } else if (info.info && this.skill) {
@@ -529,7 +533,7 @@
       this.applybox.prop("checked", info.active !== false);
       this.apply.toggle(!!bonus);
     },
-    getCurInfo: function(info, stats) {
+    getCurInfo_: function(info, stats) {
       if (typeof info.info === "function") {
         return info.info(stats);
       } else {
@@ -587,7 +591,7 @@
       this.name.html(info.name + (stats.gems[this.gem] ? " <span class=\"gem-rank\">&#x2013; " + _L("Rank {0}").format(stats.gems[this.gem]) + "</span>" : ""));
       return noBuffs;
     },
-    getCurInfo: function(info, stats) {
+    getCurInfo_: function(info, stats) {
       if (typeof info.info === "function") {
         return info.info(stats.gems[this.gem], stats);
       } else {
@@ -665,7 +669,7 @@
         }
       }
     },
-    getCurInfo: function(info, stats) {
+    getCurInfo_: function(info, stats) {
       if (typeof info.info === "function") {
         return info.info(stats.affixes[this.affix].value, stats);
       } else {
@@ -931,7 +935,7 @@
         }
       }
     },
-    getCurInfo: function(info, stats) {
+    getCurInfo_: function(info, stats) {
       if (typeof info.info === "function") {
         return info.info(stats[info.affixid], stats);
       } else {

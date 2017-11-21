@@ -5,7 +5,7 @@ GetDocs(array(
   "external/jquery-ui.min.js",
   "external/spin.min.js",
   "external/jquery.cookie.min.js",
-  "external/chosen.jquery.js",
+  "external/chosen.jquery.min.js",
   "external/Chart.min.js",
   "external/jquery.mousewheel.min.js",
   "external/mwheelIntent.min.js",
@@ -13,7 +13,7 @@ GetDocs(array(
   "external/canvasjs.min.js",
   "external/jquery.ui.touch-punch.min.js",
   "external/gl-matrix.min.js",
-  "scripts/errors.js",
+//  "scripts/errors.js",
   "scripts/main.js",
 ));
 ?>
