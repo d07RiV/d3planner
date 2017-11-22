@@ -1576,7 +1576,7 @@
       this.itemSpan.show();
       this.statsDiv.show();
       this.add.show();
-      this.unimportDiv;
+      this.unimportDiv.show();
     } else {
       this.itemSpan.show();
       this.statsDiv.hide();

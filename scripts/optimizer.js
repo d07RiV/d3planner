@@ -619,19 +619,10 @@
 
   DC.Optimizer.dialog = function() {
     var dlg = $("<div class=\"optimize-dialog\"><p><i>" + _L("For best results, assign paragon, Caldesanns enchants and skills/passives before using the optimizer.") + "</i></p></div>");
-    var imported = false, affixes = {};
-    for (var slot in DC.itemSlots) {
-      var item = DC.getSlot(slot);
-      if (!item) continue;
-      $.extend(affixes, DC.getItemAffixesById(item.id, item.ancient, false));
-      if (item.imported) imported = true;
-    }
-    if (imported) {
-      dlg.append("<div><label class=\"option-box\"><input type=\"checkbox\" class=\"option-unlock\"></input>" + _L("Unlock imported items") + "</label></div>");
-      dlg.find(".option-unlock").prop("checked", !!DC.Optimizer.unlock).click(function() {
-        DC.Optimizer.unlock = !!$(this).prop("checked");
-      });
-    }
+    dlg.append("<div><label class=\"option-box\"><input type=\"checkbox\" class=\"option-unlock\"></input>" + _L("Unlock imported items") + "</label></div>");
+    dlg.find(".option-unlock").prop("checked", !!DC.Optimizer.unlock).click(function() {
+      DC.Optimizer.unlock = !!$(this).prop("checked");
+    });
     dlg.append("<div><label class=\"option-box\"><input type=\"checkbox\" class=\"option-gift\"></input>" + _L("Use Ramaladni's Gift") + "</label></div>");
     dlg.find(".option-gift").prop("checked", !!DC.Optimizer.useGift).click(function() {
       DC.Optimizer.useGift = !!$(this).prop("checked");
@@ -656,28 +647,26 @@
       });
     }
 
-    function addLine(prio) {
-      var line = $("<li class=\"optimize-priority-item\"></li>");
-      line.data("item", prio);
-      priority.find(".optimize-priority-list").append(line);
-      line.append("<div class=\"header\"><span class=\"btn-remove\"></span><select class=\"optimize-stat\"></select></div>");
-      var opts = $("<div></div>");
-      line.append(opts);
-      var select = line.find("select");
+    var imported = false, affixes = {};
 
+    function fillSelect(select, value) {
+      select.empty();
       var group = "";
       $.each(BasicCompositeStats, function(stat, opt) {
         group += "<option value=\"" + stat + "\">" + opt.name + "</option>";
       });
       select.append("<optgroup label=\"" + _L("Composite Stats") + "\">" + group + "</optgroup>");
 
-      group = "";
-      DC.getSkills().skills.forEach(function(skill) {
-        var id = "skillinfo_" + DC.charClass + "_" + skill[0];
-        if (!CompositeStats[id]) CompositeStats[id] = SkillInfo(DC.charClass, skill[0]);
-        group += "<option value=\"" + id + "\">" + CompositeStats[id].name + "</option>";
-      });
-      if (group.length) select.append("<optgroup label=\"" + _L("Skill Values") + "\">" + group + "</optgroup>");
+      if (DC.getSkills) {
+        group = "";
+        DC.getSkills().skills.forEach(function(skill) {
+          if (!skill) return;
+          var id = "skillinfo_" + DC.charClass + "_" + skill[0];
+          if (!CompositeStats[id]) CompositeStats[id] = SkillInfo(DC.charClass, skill[0]);
+          group += "<option value=\"" + id + "\">" + CompositeStats[id].name + "</option>";
+        });
+        if (group.length) select.append("<optgroup label=\"" + _L("Skill Values") + "\">" + group + "</optgroup>");
+      }
 
       var filterClass = (DC.options.limitStats ? DC.charClass : null);
       $.each(DC.statList, function(catType, catList) {
@@ -687,10 +676,10 @@
           DC.extendStats([], stats).forEach(function(stat) {
             if (DC.stats[stat].caldesanns) return;
             if (filterClass && DC.stats[stat].classes &&
-                DC.stats[stat].classes.indexOf(filterClass) < 0 && stat !== prio.stat) {
+                DC.stats[stat].classes.indexOf(filterClass) < 0 && stat !== value) {
               return;
             }
-            if (affixes.hasOwnProperty(stat)) {
+            if (true/*affixes.hasOwnProperty(stat)*/) {
               group += "<option value=\"" + stat + "\">" + DC.stats[stat].name + "</option>";
             }
           });
@@ -699,7 +688,42 @@
           }
         });
       });
-      select.val(prio.stat);
+      select.val(value);
+    }
+
+    DC.register("updateSkills", function() {
+      priority.find(".header select").each(function() {
+        var $this = $(this);
+        fillSelect($this, $this.val());
+        $this.trigger("chosen:updated");
+      });
+    });
+    DC.register("updateSlotItem", function() {
+      //affixes = {};
+      imported = false;
+      for (var slot in DC.itemSlots) {
+        var item = DC.getSlot(slot);
+        if (!item) continue;
+        //$.extend(affixes, DC.getItemAffixesById(item.id, item.ancient, false));
+        if (item.imported) imported = true;
+      }
+      $(".option-unlock").closest("div").toggle(imported);
+      priority.find(".header select").each(function() {
+        var $this = $(this);
+        fillSelect($this, $this.val());
+        $this.trigger("chosen:updated");
+      });
+    });
+
+    function addLine(prio) {
+      var line = $("<li class=\"optimize-priority-item\"></li>");
+      line.data("item", prio);
+      priority.find(".optimize-priority-list").append(line);
+      line.append("<div class=\"header\"><span class=\"btn-remove\"></span><select class=\"optimize-stat\"></select></div>");
+      var opts = $("<div></div>");
+      line.append(opts);
+      var select = line.find("select");
+      fillSelect(select, prio.stat);
 
       select.change(function() {
         prio.stat = $(this).val();
@@ -777,6 +801,11 @@
         setTimeout(updatePriority, 0);
       },
     });
+
+    return [dlg, function() {
+      dlg.parent().css("overflow", "visible");
+      DC.Optimizer.priority.forEach(addLine);
+    }];
 
     var buttons = [
       {

@@ -30,10 +30,10 @@
     edit.itemBox.populateItems();
   });
 
-  tab.append($("<label class=\"option-box\"></label>").append(moreWarnings).append(_L("Show all warnings")));
-  tab.append($("<label class=\"option-box\"></label>").append(hideCrossClass).append(_L("Hide items for other classes")));
-  tab.append($("<label class=\"option-box\"></label>").append(limitStats).append(_L("Only list class-specific stats")));
-  tab.append($("<label class=\"option-box\"></label>").append(hideLegacy).append(_L("Hide legacy items")));
+  tab.append($("<label class=\"option-box top-options\"></label>").append(moreWarnings).append(_L("Show all warnings")));
+  tab.append($("<label class=\"option-box top-options\"></label>").append(hideCrossClass).append(_L("Hide items for other classes")));
+  tab.append($("<label class=\"option-box top-options\"></label>").append(limitStats).append(_L("Only list class-specific stats")));
+  tab.append($("<label class=\"option-box top-options\"></label>").append(hideLegacy).append(_L("Hide legacy items")));
   DiabloCalc.addTip(moreWarnings, _L("Show warnings for incomplete items and missing secondary stats."));
   DiabloCalc.addTip(hideCrossClass, _L("Do not list items with affixes that do not apply to your class."));
   DiabloCalc.addTip(limitStats, _L("Only list stats useful to your class."));
@@ -759,9 +759,6 @@
   }
 
   tab.append("<h3 class=\"skill-category collapse-header collapsed\">" + _L("Global equipment modifications") + "</h3>");
-  $(".collapse-header").click(function() {
-    $(this).toggleClass("collapsed");
-  });
   var eqmod = $("<ul></ul>");
   tab.append(eqmod);
   var make_mod = "<select class=\"eqmod-ancient-type\">";
@@ -785,7 +782,23 @@
     $(".eqmod-enchant-type").val(DiabloCalc.classes[DiabloCalc.charClass].primary);
   });
   $(".eqmod-enchant-type").val(DiabloCalc.classes[DiabloCalc.charClass].primary);
-  eqmod.append("<li><span class=\"link-like eqmod-optimize\">" + _L("Optimize items...") + "</span></li>");
+  //eqmod.append("<li><span class=\"link-like eqmod-optimize\">" + _L("Optimize items...") + "</span></li>");
+
+  tab.append("<h3 class=\"skill-category collapse-header collapsed second\">" + _L("Stat priority") + "</h3>");
+
+  var odlg = DiabloCalc.Optimizer.dialog();
+  tab.append(odlg[0]);
+  odlg[1]();
+  odlg[0].append("<div><span class=\"link-like eqmod-optimize\">" + _L("Optimize stats") + "</span></div>");
+
+  $(".collapse-header").click(function() {
+    $(this).toggleClass("collapsed");
+    if ($(this).hasClass("collapsed")) {
+      $(this).next().slideUp();
+    } else {
+      $(this).next().slideDown();
+    }
+  }).next().hide();
 
   function updateUnlockStatus() {
     var imported = false;
@@ -937,7 +950,8 @@
   });
   $(".eqmod-optimize").click(function() {
     DiabloCalc.activity("modoptimize");
-    DiabloCalc.Optimizer.dialog();
+    DiabloCalc.Optimizer.optimizeAll();
+    //DiabloCalc.Optimizer.dialog();
   });
   $(".eqmod-ancient-type, .eqmod-maxstat-value, .eqmod-enchant-level, .eqmod-enchant-type").click(function(e) {
     e.stopPropagation();
