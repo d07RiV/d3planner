@@ -342,7 +342,7 @@
     };
   }
 
-  DC.calcFrames = function(fpa, weapon, slowest, dspeed, method, stats) {
+  DC.calcFramesFull = function(fpa, weapon, slowest, dspeed, method, stats) {
     if (slowest !== true) {
       method = dspeed;
       dspeed = slowest;
@@ -350,20 +350,24 @@
     }
     var delta = (method === "up" ? 1 : 0);
     var stats = (stats || DC.getStats());
-    dspeed = (dspeed || 1);
+    var options = {fpa, dspeed: (dspeed || 1), fpadelta: delta};
     if (!weapon && stats.info.offhand) {
       if (slowest) {
-        var basespeed = Math.min(stats.info.mainhand.speed, stats.info.offhand.speed);
-        return Math.floor(fpa / (dspeed * basespeed)) + delta;
+        options.basespeed = Math.min(stats.info.mainhand.speed, stats.info.offhand.speed);
+        options.frames = Math.floor(fpa / (options.dspeed * options.basespeed)) + delta;
       } else {
-        var framesmh = Math.floor(fpa / (dspeed * stats.info.mainhand.speed));
-        var framesoh = Math.floor(fpa / (dspeed * stats.info.offhand.speed));
-        return 0.5 * (framesmh + framesoh) + delta;
+        options.framesmh = Math.floor(fpa / (options.dspeed * stats.info.mainhand.speed));
+        options.framesoh = Math.floor(fpa / (options.dspeed * stats.info.offhand.speed));
+        options.frames = 0.5 * (options.framesmh + options.framesoh) + delta;
       }
     } else {
-      var basespeed = stats.info[weapon || "mainhand"].speed;
-      return Math.floor(fpa / (dspeed * basespeed)) + delta;
+      options.basespeed = stats.info[weapon || "mainhand"].speed;
+      options.frames = Math.floor(fpa / (options.dspeed * options.basespeed)) + delta;
     }
+    return options;
+  };
+  DC.calcFrames = function(fpa, weapon, slowest, dspeed, method, stats) {
+    return DC.calcFramesFull.apply(DC, arguments).frames;
   };
 
   function Tooltip(name, value) {
@@ -384,14 +388,14 @@
     return this;
   };
   Tooltip.prototype.line = function(bullet, text) {
-    var args = 2;
+    var args = 2, ctext = text;
     if (bullet !== true && bullet !== false) {
-      text = bullet;
+      ctext = bullet;
       bullet = true;
       args = 1;
     }
     this.body_ += "<br/><span class=\"tooltip-icon-" + (bullet === false ? "nobullet" : "bullet") + "\"></span>" +
-      _L(text).format(Array.prototype.slice.call(arguments, args));
+      String.prototype.format.apply(_L(ctext), Array.prototype.slice.call(arguments, args));
     return this;
   };
   Tooltip.prototype.add = function(lines) {
@@ -411,6 +415,128 @@
       this.body_ += lines.body_;
     }
     return this;
+  };
+  Tooltip.prototype.breakpoints = function(stats, options) {
+    if (options.pet) {
+      if (options.frames > 6) {
+        var basemh = stats.info.mainhand.speed / (1 + 0.01 * (stats.ias || 0));
+        var apsneed = options.fpa / (options.frames - 5) / options.speed;
+        var iasneed = Math.ceil((100 * apsneed / basemh - 100 - (stats.ias || 0)) * 10) / 10;
+        this.line(false, "IAS to next breakpoint: {0}", "<span class=\"d3-color-white\">" + iasneed + "%</span>");
+      }
+      this.body_ += "</p><table><tr><th>" + ["FPA", "APS", "Pet APS", "Delta"].map(_L).join("</th><th>") + "</th></tr>";
+      for (var curfpa = Math.ceil(Math.floor(options.fpa) / 6) * 6; curfpa >= 6; curfpa -= 6) {
+        var curaps = Math.max(1, options.fpa / (curfpa + 1) / options.speed + 0.000051);
+        if (options.speed / (curfpa + 1) > 5) break;
+        this.body_ += "<tr" + (curfpa === options.frames ? " class=\"current\"" : "") + "><td>" + curfpa + "</td>";
+        this.body_ += "<td>" + curaps.toFixed(4) + "</td><td>" + Math.max(1, options.fpa / (curfpa + 1) + 0.000051).toFixed(4) + "</td>";
+        var delta = 100 * (options.frames / curfpa - 1);
+        this.body_ += "<td class=\"" + (delta < 0 ? "d3-color-red" : (delta > 0 ? "d3-color-green" : "d3-color-gray")) + "\">";
+        this.body_ += (delta < 0 ? delta.toFixed(1) : "+" + delta.toFixed(1)) + "%</td></tr>";
+      }
+      this.body_ += "</table><p>";
+    } else {
+      function fpaDelta(nextmh, nextoh) {
+        var fpa;
+        if (options.framesmh && options.framesoh) {
+          fpa = 0.5 * (Math.floor(options.fpa / (options.dspeed * nextmh)) + Math.floor(options.fpa / (options.dspeed * nextoh))) + options.fpadelta;
+        } else {
+          fpa = Math.floor(options.fpa / (options.dspeed * nextmh)) + options.fpadelta;
+        }
+        if (fpa < options.frames) {
+          return "<span class=\"d3-color-green\">+" + DC.formatNumber(100 * (options.frames / fpa - 1), 1) + "%</span>";
+        } else if (fpa > options.frames) {
+          return "<span class=\"d3-color-red\">-" + DC.formatNumber(100 * (1 - options.frames / fpa), 1) + "%</span>";
+        } else {
+          return "<span class=\"d3-color-gray\">+0%</span>";
+        }
+      }
+
+      if (options.framesmh && options.framesoh) {
+        if (options.framesmh > 1 && options.framesoh > 1) {
+          var nextmh = options.fpa / (options.framesmh - options.fpadelta) / options.dspeed + 0.000051;
+          var nextoh = options.fpa / (options.framesoh - options.fpadelta) / options.dspeed + 0.000051;
+          var next = Math.min(nextmh / stats.info.mainhand.speed, nextoh / stats.info.offhand.speed);
+          nextmh = next * stats.info.mainhand.speed;
+          nextoh = next * stats.info.offhand.speed;
+          var iasneed = Math.ceil(10 * (next * (100 + (stats.ias || 0)) - 100 - (stats.ias || 0))) / 10;
+          this.line(false, "Next breakpoint: {0} APS ({1} IAS)" + (options.dps !== false ? ", {2} DPS" : ""),
+            "<span class=\"d3-color-white\">" + DC.formatNumber(nextmh, 4, 10000) + "</span>/" +
+            "<span class=\"d3-color-white\">" + DC.formatNumber(nextoh, 4, 10000) + "</span>",
+            "<span class=\"d3-color-white\">+" + iasneed + "%</span>",
+            fpaDelta(nextmh, nextoh));
+        }
+
+        var prevmh = options.fpa / (options.framesmh + 1 - options.fpadelta) / options.dspeed - 0.000051;
+        var prevoh = options.fpa / (options.framesoh + 1 - options.fpadelta) / options.dspeed - 0.000051;
+        var prev = Math.max(prevmh / stats.info.mainhand.speed, prevoh / stats.info.offhand.speed);
+        prevmh = prev * stats.info.mainhand.speed;
+        prevoh = prev * stats.info.offhand.speed;
+        var iasneed = Math.ceil(10 * (prev * (100 + (stats.ias || 0)) - 100 - (stats.ias || 0))) / 10;
+        this.line(false, "Previous breakpoint: {0} APS ({1} IAS)" + (options.dps !== false ? ", {2} DPS" : ""),
+          "<span class=\"d3-color-white\">" + DC.formatNumber(prevmh, 4, 10000) + "</span>/" +
+          "<span class=\"d3-color-white\">" + DC.formatNumber(prevoh, 4, 10000) + "</span>",
+          "<span class=\"d3-color-white\">" + iasneed + "%</span>",
+          fpaDelta(prevmh, prevoh));
+      } else {
+        if (options.frames > 1) {
+          var next = options.fpa / (options.frames - options.fpadelta) / options.dspeed + 0.000051;
+          var basemh = options.basespeed / (1 + 0.01 * (stats.ias || 0));
+          var iasneed = Math.ceil(10 * (100 * next / basemh - 100 - (stats.ias || 0))) / 10;
+          this.line(false, "Next breakpoint: {0} APS ({1} IAS)" + (options.dps !== false ? ", {2} DPS" : ""),
+            "<span class=\"d3-color-white\">" + DC.formatNumber(next, 4, 10000) + "</span>",
+            "<span class=\"d3-color-white\">+" + iasneed + "%</span>",
+            fpaDelta(next));
+        }
+        var prev = options.fpa / (options.frames + 1 - options.fpadelta) / options.dspeed - 0.000051;
+        var basemh = options.basespeed / (1 + 0.01 * (stats.ias || 0));
+        var iasneed = Math.ceil(10 * (100 * prev / basemh - 100 - (stats.ias || 0))) / 10;
+        this.line(false, "Previous breakpoint: {0} APS ({1} IAS)" + (options.dps !== false ? ", {2} DPS" : ""),
+          "<span class=\"d3-color-white\">" + DC.formatNumber(prev, 4, 10000) + "</span>",
+          "<span class=\"d3-color-white\">" + iasneed + "%</span>",
+          fpaDelta(prev));
+      }
+      if (!options.sequence) {
+        var hdr = "<th>" + _L("FPA") + "</th><th>" + _L("APS") + "</th>";
+        this.body_ += "</p><table class=\"col2\"><tr>" + hdr + "<th></th>" + hdr + "<th></th>" + hdr + "</tr>";
+        var fpa0 = options.frames, fpa1 = options.frames;
+        if (options.framesmh && options.framesoh) {
+          fpa0 = options.framesmh;
+          fpa1 = options.framesoh;
+        }
+        var list = [];
+        var maxaps = Math.max(3, stats.info.mainhand.speed);
+        if (options.framesoh) {
+          maxaps = Math.max(maxaps, stats.info.offhand.speed);
+        }
+        maxaps = Math.max(maxaps * 1.2, maxaps + 0.5);
+        for (var curfpa = Math.floor(options.fpa) + options.fpadelta; curfpa >= 1; curfpa -= 1) {
+          var curaps = Math.max(1, options.fpa / (curfpa + 1 - options.fpadelta) / options.dspeed + 0.000051);
+          if (curaps > maxaps && list.length % 3 == 0) break;
+          /*if (fpa != Math.floor(data.fpa) + fpadelta && fpa != 1 && fpa != fpa0 && fpa != fpa1 &&
+              fpa % 5 != 0 && Math.abs(fpa - fpa0) > 2 && Math.abs(fpa - fpa1) > 2) {
+            continue;
+          }*/
+          list.push([curfpa, curaps.toFixed(4)]);
+        }
+        var fcol = Math.ceil(list.length / 3);
+        for (var row = 0; row < fcol; ++row) {
+          function cell_(data) {
+            var cf = (data[0] === fpa0 || data[0] === fpa1 ? " class=\"current\"" : "");
+            return "<td" + cf + ">" + data[0] + "</td><td" + cf + ">" + data[1] + "</td>";
+          }
+          this.body_ += "<tr>" + cell_(list[row]);
+          if (row + fcol < list.length) {
+            this.body_ += "<td></td>" + cell_(list[row + fcol]);
+          }
+          if (row + fcol + fcol < list.length) {
+            this.body_ += "<td></td>" + cell_(list[row + fcol + fcol]);
+          }
+          this.body_ += "</tr>";
+        }
+        this.body_ += "</table><p>";
+      }
+    }
   };
   function _V(val, decimal, clr, per) {
     var parts = ("" + parseFloat(val.toFixed(decimal || 0))).split(".");
@@ -436,6 +562,9 @@
     function execString(expr) {
       return glob_execString(expr, stats, options.affix, options.params);
     }
+
+    var breakpointTip = new Tooltip();
+    var breakpointValues = [];
 
     $.each(lines, function(stat, fmt) {
       if (!fmt) return;
@@ -535,14 +664,14 @@
 
         if (fmt.speed || fmt.fpa) {
           var dspeed = (execString(fmt.speed) || 1) * (1 + 0.01 * execString(fmt.ias));
-          var aps, frames;
+          var aps, fpadata;
           if (fmt.fpa) {
             if (fmt.slowest) {
-              frames = DC.calcFrames(fmt.fpa, fmt.weapon, true, dspeed, fmt.round, stats);
+              fpadata = DC.calcFramesFull(fmt.fpa, fmt.weapon, true, dspeed, fmt.round, stats);
             } else {
-              frames = DC.calcFrames(fmt.fpa, fmt.weapon, dspeed, fmt.round, undefined, stats);
+              fpadata = DC.calcFramesFull(fmt.fpa, fmt.weapon, dspeed, fmt.round, undefined, stats);
             }
-            aps = 60 / frames;
+            aps = 60 / fpadata.frames;
             cost *= fmt.fpa / 60;
           } else {
             aps = dspeed * (fmt.weapon ? stats.info[fmt.weapon].speed : stats.info.aps);
@@ -554,8 +683,15 @@
               var tip = new Tooltip(stat, result[stat].text);
               tip.add(fmt.tip);
               tip.line("Cost per tick: {0} {1}", _V(cost, 2, "white"), DC.resources[resource]);
-              tip.line("Breakpoint: {0} frames ({1} APS)", frames, _V(aps, 2, "white"));
+              tip.line("Breakpoint: {0} frames ({1} APS)", fpadata.frames, _V(aps, 2, "white"));
               result[stat].tip = tip.html();
+
+              if (fmt.bp) {
+                breakpointTip.line("{0}: {1} frames ({2} APS)", _L("Tick rate"), _V(fpadata.frames, 0, "white"), _V(aps, 2, "white"));
+                fpadata.dps = false;
+                breakpointTip.breakpoints(stats, fpadata);
+                breakpointValues.push(fpadata.frames);
+              }
             }
           }
         } else if (fmt.persecond) {
@@ -631,7 +767,7 @@
             "<span class=\"d3-color-gray\">" + (fmt.thorns ? _L("[Thorns]") : _L("[Weapon]")) + "</span>" +
             (fmt.nocrit || fmt.total ? " &#215; " + _V(1 + data.chc * data.chd, 2) : "") +
             data.factors.map(function(factor) {
-              return factor.divide ? " / " + _V(data.factors[i].divide) : " &#215; " + _V(data.factors[i].factor, 2);
+              return factor.divide ? " / " + _V(factor.divide) : " &#215; " + _V(factor.factor, 2);
             }).join(""));
           if (fmt.thorns) {
             tip.line(false, "Thorns damage: {0}", _V(stats.thorns || 0, 0, "white"));
@@ -690,8 +826,6 @@
 
     // process sum:true
 
-    var breakpointTip = new Tooltip();
-    var breakpointValues = [];
     var speedCache = {};
     while (sumlines.length) {
       var next = [];
@@ -775,36 +909,14 @@
                     tip.line(false, "Speed: {0} ({1} frames)", _aps, _V(frames, 0, "white"));
                     if (!data.nobp) {
                       bpValues.push(frames);
-                      bpTip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("{0}: {1} frames ({2} APS)").format(
-                        _L(data.name || src), _V(frames, 0, "white"), "<span class=\"d3-color-white\">" + DC.formatNumber(aps, 2, 10000) + "</span>");
+                      bpTip.line("{0}: {1} frames ({2} APS)", _L(data.name || src), _V(frames, 0, "white"), _aps);
                       if (data.speed) {
-                        if (frames > 6) {
-                          var next = data.pet / (frames - 5) / tnt + 0.000051;
-                          //bpTip += "<br/><span class=\"tooltip-icon-nobullet\"></span>Next breakpoint: <span class=\"d3-color-white\">" + DC.formatNumber(next, 4, 10000) + "</span>" +
-                          //  " character APS (<span class=\"d3-color-white\">" + DC.formatNumber(data.pet / (frames - 5) + 0.00005, 4, 10000) + "</span> pet APS)";
-                          //bpTip += " (<span class=\"d3-color-green\">+" + DC.formatNumber(100 * (frames / (frames - 6) - 1), 1) + "%</span> DPS)";
-                          if (data.speed) {
-                            var basemh = stats.info.mainhand.speed / (1 + 0.01 * (stats.ias || 0));
-                            var apsneed = data.pet / (frames - 5) / tnt / execString(data.speed);
-                            var iasneed = Math.ceil((100 * apsneed / basemh - 100 - (stats.ias || 0)) * 10) / 10;
-                            bpTip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("IAS to next breakpoint: {0}").format("<span class=\"d3-color-white\">" + iasneed + "%</span>");
-                          }
-                        }
-                        bpTip += "</p><table><tr>" + _L("<th>FPA</th><th>APS</th><th>Pet APS</th><th>Delta</th>") + "</tr>";
-                        for (var curfpa = Math.ceil(Math.floor(data.pet) / 6) * 6; curfpa >= 6; curfpa -= 6) {
-                          var curaps = Math.max(1, data.pet / (curfpa + 1) / tnt + 0.000051);
-                          if (data.pet / (curfpa + 1) > 5) break;
-                          bpTip += "<tr" + (curfpa === frames ? " class=\"current\"" : "") + "><td>" + curfpa + "</td>";
-                          bpTip += "<td>" + curaps.toFixed(4) + "</td><td>" + Math.max(1, data.pet / (curfpa + 1) + 0.000051).toFixed(4) + "</td>";
-                          var delta = 100 * (frames / curfpa - 1);
-                          bpTip += "<td class=\"" + (delta < 0 ? "d3-color-red" : (delta > 0 ? "d3-color-green" : "d3-color-gray")) + "\">";
-                          bpTip += (delta < 0 ? delta.toFixed(1) : "+" + delta.toFixed(1)) + "%</td></tr>";
-                        }
-                        bpTip += "</table><p>";
-                        //var prev = data.pet / (frames + 1) / tnt - 0.00005;
-                        //bpTip += "<br/><span class=\"tooltip-icon-nobullet\"></span>Previous breakpoint: <span class=\"d3-color-white\">" + DC.formatNumber(prev, 4, 10000) + "</span>" +
-                        //  " character APS (<span class=\"d3-color-white\">" + DC.formatNumber(data.pet / (frames + 1) - 0.00005, 4, 10000) + "</span> pet APS)";
-                        //bpTip += " (<span class=\"d3-color-red\">-" + DC.formatNumber(100 * (1 - frames / (frames + 6)), 1) + "%</span> DPS)";
+                        bpTip.breakpoints(stats, {
+                          pet: true,
+                          fpa: data.pet,
+                          frames: frames,
+                          speed: tnt * execString(data.speed),
+                        });
                       }
                     }
                   }
@@ -833,156 +945,42 @@
                   aps *= ias;
                   if (dspeed) dspeed *= ias;
                 }
-                var frames, framesmh, framesoh, basespeed, fpadelta;
+                var fpadata = undefined;
                 if (data.fpa) {
-                  fpadelta = (data.round === "up" ? 1 : 0);
-                  if (data.speed && !weapon && stats.info.offhand) {
-                    if (data.slowest) {
-                      basespeed = Math.min(stats.info.mainhand.speed, stats.info.offhand.speed);
-                      frames = Math.floor(data.fpa / (dspeed * basespeed)) + fpadelta;
-                    } else {
-                      framesmh = Math.floor(data.fpa / (dspeed * stats.info.mainhand.speed)) + fpadelta;
-                      framesoh = Math.floor(data.fpa / (dspeed * stats.info.offhand.speed)) + fpadelta;
-                      frames = 0.5 * (framesmh + framesoh);
-                    }
+                  if (data.speed) {
+                    fpadata = DC.calcFramesFull(data.fpa, weapon, data.slowest, dspeed, data.round, stats);
                   } else {
-                    frames = Math.floor(data.fpa / aps) + fpadelta;
-                    basespeed = stats.info.mainhand.speed;
+                    fpadata = {frames: Math.floor(data.fpa / aps) + (data.round === "up" ? 1 : 0)};
                   }
-                  aps = 60 / frames;
+                  aps = 60 / fpadata.frames;
                 }
                 if (!notip) {
-                  function fpaDelta(nextmh, nextoh) {
-                    var fpa;
-                    if (framesmh && framesoh) {
-                      fpa = 0.5 * (Math.floor(data.fpa / (dspeed * nextmh)) + Math.floor(data.fpa / (dspeed * nextoh))) + fpadelta;
-                    } else {
-                      fpa = Math.floor(data.fpa / (dspeed * nextmh)) + fpadelta;
-                    }
-                    var res;
-                    if (fpa < frames) {
-                      return "<span class=\"d3-color-green\">+" + DC.formatNumber(100 * (frames / fpa - 1), 1) + "%</span>";
-                    } else if (fpa > frames) {
-                      return "<span class=\"d3-color-red\">-" + DC.formatNumber(100 * (1 - frames / fpa), 1) + "%</span>";
-                    } else {
-                      return "<span class=\"d3-color-gray\">+0%</span>";
-                    }
-                  }
                   var _aps = "<span class=\"d3-color-white\">" + DC.formatNumber(aps, 2, 10000) + "</span>";
-                  tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>";
-                  if (!frames) {
-                    tip += _L("Speed: {0}").format(_aps);
+                  if (!fpadata) {
+                    tip.line(false, "Speed: {0}", _aps);
                   } else {
-                    tip += _L("Speed: {0} ({1} frames)").format(_aps, _V(frames, 1, "white"));
+                    tip.line(false, "Speed: {0} ({1} frames)", _aps, _V(fpadata.frames, 1, "white"));
                     if (!data.nobp) {
-                      bpValues.push(frames);
-                      bpTip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("{0}: {1} frames ({2} APS)").format(
-                        _L(data.name || src), _V(frames, 0, "white"), "<span class=\"d3-color-white\">" + DC.formatNumber(aps, 2, 10000) + "</span>");
+                      bpValues.push(fpadata.frames);
+                      bpTip.line("{0}: {1} frames ({2} APS)", _L(data.name || src), _V(fpadata.frames, 0, "white"), _aps);
                       if (data.speed) {
-                        if (framesmh && framesoh) {
-                          if (framesmh > 1 && framesoh > 1) {
-                            var nextmh = data.fpa / (framesmh - fpadelta) / dspeed + 0.000051;
-                            var nextoh = data.fpa / (framesoh - fpadelta) / dspeed + 0.000051;
-                            var next = Math.min(nextmh / stats.info.mainhand.speed, nextoh / stats.info.offhand.speed);
-                            nextmh = next * stats.info.mainhand.speed;
-                            nextoh = next * stats.info.offhand.speed;
-                            bpTip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Next breakpoint: {0} APS ({1} DPS)").format(
-                              "<span class=\"d3-color-white\">" + DC.formatNumber(nextmh, 4, 10000) + "</span>/" +
-                              "<span class=\"d3-color-white\">" + DC.formatNumber(nextoh, 4, 10000) + "</span>",
-                              fpaDelta(nextmh, nextoh));
-                            if (data.speed) {
-                              var iasneed = Math.ceil(10 * (next * (100 + (stats.ias || 0)) - 100 - (stats.ias || 0))) / 10;
-                              bpTip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("IAS to next breakpoint: {0}").format(
-                                "<span class=\"d3-color-white\">" + iasneed + "%</span>");
-                            }
-                          }
-                          var prevmh = data.fpa / (framesmh + 1 - fpadelta) / dspeed - 0.000051;
-                          var prevoh = data.fpa / (framesoh + 1 - fpadelta) / dspeed - 0.000051;
-                          var prev = Math.max(prevmh / stats.info.mainhand.speed, prevoh / stats.info.offhand.speed);
-                          prevmh = prev * stats.info.mainhand.speed;
-                          prevoh = prev * stats.info.offhand.speed;
-                          bpTip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Previous breakpoint: {0} APS ({1} DPS)").format(
-                            "<span class=\"d3-color-white\">" + DC.formatNumber(prevmh, 4, 10000) + "</span>/" +
-                            "<span class=\"d3-color-white\">" + DC.formatNumber(prevoh, 4, 10000) + "</span>",
-                            fpaDelta(prevmh, prevoh));
-                        } else {
-                          if (frames > 1) {
-                            var next = data.fpa / (frames - fpadelta) / dspeed + 0.000051;
-                            bpTip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Next breakpoint: {0} APS ({1} DPS)").format(
-                              "<span class=\"d3-color-white\">" + DC.formatNumber(next, 4, 10000) + "</span>", fpaDelta(next));
-                            if (data.speed) {
-                              var basemh = basespeed / (1 + 0.01 * (stats.ias || 0));
-                              var iasneed = Math.ceil(10 * (100 * next / basemh - 100 - (stats.ias || 0))) / 10;
-                              bpTip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("IAS to next breakpoint: {0}").format(
-                                "<span class=\"d3-color-white\">" + iasneed + "%</span>");
-                            }
-                          }
-                          var prev = data.fpa / (frames + 1 - fpadelta) / dspeed - 0.000051;
-                          bpTip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Previous breakpoint: {0} APS ({1} DPS)").format(
-                            "<span class=\"d3-color-white\">" + DC.formatNumber(prev, 4, 10000) + "</span>", fpaDelta(prev));
-                        }
-                        if (!sequence) {
-                          bpTip += "</p><table class=\"col2\"><tr>" + _L("<th>FPA</th><th>APS</th>") + "<th></th>" +
-                                                                      _L("<th>FPA</th><th>APS</th>") + "<th></th>" +
-                                                                      _L("<th>FPA</th><th>APS</th>") + "</tr>";
-                          var fpa0 = frames, fpa1 = frames;
-                          if (framesmh && framesoh) {
-                            fpa0 = framesmh;
-                            fpa1 = framesoh;
-                          }
-                          var list = [];
-                          var maxaps = Math.max(3, stats.info.mainhand.speed);
-                          if (framesoh) {
-                            maxaps = Math.max(stats.info.offhand.speed);
-                          }
-                          maxaps = Math.max(maxaps * 1.2, maxaps + 0.5);
-                          for (var curfpa = Math.floor(data.fpa) + fpadelta; curfpa >= 1; curfpa -= 1) {
-                            var curaps = Math.max(1, data.fpa / (curfpa + 1 - fpadelta) / dspeed + 0.000051);
-                            if (curaps > maxaps && list.length % 3 == 0) break;
-                            /*if (fpa != Math.floor(data.fpa) + fpadelta && fpa != 1 && fpa != fpa0 && fpa != fpa1 &&
-                                fpa % 5 != 0 && Math.abs(fpa - fpa0) > 2 && Math.abs(fpa - fpa1) > 2) {
-                              continue;
-                            }*/
-                            list.push([curfpa, curaps.toFixed(4)]);
-                          }
-                          var fcol = Math.ceil(list.length / 3);
-                          for (var row = 0; row < fcol; ++row) {
-                            bpTip += "<tr>";
-                            var cf = (list[row][0] === fpa0 || list[row][0] === fpa1 ? " class=\"current\"" : "");
-                            bpTip += "<td" + cf + ">" + list[row][0] + "</td><td" + cf + ">" + list[row][1] + "</td>";
-                            if (row + fcol < list.length) {
-                              cf = (list[row + fcol][0] === fpa0 || list[row + fcol][0] === fpa1 ? " class=\"current\"" : "");
-                              bpTip += "<td></td><td" + cf + ">" + list[row + fcol][0] + "</td><td" + cf + ">" + list[row + fcol][1] + "</td>";
-                            }
-                            if (row + fcol + fcol < list.length) {
-                              cf = (list[row + fcol + fcol][0] === fpa0 || list[row + fcol + fcol][0] === fpa1 ? " class=\"current\"" : "");
-                              bpTip += "<td></td><td" + cf + ">" + list[row + fcol + fcol][0] + "</td><td" + cf + ">" + list[row + fcol + fcol][1] + "</td>";
-                            }
-                            bpTip += "</tr>";
-                          }
-    /*                        bpTip += "<tr" + (fpa == fpa0 || fpa == fpa1 ? " class=\"current\"" : "") + "><td>" + fpa + "</td>";
-                            bpTip += "<td>" + aps.toFixed(4) + "</td>";
-                            var delta = 100 * (frames / fpa - 1);
-                            bpTip += "<td class=\"" + (delta < 0 ? "d3-color-red" : (delta > 0 ? "d3-color-green" : "d3-color-gray")) + "\">";
-                            bpTip += (delta < 0 ? delta.toFixed(1) : "+" + delta.toFixed(1)) + "%</td></tr>";
-                          }*/
-                          bpTip += "</table><p>";
-                        }
+                        fpadata.sequence = sequence;
+                        bpTip.breakpoints(stats, fpadata);
                       }
                       if (data.total) {
                         var ticks;
-                        if (framesmh && framesoh) {
-                          var whole = Math.floor(data.total / (framesmh + framesoh));
-                          var remain = data.total - whole * (framesmh + framesoh);
+                        if (fpadata.framesmh && fpadata.framesoh) {
+                          var whole = Math.floor(data.total / (fpadata.framesmh + fpadata.framesoh));
+                          var remain = data.total - whole * (fpadata.framesmh + fpadata.framesoh);
                           ticks = whole * 2;
                           if (remain) {
-                            ticks += (remain > framesmh ? 1 : 0.5) + (remain > framesoh ? 1 : 0.5);
+                            ticks += (remain > fpadata.framesmh ? 1 : 0.5) + (remain > fpadata.framesoh ? 1 : 0.5);
                           }
                         } else {
-                          ticks = Math.ceil(data.total / frames);
+                          ticks = Math.ceil(data.total / fpadata.frames);
                         }
-                        tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Total ticks: {0} ({1} damage)").format(
-                          _V(ticks, 1, "white"), "<span class=\"d3-color-green\">" + DC.formatNumber(theValue * (mul * (data.cd || 1)) * ticks, 0, 10000) + "</span>");
+                        tip.line(false, "Total ticks: {0} ({1} damage)", _V(ticks, 1, "white"),
+                          "<span class=\"d3-color-green\">" + DC.formatNumber(theValue * (mul * (data.cd || 1)) * ticks, 0, 10000) + "</span>");
                       }
                     }
                   }
@@ -1005,7 +1003,7 @@
                   } else {
                     mul /= speedCache[data.refspeed];
                   }
-                  tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Speed: {0}").format(_V(1 / speedCache[data.refspeed], 2, "white"));
+                  tip.line(false, "Speed: {0}", _V(1 / speedCache[data.refspeed], 2, "white"));
                 }
               }
               sum += theValue * mul;
@@ -1016,7 +1014,9 @@
           if (totalTime > 0.1) {
             sum /= totalTime;
             speedCache[stat] = totalTime;
-            tip = "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Sequence length: {0} seconds").format(_V(totalTime, 2, "white")) + tip;
+            var tmptip = new Tooltip();
+            tmptip.line("Sequence length: {0} seconds", _V(totalTime, 2, "white"));
+            tip = tmptip.add(tip);
           } else {
             okay = false;
           }
@@ -1025,11 +1025,12 @@
           result[stat].value = sum;
           if (!notip) {
             result[stat].text = DC.formatNumber(sum, 0, 10000);
-            result[stat].tip = tipHeader(_L(stat).replace("DPS", _L("Damage Per Second")), result[stat].text);
-            result[stat].tip += fmtTip(lines[stat].tip);
-            result[stat].tip += tip + "</p></div>";
+            var tmptip = new Tooltip(_L(stat).replace("DPS", _L("Damage Per Second")), result[stat].text);
+            tmptip.add(lines[stat].tip);
+            tmptip.add(tip);
+            result[stat].tip = tmptip.html();
             if (!lines[stat].nobp) {
-              breakpointTip += bpTip;
+              breakpointTip.add(bpTip);
               breakpointValues = breakpointValues.concat(bpValues);
             }
           }
@@ -1052,10 +1053,11 @@
       }
       var title = "Breakpoint" + (text.length > 1 ? "s" : "");
       var text = text.join(" / ");
+      breakpointTip.header(title, text);
       result[title] = {
         value: breakpointValues,
         text: text,
-        tip: tipHeader(title, text) + breakpointTip + "</p></div>",
+        tip: breakpointTip.html(),
       };
     }
 

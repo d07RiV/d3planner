@@ -786,10 +786,10 @@
 
   tab.append("<h3 class=\"skill-category collapse-header collapsed second\">" + _L("Stat priority") + "</h3>");
 
-  var odlg = DiabloCalc.Optimizer.dialog();
-  tab.append(odlg[0]);
-  odlg[1]();
-  odlg[0].append("<div><span class=\"link-like eqmod-optimize\">" + _L("Optimize stats") + "</span></div>");
+  var optimizer = DiabloCalc.Optimizer.dialog();
+  tab.append(optimizer);
+  DiabloCalc.Optimizer.updatePriority();
+  optimizer.append("<div><span class=\"link-like eqmod-optimize\">" + _L("Optimize stats") + "</span></div>");
 
   $(".collapse-header").click(function() {
     $(this).toggleClass("collapsed");

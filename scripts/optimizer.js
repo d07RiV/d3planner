@@ -645,6 +645,7 @@
       priority.find(".optimize-priority-item").each(function() {
         DC.Optimizer.priority.push($(this).data("item"));
       });
+      DC.trigger("updateStatPriority");
     }
 
     var imported = false, affixes = {};
@@ -734,6 +735,7 @@
               var box = $("<label class=\"option-box\"><input type=\"checkbox\"></input>" + data.name + "</label>");
               box.find("input").prop("checked", !!prio.options[id]).click(function() {
                 prio.options[id] = !!$(this).prop("checked");
+                DC.trigger("updateStatPriority");
               });
               opts.append(box);
             } else {
@@ -747,12 +749,15 @@
               }
               box.val(prio.options[id]).change(function() {
                 prio.options[id] = $(this).val();
+                DC.trigger("updateStatPriority");
               });
               opts.append(box);
             }
           });
         }
-      }).change();
+      }).change().change(function() {
+        DC.trigger("updateStatPriority");
+      });
       select.chosen({
         width: "300px",
         disable_search_threshold: 10,
@@ -802,10 +807,11 @@
       },
     });
 
-    return [dlg, function() {
-      dlg.parent().css("overflow", "visible");
+    DC.Optimizer.updatePriority = function() {
+      priority.find(".optimize-priority-list").empty();
       DC.Optimizer.priority.forEach(addLine);
-    }];
+    };
+    return dlg;
 
     var buttons = [
       {

@@ -134,8 +134,8 @@ DiabloCalc.skills.wizard = {
     },
     params: [{min: 0, max: 2, val: 2, name: "Channeled for", buffs: false}],
     info: {
-      "*": {"Cost": {cost: 16, fpa: 30, rcr: "leg_hergbrashsbinding"}, "DPS": {elem: "col", aps: true, coeff: 4.3, addcoeff: [[4.05, "$1"]], total: true}},
-      d: {"Cost": {cost: 11, fpa: 30, rcr: "leg_hergbrashsbinding"}},
+      "*": {"Cost": {cost: 16, fpa: 30, rcr: "leg_hergbrashsbinding", bp: true}, "DPS": {elem: "col", aps: true, coeff: 4.3, addcoeff: [[4.05, "$1"]], total: true}},
+      d: {"Cost": {cost: 11, fpa: 30, rcr: "leg_hergbrashsbinding", bp: true}},
       e: {"Patch Damage": {elem: "col", coeff: 16.25, total: true}},
       b: {"DPS": {elem: "col", aps: true, coeff: 3, addcoeff: [[2.2, "$1"]], total: true}},
     },
@@ -236,7 +236,7 @@ DiabloCalc.skills.wizard = {
     range: {x: 100, b: 100, e: 100, c: 20, d: 100, a: 100},
     params: [{min: 0, max: 2, val: 2, name: "Channeled for", buffs: false}],
     info: {
-      "*": {"Cost": {cost: 18, fpa: 20, rcr: "leg_hergbrashsbinding"}},
+      "*": {"Cost": {cost: 18, fpa: 20, rcr: "leg_hergbrashsbinding", bp: true}},
       x: {"DPS": {elem: "arc", aps: true, coeff: 3.9, addcoeff: [[2.5, "$1"]], total: true}},
       b: {"DPS": {elem: "fir", aps: true, coeff: 3.9, addcoeff: [[2.5, "$1"]], total: true}},
       e: {"DPS": {elem: "arc", aps: true, coeff: 3.9, addcoeff: [[2.5, "$1"]], total: true}, "Explosion Damage": {elem: "arc", coeff: 7.5}},

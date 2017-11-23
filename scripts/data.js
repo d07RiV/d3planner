@@ -171,6 +171,11 @@
       storeTimer = setTimeout(storeProfile, 10000);
     }
   });
+  DiabloCalc.register("updateStatPriority", function() {
+    if (!storeTimer) {
+      storeTimer = setTimeout(storeProfile, 10000);
+    }
+  });
   DiabloCalc.getStorage = function(name) {
     var val;
     try {
@@ -263,6 +268,9 @@
     if (DiabloCalc.priority) {
       data.priority = DiabloCalc.priority.getData();
     }
+    if (DiabloCalc.Optimizer) {
+      data.statPriority = $.extend(true, [], DiabloCalc.Optimizer.priority);
+    }
     data.mainset = "";
     var stats = DiabloCalc.getStats();
     for (var id in DiabloCalc.itemSets) {
@@ -300,6 +308,10 @@
     }*/
     if (DiabloCalc.priority && data.priority) {
       DiabloCalc.priority.setData(data.priority);
+    }
+    if (DiabloCalc.Optimizer && data.statPriority) {
+      DiabloCalc.Optimizer.priority = data.statPriority;
+      DiabloCalc.Optimizer.updatePriority();
     }
     DiabloCalc.importEnd(evt, data.values);
   };
