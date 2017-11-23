@@ -506,7 +506,7 @@ DiabloCalc.itemaffixes = {
   },
   set_natalya_6pc: {
     active: true,
-    buffs: {dmgmul: {percent: 3500, pet: false}, dmgred: 60},
+    buffs: {dmgmul: 3500, dmgred: 60},
   },
   set_zunimassa_4pc: {
     info: function(value, stats) {
