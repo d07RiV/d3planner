@@ -366,6 +366,66 @@
     }
   };
 
+  function Tooltip(name, value) {
+    this.header_ = "";
+    this.body_ = "";
+    if (name) this.header(name, value);
+  }
+  Tooltip.prototype.html = function() {
+    return "<div xmlns=\"http://www.w3.org/1999/xhtml\" class=\"profile-tooltip\"><p>" + this.header_ + this.body_ + "</p></div>";
+  };
+  Tooltip.prototype.empty = function() {
+    return this.body_.length == 0;
+  };
+  Tooltip.prototype.header = function(name, value) {
+    name = _L(name);
+    if (value !== undefined) name += ": <span class=\"d3-color-green\">" + value + "</span>";
+    this.header_ = "<span class=\"d3-color-gold\">" + name + "</span>";
+    return this;
+  };
+  Tooltip.prototype.line = function(bullet, text) {
+    var args = 2;
+    if (bullet !== true && bullet !== false) {
+      text = bullet;
+      bullet = true;
+      args = 1;
+    }
+    this.body_ += "<br/><span class=\"tooltip-icon-" + (bullet === false ? "nobullet" : "bullet") + "\"></span>" +
+      _L(text).format(Array.prototype.slice.call(arguments, args));
+    return this;
+  };
+  Tooltip.prototype.add = function(lines) {
+    if (!lines) return this;
+    if (typeof lines === "string") {
+      var bullet = true;
+      if (lines[0] === "@") {
+        lines = lines.substring(1);
+        bullet = false;
+      }
+      this.line(bullet, lines);
+    } else if (lines instanceof Array) {
+      for (var i = 0; i < lines.length; ++i) {
+        this.add(lines[i]);
+      }
+    } else if (lines instanceof Tooltip) {
+      this.body_ += lines.body_;
+    }
+    return this;
+  };
+  function _V(val, decimal, clr, per) {
+    var parts = ("" + parseFloat(val.toFixed(decimal || 0))).split(".");
+    if (parseFloat(val) >= 10000) {
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    val = parts.join(".");
+    return "<span class=\"d3-color-" + (clr || "green") + "\">" + val + (per || "") + "</span>";
+  }
+  function _R(a, b, clr) {
+    a = Math.floor(a);
+    b = Math.floor(b);
+    return _V(a, 0, clr) + (a == b ? "" : "-" + _V(b, 0, clr));
+  }
+
   function processInfo(lines, options) {
     var result = {};
     var sumlines = [];
@@ -373,37 +433,6 @@
     var notip = options.notip;
     var stats = (options.stats || DC.getStats());
 
-    function fmtValue(val, decimal, clr, per) {
-      var parts = ("" + parseFloat(val.toFixed(decimal || 0))).split(".");
-      if (parseFloat(val) >= 10000) {
-        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      }
-      val = parts.join(".");
-      return "<span class=\"d3-color-" + (clr || "green") + "\">" + val + (per || "") + "</span>";
-    }
-    function fmtRange(a, b, clr) {
-      a = Math.floor(a);
-      b = Math.floor(b);
-      return fmtValue(a, 0, clr) + (a == b ? "" : "-" + fmtValue(b, 0, clr));
-    }
-    function fmtTip(tip) {
-      if (!tip) return "";
-      if (typeof tip === "string") {
-        if (tip[0] === "@") return "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L(tip.substring(1));
-        else return "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L(tip);
-      } else {
-        var res = "";
-        for (var i = 0; i < tip.length; ++i) {
-          if (tip[i][0] === "@") res += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L(tip[i].substring(1));
-          else res += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L(tip[i]);
-        }
-        return res;
-      }
-    }
-    function tipHeader(name, value) {
-      return "<div xmlns=\"http://www.w3.org/1999/xhtml\" class=\"profile-tooltip\"><p><span class=\"d3-color-gold\">" + _L(name) +
-             ": <span class=\"d3-color-green\">" + value + "</span></span>";
-    }
     function execString(expr) {
       return glob_execString(expr, stats, options.affix, options.params);
     }
@@ -449,20 +478,17 @@
         if (!notip) {
           result[stat].text = DC.formatNumber(value, 0, 10000) + "%";
 
-          var tip = tipHeader(stat, result[stat].text);
-          tip += fmtTip(fmt.tip);
-          tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Duration: {0} seconds").format(fmtValue(duration, 0, "white"));
-          tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Cooldown: {0} seconds").format(fmtValue(cooldown, 2, "white"));
-          tip += "<br/><span class=\"tooltip-icon-bullet\"></span>";
+          var tip = new Tooltip(stat, result[stat].text);
+          tip.add(fmt.tip);
+          tip.line("Duration: {0} seconds", _V(duration, 0, "white"));
+          tip.line("Cooldown: {0} seconds", _V(cooldown, 2, "white"));
           if (fmt.after) {
-            tip += _L("Downtime: {0}").format(fmtValue(100 - value, 2, "white", "%"));
-            tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Cooldown does not start until the effect expires.");
+            tip.line("Downtime: {0}", _V(100 - value, 2, "white", "%"));
+            tip.line("Cooldown does not start until the effect expires.");
           } else {
-            tip += _L("Downtime: {0} ({1} seconds)").format(fmtValue(100 - value, 2, "white", "%"),
-              fmtValue(Math.max(0, cooldown - duration), 2, "white"));
+            tip.line("Downtime: {0} ({1} seconds)", _V(100 - value, 2, "white", "%"), _V(Math.max(0, cooldown - duration), 2, "white"));
           }
-          tip += "</p></div>";
-          result[stat].tip = tip;
+          result[stat].tip = tip.html();
         }
       } else if (fmt.cooldown !== undefined) {
         // OPTION 4
@@ -525,12 +551,11 @@
           if (!notip) {
             result[stat].text = _L("{0} {1} per second").format(parseFloat((cost * aps).toFixed(2)), DC.resources[resource]);
             if (fmt.fpa) {
-              var tip = tipHeader(stat, result[stat].text);
-              tip += fmtTip(fmt.tip);
-              tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Cost per tick: {0} {1}").format(fmtValue(cost, 2, "white"), DC.resources[resource]);
-              tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Breakpoint: {0} frames ({1} APS)").format(frames, fmtValue(aps, 2, "white"));
-              tip += "</p></div>";
-              result[stat].tip = tip;
+              var tip = new Tooltip(stat, result[stat].text);
+              tip.add(fmt.tip);
+              tip.line("Cost per tick: {0} {1}", _V(cost, 2, "white"), DC.resources[resource]);
+              tip.line("Breakpoint: {0} frames ({1} APS)", frames, _V(aps, 2, "white"));
+              result[stat].tip = tip.html();
             }
           }
         } else if (fmt.persecond) {
@@ -550,7 +575,7 @@
           result[stat].text = _L(fmt.value);
         }
         if (fmt.tip && !notip) {
-          result[stat].tip = tipHeader(stat, result[stat].text) + fmtTip(fmt.tip) + "</p></div>";
+          result[stat].tip = (new Tooltip(stat, result[stat].text)).add(fmt.tip).html();
         }
       } else {
         // OPTION 7
@@ -566,121 +591,106 @@
         if (!notip) {
           result[stat].text = DC.formatNumber(data.value, 0, 10000);
 
-          var tip = tipHeader(fmt.total === true ? stat : _L("Average {0}").format(_L(stat)), result[stat].text);
-          tip += fmtTip(fmt.tip);
+          var tip = new Tooltip(fmt.total === true ? stat : _L("Average {0}").format(_L(stat)), result[stat].text);
+          tip.add(fmt.tip);
           if (!fmt.weapon && stats.info.mainhand && stats.info.offhand) {
-            tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Alternates weapons");
+            tip.line("Alternates weapons");
           }
           if (!fmt.thorns && fmt.total !== true) {
             if (fmt.nocrit) {
-              tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Damage range: {0}").format(fmtRange(data.base.min * data.total_factor * (1 + data.chc * data.chd), data.base.max * data.total_factor * (1 + data.chc * data.chd), "white"));
+              tip.line("Damage range: {0}", _R(data.base.min * data.total_factor * (1 + data.chc * data.chd),
+                                               data.base.max * data.total_factor * (1 + data.chc * data.chd), "white"));
             } else {
               if (!fmt.weapon && stats.info.mainhand && stats.info.offhand) {
-                tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Mainhand white damage: {0}").format(
-                  fmtRange(stats.info.mainhand.wpnbase.min * data.total_factor, stats.info.mainhand.wpnbase.max * data.total_factor, "white"));
-                tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Offhand white damage: {0}").format(
-                  fmtRange(stats.info.offhand.wpnbase.min * data.total_factor, stats.info.offhand.wpnbase.max * data.total_factor, "white"));
+                tip.line("Mainhand white damage: {0}", _R(stats.info.mainhand.wpnbase.min * data.total_factor,
+                                                          stats.info.mainhand.wpnbase.max * data.total_factor, "white"));
+                tip.line("Offhand white damage: {0}", _R(stats.info.offhand.wpnbase.min * data.total_factor,
+                                                         stats.info.offhand.wpnbase.max * data.total_factor, "white"));
                 if (data.bonus_chc) {
-                  tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Critical chance: {0}").format(fmtValue(data.chc * 100, 2, "green", "%"));
+                  tip.line("Critical chance: {0}", _V(data.chc * 100, 2, "green", "%"));
                 }
-                tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Mainhand critical damage: {0}").format(
-                  fmtRange(stats.info.mainhand.wpnbase.min * data.total_factor * (1 + data.chd), stats.info.mainhand.wpnbase.max * data.total_factor * (1 + data.chd), "white"));
-                tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Offhand critical damage: {0}").format(
-                  fmtRange(stats.info.offhand.wpnbase.min * data.total_factor * (1 + data.chd), stats.info.offhand.wpnbase.max * data.total_factor * (1 + data.chd), "white"));
+                tip.line("Mainhand critical damage: {0}", _R(stats.info.mainhand.wpnbase.min * data.total_factor * (1 + data.chd),
+                                                             stats.info.mainhand.wpnbase.max * data.total_factor * (1 + data.chd), "white"));
+                tip.line("Offhand critical damage: {0}", _R(stats.info.offhand.wpnbase.min * data.total_factor * (1 + data.chd),
+                                                            stats.info.offhand.wpnbase.max * data.total_factor * (1 + data.chd), "white"));
               } else {
-                tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("White damage: {0}").format(fmtRange(data.base.min * data.total_factor, data.base.max * data.total_factor, "white"));
+                tip.line("White damage: {0}", _R(data.base.min * data.total_factor,
+                                                 data.base.max * data.total_factor, "white"));
                 if (data.bonus_chc) {
-                  tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Critical chance: {0}").format(fmtValue(data.chc * 100, 2, "green", "%"));
+                  tip.line("Critical chance: {0}", _V(data.chc * 100, 2, "green", "%"));
                 }
-                tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Critical damage: {0}").format(fmtRange(data.base.min * data.total_factor * (1 + data.chd), data.base.max * data.total_factor * (1 + data.chd), "white"));
+                tip.line("Critical damage: {0}", _R(data.base.min * data.total_factor * (1 + data.chd),
+                                                    data.base.max * data.total_factor * (1 + data.chd), "white"));
               }
             }
           }
           if (typeof fmt.total === "number") {
-            tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Extra damage: {0}").format(fmtValue(0.5 * (data.base.min + data.base.max) * data.extra_factor * (1 + data.chc * data.chd), 0, "white"));
+            tip.line("Extra damage: {0}", _V(0.5 * (data.base.min + data.base.max) * data.extra_factor * (1 + data.chc * data.chd), 0, "white"));
           }
-          tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Formula: ") + "<span class=\"d3-color-gray\">" + (fmt.thorns ? _L("[Thorns]") : _L("[Weapon]")) + "</span>";
-          if (fmt.nocrit || fmt.total) {
-            tip += " &#215; " + fmtValue(1 + data.chc * data.chd, 2);
-          }
-          for (var i = 0; i < data.factors.length; ++i) {
-            if (data.factors[i].divide) {
-              tip += " / " + fmtValue(data.factors[i].divide);
-            } else {
-              tip += " &#215; " + fmtValue(data.factors[i].factor, 2);
-            }
-          }
+          tip.line(_L("Formula: ") +
+            "<span class=\"d3-color-gray\">" + (fmt.thorns ? _L("[Thorns]") : _L("[Weapon]")) + "</span>" +
+            (fmt.nocrit || fmt.total ? " &#215; " + _V(1 + data.chc * data.chd, 2) : "") +
+            data.factors.map(function(factor) {
+              return factor.divide ? " / " + _V(data.factors[i].divide) : " &#215; " + _V(data.factors[i].factor, 2);
+            }).join(""));
           if (fmt.thorns) {
-            tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Thorns damage: {0}").format(fmtValue(stats.thorns || 0, 0, "white"));
+            tip.line(false, "Thorns damage: {0}", _V(stats.thorns || 0, 0, "white"));
           } else {
             if (fmt.weapon !== "offhand") {
               if (!fmt.avg) {
-                tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Main hand damage: {0}").format(fmtRange(stats.info.mainhand.wpnbase.min, stats.info.mainhand.wpnbase.max, "white"));
+                tip.line(false, "Main hand damage: {0}", _R(stats.info.mainhand.wpnbase.min, stats.info.mainhand.wpnbase.max, "white"));
               } else {
-                tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Average main hand damage: {0}").format(fmtValue(0.5 * (stats.info.mainhand.wpnbase.min + stats.info.mainhand.wpnbase.max), 0, "white"));
+                tip.line(false, "Average main hand damage: {0}", _V(0.5 * (stats.info.mainhand.wpnbase.min + stats.info.mainhand.wpnbase.max), 0, "white"));
               }
             }
             if (fmt.weapon !== "mainhand" && stats.info.offhand) {
-              tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Off hand damage: {0}").format(fmtRange(stats.info.offhand.wpnbase.min, stats.info.offhand.wpnbase.max, "white"));
+              tip.line(false, "Off hand damage: {0}", _R(stats.info.offhand.wpnbase.min, stats.info.offhand.wpnbase.max, "white"));
             }
           }
           if (data.chd) {
             if (fmt.nocrit || fmt.total) {
-              tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Critical multiplier: {0}").format(fmtValue(1, 0, "white") + " + " +
-                fmtValue(data.chc, 2, "green") + " &#215; " + fmtValue(data.chd, 2, "green"));
+              tip.line(false, "Critical multiplier: {0}", _V(1, 0, "white") + " + " + _V(data.chc, 2, "green") + " &#215; " + _V(data.chd, 2, "green"));
             } else {
-              tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Critical damage: {0}").format(fmtValue(100 * data.chd, 1, "white", "%"));
+              tip.line(false, "Critical damage: {0}", _V(100 * data.chd, 1, "white", "%"));
             }
           }
-          for (var i = 0; i < data.factors.length; ++i) {
-            var factor = data.factors[i];
-            tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L(factor.name) + ": ";
-            var first = " + ";
+          data.factors.forEach(function(factor) {
+            var entries = [];
             if (factor.divide) {
-              tip += fmtValue(1, 0, "white") + " / " + fmtValue(factor.divide);
+              entries.push(_V(1, 0, "white") + " / " + _V(factor.divide));
             } else if (factor.percent !== undefined) {
               if (typeof factor.percent === "number") {
                 if (factor.percent) {
-                  tip += fmtValue(factor.percent, 2, "green", "%");
-                } else {
-                  first = "";
+                  entries.push(_V(factor.percent, 2, "green", "%"));
                 }
               } else {
-                var first = true;
                 for (var f in factor.percent) {
-                  if (!first) {
-                    tip += " + ";
-                  }
-                  first = false;
-                  tip += fmtValue(factor.percent[f], 2, "green", "%");
-                  tip += " <span class=\"d3-color-gray\">(" + _L(f) + ")</span>";
+                  entries.push(_V(factor.percent[f], 2, "green", "%") + " <span class=\"d3-color-gray\">(" + _L(f) + ")</span>");
                 }
               }
             } else {
-              tip += fmtValue(factor.factor, 2);
+              entries.push(_V(factor.factor, 2));
             }
             if (factor.extra) {
               for (var j = 0; j < factor.extra.length; ++j) {
                 if (typeof factor.extra[j] === "object") {
-                  tip += first + fmtValue(factor.extra[j][0], 2, "green", "%");
-                  tip += " &#215; " + fmtValue(factor.extra[j][1], 2, "green");
+                  entries.push(_V(factor.extra[j][0], 2, "green", "%") + " &#215; " + _V(factor.extra[j][1], 2, "green"));
                 } else {
-                  tip += first + fmtValue(factor.extra[j], 2, "green", "%");
+                  entries.push(_V(factor.extra[j], 2, "green", "%"));
                 }
-                first = " + ";
               }
             }
-          }
-          tip += "</p></div>";
+            tip.line(false, _L(factor.name) + ": " + entries.join(" + "));
+          });
 
-          result[stat].tip = tip;
+          result[stat].tip = tip.html();
         }
       }
     });
 
     // process sum:true
 
-    var breakpointTip = "";
+    var breakpointTip = new Tooltip();
     var breakpointValues = [];
     var speedCache = {};
     while (sumlines.length) {
@@ -689,8 +699,8 @@
         var stat = sumlines[index];
         var okay = true;
         var sum = 0;
-        var tip = "";
-        var bpTip = "";
+        var tip = new Tooltip();
+        var bpTip = new Tooltip();
         var bpValues = [];
         var sequence = (lines[stat].sum === "sequence");
         var totalTime = 0;
@@ -708,31 +718,32 @@
               } else {
                 data = {speed: data};
               }
-              tip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L(data.name || src) + ": ";
+              var line = _L(data.name || src) + ": ";
               var mul = 1;
               if (data.count) {
                 data.count = execString(data.count);
                 if (data.count && data.count != 1) {
                   mul *= data.count;
-                  tip += parseFloat(data.count.toFixed(2)) + "x ";
+                  line += parseFloat(data.count.toFixed(2)) + "x ";
                 }
               }
               var theValue = (data.value ? execString(data.value) : result[key].value);
-              tip += fmtValue(theValue, 0, "white");
+              line += _V(theValue, 0, "white");
               if (data.factor) {
                 data.factor = execString(data.factor);
                 if (data.factor != 1) {
                   mul *= data.factor;
-                  tip += " &#215; " + fmtValue(data.factor, 2, "white");
+                  line += " &#215; " + _V(data.factor, 2, "white");
                 }
               }
               if (data.divide) {
                 data.divide = execString(data.divide);
                 if (data.divide != 1) {
                   mul /= data.divide;
-                  tip += " / " + fmtValue(data.divide, 0, "white");
+                  line += " / " + _V(data.divide, 0, "white");
                 }
               }
+              tip.line(line);
               if (data.cd) {
                 data.cd = execString(data.cd);
                 if (data.cdr !== false) {
@@ -740,7 +751,7 @@
                   data.cd *= (1 - 0.01 * (stats.cdr || 0));
                 }
                 data.cd = Math.max(0.5, data.cd);
-                tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Cooldown: {0} seconds").format(fmtValue(data.cd, 2, "white"));
+                tip.line(false, "Cooldown: {0} seconds", _V(data.cd, 2, "white"));
                 mul /= data.cd;
               }
               if (data.pet) {
@@ -758,15 +769,14 @@
                 }
                 if (!notip) {
                   var _aps = "<span class=\"d3-color-white\">" + DC.formatNumber(aps, 2, 10000) + "</span>";
-                  tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>";
                   if (!frames) {
-                    tip += _L("Speed: {0}").format(_aps);
+                    tip.line(false, "Speed: {0}", _aps);
                   } else {
-                    tip += _L("Speed: {0} ({1} frames)").format(_aps, fmtValue(frames, 0, "white"));
+                    tip.line(false, "Speed: {0} ({1} frames)", _aps, _V(frames, 0, "white"));
                     if (!data.nobp) {
                       bpValues.push(frames);
                       bpTip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("{0}: {1} frames ({2} APS)").format(
-                        _L(data.name || src), fmtValue(frames, 0, "white"), "<span class=\"d3-color-white\">" + DC.formatNumber(aps, 2, 10000) + "</span>");
+                        _L(data.name || src), _V(frames, 0, "white"), "<span class=\"d3-color-white\">" + DC.formatNumber(aps, 2, 10000) + "</span>");
                       if (data.speed) {
                         if (frames > 6) {
                           var next = data.pet / (frames - 5) / tnt + 0.000051;
@@ -863,11 +873,11 @@
                   if (!frames) {
                     tip += _L("Speed: {0}").format(_aps);
                   } else {
-                    tip += _L("Speed: {0} ({1} frames)").format(_aps, fmtValue(frames, 1, "white"));
+                    tip += _L("Speed: {0} ({1} frames)").format(_aps, _V(frames, 1, "white"));
                     if (!data.nobp) {
                       bpValues.push(frames);
                       bpTip += "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("{0}: {1} frames ({2} APS)").format(
-                        _L(data.name || src), fmtValue(frames, 0, "white"), "<span class=\"d3-color-white\">" + DC.formatNumber(aps, 2, 10000) + "</span>");
+                        _L(data.name || src), _V(frames, 0, "white"), "<span class=\"d3-color-white\">" + DC.formatNumber(aps, 2, 10000) + "</span>");
                       if (data.speed) {
                         if (framesmh && framesoh) {
                           if (framesmh > 1 && framesoh > 1) {
@@ -972,7 +982,7 @@
                           ticks = Math.ceil(data.total / frames);
                         }
                         tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Total ticks: {0} ({1} damage)").format(
-                          fmtValue(ticks, 1, "white"), "<span class=\"d3-color-green\">" + DC.formatNumber(theValue * (mul * (data.cd || 1)) * ticks, 0, 10000) + "</span>");
+                          _V(ticks, 1, "white"), "<span class=\"d3-color-green\">" + DC.formatNumber(theValue * (mul * (data.cd || 1)) * ticks, 0, 10000) + "</span>");
                       }
                     }
                   }
@@ -995,7 +1005,7 @@
                   } else {
                     mul /= speedCache[data.refspeed];
                   }
-                  tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Speed: {0}").format(fmtValue(1 / speedCache[data.refspeed], 2, "white"));
+                  tip += "<br/><span class=\"tooltip-icon-nobullet\"></span>" + _L("Speed: {0}").format(_V(1 / speedCache[data.refspeed], 2, "white"));
                 }
               }
               sum += theValue * mul;
@@ -1006,7 +1016,7 @@
           if (totalTime > 0.1) {
             sum /= totalTime;
             speedCache[stat] = totalTime;
-            tip = "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Sequence length: {0} seconds").format(fmtValue(totalTime, 2, "white")) + tip;
+            tip = "<br/><span class=\"tooltip-icon-bullet\"></span>" + _L("Sequence length: {0} seconds").format(_V(totalTime, 2, "white")) + tip;
           } else {
             okay = false;
           }
