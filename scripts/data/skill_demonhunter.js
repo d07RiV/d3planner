@@ -864,9 +864,8 @@ DiabloCalc.skills.demonhunter = {
       case "a": res = {"Damage": {elem: "fir", coeff: 8.5}, "Grenade Damage": {elem: "fir", coeff: 2.5, passives: {grenadier:10}}}; break;
       }
       res = $.extend({"Cost": {cost: 40}}, res);
-      if (stats.leg_manticore || stats.leg_manticore_p6) {
-        res["Cost"].rcr = (stats.leg_manticore_p6 && 50 || stats.leg_manticore);
-      }
+      if (stats.leg_manticore_p6) res["Cost"].rcr = {leg_manticore_p6: 50};
+      if (stats.leg_manticore) res["Cost"].rcr = {leg_manticore: stats.leg_manticore};
       if (res["Grenade Damage"]) {
         res["Grenade Damage"].percent = hellcat_percent(stats, this.params[0].val);
       }

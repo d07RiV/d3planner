@@ -370,7 +370,8 @@
       var results = DC.skill_processInfo(curInfo, options);
       var ret = {};
       for (var id in results) {
-        if (curInfo[id] && (typeof curInfo[id] !== "object" || curInfo[id].cooldown !== undefined || curInfo[id].cost !== undefined || curInfo[id].value !== undefined)) continue;
+        if (curInfo[id] && (typeof curInfo[id] !== "object" || curInfo[id].cooldown !== undefined ||
+            curInfo[id].duration !== undefined || curInfo[id].cost !== undefined || curInfo[id].value !== undefined)) continue;
         if (results[id].value !== undefined) ret[id] = results[id].value;
       }
       return ret;

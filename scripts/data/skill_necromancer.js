@@ -148,12 +148,12 @@ DiabloCalc.skills.necromancer = {
              {rune: "e", min: 0, max: 10, name: "Stacks"},
              {rune: "b", min: 0, max: "maxessence", name: "Essence", buffs: false}],
     info: {
-      "*": {"Damage": {elem: "phy", pet: true, aps: true, coeff: 2.0}, "DPS": {sum: true, "Damage": {pet: 30}}, "Total DPS": {sum: true, "DPS": {count: "$1"}}, "Cost": {cost: 40}},
+      "*": {"Cost": {cost: 40}, "Duration": {duration: "(6+leg_circleofnailujsevol)*(passives.extendedservitude?1.25:1)"}, "Damage": {elem: "phy", pet: true, aps: true, coeff: 2.0}, "DPS": {sum: true, "Damage": {pet: 30, nobp: true}}, "Total DPS": {sum: true, "DPS": {count: "$1"}}},
       a: {"Damage": {elem: "phy", pet: true, aps: true, coeff: 2.0}},
       d: {"Damage": {elem: "psn", pet: true, aps: true, coeff: 2.0}, "Aura DPS": {elem: "psn", total: true, aps: true, coeff: 1.0}, "DPS": {sum: true, "Damage": {pet: 30}, "Aura DPS": {}}},
       e: {"Damage": {elem: "col", pet: true, aps: true, coeff: 4.0}, "DPS": {sum: true, "Damage": {pet: 60}}},
       b: {"Damage": {elem: "phy", pet: true, aps: true, coeff: 2.0, percent: {"Essence Consumed": "$3*3"}}},
-      c: {"Damage": {elem: "phy", pet: true, aps: true, coeff: 2.0}},
+      c: {"Duration": {duration: "(8+leg_circleofnailujsevol)*(passives.extendedservitude?1.25:1)"}, "Damage": {elem: "phy", pet: true, aps: true, coeff: 2.0}},
     },
     active: true,
     buffs: function(rune, stats) {
@@ -313,7 +313,8 @@ DiabloCalc.skills.necromancer = {
                return !!stats.leg_boneringer;
              }}],
     info: function(rune, stats) {
-      var res = {"Damage": {elem: "phy", pet: true, coeff: 0.5}, "DPS": {sum: true, "Damage": {pet: 50, speed: 1, count: this.params[0].val}}, "Cost": {cost: 50, rcr: stats.passives.commanderoftherisendead ? 30 : 0}};
+      var res = {"Cost": {cost: 50, rcr: {commanderoftherisendead: (stats.passives.commanderoftherisendead ? 30 : 0)}},
+        "Damage": {elem: "phy", pet: true, coeff: 0.5}, "DPS": {sum: true, "Damage": {pet: 50, speed: 1, count: this.params[0].val}}};
       var allRunes = false;
       if (stats.leg_bloodsongmail && stats.skills.landofthedead && DiabloCalc.skills.necromancer.landofthedead.active) {
         allRunes = true;
@@ -445,7 +446,7 @@ DiabloCalc.skills.necromancer = {
     range: 70,
     active: false,
     info: {
-      "*": {"Cost": {cost: 10, rcr: "passives.eternaltorment?50:0"}},
+      "*": {"Cost": {cost: 10, rcr: {eternaltorment: "passives.eternaltorment?50:0"}}},
     },
     params: [{rune: "b", min: 0, max: 10, val: 0, name: "Stacks"},
              {rune: "c", min: 0, max: 20, val: 0, name: "Stacks"},],
@@ -472,7 +473,7 @@ DiabloCalc.skills.necromancer = {
     },
     range: 70,
     info: {
-      "*": {"Cost": {cost: 10, rcr: "passives.eternaltorment?50:0"}},
+      "*": {"Cost": {cost: 10, rcr: {eternaltorment: "passives.eternaltorment?50:0"}}},
     },
     active: false,
     params: [{rune: "ad", min: 0, max: 20, val: 0, name: "Enemies Hit"}],
@@ -496,7 +497,7 @@ DiabloCalc.skills.necromancer = {
     },
     range: 70,
     info: {
-      "*": {"Cost": {cost: 10, rcr: "passives.eternaltorment?50:0"}},
+      "*": {"Cost": {cost: 10, rcr: {eternaltorment: "passives.eternaltorment?50:0"}}},
       c: {"Damage": {elem: "phy", coeff: 1.00}},
       e: {"Range": "@15+pickup*0.5", "Cost": null},
     },

@@ -289,9 +289,10 @@ DiabloCalc.skills.barbarian = {
         res["Damage"].percent[DiabloCalc.itemById.P3_Unique_Bracer_104.name] = (stats.leg_bracersofdestruction || stats.leg_bracersofdestruction_p6);
         if (res["Rumble Damage"]) res["Rumble Damage"].percent = $.extend({}, res["Damage"].percent);
       }
-      var rcr = 0;
-      if (stats.leg_furyofthevanishedpeak_p6) rcr = 50;
-      else rcr = (stats.leg_furyofthevanishedpeak || stats.leg_furyofthevanishedpeak_p2 || 0);
+      var rcr = {};
+      if (stats.leg_furyofthevanishedpeak_p6) rcr.leg_furyofthevanishedpeak_p6 = 50;
+      else if (stats.leg_furyofthevanishedpeak_p2) rcr.leg_furyofthevanishedpeak_p2 = stats.leg_furyofthevanishedpeak_p2;
+      else if (stats.leg_furyofthevanishedpeak) rcr.leg_furyofthevanishedpeak = stats.leg_furyofthevanishedpeak;
       return $.extend({"Cost": {cost: 30, rcr: rcr}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58.666656, round: "up"}}}, res);
     },
   },

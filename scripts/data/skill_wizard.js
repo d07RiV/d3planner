@@ -134,8 +134,8 @@ DiabloCalc.skills.wizard = {
     },
     params: [{min: 0, max: 2, val: 2, name: "Channeled for", buffs: false}],
     info: {
-      "*": {"Cost": {cost: 16, fpa: 30, rcr: "leg_hergbrashsbinding", bp: true}, "DPS": {elem: "col", aps: true, coeff: 4.3, addcoeff: [[4.05, "$1"]], total: true}},
-      d: {"Cost": {cost: 11, fpa: 30, rcr: "leg_hergbrashsbinding", bp: true}},
+      "*": {"Cost": {cost: 16, fpa: 30, rcr: {leg_hergbrashsbinding: "leg_hergbrashsbinding"}, bp: true}, "DPS": {elem: "col", aps: true, coeff: 4.3, addcoeff: [[4.05, "$1"]], total: true}},
+      d: {"Cost": {cost: 11, fpa: 30, rcr: {leg_hergbrashsbinding: "leg_hergbrashsbinding"}, bp: true}},
       e: {"Patch Damage": {elem: "col", coeff: 16.25, total: true}},
       b: {"DPS": {elem: "col", aps: true, coeff: 3, addcoeff: [[2.2, "$1"]], total: true}},
     },
@@ -205,11 +205,11 @@ DiabloCalc.skills.wizard = {
     range: {x: 56, a: 56, e: 41, c: 56, d: 56, b: 56},
     params: [{min: 0, max: 2, val: 2, name: "Channeled for", buffs: false}],
     info: {
-      "*": {"Cost": {cost: 16, fpa: 20, rcr: "leg_hergbrashsbinding"}},
+      "*": {"Cost": {cost: 16, fpa: 20, rcr: {leg_hergbrashsbinding: "leg_hergbrashsbinding"}}},
       x: {"Tick Damage": {elem: "arc", coeff: 4, addcoeff: [[3.05, "$1"]], divide: {"Base Speed": 3}}, "DPS": {sum: true, "Tick Damage": {speed: 1, fpa: 20}}},
       a: {"Tick Damage": {elem: "fir", coeff: 4, addcoeff: [[3.05, "$1"]], divide: {"Base Speed": 3}}, "DPS": {sum: true, "Tick Damage": {speed: 1, fpa: 20}}},
-      e: {"Cost": {cost: 16, fpa: 30, rcr: "leg_hergbrashsbinding"}, "Tick Damage": {elem: "arc", coeff: 12.15, addcoeff: [[6.4, "$1"]], divide: {"Base Speed": 2}}, "DPS": {sum: true, "Tick Damage": {speed: 1, fpa: 30}}},
-      c: {"Cost": {cost: 16, fpa: 40, rcr: "leg_hergbrashsbinding"}, "Damage": {elem: "arc", coeff: 8.25}},
+      e: {"Cost": {cost: 16, fpa: 30, rcr: {leg_hergbrashsbinding: "leg_hergbrashsbinding"}}, "Tick Damage": {elem: "arc", coeff: 12.15, addcoeff: [[6.4, "$1"]], divide: {"Base Speed": 2}}, "DPS": {sum: true, "Tick Damage": {speed: 1, fpa: 30}}},
+      c: {"Cost": {cost: 16, fpa: 40, rcr: {leg_hergbrashsbinding: "leg_hergbrashsbinding"}}, "Damage": {elem: "arc", coeff: 8.25}},
       d: {"Tick Damage": {elem: "lit", coeff: 4, addcoeff: [[3.05, "$1"]], divide: {"Base Speed": 3}}, "DPS": {sum: true, "Tick Damage": {speed: 1, fpa: 20}}, "Bolt Damage": {elem: "lit", coeff: 1.5}},
       b: {"Tick Damage": {elem: "arc", coeff: 4, addcoeff: [[3.05, "$1"]], divide: {"Base Speed": 3}}, "DPS": {sum: true, "Tick Damage": {speed: 1, fpa: 20}}, "Secondary Damage": {elem: "arc", coeff: 5.82}},
     },
@@ -236,7 +236,7 @@ DiabloCalc.skills.wizard = {
     range: {x: 100, b: 100, e: 100, c: 20, d: 100, a: 100},
     params: [{min: 0, max: 2, val: 2, name: "Channeled for", buffs: false}],
     info: {
-      "*": {"Cost": {cost: 18, fpa: 20, rcr: "leg_hergbrashsbinding", bp: true}},
+      "*": {"Cost": {cost: 18, fpa: 20, rcr: {leg_hergbrashsbinding: "leg_hergbrashsbinding"}, bp: true}},
       x: {"DPS": {elem: "arc", aps: true, coeff: 3.9, addcoeff: [[2.5, "$1"]], total: true}},
       b: {"DPS": {elem: "fir", aps: true, coeff: 3.9, addcoeff: [[2.5, "$1"]], total: true}},
       e: {"DPS": {elem: "arc", aps: true, coeff: 3.9, addcoeff: [[2.5, "$1"]], total: true}, "Explosion Damage": {elem: "arc", coeff: 7.5}},
@@ -311,7 +311,7 @@ DiabloCalc.skills.wizard = {
       e: "Stretch Time",
     },
     info: function(rune, stats) {
-      var res = {"Cooldown": {cooldown: (rune === "c" ? 12 : 15), rcr: (stats.leg_gestureoforpheus || stats.leg_gestureoforpheus_p2 || 0)}};
+      var res = {"Cooldown": {cooldown: (rune === "c" ? 12 : 15), cdr: (stats.leg_gestureoforpheus || stats.leg_gestureoforpheus_p2 || 0)}};
       //if (stats.set_magnumopus_4pc) {
       //  res["DPS"] = {elem: "max", coeff: 20, total: true};
       //}
@@ -506,7 +506,10 @@ DiabloCalc.skills.wizard = {
         res["Damage"].percent = {};
         res["Damage"].percent[DiabloCalc.itemById.P2_Unique_Boots_01.name] = (this.active ? stats.leg_nilfursboast : 100);
       }
-      res = $.extend({"Cost": {cost: 40, rcr: "leg_thegrandvizier_p6&&50||leg_thegrandvizier"}}, res);
+      var rcr = {};
+      if (stats.leg_thegrandvizier_p6) rcr.leg_thegrandvizier_p6 = 50;
+      else if (stats.leg_thegrandvizier) rcr.leg_thegrandvizier = stats.leg_thegrandvizier;
+      res = $.extend({"Cost": {cost: 40, rcr: rcr}}, res);
       if (rune === "d" && DiabloCalc.isSkillActive("arcanedynamo")) {
         res["Damage"].percent = $.extend(res["Damage"].percent || {}, {"Arcane Dynamo (bug)": 60});
       }

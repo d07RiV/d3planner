@@ -180,7 +180,7 @@ DiabloCalc.skills.crusader = {
           res[k].percent[DiabloCalc.itemById.P2_Unique_Bracer_110.name] = (stats.leg_drakonslesson || stats.leg_drakonslesson_p2);
         }
       }
-      return $.extend({"DPS": {sum: true, "Damage": {speed: 1, fpa: 55.3846, round: "up"}}, "Cost": {cost: 30, rcr: (stats.leg_piromarella || 0)}}, res);
+      return $.extend({"DPS": {sum: true, "Damage": {speed: 1, fpa: 55.3846, round: "up"}}, "Cost": {cost: 30, rcr: {leg_piromarella: stats.leg_piromarella}}}, res);
     },
   },
   sweepattack: {
@@ -314,7 +314,7 @@ DiabloCalc.skills.crusader = {
       e: "Retribution",
     },
     info: {
-      "*": {"Cost": {cost: 30, rcr: "leg_cordoftherighteous?40:0"}},
+      "*": {"Cost": {cost: 30, rcr: {leg_cordoftherighteous: "leg_cordoftherighteous?40:0"}}},
       x: {"Damage": {elem: "lit", coeff: 5.45}, "Bolt Damage": {elem: "lit", coeff: 2.25}},
       d: {"Damage": {elem: "hol", coeff: 5.45}, "Bolt Damage": {elem: "hol", coeff: 2.25}, "Zap Damage": {elem: "hol", coeff: 0.4}},
       a: {"Damage": {elem: "fir", coeff: 5.45}, "Bolt Damage": {elem: "fir", coeff: 2.25}, "Storm Damage": {elem: "fir", coeff: 1, total: true}},

@@ -256,6 +256,13 @@
     });
     return eval(expr);
   }
+  Stats.prototype.getAffixSource = function(id) {
+    var affix = this.affixes[id];
+    if (!affix) return;
+    if (affix.set) return affix.set;
+    if (affix.slot) return DC.getSlotId(affix.slot);
+    if (affix.kanai) return DC.getSkills().kanai[affix.kanai];
+  };
   Stats.prototype.getSpecial = function(stat, elem, pet, skill, excl) {
     if (!this.special[stat]) return {};
     var list = [];

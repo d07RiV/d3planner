@@ -185,8 +185,11 @@ DiabloCalc.skills.witchdoctor = {
       res = $.extend({"Cost": null, "Channeling Cost": {cost: 125, fpa: 30}, "DPS": {sum: true, "Tick Damage": {speed: 1, fpa: 30}}}, res);
       if (stats.leg_staffofchiroptera || stats.leg_staffofchiroptera_p6) {
         res["DPS"]["Tick Damage"].speed *= 2;
-        if (res["Cost"]) res["Cost"].rcr = (stats.leg_staffofchiroptera_p6 && 75 || stats.leg_staffofchiroptera);
-        if (res["Channeling Cost"]) res["Channeling Cost"].rcr = (stats.leg_staffofchiroptera_p6 && 75 || stats.leg_staffofchiroptera);
+        var rcr = {};
+        if (stats.leg_staffofchiroptera_p6) rcr.leg_staffofchiroptera_p6 = 75;
+        else if (stats.leg_staffofchiroptera) rcr.leg_staffofchiroptera = stats.leg_staffofchiroptera;
+        if (res["Cost"]) res["Cost"].rcr = rcr;
+        if (res["Channeling Cost"]) res["Channeling Cost"].rcr = rcr;
       }
       return res;
     },
@@ -552,7 +555,7 @@ DiabloCalc.skills.witchdoctor = {
     },
     range: {x: 28, c: 100, d: 28, b: 28, e: 63, a: 30},
     info: {
-      "*": {"Cost": {cost: 150, rcr: "leg_scrimshaw"}},
+      "*": {"Cost": {cost: 150, rcr: {leg_scrimshaw: "leg_scrimshaw"}}},
       x: {"Damage": {elem: "psn", coeff: 5.6}},
       c: {"Damage": {elem: "phy", coeff: 8.8}},
       d: {"Damage": {elem: "psn", coeff: 5.6}, "Reanimate Damage": {elem: "psn", coeff: 4.8}},

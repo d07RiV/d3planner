@@ -540,7 +540,7 @@
   };
   function _V(val, decimal, clr, per) {
     var parts = ("" + parseFloat(val.toFixed(decimal || 0))).split(".");
-    if (parseFloat(val) >= 10000) {
+    if (Math.abs(parseFloat(val)) >= 10000) {
       parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
     val = parts.join(".");
@@ -638,25 +638,68 @@
         cooldown = Math.max(0.5, cooldown * (1 - 0.01 * (stats.cdr || 0)));
         result[stat].value = cooldown;
         if (!notip) result[stat].text = _L("{0} seconds").format(parseFloat(cooldown.toFixed(2)));
+      } else if (fmt.duration !== undefined) {
+        // OPTION 4a
+        // just duration
+        var duration = execString(fmt.duration);
+        result[stat].value = duration;
+        if (!notip) result[stat].text = _L("{0} seconds").format(parseFloat(duration.toFixed(2)));
       } else if (fmt.cost !== undefined) {
         // OPTION 5
         // cost, rcr, skill, speed/fpa, weapon, round
         var resource = (fmt.resource || DC.classes[DC.charClass].resources[0]);
-        var cost = execString(fmt.cost) * (1 - 0.01 * (stats["rcr_" + resource] || 0));
+        var cost = execString(fmt.cost);
+        var cost_initial = cost;
+        var rcr = {}, rcrint = {};
+        cost *= 1 - 0.01 * (stats["rcr_" + resource] || 0);
+        if (!notip && stats.sources["rcr_" + resource]) {
+          for (var id in stats.sources["rcr_" + resource]) {
+            if (DC.sourceNames[id]) rcr[DC.sourceNames[id]] = stats.sources["rcr_" + resource][id];
+          }
+        }
         if (fmt.rcr) {
-          cost *= 1 - 0.01 * execString(fmt.rcr);
+          if (typeof fmt.rcr === "object") {
+            for (var id in fmt.rcr) {
+              var value = execString(fmt.rcr[id]);
+              if (value) {
+                cost *= 1 - 0.01 * value;
+                if (!notip) {
+                  if (stats.affixes[id]) id = stats.getAffixSource(id);
+                  rcr[DC.sourceNames[id] || id] = value;
+                }
+              }
+            }
+          } else {
+            var value = execString(fmt.rcr);
+            if (value) {
+              cost *= 1 - 0.01 * value;
+              if (!notip) rcr[_L("Unknown")] = value;
+            }
+          }
         }
         if (options.skill && options.skill[0]) {
           var skill = DC.skilltips[DC.charClass][options.skill[0]];
           if (skill && skill.elements[options.skill[1]] === "fir") {
             cost *= 1 - 0.01 * (stats.leg_cindercoat || 0);
+            if (!notip && stats.leg_cindercoat && stats.affixes.leg_cindercoat) {
+              rcr[DC.sourceNames[DC.getSlotId(stats.affixes.leg_cindercoat.slot)]] = stats.leg_cindercoat;
+            }
           }
         }
         var skillid = fmt.skill || (options.skill && options.skill[0]);
         if (skillid) {
-          cost = Math.max(0, cost - (stats["skill_" + DC.charClass + "_" + skillid + "_cost"] || 0));
+          var id = "skill_" + DC.charClass + "_" + skillid + "_cost";
+          if (stats[id]) {
+            cost = Math.max(0, cost - (stats[id] || 0));
+            if (!notip && stats[id]) rcrint[DC.sourceNames[id] || id] = stats[id];
+          }
         }
         cost = Math.max(0, cost - (stats.rcrint || 0));
+        if (!notip && stats.sources.rcrint) {
+          for (var id in stats.sources.rcrint) {
+            if (DC.sourceNames[id]) rcrint[DC.sourceNames[id]] = stats.sources.rcrint[id];
+          }
+        }
         if (cost === 0) {
           delete result[stat];
           return;
@@ -683,6 +726,15 @@
               var tip = new Tooltip(stat, result[stat].text);
               tip.add(fmt.tip);
               tip.line("Cost per tick: {0} {1}", _V(cost, 2, "white"), DC.resources[resource]);
+              if (Object.keys(rcr).length || Object.keys(rcrint).length) {
+                tip.line(false, "Base cost: {0}", _V(cost_initial, 2, "white"));
+                for (var id in rcr) {
+                  tip.line(false, "{0}: {1}", id, _V(-rcr[id], 2, "green", "%"));
+                }
+                for (var id in rcrint) {
+                  tip.line(false, "{0}: {1}", id, _V(-rcrint[id], 2, "green"));
+                }
+              }
               tip.line("Breakpoint: {0} frames ({1} APS)", fpadata.frames, _V(aps, 2, "white"));
               result[stat].tip = tip.html();
 
@@ -694,12 +746,21 @@
               }
             }
           }
-        } else if (fmt.persecond) {
-          result[stat].value = cost;
-          if (!notip) result[stat].text = _L("{0} {1} per second").format(parseFloat(cost.toFixed(2)), DC.resources[resource]);
         } else {
           result[stat].value = cost;
-          if (!notip) result[stat].text = parseFloat(cost.toFixed(2)) + " " + DC.resources[resource];
+          if (!notip) {
+            result[stat].text = _L(fmt.persecond ? "{0} {1} per second" : "{0} {1}").format(parseFloat(cost.toFixed(2)), DC.resources[resource]);
+            var tip = new Tooltip(stat, result[stat].text);
+            tip.add(fmt.tip);
+            tip.line(false, "Base cost: {0}", _V(cost_initial, 2, "white"));
+            for (var id in rcr) {
+              tip.line(false, "{0}: {1}", id, _V(-rcr[id], 2, "green", "%"));
+            }
+            for (var id in rcrint) {
+              tip.line(false, "{0}: {1}", id, _V(-rcrint[id], 2, "green"));
+            }
+            result[stat].tip = tip.html();
+          }
         }
       } else if (fmt.value !== undefined) {
         // OPTION 6

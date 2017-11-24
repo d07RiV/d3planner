@@ -740,6 +740,8 @@
     for (var type in kanai) {
       var affix = kanai[type].getItemAffix();
       if (!affix) continue;
+      var value = kanai[type].getItemAffixValue();
+      stats.affixes[affix] = {kanai: type, value: value};
       var info = kanai[type].getInfo();
       if (!info) continue;
       var func = "buffs";
@@ -749,7 +751,6 @@
       if (func) {
         var list;
         if (typeof info[func] == "function") {
-          var value = kanai[type].getItemAffixValue();
           var values = [];
           if (value !== undefined) values.push(value);
           list = info[func](values, stats);
@@ -775,7 +776,7 @@
         } else {
           list = info[func];
         }
-        applySkill(list, stats, stats.affixes[affix].set || DiabloCalc.getSlotId(stats.affixes[affix].slot));
+        applySkill(list, stats, stats.getAffixSource(affix));
       }
     }
 
