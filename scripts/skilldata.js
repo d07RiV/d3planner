@@ -544,6 +544,10 @@
       parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
     val = parts.join(".");
+    if (per && per.indexOf("+") >= 0) {
+      if (val > 0) val = "+" + val;
+      per = per.replace("+", "");
+    }
     return "<span class=\"d3-color-" + (clr || "green") + "\">" + val + (per || "") + "</span>";
   }
   function _R(a, b, clr) {
@@ -729,10 +733,10 @@
               if (Object.keys(rcr).length || Object.keys(rcrint).length) {
                 tip.line(false, "Base cost: {0}", _V(cost_initial, 2, "white"));
                 for (var id in rcr) {
-                  tip.line(false, "{0}: {1}", id, _V(-rcr[id], 2, "green", "%"));
+                  tip.line(false, "{0}: {1}", id, _V(-rcr[id], 2, rcr[id] > 0 ? "green" : "red", "+%"));
                 }
                 for (var id in rcrint) {
-                  tip.line(false, "{0}: {1}", id, _V(-rcrint[id], 2, "green"));
+                  tip.line(false, "{0}: {1}", id, _V(-rcrint[id], 2, rcrint[id] > 0 ? "green" : "red", "+"));
                 }
               }
               tip.line("Breakpoint: {0} frames ({1} APS)", fpadata.frames, _V(aps, 2, "white"));
@@ -754,10 +758,10 @@
             tip.add(fmt.tip);
             tip.line(false, "Base cost: {0}", _V(cost_initial, 2, "white"));
             for (var id in rcr) {
-              tip.line(false, "{0}: {1}", id, _V(-rcr[id], 2, "green", "%"));
+              tip.line(false, "{0}: {1}", id, _V(-rcr[id], 2, rcr[id] > 0 ? "green" : "red", "+%"));
             }
             for (var id in rcrint) {
-              tip.line(false, "{0}: {1}", id, _V(-rcrint[id], 2, "green"));
+              tip.line(false, "{0}: {1}", id, _V(-rcrint[id], 2, rcrint[id] > 0 ? "green" : "red", "+"));
             }
             result[stat].tip = tip.html();
           }
