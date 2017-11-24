@@ -80,7 +80,9 @@ var callbacks = {
   "uglifyjs": function(path) {
     var res;
     try {
-      res = UglifyJS.minify(readFile(path)).code;
+      var result = UglifyJS.minify(readFile(path));
+      res = result.code;
+      if (result.error) console.log(result.error);
     } catch (err) {
       console.log(err);
     }

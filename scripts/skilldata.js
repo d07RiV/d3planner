@@ -350,7 +350,7 @@
     }
     var delta = (method === "up" ? 1 : 0);
     var stats = (stats || DC.getStats());
-    var options = {fpa, dspeed: (dspeed || 1), fpadelta: delta};
+    var options = {fpa: fpa, dspeed: (dspeed || 1), fpadelta: delta};
     if (!weapon && stats.info.offhand) {
       if (slowest) {
         options.basespeed = Math.min(stats.info.mainhand.speed, stats.info.offhand.speed);
