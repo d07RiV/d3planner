@@ -596,6 +596,10 @@
         (this.reslit_percent || 0) + (this.respsn_percent || 0) + (this.resarc_percent || 0)) / 6;
       this.info.toughperres = this.info.toughness * 100 / (this.info.level * 5) * this.info.res_factor * resMult;
 
+      this.info.toughper650vit = 100 * this.info.toughpervit * 6.50 / this.info.toughness;
+      this.info.toughper15life = 100 * this.info.toughperlife * 15 / this.info.toughness;
+      this.info.toughper775armor = 100 * this.info.toughperarmor * 7.75 / this.info.toughness;
+      this.info.toughper130res = 100 * this.info.toughperres * 1.30 / this.info.toughness;
 
       this.info.resphy_factor = 1 / (1 + this.resphy / (this.info.level * 5));
       this.info.resfir_factor = 1 / (1 + this.resfir / (this.info.level * 5));
@@ -698,6 +702,13 @@
       this.info.dpsperchd = this.info.elementaldps * 0.0001 * this.chc / this.info.critfactor;
       this.info.dpsperias = this.info.elementaldps * 0.01 / (1 + 0.01 * this.ias);
       this.info.dpsperelem = this.info.elementaldps * 0.01 / (1 + 0.01 * this.info.elemental);
+
+      this.info["dpsper650" + this.primary] = 100 * this.info["dpsper" + this.primary] * 6.50 / this.info.elementaldps;
+      this.info.dpsper6chc = 100 * this.info.dpsperchc * 6 / this.info.elementaldps;
+      this.info.dpsper50chd = 100 * this.info.dpsperchd * 50 / this.info.elementaldps;
+      this.info.dpsper7ias = 100 * this.info.dpsperias * 7 / this.info.elementaldps;
+      this.info.dpsper20elem = 100 * this.info.dpsperelem * 20 / this.info.elementaldps;
+
       var mhbase = (this.info.mainhand.wpnbase.min + this.info.mainhand.wpnbase.max) * 0.5;
       if (this.info.offhand) {
         var mhdph = this.info.mainhand.dph;
@@ -707,6 +718,8 @@
       } else {
         this.info.dpsperdmg = this.info.elementaldps / mhbase;
       }
+
+      this.info.dpsper105210dmg = 100 * this.info.dpsperdmg * (105 + 210) / 2 / this.info.elementaldps;
     }
 
     switch (this.charClass) {

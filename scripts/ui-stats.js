@@ -125,6 +125,7 @@
   }
 
   function onUpdateStats() {
+    var searchText = searchBox.find("input").val().toLowerCase();
     var data = DiabloCalc.getStats();
     var charClass = $(".char-class").val();
     for (var i = 0; i < statList.length; ++i) {
@@ -134,6 +135,10 @@
           continue;
         }
         if (info.classes && info.classes.indexOf(charClass) < 0) {
+          info.line.hide();
+          continue;
+        }
+        if (searchText && info.name.toLowerCase().indexOf(searchText) < 0) {
           info.line.hide();
           continue;
         }
@@ -158,7 +163,21 @@
   var tab = $(".col.statsframe .statsframe-list");
   var outer = $(".col.statsframe");
   tab = DiabloCalc.addScroll(tab, "y");
-  tab.append(DiabloCalc.account.makeLine());
+  var searchBox = $("<div class=\"statsframe-search empty\"><input placeholder=\"" + _L("Search") + "\"></input><span class=\"clear\"></span></div>");
+  outer.prepend(DiabloCalc.account.makeLine(), searchBox);
+
+  searchBox.find("input").focus(function() {
+    $(this).attr("placeholder", "");
+  }).blur(function() {
+    $(this).attr("placeholder", _L("Search"));
+  }).on("input", function() {
+    onUpdateStats();
+    tab.toggleClass("search", $(this).val().length > 0);
+    searchBox.toggleClass("empty", $(this).val().length === 0);
+  });
+  searchBox.find(".clear").click(function() {
+    searchBox.find("input").val("").trigger("input");
+  });
 
   var offense = statList[1].stats;
   var sep = 0;
@@ -204,7 +223,8 @@
         continue;
       }
 
-      info.line.append("<span>" + (info.name || DiabloCalc.stats[info.stat].name) + "</span>");
+      if (!info.name) info.name = DiabloCalc.stats[info.stat].name;
+      info.line.append("<span>" + info.name + "</span>");
       info.value = $("<span></span>");
       info.line.append(info.value);
 
@@ -225,7 +245,7 @@
       });
     }
   }
-  var exportSection = $("<div class=\"stat-section\"><h3>" + _L("Export") + "</h3><ul></ul></div>");
+  var exportSection = $("<div class=\"stat-section export\"><h3>" + _L("Export") + "</h3><ul></ul></div>");
   column.append(exportSection);
   var exportElement = document.createElement('a');
   exportSection.find("ul").append($("<li><span class=\"link-like\">" + _L("Export CSV") + "</span></li>").on("click", "span", function() {
