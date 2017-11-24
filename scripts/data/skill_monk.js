@@ -344,6 +344,9 @@ DiabloCalc.skills.monk = {
         pct[DiabloCalc.itemById.P4_Unique_Fist_102.name] = (this.active ? stats.leg_kyoshirosblade : 150);
         for (var id in res) res[id].percent = pct;
       }
+      res["DPS"] = {sum: true, "Damage": {speed: 1, fpa: 58.823528, round: "up"}};
+      if (res["Wave Damage"]) res["DPS"]["Wave Damage"] = $.extend({}, res["DPS"]["Damage"]);
+      if (res["Residual Damage"]) res["DPS"]["Residual Damage"] = $.extend({}, res["DPS"]["Damage"]);
       var rcr = {};
       if (stats.leg_incensetorchofthegrandtemple_p6) rcr.leg_incensetorchofthegrandtemple_p6 = 50;
       else if (stats.leg_incensetorchofthegrandtemple) rcr.leg_incensetorchofthegrandtemple = stats.leg_incensetorchofthegrandtemple;
