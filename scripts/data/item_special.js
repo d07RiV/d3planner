@@ -1439,12 +1439,12 @@ DiabloCalc.itemaffixes = {
   },
   leg_maltoriuspetrifiedspike: {
     buffs: function(value, stats) {
-      return {dmgmul: {skills: ["bonespear"], percent: value[0]}};
+      return {skill_necromancer_bonespear: value[0]};
     },
   },
   leg_maltoriuspetrifiedspike_p6: {
     buffs: function(value, stats) {
-      return {dmgmul: {skills: ["bonespear"], percent: value[0]}};
+      return {skill_necromancer_bonespear: value[0]};
     },
   },
   leg_reilenasshadowhook: {
