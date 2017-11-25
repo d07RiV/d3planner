@@ -686,7 +686,7 @@
           if (skill && skill.elements[options.skill[1]] === "fir") {
             cost *= 1 - 0.01 * (stats.leg_cindercoat || 0);
             if (!notip && stats.leg_cindercoat && stats.affixes.leg_cindercoat) {
-              rcr[DC.sourceNames[DC.getSlotId(stats.affixes.leg_cindercoat.slot)]] = stats.leg_cindercoat;
+              rcr[DC.sourceNames[stats.getAffixSource("leg_cindercoat")]] = stats.leg_cindercoat;
             }
           }
         }
