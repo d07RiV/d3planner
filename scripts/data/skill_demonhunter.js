@@ -895,61 +895,6 @@ DiabloCalc.skills.demonhunter = {
       if (res["Sentry Rocket Damage"]) total["Sentry Rocket Damage"] = {count: sentries};
       res["Total Damage"] = total;
 
-      /*var regen = (stats.hatredregen || 5);
-      var gen_table = {hungeringarrow: "a", entanglingshot: "d", bolas: "c", evasivefire: "e", grenade: "d"};
-      var gen = 0, genid;
-      if (stats.leg_kridershot && stats.skills.elementalarrow) {
-        gen = stats.leg_kridershot;
-        genid = "elementalarrow";
-      }
-      for (var id in gen_table) {
-        if (stats.skills[id]) {
-          var cur = (id == "evasivefire" ? 4 : 3);
-          if (stats.skills[id] == gen_table[id]) {
-            cur += 3;
-          }
-          if (stats.passives.nightstalker) {
-            cur += 4;
-          }
-          if (cur > gen) {
-            gen = cur;
-            genid = id;
-          }
-        }
-      }
-      var rg = 1 + 0.01 * (stats.resourcegen || 0);
-      var cdr = 1 - 0.01 * (stats.cdr || 0);
-      var gen_comp = 0, gen_prep = 0;
-      if (stats.skills.companion && (stats.set_marauder_2pc || stats.skills.companion === "d")) {
-        gen_comp = Math.min(stats.maxhatred, rg * 50) / (30 * cdr);
-      }
-      if (stats.skills.preparation === "a") {
-        gen_prep = Math.min(stats.maxhatred, rg * 75) / (20 * cdr);
-      }
-      gen *= rg;
-      var cost = 40 * (1 - 0.01 * (stats.rcr_hatred || 0));
-      if (stats.leg_cindercoat && res["Damage"].elem == "fir") {
-        cost *= 1 - 0.01 * stats.leg_cindercoat;
-      }
-      var freq = Math.min(stats.info.aps, (regen + gen_comp + gen_prep + stats.info.aps * gen) / (gen + cost));
-      
-      res["Uses per Minute"] = {value: DiabloCalc.formatNumber(freq * 60, 2, 10000), tip: [
-        "Estimated number of Cluster Arrows used every minute", "@when alternating between it and generators",
-        "Hatred regeneration: <span class=\"d3-color-white\">" + parseFloat(regen.toFixed(2)) + "</span>",
-      ]};
-      if (genid) {
-        res["Uses per Minute"].tip.push("Hatred per " + DiabloCalc.skills.demonhunter[genid].name + ": <span class=\"d3-color-white\">" + parseFloat(gen.toFixed(2)) + "</span>");
-      }
-      if (gen_comp) {
-        res["Uses per Minute"].tip.push("Hatred/sec from Companion: <span class=\"d3-color-white\">" + parseFloat(gen_comp.toFixed(2)) + "</span>");
-      }
-      if (gen_prep) {
-        res["Uses per Minute"].tip.push("Hatred/sec from Preparation: <span class=\"d3-color-white\">" + parseFloat(gen_prep.toFixed(2)) + "</span>");
-      }
-      res["Uses per Minute"].tip.push("Hatred cost: <span class=\"d3-color-white\">" + parseFloat(cost.toFixed(2)) + "</span>");
-
-      res["Estimated DPS"] = {sum: true, "Total Damage": {aps: freq}, tip: ["Estimated damage from Cluster Arrow (with Sentries)", "@based on hatred generation"]};*/
-
       return res;
     },
   },

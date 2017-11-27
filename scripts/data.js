@@ -717,13 +717,17 @@
     /*
     var exportRes = {};
     var exportList = [
-    "itemById.*.set",
+"skills.*.*.activetip",
+"skills.*.*.params.*.name",
+"passives.*.*.activetip",
+"passives.*.*.params.*.name",
+"partybuffs.*.*.boxnames",
     ];
     for (var i = 0; i < exportList.length; ++i) {
       $.extend(true, exportRes, DiabloCalc.exportData(exportList[i]));
     }
-    //console.log(exportRes.toSource());
-    console.log(JSON.stringify(exportRes, undefined, 2));
+    console.log(exportRes.toSource());
+    //console.log(JSON.stringify(exportRes, undefined, 2));
     //*/
 
     for (var cls in DiabloCalc.skills) {

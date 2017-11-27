@@ -546,6 +546,7 @@
       DiabloCalc.setProfile(data, evt);
       return;
     }
+    DiabloCalc.importStart();
     chart.clear();
     if (data.curstat) {
       selStat.val(data.curstat);
@@ -574,6 +575,7 @@
     for (var i = 1; i < data.profiles.length; ++i) {
       chart.addprofile(data.profiles[i]);
     }
+    DiabloCalc.importEnd(data, evt);
   };
   DiabloCalc.isModified = function() {
     return chart.curset.pos > 0;

@@ -436,6 +436,7 @@
     for (var id in stats.affixes) {
       var affix = DiabloCalc.itemaffixes[id];
       if (!affix) continue;
+      if (affix.kanai) continue;
       if (!affix.line && isAffixShown(id)) {
         affix.line = new DiabloCalc.SkillBox.affix(itemSection, id);
       }

@@ -1,5 +1,6 @@
 (function() {
   var DC = DiabloCalc;
+  var _L = DiabloCalc.locale("ui-equipment.js", "ui-skills.js", "skilldata");
 
   DC.Optimizer = {
     perfection: 1,
