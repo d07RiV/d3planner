@@ -702,7 +702,7 @@ DiabloCalc.skills.wizard = {
     range: {x: 12, d: 12, c: 12, a: 12, b: 18, e: 12},
     info: {
       "*": {"Cost": {cost: 20}, "Cooldown": {cooldown: 6}, "Damage": null,
-        "DPS": {sum: true, "Damage": {count: "leg_wandofwoh?4:1", cd: 6, speed: 1, fpa: 56.249996, round: "up", nobp: true}}},
+        "DPS": {sum: true, "Damage": {count: "(leg_wandofwoh||leg_wandofwoh_p6)?4:1", cd: 6, speed: 1, fpa: 56.249996, round: "up", nobp: true}}},
       x: {"Damage": {elem: "arc", coeff: 9.45}},
       d: {"Damage": {elem: "arc", coeff: 14.85}},
       c: {"Cooldown": {cooldown: 3}, "Damage": {elem: "lit", coeff: 9.45}, "DPS": {sum: true, "Damage": {count: "leg_wandofwoh?4:1", cd: 3, speed: 1, fpa: 56.249996, round: "up", nobp: true}}},
