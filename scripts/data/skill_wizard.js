@@ -705,7 +705,7 @@ DiabloCalc.skills.wizard = {
         "DPS": {sum: true, "Damage": {count: "(leg_wandofwoh||leg_wandofwoh_p6)?4:1", cd: 6, speed: 1, fpa: 56.249996, round: "up", nobp: true}}},
       x: {"Damage": {elem: "arc", coeff: 9.45}},
       d: {"Damage": {elem: "arc", coeff: 14.85}},
-      c: {"Cooldown": {cooldown: 3}, "Damage": {elem: "lit", coeff: 9.45}, "DPS": {sum: true, "Damage": {count: "leg_wandofwoh?4:1", cd: 3, speed: 1, fpa: 56.249996, round: "up", nobp: true}}},
+      c: {"Cooldown": {cooldown: 3}, "Damage": {elem: "lit", coeff: 9.45}, "DPS": {sum: true, "Damage": {count: "(leg_wandofwoh||leg_wandofwoh_p6)?4:1", cd: 3, speed: 1, fpa: 56.249996, round: "up", nobp: true}}},
       a: {"Damage": {elem: "fir", coeff: 9.09}},
       b: {"Damage": {elem: "col", coeff: 9.9}},
       e: {"Damage": {elem: "fir", coeff: 5.2}, "DPS": {sum: true, "Damage": {count: "leg_wandofwoh?12:3", cd: 6, speed: 1, fpa: 56.249996, round: "up", nobp: true}}},
