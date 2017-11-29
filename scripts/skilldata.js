@@ -343,7 +343,7 @@
   }
 
   DC.calcFramesFull = function(fpa, weapon, slowest, dspeed, method, stats) {
-    if (slowest !== true) {
+    if (slowest !== true && slowest !== false) {
       method = dspeed;
       dspeed = slowest;
       slowest = undefined;
@@ -1013,7 +1013,7 @@
                 var fpadata = undefined;
                 if (data.fpa) {
                   if (data.speed) {
-                    fpadata = DC.calcFramesFull(data.fpa, weapon, data.slowest, dspeed, data.round, stats);
+                    fpadata = DC.calcFramesFull(data.fpa, weapon, !!data.slowest, dspeed, data.round, stats);
                   } else {
                     fpadata = {frames: Math.floor(data.fpa / aps) + (data.round === "up" ? 1 : 0)};
                   }
