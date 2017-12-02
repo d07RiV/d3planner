@@ -656,11 +656,11 @@
         var cost_initial = cost;
         var rcr = {}, rcrint = {};
         cost *= 1 - 0.01 * (stats["rcr_" + resource] || 0);
-        if (!notip && stats.sources["rcr_" + resource]) {
-          for (var id in stats.sources["rcr_" + resource]) {
-            if (DC.sourceNames[id]) rcr[DC.sourceNames[id]] = stats.sources["rcr_" + resource][id];
-          }
-        }
+        //if (!notip && stats.sources["rcr_" + resource]) {
+        //  for (var id in stats.sources["rcr_" + resource]) {
+        //    if (DC.sourceNames[id]) rcr_stat[DC.sourceNames[id]] = stats.sources["rcr_" + resource][id];
+        //  }
+        //}
         if (fmt.rcr) {
           if (typeof fmt.rcr === "object") {
             for (var id in fmt.rcr) {
@@ -709,6 +709,29 @@
           return;
         }
 
+        var formula, tip_lines;
+        if (!notip) {
+          var formula = [_V(cost_initial, 2, "white")];
+          var tip_lines = [_L("Base cost: {0}").format(_V(cost_initial, 2, "white"))];
+          if (stats["rcr_" + resource]) {
+            var color = (stats["rcr_" + resource] > 0 ? "green" : "red");
+            formula.push(_V(1 - 0.01 * stats["rcr_" + resource], 4, color));
+            var statName = (stats["rcr_" + resource] === stats.rcr ? "rcr" : "rcr_" + resource);
+            tip_lines.push("{0}: {1}".format(DC.stats[statName].name, _V(-stats["rcr_" + resource], 2, color, "+%")));
+          }
+          for (var id in rcr) {
+            var color = (rcr[id] > 0 ? "green" : "red");
+            formula.push(_V(1 - 0.01 * rcr[id], 4, color));
+            tip_lines.push("{0}: {1}".format(id, _V(-rcr[id], 2, color, "+%")));
+          }
+          formula = formula.join(" &#215; ");
+          for (var id in rcrint) {
+            var color = (rcrint[id] > 0 ? "green" : "red");
+            formula += (rcrint[id] > 0 ? " - " : " + ") + _V(Math.abs(rcrint[id]), 2, color);
+            tip_lines.push("{0}: {1}".format(id, _V(-rcrint[id], 2, color, "+")));
+          }
+        }
+
         if (fmt.speed || fmt.fpa) {
           var dspeed = (execString(fmt.speed) || 1) * (1 + 0.01 * execString(fmt.ias));
           var aps, fpadata;
@@ -724,21 +747,28 @@
             aps = dspeed * (fmt.weapon ? stats.info[fmt.weapon].speed : stats.info.aps);
           }
           result[stat].value = cost * aps;
+
           if (!notip) {
             result[stat].text = _L("{0} {1} per second").format(parseFloat((cost * aps).toFixed(2)), DC.resources[resource]);
             if (fmt.fpa) {
               var tip = new Tooltip(stat, result[stat].text);
               tip.add(fmt.tip);
               tip.line("Cost per tick: {0} {1}", _V(cost, 2, "white"), DC.resources[resource]);
-              if (Object.keys(rcr).length || Object.keys(rcrint).length) {
-                tip.line(false, "Base cost: {0}", _V(cost_initial, 2, "white"));
-                for (var id in rcr) {
-                  tip.line(false, "{0}: {1}", id, _V(-rcr[id], 2, rcr[id] > 0 ? "green" : "red", "+%"));
-                }
-                for (var id in rcrint) {
-                  tip.line(false, "{0}: {1}", id, _V(-rcrint[id], 2, rcrint[id] > 0 ? "green" : "red", "+"));
-                }
+
+              function _gcd(a, b) { return (b ? _gcd(b, a % b) : a); }
+              var gcd = _gcd(60, fmt.fpa);
+              if (Object.keys(rcrint).length) {
+                formula = "(" + formula + ")";
               }
+              if (fmt.fpa > gcd) formula += " &#215; " + _V(fmt.fpa / gcd, 0, "white");
+              formula += " / " + _V(60 / gcd, 0, "white");
+
+              tip.line("Formula: {0}", formula);
+              tip_lines.forEach(function(line) {
+                tip.line(false, line);
+              });
+              tip.line(false, "Base tick rate factor: {0}", _V(fmt.fpa / gcd, 0, "white") + " / " + _V(60 / gcd, 0, "white"));
+
               tip.line("Breakpoint: {0} frames ({1} APS)", fpadata.frames, _V(aps, 2, "white"));
               result[stat].tip = tip.html();
 
@@ -756,13 +786,10 @@
             result[stat].text = _L(fmt.persecond ? "{0} {1} per second" : "{0} {1}").format(parseFloat(cost.toFixed(2)), DC.resources[resource]);
             var tip = new Tooltip(stat, result[stat].text);
             tip.add(fmt.tip);
-            tip.line(false, "Base cost: {0}", _V(cost_initial, 2, "white"));
-            for (var id in rcr) {
-              tip.line(false, "{0}: {1}", id, _V(-rcr[id], 2, rcr[id] > 0 ? "green" : "red", "+%"));
-            }
-            for (var id in rcrint) {
-              tip.line(false, "{0}: {1}", id, _V(-rcrint[id], 2, rcrint[id] > 0 ? "green" : "red", "+"));
-            }
+            tip.line("Formula: {0}", formula);
+            tip_lines.forEach(function(line) {
+              tip.line(false, line);
+            });
             result[stat].tip = tip.html();
           }
         }
