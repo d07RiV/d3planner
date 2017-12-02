@@ -185,7 +185,7 @@
       }
     }
 
-    onChangeLevel();
+    onChangeLevel(true);
     dataCache = undefined;
     levelsCache = undefined;
     DiabloCalc.trigger("updateParagon");
@@ -235,13 +235,13 @@
       return pts + 600;
     }
   }
-  function onChangeLevel() {
+  function onChangeLevel(imported) {
     var plvl = (parseInt(level.val()) || 0);
     var totalSpent = 0;
     for (var i = 0; i < data.length; ++i) {
       var allowed = getPoints(plvl, i);
       var spent = 0;
-      if (i > 0 && allowed >= data[i].stats.length * 50) {
+      if (!imported && i > 0 && allowed >= data[i].stats.length * 50) {
         var delta = 0;
         for (var j = 0; j < data[i].stats.length; ++j) {
           var value = (parseInt(data[i].stats[j].input.val()) || 0);
@@ -387,7 +387,9 @@
   var header = $("<div class=\"paragon-header\"></div>");
   var title = $("<span class=\"paragon-level\"></span>").text(_L("Paragon level"));
   level = $("<input></input>").attr("type", "number").attr("min", "0").val(0);
-  level.blur(DiabloCalc.validateNumber).change(onChangeLevel);
+  level.blur(DiabloCalc.validateNumber).change(function() {
+    onChangeLevel();
+  });
   title.append(level);
   header.append(resetAll).append(title);
   tab.append(header);
