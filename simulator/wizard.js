@@ -680,7 +680,7 @@
     dmg.range = (data.rune === "a" ? 18 : 12);
     dmg.coeff = (data.rune === "a" ? 6.25/3 : (data.rune === "b" ? 0.7 / 2 : 2.35 / 3));
     if (data.rune === "b") {
-      dmg.count = 7;
+      //dmg.count = 7;
       dmg.spread = 25;
     }
     if (Sim.stats.leg_nilfursboast || Sim.stats.leg_nilfursboast_p2 || Sim.stats.leg_nilfursboast_p6) dmg.fix = meteor_nilfurs_fix;
