@@ -509,7 +509,7 @@
 
     this.startLoad();
     for (var slot in DC.itemSlots) {
-      this.addItem(slot, getSlot(slot));
+      this.addItem(slot, getSlot(slot), nogems);
     }
     this.finishLoad();
   };

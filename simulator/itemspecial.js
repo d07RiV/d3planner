@@ -1095,7 +1095,7 @@
             Sim.cast(id);
 
             // fix for wand of woh
-            if (id === "explosiveblast" && Sim.stats.leg_wandofwoh) {
+            if (id === "explosiveblast" && (Sim.stats.leg_wandofwoh || Sim.stats.leg_wandofwoh_p6)) {
               function docast() {Sim.cast("explosiveblast");}
               Sim.after(30, docast);
               Sim.after(60, docast);
