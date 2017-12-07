@@ -348,12 +348,12 @@ DiabloCalc.addItems([
     affixes: {
       elemental: "elementalDamage",
       maxdisc: "maxdiscNormal",
-      maxfury: "maxfuryNormal",
-      maxap: "maxapNormal",
+      maxfury: {min: 8, max: 10},
+      maxap: {min: 7, max: 9},
       maxmana: "maxmanaNormal",
       maxspirit: "maxspiritNormal",
       maxwrath: "maxwrathNormal",
-      maxessence: "maxessenceNormal",
+//      maxessence: "maxessenceNormal",
     },
     required: {
       edmg: {min: 25, max: 30},
