@@ -267,8 +267,8 @@
     $("body").toggleClass("logged-in", !!$.cookie("user_name"));
     if ($.cookie("user_name")) {
       DiabloCalc.session.signedin = true;
-      $(".left-banner").remove();
-      $(".right-banner").remove();
+      //$(".left-banner").remove();
+      //$(".right-banner").remove();
     }
     for (var i = 0; i < lineList.length; ++i) {
       fillLine(lineList[i]);
