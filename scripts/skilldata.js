@@ -356,9 +356,9 @@
         options.basespeed = Math.min(stats.info.mainhand.speed, stats.info.offhand.speed);
         options.frames = Math.floor(fpa / (options.dspeed * options.basespeed)) + delta;
       } else {
-        options.framesmh = Math.floor(fpa / (options.dspeed * stats.info.mainhand.speed));
-        options.framesoh = Math.floor(fpa / (options.dspeed * stats.info.offhand.speed));
-        options.frames = 0.5 * (options.framesmh + options.framesoh) + delta;
+        options.framesmh = Math.floor(fpa / (options.dspeed * stats.info.mainhand.speed)) + delta;
+        options.framesoh = Math.floor(fpa / (options.dspeed * stats.info.offhand.speed)) + delta;
+        options.frames = 0.5 * (options.framesmh + options.framesoh);
       }
     } else {
       options.basespeed = stats.info[weapon || "mainhand"].speed;
