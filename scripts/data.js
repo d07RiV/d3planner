@@ -702,7 +702,7 @@
     });
     format = format.replace(/%%/g, "%");
     format = format.replace(/[$-.]|[[-^]|[?|{}]/g, "\\$&");
-    format = format.replace(/@/g, "([0-9]+(?:\\.[0-9]+)?)");
+    format = format.replace(/@/g, "([0-9,]+(?:\\.[0-9]+)?)");
     format = format.replace(/#/g, "(.+)");
     var re = new RegExp("^" + format + "$", "i");
     return (any ? new NamedRegExp(re, list) : re);

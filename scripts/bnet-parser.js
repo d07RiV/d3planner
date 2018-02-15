@@ -31,11 +31,11 @@
       id: data.id,
       stats: {},
     };
-    if (data.transmogItem) {
-      result.transmog = data.transmogItem.id;
+    if (data.transmog) {
+      result.transmog = data.transmog.id;
     }
-    if (data.dyeColor && data.dyeColor.item) {
-      result.dye = data.dyeColor.item.id;
+    if (data.dye) {
+      result.dye = data.dye.id;
     }
     if (!DiabloCalc.itemById[data.id]) {
       var typeid = data.type.id.toLowerCase();
@@ -46,10 +46,22 @@
         result.id = DiabloCalc.itemTypes[typeid].generic;
       }
     }
-    if (data.attributesRaw.Ancient_Rank && data.attributesRaw.Ancient_Rank.max) {
-      result.ancient = (data.attributesRaw.Ancient_Rank.max === 2.0 ? "primal" : true);
+    //if (data.attributesRaw.Ancient_Rank && data.attributesRaw.Ancient_Rank.max) {
+    //  result.ancient = (data.attributesRaw.Ancient_Rank.max === 2.0 ? "primal" : true);
+    //}
+    if (data.typeName.indexOf("Primal Ancient") >= 0) {
+      result.ancient = "primal";
+    } else if (data.typeName.indexOf("Ancient") >= 0) {
+      result.ancient = true;
     }
+    function _parse(str) {
+      var res = parseFloat(str.replace(/,/g, ""));
+      if (isNaN(res)) return 0;
+      return res;
+    }
+
     var item = DiabloCalc.itemById[result.id];
+
     var customStat;
     var itemRequired = {};
     if (item) {
@@ -80,7 +92,7 @@
         }
         var out = [];
         for (var i = 0; i < stat.args; i++) {
-          out.push(parseFloat(result[i + 1]));
+          out.push(_parse(result[i + 1]));
         }
         if (stat.args < 0) {
           var passives = DiabloCalc.allPassives;
@@ -113,8 +125,8 @@
     if (data.attributes) {
       for (var type in data.attributes) {
         for (var i = 0; i < data.attributes[type].length; ++i) {
-          var attr = parseAttribute(data.attributes[type][i].text);
-          if (attr && data.attributes[type][i].affixType === "enchant") {
+          var attr = parseAttribute(data.attributes[type][i]);
+          if (data.attributesHtml && data.attributesHtml[type] && data.attributesHtml[type][i] && data.attributesHtml[type][i].indexOf("tooltip-icon-enchant") >= 0) {
             result.enchant = attr;
           }
         }
@@ -134,35 +146,47 @@
           }
         }
       }
+      result.stats.sockets = [data.gems.length];
     }
-    if (data.attributesRaw.Armor_Item) {
-      result.stats.basearmor = [Math.floor(data.attributesRaw.Armor_Item.max)];
+
+    if (data.armor) {
+      result.stats.basearmor = [Math.floor(data.armor)];
     } else if (itemRequired.basearmor) {
       result.stats.basearmor = [itemRequired.basearmor.max];
     }
-    if (data.attributesRaw.Block_Amount_Item_Min && data.attributesRaw.Block_Amount_Item_Delta) {
-      result.stats.blockamount = [data.attributesRaw.Block_Amount_Item_Min.max,
-        data.attributesRaw.Block_Amount_Item_Min.max + data.attributesRaw.Block_Amount_Item_Delta.max];
-    } else if (itemRequired.blockamount) {
+    if (data.blockChance) {
+      var bc = data.blockChance.match(/\+([\d,\.]+)% Chance to Block\n([\d,]+)-([\d,]+) Block Amount/);
+      if (bc) {
+        result.stats.blockamount = [_parse(bc[2]), _parse(bc[3])];
+        result.stats.baseblock = [_parse(bc[1])];
+        if (result.stats.block) result.stats.baseblock[0] -= result.stats.block[0];
+      }
+    } else if (itemRequired.blockamount && itemRequired.baseblock) {
       result.stats.blockamount = [itemRequired.blockamount.max, itemRequired.blockamount.max2];
-    }
-    if (data.attributesRaw.Block_Chance_Item) {
-      result.stats.baseblock = [data.attributesRaw.Block_Chance_Item.max * 100];
-    } else if (itemRequired.baseblock) {
       result.stats.blockamount = [itemRequired.baseblock.max];
     }
-    if (data.attributesRaw.Sockets) {
-      result.stats.sockets = [data.attributesRaw.Sockets.max];
-    }
-    if (data.attributesRaw.ConsumableAddSockets) {
-      result.stats.sockets = [data.attributesRaw.ConsumableAddSockets.max];
-    }
-    if (data.attributesRaw.Damage_Percent_Reduction_From_Ranged) {
-      result.stats.rangedef = [data.attributesRaw.Damage_Percent_Reduction_From_Ranged.max * 100];
-    }
-    if (data.attributesRaw.CubeEnchantedGemType && data.attributesRaw.CubeEnchantedGemRank) {
-      result.stats[["caldesanns_vit", "caldesanns_dex", "caldesanns_str", "caldesanns_int"][data.attributesRaw.CubeEnchantedGemType.max - 1]] =
-        [data.attributesRaw.CubeEnchantedGemRank.max * 5];
+    //if (data.attributesRaw.Sockets) {
+    //  result.stats.sockets = [data.attributesRaw.Sockets.max];
+    //}
+    //if (data.attributesRaw.ConsumableAddSockets) {
+    //  result.stats.sockets = [data.attributesRaw.ConsumableAddSockets.max];
+    //}
+    //if (data.attributesRaw.Damage_Percent_Reduction_From_Ranged) {
+    //  result.stats.rangedef = [data.attributesRaw.Damage_Percent_Reduction_From_Ranged.max * 100];
+    //}
+    if (data.augmentation) {
+      var augs = {
+        "caldesanns_vit": /\+(\d+) Vitality/,
+        "caldesanns_dex": /\+(\d+) Dexterity/,
+        "caldesanns_str": /\+(\d+) Strength/,
+        "caldesanns_int": /\+(\d+) Intelligence/,
+      };
+      for (var type in augs) {
+        var m = data.augmentation.match(augs[type]);
+        if (m) {
+          result.stats[type] = [_parse(m[1])];
+        }
+      }
     }
 
     result.imported = {
