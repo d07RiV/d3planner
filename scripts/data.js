@@ -689,11 +689,8 @@
     }
     return ans;
   };
-  function getStatRegex(stat, format) {
+  function getStatRegex(stat, format, cls) {
     format = (format || getStatFormat(stat));
-    if (stat.class) {
-      format += " (" + DiabloCalc.classes[stat.class].name + " Only)";
-    }
     var list = [], any = false;
     format = format.replace(/%(?:\{([0-9]+)\})?(d|\.[0-9]f|p)/g, function(m, idx, arg) {
       list.push(idx ? parseInt(idx) : undefined);
@@ -704,6 +701,9 @@
     format = format.replace(/[$-.]|[[-^]|[?|{}]/g, "\\$&");
     format = format.replace(/@/g, "([0-9,]+(?:\\.[0-9]+)?)");
     format = format.replace(/#/g, "(.+)");
+    if (stat.class || cls) {
+      format += "(?: \\(" + DiabloCalc.classes[stat.class || cls].name + " Only\\))?";
+    }
     var re = new RegExp("^" + format + "$", "i");
     return (any ? new NamedRegExp(re, list) : re);
   }
@@ -756,7 +756,7 @@
     for (var i = 0; i < DiabloCalc.items.length; ++i) {
       var item = DiabloCalc.items[i];
       if (item.required && item.required.custom) {
-        item.required.custom.regex = getStatRegex(item.required.custom);
+        item.required.custom.regex = getStatRegex(item.required.custom, undefined, DiabloCalc.itemPowerClasses[item.required.custom.id]);
       }
     }
     _L.patch.apply(DiabloCalc);
