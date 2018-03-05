@@ -51,7 +51,10 @@
     cursor: pointer;
     padding: 2px 6px;
     line-height: 18px;
-    min-height: 44px;
+    &:not(.newset) {
+      min-height: 44px;
+    }
+    box-sizing: border-box;
     .class-icon {
       display: inline-block;
       width: 42px;
@@ -106,6 +109,7 @@
 
     .label {
       font-weight: bold;
+      display: inline-block;
     }
     .value {
       display: block;
