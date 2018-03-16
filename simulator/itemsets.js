@@ -36,7 +36,7 @@ asheara's: todo
     var elems = {"fir": "tal_2pc_fire", "col": "tal_2pc_cold", "arc": "tal_2pc_arcane", "lit": "tal_2pc_lightning"};
     var runes = {"fir": "a", "col": "c", "arc": "d", "lit": "e"};
     Sim.register("onhit", function(data) {
-      if (data.elem && elems[data.elem] && data.castInfo && data.castInfo.skill && !data.castInfo.triggered) {
+      if (data.elem && elems[data.elem]/* && data.castInfo && data.castInfo.skill && !data.castInfo.triggered*/) {
         if (!Sim.getBuff(elems[data.elem])) {
           Sim.addBuff(elems[data.elem], undefined, {duration: 480});
           Sim.cast("meteor", runes[data.elem]);
