@@ -483,7 +483,7 @@
       var aug = 1 + 0.01 * (Sim.stats.leg_augustinespanacea || 0);
       switch (rune) {
       case "x": return {type: "line", pierce: true, speed: 1.3, coeff: 3};
-      case "b": return {type: "ball", speed: 0.4 * 0.01 * (Sim.stats.leg_augustinespanacea || Sim.stats.leg_meticulousbolts || 100), coeff: 1.5, rate: 42, radius: 15};
+      case "b": return {type: "ball", speed: 0.4 * 0.01 * ((Sim.stats.leg_augustinespanacea && 30) || Sim.stats.leg_meticulousbolts || 100), coeff: 1.5, rate: 42, radius: 15};
       case "a": return {type: "line", pierce: _buriza(), speed: 1.3, coeff: 3.3 * aug, onhit: ea_fa_onhit};
       case "c": return {type: "line", pierce: _buriza(), speed: 1.3, coeff: 3, onhit: ea_ia_onhit};
       case "e": return {type: "line", pierce: true, speed: 1.3, coeff: 3 * aug, onhit: ea_lb_onhit};

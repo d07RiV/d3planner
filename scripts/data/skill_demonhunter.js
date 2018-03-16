@@ -348,7 +348,7 @@ DiabloCalc.skills.demonhunter = {
       var res;
       switch (rune) {
       case "x": res = {"Damage": {elem: "fir", coeff: 3}}; break;
-      case "b": res = {"Damage": {elem: "lit", coeff: 1.5}, "Average Damage": {sum: true, "Damage": {factor: this.params[0].val * 100 / (stats.leg_augustinespanacea || stats.leg_meticulousbolts || 100)}}}; break;
+      case "b": res = {"Damage": {elem: "lit", coeff: 1.5}, "Average Damage": {sum: true, "Damage": {factor: this.params[0].val * 100 / ((stats.leg_augustinespanacea && 30) || stats.leg_meticulousbolts || 100)}}}; break;
       case "a": res = {"Damage": {elem: "col", coeff: 3.3}}; break;
       case "c": res = {"Damage": {elem: "fir", coeff: 3}, "Explosion Damage": {elem: "fir", coeff: 3.15, total: true}}; break;
       case "e": res = {"Damage": {elem: "lit", coeff: 3}}; break;
