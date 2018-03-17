@@ -691,10 +691,11 @@
   };
   function getStatRegex(stat, format, cls) {
     format = (format || getStatFormat(stat));
-    var list = [], any = false;
+    var list = [], any = false, passive = false;
     format = format.replace(/%(?:\{([0-9]+)\})?(d|\.[0-9]f|p)/g, function(m, idx, arg) {
       list.push(idx ? parseInt(idx) : undefined);
       if (idx) any = true;
+      if (arg === "p") passive = true;
       return (arg === "p" ? "#" : "@");
     });
     format = format.replace(/%%/g, "%");
@@ -703,6 +704,8 @@
     format = format.replace(/#/g, "(.+)");
     if (stat.class || cls) {
       format += "(?: \\(" + DiabloCalc.classes[stat.class || cls].name + " Only\\))?";
+    } else if (passive) {
+      format += "(?: \\(.* Only\\))?";
     }
     var re = new RegExp("^" + format + "$", "i");
     return (any ? new NamedRegExp(re, list) : re);
