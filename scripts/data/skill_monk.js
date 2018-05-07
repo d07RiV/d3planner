@@ -556,7 +556,7 @@ DiabloCalc.skills.monk = {
       c: "Cyclone",
     },
     range: {x: 10, e: 10, a: 10, b: 14, d: 10, c: 10},
-    params: [{min: 0, max: "3+(leg_vengefulwind?3:1)+leg_vengefulwind_p2", name: "Stacks", buffs: false}],
+    params: [{min: 0, max: "3+(leg_vengefulwind?3:0)+leg_vengefulwind_p2", name: "Stacks", buffs: false}],
     info: function(rune, stats) {
       var res = {"Cost": {cost: 75}, "DPS": {elem: "phy", aps: true, coeff: 1.05, factors: {"Stacks": this.params[0].val}, total: true}};
       if (rune === "e") res["DPS"].elem = "col";
