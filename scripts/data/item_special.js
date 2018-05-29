@@ -1729,4 +1729,14 @@ DiabloCalc.itemaffixes = {
       return {dmgmul: {skills: ["meteor"], percent: value[0]}};
     },
   },
+
+  leg_theburningaxeofsankis: {
+    active: false,
+    buffs: {dmgred: 50},
+  },
+
+  leg_wallofman: {
+    active: false,
+    buffs: {dmgred: 20},
+  },
 };
