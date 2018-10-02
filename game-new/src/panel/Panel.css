@@ -1,0 +1,41 @@
+.Panel {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0; }
+  .Panel.rows, .Panel.cols {
+    display: flex; }
+  .Panel.rows {
+    flex-direction: column; }
+  .Panel.cols {
+    flex-direction: row; }
+  .Panel .Resizer {
+    position: relative;
+    flex-basis: 0;
+    flex-grow: 0;
+    flex-shrink: 0; }
+    .Panel .Resizer::before {
+      content: '';
+      position: absolute;
+      z-index: 90; }
+  .Panel.rows .Resizer {
+    cursor: ns-resize; }
+    .Panel.rows .Resizer::before {
+      left: 0;
+      right: 0;
+      top: -4px;
+      height: 7px; }
+    .Panel.rows .Resizer.resizing::before {
+      top: -200px;
+      height: 400px; }
+  .Panel.cols .Resizer {
+    cursor: ew-resize; }
+    .Panel.cols .Resizer::before {
+      left: -4px;
+      width: 7px;
+      top: 0;
+      bottom: 0; }
+    .Panel.cols .Resizer.resizing::before {
+      left: -200px;
+      width: 400px; }

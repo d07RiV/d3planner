@@ -1,0 +1,111 @@
+.ItemSetsView {
+  flex: 1;
+  overflow-y: scroll;
+  position: relative;
+  padding: 20px 30px 20px 20px;
+  > .no-results {
+    font-size: 16px;
+    font-style: italic;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .set-box {
+    &.raised {
+      z-index: 4;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25), 0 0 3px 3px rgba(255, 0, 0, 0);
+      &.mergeBottom {
+        box-shadow: 0 0 3px 3px rgba(255, 0, 0, 0);
+      }
+      transition: box-shadow 1s;
+    }
+    &.highlighted {
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25), 0 0 3px 3px rgba(255, 0, 0, 1);
+      &.mergeBottom {
+        box-shadow: 0 0 3px 3px rgba(255, 0, 0, 1);
+      }
+      transition: none;
+    }
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 0.3em;
+    padding: 7px;
+    margin: 4px 3px;
+    line-height: 16px;
+    background: #fff;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+    transition: none;
+    &.set-added {
+      background-color: #dfd;
+    }
+    &.set-removed {
+      background-color: #fdd;
+    }
+    .bg-red {
+      background-color: #f88;
+    }
+    .bg-green {
+      background-color: #8f8;
+    }
+    ul {
+      margin: 0;
+      padding: 0 0 0 20px;
+      list-style: none;
+    }
+    p {
+      margin: 0;
+    }
+    .set-header {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+    }
+    .set-id {
+      margin-left: 20px;
+      a {
+        font-family: monospace;
+        color: #888;
+      }
+    }
+    .set-name {
+      flex: 1;
+      font-size: 16px;
+    }
+    .set-items {
+      margin-top: 6px;
+    }
+    .set-classes {
+      margin-top: 6px;
+      height: 24px;
+      vertical-align: middle;
+      .icon {
+        display: inline-block;
+        margin-left: 4px;
+        width: 24px;
+        height: 24px;
+        &.disabled {
+          opacity: 0.4;
+        }
+      }
+    }
+    .set-bonus {
+      margin-top: 6px;
+      .set-bonus-count {
+        font-style: italic;
+        //font-weight: bold;
+      }
+    }
+  }
+  .set-box.mergeBottom {
+    border-bottom-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-bottom: 0;
+  }
+  .set-box.mergeTop {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    margin-top: -1px;
+  }
+}

@@ -1,0 +1,209 @@
+#class-icons {
+  max-width: 800px; }
+  #class-icons .icon-box {
+    display: inline-block; }
+  #class-icons .icon-title {
+    display: block;
+    text-align: center; }
+    #class-icons .icon-title img {
+      width: 24px;
+      height: 24px; }
+  #class-icons .item-icon {
+    display: block; }
+    #class-icons .item-icon.image-loading {
+      margin: 0;
+      width: 0;
+      height: 0;
+      overflow: hidden; }
+
+.ItemsSearch {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  border: 1px solid #888;
+  border-radius: 4px;
+  box-sizing: border-box;
+  width: 300px;
+  height: 40px;
+  background: #fff;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+  z-index: 10;
+  padding: 8px 6px 8px 12px;
+  display: flex;
+  font-size: 12px;
+  line-height: 22px;
+  font-family: sans-serif;
+  transition: top 0.25s; }
+  .ItemsSearch input {
+    flex: 1;
+    border: 0;
+    padding: 0;
+    min-width: 0;
+    outline: none; }
+  .ItemsSearch input ~ * {
+    flex-shrink: 0; }
+  .ItemsSearch .count {
+    margin: 0 4px;
+    color: #aaa; }
+  .ItemsSearch .separator {
+    border-left: 1px solid #aaa;
+    margin: 0 8px; }
+  .ItemsSearch.search-hidden {
+    top: -100px;
+    transition: top 0.25s; }
+  .ItemsSearch button {
+    flex-shrink: 0;
+    color: #888;
+    line-height: 18px;
+    display: inline-block;
+    font-size: 12px;
+    height: 24px;
+    width: 24px;
+    border-radius: 4px;
+    margin: -1px 2px -1px 2px;
+    border: 0;
+    background: none;
+    padding: 1px 6px;
+    position: relative; }
+    .ItemsSearch button .glyphicon {
+      line-height: 18px; }
+    .ItemsSearch button::before {
+      content: '';
+      position: absolute;
+      background-color: #e3e3e3;
+      width: 0;
+      height: 0;
+      left: 12px;
+      top: 12px; }
+    .ItemsSearch button[disabled] {
+      color: #ccc; }
+    .ItemsSearch button:not([disabled]):hover {
+      background-color: #eee;
+      color: #333;
+      transition-duration: 0.5s; }
+    .ItemsSearch button:not([disabled]):hover:active {
+      background-color: transparent; }
+      .ItemsSearch button:not([disabled]):hover:active::before {
+        width: 32px;
+        height: 32px;
+        border-radius: 16px;
+        left: -4px;
+        top: -4px;
+        transition-duration: 0.25s; }
+    .ItemsSearch button:focus {
+      outline: none; }
+
+.ItemsView {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+  padding: 20px 30px 20px 20px; }
+  .ItemsView > .no-results {
+    font-size: 16px;
+    font-style: italic; }
+  .ItemsView > ul {
+    margin: 0;
+    padding: 0;
+    list-style: none; }
+  .ItemsView .item-list {
+    outline: none; }
+  .ItemsView .search-result {
+    z-index: 4; }
+    .ItemsView .search-result .item-box {
+      box-shadow: 0 0 3px 3px rgba(0, 0, 255, 0.5); }
+  .ItemsView .raised {
+    position: relative;
+    z-index: 4; }
+    .ItemsView .raised .item-box {
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25), 0 0 3px 3px rgba(255, 0, 0, 0);
+      transition: box-shadow 1s; }
+      .ItemsView .raised .item-box.mergeBottom {
+        box-shadow: 0 0 3px 3px rgba(255, 0, 0, 0); }
+  .ItemsView .highlighted .item-box {
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25), 0 0 3px 3px red;
+    transition: none; }
+    .ItemsView .highlighted .item-box.mergeBottom {
+      box-shadow: 0 0 3px 3px red; }
+  .ItemsView .item-box {
+    border: 1px solid #ccc;
+    border-radius: 0.3em;
+    padding: 7px;
+    margin: 4px 3px;
+    line-height: 16px;
+    background-color: #fff;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25); }
+    .ItemsView .item-box.item-added {
+      background-color: #dfd; }
+    .ItemsView .item-box.item-removed {
+      background-color: #fdd; }
+    .ItemsView .item-box .bg-red {
+      background-color: #f88; }
+    .ItemsView .item-box .bg-green {
+      background-color: #8f8; }
+    .ItemsView .item-box p {
+      margin: 0; }
+    .ItemsView .item-box .item-id {
+      margin-left: 20px; }
+      .ItemsView .item-box .item-id a {
+        font-family: monospace;
+        color: #888; }
+    .ItemsView .item-box .item-header {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      height: 85px; }
+      .ItemsView .item-box .item-header .item-icon {
+        margin-right: 12px;
+        max-height: 85px; }
+        .ItemsView .item-box .item-header .item-icon.image-loading {
+          margin: 0;
+          width: 0;
+          height: 0;
+          overflow: hidden; }
+      .ItemsView .item-box .item-header .item-info {
+        flex: 1; }
+        .ItemsView .item-box .item-header .item-info .item-name {
+          font-size: 16px; }
+        .ItemsView .item-box .item-header .item-info .item-set a {
+          color: #080; }
+        .ItemsView .item-box .item-header .item-info .item-flavor {
+          font-style: italic;
+          white-space: normal;
+          color: #666; }
+    .ItemsView .item-box .item-stats {
+      line-height: 16px;
+      margin-top: 10px; }
+      .ItemsView .item-box .item-stats ul {
+        list-style: none;
+        padding: 0 0 0 20px;
+        margin: 0; }
+    .ItemsView .item-box .item-drops {
+      margin-top: 8px; }
+      .ItemsView .item-box .item-drops .drop-disabled {
+        color: #800; }
+      .ItemsView .item-box .item-drops .classes {
+        height: 24px;
+        vertical-align: middle; }
+        .ItemsView .item-box .item-drops .classes span {
+          display: inline-block;
+          margin-left: 4px;
+          width: 24px;
+          height: 24px; }
+          .ItemsView .item-box .item-drops .classes span .icon {
+            opacity: 0.5; }
+        .ItemsView .item-box .item-drops .classes > .icon {
+          margin-left: 4px; }
+        .ItemsView .item-box .item-drops .classes .icon {
+          display: inline-block;
+          width: 24px;
+          height: 24px; }
+          .ItemsView .item-box .item-drops .classes .icon.disabled {
+            opacity: 0.4; }
+  .ItemsView .item-box.mergeBottom {
+    border-bottom-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-bottom: 0; }
+  .ItemsView .item-box.mergeTop {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    margin-top: -1px; }

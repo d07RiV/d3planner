@@ -1,0 +1,147 @@
+.skills-menu-icon {
+  width: 24px;
+  height: 24px;
+  margin: -4px 4px -2px -4px;
+}
+.SkillsView {
+  flex: 1;
+  overflow-y: scroll;
+  position: relative;
+  padding: 20px 30px 20px 20px;
+  > .no-results {
+    font-size: 16px;
+    font-style: italic;
+    &:not(:first-child) {
+      display: none;
+    }
+  }
+  .skill-category {
+    padding-bottom: 10px;
+  }
+  h3 {
+    position: sticky;
+    top: -20px;
+    background-color: #fff;
+    margin: -16px -6px 0;
+    padding: 16px 6px 10px;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .skill-view {
+    border: 1px solid #ccc;
+    border-radius: 0.3em;
+    margin: 8px 0;
+    line-height: 16px;
+    background: #fff;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+    &.skill-added {
+      background-color: #dfd;
+    }
+    &.skill-removed {
+      background-color: #fdd;
+    }
+    .bg-red {
+      background-color: #f88;
+    }
+    .bg-green {
+      background-color: #8f8;
+    }
+  }
+  .skill-id {
+    margin-left: 20px;
+    a {
+      font-family: monospace;
+      color: #888;
+    }
+  }
+  .skill-rune {
+    border-top: 1px solid #ccc;
+  }
+  .skill-header {
+    .skill-icon {
+      margin-right: 10px;
+      &.image-loading {
+        width: 0;
+        height: 0;
+        margin: 0;
+        overflow: hidden;
+      }
+    }
+    .skill-info .skill-name {
+      font-size: 18px;
+      line-height: 24px;
+    }
+  }
+  .skill-rune {
+    .rune-icon {
+      display: block;
+      background-image: url(/css/images/runes_large.png);
+      background-repeat: no-repeat;
+      width: 50px;
+      height: 50px;
+      margin: 0 17px 0 7px;
+      padding-top: 50px;
+      text-align: center;
+      color: #666;
+      text-transform: capitalize;
+      &.rune-a { background-position: 0 0; }
+      &.rune-b { background-position: -50px 0; }
+      &.rune-c { background-position: -100px 0; }
+      &.rune-d { background-position: -150px 0; }
+      &.rune-e { background-position: -200px 0; }
+    }
+    .skill-info .skill-name {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+  .skill-header, .skill-rune {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 12px;
+    p {
+      margin: 0;
+    }
+    .skill-info {
+      flex: 1;
+      white-space: normal;
+      vertical-align: top;
+      .skill-element {
+        margin-top: 6px;
+        color: #666;
+        font-style: italic;
+      }
+      .skill-level {
+        margin-top: 8px;
+        color: #666;
+      }
+      .skill-flavor {
+        margin-top: 8px;
+        font-style: italic;
+        color: #888;
+      }
+      .skill-desc {
+        margin-top: 8px;
+      }
+      .skill-desc + .skill-desc {
+        margin-top: 6px;
+      }
+    }
+  }
+}
+.skill-passives .skill-view {
+  &:not(:last-child) {
+    margin-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  &:not(:first-child) {
+    margin-top: -1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}

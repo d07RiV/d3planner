@@ -1,0 +1,171 @@
+#json-preview {
+  max-width: 800px; }
+  #json-preview .popover-content {
+    overflow: hidden;
+    position: relative; }
+    #json-preview .popover-content::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 140px;
+      right: 0;
+      bottom: 9px;
+      z-index: 2;
+      background-image: linear-gradient(180deg, rgba(255, 255, 255, 0), white); }
+  #json-preview .JsonRow {
+    padding-left: 0; }
+    #json-preview .JsonRow .line, #json-preview .JsonRow .collapsed, #json-preview .JsonRow .expanded {
+      display: none; }
+
+.JsonRow {
+  padding-left: 75px;
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 17px;
+  height: 17px;
+  white-space: pre; }
+  .JsonRow .line {
+    position: absolute;
+    display: block;
+    width: 65px;
+    padding: 0 0.5em;
+    color: #2b91af;
+    text-align: right;
+    left: 0; }
+    .JsonRow .line::before {
+      content: attr(data-line-number); }
+  .JsonRow .match {
+    background-color: #ff0; }
+  .JsonRow .match-current {
+    background-color: #ff9632; }
+  .JsonRow .JsonString {
+    color: maroon; }
+  .JsonRow .JsonNumber {
+    color: #09885a; }
+  .JsonRow .JsonBoolean {
+    color: blue; }
+  .JsonRow .JsonNull {
+    color: blue; }
+  .JsonRow li.lhs {
+    background-color: #fcc; }
+  .JsonRow li.rhs {
+    background-color: #cfc; }
+  .JsonRow span.collapsed-ph {
+    display: inline-block;
+    width: 25px; }
+  .JsonRow span.collapsed {
+    display: inline-block;
+    width: 25px;
+    cursor: pointer;
+    position: relative; }
+    .JsonRow span.collapsed span {
+      position: absolute;
+      font-size: 0; }
+    .JsonRow span.collapsed::before {
+      content: "...";
+      position: absolute;
+      display: inline-block;
+      box-sizing: border-box;
+      left: 0;
+      top: -1px;
+      width: 25px;
+      height: 18px;
+      border: 1px solid #888;
+      background-color: #fff; }
+    .JsonRow span.collapsed::after {
+      content: "..."; }
+  .JsonRow span.expanded {
+    user-select: none;
+    position: absolute;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 4px;
+    line-height: 8px;
+    height: 11px;
+    width: 11px;
+    vertical-align: middle;
+    box-sizing: border-box;
+    border: 1px solid #888;
+    background: #fff;
+    cursor: pointer; }
+    .JsonRow span.expanded::before {
+      content: "-"; }
+
+.JsonViewer {
+  display: flex;
+  flex-direction: column; }
+  .JsonViewer .JsonHeader {
+    flex-shrink: 0;
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0; }
+    .JsonViewer .JsonHeader .form-control {
+      display: flex;
+      flex-direction: row;
+      width: 280px;
+      padding: 6px 6px 6px 12px; }
+      .JsonViewer .JsonHeader .form-control input {
+        border: 0;
+        padding: 0;
+        flex: 1;
+        width: 0; }
+        .JsonViewer .JsonHeader .form-control input:focus {
+          outline: none; }
+      .JsonViewer .JsonHeader .form-control .search-tag {
+        user-select: none;
+        flex-shrink: 0;
+        color: #ccc;
+        margin-left: 4px; }
+      .JsonViewer .JsonHeader .form-control button {
+        flex-shrink: 0;
+        color: #888;
+        line-height: 18px;
+        display: inline-block;
+        height: 24px;
+        width: 24px;
+        border-radius: 4px;
+        margin: -2px 0 -2px 4px;
+        border: 0;
+        background: none;
+        padding: 1px 6px;
+        position: relative; }
+        .JsonViewer .JsonHeader .form-control button .glyphicon {
+          line-height: 18px; }
+        .JsonViewer .JsonHeader .form-control button::before {
+          content: '';
+          position: absolute;
+          background-color: #e3e3e3;
+          width: 0;
+          height: 0;
+          left: 12px;
+          top: 12px; }
+        .JsonViewer .JsonHeader .form-control button[disabled] {
+          color: #ccc; }
+        .JsonViewer .JsonHeader .form-control button:not([disabled]):hover {
+          background-color: #eee;
+          color: #333;
+          transition-duration: 0.5s; }
+        .JsonViewer .JsonHeader .form-control button:not([disabled]):hover:active {
+          background-color: transparent; }
+          .JsonViewer .JsonHeader .form-control button:not([disabled]):hover:active::before {
+            width: 32px;
+            height: 32px;
+            border-radius: 16px;
+            left: -4px;
+            top: -4px;
+            transition-duration: 0.25s; }
+        .JsonViewer .JsonHeader .form-control button:focus {
+          outline: none; }
+  .JsonViewer .JsonSource {
+    flex: 1; }
+    .JsonViewer .JsonSource .JsonLines {
+      border: 1px solid #ddd;
+      border-bottom-left-radius: 0.5em;
+      border-bottom-right-radius: 0.5em; }
+      .JsonViewer .JsonSource .JsonLines:focus {
+        outline: none; }
+      .JsonViewer .JsonSource .JsonLines .fake-line {
+        position: absolute;
+        left: -9999px;
+        top: -9999px;
+        font-size: 0; }

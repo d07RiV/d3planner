@@ -1,0 +1,159 @@
+.d3-tooltip-wrapper * {
+  box-sizing: content-box;
+}
+.KadalaView {
+  display: flex;
+  flex-direction: column;
+  width: 988px;
+  margin-left: auto;
+  margin-right: auto;
+
+  .col-level {
+    left: 600px;
+    width: 70px;
+  }
+  .col-average {
+    left: 670px;
+    width: 100px;
+  }
+  .col-percent {
+    left: 770px;
+    width: 100px;
+  }
+  .col-db {
+    left: 870px;
+    width: 100px;
+  }
+  .KadalaHeader {
+    flex-shrink: 0;
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    .container-fluid {
+      padding-left: 5px;
+    }
+    .navbar-form {
+      display: inline-block;
+      input[type="number"] {
+        width: 60px;
+        padding: 6px 6px;
+      }
+      .hc-box {
+        margin-left: 12px;
+      }
+    }
+    .navbar-col {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      padding: 15px;
+      color: #666;
+      border-left: 1px solid #ccc;
+      text-align: center;
+      box-sizing: border-box;
+    }
+    .col-percent {
+      padding: 0;
+      .navbar-form {
+        padding: 0;
+      }
+      .input-group-addon {
+        padding: 6px;
+      }
+    }
+    .col-db {
+      border-right: 1px solid #ccc;
+    }
+  }
+  .KadalaList {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    overflow-y: auto;
+    &, ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    li {
+      width: 970px;
+    }
+    .react-slidedown {
+      transition-duration: .3s;
+      transition-timing-function: ease-in-out;
+    }
+    .row-header {
+      cursor: pointer;
+      height: 28px;
+      line-height: 28px;
+      font-weight: bold;
+      font-size: 18px;
+      text-align: center;
+      background: linear-gradient(
+        to bottom, 
+        rgba(184,225,252,1) 0%,
+        rgba(169,210,243,1) 10%,
+        rgba(144,186,228,1) 25%,
+        rgba(144,188,234,1) 37%,
+        rgba(144,191,240,1) 50%,
+        rgba(107,168,229,1) 51%,
+        rgba(162,218,245,1) 83%,
+        rgba(189,243,253,1) 100%
+      );
+      &.collapsed {
+        background: linear-gradient(
+          to bottom,
+          rgba(109,179,242,1) 0%,
+          rgba(84,163,238,1) 50%,
+          rgba(54,144,240,1) 51%,
+          rgba(30,105,222,1) 100%
+        );
+      }
+      &.weapon {
+        background: linear-gradient(
+          to bottom,
+          rgba(230,240,163,1) 0%,
+          rgba(210,230,56,1) 50%,
+          rgba(195,216,37,1) 51%,
+          rgba(219,240,67,1) 100%
+        );
+        &.collapsed {
+          background: linear-gradient(
+            to bottom,
+            rgba(157,213,58,1) 0%,
+            rgba(161,213,79,1) 50%,
+            rgba(128,194,23,1) 51%,
+            rgba(124,188,10,1) 100%
+          );
+        }
+      }
+    }
+    .row-item {
+      position: relative;
+      width: 970px;
+      height: 26px;
+      line-height: 26px;
+      font-size: 16px;
+      .item-name {
+        display: inline-block;
+        text-indent: 30px;
+        padding-right: 16px;
+        .item-icon {
+          display: inline-block;
+          position: absolute;
+          width: 24px;
+          height: 24px;
+          left: 4px;
+        }
+      }
+      .item-col {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        text-align: right;
+        padding: 0 6px;
+      }
+    }
+  }
+}

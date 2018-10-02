@@ -1,0 +1,35 @@
+.status-success {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  background-color: #5cb85c;
+  box-shadow: 0 0 8px 2px #5cb85c;
+  margin: 0 0 2px 12px;
+  vertical-align: middle; }
+
+.status-updating {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  background-color: #f0ad4e;
+  box-shadow: 0 0 8px 2px #f0ad4e;
+  margin: 0 0 2px 12px;
+  vertical-align: middle; }
+
+.status-error {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  background-color: #d9534f;
+  box-shadow: 0 0 8px 2px #d9534f;
+  margin: 0 0 2px 12px;
+  vertical-align: middle; }
+
+.status-clickable {
+  cursor: pointer; }

@@ -1,0 +1,56 @@
+$resize-width: 7px;
+$resize-offset: -(ceil($resize-width / 2));
+
+.Panel {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  &.rows, &.cols {
+    display: flex;
+  }
+  &.rows {
+    flex-direction: column;
+  }
+  &.cols {
+    flex-direction: row;
+  }
+  .Resizer {
+    position: relative;
+    flex-basis: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    &::before {
+      content: '';
+      position: absolute;
+      z-index: 90;
+    }
+  }
+  &.rows .Resizer {
+    cursor: ns-resize;
+    &::before {
+      left: 0;
+      right: 0;
+      top: $resize-offset;
+      height: $resize-width;
+    }
+    &.resizing::before {
+      top: -200px;
+      height: 400px;
+    }
+  }
+  &.cols .Resizer {
+    cursor: ew-resize;
+    &::before {
+      left: $resize-offset;
+      width: $resize-width;
+      top: 0;
+      bottom: 0;
+    }
+    &.resizing::before {
+      left: -200px;
+      width: 400px;
+    }
+  }
+}

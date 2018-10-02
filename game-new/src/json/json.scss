@@ -1,0 +1,217 @@
+#json-preview {
+  max-width: 800px;
+  .popover-content {
+    overflow: hidden;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 140px;
+      right: 0;
+      bottom: 9px;
+      z-index: 2;
+      background-image: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    }
+  }
+  .JsonRow {
+    padding-left: 0;
+    .line, .collapsed, .expanded {
+      display: none;
+    }
+  }
+}
+.JsonRow {
+  padding-left: 75px;
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 17px;
+  height: 17px;
+  white-space: pre;
+  .line {
+    position: absolute;
+    display: block;
+    width: 65px;
+    padding: 0 0.5em;
+    color: rgb(43, 145, 175);
+    text-align: right;
+    left: 0;
+    &::before {
+      content: attr(data-line-number)
+    }
+  }
+  .match {
+    background-color: #ff0;
+  }
+  .match-current {
+    background-color: rgb(255, 150, 50);
+  }
+  .JsonString {
+    color: rgb(128, 0, 0);
+  }
+  .JsonNumber {
+    color: rgb(9, 136, 90);
+  }
+  .JsonBoolean {
+    color: rgb(0, 0, 255);
+  }
+  .JsonNull {
+    color: rgb(0, 0, 255);
+  }
+  li.lhs {
+    background-color: #fcc;
+  }
+  li.rhs {
+    background-color: #cfc;
+  }
+  span.collapsed-ph {
+    display: inline-block;
+    width: 25px;
+  }
+  span.collapsed {
+    display: inline-block;
+    width: 25px;
+    cursor: pointer;
+    position: relative;
+    span {
+      position: absolute;
+      font-size: 0;
+    }
+    &::before {
+      content: "...";
+      position: absolute;
+      display: inline-block;
+      box-sizing: border-box;
+      left: 0;
+      top: -1px;
+      width: 25px;
+      height: 18px;
+      border: 1px solid #888;
+      background-color: #fff;
+    }
+    &::after {
+      content: "...";
+    }
+  }
+  span.expanded {
+    user-select: none;
+    position: absolute;
+    //left: 2px;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 4px;
+    line-height: 8px;
+    height: 11px;
+    width: 11px;
+    vertical-align: middle;
+    box-sizing: border-box;
+    border: 1px solid #888;
+    background: #fff;
+    cursor: pointer;
+    &::before {
+      content: "-";
+    }
+  }
+}
+
+.JsonViewer {
+  display: flex;
+  flex-direction: column;
+  //width: 1000px;
+  //margin-left: auto;
+  //margin-right: auto;
+  .JsonHeader {
+    flex-shrink: 0;
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    .form-control {
+      display: flex;
+      flex-direction: row;
+      width: 280px;
+      padding: 6px 6px 6px 12px;
+      input {
+        border: 0;
+        padding: 0;
+        flex: 1;
+        width: 0;
+        &:focus {
+          outline: none;
+        }
+      }
+      .search-tag {
+        user-select: none;
+        flex-shrink: 0;
+        color: #ccc;
+        margin-left: 4px;
+      }
+      button {
+        flex-shrink: 0;
+        color: #888;
+        line-height: 18px;
+        display: inline-block;
+        height: 24px;
+        width: 24px;
+        border-radius: 4px;
+        margin: -2px 0 -2px 4px;
+        .glyphicon {
+          line-height: 18px;
+        }
+        border: 0;
+        background: none;
+        padding: 1px 6px;
+        position: relative;
+        &::before {
+          content: '';
+          position: absolute;
+          background-color: #e3e3e3;
+          width: 0;
+          height: 0;
+          left: 12px;
+          top: 12px;
+        }
+        &[disabled] {
+          color: #ccc;
+        }
+        &:not([disabled]) {
+          &:hover {
+            background-color: #eee;
+            color: #333;
+            transition-duration: 0.5s;
+          }
+          &:hover:active {
+            background-color: transparent;
+            &::before {
+              width: 32px;
+              height: 32px;
+              border-radius: 16px;
+              left: -4px;
+              top: -4px;
+              transition-duration: 0.25s;
+            }
+          }
+        }
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+  .JsonSource {
+    flex: 1;
+    .JsonLines {
+      border: 1px solid #ddd;
+      border-bottom-left-radius: 0.5em;
+      border-bottom-right-radius: 0.5em;
+      &:focus {
+        outline: none;
+      }
+      .fake-line {
+        position: absolute;
+        left: -9999px;
+        top: -9999px;
+        font-size: 0;
+      }
+    }
+  }
+}

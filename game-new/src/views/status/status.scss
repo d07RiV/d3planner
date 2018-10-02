@@ -1,0 +1,24 @@
+@mixin status-button($color) {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  background-color: $color;
+  box-shadow: 0 0 8px 2px $color;
+  margin: 0 0 2px 12px;
+  vertical-align: middle;
+}
+
+.status-success {
+  @include status-button(#5cb85c);
+}
+.status-updating {
+  @include status-button(#f0ad4e);
+}
+.status-error {
+  @include status-button(#d9534f);
+}
+.status-clickable {
+  cursor: pointer;
+}

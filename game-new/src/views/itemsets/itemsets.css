@@ -1,0 +1,84 @@
+.ItemSetsView {
+  flex: 1;
+  overflow-y: scroll;
+  position: relative;
+  padding: 20px 30px 20px 20px; }
+  .ItemSetsView > .no-results {
+    font-size: 16px;
+    font-style: italic; }
+  .ItemSetsView ul {
+    margin: 0;
+    padding: 0;
+    list-style: none; }
+  .ItemSetsView .set-box {
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 0.3em;
+    padding: 7px;
+    margin: 4px 3px;
+    line-height: 16px;
+    background: #fff;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+    transition: none; }
+    .ItemSetsView .set-box.raised {
+      z-index: 4;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25), 0 0 3px 3px rgba(255, 0, 0, 0);
+      transition: box-shadow 1s; }
+      .ItemSetsView .set-box.raised.mergeBottom {
+        box-shadow: 0 0 3px 3px rgba(255, 0, 0, 0); }
+    .ItemSetsView .set-box.highlighted {
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25), 0 0 3px 3px red;
+      transition: none; }
+      .ItemSetsView .set-box.highlighted.mergeBottom {
+        box-shadow: 0 0 3px 3px red; }
+    .ItemSetsView .set-box.set-added {
+      background-color: #dfd; }
+    .ItemSetsView .set-box.set-removed {
+      background-color: #fdd; }
+    .ItemSetsView .set-box .bg-red {
+      background-color: #f88; }
+    .ItemSetsView .set-box .bg-green {
+      background-color: #8f8; }
+    .ItemSetsView .set-box ul {
+      margin: 0;
+      padding: 0 0 0 20px;
+      list-style: none; }
+    .ItemSetsView .set-box p {
+      margin: 0; }
+    .ItemSetsView .set-box .set-header {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start; }
+    .ItemSetsView .set-box .set-id {
+      margin-left: 20px; }
+      .ItemSetsView .set-box .set-id a {
+        font-family: monospace;
+        color: #888; }
+    .ItemSetsView .set-box .set-name {
+      flex: 1;
+      font-size: 16px; }
+    .ItemSetsView .set-box .set-items {
+      margin-top: 6px; }
+    .ItemSetsView .set-box .set-classes {
+      margin-top: 6px;
+      height: 24px;
+      vertical-align: middle; }
+      .ItemSetsView .set-box .set-classes .icon {
+        display: inline-block;
+        margin-left: 4px;
+        width: 24px;
+        height: 24px; }
+        .ItemSetsView .set-box .set-classes .icon.disabled {
+          opacity: 0.4; }
+    .ItemSetsView .set-box .set-bonus {
+      margin-top: 6px; }
+      .ItemSetsView .set-box .set-bonus .set-bonus-count {
+        font-style: italic; }
+  .ItemSetsView .set-box.mergeBottom {
+    border-bottom-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-bottom: 0; }
+  .ItemSetsView .set-box.mergeTop {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    margin-top: -1px; }

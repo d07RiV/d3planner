@@ -1,0 +1,33 @@
+{
+  "plugins": [
+    "react"
+  ],
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 8,
+    "impliedStrict": true,
+    "experimentalObjectRestSpread": true,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-const-assign": "warn",
+    "no-this-before-super": "warn",
+    "no-undef": "warn",
+    "no-unreachable": "warn",
+    "no-unused-vars": ["warn", {"ignoreRestSiblings": true}],
+    "constructor-super": "warn",
+    "valid-typeof": "warn",
+    "array-callback-return": "warn",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error"
+ }
+}

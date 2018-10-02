@@ -1,0 +1,103 @@
+.d3-tooltip-wrapper * {
+  box-sizing: content-box; }
+
+.KadalaView {
+  display: flex;
+  flex-direction: column;
+  width: 988px;
+  margin-left: auto;
+  margin-right: auto; }
+  .KadalaView .col-level {
+    left: 600px;
+    width: 70px; }
+  .KadalaView .col-average {
+    left: 670px;
+    width: 100px; }
+  .KadalaView .col-percent {
+    left: 770px;
+    width: 100px; }
+  .KadalaView .col-db {
+    left: 870px;
+    width: 100px; }
+  .KadalaView .KadalaHeader {
+    flex-shrink: 0;
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0; }
+    .KadalaView .KadalaHeader .container-fluid {
+      padding-left: 5px; }
+    .KadalaView .KadalaHeader .navbar-form {
+      display: inline-block; }
+      .KadalaView .KadalaHeader .navbar-form input[type="number"] {
+        width: 60px;
+        padding: 6px 6px; }
+      .KadalaView .KadalaHeader .navbar-form .hc-box {
+        margin-left: 12px; }
+    .KadalaView .KadalaHeader .navbar-col {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      padding: 15px;
+      color: #666;
+      border-left: 1px solid #ccc;
+      text-align: center;
+      box-sizing: border-box; }
+    .KadalaView .KadalaHeader .col-percent {
+      padding: 0; }
+      .KadalaView .KadalaHeader .col-percent .navbar-form {
+        padding: 0; }
+      .KadalaView .KadalaHeader .col-percent .input-group-addon {
+        padding: 6px; }
+    .KadalaView .KadalaHeader .col-db {
+      border-right: 1px solid #ccc; }
+  .KadalaView .KadalaList {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    overflow-y: auto; }
+    .KadalaView .KadalaList, .KadalaView .KadalaList ul {
+      padding: 0;
+      margin: 0;
+      list-style: none; }
+    .KadalaView .KadalaList li {
+      width: 970px; }
+    .KadalaView .KadalaList .react-slidedown {
+      transition-duration: .3s;
+      transition-timing-function: ease-in-out; }
+    .KadalaView .KadalaList .row-header {
+      cursor: pointer;
+      height: 28px;
+      line-height: 28px;
+      font-weight: bold;
+      font-size: 18px;
+      text-align: center;
+      background: linear-gradient(to bottom, #b8e1fc 0%, #a9d2f3 10%, #90bae4 25%, #90bcea 37%, #90bff0 50%, #6ba8e5 51%, #a2daf5 83%, #bdf3fd 100%); }
+      .KadalaView .KadalaList .row-header.collapsed {
+        background: linear-gradient(to bottom, #6db3f2 0%, #54a3ee 50%, #3690f0 51%, #1e69de 100%); }
+      .KadalaView .KadalaList .row-header.weapon {
+        background: linear-gradient(to bottom, #e6f0a3 0%, #d2e638 50%, #c3d825 51%, #dbf043 100%); }
+        .KadalaView .KadalaList .row-header.weapon.collapsed {
+          background: linear-gradient(to bottom, #9dd53a 0%, #a1d54f 50%, #80c217 51%, #7cbc0a 100%); }
+    .KadalaView .KadalaList .row-item {
+      position: relative;
+      width: 970px;
+      height: 26px;
+      line-height: 26px;
+      font-size: 16px; }
+      .KadalaView .KadalaList .row-item .item-name {
+        display: inline-block;
+        text-indent: 30px;
+        padding-right: 16px; }
+        .KadalaView .KadalaList .row-item .item-name .item-icon {
+          display: inline-block;
+          position: absolute;
+          width: 24px;
+          height: 24px;
+          left: 4px; }
+      .KadalaView .KadalaList .row-item .item-col {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        text-align: right;
+        padding: 0 6px; }
