@@ -351,7 +351,7 @@ DiabloCalc.itemaffixes = {
       return Object.keys(DiabloCalc.passives.wizard.elementalexposure.getElems(stats, "tal6")).length;
     }, name: "Stacks"}],
     buffs: function(value, stats) {
-      return {dmgmul: 750 * this.params[0].val};
+      return {dmgmul: 3000 * this.params[0].val};
     },
   },
   set_firebird_2pc: {
@@ -386,11 +386,11 @@ DiabloCalc.itemaffixes = {
     },
   },
   set_roland_4pc: {
-    buffs: {dmgmul: {skills: ["sweepattack", "shieldbash"], percent: 3300}},
+    buffs: {dmgmul: {skills: ["sweepattack", "shieldbash"], percent: 13000}},
   },
   set_roland_6pc: {
     params: [{min: 0, max: 5, val: 0, name: "Stacks"}],
-    buffs: function(value, stats) {return {ias: 50 * this.params[0].val, dmgred: 15 * this.params[0].val};},
+    buffs: function(value, stats) {return {ias: 75 * this.params[0].val, dmgred: 15 * this.params[0].val};},
   },
 
   leg_skysplitter: {
@@ -475,7 +475,7 @@ DiabloCalc.itemaffixes = {
   },
   set_immortalking_6pc: {
     active: true,
-    buffs: {dmgmul: {percent: 1500}},
+    buffs: {dmgmul: {percent: 4000}},
   },
   leg_spiritguards: {
     active: false,
@@ -506,7 +506,7 @@ DiabloCalc.itemaffixes = {
   },
   set_natalya_6pc: {
     active: true,
-    buffs: {dmgmul: 3500, dmgred: 60},
+    buffs: {dmgmul: 14000, dmgred: 60},
   },
   set_zunimassa_4pc: {
     info: function(value, stats) {
@@ -547,7 +547,7 @@ DiabloCalc.itemaffixes = {
   },
   set_zunimassa_6pc: {
     active: true,
-    buffs: {dmgmul: {pet: true, percent: 5500}},
+    buffs: {dmgmul: {pet: true, percent: 15000}},
   },
   set_marauder_4pc: {
     buffs: {dmgmul: {skills: ["sentry"], percent: 400}},
@@ -558,8 +558,8 @@ DiabloCalc.itemaffixes = {
         var count = DiabloCalc.skills.demonhunter.sentry.params[0].val;
         return {dmgmul: {list: [
           {pet: false, skills: ["hungeringarrow", "entanglingshot", "bolas", "evasivefire", "grenade",
-            "chakram", "clusterarrow", "elementalarrow", "impale", "multishot", "vengeance"], percent: 3000 * count},
-          {skills: ["companion"], percent: 3000 * count},
+            "chakram", "clusterarrow", "elementalarrow", "impale", "multishot", "vengeance"], percent: 12000 * count},
+          {skills: ["companion"], percent: 12000 * count},
         ]}};
       }
     },
@@ -618,7 +618,7 @@ DiabloCalc.itemaffixes = {
       if (stats.leg_spinesofseethinghatred) {
         skills.push("chakram");
       }
-      return {dmgmul: {skills: skills, percent: this.params[0].val * 100}};
+      return {dmgmul: {skills: skills, percent: this.params[0].val * 350}};
     },
   },
 
@@ -630,7 +630,7 @@ DiabloCalc.itemaffixes = {
     buffs: {dmgred: 50, dmgmul: {skills: ["rend"], percent: 200}},
   },
   set_wastes_6pc: {
-    buffs: {dmgmul: {skills: ["whirlwind"], percent: 3000}},
+    buffs: {dmgmul: {skills: ["whirlwind"], percent: 10000}},
   },
 
 /*  leg_nilfursboast: {
@@ -649,11 +649,11 @@ DiabloCalc.itemaffixes = {
     },
   },*/
   set_storms_2pc: {
-    buffs: {dmgmul: {skills: ["fistsofthunder", "deadlyreach", "cripplingwave", "wayofthehundredfists"], percent: 100}},
+    buffs: {dmgmul: {skills: ["fistsofthunder", "deadlyreach", "cripplingwave", "wayofthehundredfists"], percent: 500}},
   },
   set_storms_6pc: {
     active: true,
-    buffs: {dmgmul: {skills: ["fistsofthunder", "deadlyreach", "cripplingwave", "wayofthehundredfists"], percent: 1300}},
+    buffs: {dmgmul: {skills: ["fistsofthunder", "deadlyreach", "cripplingwave", "wayofthehundredfists"], percent: 6000}},
   },
   leg_triumvirate: {
     active: true,
@@ -824,7 +824,7 @@ DiabloCalc.itemaffixes = {
       }
       if (stats.set_vyr_6pc) {
         res.dmgred = stacks * 0.15;
-        res.dmgmul = stacks * 50;
+        res.dmgmul = stacks * 100;
       }
       return res;
     },
@@ -843,7 +843,7 @@ DiabloCalc.itemaffixes = {
   },
   set_light_6pc: {
     buffs: {dmgmul: {list: [
-      {skills: ["blessedhammer"], percent: 2000},
+      {skills: ["blessedhammer"], percent: 12000},
       {skills: ["fallingsword"], percent: 1000},
     ]}},
   },
@@ -853,7 +853,7 @@ DiabloCalc.itemaffixes = {
   },
   set_helltooth_2pc: {
     active: true,
-    info: {"Necrosis DPS": {elem: "max", coeff: 15, total: true}},
+    info: {"Necrosis DPS": {elem: "max", coeff: 30, total: true}},
   },
   set_helltooth_4pc: {
     active: true,
@@ -863,8 +863,8 @@ DiabloCalc.itemaffixes = {
     buffs: function(value, stats) {
       return {dmgmul: {list: [
         {pet: false, skills: ["poisondart", "plagueoftoads", "firebomb", "acidcloud",
-           "firebats", "zombiecharger", "graspofthedead", "piranhas", "wallofdeath"], percent: 4400},
-        {skills: ["summonzombiedogs", "gargantuan", "corpsespiders"], percent: 4400},
+           "firebats", "zombiecharger", "graspofthedead", "piranhas", "wallofdeath"], percent: 9000},
+        {skills: ["summonzombiedogs", "gargantuan", "corpsespiders"], percent: 9000},
       ]}};
     },
   },
@@ -872,7 +872,7 @@ DiabloCalc.itemaffixes = {
     info: {"DPS": {elem: "max", pet: true, coeff: 8, total: true}},
   },
   set_arachyr_6pc: {
-    buffs: {dmgmul: {skills: ["corpsespiders", "plagueoftoads", "firebats", "hex", "locustswarm", "piranhas"], percent: 4500}},
+    buffs: {dmgmul: {skills: ["corpsespiders", "plagueoftoads", "firebats", "hex", "locustswarm", "piranhas"], percent: 9000}},
   },
   leg_chilanikschain: {
     check: true,
@@ -908,7 +908,7 @@ DiabloCalc.itemaffixes = {
     }
   },
   set_uliana_6pc: {
-    buffs: {dmgmul: {skills: ["explodingpalm"], percent: 2100}},
+    buffs: {dmgmul: {skills: ["explodingpalm"], percent: 9000}},
   },
 
   leg_nagelring: {
@@ -918,7 +918,7 @@ DiabloCalc.itemaffixes = {
   },
 
   set_earth_6pc: {
-    buffs: {dmgmul: {skills: ["earthquake", "avalanche", "leap", "groundstomp", "ancientspear", "seismicslam"], percent: 5600}},
+    buffs: {dmgmul: {skills: ["earthquake", "avalanche", "leap", "groundstomp", "ancientspear", "seismicslam"], percent: 20000}},
   },
   set_raekor_4pc: {
     buffs: {dmgmul: {skills: ["furiouscharge"], percent: 1000}},
@@ -927,7 +927,7 @@ DiabloCalc.itemaffixes = {
     params: [{min: 0, max: 5, val: 0, name: "Stacks"}],
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["hammeroftheancients", "rend", "seismicslam", "whirlwind",
-        "ancientspear", "earthquake"], percent: this.params[0].val * 2800}};
+        "ancientspear", "earthquake"], percent: this.params[0].val * 7000}};
     },
   },
   set_danetta_2pc: {
@@ -947,7 +947,7 @@ DiabloCalc.itemaffixes = {
     },
     buffs: function(value, stats) {
       if (DiabloCalc.charClass !== "monk") return;
-      var res = {dmgmul: {pet: false, percent: 150 * 5 * (stats.leg_thecrudestboots ? 2 : 1)}};
+      var res = {dmgmul: {pet: false, percent: 1500 * 5 * (stats.leg_thecrudestboots ? 2 : 1)}};
       if (!stats.skills.mystically) {
         $.extend(res, DiabloCalc.skills.monk.mystically.passive("x", stats));
       }
@@ -972,7 +972,7 @@ DiabloCalc.itemaffixes = {
           if (num <= count) return;
         }
       }
-      return {dmgmul: 100 * stats.info.ancients, dmgred: 4 * stats.info.ancients};
+      return {dmgmul: 500 * stats.info.ancients, dmgred: 4 * stats.info.ancients};
     },
   },
 
@@ -986,7 +986,7 @@ DiabloCalc.itemaffixes = {
     buffs: function(value, stats) {
       var mh = stats.info.mainhand.type;
       if (mh && mh !== "bow" && mh !== "crossbow" && mh !== "handcrossbow") {
-        return {dmgmul: 1200};
+        return {dmgmul: 6000};
       }
     },
   },
@@ -994,7 +994,7 @@ DiabloCalc.itemaffixes = {
   set_invoker_2pc: {
     params: [{min: 0, max: 25, val: 0, name: "Stacks"}],
     buffs: function(value, stats) {
-      return {thorns_percent: this.params[0].val * 140};
+      return {thorns_percent: this.params[0].val * 350};
     },
   },
   set_invoker_4pc: {
@@ -1517,7 +1517,7 @@ DiabloCalc.itemaffixes = {
       if (stats.skills.armyofthedead === "e") skills.push("armyofthedead");
       if (stats.skills.bonearmor === "d") skills.push("bonearmor");
       if (stats.skills.bonespirit === "a") skills.push("bonespirit");
-      return {dmgmul: {skills: skills, percent: 3300}};
+      return {dmgmul: {skills: skills, percent: 3800}};
     },
   },
   set_inarius_2pc: {
