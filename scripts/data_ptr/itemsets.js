@@ -574,7 +574,7 @@ DiabloCalc.itemSets = {
         {format: "You take 60%% reduced damage while you have a Slow Time active. Allies inside your Slow Time gain half benefit."},
       ],
       "6": [
-        {format: "Enemies affected by your Slow Time and for 5 seconds after exiting take 3800%% increased damage from your Arcane Orb, Energy Twister, Explosive Blast, Magic Missile, Shock Pulse, Spectral Blade, and Wave of Force abilities."},
+        {format: "Enemies affected by your Slow Time and for 5 seconds after exiting take 8500%% increased damage from your Arcane Orb, Energy Twister, Explosive Blast, Magic Missile, Shock Pulse, Spectral Blade, and Wave of Force abilities."},
       ],
     },
   },
