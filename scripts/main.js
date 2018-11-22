@@ -292,7 +292,18 @@ $(function() {
       $(".char-class").next().find("span").first().addClass("class-icon");
       $(".char-level").blur(DiabloCalc.validateNumber);
 
+      var seasonalBox = $("<input type=\"checkbox\" checked=\"checked\"></input>").change(function() {
+        DiabloCalc.trigger("updateSkills");
+      });
+      var seasonalLabel = $("<label class=\"option-box\"></label>").append(seasonalBox).append(_L("Seasonal"));
+      $("#char-info").append($("<div class=\"seasonal-box\"></div>").append(seasonalLabel));
+      DiabloCalc.addOption("seasonal", function() {return seasonalBox.prop("checked");}, function(x) {
+        seasonalBox.prop("checked", x);
+        DiabloCalc.trigger("updateSkills");
+      });
+
       function onLoaded() {
+        DiabloCalc.addTip(seasonalBox, _L("Seasonal characters need one less item to satisfy set requirements."));
         DiabloCalc.spinStop();
         DiabloCalc.importEnd("init");
         var m = location.pathname.match(/\/e?([0-9]+)$/);

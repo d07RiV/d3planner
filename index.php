@@ -62,9 +62,11 @@ function mklink($path, $src = NULL) {
      <div id="ptr-link">
      </div>
 
+     <div>
      <div id="char-info">
       <select class="char-class"></select>
       <label>Level <input type="number" min="70" max="70" value="70" class="char-level"/></label>
+     </div>
      </div>
 
      <div class="paperdoll-container">

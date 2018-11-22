@@ -700,6 +700,9 @@
         stats[affix] = kanai[type].getItemAffixValue();
       }
     }
+    if (DiabloCalc.options.seasonal) {
+      stats.leg_ringofroyalgrandeur = 1;
+    }
   };
   DiabloCalc.addSkillBonuses = function(stats) {
     DiabloCalc.addSkillList(stats);
