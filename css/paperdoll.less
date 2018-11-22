@@ -1,8 +1,12 @@
 .dollframe {
   overflow: visible !important;
 }
+.dollframe #char-info, .dollframe #ptr-link, .dollframe .signin-line {
+  z-index: 1;
+  position: relative;
+}
 .paperdoll-container {
-  margin-top: 10px;
+  margin-top: 50px;
   display: inline-block;
   position: relative;
 }
@@ -113,6 +117,19 @@
   }
 
   div, img, span {position: absolute;}
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: -2px;
+    top: -70px;
+    width: 340px;
+    height: 584px;
+    background-image: url(paperdoll/mobile.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    pointer-events: none;
+  }
 
   // d2 stuff
   .slot-torso .sockets-align, .slot-mainhand .sockets-align, .slot-offhand .sockets-align {

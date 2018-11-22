@@ -336,7 +336,7 @@
       case "c": return {pierce: pierce, type: "line", speed: 2, coeff: 7.5, onhit: impale_burn_onhit, fan: 20, count: count};
       case "a": return {pierce: true, type: "line", speed: 2, coeff: 7.5, fan: 20, count: count};
       case "d": return {delay: Sim.target.distance / 2, targets: 3 * (1 + (pierce || 0)), coeff: 7.5, fan: 20, count: count};
-      case "e": return {pierce: pierce, type: "line", speed: 2, coeff: 7.5, chd: 3.3, fan: 20, count: count};
+      case "e": return {pierce: pierce, type: "line", speed: 2, coeff: 7.5, chd: 330 / 7.5, fan: 20, count: count};
       }
     },
     proctable: {x: 1, b: 1, c: 0.5, a: 0.4, d: 0.4, e: 1},
