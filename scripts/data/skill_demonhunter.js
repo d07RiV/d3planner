@@ -205,7 +205,7 @@ DiabloCalc.skills.demonhunter = {
         if (res["Burn Damage"]) res["Sentry Burn Damage"] = $.extend({}, res["Burn Damage"], ext);
       }
       if (stats.set_shadow_6pc) {
-        res["First Target Bonus"] = {elem: res["Damage"].elem, coeff: 500};
+        res["First Target Bonus"] = {elem: res["Damage"].elem, coeff: 750};
       }
       var total = {};
       if (res["Sentry Damage"]) total["Sentry Damage"] = {count: sentries};

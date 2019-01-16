@@ -489,7 +489,7 @@ DiabloCalc.skills.monk = {
         res["Cost"] = {cost: 75};
       }
       if (stats.set_storms_6pc && DiabloCalc.itemaffixes.set_storms_6pc.active) {
-        res["Damage"].coeff = 130;
+        res["Damage"].coeff = 600;
       }
       return $.extend({"Cooldown": {cooldown: 8}}, res);
     },
@@ -573,7 +573,7 @@ DiabloCalc.skills.monk = {
     passive: function(rune, stats) {
       var buffs = {};
       if (rune === "d" && this.params[0].val >= 3) buffs.spiritregen = 8;
-      if (stats.set_sunwuko_6pc && this.params[0].val) buffs.dmgmul = {skills: ["lashingtailkick", "tempestrush", "waveoflight"], percent: 1000 * this.params[0].val};
+      if (stats.set_sunwuko_6pc && this.params[0].val) buffs.dmgmul = {skills: ["lashingtailkick", "tempestrush", "waveoflight"], percent: 1500 * this.params[0].val};
       return buffs;
     },
   },

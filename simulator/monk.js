@@ -648,7 +648,7 @@
     oncast: function(rune) {
       var dmg = {type: "area", self: true, range: 10, coeff: 3.7};
       if (Sim.getBuff("storms_6pc_ds")) {
-        dmg.coeff = 130;
+        dmg.coeff = 600;
       }
       switch (rune) {
       case "b":

@@ -327,7 +327,7 @@
     oncast: function(rune) {
       var pierce = (rune !== "a" && _buriza());
       if (Sim.stats.set_shadow_6pc) {
-        Sim.damage({type: "line", speed: 2, coeff: 500, proc: 0});
+        Sim.damage({type: "line", speed: 2, coeff: 750, proc: 0});
       }
       var count = (Sim.stats.leg_holypointshot ? 3 : 1);
       switch (rune) {

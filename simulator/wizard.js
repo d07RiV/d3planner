@@ -1029,7 +1029,7 @@
         }
         if (Sim.stats.set_vyr_6pc) {
           stats.dmgred = 0.15;
-          stats.dmgmul = 50;
+          stats.dmgmul = 100;
         }
         buffname = Sim.setBuffStacks(buffname, stats, Sim.getBuff("archon_stacks") + Sim.getBuff("theswami"));
       }

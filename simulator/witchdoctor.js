@@ -251,7 +251,7 @@
     }
   }
   function jade2_onrefresh(data) {
-    Sim.damage({coeff: data.coeff * 560 * 5});
+    Sim.damage({coeff: data.coeff * 3500 * 5});
   }
   function haunt_onhit(data) {
     var params = {
@@ -558,7 +558,7 @@
   function jade6_apply(id, targets) {
     var total = 0;
     var tickrate = 12;
-    var res = Sim.reduceBuffDuration(id, 1650 * 60, targets);
+    var res = Sim.reduceBuffDuration(id, 10000 * 60, targets);
     for (var i = 0; i < res.length; ++i) {
       var stack = res[i].buff;
       Sim.pushCastInfo(stack.castInfo);
