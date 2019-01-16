@@ -184,7 +184,7 @@ DiabloCalc.skills.wizard = {
     active: false,
     params: [{rune: "b", min: 0, max: 15, val: 0, name: "Enemies Hit"}],
     buffs: function(rune, stats) {
-      if (rune === "b" && this.params[0].val) {
+      if (rune === "b") {
         return {dmgmul: {elems: ["lit"], percent: this.params[0].val * 2}};
       }
     },
