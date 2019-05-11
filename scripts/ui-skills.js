@@ -701,7 +701,11 @@
       }
     }
     if (DiabloCalc.options.seasonal) {
-      stats.leg_ringofroyalgrandeur = 1;
+      if (location.hostname.toLowerCase().indexOf("ptr") >= 0) {
+        stats.leg_ringofroyalgrandeur = 1;
+      } else {
+        stats.set_nightmares_2pc = true;
+      }
     }
   };
   DiabloCalc.addSkillBonuses = function(stats) {

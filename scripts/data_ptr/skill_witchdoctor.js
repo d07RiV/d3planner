@@ -38,14 +38,19 @@ DiabloCalc.skills.witchdoctor = {
       var dps = {sum: true, "Damage": {speed: 1, fpa: 58, round: "up", count: (rune == "b" ? 3 : 1)}};
       if (res["Dot Damage"]) dps["Dot Damage"] = 1;
 
-      if (stats.leg_carnevil && (stats.skills.fetisharmy || stats.passives.fetishsycophants || stats.leg_beltoftranscendence)) {
+      if ((stats.leg_carnevil || stats.leg_carnevil_p65) && (stats.skills.fetisharmy || stats.passives.fetishsycophants || stats.leg_beltoftranscendence)) {
         var damage = {elem: "psn", pet: true, aps: true, coeff: 1.3, percent: {}};
         damage.percent[DiabloCalc.itemById.Unique_VoodooMask_101_x1.name] = 250;
 
         if (stats.skills.fetisharmy || stats.passives.fetishsycophants || stats.leg_beltoftranscendence) {
           var count = 0;
-          if (stats.skills.fetisharmy) count = 5;
-          else count = Math.min(5, DiabloCalc.passives.witchdoctor.fetishsycophants.params[0].val);
+          if (stats.skills.fetisharmy) {
+            count += (({x: 5, a: 5, d: 5, b: 8, c: 7, e: 7})[stats.skills.fetisharmy] || 0);
+          }
+          if (stats.passives.fetishsycophants || stats.leg_beltoftranscendence) {
+            count += DiabloCalc.passives.witchdoctor.fetishsycophants.params[0].val;
+          }
+          count = Math.min(count, stats.leg_carnevil_p65 ? 10 : 10);
           res["Fetish Damage"] = $.extend(true, {percent: {"Army %": stats.skill_witchdoctor_fetisharmy}}, damage);
           dps["Fetish Damage"] = {speed: 1, fpa: 58, round: "up", nobp: true, count: count};
         }
@@ -792,11 +797,11 @@ DiabloCalc.skills.witchdoctor = {
       data["Total DPS"] = {sum: true, "Dagger Damage": {pet: 48, count: count}};
       if (rune === "c") data["Total DPS"]["Torcher Damage"] = {pet: 42, count: 2};
       if (rune === "e") data["Total DPS"]["Dart Damage"] = {pet: 42, count: 2};
-      if (stats.leg_carnevil && stats.skills.poisondart) {
+      /*if ((stats.leg_carnevil || stats.leg_carnevil_65) && stats.skills.poisondart) {
         count -= (rune === "c" || rune === "e" ? 3 : 5);
         data["Non-Carnevil DPS"] = {sum: true, tip: "DPS from fetishes not shooting Carnevil darts."};
         if (count) data["Non-Carnevil DPS"]["Dagger Damage"] = {pet: 48, count: count};
-      }
+      }*/
       return data;
     },
   },

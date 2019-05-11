@@ -415,6 +415,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_VoodooMask_101_x1",
     name: "Carnevil",
+    suffix: _L("Legacy"),
     type: "voodoomask",
     quality: "legendary",
     required: {
@@ -851,6 +852,17 @@ DiabloCalc.addItems([
       custom: {id: "leg_maskofjeram_p6", name: "Pet Damage", format: "Pets deal %d%% increased damage.", min: 150, max: 200},
     },
     preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P65_Unique_VoodooMask_101_x1",
+    name: "Carnevil",
+    type: "voodoomask",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_carnevil_p65", name: "Fetishes Shoot Darts", format: "The 10 Fetishes closest to you will shoot a powerful Poison Dart every time you do.", args: 0},
+    },
+    preset: ["mainstat", "chc"],
   },
 
 ]);

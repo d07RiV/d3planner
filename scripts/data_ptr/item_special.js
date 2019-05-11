@@ -1418,6 +1418,16 @@ DiabloCalc.itemaffixes = {
       return res;
     },
   },
+  leg_ironrose_p65: {
+    info: function(value, stats) {
+      var res = {"Damage": {elem: "phy", coeff: 4.50, skill: "deathnova"}};
+      if (stats.skills.simulacrum && DiabloCalc.skills.necromancer.simulacrum.active) {
+        res["Damage"].factors = {};
+        res["Damage"].factors[DiabloCalc.skills.necromancer.simulacrum.name] = (stats.skills.simulacrum === "d" ? 3 : 2);
+      }
+      return res;
+    },
+  },
   leg_krysbinssentence: {
     active: false,
     boxnames: ["Triple bonus"],
@@ -1500,7 +1510,7 @@ DiabloCalc.itemaffixes = {
   set_rathma_6pc: {
     buffs: function(value, stats) {
       if (stats.skills.skeletalmage) {
-        var amount = Math.min(4000, 1000 * DiabloCalc.skills.necromancer.skeletalmage.params[0].val);
+        var amount = Math.min(40000, 10000 * DiabloCalc.skills.necromancer.skeletalmage.params[0].val);
         return {dmgmul: {list: [{pet: true, percent: amount}, {skills: ["armyofthedead"], percent: amount}]}};
       }
     },
@@ -1727,6 +1737,17 @@ DiabloCalc.itemaffixes = {
   leg_thegrandvizier_p6: {
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["meteor"], percent: value[0]}};
+    },
+  },
+
+  leg_sinseekers_p65: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["rapidfire"], percent: value[0]}};
+    },
+  },
+  leg_thedaggerofdarts_p65: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["poisondart"], percent: value[0]}};
     },
   },
 

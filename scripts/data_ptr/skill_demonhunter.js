@@ -240,8 +240,8 @@ DiabloCalc.skills.demonhunter = {
       b: "High Velocity",
       a: "Bombardment",
     },
-    params: [{min: 0, max: 4, name: "Channeled for", buffs: false, show: function(rune, stats) {
-               return stats.leg_wojahnniassaulter || stats.leg_wojahnniassaulter_p2;
+    params: [{min: 0, max: "leg_wojahnniassaulter_p65?30:4", name: "Channeled for", buffs: false, show: function(rune, stats) {
+               return stats.leg_wojahnniassaulter || stats.leg_wojahnniassaulter_p2 || stats.leg_wojahnniassaulter_p65;
              }},
              hellcat_param("a")],
     info: function(rune, stats) {
@@ -254,16 +254,16 @@ DiabloCalc.skills.demonhunter = {
       case "b": res = {"Tick Damage": {elem: "lit", coeff: 6.85}}; break;
       case "a": res = {"Tick Damage": {elem: "fir", coeff: 5.45, passives: {grenadier: 10}, percent: hellcat_percent(stats, this.params[1].val)}}; break;
       }
-      if ((stats.leg_wojahnniassaulter || stats.leg_wojahnniassaulter_p2) && this.params[0].val) {
+      if ((stats.leg_wojahnniassaulter || stats.leg_wojahnniassaulter_p2 || stats.leg_wojahnniassaulter_p65) && this.params[0].val) {
         var pct = {};
-        pct[DiabloCalc.itemById.Unique_Xbow_102_x1.name] = this.params[0].val * (stats.leg_wojahnniassaulter || stats.leg_wojahnniassaulter_p2);
+        pct[DiabloCalc.itemById.Unique_Xbow_102_x1.name] = this.params[0].val * (stats.leg_wojahnniassaulter || stats.leg_wojahnniassaulter_p2 || stats.leg_wojahnniassaulter_p65);
         res["Tick Damage"].percent = $.extend(res["Tick Damage"].percent || {}, pct);
         if (res["Rocket Damage"]) {
           res["Rocket Damage"].percent = pct;
         }
       }
       var cost = {"Cost": {cost: (rune === "d" ? 10 : 20)}};
-      if (!stats.leg_sinseekers) cost["Channeling Cost"] = {cost: 6, slowest: true, fpa: (rune === "a" ? 20 : 10)};
+      if (!stats.leg_sinseekers && !stats.leg_sinseekers_p65) cost["Channeling Cost"] = {cost: 6, slowest: true, fpa: (rune === "a" ? 20 : 10)};
       res = $.extend(cost, res);
       res["Tick Damage"].divide = {"Base Speed": (rune === "a" ? 3 : 6)};
       res["DPS"] = {sum: true, tip: ["Snapshots the speed of your current weapon", "Calculations are based on your slowest weapon"],

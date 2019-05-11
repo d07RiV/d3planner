@@ -599,6 +599,7 @@ DiabloCalc.addItems([
   {
     id: "P41_Unique_Xbow_102",
     name: "Wojahnni Assaulter",
+    suffix: _L("Legacy"),
     type: "crossbow",
     quality: "legendary",
     required: {
@@ -672,6 +673,17 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       custom: {id: "leg_unstablescepter_p6", name: "Arcane Orb Damage Bonus", format: "The damage of Arcane Orb is increased by %d%% and its explosion triggers an additional time.", min: 350, max: 450},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P65_Unique_Xbow_102",
+    name: "Wojahnni Assaulter",
+    type: "crossbow",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_wojahnniassaulter_p65", name: "Rapid Fire Ramp-Up", format: "Rapid Fire deals %d%% increased damage for every half second that you channel. Stacks up to 30 times.", min: 75, max: 100},
     },
     preset: ["mainstat"],
   },

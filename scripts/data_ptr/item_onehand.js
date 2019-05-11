@@ -557,6 +557,7 @@ DiabloCalc.addItems([
   {
     id: "P1_CeremonialDagger_norm_unique_02",
     name: "The Dagger of Darts",
+    suffix: _L("Legacy"),
     type: "ceremonialknife",
     quality: "legendary",
     required: {
@@ -1566,6 +1567,17 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       custom: {id: "leg_deathwish_p6", name: "Damage Increase While Channeling", format: "While channeling Arcane Torrent, Disintegrate, or Ray of Frost, all damage is increased by %d%%.", min: 250, max: 325},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P65_CeremonialDagger_norm_unique_02",
+    name: "The Dagger of Darts",
+    type: "ceremonialknife",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_thedaggerofdarts_p65", name: "Poison Darts Damage", format: "Your Poison Darts and your Fetishes' Poison Darts now pierce and deal an additional 400-500% damage.", min: 400, max: 500},
     },
     preset: ["mainstat"],
   },
