@@ -683,7 +683,7 @@ DiabloCalc.addItems([
     type: "crossbow",
     quality: "legendary",
     required: {
-      custom: {id: "leg_wojahnniassaulter_p65", name: "Rapid Fire Ramp-Up", format: "Rapid Fire deals %d%% increased damage for every half second that you channel. Stacks up to 30 times.", min: 75, max: 100},
+      custom: {id: "leg_wojahnniassaulter_p65", name: "Rapid Fire Ramp-Up", format: "Rapid Fire increasingly deals %d%% increased damage while channeling. Stacks up to 30 times.", min: 75, max: 100},
     },
     preset: ["mainstat"],
   },

@@ -35,7 +35,7 @@
     offensive: true,
     frames: 58,
     oncast: function(rune) {
-      var pierce = !!Sim.stats.leg_thedaggerofdarts;
+      var pierce = !!(Sim.stats.leg_thedaggerofdarts || Sim.stats.leg_thedaggerofdarts_p65);
       switch (rune) {
       case "x": return {pierce: pierce, type: "line", speed: 1.5, coeff: 1.85, onhit: pd_onhit};
       case "b": return {pierce: pierce, type: "line", speed: 1.5, coeff: 1.1, count: 3};
