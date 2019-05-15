@@ -451,7 +451,13 @@
   };
   Stats.prototype.finishLoad = function() {
     for (var id in this.extraFx) {
-      this.add(id, this.extraFx[id]);
+      var [itemType, name, req] = id.split("_");
+      if(itemType == "set"){
+        this.info.sets[name] = parseInt(req.substring(0,1));
+      }   
+      else{
+        this.add(id, this.extraFx[id]);
+      }
     }
     delete this.extraFx;
     for (var set in this.info.sets) {
