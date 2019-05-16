@@ -1094,6 +1094,7 @@ DiabloCalc.partybuffs.demonhunter = {
         buffs.resist_percent = 20;
       }
       if (this.runevals.c) buffs.dmgmul = 15;
+      return buffs;
     },
   },
   sentry: {
