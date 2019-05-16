@@ -1418,6 +1418,16 @@ DiabloCalc.itemaffixes = {
       return res;
     },
   },
+  leg_ironrose_p65: {
+    info: function(value, stats) {
+      var res = {"Damage": {elem: "phy", coeff: 4.50, skill: "deathnova"}};
+      if (stats.skills.simulacrum && DiabloCalc.skills.necromancer.simulacrum.active) {
+        res["Damage"].factors = {};
+        res["Damage"].factors[DiabloCalc.skills.necromancer.simulacrum.name] = (stats.skills.simulacrum === "d" ? 3 : 2);
+      }
+      return res;
+    },
+  },
   leg_krysbinssentence: {
     active: false,
     boxnames: ["Triple bonus"],
@@ -1727,6 +1737,17 @@ DiabloCalc.itemaffixes = {
   leg_thegrandvizier_p6: {
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["meteor"], percent: value[0]}};
+    },
+  },
+
+  leg_sinseekers_p65: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["rapidfire"], percent: value[0]}};
+    },
+  },
+  leg_thedaggerofdarts_p65: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["poisondart"], percent: value[0]}};
     },
   },
 

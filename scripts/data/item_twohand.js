@@ -860,6 +860,7 @@ DiabloCalc.addItems([
   {
     id: "P4_flail2H_norm_unique_01",
     name: "Akkhan's Leniency",
+    suffix: _L("Legacy"),
     type: "flail2h",
     quality: "legendary",
     required: {
@@ -1083,6 +1084,7 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Scythe2H_02",
     name: "Bloodtide Blade",
+    suffix: _L("Legacy"),
     type: "scythe2h",
     quality: "legendary",
     required: {
@@ -1144,6 +1146,28 @@ DiabloCalc.addItems([
       custom: {id: "leg_thegrandvizier_p6", name: "Meteor Damage Bonus", format: "Reduces the Arcane Power cost of Meteor by 50%% and increases its damage by %d%%.", min: 300, max: 400},
     },
     preset: ["wpnfir", "mainstat"],
+  },
+
+  {
+    id: "P65_flail2H_norm_unique_01",
+    name: "Akkhan's Leniency",
+    type: "flail2h",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_akkhansleniency", name: "Blessed Shield Damage Bonus", format: "Each enemy hit by your Blessed Shield increases the damage of your Blessed Shield by %d%% for 3 seconds.", min: 35, max: 40},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P65_Unique_Scythe2H_02",
+    name: "Bloodtide Blade",
+    type: "scythe2h",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_bloodtideblade_p6", name: "Death Nova Damage per Enemy", format: "Death Nova deals %d%% increased damage for every enemy within 25 yards.", min: 300, max: 400},
+    },
+    preset: ["mainstat", "vit"],
   },
 
 ]);

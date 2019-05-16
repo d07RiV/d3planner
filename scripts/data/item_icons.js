@@ -4635,10 +4635,6 @@ DiabloCalc.itemIcons = {
     1,
     1032622629,
   ],
-  P61_Unique_Bracer_109: [
-    1,
-    1032622629,
-  ],
   P2_Unique_Bracer_110: [
     2,
     1993693525,
@@ -4972,10 +4968,6 @@ DiabloCalc.itemIcons = {
     2179058646,
   ],
   P3_Unique_Bracer_103: [
-    4,
-    3059360894,
-  ],
-  P61_Unique_Bracer_103: [
     4,
     3059360894,
   ],
@@ -6227,6 +6219,10 @@ DiabloCalc.itemIcons = {
     5,
     3098496287,
   ],
+  P61_Unique_Bracer_103: [
+    4,
+    3059360894,
+  ],
   P61_Unique_Bracer_104: [
     14,
     3781314340,
@@ -6242,6 +6238,10 @@ DiabloCalc.itemIcons = {
   P61_Unique_Bracer_108_x1: [
     19,
     3105160611,
+  ],
+  P61_Unique_Bracer_109: [
+    1,
+    1032622629,
   ],
   P61_Unique_CombatStaff_2H_001: [
     1,
@@ -6394,6 +6394,38 @@ DiabloCalc.itemIcons = {
   P61_Wand_norm_unique_02: [
     1,
     271464579,
+  ],
+  P65_CeremonialDagger_norm_unique_02: [
+    1,
+    2594989827,
+  ],
+  P65_Unique_CruShield_102_x1: [
+    3,
+    1515664005,
+  ],
+  P65_Unique_Phylactery_04: [
+    2,
+    2804401626,
+  ],
+  P65_Unique_Quiver_001: [
+    2,
+    2555354734,
+  ],
+  P65_Unique_Scythe2H_02: [
+    1,
+    3048022637,
+  ],
+  P65_Unique_VoodooMask_101_x1: [
+    1,
+    2059837577,
+  ],
+  P65_Unique_Xbow_102: [
+    0,
+    3900668713,
+  ],
+  P65_flail2H_norm_unique_01: [
+    4,
+    1190664794,
   ],
   P6_Necro_Set_1_Boots: [
     5,
@@ -6564,7 +6596,7 @@ DiabloCalc.itemIcons = {
     2686995447,
   ],
   P6_Unique_Phylactery_02: [
-    2,
+    3,
     2726130840,
   ],
   P6_Unique_Phylactery_03: [
@@ -6572,7 +6604,7 @@ DiabloCalc.itemIcons = {
     2765266233,
   ],
   P6_Unique_Phylactery_04: [
-    3,
+    2,
     2804401626,
   ],
   P6_Unique_Ring_01: [
@@ -12083,7 +12115,7 @@ DiabloCalc.itemIcons = {
     3265926263,
   ],
   Unique_Helm_002_p1: [
-    0,
+    9,
     3265926263,
   ],
   Unique_Helm_002_p3: [
@@ -13015,6 +13047,10 @@ DiabloCalc.itemIcons = {
   Unique_Mojo_103_x1: [
     0,
     2353603417,
+  ],
+  Unique_Neck_Promo_01_NX1: [
+    0,
+    664956418,
   ],
   Unique_Offhand_001: [
     0,
@@ -17360,7 +17396,7 @@ DiabloCalc.itemIcons = {
     35667136,
   ],
   Unique_VoodooMask_001_x1: [
-    1,
+    2,
     35667136,
   ],
   Unique_VoodooMask_002: [
@@ -17376,7 +17412,7 @@ DiabloCalc.itemIcons = {
     3733652154,
   ],
   Unique_VoodooMask_002_x1: [
-    2,
+    3,
     3733652154,
   ],
   Unique_VoodooMask_005: [
@@ -17392,7 +17428,7 @@ DiabloCalc.itemIcons = {
     3421834531,
   ],
   Unique_VoodooMask_005_x1: [
-    3,
+    4,
     3421834531,
   ],
   Unique_VoodooMask_006: [
@@ -17408,7 +17444,7 @@ DiabloCalc.itemIcons = {
     3811922940,
   ],
   Unique_VoodooMask_006_x1: [
-    4,
+    5,
     3811922940,
   ],
   Unique_VoodooMask_007: [
@@ -17424,7 +17460,7 @@ DiabloCalc.itemIcons = {
     3851058333,
   ],
   Unique_VoodooMask_007_x1: [
-    5,
+    6,
     3851058333,
   ],
   Unique_VoodooMask_008: [
@@ -17440,11 +17476,11 @@ DiabloCalc.itemIcons = {
     4291499039,
   ],
   Unique_VoodooMask_008_x1: [
-    6,
+    7,
     4291499039,
   ],
   Unique_VoodooMask_101_x1: [
-    7,
+    1,
     2059837577,
   ],
   Unique_VoodooMask_102_x1: [
@@ -18137,6 +18173,34 @@ DiabloCalc.itemIcons = {
     71,
     72535229,
   ],
+  p7_Gloves_promo_01: [
+    0,
+    1091274466,
+  ],
+  p7_Helm_promo_01: [
+    0,
+    4027774136,
+  ],
+  p7_boots_promo_01: [
+    0,
+    4036715097,
+  ],
+  p7_chestArmor_promo_01: [
+    0,
+    2714533162,
+  ],
+  p7_pants_promo_01: [
+    0,
+    2784536248,
+  ],
+  p7_shoulderPads_promo_01: [
+    0,
+    2714187712,
+  ],
+  x1_Amethyst_: [
+    0,
+    0,
+  ],
   x1_Amethyst_01: [
     0,
     2536469674,
@@ -18181,6 +18245,10 @@ DiabloCalc.itemIcons = {
     29,
     3600585091,
   ],
+  x1_Diamond_: [
+    1,
+    0,
+  ],
   x1_Diamond_01: [
     0,
     1276815863,
@@ -18220,6 +18288,10 @@ DiabloCalc.itemIcons = {
   x1_Diamond_10: [
     0,
     1797554470,
+  ],
+  x1_Emerald_: [
+    2,
+    0,
   ],
   x1_Emerald_01: [
     0,
@@ -18297,6 +18369,10 @@ DiabloCalc.itemIcons = {
     0,
     4223895183,
   ],
+  x1_Ruby_: [
+    3,
+    0,
+  ],
   x1_Ruby_01: [
     0,
     1817368189,
@@ -18337,6 +18413,10 @@ DiabloCalc.itemIcons = {
     0,
     1489414124,
   ],
+  x1_Topaz_: [
+    4,
+    0,
+  ],
   x1_Topaz_01: [
     0,
     542729737,
@@ -18376,25 +18456,5 @@ DiabloCalc.itemIcons = {
   x1_Topaz_10: [
     0,
     633576440,
-  ],
-  x1_Amethyst_: [
-    0,
-    0,
-  ],
-  x1_Diamond_: [
-    1,
-    0,
-  ],
-  x1_Emerald_: [
-    2,
-    0,
-  ],
-  x1_Ruby_: [
-    3,
-    0,
-  ],
-  x1_Topaz_: [
-    4,
-    0,
   ],
 };

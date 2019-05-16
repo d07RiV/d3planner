@@ -361,6 +361,10 @@
       var bonus = Math.min(4, Math.floor((Sim.time - data.buff.start) / 30 + 1));
       dmg.coeff *= 1 + bonus * 0.01 * Sim.stats.leg_wojahnniassaulter_p2;
     }
+    if (Sim.stats.leg_wojahnniassaulter_p65) {
+      var bonus = Math.min(30, Math.floor((Sim.time - data.buff.start) / 30 + 1));
+      dmg.coeff *= 1 + bonus * 0.01 * Sim.stats.leg_wojahnniassaulter_p65;
+    }
     if (data.rune === "a") {
       if (Sim.stats.passives.grenadier) {
         dmg.coeff *= 1.1;
@@ -376,7 +380,7 @@
     offensive: true,
     initialcost: {x: 20, d: 10, e: 20, c: 20, b: 20, a: 20},
     cost: function(rune) {
-      if (!Sim.stats.leg_sinseekers) return 6;
+      if (!(Sim.stats.leg_sinseekers || Sim.stats.leg_sinseekers_p65)) return 6;
     },
     channeling: {x: 10, d: 10, e: 10, c: 10, b: 10, a: 20},
     frames: 8,

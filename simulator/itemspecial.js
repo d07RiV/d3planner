@@ -761,14 +761,13 @@
   affixes.leg_carnevil = function(amount) {
     Sim.register("oncast", function(data) {
       if (data.skill === "poisondart") {
-        var pierce = (Sim.stats.leg_thedaggerofdarts ? true : undefined);
+        var pierce = ((Sim.stats.leg_thedaggerofdarts || Sim.stats.leg_thedaggerofdarts_p65) ? true : undefined);
         var sources = ["fetisharmy", "fetishsycophants", "thegidbinn"];
-        var count = 5;
+        var count = 10;
         for (var i = 0; i < sources.length && count; ++i) {
           var curCount = Sim.petdelay(sources[i], count);
           if (curCount) {
             Sim.pushCastInfo({triggered: sources[i], castId: data.castId});
-            var pierce = !!Sim.stats.leg_thedaggerofdarts;
             var factor = 1.3 * Sim.stats.info.aps * 3.5;
             if (sources[i] === "fetishsycophants") {
               factor *= 1 + 0.01 * (Sim.stats.skill_witchdoctor_fetisharmy || 0);
@@ -780,6 +779,12 @@
         }
       }
     });
+  };
+  affixes.leg_thedaggerofdarts_p65 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["poisondart"], percent: amount}});
+  };
+  affixes.leg_sinseekers_p65 = function(amount) {
+    Sim.addBaseStats({dmgmul: {skills: ["rapidfire"], percent: amount}});
   };
   affixes.leg_beltoftranscendence = function(amount) {
     Sim.register("onhit_proc", function(data) {

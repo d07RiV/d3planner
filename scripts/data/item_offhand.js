@@ -747,6 +747,7 @@ DiabloCalc.addItems([
     id: "P43_Unique_Quiver_001",
     ids: ["P4_Unique_Quiver_001"],
     name: "Sin Seekers",
+    suffix: _L("Legacy"),
     type: "quiver",
     quality: "legendary",
     affixes: {
@@ -892,6 +893,7 @@ DiabloCalc.addItems([
   {
     id: "P6_Unique_Phylactery_04",
     name: "Iron Rose",
+    suffix: _L("Legacy"),
     type: "phylactery",
     quality: "legendary",
     required: {
@@ -925,6 +927,7 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_CruShield_102_x1",
     name: "Jekangbord",
+    suffix: _L("Legacy"),
     type: "crusadershield",
     quality: "legendary",
     required: {
@@ -1019,6 +1022,39 @@ DiabloCalc.addItems([
       custom: {id: "leg_etchedsigil_p6", name: "Spender Damage Bonus", format: "While channeling Arcane Torrent, Disintegrate, or Ray of Frost, the damage of your Arcane Power Spenders is increased by %d%% and you also cast one of your other damaging Arcane Power Spenders every second.", min: 125, max: 150},
     },
     preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P65_Unique_Phylactery_04",
+    name: "Iron Rose",
+    type: "phylactery",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_ironrose_p65", name: "Chance to Cast Blood Nova", format: "Attacking with Siphon Blood has a 100%% chance to cast a free Blood Nova.", args: 0},
+    },
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "P65_Unique_CruShield_102_x1",
+    name: "Jekangbord",
+    type: "crusadershield",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_jekangbord_p6", name: "Blessed Shield Damage", format: "Blessed Shield ricochets to 6 additional enemies and has its damage increased by %d%%.", min: 300, max: 400},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P65_Unique_Quiver_001",
+    name: "Sin Seekers",
+    type: "quiver",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_sinseekers_p65", name: "Rapid Fire Damage", format: "Rapid Fire no longer has a channel cost and deals %d%% increased damage.", min: 250, max: 300},
+    },
+    preset: ["mainstat", "chc", "skill_demonhunter_rapidfire"],
   },
 
 ]);

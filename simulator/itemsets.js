@@ -181,7 +181,7 @@ asheara's: todo
               Sim.removeBuff(buff);
               return;
             }
-            Sim.damage({type: "area", range: 30, self: true, coeff: 10 * stacks, elem: "max", srcelem: elem});
+            Sim.damage({type: "area", range: 30, self: true, coeff: 40 * Sim.stats.info.aps * stacks, elem: "max", srcelem: elem});
           },
         });
       }

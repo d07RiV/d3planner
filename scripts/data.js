@@ -720,11 +720,12 @@
     /*
     var exportRes = {};
     var exportList = [
-"skills.*.*.activetip",
-"skills.*.*.params.*.name",
-"passives.*.*.activetip",
-"passives.*.*.params.*.name",
-"partybuffs.*.*.boxnames",
+    "itemById.*.type",
+    "itemTypes.*.slot",
+    "itemTypes.*.generic",
+    "legendaryGems.*.id",
+    "gemQualities",
+    "gemColors.*.id",
     ];
     for (var i = 0; i < exportList.length; ++i) {
       $.extend(true, exportRes, DiabloCalc.exportData(exportList[i]));

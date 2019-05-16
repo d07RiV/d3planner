@@ -2024,6 +2024,7 @@
     list.append(group);
     var actorList = {};
     var charActor = ((DC.webglClasses[DC.charClass] || {})[DC.gender || "female"] || 0);
+      debugger;
     function addItem(index, item) {
       if (!item.name) return;
       if (item.id && item.quality === "rare") return;

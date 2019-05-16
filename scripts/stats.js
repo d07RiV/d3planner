@@ -508,6 +508,12 @@
     }
 
     this.startLoad();
+
+    if (DiabloCalc.options.seasonal) {
+      this.info.sets.nightmares = 2;
+      this.setSlots.nightmares = "leftfinger";
+    }
+
     for (var slot in DC.itemSlots) {
       this.addItem(slot, getSlot(slot), nogems);
     }

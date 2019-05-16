@@ -546,7 +546,7 @@ DiabloCalc.skills.necromancer = {
         res.dmgmul.list.push({source: "P61_Unique_Scythe1H_03", value: {skills: ["bonespear", "skeletalmage", "deathnova"], percent: stats.leg_scytheofthecycle_p6}});
       }
       if (stats.set_inarius_6pc) {
-        res.dmgmul.list.push({source: "set_inarius_6pc", value: 3750});
+        res.dmgmul.list.push({source: "set_inarius_6pc", value: 10000});
       }
       return res;
     },

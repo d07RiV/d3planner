@@ -6,8 +6,8 @@ DiabloCalc.itemSets = {
     tclass: "wizard",
     bonuses: {
       "2": [
-        {format: "Every second while in Archon form you expel a Wave of Destruction, dealing 1000%% weapon damage to enemies within 30 yards."},
-        {format: "Every time you hit with an attack while not in Archon form, 1000%% weapon damage is added to the Wave of Destruction, stacking up to 20 times."},
+        {format: "Every second while in Archon form you expel a Wave of Destruction, dealing 4000%% weapon damage to enemies within 30 yards. This damage scales with attack speed."},
+        {format: "Every time you hit with an attack while not in Archon form, 4000%% weapon damage is added to the Wave of Destruction, stacking up to 20 times."},
       ],
     },
   },
@@ -268,7 +268,7 @@ DiabloCalc.itemSets = {
         {stat: "vit", value: [250]},
       ],
       "3": [
-        {format: "Increases Death's Breath drops by 1."},
+        {format: "Double the amount of Death's Breath that drop."},
       ],
     },
   },
@@ -722,7 +722,7 @@ DiabloCalc.itemSets = {
         {format: "Bone Armor grants an additional 2%% damage reduction per enemy hit."},
       ],
       "6": [
-        {format: "Bone Armor also activates a swirling tornado of bone, damaging nearby enemies for 1000%% weapon damage and increasing the damage they take from the Necromancer by 3750%%."},
+        {format: "Bone Armor also activates a swirling tornado of bone, damaging nearby enemies for 1000%% weapon damage and increasing the damage they take from the Necromancer by 10000%%."},
       ],
     },
   },
