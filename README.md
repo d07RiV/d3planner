@@ -11,27 +11,5 @@ If you want to try running it locally, set up a webserver (i.e. XAMPP/Apache) an
 
 * [Main page - http://www.d3planner.com](http://www.d3planner.com)
 * [PTR page - http://ptr.d3planner.com](http://ptr.d3planner.com)
-
-* [Old issue tracker](http://www.d3planner.com/mantisbt/view_all_bug_page.php)
+* [Game database (items, sets, skills, low level data)](http://www.d3planner.com/game)
 * [Translations homepage](http://www.d3planner.com/translate/)
-
-# Unofficial Game Resources
-
-* [Bloodshard/Death's Breath calculator](http://www.d3planner.com/kadala)
-
-**Skills**
-
-* Barbarian: [Live](http://www.d3planner.com/skills/barbarian), [PTR](http://ptr.d3planner.com/skills/barbarian)
-* Demon Hunter: [Live](http://www.d3planner.com/skills/demonhunter), [PTR](http://ptr.d3planner.com/skills/demonhunter)
-* Monk: [Live](http://www.d3planner.com/skills/monk), [PTR](http://ptr.d3planner.com/skills/monk)
-* Witch Doctor: [Live](http://www.d3planner.com/skills/witchdoctor), [PTR](http://ptr.d3planner.com/skills/witchdoctor)
-* Wizard: [Live](http://www.d3planner.com/skills/wizard), [PTR](http://ptr.d3planner.com/skills/wizard)
-* Crusader: [Live](http://www.d3planner.com/skills/crusader), [PTR](http://ptr.d3planner.com/skills/crusader)
-
-**Data**  
-*Note that Live can sometimes refer to previous PTR builds instead of the actual live game.*
-
-* Items: [Live](http://www.d3planner.com/game/items), [PTR](http://ptr.d3planner.com/game/items), [Changes](http://www.d3planner.com/diff/items)
-* Item sets: [Live](http://www.d3planner.com/game/itemsets), [PTR](http://ptr.d3planner.com/game/itemsets), [Changes](http://www.d3planner.com/diff/itemsets)
-* Skills: [Changes](http://www.d3planner.com/diff/powers)
-* Powers: [Live](http://www.d3planner.com/powers/), [PTR](http://ptr.d3planner.com/powers/)
