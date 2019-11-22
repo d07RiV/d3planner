@@ -1,7 +1,7 @@
 (function() {
   var order = [
     "/scripts/locale/account.js?1236911196000",
-    "/scripts/locale/itemflavor.js?1573645540075",
+    "/scripts/locale/itemflavor.js?1574423440829",
     "/scripts/locale/uistats.js?1543886559503",
   ];
   

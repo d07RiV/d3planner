@@ -10,9 +10,9 @@
     "/external/mwheelIntent.js?1236911224000",
     "/external/md5.js?1236911224000",
     "/external/canvasjs.js?1236911224000",
-    "/external/jquery.ui.touch-punch.js?1564431061769",
+    "/external/jquery.ui.touch-punch.js?1574423440731",
     "/external/gl-matrix.js?1236911224000",
-    "/scripts/main.js?1566480463695",
+    "/scripts/main.js?1574423440839",
   ];
   
   var loadIdx = 0;

@@ -1839,7 +1839,7 @@ DiabloCalc.itemaffixes = {
       return {dmgred: this.params[0].val};
     },
   },
-  leg_valor_6pc: {
+  set_valor_6pc: {
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["fistsofvalor", "heavensfury"], percent: 20000}};
     },
