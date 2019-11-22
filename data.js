@@ -18,7 +18,7 @@
     "/scripts/data/item_onehand.js?1574423440793",
     "/scripts/data/item_ranged.js?1557615657820",
     "/scripts/data/item_shoulders.js?1574423440796",
-    "/scripts/data/item_special.js?1574423440797",
+    "/scripts/data/item_special.js?1574426362994",
     "/scripts/data/item_torso.js?1574423440800",
     "/scripts/data/item_twohand.js?1574423440802",
     "/scripts/data/item_waist.js?1574423440805",
