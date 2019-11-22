@@ -1,0 +1,1 @@
+importScripts("simulator/crusader.js?1236911195000")

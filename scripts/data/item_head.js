@@ -276,6 +276,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Helm_014_x1",
+    suffix: _L("Legacy"),
     name: "Aughild's Spike",
     type: "helm",
     quality: "set",
@@ -285,6 +286,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Helm_012_x1",
+    suffix: _L("Legacy"),
     name: "Cain's Insight",
     type: "helm",
     quality: "set",
@@ -863,6 +865,42 @@ DiabloCalc.addItems([
       custom: {id: "leg_carnevil_p65", name: "Fetishes Shoot Darts", format: "The 10 Fetishes closest to you will shoot a powerful Poison Dart every time you do.", args: 0},
     },
     preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P66_Unique_Helm_014",
+    name: "Aughild's Spike",
+    type: "helm",
+    quality: "set",
+    set: "aughild_v2",
+    preset: ["resall"],
+  },
+
+  {
+    id: "P66_Unique_Helm_012",
+    name: "Cain's Insight",
+    type: "helm",
+    quality: "set",
+    set: "cain_v2",
+    preset: ["expadd"],
+  },
+
+  {
+    id: "P67_Unique_Helm_Set_01",
+    name: "Crown of Valor",
+    type: "helm",
+    quality: "set",
+    set: "valor",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P67_Unique_Helm_Set_02",
+    name: "Decree of Justice",
+    type: "helm",
+    quality: "set",
+    set: "justice",
+    preset: ["mainstat", "sockets"],
   },
 
 ]);

@@ -9,5 +9,5 @@ if (preg_match('/\/locale\/([a-z][a-z][A-Z][A-Z])/', $uri, $matches)) {
     exit(0);
   }
 }
-GetDocs(EnumDir("scripts/locale"), false, '', "DiabloCalc.onLocaleLoaded();");
+GetDocs(EnumDir("scripts/locale"), false, '', "DiabloCalc.onLocaleLoaded();", 'locale');
 ?>

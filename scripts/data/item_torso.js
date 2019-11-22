@@ -250,6 +250,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Chest_026_x1",
+    suffix: _L("Legacy"),
     name: "Aughild's Rule",
     type: "chestarmor",
     quality: "set",
@@ -512,6 +513,32 @@ DiabloCalc.addItems([
     required: {
       custom: {id: "leg_requiemcereplate", name: "Devour Restoration Over Time", format: "Devour restores an additional %d%% Essence and Life. In addition, when Devour restores Essence or Life above your maximum, the excess is granted over 3 seconds.", min: 75, max: 100},
     },
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P66_Unique_Chest_026",
+    name: "Aughild's Rule",
+    type: "chestarmor",
+    quality: "set",
+    set: "aughild_v2",
+  },
+
+  {
+    id: "P67_Unique_Chest_Set_01",
+    name: "Brigandine of Valor",
+    type: "chestarmor",
+    quality: "set",
+    set: "valor",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P67_Unique_Chest_Set_02",
+    name: "Lamellars of Justice",
+    type: "chestarmor",
+    quality: "set",
+    set: "justice",
     preset: ["mainstat", "sockets"],
   },
 

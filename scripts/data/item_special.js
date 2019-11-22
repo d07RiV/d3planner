@@ -474,8 +474,11 @@ DiabloCalc.itemaffixes = {
     },
   },
   set_immortalking_6pc: {
-    active: true,
-    buffs: {dmgmul: {percent: 4000}},
+    buffs: function(value, stats) {
+      if (DiabloCalc.skills.barbarian.wrathoftheberserker.active) {
+        return {dmgmul: {percent: 4000}};
+      }
+    },
   },
   leg_spiritguards: {
     active: false,
@@ -630,7 +633,7 @@ DiabloCalc.itemaffixes = {
     buffs: {dmgred: 50, dmgmul: {skills: ["rend"], percent: 200}},
   },
   set_wastes_6pc: {
-    buffs: {dmgmul: {skills: ["whirlwind"], percent: 10000}},
+    buffs: {dmgmul: {skills: ["whirlwind", "rend"], percent: 10000}},
   },
 
 /*  leg_nilfursboast: {
@@ -1165,13 +1168,13 @@ DiabloCalc.itemaffixes = {
     },
   },
   leg_shieldoffury: {
-    params: [{min: 0, max: 10, inf: true, name: "Stacks"}],
+    params: [{min: 0, max: 20, name: "Stacks"}],
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["heavensfury"], percent: this.params[0].val * value[0]}};
     },
   },
   leg_shieldoffury_p6: {
-    params: [{min: 0, max: 10, inf: true, name: "Stacks"}],
+    params: [{min: 0, max: 20, name: "Stacks"}],
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["heavensfury"], percent: this.params[0].val * value[0]}};
     },
@@ -1759,5 +1762,98 @@ DiabloCalc.itemaffixes = {
   leg_wallofman: {
     active: false,
     buffs: {dmgred: 20},
+  },
+
+  set_crimson_v2_3pc: {
+    last: true,
+    buffs: function(value, stats) {
+      return {dmgmul: stats.cdr, dmgred: stats.rcr};
+    },
+  },
+  leg_echoingfury: {
+    params: [{min: 0, max: 5, val: 0, name: "Stacks"}],
+    buffs: function(value, stats) {
+      return {ms: this.params[0].val * 5, ias: this.params[0].val * 15};
+    },
+  },
+  leg_squirtsnecklace: {
+    params: [{min: 0, max: 10, val: 0, name: "Stacks"}],
+    buffs: function(value, stats) {
+      return {dmgmul: this.params[0].val * 10, dmgred: -this.params[0].val * 5};
+    },
+  },
+  leg_stonegauntlets: {
+    params: [{min: 0, max: 5, val: 0, name: "Stacks"}],
+    buffs: function(value, stats) {
+      var stacks = this.params[0].val;
+      return {armor_percent: stacks * 50, ms: -stacks * 15, ias: -stacks * 20};
+    },
+  },
+
+  leg_darklight_p67: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["fistoftheheavens"], percent: value[0]}};
+    },
+  },
+  leg_fjordcutter_p67: {
+    active: true,
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["seismicslam"], percent: value[0]}};
+    },
+  },
+  leg_lamentation_p67: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["rend"], percent: value[0]}};
+    },
+  },
+  leg_remorseless_p67: {
+    buffs: function(value, stats) {
+      if ((DiabloCalc.skills.barbarian.calloftheancients.active || stats.set_immortalking_2pc) && DiabloCalc.skills.barbarian.wrathoftheberserker.active) {
+        return {dmgmul: {skills: ["hammeroftheancients"], percent: value[0]}};
+      }
+    },
+  },
+  leg_vengefulwind_p67: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["sweepingwind"], percent: value[0]}};
+    },
+  },
+  leg_wonkhimlau: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["tempestrush", "cyclonestrike"], percent: value[0]}};
+    },
+  },
+  set_valor_2pc: {
+    active: true,
+    params: [{min: 0, max: 3, name: "Stacks"}],
+    buffs: function(value, stats) {
+      var stacks = this.params[0].val;
+      var mult = Math.pow(2, stacks);
+      return {dmgmul: {skills: ["heavensfury"], percent: (mult - 1) * 100}};
+    },
+  },
+  set_valor_4pc: {
+    active: true,
+    params: [{min: 0, max: 50, name: "Stacks"}],
+    buffs: function(value, stats) {
+      return {dmgred: this.params[0].val};
+    },
+  },
+  leg_valor_6pc: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["fistsofvalor", "heavensfury"], percent: 20000}};
+    },
+  },
+  set_justice_4pc: {
+    active: true,
+    buffs: function(value, stats) {
+      return {dmgred: 50, spiritregen: 50};
+    },
+  },
+  set_justice_6pc: {
+    active: true,
+    buffs: function(value, stats) {
+      return {dmgmul: {percent: 15000}};
+    },
   },
 };

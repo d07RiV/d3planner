@@ -20,11 +20,12 @@ RewriteRule ^(items|itemsets|powers)_diff.html$ http://www.d3local.com/diff/$1 [
 #RewriteCond %{HTTP_HOST} ^ptr\.d3local\.com$
 #RewriteRule ^.*$ http://www.d3local.com/$0 [L,R=302]
 
-RewriteRule ^(external|css|external/bnet/css)/all\.css$ php/style.php [L]
-RewriteRule ^(__old|css|external|php|scripts|mantisbt|simulator|chinese|ziptest|translate|poe|game|diff|powers)/ - [L]
+RewriteRule ^(external|css|external/bnet/css)/all.css$ - [L]
+RewriteRule ^(css|external|php|scripts|mantisbt|chinese|game|translate|api)/ - [L]
 RewriteRule ^e?[0-9]*$ index.php [L]
 RewriteRule ^reset=[0-9a-f]{32}$ index.php [L]
-RewriteRule ^sim(/[a-z]+)?$ php/sim.php [L]
-RewriteRule ^skills(/(wizard|demonhunter|monk|crusader|witchdoctor|barbarian|necromancer))?$ skills.php [L]
-RewriteRule ^locale(/[a-z][a-z][A-Z][A-Z])?$ php/locale.php [L]
-RewriteRule ^(timestamp|core|proxy|save|load|search|data|report|savestash|loadstash|account|delete|changes|errors|priority|script|style)$ php/$1.php [L]
+RewriteRule ^sim(/[a-z]+)?$ $0.js [L]
+RewriteRule ^locale$ scripts/locale.js [L]
+RewriteRule ^locale/[a-z][a-z][A-Z][A-Z]$ php/locale.php [L]
+RewriteRule ^(core|data|script)$ $1.js [L]
+RewriteRule ^(proxy|save|load|search|report|savestash|loadstash|delete|changes|errors|account|priority|activity)$ php/$1.php [L]

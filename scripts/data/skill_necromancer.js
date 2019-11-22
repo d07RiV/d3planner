@@ -269,7 +269,7 @@ DiabloCalc.skills.necromancer = {
     params: [{rune: "ec", min: 0, max: 25, val: 0, name: "Stacks"}],
     buffs: function(rune, stats) {
       if (rune === "e") return {life: 2 * this.params[0].val};
-      if (rune === "c") return {rcr_essence: 2 * this.params[0].val};
+      if (rune === "c") return {rcr: 2 * this.params[0].val};
     },
   },
   revive: {
@@ -309,7 +309,7 @@ DiabloCalc.skills.necromancer = {
     },
     range: 0,
     params: [{min: 1, max: 7, name: "Skeletons", buffs: false},
-             {min: 0, max: "1+500/(leg_boneringer+0.01)", name: "Active Time", buffs: false, show: function(rune, stats) {
+             {min: 0, max: 60, name: "Active Time", buffs: false, show: function(rune, stats) {
                return !!stats.leg_boneringer;
              }}],
     info: function(rune, stats) {
@@ -329,7 +329,7 @@ DiabloCalc.skills.necromancer = {
       }
       if (stats.leg_boneringer) {
         var pct = {};
-        pct[DiabloCalc.itemById.P6_Unique_Phylactery_02.name] = Math.min(stats.leg_boneringer * this.params[1].val, 500);
+        pct[DiabloCalc.itemById.P6_Unique_Phylactery_02.name] = stats.leg_boneringer * this.params[1].val;
         res["Damage"].percent = pct;
         if (res["Explosion Damage"]) res["Explosion Damage"].percent = pct;
       }

@@ -99,6 +99,7 @@
     this.info = {
       level: parseInt($(".char-level").val()),
       gems: 0,
+      legendaries: 0,
       ancients: 0,
     };
     this.charClass = (charClass || DC.charClass);
@@ -312,12 +313,15 @@
     }
     this.setSlots = {};
   };
-  Stats.prototype.addItem = function(slot, data, nogems) {
+  Stats.prototype.addItem = function(slot, data) {
     if (!data || !DC.itemById[data.id]) return;
     var item = DC.itemById[data.id];
     var itemType = DC.itemTypes[item.type];
     if (slot === "offhand") {
       this.info.ohtype = item.type;
+    }
+    if (item.quality === "set" || item.quality === "legendary") {
+      ++this.info.legendaries;
     }
     if (data.ancient) ++this.info.ancients;
     if (itemType.weapon) {
@@ -381,59 +385,7 @@
       this.info.gems += data.gems.length;
       for (var i = 0; i < data.gems.length; ++i) {
         if (DC.legendaryGems[data.gems[i][0]]) {
-          function getGemValue(effect, level) {
-            var value, delta;
-            if (effect.realvalue) {
-              value = effect.realvalue.slice();
-              delta = effect.realdelta;
-            } else if (effect.value) {
-              value = effect.value.slice();
-              delta = effect.delta;
-            }
-            if (!value) return [];
-            if (delta) {
-              for (var i = 0; i < delta.length; ++i) {
-                value[i] += delta[i] * level;
-              }
-            }
-            return value;
-          }
-
-          var leg = DC.legendaryGems[data.gems[i][0]];
           this.gems[data.gems[i][0]] = data.gems[i][1];
-
-          if (!nogems) {
-            var active = (DC.isGemActive && DC.isGemActive(data.gems[i][0]));
-            if (active && leg.buffs) {
-              var list = leg.buffs(data.gems[i][1], this);
-              for (var stat in list) {
-                this.add(stat, list[stat], /*factor*/1, data.gems[i][0]);
-              }
-            } else {
-              if (active) {
-                var id = leg.effects[0].stat;
-                if (!id) {
-                  id = "gem_" + data.gems[i][0];
-                  statInfo[id] = leg.effects[0];
-                }
-                this.add(id, getGemValue(leg.effects[0], data.gems[i][1]), /*factor*/1, data.gems[i][0]);
-              } else if (leg.inactive) {
-                var list = leg.inactive(data.gems[i][1], this);
-                for (var stat in list) {
-                  this.add(stat, list[stat], /*factor*/1, data.gems[i][0]);
-                }
-              }
-
-              if (data.gems[i][1] >= 25 && (active || data.gems[i][0] == "powerful")) {
-                var id = leg.effects[1].stat;
-                if (!id) {
-                  id = "gem_" + data.gems[i][0] + "_25";
-                  statInfo[id] = leg.effects[1];
-                }
-                this.add(id, getGemValue(leg.effects[1], data.gems[i][1]), /*factor*/1, data.gems[i][0]);
-              }
-            }
-          }
         } else if (DC.gemColors[data.gems[i][1]]) {
           var gem = DC.gemColors[data.gems[i][1]][slotType];
           var value = [gem.amount[data.gems[i][0]]];
@@ -502,7 +454,7 @@
       this.info.weaponClass = this.info.mainhand.weaponClass;
     }
   };
-  Stats.prototype.loadItems = function(getSlot, nogems) {
+  Stats.prototype.loadItems = function(getSlot) {
     if (!getSlot) {
       getSlot = DC.getSlot;
     }
@@ -510,14 +462,79 @@
     this.startLoad();
 
     if (DiabloCalc.options.seasonal) {
-      this.info.sets.nightmares = 2;
-      this.setSlots.nightmares = "leftfinger";
+      if (DiabloCalc.season === 17) {
+        this.info.sets.nightmares = 2;
+        this.setSlots.nightmares = "leftfinger";
+      } else if (DiabloCalc.season === 18) {
+        if (DiabloCalc.options.seasonal === 1) {
+          this.add("dmgmul", 100, 1, "seasonal");
+        } else if (DiabloCalc.options.seasonal === 2) {
+          this.add("rcr", 50, 1, "seasonal");
+        }
+      }
     }
 
     for (var slot in DC.itemSlots) {
-      this.addItem(slot, getSlot(slot), nogems);
+      this.addItem(slot, getSlot(slot));
     }
     this.finishLoad();
+  };
+  Stats.prototype.applyGems = function() {
+    function getGemValue(effect, level) {
+      var value, delta;
+      if (effect.realvalue) {
+        value = effect.realvalue.slice();
+        delta = effect.realdelta;
+      } else if (effect.value) {
+        value = effect.value.slice();
+        delta = effect.delta;
+      }
+      if (!value) return [];
+      if (delta) {
+        for (var i = 0; i < delta.length; ++i) {
+          value[i] += delta[i] * level;
+        }
+      }
+      return value;
+    }
+
+    var self = this;
+    $.each(this.gems, function(id, level) {
+      var leg = DC.legendaryGems[id];
+      if (!leg) {
+        return;
+      }
+      var active = (DC.isGemActive && DC.isGemActive(id));
+      if (active && leg.buffs) {
+        var list = leg.buffs(level, self);
+        for (var stat in list) {
+          self.add(stat, list[stat], /*factor*/1, id);
+        }
+      } else {
+        if (active) {
+          var stat_id = leg.effects[0].stat;
+          if (!stat_id) {
+            stat_id = "gem_" + id;
+            statInfo[stat_id] = leg.effects[0];
+          }
+          self.add(stat_id, getGemValue(leg.effects[0], level), /*factor*/1, id);
+        } else if (leg.inactive) {
+          var list = leg.inactive(level, self);
+          for (var stat in list) {
+            self.add(stat, list[stat], /*factor*/1, id);
+          }
+        }
+
+        if (level >= 25 && (active || id == "powerful")) {
+          var stat_id = leg.effects[1].stat;
+          if (!stat_id) {
+            stat_id = "gem_" + id + "_25";
+            statInfo[stat_id] = leg.effects[1];
+          }
+          self.add(stat_id, getGemValue(leg.effects[1], level), /*factor*/1, id);
+        }
+      }
+    });
   };
 
   Stats.prototype.finalize = function(minimal, resmin) {
@@ -817,6 +834,7 @@
       statCache = stats;
     }
     stats.loadItems(getSlot);
+    stats.applyGems();
     if (DC.addSkillBonuses) {
       DC.addSkillBonuses(stats);
     }

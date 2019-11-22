@@ -201,6 +201,11 @@
             window.history.replaceState({}, "", url);
           }
           box.val(url);
+          if (data.name) {
+            document.title = data.name + " - " + DiabloCalc.pageTitle;
+          } else {
+            document.title = DiabloCalc.pageTitle;
+          }
           UpdateProfiles();
         } else if (response.errors && response.errors.length) {
           box.val(response.errors[0]);
@@ -232,21 +237,37 @@
   function doLoadProfile(id, errors) {
     var data = {id: id};
     if (errors) data.error = 1;
+    function signalError(reason) {
+      var errorBox = $("<div class=\"errorBox\"><div><h3>Failed to load profile</h3><p>" + reason + "</p></div></div>");
+      errorBox.click(function() {
+        errorBox.remove();
+      });
+      $("body").append(errorBox);
+    }
     $.ajax({
       url: "load",
       data: data,
       type: "POST",
       dataType: "json",
       success: function(data) {
+        if (data.error) {
+          return signalError(_L(data.error));
+        }
         DiabloCalc.session.profile = id;
         if (window.history && window.history.replaceState) {
           window.history.replaceState({}, "", location.protocol + "//" + location.hostname + DiabloCalc.relPath + (errors ? "e" : "") + id);
+        }
+        if (data.name) {
+          document.title = data.name + " - " + DiabloCalc.pageTitle;
+        } else {
+          document.title = DiabloCalc.pageTitle;
         }
         validateObject(data, "", /profiles\.[0-9]+\.name/);
         DiabloCalc.setAllProfiles(data, "load");
         $(".editframe").tabs("option", "active", 0);
       },
       error: function(e) {
+        signalError(_L("Unknown error"));
       },
     });
   }
@@ -441,6 +462,7 @@
     var val0 = Load.mainset.val(), val = "";
     Load.mainset.empty();
     Load.mainset.append("<option value=\"\">" + _L("Any Set") + "</option>");
+    Load.mainset.append("<option value=\"none\">" + _L("None ({0})").format(DiabloCalc.itemSets.nightmares.name) + "</option>");
     var cls = Load.cls.val();
     for (var id in DiabloCalc.itemSets) {
       var set = DiabloCalc.itemSets[id];

@@ -581,7 +581,7 @@ DiabloCalc.skills.crusader = {
       a: {ias: 7, lph: 21457},
       b: {ias: 7},
       c: {ias: 7, chd: 50},
-      d: {ias: 7, rcr_wrath: 50},
+      d: {ias: 7, rcr: 50},
       e: {ias: 7},
     },
     passive: {

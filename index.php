@@ -31,7 +31,7 @@ function mklink($path, $src = NULL) {
   <link rel="stylesheet" type="text/css" href="external/bnet/css/all.css" />
   <link rel="stylesheet" type="text/css" href="css/all.css" />
 
-  <link rel="stylesheet/less" type="text/css" href="css/classes.less" />
+<!--  <link rel="stylesheet/less" type="text/css" href="css/classes.less" />
   <link rel="stylesheet/less" type="text/css" href="css/layout.less" />
   <link rel="stylesheet/less" type="text/css" href="css/paperdoll.less" />
   <link rel="stylesheet/less" type="text/css" href="css/simulator.less" />
@@ -44,16 +44,16 @@ function mklink($path, $src = NULL) {
       fileAsync: true,
     };
   </script>
-  <script src="external/less.min.js"></script>
+  <script src="external/less.min.js"></script>-->
 
-  <script src="script"></script>
+  <script src="script.js"></script>
  </head>
  <body class="<?php echo (isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "\"light\"") ? "theme-light" : "theme-dark"; ?>">
 
   <div class="page">
-   <div class="col left-banner">
+   <div class="left-banner">
    </div>
-   <div class="col right-banner">
+   <div class="right-banner">
    </div>
 
    <div class="row body">
@@ -124,6 +124,7 @@ function mklink($path, $src = NULL) {
      <option value="light">Light Theme</option>
      <option value="dark">Dark Theme</option>
     </select>
+    <a href="/privacy.html" target="_blank" id="privacy-policy">Privacy policy.</a>
     <select class="locale-select">
 <?php
 /*    require('translate/translate.inc.php');

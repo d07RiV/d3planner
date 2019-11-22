@@ -835,7 +835,7 @@ DiabloCalc.passives.witchdoctor = {
     id: "blood-ritual",
     name: "Blood Ritual",
     index: 4,
-    buffs: {rcr_mana: 20, regen_percent: 1},
+    buffs: {rcr: 20, regen_percent: 1},
   },
   badmedicine: {
     id: "bad-medicine",
@@ -852,7 +852,7 @@ DiabloCalc.passives.witchdoctor = {
     id: "pierce-the-veil",
     name: "Pierce the Veil",
     index: 7,
-    buffs: {damage: 20, rcr_mana: -30},
+    buffs: {damage: 20, rcr: -30},
   },
   spiritvessel: {
     id: "spirit-vessel",

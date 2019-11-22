@@ -84,19 +84,36 @@ li a, .ui-state-focus {
   outline-color: transparent; /* tab selection fix */
 }
 
-.left-banner {
-  left: -192px;
-  width: 162px;
-  padding: 100px 0;
+#left-banner, #right-banner {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
-.right-banner {
-  right: -192px;
-  width: 162px;
-  padding: 100px 0;
+#left-banner {
+  right: 100%;
+  padding-right: 32px;
 }
-.logged-in .left-banner, .logged-in .right-banner {
+#right-banner {
+  left: 100%;
+  padding-left: 32px;
+}
+#left-banner.adblock:empty::before, #right-banner.adblock:empty::before {
+  content: '';
+  display: block;
+  width: 160px;
+  height: 300px;
+  border-radius: 12px;
+  background-image: url('images/unblock-b.png');
+  box-shadow: 0px 0px 24px #111;
+}
+.theme-light #left-banner.adblock:empty::before, .theme-light #right-banner.adblock:empty::before {
+  background-image: url('images/unblock-w.png');
+  box-shadow: 0px 0px 16px #444;
+}
+
+/*.logged-in .left-banner, .logged-in .right-banner {
   display: none;
-}
+}*/
 
 .body {
   top: 0;

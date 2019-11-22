@@ -790,8 +790,8 @@
   Section = $("<div></div>");
   Sections.append(Section);
 
-  //if (location.hostname.toLowerCase().indexOf("ptr") >= 0) {
-  //  Section.append("<div><p><b>" + _L("The simulator has not been updated for PTR yet!") + "</b></p></div>");
+  //if (DiabloCalc.ptr) {
+    Section.append("<div><p><b>" + _L("The simulator has not been updated for Season 18 yet!") + "</b></p></div>");
   //}
 
   var targetType = $("<select></select>");
@@ -1437,7 +1437,7 @@
       data.type = "start";
       delete this.sampleData;
       this.initData = data;
-      this.worker = new Worker("sim");
+      this.worker = new Worker("sim.js");
       var self = this;
       this.worker.onmessage = function(e) {
         self.onMessage(e.data);
@@ -1484,7 +1484,7 @@
 
   DC.exportStats = function() {
     var stats = new DC.Stats();
-    stats.loadItems(undefined, true);
+    stats.loadItems(undefined);
     DC.addSkillList(stats);
     DC.addPartyBuffs(stats);
     var status = statusBox.val();

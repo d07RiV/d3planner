@@ -2,6 +2,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Gloves_007_x1",
+    suffix: _L("Legacy"),
     name: "Stone Gauntlets",
     type: "gloves",
     quality: "legendary",
@@ -229,6 +230,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Gloves_015_x1",
+    suffix: _L("Legacy"),
     name: "Cain's Scrivener",
     type: "gloves",
     quality: "set",
@@ -420,6 +422,47 @@ DiabloCalc.addItems([
     required: {
       custom: {id: "leg_graspsofessence", name: "Corpse Explosion Damage Bonus", format: "When an exploded corpse damages at least one enemy, your Corpse Explosion deals %d%% increased damage for 6 seconds, stacking up to 5 times.", min: 75, max: 100},
     },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P66_Unique_Gloves_015",
+    name: "Cain's Scrivener",
+    type: "gloves",
+    quality: "set",
+    set: "cain_v2",
+  },
+
+  {
+    id: "P66_Unique_Gloves_007",
+    name: "Stone Gauntlets",
+    type: "gloves",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_stonegauntlets", name: "Armor when Hit", format: "Getting hit increases your armor by 50%%, but reduces your movement speed by 15%% and attack speed by 20%%. This effect stacks up to 5 times.", args: 0},
+    },
+    affixes: {
+      hitimmobilize: {min: 10, max: 20, step: 0.1},
+    },
+    preset: ["mainstat", "hitimmobilize"],
+    secondary: 3,
+  },
+
+  {
+    id: "P67_Unique_Gloves_Set_02",
+    name: "Bazubands of Justice",
+    type: "gloves",
+    quality: "set",
+    set: "justice",
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P67_Unique_Gloves_Set_01",
+    name: "Gauntlets of Valor",
+    type: "gloves",
+    quality: "set",
+    set: "valor",
     preset: ["mainstat", "chc"],
   },
 

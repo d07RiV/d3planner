@@ -20,5 +20,5 @@ GetDocs(array(
   "scripts/ui-simulator.js",
   "scripts/d3gl_physics.js",
   "scripts/d3gl.js",
-), false, "", "DiabloCalc.onLoaded();");
+), false, "", "DiabloCalc.onLoaded();", 'core');
 ?>

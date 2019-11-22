@@ -222,6 +222,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Mace_1H_001_x1",
+    suffix: _L("Legacy"),
     name: "Echoing Fury",
     type: "mace",
     quality: "legendary",
@@ -745,6 +746,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Fist_006_x1",
     name: "Won Khim Lau",
+    suffix: _L("Legacy"),
     type: "fistweapon",
     quality: "legendary",
     affixes: {
@@ -904,6 +906,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Mighty_1H_012_x1",
     name: "Ambo's Pride",
+    suffix: _L("Legacy"),
     type: "mightyweapon",
     quality: "legendary",
     preset: ["wpnphy", "mainstat", "bleed"],
@@ -921,6 +924,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Mighty_1H_102_x1",
     name: "Remorseless",
+    suffix: _L("Legacy"),
     type: "mightyweapon",
     quality: "legendary",
     required: {
@@ -1065,6 +1069,7 @@ DiabloCalc.addItems([
     id: "P3_Unique_Mighty_1H_006",
     local: true,
     name: "Fjord Cutter",
+    suffix: _L("Legacy"),
     type: "mightyweapon",
     quality: "legendary",
     required: {
@@ -1238,6 +1243,7 @@ DiabloCalc.addItems([
   {
     id: "P4_fistWeapon_norm_unique_02",
     name: "Vengeful Wind",
+    suffix: _L("Legacy"),
     type: "fistweapon",
     quality: "legendary",
     required: {
@@ -1354,6 +1360,7 @@ DiabloCalc.addItems([
   {
     id: "P42_Unique_Flail_1H_106_x1",
     name: "Darklight",
+    suffix: _L("Legacy"),
     type: "flail",
     quality: "legendary",
     required: {
@@ -1577,9 +1584,93 @@ DiabloCalc.addItems([
     type: "ceremonialknife",
     quality: "legendary",
     required: {
-      custom: {id: "leg_thedaggerofdarts_p65", name: "Poison Darts Damage", format: "Your Poison Darts and your Fetishes' Poison Darts now pierce and deal an additional 400-500% damage.", min: 400, max: 500},
+      custom: {id: "leg_thedaggerofdarts_p65", name: "Poison Darts Damage", format: "Your Poison Darts and your Fetishes' Poison Darts now pierce and deal an additional %d%% damage.", min: 400, max: 500},
     },
     preset: ["mainstat"],
+  },
+
+  {
+    id: "P66_Unique_Mace_1H_001",
+    name: "Echoing Fury",
+    type: "mace",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_echoingfury", name: "Frenzy on Kill", format: "Slaying enemies engulfs the wielder into a Frenzy.", args: 0},
+      hitfear: {min: 10, max: 20, step: 0.1, noblock: true},
+    },
+    preset: ["wpnphy", "mainstat", "weaponias", "damage"],
+    secondary: 3,
+  },
+
+  {
+    id: "P67_Unique_Mighty_1H_012",
+    name: "Ambo's Pride",
+    type: "mightyweapon",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_ambospride", name: "Rend on Whirlwind", format: "Attacking with Whirlwind also applies Rend, and the total damage of Rend is dealt over 1 second.", args: 0},
+    },
+    preset: ["wpnphy", "mainstat", "bleed"],
+  },
+
+  {
+    id: "P67_Unique_Flail_1H_106",
+    name: "Darklight",
+    type: "flail",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_darklight_p67", name: "Fist of the Heavens Damage", format: "Fist of the Heavens now casts twice and deals %d%% more damage.", min: 800, max: 1000},
+    },
+    preset: ["wpnlit", "mainstat"],
+  },
+
+  {
+    id: "P67_Unique_Mighty_1H_006",
+    name: "Fjord Cutter",
+    type: "mightyweapon",
+    quality: "legendary",
+    required: {
+      hitfreeze: {min: 7.5, max: 10, step: 0.1},
+      custom: {id: "leg_fjordcutter_p67", name: "Seismic Slam Damage", format: "Seismic Slam attacks 50%% faster and also deals %d%% increased damage against Slowed or Chilled enemies.", min: 100, max: 150},
+    },
+    preset: ["wpncol", "mainstat"],
+  },
+
+  {
+    id: "P67_Unique_Mighty_1H_102",
+    name: "Remorseless",
+    type: "mightyweapon",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_remorseless_p67", name: "HotA Damage", format: "While both Wrath of the Berserker and Call of the Ancients are active, Hammer of the Ancients deals %d%% increased damage.", min: 200, max: 250},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P67_fistWeapon_norm_unique_02",
+    name: "Vengeful Wind",
+    type: "fistweapon",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_vengefulwind_p67", name: "Sweeping Wind Damage", format: "Increases the maximum stack count of Sweeping Wind by 10 and increases the damage by %d%%.", min: 600, max: 800},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P67_Unique_Fist_006",
+    name: "Won Khim Lau",
+    type: "fistweapon",
+    quality: "legendary",
+    affixes: {
+      dmglit: {min: 15, max: 25},
+    },
+    required: {
+      custom: {id: "leg_wonkhimlau", name: "Tempest Rush Damage", format: "Hitting with Tempest Rush will activate Cyclone Strike, and both skills deal %d%% increased damage.", min: 500, max: 600},
+    },
+    preset: ["wpnlit", "mainstat", "dmglit"],
+    primary: 5,
   },
 
 ]);

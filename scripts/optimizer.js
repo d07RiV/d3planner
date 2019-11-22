@@ -333,7 +333,7 @@
       options: {
       },
       stats: function(options, item) {
-        return ["vit", "life", "resall", "armor", "resphy", "resfir", "rescol", "respsn", "resarc", "reslit", "edef", "meleedef", "rangedef"];
+        return ["vit", "life", "resall", "armor", "str", "dex", "int", "resphy", "resfir", "rescol", "respsn", "resarc", "reslit", "edef", "meleedef", "rangedef"];
       },
       value: function(options, stats) {
         return stats.info.toughnessmin;

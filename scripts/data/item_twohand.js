@@ -4,6 +4,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Axe_2H_003_x1",
+    suffix: _L("Legacy"),
     name: "The Executioner",
     type: "axe2h",
     quality: "legendary",
@@ -24,6 +25,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Axe_2H_011_x1",
+    suffix: _L("Legacy"),
     name: "Messerschmidt's Reaver",
     type: "axe2h",
     quality: "legendary",
@@ -1168,6 +1170,30 @@ DiabloCalc.addItems([
       custom: {id: "leg_bloodtideblade_p6", name: "Death Nova Damage per Enemy", format: "Death Nova deals %d%% increased damage for every enemy within 25 yards.", min: 300, max: 400},
     },
     preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "P66_Unique_Axe_2H_011",
+    name: "Messerschmidt's Reaver",
+    type: "axe2h",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_messerschmidtsreaver", name: "Cooldown on Kill", format: "Reduce the remaining cooldown of one of your skills by 1 second when you slay an enemy.", args: 0},
+    },
+    preset: ["wpnfir", "mainstat", "laek"],
+    secondary: 3,
+  },
+
+  {
+    id: "P66_Unique_Axe_2H_003",
+    name: "The Executioner",
+    type: "axe2h",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_theexecutioner", name: "Execute Threshold", format: "Attacks will slay enemies with less than %d%% health.", min: 5, max: 10},
+    },
+    preset: ["wpnphy", "mainstat", "expadd"],
+    secondary: 3,
   },
 
 ]);

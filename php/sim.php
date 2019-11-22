@@ -14,7 +14,7 @@ function add_doc($name) {
 }
 if (preg_match('/\/sim\/(wizard|demonhunter|witchdoctor|monk|barbarian|crusader)/', $uri, $matches)) {
   add_doc($matches[1]);
-  GetDocs($list);
+  GetDocs($list, true, '', '', 'sim_' . $matches[1]);
 } else {
   add_doc("seedrandom");
   add_doc("heap");
@@ -28,6 +28,6 @@ if (preg_match('/\/sim\/(wizard|demonhunter|witchdoctor|monk|barbarian|crusader)
   add_doc("itemspecial");
   add_doc("priority");
   add_doc("tracker");
-  GetDocs($list, true, "Simulator = {};");
+  GetDocs($list, true, "Simulator = {};", '', 'sim');
 }
 ?>

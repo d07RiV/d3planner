@@ -587,6 +587,9 @@
   DiabloCalc.register("changeGender", function() {
     chart.fixval();
   });
+  DiabloCalc.register("changeClass", function() {
+    chart.fixval();
+  });
 
   var cacheSlots = {};
   var cacheSkills;

@@ -69,13 +69,13 @@ _L.patch.add({
     P2_Unique_Boots_02: {
       flavor: "Inna, the goddess of the sky, treads upon clouds in the winter and the summer, in the night and the day.",
     },
+    P2_Unique_Bracer_003: {
+      flavor: "These ancient bracers belonged to the barbarian berserker Mortick, who believed them to be lucky and never took them off. When at last he died, his tribesmen discovered he had stitched them into his flesh.",
+    },
     P2_Unique_Bracer_006: {
       flavor: "\"Cover your wrists in righteousness that you may strike with the will of the gods.\" —Tenets of the Veradani",
     },
     P2_Unique_Bracer_109: {
-      flavor: "The Patriarchs say that when the spirit waxes, the dangers of this world wane.",
-    },
-    P61_Unique_Bracer_109: {
       flavor: "The Patriarchs say that when the spirit waxes, the dangers of this world wane.",
     },
     P2_Unique_Bracer_110: {
@@ -166,9 +166,6 @@ _L.patch.add({
       flavor: "“Always seeking to improve the Crusaders’ efficiency, Akkhan’s Master Blacksmith Gabriel crafted these bracers to ease the strain of summoning the Blessed Hammer.” -Rennold's Catalogue of Arms",
     },
     P3_Unique_Bracer_103: {
-      flavor: "Steadies the arm and brings calm certainty in the face of death.",
-    },
-    P61_Unique_Bracer_103: {
       flavor: "Steadies the arm and brings calm certainty in the face of death.",
     },
     P3_Unique_Bracer_104: {
@@ -519,6 +516,9 @@ _L.patch.add({
     P61_Unique_Bracer_100: {
       flavor: "“These bracers appear to utilize primal forces channeled from the ground itself. Interesting, to say the least.” -Abd al-hazir",
     },
+    P61_Unique_Bracer_103: {
+      flavor: "Steadies the arm and brings calm certainty in the face of death.",
+    },
     P61_Unique_Bracer_104: {
       flavor: "Those that cannot see the truth of the Light will suffer its wrath. ",
     },
@@ -530,6 +530,9 @@ _L.patch.add({
     },
     P61_Unique_Bracer_108_x1: {
       flavor: "Ranslor, the chief crafter to the High Vizjerei, was concerned that the power contained within these bracers would prove too much for even the most seasoned warrior, so he scoured waterfront taverns for unfortunate souls to test them. After several catastrophic failures, he was so certain he had solved the problem he tried them himself. The bracers were found by his assistant in a pile of ash.",
+    },
+    P61_Unique_Bracer_109: {
+      flavor: "The Patriarchs say that when the spirit waxes, the dangers of this world wane.",
     },
     P61_Unique_CombatStaff_2H_001: {
       flavor: "\"We must walk the middle way between chaos and order, and not allow our emotions to sway us.\" —Tenets of the Veradani",
@@ -644,6 +647,150 @@ _L.patch.add({
     },
     P61_Wand_norm_unique_02: {
       flavor: "“Yet another item allegedly taken from Vyr’s armory after his demise. It uses the inherent instability of Arcane power to enhance its destructive efficiency.” - High Councilor Valthek’s Compendium of Exotic Weaponry",
+    },
+    P65_CeremonialDagger_norm_unique_02: {
+      flavor: "Nothing infuriates a fetish more than ineffectual darts.",
+    },
+    P65_Unique_CruShield_102_x1: {
+      flavor: "\"Centuries ago, the mysterious and morbid warrior Jekang found staunch allies among the crusaders of Zakarum. He fought alongside that order for many years, and when he left for lands unknown, he made a parting gift of his grim tower shield.\" -Rennold's Catalogue of Arms",
+    },
+    P65_Unique_Phylactery_04: {
+      flavor: "Forged as a gift for the union between the leaders of the Haroutunian Clan and House Chien. This brooch was favored by Lady Aerisrose, and is said to reflect her power and beauty.",
+    },
+    P65_Unique_Quiver_001: {
+      flavor: "Bolts pulled from this quiver instinctively seek out demonic blood.",
+    },
+    P65_Unique_Scythe2H_02: {
+      flavor: "The favored weapon of Master Necromancer Ordan, renowned teacher of the Priests of Rathma. He was so devoted to this weapon that he would rather part with his life than have it leave his side.",
+    },
+    P65_Unique_VoodooMask_101_x1: {
+      flavor: "Near the shoreline of the Torajan Jungle lies Lake Ymirson. Here are found the palms from which the Umbaru derive the poison for their darts. This ornate mask is carved from one of these palms, and beads of poisonous sap ooze forth from it, providing the witch doctor wearing it with easy access to fresh, and more concentrated, venom.",
+    },
+    P65_Unique_Xbow_102: {
+      flavor: "Because of the consummate skill required to construct them, Wojahnni heavy crossbows are reserved for the officer class. As the Assaulter's effectiveness is essential to the nation's military superiority, they are seldom found intact outside of Wojahn since there is a simple peg inserted in the weapon that, when pulled, causes it to fall to pieces.",
+    },
+    P65_flail2H_norm_unique_01: {
+      flavor: "\"Let no crusader succumb to their base emotions, for they are to be the mere vessels of Zakarum’s righteous punishment, and the purveyors of his mercy.\" -Akkhan",
+    },
+    P66_Unique_Amulet_001: {
+      flavor: "This garish amulet, once worn by an over large imp, makes time an insignificant thing.",
+    },
+    P66_Unique_Amulet_010: {
+      flavor: "An unassuming chunk of stone covered with runes. The name of Kantwirt, the ancient god of thieves, is scratched onto its back.",
+    },
+    P66_Unique_Axe_2H_003: {
+      flavor: "Stained with the blood of its many victims.",
+    },
+    P66_Unique_Axe_2H_011: {
+      flavor: "This mighty weapon once hewed its way through the demon-infested catacombs beneath the old Zakarum cathedral in Tristram. Could it be the weapon the warrior Aidan used to defeat Diablo all those years ago?",
+    },
+    P66_Unique_Belt_012: {
+      flavor: "Patterned after the famed belt where Captain Crimson buckled his swash.",
+    },
+    P66_Unique_Belt_016: {
+      flavor: "Imris fabricated this belt to help maintain his powers when fighting enemies.",
+    },
+    P66_Unique_Boots_015: {
+      flavor: "Deckard Cain spent the last twenty years of his life traveling the world in search of information needed to defeat the Lords of Hell.",
+    },
+    P66_Unique_Boots_017: {
+      flavor: "Captain Crimson, scourge of the Twin Seas, claimed his numerous victories were the result of sensible-yet fashionable-footwear.",
+    },
+    P66_Unique_Bracer_009: {
+      flavor: "Aughild had fifty demands that had to be met before he would spare the lives of the nobles. Those demands are written in the wrappings of these bracers.",
+    },
+    P66_Unique_Chest_026: {
+      flavor: "Aughild's vestments were originally crafted to reflect both his savagery and his nobility.",
+    },
+    P66_Unique_Gloves_007: {
+      flavor: "Heavy. Stone. Brutal.",
+    },
+    P66_Unique_Gloves_015: {
+      flavor: "These wrappings are covered with Horadric symbols and runes, and are perfect for keeping your arms warm while you search for elusive arcane knowledge.",
+    },
+    P66_Unique_Helm_012: {
+      flavor: "This laurel represents the wisdom of the scholar Deckard Cain.",
+    },
+    P66_Unique_Helm_014: {
+      flavor: "A detailed recreation of the ceremonial helmet Aughild used when he was crowned king of Entsteig.",
+    },
+    P66_Unique_Mace_1H_001: {
+      flavor: "The sound of each strike instills terror in the hearts of those who hear it.",
+    },
+    P66_Unique_Mojo_002: {
+      flavor: "You hold your enemy's future in your hand.",
+    },
+    P66_Unique_Pants_010: {
+      flavor: "Inspired by Deckard Cain's Horadric robes, these pants are perfect for those who, like Cain, have dedicated themselves to eradicating the demons' threat from this world.",
+    },
+    P66_Unique_Pants_012: {
+      flavor: "Captain Crimson was known for his flamboyant dress, particularly his prodigious codpiece.",
+    },
+    P66_Unique_Shoulder_008: {
+      flavor: "Aughild was the only warlord to successfully lay siege to Entsteig. But, in the end, it proved to be his undoing.",
+    },
+    P67_Unique_BarbBelt_005: {
+      flavor: "Ideal for crushing your enemies and driving them before you.",
+    },
+    P67_Unique_Boots_Set_01: {
+      flavor: "\"Mercy is a sign of weakness, it has no place in war.\" -Imperious, Archangel of Valor to Auriel, Archangel of Hope",
+    },
+    P67_Unique_Boots_Set_02: {
+      flavor: "In the world of angels, the archangel of Wisdom had recently come to realize, there are no beds.",
+    },
+    P67_Unique_Bracer_100: {
+      flavor: "“These bracers appear to utilize primal forces channeled from the ground itself. Interesting, to say the least.” -Abd al-hazir",
+    },
+    P67_Unique_Chest_Set_01: {
+      flavor: "\"Must I do everything for you?\" -Imperious, Archangel of Valor",
+    },
+    P67_Unique_Chest_Set_02: {
+      flavor: "\"I am mortal and always will be, and humanity is the future of you all, whether you choose to recognize that or not.\" -Tyrael, Aspect of Wisdom",
+    },
+    P67_Unique_Fist_006: {
+      flavor: "Directs the wayward's gaze to the heavens that he may benefit from the glory of the gods.",
+    },
+    P67_Unique_Flail_1H_106: {
+      flavor: "The cold-tempered steel of this weapon cradles a mote of pale light. Ancient beyond measure, its creator and original purpose is unknown, but the flail is now revered by the crusaders as a symbol for the role they play in the world: a light to pierce the darkness.",
+    },
+    P67_Unique_Gloves_Set_01: {
+      flavor: "\"Hold? Victory is within our grasp. We press on, brother!\" -Imperius, Archangel of Valor to Tyrael, Archangel of Justice",
+    },
+    P67_Unique_Gloves_Set_02: {
+      flavor: "\"Hold, Imperius, we must regroup our forces.\" -Tyrael, Archangel of Justice to Imperious, Archangel of Valor",
+    },
+    P67_Unique_Helm_Set_01: {
+      flavor: "\"I fear nothing!\" Imperious, Archangel of Valor",
+    },
+    P67_Unique_Helm_Set_02: {
+      flavor: "Wisdom feared for the future of the High Heavens and of Sanctuary and believed now, more than ever, that terrible things were in store for them all.",
+    },
+    P67_Unique_Mighty_1H_006: {
+      flavor: "It takes a sturdy weapon to survive on the shores of the Frozen Sea.",
+    },
+    P67_Unique_Mighty_1H_012: {
+      flavor: "There are longswords and there are greatswords. And then there is this sword.",
+    },
+    P67_Unique_Mighty_1H_102: {
+      flavor: "Murkolt, a giant even among the Ancients, was known for many feats and qualities. Remorse was not among these. This weapon is said to embody his ethos, and some even believe it can summon him for a brief time.",
+    },
+    P67_Unique_Pants_Set_01: {
+      flavor: "\"And we have also saved each other's lives on the battlefield countless times.\" -Imperious, Archangel of Valor to Tyrael, Aspect of Wisdom",
+    },
+    P67_Unique_Pants_Set_02: {
+      flavor: "\"It was revealed to me that the world would have been destroyed but for a single choice, made by most holy Tyrael, a being of perfect justice, that Sanctuary should continue.\" -Bahman the Seer",
+    },
+    P67_Unique_Shoulder_102: {
+      flavor: "This mantle was crafted by one banished from the sacred mountain, in order to commune with the ancients.",
+    },
+    P67_Unique_Shoulder_Set_01: {
+      flavor: "\"SO IT IS DECIDED... BUT WHAT DO ANY OF YOU NOW SUGGEST BE DONE TO PREVENT THE BURNING HELLS FROM SPREADING THEIR TAINT ACROSS THIS WORLD YOU HAVE SAVED? ARE WE TO HAVE A HOST STAND GUARD OVER THIS... THIS SANCTUARY?\" -Imperious, Archangel of Valor",
+    },
+    P67_Unique_Shoulder_Set_02: {
+      flavor: "\"...I DID CALL THEM ABOMINATIONS... AND I WAS WRONG! MY VOTE IS FOR THEM... FOR I WOULD SEE WHAT THEY MIGHT BECOME... AND MARVEL IN IT.\" -Tyrael, to the Angiris Council",
+    },
+    P67_fistWeapon_norm_unique_02: {
+      flavor: "“Some learned people say that evil cannot be overcome through violence. I say there is no other way.” -Akyev the Unyielding",
     },
     P6_Necro_Set_1_Boots: {
       flavor: "Each fragment of this armor came from a corpse that died at a different age. Fully assembled, they represent a thousand years of death.",
@@ -1698,7 +1845,7 @@ _L.patch.add({
     Unique_Helm_001_x1: {
       flavor: "The ancient crown of Rakkis, first ruler of Westmarch.",
     },
-    Unique_Helm_002_p3: {
+    Unique_Helm_002_p1: {
       flavor: "The crown of the Black King. The taint of his madness wafts from the metal, clinging to any jewel that comes near it.",
     },
     Unique_Helm_002_x1: {
@@ -2773,6 +2920,9 @@ _L.patch.add({
     },
     invigorating: {
       flavor: "“Some say this stone derives its power from its owners life force, which is shortened with each use. Well I say any fight I can walk away from is a victory, and tomorrow can take care of itself.” - Famed warrior Lenalas, the day before his death\n",
+    },
+    legacyofdreams: {
+      flavor: "A Xiansai master forged this gem from other powerful rings hoping to combine their potencies and form a synergy.",
     },
     mirinae: {
       flavor: "“It was said that once a year, the two lovers would arrive at opposite river banks. A bridge of birds would form so they could touch. When they parted, their tears filled the land. Mirinae is one such tear. The sadness and rage in its core will only affect those close to it.” -Scholar Sojin Hwang\n",

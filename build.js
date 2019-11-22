@@ -1,67 +1,183 @@
-var outDir = "production";
-var phpHeader =
-  "<?php\n" +
-  "header('Content-type: application/javascript');" +
-  "function mklink($path, $src = NULL) {\n" +
-  "  echo $path . \"?\" . filemtime($_SERVER['DOCUMENT_ROOT'] . ($src ? $src : $path));\n" +
-  "}\n" +
-  "?>\n";
-var customStep = {
-/*  "scripts/main.js": function(res) {
-    return phpHeader + res.replace(/"\/[^"]*\.js"/gi, function(x) {
-      if (x === "\"/scripts/data.js\"") return "\"<?php mklink(\"/scripts/data.js\", \"/scripts/data.php\"); ?>\"";
-      if (x === "\"/scripts/ui-simulator.js\"") return "\"<?php mklink(\"/scripts/ui-simulator.js\", \"/scripts/ui-simulator.php\"); ?>\"";
-      return "\"<?php mklink(" + x + "); ?>\"";
-    });
-  },
-  "scripts/data.js": function(res) {
-    return phpHeader + res.replace("\"/data\"", "\"<?php " +
-                                           "$domain = explode('.', strtolower($_SERVER['HTTP_HOST'])); " +
-                                           "mklink('/data', '/php/' . ($domain[0] == 'ptr' ? 'data.ptr.js.gz' : 'data.js.gz')); ?>\"");
-  },
-  "scripts/ui-simulator.js": function(res) {
-    return phpHeader + res.replace("\"/sim\"", "\"<?php mklink('/sim', '/php/sim.temp.js'); ?>\"");
-  },*/
-};
-var exceptions = {
-//  "scripts/main.js": "scripts/main.php",
-//  "scripts/data.js": "scripts/data.php",
-//  "scripts/ui-simulator.js": "scripts/ui-simulator.php",
-  "external/chosen.css": "external/chosen.min.css",
-  "external/chosen.jquery.js": "external/chosen.jquery.min.js",
-  "external/jquery-ui.js": "external/jquery-ui.min.js",
-  "external/mwheelIntent.js": "external/mwheelIntent.min.js",
-  "external/J3DIMath.js": "external/J3DIMath.min.js",
-  "external/canvasjs.js": "external/canvasjs.min.js",
-//  "simulator": "sim",
-};
-var job = {
-//  "chinese/scripts/locale": "uglifyjs",
-//  "scripts/d3gl_data.js": "uglifyjs",
-//  "scripts/data_ptr": "uglifyjs",
-  "scripts" : "uglifyjs",
-  "css": "less",
-  "simulator": "uglifyjs",
-//  "external/canvasjs.js": "uglifyjs",
-//  "external/J3DIMath.js": "uglifyjs",
-//  "external/md5.js": "uglifyjs",
-//  "external/bnet/css/tooltips.css": "less",
-//  "external/chosen.css": "less",
-//  "external/jquery-ui.js": "uglifyjs",
-//  "external/chosen.jquery.js": "uglifyjs",
-//  "external/jquery.cookie.js": "uglifyjs",
-//  "external/Chart.js": "uglifyjs",
-};
-
-//////////////////////////////////
-
 var fs = require("fs-extra");
 var UglifyJS = require("uglify-js");
 var less = require("less");
 var ps = require("path");
 
+var outDir = "production";
+var cacheDir = "build_cache";
+
+var jobs = {
+  "css/all.css": {
+    files: [
+      "css/main.css",
+      "css/layout.less",
+      "css/classes.less",
+      "css/paperdoll.less",
+      "css/skills.less",
+      "css/timeline.less",
+      "css/stash.less",
+      "css/simulator.less",
+    ],
+    processor: "less",
+  },
+  "external/all.css": {
+    files: [
+      "external/jquery-ui.css",
+      "external/chosen.css",
+    ],
+    processor: "less",
+  },
+  "external/bnet/css/all.css": {
+    files: [
+      "external/bnet/css/tooltips.css",
+    ],
+    processor: "less",
+  },
+  "script.js": {
+    files: [
+      "external/jquery-2.0.3.js",
+      "external/jquery-ui.js",
+      "external/spin.min.js",
+      "external/jquery.cookie.js",
+      "external/chosen.jquery.js",
+      "external/Chart.js",
+      "external/jquery.mousewheel.js",
+      "external/mwheelIntent.js",
+      "external/md5.js",
+      "external/canvasjs.js",
+      "external/jquery.ui.touch-punch.js",
+      "external/gl-matrix.js",
+      "scripts/main.js",
+    ],
+    processor: "uglifyjs",
+    localjs: true,
+  },
+  "core.js": {
+    files: [
+      "scripts/common.js",
+      "scripts/bnet-parser.js",
+      "scripts/bnet-tooltips.js",
+      "scripts/stats.js",
+      "scripts/itembox.js",
+      "scripts/skilldata.js",
+      "scripts/skillbox.js",
+      "scripts/account.js",
+      "scripts/optimizer.js",
+      "scripts/ui-paperdoll.js",
+      "scripts/ui-equipment.js",
+      "scripts/ui-import.js",
+      "scripts/ui-paragon.js",
+      "scripts/ui-stats.js",
+      "scripts/ui-skills.js",
+      "scripts/ui-timeline.js",
+      "scripts/ui-simulator.js",
+      "scripts/d3gl_physics.js",
+      "scripts/d3gl.js",
+    ],
+    suffix: "DiabloCalc.onLoaded();",
+    processor: "uglifyjs",
+    localjs: true,
+  },
+  "scripts/data.js": {
+    files: [
+      "scripts/data.js",
+    ],
+    processor: "uglifyjs",
+  },
+  "scripts/locale.js": {
+    files: [
+      ...fs.readdirSync("scripts/locale").map(fn => "scripts/locale/" + fn),
+    ],
+    suffix: "DiabloCalc.onLocaleLoaded();",
+    processor: "uglifyjs",
+    localjs: true,
+  },
+  "scripts/icons.js": {
+    files: [
+      "scripts/data/item_icons.js",
+    ],
+    processor: "uglifyjs",
+    localjs: true,
+  },
+  "data.js": {
+    files: [
+      ...fs.readdirSync("scripts/data").map(fn => "scripts/data/" + fn),
+      "scripts/d3gl_data.js",
+    ],
+    suffix: "DiabloCalc.onDataLoaded();",
+    processor: "uglifyjs",
+    localjs: true,
+  },
+  "sim.js": {
+    files: [
+      "simulator/seedrandom.js",
+      "simulator/heap.js",
+      "simulator/math.js",
+      "simulator/sim.js",
+      "simulator/stats.js",
+      "simulator/buffs.js",
+      "simulator/damage.js",
+      "simulator/cast.js",
+      "simulator/itemsets.js",
+      "simulator/itemspecial.js",
+      "simulator/priority.js",
+      "simulator/tracker.js",
+    ],
+    prefix: "Simulator = {};",
+    processor: "uglifyjs",
+    localjs: "worker",
+  },
+  "sim/wizard.js": {
+    files: [
+      "simulator/wizard.js",
+    ],
+    processor: "uglifyjs",
+    localjs: "worker",
+  },
+  "sim/demonhunter.js": {
+    files: [
+      "simulator/demonhunter.js",
+    ],
+    processor: "uglifyjs",
+    localjs: "worker",
+  },
+  "sim/barbarian.js": {
+    files: [
+      "simulator/barbarian.js",
+    ],
+    processor: "uglifyjs",
+    localjs: "worker",
+  },
+  "sim/monk.js": {
+    files: [
+      "simulator/monk.js",
+    ],
+    processor: "uglifyjs",
+    localjs: "worker",
+  },
+  "sim/witchdoctor.js": {
+    files: [
+      "simulator/witchdoctor.js",
+    ],
+    processor: "uglifyjs",
+    localjs: "worker",
+  },
+  "sim/crusader.js": {
+    files: [
+      "simulator/crusader.js",
+    ],
+    processor: "uglifyjs",
+    localjs: "worker",
+  },
+};
+
+//////////////////////////////////
+
 fs.removeSync(outDir);
 fs.mkdirSync(outDir);
+if (!fs.existsSync(cacheDir)) {
+  fs.mkdirSync(cacheDir);
+}
 
 function writeFile(path, data) {
   fs.createFileSync(path);
@@ -71,12 +187,7 @@ function readFile(path) {
   return fs.readFileSync(path, {encoding: "utf-8"});
 }
 
-var extensions = {
-  "uglifyjs": ["js"],
-  "less": ["css", "less"],
-  "plain": [],
-};
-var callbacks = {
+var processors = {
   "uglifyjs": function(path) {
     var res;
     try {
@@ -98,46 +209,75 @@ var callbacks = {
     });
     return data;
   },
-  "plain": function(path) {
-    return readFile(path);
-  },
 };
 
-function process(path, callback) {
-  if (exceptions.hasOwnProperty(path)) {
-    if (!exceptions[path]) return;
-  }
-  if (fs.lstatSync(path).isDirectory()) {
-    var list = fs.readdirSync(path);
-    for (var i = 0; i < list.length; ++i) {
-      process(path + "/" + list[i], callback);
-    }
-  } else {
-    var outPath = outDir + "/" + path;
-    if (exceptions.hasOwnProperty(path)) {
-      if (!exceptions[path]) return;
-      outPath = outDir + "/" + exceptions[path];
-    }
-    var ext = ps.extname(path).substring(1);
-    if (extensions[callback].indexOf(ext) >= 0) {
-      if (ext != extensions[callback][0]) {
-        outPath = outPath.replace(ext, extensions[callback][0]);
+Object.entries(jobs).forEach(([output, desc]) => {
+  console.log("Processing " + output);
+  const func = processors[desc.processor];
+  let result = [];
+  let tm = null;
+  if (desc.prefix) result.push(desc.prefix);
+  desc.files.forEach(path => {
+    const cachePath = cacheDir + "/" + path;
+    const statSrc = fs.statSync(path);
+    if (fs.existsSync(cachePath)) {
+      const statDst = fs.statSync(cachePath);
+      if (statSrc.mtime > statDst.mtime) {
+        fs.removeSync(cachePath);
       }
-      console.log("Processing " + path);
-      var res = callbacks[callback](path);
-      if (customStep.hasOwnProperty(path) && typeof customStep[path] === "function") {
-        res = customStep[path](res);
-      }
-      writeFile(outPath, res);
+    }
+    let contents;
+    if (fs.existsSync(cachePath)) {
+      contents = readFile(cachePath);
     } else {
-      fs.createFileSync(outPath);
-      fs.copySync(path, outPath);
+      console.log("  " + path);
+      contents = func(path);
+      writeFile(cachePath, contents);
+      fs.utimesSync(cachePath, statSrc.mtime, statSrc.mtime);
     }
-    var stat = fs.statSync(path);
-    fs.utimesSync(outPath, stat.atime, stat.mtime);
-  }
-}
+    if (!tm || statSrc.mtime > tm) {
+      tm = statSrc.mtime;
+    }
+    result.push(contents);
+  });
+  if (desc.suffix) result.push(desc.suffix);
+  writeFile(outDir + "/" + output, result.join("\n"));
+  if (tm) fs.utimesSync(outDir + "/" + output, tm, tm);
 
-for (var path in job) {
-  process(path, job[path]);
-}
+  if (desc.localjs) {
+    let result = [];
+    if (desc.localjs === "worker") {
+      if (desc.prefix) result.push(desc.prefix);
+      desc.files.forEach(path => {
+        const stat = fs.statSync(path);
+        result.push(`importScripts("${path}?${stat.mtime.getTime()}")`);
+      });
+      if (desc.suffix) result.push(desc.suffix);
+      result = result.join("\n");
+    } else {
+      desc.files.forEach(path => {
+        const stat = fs.statSync(path);
+        result.push(`    "/${path}?${stat.mtime.getTime()}",`);
+      });
+      result = `(function() {
+  var order = [
+${result.join("\n")}
+  ];
+  ${desc.prefix || ""}
+  var loadIdx = 0;
+  function doLoad() {
+    if (loadIdx >= order.length) {
+      ${desc.suffix || ""}
+    } else {
+      var path = order[loadIdx++];
+      DC_getScript(path, doLoad);
+    }
+  }
+  doLoad();
+})();`;
+    }
+    writeFile(output, result);
+  } else if (desc.processor === "less") {
+    writeFile(output, result.join("\n"));
+  }
+});

@@ -556,24 +556,23 @@ DiabloCalc.skills.monk = {
       c: "Cyclone",
     },
     range: {x: 10, e: 10, a: 10, b: 14, d: 10, c: 10},
-    params: [{min: 0, max: "3+(leg_vengefulwind?3:0)+leg_vengefulwind_p2", name: "Stacks", buffs: false}],
+    params: [{min: 0, max: "3+(leg_vengefulwind?3:0)+leg_vengefulwind_p2+(leg_vengefulwind_p67?10:0)", name: "Stacks", buffs: false}],
     info: function(rune, stats) {
       var res = {"Cost": {cost: 75}, "DPS": {elem: "phy", aps: true, coeff: 1.05, factors: {"Stacks": this.params[0].val}, total: true}};
       if (rune === "e") res["DPS"].elem = "col";
-      if (rune === "a") res["DPS"].coeff = 1.45;
+      if (rune === "a" || stats.set_justice_2pc) res["DPS"].coeff = 1.45;
       if (rune === "b") res["DPS"].elem = "fir";
       if (rune === "d") res["DPS"].elem = "hol";
-      if (rune === "c") {
-        res["DPS"].elem = "lit";
-        res["Tornado Damage"] = {elem: "lit", coeff: 0.95};
-      }
+      if (rune === "c") res["DPS"].elem = "lit";
+      if (rune === "c" || stats.set_justice_2pc) res["Tornado Damage"] = {elem: "lit", coeff: 0.95};
       if (!this.params[0].val) delete res["DPS"];
       return res;
     },
     passive: function(rune, stats) {
       var buffs = {};
-      if (rune === "d" && this.params[0].val >= 3) buffs.spiritregen = 8;
+      if ((rune === "d" || stats.set_justice_2pc) && this.params[0].val >= 3) buffs.spiritregen = 8;
       if (stats.set_sunwuko_6pc && this.params[0].val) buffs.dmgmul = {skills: ["lashingtailkick", "tempestrush", "waveoflight"], percent: 1500 * this.params[0].val};
+      if (stats.set_justice_2pc) buffs.extrams = 5 * this.params[0].val;
       return buffs;
     },
   },
@@ -1028,10 +1027,6 @@ DiabloCalc.passives.monk = {
 DiabloCalc.partybuffs.monk = {
   cripplingwave: {
     runelist: "e",
-  },
-  blindingflash: {
-    runelist: "e",
-    buffs: {e: {regen: 26821}},
   },
   innersanctuary: {
     runelist: "*",

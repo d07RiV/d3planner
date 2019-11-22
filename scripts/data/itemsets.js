@@ -608,7 +608,7 @@ DiabloCalc.itemSets = {
         {format: "During Whirlwind and for 3 seconds after, you gain 50%% damage reduction and your applied Rends deal triple damage."},
       ],
       "6": [
-        {format: "Whirlwind gains the effect of the Dust Devils rune and all Whirlwind damage is increased by 10000%%."},
+        {format: "Whirlwind gains the effect of the Dust Devils rune and all Whirlwind and Rend damage is increased by 10000%%."},
       ],
     },
   },
@@ -756,4 +756,82 @@ DiabloCalc.itemSets = {
     },
   },
 
+  aughild_v2: {
+    name: "Aughild's Authority",
+    order: ["shoulders", "chestarmor", "bracers", "helm"],
+    bonuses: {
+      "2": [
+        {stat: "dmgred", value: [15]},
+        {stat: "dmgmul", value: [30]},
+      ],
+      "3": [
+        {stat: "edef", value: [30]},
+        {stat: "edmg", value: [30]},
+      ],
+    },
+  },
+
+  cain_v2: {
+    name: "Cain's Destiny",
+    order: ["pants", "helm", "gloves", "boots"],
+    bonuses: {
+      "2": [
+        {stat: "ias", value: [8]},
+        {stat: "expmul", value: [50]},
+      ],
+      "3": [
+        {format: "When a Greater Rift Keystone drops, there is a 25%% chance for an extra one to drop."},
+      ],
+    },
+  },
+
+  crimson_v2: {
+    name: "Captain Crimson's Trimmings",
+    order: ["belt", "pants", "boots"],
+    bonuses: {
+      "2": [
+        {stat: "regen", value: [6000]},
+        {stat: "cdr", value: [20]},
+        {stat: "rcr", value: [20]},
+      ],
+      "3": [
+        {format: "Damage dealt is increased by your percentage of cooldown reduction."},
+        {format: "Damage taken is reduced by your percentage of cost reduction."},
+      ],
+    },
+  },
+
+  valor: {
+    name: "Aegis of Valor",
+    class: "crusader",
+    order: [],
+    bonuses: {
+      "2": [
+        {format: "Attacking with Fists of the Heavens empowers you, allowing Heaven's Fury to deal 100%% increased damage for 5 seconds. Stacks up to 3 times multiplicatively."},
+      ],
+      "4": [
+        {format: "Hitting with Fist of the Heavens returns 5 Wrath and reduces damage taken by 1%% for 10 seconds. Stacks up to 50 times."},
+      ],
+      "6": [
+        {format: "Increase the damage of Fist of the Heavens and Heaven's Fury by 20000%%."},
+      ],
+    },
+  },
+
+  justice: {
+    name: "Patterns of Justice",
+    class: "monk",
+    order: [],
+    bonuses: {
+      "2": [
+        {format: "Sweeping Wind gains the effect of every rune, and movement speed is increased by 5%% for each stack of Sweeping Wind."},
+      ],
+      "4": [
+        {format: "Attacking with Tempest Rush reduces your damage taken by 50%% and increases Spirit Regeneration by 50."},
+      ],
+      "6": [
+        {format: "Hitting with Tempest Rush while Sweeping Wind is active increases the size of Sweeping Wind and also increases all damage dealt by 15000%%."},
+      ],
+    },
+  },
 };

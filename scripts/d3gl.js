@@ -1203,20 +1203,23 @@ $.ajaxTransport("+binary", function(options, originalOptions, jqXHR){
 
       gl.character = new D3Character(gl, 6526);
 
-      $($canvas).mousedown(function(e) {
+      $canvas.mousedown(function(e) {
         onMouseDown(gl, e);
-      }).on("touchstart", function(e) {
-        return onMouseDown(gl, touchTranslate(e));
       });
+      $canvas[0].addEventListener("touchstart", function(e) {
+        return onMouseDown(gl, touchTranslate(e));
+      }, {passive: true});
       $(window).mousemove(function(e) {
         onMouseMove(gl, e);
       }).mouseup(function(e) {
         onMouseUp(gl, e);
-      }).on("touchmove", function(e) {
+      })
+      window.addEventListener("touchmove", function(e) {
         return onMouseMove(gl, touchTranslate(e));
-      }).on("touchend", function(e) {
+      }, {passive: true});
+      window.addEventListener("touchend", function(e) {
         return onMouseUp(gl, touchTranslate(e));
-      });
+      }, {passive: true});
 
       window.requestAnimationFrame(function(time) { gl.render(time); });
 

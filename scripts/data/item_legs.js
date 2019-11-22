@@ -218,6 +218,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Pants_010_x1",
+    suffix: _L("Legacy"),
     name: "Cain's Habit",
     type: "pants",
     quality: "set",
@@ -226,6 +227,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Pants_012_x1",
+    suffix: _L("Legacy"),
     name: "Captain Crimson's Thrust",
     type: "pants",
     quality: "set",
@@ -469,6 +471,40 @@ DiabloCalc.addItems([
     required: {
       custom: {id: "leg_defilercuisses_p6", name: "Bone Spirit Damage per Stack", format: "Your Bone Spirit's damage is increased by %d%% for every second it is active.", min: 400, max: 500},
     },
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P66_Unique_Pants_010",
+    name: "Cain's Habit",
+    type: "pants",
+    quality: "set",
+    set: "cain_v2",
+  },
+
+  {
+    id: "P66_Unique_Pants_012",
+    name: "Captain Crimson's Thrust",
+    type: "pants",
+    quality: "set",
+    set: "crimson_v2",
+  },
+
+  {
+    id: "P67_Unique_Pants_Set_01",
+    name: "Chausses of Valor",
+    type: "pants",
+    quality: "set",
+    set: "valor",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P67_Unique_Pants_Set_02",
+    name: "Mountains of Justice",
+    type: "pants",
+    quality: "set",
+    set: "justice",
     preset: ["mainstat", "sockets"],
   },
 

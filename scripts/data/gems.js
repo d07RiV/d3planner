@@ -152,6 +152,7 @@ DiabloCalc.legendaryGems = {
     name: "Boon of the Hoarder",
     types: ["finger", "neck"],
     active: false,
+    maxlevel: 50,
     effects: [
       {
         format: "%.1f%% chance on killing an enemy to cause an explosion of gold.",
@@ -191,6 +192,7 @@ DiabloCalc.legendaryGems = {
     types: ["finger", "neck"],
     always: true,
     active: true,
+    maxlevel: 100,
     effects: [
       {
         stat: "nonphys",
@@ -246,6 +248,7 @@ DiabloCalc.legendaryGems = {
     name: "Gogok of Swiftness",
     types: ["finger", "neck"],
     active: true,
+    maxlevel: 150,
     effects: [
       {
         format: "Gain Swiftness with every attack, increasing your Attack Speed by 1%% and Dodge by %.2f%% for 4 seconds. This effect stacks up to 15 times.",
@@ -477,6 +480,7 @@ DiabloCalc.legendaryGems = {
     id: "Unique_Gem_021_x1",
     ids: ["ptr_Iceblink"],
     active: true,
+    maxlevel: 50,
     name: "Iceblink",
     types: ["finger", "neck"],
     effects: [
@@ -497,6 +501,7 @@ DiabloCalc.legendaryGems = {
     ids: ["ptr_Mutilation"],
     name: "Mutilation Guard",
     types: ["finger", "neck"],
+    maxlevel: 100,
     effects: [
       {
         format: "Gain %d%% melee damage reduction.",
@@ -548,6 +553,34 @@ DiabloCalc.legendaryGems = {
     },
     buffs: function(level, stats) {
       if (level >= 25) return {cdr: 75, rcr: 100};
+    },
+  },
+  legacyofdreams: {
+    id: "Unique_Gem_023_x1",
+    name: "Legacy of Dreams",
+    types: ["finger", "neck"],
+    active: true,
+    maxlevel: 99,
+    effects: [
+      {
+        format: "While you have no set bonuses equipped every legendary item you have equipped increases your damage dealt by %.2f%% and reduces your damage taken by 2%%.",
+        value: [3.75],
+        delta: [3.75],
+      },
+      {
+        format: "This bonus is doubled for Ancient items.",
+      },
+    ],
+    buffs: function(level, stats) {
+      for (var id in stats.info.sets) {
+        if (stats.info.sets[id] <= 1) continue;
+        var count = stats.info.sets[id] + (stats.leg_ringofroyalgrandeur ? 1 : 0);
+        for (var num in DiabloCalc.itemSets[id].bonuses) {
+          if (num <= count) return;
+        }
+      }
+      var items = stats.info.legendaries + stats.info.ancients;
+      return {dmgmul: 3.75 * (level + 1) * items, dmgred: 2 * items};
     },
   },
 };

@@ -1238,7 +1238,7 @@
     background: #000 !important;
   }
 }
-.link-like {
+.link-like, .ui-widget-content .link-like {
   cursor: pointer;
   .theme-light & {
     color: #44f;
@@ -1446,6 +1446,35 @@
         width: 300px;
         margin: 4px 0;
       }
+    }
+  }
+}
+
+
+.errorBox {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99999;
+  background-color: rgba(0,0,0,0.3);
+  div {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #f00;
+    background-color: #fcc;
+    padding: 8px;
+    text-align: center;
+    h3 {
+      margin: 0;
+      font-size: 100%;
+      font-weight: bold;
+    }
+    p {
+      margin: 0;
     }
   }
 }

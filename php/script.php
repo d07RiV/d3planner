@@ -15,5 +15,5 @@ GetDocs(array(
   "external/gl-matrix.min.js",
 //  "scripts/errors.js",
   "scripts/main.js",
-));
+), false, '', '', 'script');
 ?>

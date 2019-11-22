@@ -233,6 +233,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Boots_015_x1",
+    suffix: _L("Legacy"),
     name: "Cain's Travelers",
     type: "boots",
     quality: "set",
@@ -241,6 +242,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Boots_017_x1",
+    suffix: _L("Legacy"),
     name: "Captain Crimson's Waders",
     type: "boots",
     quality: "set",
@@ -459,6 +461,40 @@ DiabloCalc.addItems([
       custom: {id: "leg_nilfursboast_p6", name: "Meteor Damage Bonus", format: "Increase the damage of Meteor by 600%%. When your Meteor hits 3 or fewer enemies, the damage is increased by %d%%.", min: 675, max: 900},
     },
     preset: ["mainstat", "resall"],
+  },
+
+  {
+    id: "P66_Unique_Boots_015",
+    name: "Cain's Travelers",
+    type: "boots",
+    quality: "set",
+    set: "cain_v2",
+  },
+
+  {
+    id: "P66_Unique_Boots_017",
+    name: "Captain Crimson's Waders",
+    type: "boots",
+    quality: "set",
+    set: "crimson_v2",
+  },
+
+  {
+    id: "P67_Unique_Boots_Set_01",
+    name: "Greaves of Valor",
+    type: "boots",
+    quality: "set",
+    set: "valor",
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "P67_Unique_Boots_Set_02",
+    name: "Weaves of Justice",
+    type: "boots",
+    quality: "set",
+    set: "justice",
+    preset: ["mainstat", "vit"],
   },
 
 ]);

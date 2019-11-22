@@ -276,6 +276,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Belt_012_x1",
+    suffix: _L("Legacy"),
     name: "Captain Crimson's Silk Girdle",
     type: "belt",
     quality: "set",
@@ -407,6 +408,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_BarbBelt_005_p1",
     name: "Lamentation",
+    suffix: _L("Legacy"),
     type: "mightybelt",
     quality: "legendary",
     required: {
@@ -772,6 +774,33 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       custom: {id: "leg_bindingofthelost_p6", name: "Damage Reduction", format: "Each hit with Seven-Sided Strike grants %.1f%% damage reduction for 7 seconds.", min: 4, max: 5, step: 0.1},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P66_Unique_Belt_012",
+    name: "Captain Crimson's Silk Girdle",
+    type: "belt",
+    quality: "set",
+    set: "crimson_v2",
+  },
+
+  {
+    id: "P66_Unique_Belt_016",
+    name: "Sage's Ribbon",
+    type: "belt",
+    quality: "set",
+    set: "sage",
+  },
+
+  {
+    id: "P67_Unique_BarbBelt_005",
+    name: "Lamentation",
+    type: "mightybelt",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_lamentation_p67", name: "Rend Damage", format: "Rend can now stack up to 2 times on an enemy, and the damage of Rend is increased by %d%%.", min: 100, max: 150},
     },
     preset: ["mainstat"],
   },

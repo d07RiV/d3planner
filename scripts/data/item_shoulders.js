@@ -200,6 +200,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Shoulder_008_x1",
     name: "Aughild's Power",
+    suffix: _L("Legacy"),
     type: "shoulders",
     quality: "set",
     set: "aughild",
@@ -255,6 +256,7 @@ DiabloCalc.addItems([
     id: "P3_Unique_Shoulder_102",
     local: true,
     name: "Fury of the Ancients",
+    suffix: _L("Legacy"),
     type: "shoulders",
     quality: "legendary",
     required: {
@@ -390,6 +392,44 @@ DiabloCalc.addItems([
       custom: {id: "leg_razethsvolition", name: "Skeletal Mage Gains Gift of Death", format: "Skeletal Mage gains the effect of the Gift of Death rune.", args: 0},
     },
     preset: ["mainstat", "rcr"],
+  },
+
+  {
+    id: "P66_Unique_Shoulder_008",
+    name: "Aughild's Power",
+    type: "shoulders",
+    quality: "set",
+    set: "aughild_v2",
+  },
+
+  {
+    id: "P67_Unique_Shoulder_102",
+    local: true,
+    name: "Fury of the Ancients",
+    type: "shoulders",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_furyoftheancients_p67", name: "CotA Gains Ancients' Fury", format: "Call of the Ancients gains the effect of the Ancients' Fury rune, and your Ancients attack 100%% faster.", args: 0},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P67_Unique_Shoulder_Set_02",
+    name: "Mirrors of Justice",
+    type: "shoulders",
+    quality: "set",
+    set: "justice",
+    preset: ["mainstat", "resall"],
+  },
+
+  {
+    id: "P67_Unique_Shoulder_Set_01",
+    name: "Spaulders of Valor",
+    type: "shoulders",
+    quality: "set",
+    set: "valor",
+    preset: ["mainstat", "resall"],
   },
 
 ]);

@@ -351,10 +351,10 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Mojo_002_x1",
+    suffix: _L("Legacy"),
     name: "Spite",
     type: "mojo",
     quality: "legendary",
-    preset: ["maxmana", "chc"],
   },
 
   {
@@ -776,7 +776,7 @@ DiabloCalc.addItems([
     type: "crusadershield",
     quality: "legendary",
     required: {
-      custom: {id: "leg_shieldoffury", name: "Heaven's Fury Ramp Up", format: "Each time an enemy takes damage from your Heaven's Fury, it increases the damage they take from your Heaven's Fury by %d%%.", min: 15, max: 20},
+      custom: {id: "leg_shieldoffury", name: "Heaven's Fury Ramp Up", format: "Each time an enemy takes damage from your Heaven's Fury, it increases the damage they take from your Heaven's Fury by %d%%. This effect stacks up to 20 times.", min: 15, max: 20},
     },
     preset: ["mainstat"],
   },
@@ -873,7 +873,7 @@ DiabloCalc.addItems([
     type: "phylactery",
     quality: "legendary",
     required: {
-      custom: {id: "leg_boneringer", name: "Command Skeleton Damage Bonus", format: "The damage bonus of Command Skeletons increases by %d%% per second they spend attacking the same target.", min: 25, max: 30},
+      custom: {id: "leg_boneringer", name: "Command Skeleton Damage Bonus", format: "The damage bonus of Command Skeletons increases by %d%% per second they spend attacking the same target. This effect stacks up to 60 times.", min: 25, max: 30},
     },
     preset: ["mainstat", "chc"],
   },
@@ -1008,7 +1008,7 @@ DiabloCalc.addItems([
     type: "crusadershield",
     quality: "legendary",
     required: {
-      custom: {id: "leg_shieldoffury_p6", name: "Heaven's Fury Ramp Up", format: "Each time an enemy takes damage from your Heaven's Fury, it increases the damage they take from your Heaven's Fury by %d%%.", min: 25, max: 30},
+      custom: {id: "leg_shieldoffury_p6", name: "Heaven's Fury Ramp Up", format: "Each time an enemy takes damage from your Heaven's Fury, it increases the damage they take from your Heaven's Fury by %d%%. This effect stacks up to 20 times.", min: 25, max: 30},
     },
     preset: ["mainstat"],
   },
@@ -1055,6 +1055,17 @@ DiabloCalc.addItems([
       custom: {id: "leg_sinseekers_p65", name: "Rapid Fire Damage", format: "Rapid Fire no longer has a channel cost and deals %d%% increased damage.", min: 250, max: 300},
     },
     preset: ["mainstat", "chc", "skill_demonhunter_rapidfire"],
+  },
+
+  {
+    id: "P66_Unique_Mojo_002",
+    name: "Spite",
+    type: "mojo",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_spite", name: "Gargantuan Cleaves", format: "Non-cleaving Gargantuans gain the cleave and chilling effects of the Humongoid rune.", args: 0},
+    },
+    preset: ["maxmana", "chc"],
   },
 
 ]);

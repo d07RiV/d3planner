@@ -15,6 +15,8 @@ DiabloCalc = {
   relPath: "/",
   options: {},
   optionPerProfile: {},
+  pageTitle: document.title,
+  ptr: false,//(location.hostname.toLowerCase().indexOf("ptr") >= 0),
   addOption: function(name, get, set, profile) {
     Object.defineProperty(this.options, name, {get: get, set: set, enumerable: true});
     if (profile) this.optionPerProfile[name] = true;
@@ -59,6 +61,7 @@ DiabloCalc = {
     });
   },
 };
+DiabloCalc.season = 18;
 //setInterval(function() {
 //  DiabloCalc.report();
 //}, 180000);
@@ -122,6 +125,7 @@ Object.defineProperty(_L.patch, "apply", {enumerable: false});
 DiabloCalc.translateMainPage = function() {
   var _L = DiabloCalc.locale("title");
   document.title = _L("Diablo III Character Planner");
+  DiabloCalc.pageTitle = document.title;
   var label = $("#char-info label");
   var input = label.find("input").detach();
   label.text(_L("Level") + " ").append(input);
@@ -148,6 +152,28 @@ DiabloCalc.translateMainPage = function() {
   $("a[href=\"#tab-simulator\"]").text(_L("Simulate"));
   $(".theme-select option[value=\"light\"]").text(_L("Light Theme"));
   $(".theme-select option[value=\"dark\"]").text(_L("Dark Theme"));
+};
+
+DiabloCalc.showPrivacy = function() {
+  if (!this.privacyDlg) {
+    this.privacyDlg = $("<div class=\"privacy-dialog\"></div>");
+    this.privacyDlg.load("/privacy.html", null, function() {
+      DiabloCalc.privacyDlg.find("a").addClass("link-like");
+    });
+    this.privacyDlg.css({overflow: "auto"});
+  }
+
+  this.privacyDlg.dialog({
+    resizable: true,
+    title: _L("Privacy Policy"),
+    height: 800,
+    width: 1000,
+    modal: true,
+//    close: function() { dlg.remove(); },
+//    open: function() {
+//      dlg.parent().css("overflow", "visible");
+//    },
+  });
 };
 
 $(function() {
@@ -210,6 +236,15 @@ $(function() {
     DiabloCalc.spinStop();
   });
 
+  $("#privacy-policy").click(function(e) {
+    if (e.shiftKey || e.ctrlKey || e.altKey) {
+      return;
+    }
+    DiabloCalc.showPrivacy();
+    e.preventDefault();
+    return false;
+  });
+
 
   var themeSelect = $(".theme-select");
   var themeBox;
@@ -240,7 +275,7 @@ $(function() {
 
   DiabloCalc.spinStart();
 
-  //if (location.hostname.toLowerCase().indexOf("ptr") >= 0) {
+  //if (DiabloCalc.ptr) {
   //  $("#ptr-link").append("<a href=\"http://" + location.hostname.replace(/^[^.]*/, "www") + "\">" + _L("Switch to live version") + "</a>");
   //  $("#ptr-link").find("a").click(function() {
   //    $(this).attr("href", "http://" + location.hostname.replace(/^[^.]*/, "www") + location.pathname);
@@ -292,15 +327,27 @@ $(function() {
       $(".char-class").next().find("span").first().addClass("class-icon");
       $(".char-level").blur(DiabloCalc.validateNumber);
 
-      var seasonalBox = $("<input type=\"checkbox\" checked=\"checked\"></input>").change(function() {
-        DiabloCalc.trigger("updateSkills");
-      });
-      var seasonalLabel = $("<label class=\"option-box\"></label>").append(seasonalBox).append(_L("Seasonal"));
-      $("#char-info").append($("<div class=\"seasonal-box\"></div>").append(seasonalLabel));
-      DiabloCalc.addOption("seasonal", function() {return seasonalBox.prop("checked");}, function(x) {
-        seasonalBox.prop("checked", x);
-        DiabloCalc.trigger("updateSkills");
-      });
+      if (DiabloCalc.season === 18) {
+        var seasonalBox = $("<select value=\"1\"><option value=\"0\">None</option><option value=\"1\">Damage</option><option value=\"2\">Resources</option></select>").change(function() {
+          DiabloCalc.trigger("updateSkills");
+        });
+        var seasonalLabel = $("<label class=\"option-box\"></label>").append(_L("Seasonal Buff")).append(seasonalBox);
+        $("#char-info").append($("<div class=\"seasonal-box-2\"></div>").append(seasonalLabel));
+        DiabloCalc.addOption("seasonal", function() {return parseInt(seasonalBox.val());}, function(x) {
+          seasonalBox.val(x | 0);
+          DiabloCalc.trigger("updateSkills");
+        });
+      } else if (DiabloCalc.season === 17) {
+        var seasonalBox = $("<input type=\"checkbox\" checked=\"checked\"></input>").change(function() {
+          DiabloCalc.trigger("updateSkills");
+        });
+        var seasonalLabel = $("<label class=\"option-box\"></label>").append(seasonalBox).append(_L("Seasonal"));
+        $("#char-info").append($("<div class=\"seasonal-box\"></div>").append(seasonalLabel));
+        DiabloCalc.addOption("seasonal", function() {return seasonalBox.prop("checked");}, function(x) {
+          seasonalBox.prop("checked", x);
+          DiabloCalc.trigger("updateSkills");
+        });
+      }
 
       function onLoaded() {
         DiabloCalc.addTip(seasonalBox, _L("Seasonal characters always have Legacy of Nightmares set bonus."));
@@ -386,7 +433,7 @@ $(function() {
       }
 
       DiabloCalc.onLoaded = onLoaded;
-      DC_getScript("core");
+      DC_getScript("core.js");
     });
   });
 });

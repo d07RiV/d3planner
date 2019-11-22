@@ -27,6 +27,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Amulet_010_x1",
+    suffix: _L("Legacy"),
     name: "Squirt's Necklace",
     type: "amulet",
     quality: "legendary",
@@ -163,6 +164,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Amulet_001_x1",
+    suffix: _L("Legacy"),
     name: "The Flavor of Time",
     type: "amulet",
     quality: "legendary",
@@ -311,6 +313,34 @@ DiabloCalc.addItems([
       custom: {id: "leg_wisdomofkalan", name: "Max Bone Armor Stacks", format: "Increases the maximum stacks of Bone Armor by 5.", args: 0},
     },
     preset: ["mainstat", "ias"],
+  },
+
+  {
+    id: "P66_Unique_Amulet_010",
+    name: "Squirt's Necklace",
+    type: "amulet",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_squirtsnecklace", name: "Damage when Not Hit", format: "While not taking damage, damage dealt is increased by up to 100%% and damage taken is increased by up to 50%%.", args: 0},
+    },
+    preset: ["mainstat", "gf", "chd"],
+    secondary: 3,
+  },
+
+  {
+    id: "P66_Unique_Amulet_001",
+    name: "The Flavor of Time",
+    type: "amulet",
+    quality: "legendary",
+    affixes: {
+      ms: "msNormal",
+    },
+    required: {
+      custom: {id: "leg_theflavoroftime", name: "Double Pylon Duration", format: "Pylon effects last twice as long.", args: 0},
+    },
+    preset: ["cdr", "ms"],
+    primary: 5,
+    secondary: 2,
   },
 
 ]);

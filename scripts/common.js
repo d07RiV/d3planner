@@ -80,18 +80,19 @@
     if (!elem.draggable("instance")) {
       elem.custommouse();//.mouse("_mouseInit");
     }
-    elem.on("touchstart", function(e) {
+    elem = elem[0];
+    elem.addEventListener("touchstart", function(e) {
       touch = e.originalEvent.touches[0];
       setTimeout(function() {
         touch = undefined;
       }, 750);
       //e.preventDefault();
-    });
-    elem.on("touchcancel", function(e) {
+    }, {passive: true});
+    elem.addEventListener("touchcancel", function(e) {
       touch = undefined;
       e.preventDefault();
-    });
-    elem.on("touchend", function(e) {
+    }, {passive: true});
+    elem.addEventListener("touchend", function(e) {
       if (touch) {
         e = $.extend({}, e);
         e.type = "click";
@@ -105,7 +106,7 @@
         }, 0);
       }
       e.preventDefault();
-    });
+    }, {passive: true});
   };
 
   DC.simpleDialog = function(options) {

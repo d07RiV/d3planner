@@ -153,11 +153,9 @@
     var self = this;
 
     // Delegate the touch handlers to the widget's element
-    self.element.bind({
-      touchstart: $.proxy(self, '_touchStart'),
-      touchmove: $.proxy(self, '_touchMove'),
-      touchend: $.proxy(self, '_touchEnd')
-    });
+    self.element[0].addEventListener("touchstart", $.proxy(self, '_touchStart'), {passive: true});
+    self.element[0].addEventListener("touchmove", $.proxy(self, '_touchMove'), {passive: true});
+    self.element[0].addEventListener("touchend", $.proxy(self, '_touchEnd'), {passive: true});
 
     // Call the original $.ui.mouse init method
     _mouseInit.call(self);
@@ -171,11 +169,9 @@
     var self = this;
 
     // Delegate the touch handlers to the widget's element
-    self.element.unbind({
-      touchstart: $.proxy(self, '_touchStart'),
-      touchmove: $.proxy(self, '_touchMove'),
-      touchend: $.proxy(self, '_touchEnd')
-    });
+    self.element[0].removeEventListener("touchstart", $.proxy(self, '_touchStart'), {passive: true});
+    self.element[0].removeEventListener("touchmove", $.proxy(self, '_touchMove'), {passive: true});
+    self.element[0].removeEventListener("touchend", $.proxy(self, '_touchEnd'), {passive: true});
 
     // Call the original $.ui.mouse destroy method
     _mouseDestroy.call(self);

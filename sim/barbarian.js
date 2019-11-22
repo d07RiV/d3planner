@@ -1,0 +1,1 @@
+importScripts("simulator/barbarian.js?1236911195000")

@@ -1,7 +1,7 @@
 <?php
 require_once("config.inc.php");
-$mysql = mysql_connect($mysql_server, $mysql_user, $mysql_password);
-mysql_select_db($mysql_db);
+$mysql = mysqli_connect($mysql_server, $mysql_user, $mysql_password);
+mysqli_select_db($mysql, $mysql_db);
 function pass_hash($pass) {
   return md5('SmartSalt' . $pass);
 }

@@ -1,6 +1,172 @@
 (function() {
   var _L = DiabloCalc.locale("bnet-tooltips.js");
 
+  var d2font = new Image();
+  var d2glyphs = [];
+  var d2callback;
+  var d2colors = [
+    "#FFFFFF", // white
+    "#FF4D4D", // broken
+    "#00FF00", // set
+    "#6969FF", // magic
+    "#C7B377", // unique
+    "#696969", // gray
+    "#000000", // (runewords.. not really)
+    "#D0C27D", // no idea
+    "#FFA800", // crafted
+    "#FFFF64", // rare
+  ];
+  DiabloCalc.enableD2 = function() {
+    d2font.onload = function() {
+      if (!window.ImageData) return;
+      var glyph = document.createElement("canvas");
+      glyph.width = this.width;
+      glyph.height = this.height;
+      var ctx = glyph.getContext("2d");
+      ctx.drawImage(this, 0, 0);
+      d2glyphs.push(glyph);
+      var src = ctx.getImageData(0, 0, this.width, this.height);
+
+      for (var i = 1; i < d2colors.length; ++i) {
+        var glyph = document.createElement("canvas");
+        glyph.width = this.width;
+        glyph.height = this.height;
+        var ctx = glyph.getContext("2d");
+        var dst = ctx.createImageData(this.width, this.height);
+
+        var mr = parseInt(d2colors[i].substr(1, 2), 16) / 255;
+        var mg = parseInt(d2colors[i].substr(3, 2), 16) / 255;
+        var mb = parseInt(d2colors[i].substr(5, 2), 16) / 255;
+        for (var j = 0; j < src.data.length; j += 4) {
+          dst.data[j] = Math.round(src.data[j] * mr);
+          dst.data[j + 1] = Math.round(src.data[j + 1] * mg);
+          dst.data[j + 2] = Math.round(src.data[j + 2] * mb);
+          dst.data[j + 3] = src.data[j + 3];
+        }
+
+        ctx.putImageData(dst, 0, 0);
+        d2glyphs.push(glyph);
+      }
+
+      this.loaded = true;
+      if (d2callback) d2callback();
+    };
+    d2font.src = "/css/fonts/font16.png";
+    DiabloCalc.d2tips = true;
+  };
+  var d2kerning = [
+    12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
+    12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
+     8, 8, 7, 8, 8,13,12, 4, 5, 5, 6, 8, 5, 5, 5, 9,
+    12, 5, 9, 8, 9, 9, 8, 8, 7, 8, 5, 5, 6, 7, 6, 8,
+    11,12, 7, 9,10, 8, 8,10, 9, 5, 5, 9, 8,12,10,11,
+     9,12,10, 7,11,12,13,16,12,12,10, 5, 9, 5, 5, 9,
+     5,10, 7, 8, 8, 7, 7, 9, 7, 4, 4, 8, 7,10, 9,10,
+     7,10, 9, 7, 9,10,10,13,10,10, 7, 6, 3, 6, 6,12,
+    12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
+    12, 5, 6,12,12,12,12,12,12,12,12,12,12,12,12,12,
+     8, 8, 7, 8, 7,12, 3, 6, 6,11, 9, 7,10, 4,11, 9,
+     7, 9, 7, 7, 5,13, 9, 7, 7, 3, 8, 8,11,13,12, 8,
+    12,12,12,12,12,12,11,10, 8, 7, 8, 8, 5, 5, 5, 7,
+    11,11,11,11,11,12,11,10,11,13,13,13,12,12, 8, 9,
+    11,10,10,10,10,10,10, 8, 7, 6, 7, 7, 4, 5, 4, 5,
+     8, 9,10, 9, 9,10,10, 8,10,10,10,10,10,10, 7,10
+  ];
+
+  function drawD2(lines) {
+    for (var i = 0; i < lines.length; ++i) {
+      var cw = 0, j;
+      var si = undefined, sc = 0, cc = 0;
+      for (j = 0; j < lines[i].length && (cw <= 800 || si === undefined); ++j) {
+        if (lines[i][j] == "$" && d2colors[lines[i][j + 1]]) {
+          cc = lines[i][++j];
+        } else {
+          if (lines[i][j] == " ") {
+            si = j;
+            sc = cc;
+          }
+          cw += d2kerning[lines[i].charCodeAt(j)];
+        }
+      }
+      if (j < lines[i].length && si !== undefined) {
+        lines.splice(i + 1, 0, (sc ? "$" + sc : "") + lines[i].substr(si + 1));
+        lines[i] = lines[i].substr(0, si);
+      }
+    }
+
+    if (!window.ImageData) {
+      // IE fallback
+      var res = $("<div></div>");
+      for (var i = 0; i < lines.length; ++i) {
+        if (!lines[i].length) {
+          res.append("<br/>");
+          continue;
+        }
+        var line = "";
+        var clr = 0;
+        for (var j = 0; j < lines[i].length; ++j) {
+          if (lines[i][j] == "$" && d2colors[lines[i][j + 1]]) {
+            if (clr) line += "</span>";
+            clr = parseInt(lines[i][++j]);
+            if (clr) line += "<span style=\"color: " + d2colors[clr] + "\">";
+          } else {
+            line += lines[i][j];
+          }
+        }
+        if (clr) line += "</span>";
+        res.append("<div>" + line + "</div>");
+      }
+      return res;
+    }
+    if (!d2font.loaded) {
+      var dummy = $("<div>loading...</div>");
+      d2callback = function() {
+        dummy.replaceWith(drawD2(lines));
+      };
+      return dummy;
+    }
+
+    var width = 0;
+    var height = 0;
+    var linew = [];
+    for (var i = 0; i < lines.length; ++i) {
+      height += 16;
+      var cw = 0;
+      for (var j = 0; j < lines[i].length; ++j) {
+        if (lines[i][j] == "$" && d2colors[lines[i][j + 1]]) {
+          ++j;
+        } else {
+          cw += d2kerning[lines[i].charCodeAt(j)];
+        }
+      }
+      linew.push(cw);
+      if (cw > width) width = cw;
+    }
+    width += 8;
+
+    var canvas = $("<canvas></canvas>");
+    canvas[0].width = width;
+    canvas[0].height = height;
+    var ctx = canvas[0].getContext("2d");
+
+    for (var i = 0; i < lines.length; ++i) {
+      var y = i * 16;
+      var x = Math.max(0, Math.floor((width - linew[i]) / 2));
+      var src = d2glyphs[0];
+      for (var j = 0; j < lines[i].length; ++j) {
+        if (lines[i][j] == "$" && d2glyphs[lines[i][j + 1]]) {
+          src = d2glyphs[lines[i][++j]];
+        } else {
+          var idx = lines[i].charCodeAt(j);
+          ctx.drawImage(src, (idx % 2) * 14, Math.floor(idx / 2) * 16, 14, 16, x, y, 14, 16);
+          x += d2kerning[idx];
+        }
+      }
+    }
+
+    return canvas;
+  }
+
   DiabloCalc.itemPerfection = function(data) {
     var slot;
     if (typeof data === "string") {
@@ -351,6 +517,7 @@
       if(tooltipWrapper == null) {
         initialize();
       }
+      tooltipWrapper.removeClass("d2tip");
       tooltipWrapper.css("max-width", "none");
       tooltipContent.removeClass().addClass("tooltip-content");
       tooltipContent.html(html);
@@ -360,6 +527,7 @@
       if(tooltipWrapper == null) {
         initialize();
       }
+      tooltipWrapper.removeClass("d2tip");
       tooltipWrapper.css("max-width", "");
       tooltipContent.removeClass().addClass("d3-tooltip-wrapper-inner");
 
@@ -409,6 +577,7 @@
       if(tooltipWrapper == null) {
         initialize();
       }
+      tooltipWrapper.removeClass("d2tip");
       tooltipWrapper.css("max-width", "");
       tooltipContent.removeClass().addClass("d3-tooltip-wrapper-inner");
 
@@ -436,6 +605,7 @@
       if(tooltipWrapper == null) {
         initialize();
       }
+      tooltipWrapper.removeClass("d2tip");
       tooltipWrapper.css("max-width", "");
       tooltipContent.removeClass().addClass("d3-tooltip-wrapper-inner");
 
@@ -490,8 +660,10 @@
       function fmtValue(val, p) {
         if (typeof val === "number") {
           return DiabloCalc.formatNumber(val, p, 10000);
+        } else if (val && val.min && val.max === val.min) {
+          return DiabloCalc.formatNumber(val.min, p, 10000);
         } else if (val && val.min && val.max) {
-          var res = DiabloCalc.formatNumber(val.min || 0, p, 10000) + "&#x2013;" + DiabloCalc.formatNumber(val.max || 0, p, 10000);
+          var res = DiabloCalc.formatNumber(val.min || 0, p, 10000) + (spans ? "&#x2013;" : "-") + DiabloCalc.formatNumber(val.max || 0, p, 10000);
           if (hasSpan) {
             res = "(" + res + ")";
           }
@@ -500,7 +672,7 @@
           return "0";
         }
       }
-      format = format.replace(/%(?:\{([0-9]+)\})?(d|p|\.[0-9]f|%)/g, function(m, idx, arg) {
+      format = format.replace(/%(\+?)(?:\{([0-9]+)\})?(d|p|\.[0-9]f|%)/g, function(m, plus, idx, arg) {
         if (arg == "%") {
           return "%";
         } else {
@@ -509,15 +681,16 @@
           var val = (idx >= values.length ? 0 : values[idx]);
 
           if (arg === "d") {
-            return fmtValue(val, 0);
+            return (plus && val >= 0 ? "+" : "") + fmtValue(val, 0);
           } else if (arg === "p") {
             var passive = DiabloCalc.allPassives[val];
             return (passive && passive.name || "unknown");
           } else {
-            return fmtValue(val, arg[1]);
+            return (plus && val >= 0 ? "+" : "") + fmtValue(val, arg[1]);
           }
         }
-      }).replace(/([0-9])-([0-9])/g, "$1&#x2013;$2");
+      });
+      if (spans) format = format.replace(/([0-9])-([0-9])/g, "$1&#x2013;$2");
       if (spans) {
         var reqClass;
         if (stat && DiabloCalc.stats[stat] && DiabloCalc.stats[stat].class) {
@@ -559,6 +732,7 @@
       var item = DiabloCalc.webglItems[id];
       if (!item) item = DiabloCalc.webglDyes[id];
       if (!item) return;
+      tooltipWrapper.removeClass("d2tip");
       tooltipWrapper.css("max-width", "");
       tooltipContent.removeClass().addClass("d3-tooltip-wrapper-inner");
 
@@ -680,15 +854,18 @@
       var _content = (_side ? side_tooltipContent : tooltipContent);
       var _wrapper = (_side ? side_tooltipWrapper : tooltipWrapper);
 
+      var item = DiabloCalc.itemById[data.id];
+      var color = DiabloCalc.qualities[item.quality].color;
+      var affixes = DiabloCalc.getItemAffixesById(data.id, data.ancient, true);
+
       _content.empty();
+      var d2style = (!!DiabloCalc.d2tips);
+      var d2text = [];
+      _wrapper.toggleClass("d2tip", !!d2style);
       _wrapper.css("max-width", "");
       _content.removeClass().addClass("d3-tooltip-wrapper-inner");
 
       var charClass = $(".char-class").val();
-
-      var item = DiabloCalc.itemById[data.id];
-      var color = DiabloCalc.qualities[item.quality].color;
-      var affixes = DiabloCalc.getItemAffixesById(data.id, data.ancient, true);
 
       if (data.template) {
         data.stats = {};
@@ -715,6 +892,14 @@
         }
         if (data.stats.custom && data.custom) {
           data.stats.custom = data.custom;
+        }
+        if (data.stats.sockets) {
+          data.stats.sockets = $.extend({}, data.stats.sockets);
+          var sox = 3;
+          if (stat === "sockets" && item.type !== "chestarmor" && item.type !== "cloak") {
+            sox = 1;
+          }
+          data.stats.sockets.max = Math.min(data.stats.sockets.max, sox);
         }
         data.random = remain;
       }
@@ -749,50 +934,80 @@
         }
       }
 
-      var outer = $("<div class=\"d3-tooltip d3-tooltip-item\"></div>");
-      _content.append(outer);
-      var ttClass = "d3-tooltip-item-wrapper";
-      if (data.ancient === "primal") {
-        ttClass += " d3-tooltip-item-wrapper-PrimalAncientLegendary";
-      } else if (data.ancient) {
-        ttClass += " d3-tooltip-item-wrapper-AncientLegendary";
+      var outer;
+      if (d2style) {
+        var d2c = {"white": 0, "red": 1, "green": 2, "blue": 3, "orange": 4, "gray": 5, "yellow": 9};
+        d2text.push("$" + (d2c[color] || 0) + item.name);
+        if (data.rwbase) {
+          var rwbase = DiabloCalc.itemById[data.rwbase.id];
+          if (data.transmog) {
+            rwbase = DiabloCalc.itemById[data.transmog] || DiabloCalc.webglItems[data.transmog] || rwbase;
+          }
+          if (rwbase) d2text.push("$5" + rwbase.name);
+        } else if (item.d2base) {
+          d2text.push("$5" + item.d2base);
+        } else {
+          var simpleType = (DiabloCalc.itemTypes[item.type.replace("2h", "")] || itemType);
+          var qual = DiabloCalc.qualities[item.quality];
+          d2text.push("$5" + DiabloCalc.GenderPair((data.ancient === "primal" && qual.primal || (data.ancient && qual.ancient)) || qual.prefix, simpleType.name));
+        }
+        var runes = "";
+        if (data.gems && DiabloCalc.runes) {
+          for (var i = 0; i < data.gems.length; ++i) {
+            if (data.gems[i] && DiabloCalc.runes[data.gems[i][0]]) {
+              runes += data.gems[i][0];
+            }
+          }
+        }
+        if (runes) {
+          d2text.push("$4'" + runes + "'");
+        }
+      } else {
+        outer = $("<div class=\"d3-tooltip d3-tooltip-item\"></div>");
+        _content.append(outer);
+        var ttClass = "d3-tooltip-item-wrapper";
+        if (data.ancient === "primal") {
+          ttClass += " d3-tooltip-item-wrapper-PrimalAncientLegendary";
+        } else if (data.ancient) {
+          ttClass += " d3-tooltip-item-wrapper-AncientLegendary";
+        }
+        var outerWrapper = $("<div class=\"" + ttClass + "\"></div>");
+        outer.append(outerWrapper);
+        outer = outerWrapper;
+
+        outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-left\"></div>");
+        outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-right\"></div>");
+        outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-top\"></div>");
+        outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-bottom\"></div>");
+        outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-top-left\"></div>");
+        outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-top-right\"></div>");
+        outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-bottom-left\"></div>");
+        outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-bottom-right\"></div>");
+
+        outer.append("<div class=\"tooltip-head tooltip-head-" + color + "\"><h3 class=\"d3-color-" + color + "\">" + item.name + "</h3></div>");
+
+        var ttbody = $("<div class=\"tooltip-body" + effectString + "\"></div>");
+        outer.append(ttbody);
+
+        ttbody.append("<span class=\"d3-icon d3-icon-item d3-icon-item-large d3-icon-item-" + color + "\">" +
+                       "<span class=\"icon-item-gradient\">" +
+                        "<span class=\"icon-item-inner icon-item-" + slotSize[itemType.slot] + (data.ancient ? " ancient" : "") + "\" style=\"background-image: url(" + icon + ");\"></span>" +
+                       "</span>" +
+                      "</span>");
+
+        var props = $("<div class=\"d3-item-properties\"></div>");
+        ttbody.append(props);
+
+        var slotInfo = (DiabloCalc.metaSlots[itemType.slot] || DiabloCalc.itemSlots[itemType.slot]);
+        var classSpecific = "";
+        if (item.class || itemType.class) {
+          classSpecific = "<li class=\"item-class-specific d3-color-white\">" + DiabloCalc.classes[item.class || itemType.class].name + "</li>";
+        }
+        props.append("<ul class=\"item-type-right\"><li class=\"item-slot\">" + slotInfo.name + "</li>" + classSpecific + "</ul>");
+        var qual = DiabloCalc.qualities[item.quality];
+        props.append("<ul class=\"item-type\"><li class=\"d3-color-" + color + "\">" +
+          DiabloCalc.GenderPair((data.ancient === "primal" && qual.primal || (data.ancient && qual.ancient)) || qual.prefix, itemType.name) + "</li></ul>");
       }
-      var outerWrapper = $("<div class=\"" + ttClass + "\"></div>");
-      outer.append(outerWrapper);
-      outer = outerWrapper;
-
-      outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-left\"></div>");
-      outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-right\"></div>");
-      outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-top\"></div>");
-      outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-bottom\"></div>");
-      outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-top-left\"></div>");
-      outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-top-right\"></div>");
-      outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-bottom-left\"></div>");
-      outer.append("<div class=\"d3-tooltip-item-border d3-tooltip-item-border-bottom-right\"></div>");
-
-      outer.append("<div class=\"tooltip-head tooltip-head-" + color + "\"><h3 class=\"d3-color-" + color + "\">" + item.name + "</h3></div>");
-
-      var ttbody = $("<div class=\"tooltip-body" + effectString + "\"></div>");
-      outer.append(ttbody);
-
-      ttbody.append("<span class=\"d3-icon d3-icon-item d3-icon-item-large d3-icon-item-" + color + "\">" +
-                     "<span class=\"icon-item-gradient\">" +
-                      "<span class=\"icon-item-inner icon-item-" + slotSize[itemType.slot] + (data.ancient ? " ancient" : "") + "\" style=\"background-image: url(" + icon + ");\"></span>" +
-                     "</span>" +
-                    "</span>");
-
-      var props = $("<div class=\"d3-item-properties\"></div>");
-      ttbody.append(props);
-
-      var slotInfo = (DiabloCalc.metaSlots[itemType.slot] || DiabloCalc.itemSlots[itemType.slot]);
-      var classSpecific = "";
-      if (item.class || itemType.class) {
-        classSpecific = "<li class=\"item-class-specific d3-color-white\">" + DiabloCalc.classes[item.class || itemType.class].name + "</li>";
-      }
-      props.append("<ul class=\"item-type-right\"><li class=\"item-slot\">" + slotInfo.name + "</li>" + classSpecific + "</ul>");
-      var qual = DiabloCalc.qualities[item.quality];
-      props.append("<ul class=\"item-type\"><li class=\"d3-color-" + color + "\">" +
-        DiabloCalc.GenderPair((data.ancient === "primal" && qual.primal || (data.ancient && qual.ancient)) || qual.prefix, itemType.name) + "</li></ul>");
 
       if (data.stats.basearmor) {
         var armor, armor_max;
@@ -810,10 +1025,36 @@
             armor += (data.stats.armor.min || 0);
           }
         }
-        if (armor_max) {
-          armor += "&#x2013;" + armor_max;
+        if (d2style) {
+          var oarmor_min = armor, oarmor_max = (armor_max || armor);
+          if (data.stats.d2stat0062) {
+            if (data.stats.d2stat0062 instanceof Array) {
+              armor += data.stats.d2stat0062[0];
+              if (armor_max) armor_max += data.stats.d2stat0062[0];
+            } else {
+              armor_max = (armor_max || armor) + data.stats.d2stat0062.max;
+              armor += data.stats.d2stat0062.min;
+            }
+          }
+          if (data.stats.d2stat0000) {
+            if (data.stats.d2stat0000 instanceof Array) {
+              armor = Math.floor(armor * (1 + 0.01 * data.stats.d2stat0000[0]));
+              if (armor_max) armor_max = Math.floor(armor_max * (1 + 0.01 * data.stats.d2stat0000[0]));
+            } else {
+              armor_max = Math.floor((armor_max || armor) * (1 + 0.01 * data.stats.d2stat0000.max));
+              armor = Math.floor(armor * (1 + 0.01 * data.stats.d2stat0000.min));
+            }
+          }
+          var blue = (armor > oarmor_min || (armor_max && armor_max > oarmor_max));
+          if (armor_max) armor += "-" + armor_max;
+          if (blue) armor = "$3" + armor + "$0";
+          d2text.push("Defense: " + armor);
+        } else {
+          if (armor_max) {
+            armor += "&#x2013;" + armor_max;
+          }
+          props.append("<ul class=\"item-armor-weapon item-armor-armor\"><li class=\"big\"><p><span class=\"value\">" + armor + "</span></p></li><li>" + _L("Armor") + "</li></ul>");
         }
-        props.append("<ul class=\"item-armor-weapon item-armor-armor\"><li class=\"big\"><p><span class=\"value\">" + armor + "</span></p></li><li>" + _L("Armor") + "</li></ul>");
       }
       if (itemType.weapon) {
         //TODO: fix quality
@@ -872,19 +1113,96 @@
         dmgmin = Math.round(dmgmin);
         dmgmax = Math.round(dmgmax);
         speed = speed.toFixed(2);
-        if (dmgmin_max) {
-          dmgmin = "(" + dmgmin + "&#x2013;" + Math.round(dmgmin_max) + ")";
-        }
-        if (dmgmax_max) {
-          dmgmax = "(" + dmgmax + "&#x2013;" + Math.round(dmgmax_max) + ")";
-        }
         if (speed_max) {
           speed += "&#x2013;" + speed_max.toFixed(2);
         }
-        props.append("<ul class=\"item-armor-weapon item-weapon-dps\"><li class=\"" + cls + "\"><span class=\"value\">" + dps + "</span></li><li>" + _L("Damage Per Second") + "</li></ul>");
-        props.append("<ul class=\"item-armor-weapon item-weapon-damage\">" +
-          "<li><p><span class=\"value\">" + dmgmin + "</span>&#x2013;<span class=\"value\">" + dmgmax + "</span> <span class=\"d3-color-FF888888\">" + _L("Damage") + "</span></p></li>" +
-          "<li><p><span class=\"value\">" + speed + "</span> <span class=\"d3-color-FF888888\">" + _L("Attacks per Second") + "</span></p></li></ul>");
+        if (d2style) {
+          var odmgmin = dmgmin, odmgmin_max = (dmgmin_max || dmgmin);
+          var odmgmax = dmgmax, odmgmax_max = (dmgmax_max || dmgmax);
+          if (data.stats.d2stat0217) {
+            if (data.stats.d2stat0217 instanceof Array) {
+              dmgmin += data.stats.d2stat0217[0];
+              dmgmax += data.stats.d2stat0217[0];
+              if (dmgmin_max) dmgmin_max += data.stats.d2stat0217[0];
+              if (dmgmax_max) dmgmax_max += data.stats.d2stat0217[0];
+            } else {
+              dmgmin_max = (dmgmin_max || dmgmin) + data.stats.d2stat0217.max;
+              dmgmin += data.stats.d2stat0217.min;
+              dmgmax_max = (dmgmax_max || dmgmax) + data.stats.d2stat0217.max;
+              dmgmax += data.stats.d2stat0217.min;
+            }
+          }
+          if (data.stats.d2stat0058) {
+            if (data.stats.d2stat0058 instanceof Array) {
+              dmgmin += data.stats.d2stat0058[0];
+              if (dmgmin_max) dmgmin_max += data.stats.d2stat0058[0];
+            } else {
+              dmgmin_max = (dmgmin_max || dmgmin) + data.stats.d2stat0058.max;
+              dmgmin += data.stats.d2stat0058.min;
+            }
+          }
+          if (data.stats.d2stat0023) {
+            if (data.stats.d2stat0023 instanceof Array) {
+              dmgmax += data.stats.d2stat0023[0];
+              if (dmgmax_max) dmgmax_max += data.stats.d2stat0023[0];
+            } else {
+              dmgmax_max = (dmgmax_max || dmgmax) + data.stats.d2stat0023.max;
+              dmgmax += data.stats.d2stat0023.min;
+            }
+          }
+          if (data.stats.d2stat0031) {
+            if (data.stats.d2stat0031 instanceof Array) {
+              dmgmin += data.stats.d2stat0031[0];
+              dmgmax += data.stats.d2stat0031[1];
+              if (dmgmin_max) dmgmin_max += data.stats.d2stat0031[0];
+              if (dmgmax_max) dmgmax_max += data.stats.d2stat0031[1];
+            } else {
+              dmgmin_max = (dmgmin_max || dmgmin) + data.stats.d2stat0031.max;
+              dmgmin += data.stats.d2stat0031.min;
+              dmgmax_max = (dmgmax_max || dmgmax) + data.stats.d2stat0031.max2;
+              dmgmax += data.stats.d2stat0031.min2;
+            }
+          }
+          if (data.stats.d2stat0007) {
+            if (data.stats.d2stat0007 instanceof Array) {
+              dmgmin = Math.floor(dmgmin * (1 + 0.01 * data.stats.d2stat0007[0]));
+              dmgmax = Math.floor(dmgmax * (1 + 0.01 * data.stats.d2stat0007[0]));
+              if (dmgmin_max) dmgmin_max = Math.floor(dmgmin_max * (1 + 0.01 * data.stats.d2stat0007[0]));
+              if (dmgmax_max) dmgmax_max = Math.floor(dmgmax_max * (1 + 0.01 * data.stats.d2stat0007[0]));
+            } else {
+              dmgmin_max = Math.floor((dmgmin_max || dmgmin) * (1 + 0.01 * data.stats.d2stat0007.max));
+              dmgmin = Math.floor(dmgmin * (1 + 0.01 * data.stats.d2stat0007.min));
+              dmgmax_max = Math.floor((dmgmax_max || dmgmax) * (1 + 0.01 * data.stats.d2stat0007.max));
+              dmgmax = Math.floor(dmgmax * (1 + 0.01 * data.stats.d2stat0007.min));
+            }
+          }
+
+          var blue1 = (dmgmin > odmgmin || (dmgmin_max && dmgmin_max > odmgmin_max));
+          var blue2 = (dmgmax > odmgmax || (dmgmax_max && dmgmax_max > odmgmax_max));
+          if (dmgmin_max) {
+            dmgmin = "(" + dmgmin + "-" + Math.round(dmgmin_max) + ")";
+          }
+          if (dmgmax_max) {
+            dmgmax = "(" + dmgmax + "-" + Math.round(dmgmax_max) + ")";
+          }
+          if (blue1) dmgmin = "$3" + dmgmin + "$0";
+          if (blue2) dmgmax = "$3" + dmgmax + "$0";
+          d2text.push((itemType.slot === "twohand" ? "Two-Hand " : "One-Hand ") + "Damage" + ": " +
+            dmgmin + " to " + dmgmax);
+          var simpleType = (DiabloCalc.itemTypes[item.type.replace("2h", "")] || itemType);
+          d2text.push(simpleType.name + " Class - " + (data.stats.weaponias ? "$3" : "") + speed + " Attack Speed");
+        } else {
+          if (dmgmin_max) {
+            dmgmin = "(" + dmgmin + "&#x2013;" + Math.round(dmgmin_max) + ")";
+          }
+          if (dmgmax_max) {
+            dmgmax = "(" + dmgmax + "&#x2013;" + Math.round(dmgmax_max) + ")";
+          }
+          props.append("<ul class=\"item-armor-weapon item-weapon-dps\"><li class=\"" + cls + "\"><span class=\"value\">" + dps + "</span></li><li>" + _L("Damage Per Second") + "</li></ul>");
+          props.append("<ul class=\"item-armor-weapon item-weapon-damage\">" +
+            "<li><p><span class=\"value\">" + dmgmin + "</span>&#x2013;<span class=\"value\">" + dmgmax + "</span> <span class=\"d3-color-FF888888\">" + _L("Damage") + "</span></p></li>" +
+            "<li><p><span class=\"value\">" + speed + "</span> <span class=\"d3-color-FF888888\">" + _L("Attacks per Second") + "</span></p></li></ul>");
+        }
       }
       if (data.stats.baseblock && data.stats.blockamount) {
         var block, block_max;
@@ -902,27 +1220,61 @@
             block += (data.stats.block.min || 0);
           }
         }
-        block = block.toFixed(1);
-        if (block_max) {
-          block += "&#x2013;" + block_max.toFixed(1);
-        }
-        var blockamount;
-        if (data.stats.blockamount instanceof Array) {
-          blockamount = data.stats.blockamount[0].toFixed(0) + "</span>&#x2013;<span class=\"value\">" + data.stats.blockamount[1].toFixed(0);
+        if (d2style) {
+          var oblock = block, oblock_max = (block_max || block);
+          if (data.stats.d2stat0068) {
+            if (data.stats.d2stat0068 instanceof Array) {
+              block += data.stats.d2stat0068[0];
+              if (block_max) block_max += data.stats.d2stat0068[0];
+            } else {
+              block_max = (block_max || block) + data.stats.d2stat0068.max;
+              block += data.stats.d2stat0068.min;
+            }
+          }
+          var blue = (block > oblock || (block_max && block_max > oblock_max));
+          block = block.toFixed(1);
+          if (block_max) {
+            block += "-" + block_max.toFixed(1);
+          }
+          block += "%";
+          if (blue) block = "$3" + block + "$0";
+          d2text.push("Chance to Block: " + block);
         } else {
-          blockamount = "(" + (data.stats.blockamount.min || 0).toFixed(0) + "&#x2013;" + (data.stats.blockamount.max || 0).toFixed(0) + ")";
-          blockamount += "</span>&#x2013;<span class=\"value\">";
-          blockamount += "(" + (data.stats.blockamount.min2 || 0).toFixed(0) + "&#x2013;" + (data.stats.blockamount.max2 || 0).toFixed(0) + ")";
+          block = block.toFixed(1);
+          if (block_max) {
+            block += "&#x2013;" + block_max.toFixed(1);
+          }
+          var blockamount;
+          if (data.stats.blockamount instanceof Array) {
+            blockamount = data.stats.blockamount[0].toFixed(0) + "</span>&#x2013;<span class=\"value\">" + data.stats.blockamount[1].toFixed(0);
+          } else {
+            blockamount = "(" + (data.stats.blockamount.min || 0).toFixed(0) + "&#x2013;" + (data.stats.blockamount.max || 0).toFixed(0) + ")";
+            blockamount += "</span>&#x2013;<span class=\"value\">";
+            blockamount += "(" + (data.stats.blockamount.min2 || 0).toFixed(0) + "&#x2013;" + (data.stats.blockamount.max2 || 0).toFixed(0) + ")";
+          }
+          props.append("<ul class=\"item-armor-weapon item-armor-shield\"><li><p><span class=\"value\">+" + block +
+            "%</span> <span class=\"d3-color-FF888888\">" + _L("Chance to Block") + "</span></p></li><li><p><span class=\"value\">" + blockamount +
+            "</span> <span class=\"d3-color-FF888888\">" + _L("Block Amount") + "</span></p></li></ul>");
         }
-        props.append("<ul class=\"item-armor-weapon item-armor-shield\"><li><p><span class=\"value\">+" + block +
-          "%</span> <span class=\"d3-color-FF888888\">" + _L("Chance to Block") + "</span></p></li><li><p><span class=\"value\">" + blockamount +
-          "</span> <span class=\"d3-color-FF888888\">" + _L("Block Amount") + "</span></p></li></ul>");
       }
 
-      props.append("<div class=\"item-before-effects\"></div>");
+      var classSpecific = "";
+      if (d2style && (item.class || itemType.class)) {
+        var cls = item.class || itemType.class;
+        d2text.push((cls == DiabloCalc.charClass ? "" : "$1") +
+          ("({0} Only)").format(DiabloCalc.classes[cls].name));
+      }
+      if (d2style) d2text.push("Required Level: 70");
 
-      var effects = $("<ul class=\"item-effects\"></ul>");
-      props.append(effects);
+      if (!d2style) props.append("<div class=\"item-before-effects\"></div>");
+
+      var effects;
+      if (d2style) {
+        effects = outer;
+      } else {
+        effects = $("<ul class=\"item-effects\"></ul>");
+        props.append(effects);
+      }
 
       for (var catType = 0; catType < 2; ++catType) {
         var category = null;
@@ -935,8 +1287,12 @@
         sorted.sort(function(a, b) { return DiabloCalc.stats[a].prio - DiabloCalc.stats[b].prio; });
         sorted.forEach(function(stat) {
           if (!category) {
-            category = $("<p class=\"item-property-category\">" + (catType == 0 ? _L("Primary") : _L("Secondary")) + "</p>");
-            effects.append(category);
+            if (d2style) {
+              category = effects;
+            } else {
+              category = $("<p class=\"item-property-category\">" + (catType == 0 ? _L("Primary") : _L("Secondary")) + "</p>");
+              effects.append(category);
+            }
           }
 
           var propType = "default";
@@ -971,13 +1327,19 @@
           if (!compare && perfection && perfection.stats[stat] !== undefined) {
             range += percentSpan(perfection.stats[stat], "d3-perfection-value");
           }
-          format = formatBonus(format, data.stats[stat], stat == "custom" ? 2 : 1,
-            stat == "custom" ? (item.required && item.required.custom && item.required.custom.id) : stat);
-          effects.append("<li class=\"d3-color-" + propColor + " d3-item-property-" + propType + "\"><p>" + format + range + "</p></li>");
+          if (d2style) {
+            format = formatBonus(format, data.stats[stat], 0,
+              stat == "custom" ? (item.required && item.required.custom && item.required.custom.id) : stat);
+            d2text.push("$3" + format);
+          } else {
+            format = formatBonus(format, data.stats[stat], stat == "custom" ? 2 : 1,
+              stat == "custom" ? (item.required && item.required.custom && item.required.custom.id) : stat);
+            effects.append("<li class=\"d3-color-" + propColor + " d3-item-property-" + propType + "\"><p>" + format + range + "</p></li>");
+          }
         });
       }
 
-      if (data.varies || data.random) {
+      if (!d2style && (data.varies || data.random)) {
         effects.append("<br/>");
         if (data.varies) {
           for (var i = 0; i < data.varies.length; ++i) {
@@ -998,17 +1360,19 @@
         }
       }
 
-      if (data.transmog && DiabloCalc.itemById[data.transmog] && DiabloCalc.itemById[data.transmog].quality !== "rare") {
-        effects.append("<p class=\"item-property-category d3-color-blue\">" + _L("Transmogrification") + ":</p>");
-        var tmitem = DiabloCalc.itemById[data.transmog];
-        effects.append("<li class=\"value d3-color-" + (tmitem.quality === "set" ? "green" : "orange") + "\">" + tmitem.name + "</li>");
-      } else if (data.transmog && DiabloCalc.webglItems[data.transmog]) {
-        effects.append("<p class=\"item-property-category d3-color-blue\">" + _L("Transmogrification") + ":</p>");
-        var tmitem = DiabloCalc.webglItems[data.transmog];
-        effects.append("<li class=\"value d3-color-" + (tmitem.promo ? "orange" : "white") + "\">" + (tmitem.name || data.transmog) + "</li>");
-      }
-      if (data.dye && DiabloCalc.webglDyes && DiabloCalc.webglDyes[data.dye]) {
-        effects.append("<p class=\"item-property-category\">" + DiabloCalc.webglDyes[data.dye].name + "</p>");
+      if (!d2style) {
+        if (data.transmog && DiabloCalc.itemById[data.transmog] && DiabloCalc.itemById[data.transmog].quality !== "rare") {
+          effects.append("<p class=\"item-property-category d3-color-blue\">" + _L("Transmogrification") + ":</p>");
+          var tmitem = DiabloCalc.itemById[data.transmog];
+          effects.append("<li class=\"value d3-color-" + (tmitem.quality === "set" ? "green" : "orange") + "\">" + tmitem.name + "</li>");
+        } else if (data.transmog && DiabloCalc.webglItems[data.transmog]) {
+          effects.append("<p class=\"item-property-category d3-color-blue\">" + _L("Transmogrification") + ":</p>");
+          var tmitem = DiabloCalc.webglItems[data.transmog];
+          effects.append("<li class=\"value d3-color-" + (tmitem.promo ? "orange" : "white") + "\">" + (tmitem.name || data.transmog) + "</li>");
+        }
+        if (data.dye && DiabloCalc.webglDyes && DiabloCalc.webglDyes[data.dye]) {
+          effects.append("<p class=\"item-property-category\">" + DiabloCalc.webglDyes[data.dye].name + "</p>");
+        }
       }
 
       //FTFY
@@ -1016,7 +1380,7 @@
       //  effects.append("<li class=\"d3-color-blue d3-item-property-default\"><p>Ethereal (Cannot be Repaired)</p></li>");
       //}
 
-      if (data.stats.sockets) {
+      if (!d2style && data.stats.sockets) {
         var slotType = slotInfo.socketType;
         if (slotType != "weapon" && slotType != "head") {
           slotType = "other";
@@ -1058,10 +1422,19 @@
           }
         }
       }
+      if (d2style && data.stats.sockets) {
+        d2text.push("$3Socketed (" + data.stats.sockets + ")");
+      }
 
       if (item.set) {
-        var ul = $("<ul class=\"item-itemset\"></ul>");
-        props.append(ul);
+        var ul;
+        if (d2style) {
+          d2text.push("");
+          ul = outer;
+        } else {
+          ul = $("<ul class=\"item-itemset\"></ul>");
+          props.append(ul);
+        }
 
         var set = DiabloCalc.itemSets[item.set];
         var indexes = {};
@@ -1082,19 +1455,39 @@
           count++;
         }
 
-        ul.append("<li class=\"item-itemset-name\"><span class=\"d3-color-green\">" + set.name + "</span></li>");
-        for (var i = 0; i < set.items.length; ++i) {
-          var type = DiabloCalc.itemTypes[set.items[i].type];
-          var slot = (DiabloCalc.itemSlots[type.slot] || DiabloCalc.metaSlots[type.slot]);
-          ul.append("<li class=\"item-itemset-piece indent\"><span class=\"d3-color-" + colors[i] + "\">" + set.items[i].name + " (" + slot.name + ")</span></li>");
-        }
-        for (var amount in set.bonuses) {
-          var bonusColor = (parseInt(amount) <= count ? "green" : "gray");
-          ul.append("<li class=\"d3-color-" + bonusColor + " item-itemset-bonus-amount\">" + _L("({0}) Set:").format("<span class=\"value\">" + amount + "</span>") + "</li>");
-          for (var i = 0; i < set.bonuses[amount].length; ++i) {
-            var bonus = set.bonuses[amount][i];
-            var effect = formatBonus(bonus.stat ? DiabloCalc.stats[bonus.stat].format : bonus.format, bonus.value || [], 1, bonus.stat);
-            ul.append("<li class=\"d3-color-" + bonusColor + " item-itemset-bonus-desc indent\">" + effect + "</li>");
+        if (d2style) {
+          var bonuses = 0;
+          for (var amount in set.bonuses) {
+            if (parseInt(amount) > count) continue;
+            for (var i = 0; i < set.bonuses[amount].length; ++i) {
+              var bonus = set.bonuses[amount][i];
+              var effect = formatBonus(bonus.stat ? DiabloCalc.stats[bonus.stat].format : bonus.format, bonus.value || [], 0, bonus.stat);
+              d2text.push("$4" + effect);
+              ++bonuses;
+            }
+          }
+          if (bonuses) d2text.push("");
+          d2text.push("$4" + set.name);
+          for (var i = 0; i < set.items.length; ++i) {
+            var type = DiabloCalc.itemTypes[set.items[i].type];
+            var slot = (DiabloCalc.itemSlots[type.slot] || DiabloCalc.metaSlots[type.slot]);
+            d2text.push((colors[i] === "white" ? "$2" : "$1") + set.items[i].name);
+          }
+        } else {
+          ul.append("<li class=\"item-itemset-name\"><span class=\"d3-color-green\">" + set.name + "</span></li>");
+          for (var i = 0; i < set.items.length; ++i) {
+            var type = DiabloCalc.itemTypes[set.items[i].type];
+            var slot = (DiabloCalc.itemSlots[type.slot] || DiabloCalc.metaSlots[type.slot]);
+            ul.append("<li class=\"item-itemset-piece indent\"><span class=\"d3-color-" + colors[i] + "\">" + set.items[i].name + " (" + slot.name + ")</span></li>");
+          }
+          for (var amount in set.bonuses) {
+            var bonusColor = (parseInt(amount) <= count ? "green" : "gray");
+            ul.append("<li class=\"d3-color-" + bonusColor + " item-itemset-bonus-amount\">" + _L("({0}) Set:").format("<span class=\"value\">" + amount + "</span>") + "</li>");
+            for (var i = 0; i < set.bonuses[amount].length; ++i) {
+              var bonus = set.bonuses[amount][i];
+              var effect = formatBonus(bonus.stat ? DiabloCalc.stats[bonus.stat].format : bonus.format, bonus.value || [], 1, bonus.stat);
+              ul.append("<li class=\"d3-color-" + bonusColor + " item-itemset-bonus-desc indent\">" + effect + "</li>");
+            }
           }
         }
       }
@@ -1113,8 +1506,10 @@
           perfText += "</span>";
         }
       }
-      props.append("<ul class=\"item-extras\"><li class=\"item-reqlevel\"><span class=\"d3-color-gold\">" + _L("Required Level: ") + "</span><span class=\"value\">70</span></li>" +
-        "<li>" + _L("Account Bound") + "</li></ul>" + perfText + "<span class=\"clear\"><!--   --></span>");
+      if (!d2style) {
+        props.append("<ul class=\"item-extras\"><li class=\"item-reqlevel\"><span class=\"d3-color-gold\">" + _L("Required Level: ") + "</span><span class=\"value\">70</span></li>" +
+          "<li>" + _L("Account Bound") + "</li></ul>" + perfText + "<span class=\"clear\"><!--   --></span>");
+      }
 
       if (compare && sideSlot) {
         var stats = DiabloCalc.getStats();
@@ -1159,10 +1554,13 @@
         for (var i = 0; i < out.length; ++i) {
           outStr += out[i][1];
         }
-        outer.append(outStr + "</ul></div>");
+        if (!d2style) outer.append(outStr + "</ul></div>");
       }
-      if (item.flavor && !compare) {
+      if (!d2style && item.flavor && !compare) {
         outer.append("<div class=\"tooltip-extension\"><div class=\"flavor\">" + item.flavor + "</div></div>");
+      }
+      if (d2style) {
+        _content.append(drawD2(d2text));
       }
 
       if (_side) {
@@ -1187,6 +1585,7 @@
       }
 
       tooltipContent.empty();
+      tooltipWrapper.removeClass("d2tip");
       tooltipWrapper.css("max-width", "");
       tooltipContent.removeClass().addClass("d3-tooltip-wrapper-inner");
 

@@ -182,6 +182,7 @@ DiabloCalc.addItems([
 
   {
     id: "Unique_Bracer_009_x1",
+    suffix: _L("Legacy"),
     name: "Aughild's Search",
     type: "bracers",
     quality: "set",
@@ -217,17 +218,15 @@ DiabloCalc.addItems([
     preset: ["mainstat", "chc"],
   },
 
-/*  {
-    id: "ptr_MorticksBrace",
-    local: "Unique_Bracer_003_x1",
+  {
+    id: "P2_Unique_Bracer_003",
     name: "Mortick's Brace",
-    suffix: "PTR",
     type: "bracers",
     quality: "legendary",
     required: {
       custom: {id: "leg_morticksbrace", name: "WotB Gains All Runes", format: "Wrath of the Berserker Gains the effect of every rune.", args: 0},
     },
-  },*/
+  },
 
   {
     id: "Unique_Bracer_108_x1",
@@ -470,6 +469,7 @@ DiabloCalc.addItems([
   {
     id: "P61_Unique_Bracer_100",
     name: "Bracers of Destruction",
+    suffix: _L("Legacy"),
     type: "bracers",
     quality: "legendary",
     required: {
@@ -540,6 +540,25 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       custom: {id: "leg_spiritguards_p6", name: "Damage Reduction", format: "Your Spirit Generators reduce your damage taken by %d%% for 3 seconds.", min: 45, max: 60},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P66_Unique_Bracer_009",
+    name: "Aughild's Search",
+    type: "bracers",
+    quality: "set",
+    set: "aughild_v2",
+  },
+
+  {
+    id: "P67_Unique_Bracer_100",
+    name: "Bracers of Destruction",
+    type: "bracers",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_bracersofdestruction_p67", name: "Seismic Slam Damage Increase", format: "Seismic Slam deals %d%% increased damage to the first 10 enemies it hits.", min: 400, max: 500},
     },
     preset: ["mainstat", "chc"],
   },

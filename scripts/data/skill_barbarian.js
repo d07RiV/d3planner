@@ -235,9 +235,9 @@ DiabloCalc.skills.barbarian = {
       e: "Bloodbath",
     },
     range: {x: 12, b: 18, d: 12, a: 12, c: 12, e: 12},
-    params: [{min: 1, max: "leg_lamentation?2:1", name: "Stacks", buffs: false}],
+    params: [{min: 1, max: "(leg_lamentation||leg_lamentation_p67)?2:1", name: "Stacks", buffs: false}],
     info: {
-      "*": {"Cost": {cost: 20}, "DPS": {sum: true, "Damage": {divide: "set_wastes_2pc?15:5", factor: "$1"}}},
+      "*": {"Cost": {cost: 20}, "DPS": {sum: true, "Damage": {divide: "leg_ambospride?1:(set_wastes_2pc?15:5)", factor: "$1"}}},
       x: {"Damage": {weapon: "mainhand", elem: "phy", coeff: 11, total: true, factors: {"Extra Duration": "set_wastes_2pc?3:1"}}},
       b: {"Damage": {weapon: "mainhand", elem: "fir", coeff: 11, total: true, factors: {"Extra Duration": "set_wastes_2pc?3:1"}}},
       d: {"Damage": {weapon: "mainhand", elem: "phy", coeff: 11, total: true, factors: {"Extra Duration": "set_wastes_2pc?3:1"}}},
@@ -267,7 +267,7 @@ DiabloCalc.skills.barbarian = {
     active: true,
     activetip: "First 5 enemies",
     activeshow: function(rune, stats) {
-      return !!(stats.leg_bracersofdestruction || stats.leg_bracersofdestruction_p6);
+      return !!(stats.leg_bracersofdestruction || stats.leg_bracersofdestruction_p6 || stats.leg_bracersofdestruction_p67);
     },
     params: [{rune: "b", min: 0, max: "maxfury", name: "Fury", buffs: false}],
     info: function(rune, stats) {
@@ -284,16 +284,23 @@ DiabloCalc.skills.barbarian = {
         res["Rumble Damage"] = {elem: "phy", coeff: 0.15 * this.params[0].val};
         res["DPS"]["Rumble Damage"] = {speed: 1, fpa: 58.666656, round: "up", nobp: true};
       }
-      if (this.active && (stats.leg_bracersofdestruction || stats.leg_bracersofdestruction_p6)) {
+      if (this.active && (stats.leg_bracersofdestruction || stats.leg_bracersofdestruction_p6 || stats.leg_bracersofdestruction_p67)) {
         res["Damage"].percent = {};
-        res["Damage"].percent[DiabloCalc.itemById.P3_Unique_Bracer_104.name] = (stats.leg_bracersofdestruction || stats.leg_bracersofdestruction_p6);
+        res["Damage"].percent[DiabloCalc.itemById.P3_Unique_Bracer_104.name] = (stats.leg_bracersofdestruction || stats.leg_bracersofdestruction_p6 || stats.leg_bracersofdestruction_p67);
         if (res["Rumble Damage"]) res["Rumble Damage"].percent = $.extend({}, res["Damage"].percent);
       }
       var rcr = {};
       if (stats.leg_furyofthevanishedpeak_p6) rcr.leg_furyofthevanishedpeak_p6 = 50;
       else if (stats.leg_furyofthevanishedpeak_p2) rcr.leg_furyofthevanishedpeak_p2 = stats.leg_furyofthevanishedpeak_p2;
       else if (stats.leg_furyofthevanishedpeak) rcr.leg_furyofthevanishedpeak = stats.leg_furyofthevanishedpeak;
-      return $.extend({"Cost": {cost: 30, rcr: rcr}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58.666656, round: "up"}}}, res);
+      res = $.extend({"Cost": {cost: 30, rcr: rcr}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58.666656, round: "up"}}}, res);
+      if (stats.leg_fjordcutter_p67) {
+        res["DPS"]["Damage"].ias = 50;
+        if (res["DPS"]["Rumble Damage"]) {
+          res["DPS"]["Rumble Damage"].ias = 50;
+        }
+      }
+      return res;
     },
   },
   whirlwind: {
@@ -730,13 +737,14 @@ DiabloCalc.skills.barbarian = {
     },
     info: function(rune, stats) {
       var res;
+      var speed = stats.leg_furyoftheancients_p67 ? 2 : 1;
       switch (rune) {
-      case "x": res = {"Damage": {weapon: "mainhand", elem: "phy", pet: true, coeff: 2.7}, "DPS": {sum: true, "Damage": {speed: 1, pet: 60, count: 3}}}; break;
-      case "b": res = {"Damage": {weapon: "mainhand", elem: "fir", pet: true, coeff: 5.4}, "DPS": {sum: true, "Damage": {speed: 1, pet: 60, count: 3}}}; break;
-      case "d": res = {"Damage": {weapon: "mainhand", elem: "col", pet: true, coeff: 2.7}, "DPS": {sum: true, "Damage": {speed: 1, pet: 60, count: 3}}}; break;
-      case "a": res = {"Damage": {weapon: "mainhand", elem: "phy", pet: true, coeff: 2.7}, "DPS": {sum: true, "Damage": {speed: 1, pet: 60, count: 3}}}; break;
-      case "c": res = {"Damage": {weapon: "mainhand", elem: "phy", pet: true, coeff: 2.7}, "DPS": {sum: true, "Damage": {speed: 1, pet: 60, count: 3}}}; break;
-      case "e": res = {"Damage": {weapon: "mainhand", elem: "lit", pet: true, coeff: 2.7}, "DPS": {sum: true, "Damage": {speed: 1, pet: 60, count: 3}}}; break;
+      case "x": res = {"Damage": {weapon: "mainhand", elem: "phy", pet: true, coeff: 2.7}, "DPS": {sum: true, "Damage": {speed: speed, pet: 60, count: 3}}}; break;
+      case "b": res = {"Damage": {weapon: "mainhand", elem: "fir", pet: true, coeff: 5.4}, "DPS": {sum: true, "Damage": {speed: speed, pet: 60, count: 3}}}; break;
+      case "d": res = {"Damage": {weapon: "mainhand", elem: "col", pet: true, coeff: 2.7}, "DPS": {sum: true, "Damage": {speed: speed, pet: 60, count: 3}}}; break;
+      case "a": res = {"Damage": {weapon: "mainhand", elem: "phy", pet: true, coeff: 2.7}, "DPS": {sum: true, "Damage": {speed: speed, pet: 60, count: 3}}}; break;
+      case "c": res = {"Damage": {weapon: "mainhand", elem: "phy", pet: true, coeff: 2.7}, "DPS": {sum: true, "Damage": {speed: speed, pet: 60, count: 3}}}; break;
+      case "e": res = {"Damage": {weapon: "mainhand", elem: "lit", pet: true, coeff: 2.7}, "DPS": {sum: true, "Damage": {speed: speed, pet: 60, count: 3}}}; break;
       }
       if (!stats.set_immortalking_2pc) {
         res["Uptime"] = {duration: 20, cooldown: 120};
@@ -749,6 +757,9 @@ DiabloCalc.skills.barbarian = {
       return res;
     },
     active: false,
+    activeshow: function(rune, stats) {
+      return !stats.set_immortalking_2pc;
+    },
     buffs: {
       a: {lifefury: 966},
       d: {chctaken: 10},
@@ -900,7 +911,7 @@ DiabloCalc.passives.barbarian = {
     name: "Relentless",
     index: 11,
     active: false,
-    buffs: {rcr_fury: 50, lpfs_percent: 100, dmgred: 50},
+    buffs: {rcr: 50, lpfs_percent: 100, dmgred: 50},
   },
   brawler: {
     id: "brawler",
@@ -941,7 +952,7 @@ DiabloCalc.passives.barbarian = {
     index: 17,
     buffs: function(stats) {
       if (stats.info.ohtype === "shield") {
-        return {dmgred: 30, rcr_fury: 20};
+        return {dmgred: 30, rcr: 20};
       }
     },
   },

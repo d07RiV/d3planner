@@ -742,7 +742,7 @@
       var affix = kanai[type].getItemAffix();
       if (!affix) continue;
       var value = kanai[type].getItemAffixValue();
-      stats.affixes[affix] = {kanai: type, value: value};
+      stats.affixes[affix] = {kanai: type, value: [value]};
       var info = kanai[type].getInfo();
       if (!info) continue;
       var func = "buffs";
@@ -761,7 +761,10 @@
         applySkill(list, stats, kanai[type].getItemPair());
         kanaiFx.push(affix);
       }
-    }    
+    }
+
+    // hack to make sets like Crimson's work
+    var postList = [];
     for (var affix in stats.affixes) {
       if (kanaiFx.indexOf(affix) >= 0) continue;
       var info = DiabloCalc.itemaffixes[affix];
@@ -773,15 +776,28 @@
       if (func) {
         var list;
         if (typeof info[func] == "function") {
-          list = info[func](stats.affixes[affix].value, stats);
+          var cbk = (function(info, func, affix) {
+            return function() {
+              var list = func.call(info, stats.affixes[affix].value, stats);
+              applySkill(list, stats, stats.getAffixSource(affix));
+            };
+          })(info, info[func], affix);
+          if (info.last) {
+            postList.push(cbk);
+          } else {
+            cbk();
+          }
         } else {
-          list = info[func];
+          applySkill(info[func], stats, stats.getAffixSource(affix));
         }
-        applySkill(list, stats, stats.getAffixSource(affix));
       }
     }
 
     DiabloCalc.addPartyBuffs(stats);
+
+    for (var i = 0; i < postList.length; ++i) {
+      postList[i]();
+    }
   };
   DiabloCalc.addPartyBuffs = function(stats) {
     function applyBuff(id, info) {
