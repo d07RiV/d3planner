@@ -859,7 +859,7 @@
             "<span class=\"d3-color-gray\">" + (fmt.thorns ? _L("[Thorns]") : _L("[Weapon]")) + "</span>" +
             (fmt.nocrit || fmt.total ? " &#215; " + _V(1 + data.chc * data.chd, 2) : "") +
             data.factors.map(function(factor) {
-              return factor.divide ? " / " + _V(factor.divide) : " &#215; " + _V(factor.factor, 2);
+              return factor.divide ? " / " + _V(factor.divide, 2) : " &#215; " + _V(factor.factor, 2);
             }).join(""));
           if (fmt.thorns) {
             tip.line(false, "Thorns damage: {0}", _V(stats.thorns || 0, 0, "white"));
@@ -885,7 +885,7 @@
           data.factors.forEach(function(factor) {
             var entries = [];
             if (factor.divide) {
-              entries.push(_V(1, 0, "white") + " / " + _V(factor.divide));
+              entries.push(_V(1, 0, "white") + " / " + _V(factor.divide, 2));
             } else if (factor.percent !== undefined) {
               if (typeof factor.percent === "number") {
                 if (factor.percent) {

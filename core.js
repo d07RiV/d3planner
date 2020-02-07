@@ -5,7 +5,7 @@
     "/scripts/bnet-tooltips.js?1574423440757",
     "/scripts/stats.js?1574423440843",
     "/scripts/itembox.js?1557619240641",
-    "/scripts/skilldata.js?1236911196000",
+    "/scripts/skilldata.js?1574427744830",
     "/scripts/skillbox.js?1236911196000",
     "/scripts/account.js?1236911196000",
     "/scripts/optimizer.js?1574423440841",

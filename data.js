@@ -37,7 +37,7 @@
     "/scripts/data/skill_monk.js?1574423440814",
     "/scripts/data/skill_necromancer.js?1574423440817",
     "/scripts/data/skill_witchdoctor.js?1574423440819",
-    "/scripts/data/skill_wizard.js?1574423440822",
+    "/scripts/data/skill_wizard.js?1574427238878",
     "/scripts/data/slots.js?1236911196000",
     "/scripts/data/stats.js?1236911196000",
     "/scripts/d3gl_data.js?1574423440765",
