@@ -472,6 +472,19 @@
       $.each(info.params, function(i, param) {
         if (param._done) return;
         param._done = true;
+        if (typeof param.step === "string" || typeof param.step === "function") {
+          var step = param.step;
+          Object.defineProperty(param, "step", {
+            get: function() {
+              var val = 0;
+              if (DiabloCalc.getStats) {
+                var stats = DiabloCalc.getStats(true);
+                val = (typeof step === "string" ? stats.execString(step) : step.call(info, stats));
+              }
+              return val;
+            },
+          });
+        }
         if (typeof param.min === "string" || typeof param.min === "function" ||
             typeof param.max === "string" || typeof param.max === "function") {
           if (param.val === undefined) param.val = "max";
