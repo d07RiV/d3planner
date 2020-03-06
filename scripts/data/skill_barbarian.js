@@ -799,7 +799,7 @@ DiabloCalc.skills.barbarian = {
     active: false,
     buffs: function(rune, stats) {
       if (stats.leg_morticksbrace) {
-        return {damage: 50, dmgred: 50, lifefury: 5364, chc: 10, ias: 25, dodge: 20, extrams: 20};
+        return {dmgmul: 50, dmgred: 50, lifefury: 5364, chc: 10, ias: 25, dodge: 20, extrams: 20};
       } else {
         switch (rune) {
         case "x": return {chc: 10, ias: 25, dodge: 20, extrams: 20};

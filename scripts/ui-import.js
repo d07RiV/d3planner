@@ -62,10 +62,20 @@
     }
     if (data.legendaryPowers) {
       pData.kanai = {};
-      for (var i = 0; i < data.legendaryPowers.length; ++i) {
-        var p = data.legendaryPowers[i];
-        var t = (p && DiabloCalc.getKanaiType(p.id));
-        if (p && t) pData.kanai[t] = p.id;
+      if (DiabloCalc.options.seasonal && DiabloCalc.season === 20) {
+        var types = ["weapon", "armor", "jewelry"];
+        var tindex = 0;
+        for (var i = 0; i < data.legendaryPowers.length; ++i) {
+          var p = data.legendaryPowers[i];
+          var t = (p && types[tindex++]);
+          if (p && t) pData.kanai[t] = p.id;
+        }
+      } else {
+        for (var i = 0; i < data.legendaryPowers.length; ++i) {
+          var p = data.legendaryPowers[i];
+          var t = (p && DiabloCalc.getKanaiType(p.id));
+          if (p && t) pData.kanai[t] = p.id;
+        }
       }
     }
     DiabloCalc.setProfile(pData, "import");

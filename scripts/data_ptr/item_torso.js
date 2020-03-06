@@ -547,7 +547,7 @@ DiabloCalc.addItems([
     name: "Markings of Savages",
     type: "chestarmor",
     quality: "set",
-    set: "justice",
+    set: "savages",
     preset: ["mainstat", "sockets"],
   },
 

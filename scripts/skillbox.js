@@ -6,6 +6,7 @@
     weapon: {
       name: _L("Weapon"),
       filter: function(type) {
+        if (DC.options.seasonal && DC.season === 20) return true;
         var slot = (DC.itemTypes[type] && DC.itemTypes[type].slot);
         return slot === "onehand" || slot === "twohand" || slot === "offhand";
       },
@@ -13,6 +14,7 @@
     armor: {
       name: _L("Armor"),
       filter: function(type) {
+        if (DC.options.seasonal && DC.season === 20) return true;
         if (kanaiTypes.weapon.filter(type)) return false;
         if (kanaiTypes.jewelry.filter(type)) return false;
         return true;
@@ -21,6 +23,7 @@
     jewelry: {
       name: _L("Jewelry"),
       filter: function(type) {
+        if (DC.options.seasonal && DC.season === 20) return true;
         return type === "ring" || type === "amulet";
       },
     },

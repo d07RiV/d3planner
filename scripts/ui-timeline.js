@@ -441,7 +441,7 @@
       this.curset.icon.removeClass().addClass("class-icon class-" + DiabloCalc.charClass + " " + (DiabloCalc.gender || "female"));
       this.curset.value.text((statList[this.curstat].shortName || statList[this.curstat].name) + ": " +
         DiabloCalc[statList[this.curstat].func || "formatNumber"](value || 0, 0, 1000));
-      if (!this.curstatEx) {
+      if (!this.curstatEx && this.line.datasets[0].points[index]) {
         this.line.datasets[0].points[index].value = value;
         this.line.update();
       }

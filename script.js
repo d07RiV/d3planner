@@ -12,7 +12,7 @@
     "/external/canvasjs.js?1236911224000",
     "/external/jquery.ui.touch-punch.js?1574423440731",
     "/external/gl-matrix.js?1236911224000",
-    "/scripts/main.js?1574423440839",
+    "/scripts/main.js?1581106225504",
   ];
   
   var loadIdx = 0;

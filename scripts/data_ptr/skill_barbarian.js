@@ -671,10 +671,11 @@ DiabloCalc.skills.barbarian = {
       "*": {"Cost": {cost: 20}},
     },
     buffs: function(rune, stats) {
-      var res = {damage: 10, chc: 3};
-      if (rune === "a") res.damage = 15;
-      if (rune === "b") res.extrams = 15;
-      if (rune === "d") res.chc += this.params[0].val;
+      var mult = (stats.set_savages_2pc ? 2 : 1);
+      var res = {damage: mult * 10, chc: mult * 3};
+      if (rune === "a") res.damage = mult * 15;
+      if (rune === "b") res.extrams = mult * 15;
+      if (rune === "d") res.chc += mult * this.params[0].val;
       return res;
     },
   },
@@ -808,7 +809,7 @@ DiabloCalc.skills.barbarian = {
     active: false,
     buffs: function(rune, stats) {
       if (stats.leg_morticksbrace) {
-        return {damage: 50, dmgred: 50, lifefury: 5364, chc: 10, ias: 25, dodge: 20, extrams: 20};
+        return {dmgmul: 50, dmgred: 50, lifefury: 5364, chc: 10, ias: 25, dodge: 20, extrams: 20};
       } else {
         switch (rune) {
         case "x": return {chc: 10, ias: 25, dodge: 20, extrams: 20};

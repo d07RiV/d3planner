@@ -108,6 +108,15 @@ var jobs = {
     processor: "uglifyjs",
     localjs: true,
   },
+  "data_ptr.js": {
+    files: [
+      ...fs.readdirSync("scripts/data_ptr").map(fn => "scripts/data_ptr/" + fn),
+      "scripts/d3gl_data.js",
+    ],
+    suffix: "DiabloCalc.onDataLoaded();",
+    processor: "uglifyjs",
+    localjs: true,
+  },
   "sim.js": {
     files: [
       "simulator/seedrandom.js",

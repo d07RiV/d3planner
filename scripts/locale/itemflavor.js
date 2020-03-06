@@ -252,6 +252,9 @@ _L.patch.add({
     P42_Unique_Flail_1H_106_x1: {
       flavor: "The cold-tempered steel of this weapon cradles a mote of pale light. Ancient beyond measure, its creator and original purpose is unknown, but the flail is now revered by the crusaders as a symbol for the role they play in the world: a light to pierce the darkness.",
     },
+    P42_Unique_Mojo_003_x1: {
+      flavor: "The eyes of fallen warriors peer into the darkness to see what you cannot.",
+    },
     P42_Unique_Mojo_004: {
       flavor: "The severed head of a homunculus is the source of much power for a knowledgeable witch doctor.",
     },
@@ -733,7 +736,7 @@ _L.patch.add({
       flavor: "Ideal for crushing your enemies and driving them before you.",
     },
     P67_Unique_Boots_Set_01: {
-      flavor: "\"Mercy is a sign of weakness, it has no place in war.\" -Imperious, Archangel of Valor to Auriel, Archangel of Hope",
+      flavor: "\"Mercy is a sign of weakness, it has no place in war.\" -Imperius, Archangel of Valor to Auriel, Archangel of Hope",
     },
     P67_Unique_Boots_Set_02: {
       flavor: "In the world of angels, the archangel of Wisdom had recently come to realize, there are no beds.",
@@ -742,7 +745,7 @@ _L.patch.add({
       flavor: "“These bracers appear to utilize primal forces channeled from the ground itself. Interesting, to say the least.” -Abd al-hazir",
     },
     P67_Unique_Chest_Set_01: {
-      flavor: "\"Must I do everything for you?\" -Imperious, Archangel of Valor",
+      flavor: "\"Must I do everything for you?\" -Imperius, Archangel of Valor",
     },
     P67_Unique_Chest_Set_02: {
       flavor: "\"I am mortal and always will be, and humanity is the future of you all, whether you choose to recognize that or not.\" -Tyrael, Aspect of Wisdom",
@@ -757,10 +760,10 @@ _L.patch.add({
       flavor: "\"Hold? Victory is within our grasp. We press on, brother!\" -Imperius, Archangel of Valor to Tyrael, Archangel of Justice",
     },
     P67_Unique_Gloves_Set_02: {
-      flavor: "\"Hold, Imperius, we must regroup our forces.\" -Tyrael, Archangel of Justice to Imperious, Archangel of Valor",
+      flavor: "\"Hold, Imperius, we must regroup our forces.\" -Tyrael, Archangel of Justice to Imperius, Archangel of Valor",
     },
     P67_Unique_Helm_Set_01: {
-      flavor: "\"I fear nothing!\" Imperious, Archangel of Valor",
+      flavor: "\"I fear nothing!\" Imperius, Archangel of Valor",
     },
     P67_Unique_Helm_Set_02: {
       flavor: "Wisdom feared for the future of the High Heavens and of Sanctuary and believed now, more than ever, that terrible things were in store for them all.",
@@ -775,7 +778,7 @@ _L.patch.add({
       flavor: "Murkolt, a giant even among the Ancients, was known for many feats and qualities. Remorse was not among these. This weapon is said to embody his ethos, and some even believe it can summon him for a brief time.",
     },
     P67_Unique_Pants_Set_01: {
-      flavor: "\"And we have also saved each other's lives on the battlefield countless times.\" -Imperious, Archangel of Valor to Tyrael, Aspect of Wisdom",
+      flavor: "\"And we have also saved each other's lives on the battlefield countless times.\" -Imperius, Archangel of Valor to Tyrael, Aspect of Wisdom",
     },
     P67_Unique_Pants_Set_02: {
       flavor: "\"It was revealed to me that the world would have been destroyed but for a single choice, made by most holy Tyrael, a being of perfect justice, that Sanctuary should continue.\" -Bahman the Seer",
@@ -784,13 +787,85 @@ _L.patch.add({
       flavor: "This mantle was crafted by one banished from the sacred mountain, in order to commune with the ancients.",
     },
     P67_Unique_Shoulder_Set_01: {
-      flavor: "\"SO IT IS DECIDED... BUT WHAT DO ANY OF YOU NOW SUGGEST BE DONE TO PREVENT THE BURNING HELLS FROM SPREADING THEIR TAINT ACROSS THIS WORLD YOU HAVE SAVED? ARE WE TO HAVE A HOST STAND GUARD OVER THIS... THIS SANCTUARY?\" -Imperious, Archangel of Valor",
+      flavor: "\"SO IT IS DECIDED... BUT WHAT DO ANY OF YOU NOW SUGGEST BE DONE TO PREVENT THE BURNING HELLS FROM SPREADING THEIR TAINT ACROSS THIS WORLD YOU HAVE SAVED? ARE WE TO HAVE A HOST STAND GUARD OVER THIS... THIS SANCTUARY?\" -Imperius, Archangel of Valor",
     },
     P67_Unique_Shoulder_Set_02: {
       flavor: "\"...I DID CALL THEM ABOMINATIONS... AND I WAS WRONG! MY VOTE IS FOR THEM... FOR I WOULD SEE WHAT THEY MIGHT BECOME... AND MARVEL IN IT.\" -Tyrael, to the Angiris Council",
     },
     P67_fistWeapon_norm_unique_02: {
       flavor: "“Some learned people say that evil cannot be overcome through violence. I say there is no other way.” -Akyev the Unyielding",
+    },
+    P68_Unique_BarbBelt_006: {
+      flavor: "Few in this world can truly be called champions.",
+    },
+    P68_Unique_Boots_Set_03: {
+      flavor: "\"I have traveled the world and learned many mystic languages.\" -Sage Yoon",
+    },
+    P68_Unique_Boots_Set_04: {
+      flavor: "I wander to places beyond imaginings.",
+    },
+    P68_Unique_Boots_Set_05: {
+      flavor: "The last barbarian that wore this got into one little fight with other new tribe members that were up to no good.",
+    },
+    P68_Unique_Chest_Set_03: {
+      flavor: "\"Always intrigued with learning the latest secrets in the mystical arts, but never finding enough time to actually practice them.\" -Farlee the Illusionist",
+    },
+    P68_Unique_Chest_Set_04: {
+      flavor: "To live is to sacrifice. To sacrifice is to live.",
+    },
+    P68_Unique_Chest_Set_05: {
+      flavor: "The Horde of the Ninety Savages were a fearsome tribe, comprised of members from other fallen tribes, each with their own unique story.",
+    },
+    P68_Unique_Dagger_003: {
+      flavor: "A precision instrument for a master of the blade.",
+    },
+    P68_Unique_Gloves_Set_03: {
+      flavor: "\"We must reach out to bridge the gap between the known and the unknown. Only then can we unleash our true potential.\" -Chamal the Dainty",
+    },
+    P68_Unique_Gloves_Set_04: {
+      flavor: "All men fear. Such is the way of this world of shadow. My hand is still because I know this truth. If I hide from it, that emotion will control me.",
+    },
+    P68_Unique_Gloves_Set_05: {
+      flavor: "The savages' tribal chant involves four rapid claps whenever the rain starts to pour.",
+    },
+    P68_Unique_Helm_Set_03: {
+      flavor: "\"I see to it that our apprentices are given the directions they need to follow their destinies.\" -High Councilor Cidoqhor",
+    },
+    P68_Unique_Helm_Set_04: {
+      flavor: "Look in places unseen. Ask questions unanswered.",
+    },
+    P68_Unique_Helm_Set_05: {
+      flavor: "Often giving advice to others, the neighborly elder barbarian has an unusual habit of hiding his face.",
+    },
+    P68_Unique_Mighty_2H_004: {
+      flavor: "Used by the leaders of Bastion’s Keep in the war with the Northern Tribes. The Barbarians came to respect the weapon so much that they gave it a name, shortly after tearing it from the hands of a dying garrison commander.",
+    },
+    P68_Unique_Mojo_003: {
+      flavor: "The eyes of fallen warriors peer into the darkness to see what you cannot.",
+    },
+    P68_Unique_Pants_Set_03: {
+      flavor: "\"Common merchants do not understand what is a good store of value. I think it is anything that can fit in these pockets.\" -Sorceror Javras Drovaspik",
+    },
+    P68_Unique_Pants_Set_04: {
+      flavor: "A trance could last for minutes in the realm beyond, while only seconds would pass in this world.",
+    },
+    P68_Unique_Pants_Set_05: {
+      flavor: "One young and cunning barbarian would often chronicle his adventures after returning home from battle.",
+    },
+    P68_Unique_Shoulder_Set_03: {
+      flavor: "\"Having foresight comes with the burden of carrying the weight of possible outcomes and choosing the best path.\" -Magus Grunski",
+    },
+    P68_Unique_Shoulder_Set_04: {
+      flavor: "The Igani Bawe, the Harvest of Souls, had come.",
+    },
+    P68_Unique_Shoulder_Set_05: {
+      flavor: "Tales recount of a great war where one barbarian took down four enemies in a single battle that led the tribe's final victory.",
+    },
+    P68_Unique_Wand_102: {
+      flavor: "Legend says this wand was fashioned from a fang of the original Hydra, defeated centuries ago by the hero Bul-Kathos. The great serpent was said to spawn two heads for every one that was severed. In order to defeat it, the mighty nephalem supposedly pitched the beast into a roaring bonfire, wresting the fang loose in the process.",
+    },
+    P68_Unique_WizardHat_103: {
+      flavor: "The most powerful of wizards will find themselves richly rewarded by their studies. This hat is for those who like to display their power in a more elegant fashion.",
     },
     P6_Necro_Set_1_Boots: {
       flavor: "Each fragment of this armor came from a corpse that died at a different age. Fully assembled, they represent a thousand years of death.",

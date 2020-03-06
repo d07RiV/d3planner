@@ -1,6 +1,6 @@
 (function() {
   var order = [
-    "/scripts/data/item_icons.js?1574423440784",
+    "/scripts/data/item_icons.js?1581103573830",
   ];
   
   var loadIdx = 0;

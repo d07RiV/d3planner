@@ -907,7 +907,7 @@ DiabloCalc.addItems([
   {
     id: "P68_Unique_Helm_Set_04",
     name: "Mundunugu's Headdress",
-    type: "helm",
+    type: "voodoomask",
     quality: "set",
     set: "mundunugu",
     preset: ["mainstat", "sockets"],

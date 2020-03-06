@@ -16,7 +16,7 @@ DiabloCalc = {
   options: {},
   optionPerProfile: {},
   pageTitle: document.title,
-  ptr: false,//(location.hostname.toLowerCase().indexOf("ptr") >= 0),
+  ptr: (location.hostname.toLowerCase().indexOf("ptr") >= 0),
   addOption: function(name, get, set, profile) {
     Object.defineProperty(this.options, name, {get: get, set: set, enumerable: true});
     if (profile) this.optionPerProfile[name] = true;
@@ -61,7 +61,7 @@ DiabloCalc = {
     });
   },
 };
-DiabloCalc.season = 18;
+DiabloCalc.season = DiabloCalc.ptr ? 20 : 19;
 //setInterval(function() {
 //  DiabloCalc.report();
 //}, 180000);
@@ -275,17 +275,17 @@ $(function() {
 
   DiabloCalc.spinStart();
 
-  //if (DiabloCalc.ptr) {
-  //  $("#ptr-link").append("<a href=\"http://" + location.hostname.replace(/^[^.]*/, "www") + "\">" + _L("Switch to live version") + "</a>");
-  //  $("#ptr-link").find("a").click(function() {
-  //    $(this).attr("href", "http://" + location.hostname.replace(/^[^.]*/, "www") + location.pathname);
-  //  });
-  //} else {
-  //  $("#ptr-link").append("<a href=\"http://" + location.hostname.replace(/^[^.]*/, "ptr") + "\">" + _L("PTR version is available!") + "</a>");
-  //  $("#ptr-link").find("a").click(function() {
-  //    $(this).attr("href", "http://" + location.hostname.replace(/^[^.]*/, "ptr") + location.pathname);
-  //  });
-  //}
+  if (DiabloCalc.ptr) {
+    $("#ptr-link").append("<a href=\"http://" + location.hostname.replace(/^[^.]*/, "www") + "\">" + _L("Switch to live version") + "</a>");
+    $("#ptr-link").find("a").click(function() {
+      $(this).attr("href", "http://" + location.hostname.replace(/^[^.]*/, "www") + location.pathname);
+    });
+  } else {
+    $("#ptr-link").append("<a href=\"http://" + location.hostname.replace(/^[^.]*/, "ptr") + "\">" + _L("PTR version is available!") + "</a>");
+    $("#ptr-link").find("a").click(function() {
+      $(this).attr("href", "http://" + location.hostname.replace(/^[^.]*/, "ptr") + location.pathname);
+    });
+  }
 
   DC_getScript("scripts/data.js", function() {
     DiabloCalc.loadData(function() {
@@ -327,7 +327,19 @@ $(function() {
       $(".char-class").next().find("span").first().addClass("class-icon");
       $(".char-level").blur(DiabloCalc.validateNumber);
 
-      if (DiabloCalc.season === 18) {
+      var seasonalTip = null;
+      if (DiabloCalc.season === 20) {
+        var seasonalBox = $("<input type=\"checkbox\" checked=\"checked\"></input>").change(function() {
+          DiabloCalc.trigger("updateSkills");
+        });
+        var seasonalLabel = $("<label class=\"option-box\"></label>").append(_L("Seasonal")).append(seasonalBox);
+        $("#char-info").append($("<div class=\"seasonal-box\"></div>").append(seasonalLabel));
+        DiabloCalc.addOption("seasonal", function() {return seasonalBox.prop("checked") ? 1 : 0;}, function(x) {
+          seasonalBox.prop("checked", !!x);
+          DiabloCalc.trigger("updateSkills");
+        });
+        seasonalTip = _L("Seasonal characters can equip any legendary power in any Kanai cube slot.");
+      } else if (DiabloCalc.season === 18) {
         var seasonalBox = $("<select value=\"1\"><option value=\"0\">None</option><option value=\"1\">Damage</option><option value=\"2\">Resources</option></select>").change(function() {
           DiabloCalc.trigger("updateSkills");
         });
@@ -347,10 +359,13 @@ $(function() {
           seasonalBox.prop("checked", x);
           DiabloCalc.trigger("updateSkills");
         });
+        seasonalTip = _L("Seasonal characters always have Legacy of Nightmares set bonus.");
       }
 
       function onLoaded() {
-        DiabloCalc.addTip(seasonalBox, _L("Seasonal characters always have Legacy of Nightmares set bonus."));
+        if (seasonalTip) {
+          DiabloCalc.addTip(seasonalBox, seasonalTip);
+        }
         DiabloCalc.spinStop();
         DiabloCalc.importEnd("init");
         var m = location.pathname.match(/\/e?([0-9]+)$/);

@@ -7,11 +7,11 @@
     "/scripts/data/item_cache.js?1236911196000",
     "/scripts/data/item_classes.js?1574423440772",
     "/scripts/data/item_feet.js?1574423440775",
-    "/scripts/data/item_finger.js?1236911196000",
+    "/scripts/data/item_finger.js?1581334073775",
     "/scripts/data/item_follower.js?1236911196000",
     "/scripts/data/item_hands.js?1574423440777",
     "/scripts/data/item_head.js?1574423440779",
-    "/scripts/data/item_icons.js?1574423440784",
+    "/scripts/data/item_icons.js?1581103573830",
     "/scripts/data/item_legs.js?1574423440786",
     "/scripts/data/item_neck.js?1574423440789",
     "/scripts/data/item_offhand.js?1574423440791",
@@ -31,7 +31,7 @@
     "/scripts/data/skilltip_necromancer.js?1236911196000",
     "/scripts/data/skilltip_witchdoctor.js?1236911196000",
     "/scripts/data/skilltip_wizard.js?1236911196000",
-    "/scripts/data/skill_barbarian.js?1574423440810",
+    "/scripts/data/skill_barbarian.js?1581332831124",
     "/scripts/data/skill_crusader.js?1574423440812",
     "/scripts/data/skill_demonhunter.js?1558005726976",
     "/scripts/data/skill_monk.js?1574423440814",
@@ -40,7 +40,7 @@
     "/scripts/data/skill_wizard.js?1574427238878",
     "/scripts/data/slots.js?1236911196000",
     "/scripts/data/stats.js?1236911196000",
-    "/scripts/d3gl_data.js?1574423440765",
+    "/scripts/d3gl_data.js?1581105356339",
   ];
   
   var loadIdx = 0;
