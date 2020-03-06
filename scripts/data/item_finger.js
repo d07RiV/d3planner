@@ -262,7 +262,7 @@ DiabloCalc.addItems([
       dura: "one",
     },
     required: {
-      custom: {id: "leg_obsidianringofthezodiac", name: "Cooldown Reduction", format: "Reduce the remaining cooldown of one of your skills by 1 second when you hit with a resource-spending attack.", args: 0},
+      custom: {id: "leg_obsidianringofthezodiac", name: "Cooldown Reduction", format: "Reduce the remaining cooldown of one of your skills by 1 seconds when you hit with a resource-spending attack.", args: 0},
     },
     secondary: 3,
     preset: ["cdr", "rcr", "dura", "ias", "chc"],
@@ -498,7 +498,7 @@ DiabloCalc.addItems([
     type: "ring",
     quality: "legendary",
     required: {
-      custom: {id: "leg_ringofemptiness", name: "Bonus Damage on Afflicted Targets", format: "You deal %d%% increased damage to enemies affected by both your Haunt and Locust Swarm.", min: 75, max: 100},
+      custom: {id: "leg_ringofemptiness", name: "Bonus Damage on Afflicted Targets", format: "You deal %d%% increased damage to enemies affected by either your Haunt or Locust Swarm.", min: 75, max: 100},
     },
     preset: ["mainstat", "chc"],
   },
@@ -581,7 +581,7 @@ DiabloCalc.addItems([
     type: "ring",
     quality: "legendary",
     required: {
-      custom: {id: "leg_ringofemptiness_p2", name: "Bonus Damage on Afflicted Targets", format: "You deal %d%% increased damage to enemies affected by both your Haunt and Locust Swarm.", min: 250, max: 300},
+      custom: {id: "leg_ringofemptiness_p2", name: "Bonus Damage on Afflicted Targets", format: "You deal %d%% increased damage to enemies affected by either your Haunt or Locust Swarm.", min: 250, max: 300},
     },
     preset: ["mainstat", "chc"],
   },

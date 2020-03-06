@@ -1294,7 +1294,7 @@ DiabloCalc.addItems([
     type: "sword",
     quality: "legendary",
     required: {
-      custom: {id: "leg_deathwish", name: "Damage Increase While Channeling", format: "While channeling Arcane Torrent, Disintegrate, or Ray of Frost, all damage is increased by %d%%.", min: 30, max: 35},
+      custom: {id: "leg_deathwish", name: "Damage Increase While Channeling", format: "While channeling Arcane Torrent, Disintegrate, or Ray of Frost for at least 1 second, all damage is increased by %d%%.", min: 30, max: 35},
     },
     preset: ["mainstat"],
   },
@@ -1432,6 +1432,7 @@ DiabloCalc.addItems([
     id: "P5_Unique_Dagger_003_x1",
     name: "The Barber",
     type: "ceremonialknife",
+    suffix: _L("Legacy"),
     quality: "legendary",
     required: {
       custom: {id: "leg_thebarber", name: "Spirit Barrage Explosion Damage", format: "Instead of dealing direct damage, your Spirit Barrage now accumulates on the target. When you stop casting, it explodes dealing %d%% of the accumulated damage to all enemies within 15 yards.", min: 225, max: 250},
@@ -1573,7 +1574,7 @@ DiabloCalc.addItems([
     type: "sword",
     quality: "legendary",
     required: {
-      custom: {id: "leg_deathwish_p6", name: "Damage Increase While Channeling", format: "While channeling Arcane Torrent, Disintegrate, or Ray of Frost, all damage is increased by %d%%.", min: 250, max: 325},
+      custom: {id: "leg_deathwish_p6", name: "Damage Increase While Channeling", format: "While channeling Arcane Torrent, Disintegrate, or Ray of Frost for at least 1 second, all damage is increased by %d%%.", min: 250, max: 325},
     },
     preset: ["mainstat"],
   },
@@ -1671,6 +1672,23 @@ DiabloCalc.addItems([
     },
     preset: ["wpnlit", "mainstat", "dmglit"],
     primary: 5,
+  },
+
+  {
+    id: "P68_Unique_Dagger_003",
+    name: "The Barber",
+    type: "ceremonialknife",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_thebarber", name: "Spirit Barrage Explosion Damage", format: "Instead of dealing direct damage, your Spirit Barrage now accumulates on the target. When you stop casting, it explodes dealing %d%% of the accumulated damage to all enemies within 15 yards.", min: 400, max: 500},
+    },
+    weapon: {
+      speed: 1.5,
+      min: 107,
+      max: 321,
+      type: "thrust",
+    },
+    preset: ["mainstat", "wpncol"],
   },
 
 ]);

@@ -322,7 +322,7 @@ DiabloCalc.addItems([
     type: "shoulders",
     quality: "legendary",
     required: {
-      custom: {id: "leg_mantleofchanneling", name: "Bonus Damage While Channeling", format: "While channeling Whirlwind, Rapid Fire, Strafe, Tempest Rush, Firebats, Arcane Torrent, Disintegrate, or Ray of Frost, you deal %d%% increased damage and take 25%% reduced damage.", min: 20, max: 25},
+      custom: {id: "leg_mantleofchanneling", name: "Bonus Damage While Channeling", format: "While channeling Whirlwind, Rapid Fire, Strafe, Tempest Rush, Firebats, Arcane Torrent, Disintegrate, or Ray of Frost for at least 1 second, you deal %d%% increased damage and take 25%% reduced damage.", min: 20, max: 25},
     },
     preset: ["mainstat", "vit"],
   },
@@ -429,6 +429,33 @@ DiabloCalc.addItems([
     type: "shoulders",
     quality: "set",
     set: "valor",
+    preset: ["mainstat", "resall"],
+  },
+
+  {
+    id: "P68_Unique_Shoulder_Set_04",
+    name: "Mundunugu's Descendant",
+    type: "shoulders",
+    quality: "set",
+    set: "mundunugu",
+    preset: ["mainstat", "resall"],
+  },
+
+  {
+    id: "P68_Unique_Shoulder_Set_05",
+    name: "Spines of Savages",
+    type: "shoulders",
+    quality: "set",
+    set: "savages",
+    preset: ["mainstat", "resall"],
+  },
+
+  {
+    id: "P68_Unique_Shoulder_Set_03",
+    name: "Typhon's Tibia",
+    type: "shoulders",
+    quality: "set",
+    set: "typhon",
     preset: ["mainstat", "resall"],
   },
 

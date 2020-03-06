@@ -325,6 +325,7 @@ DiabloCalc.addItems([
   {
     id: "P2_Unique_BarbBelt_006",
     name: "The Undisputed Champion",
+    suffix: _L("Legacy"),
     type: "mightybelt",
     quality: "legendary",
     required: {
@@ -803,6 +804,17 @@ DiabloCalc.addItems([
       custom: {id: "leg_lamentation_p67", name: "Rend Damage", format: "Rend can now stack up to 2 times on an enemy, and the damage of Rend is increased by %d%%.", min: 100, max: 150},
     },
     preset: ["mainstat"],
+  },
+
+  {
+    id: "P68_Unique_BarbBelt_006",
+    name: "The Undisputed Champion",
+    type: "mightybelt",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_theundisputedchampion_p68", name: "Frenzy Gains All Runes", format: "Frenzy gains the effect of every rune and deals %d%% increased damage.", min: 300, max: 400},
+    },
+    preset: ["mainstat", "resall"],
   },
 
 ]);

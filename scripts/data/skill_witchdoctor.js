@@ -583,7 +583,7 @@ DiabloCalc.skills.witchdoctor = {
       e: "Manitou",
     },
     params: [{min: 0, max: 3, name: "Phantasms", buffs: false, show: function(rune, stats) {
-               return stats.leg_gazingdemise;
+               return stats.leg_gazingdemise || stats.leg_gazingdemise_p68;
              }}],
     info: function(rune, stats) {
       var res;
@@ -605,9 +605,9 @@ DiabloCalc.skills.witchdoctor = {
           res["DPS"]["Spirit Damage"] = {speed: 1.2, count: 3, fpa: 57.142834, round: "up", nobp: true};
         }
       }
-      if (stats.leg_gazingdemise && this.params[0].val) {
+      if ((stats.leg_gazingdemise || stats.leg_gazingdemise_p68) && this.params[0].val) {
         var pct = {};
-        pct[DiabloCalc.itemById.P42_Unique_Mojo_003_x1.name] = this.params[0].val * stats.leg_gazingdemise;
+        pct[DiabloCalc.itemById.P42_Unique_Mojo_003_x1.name] = this.params[0].val * (stats.leg_gazingdemise || stats.leg_gazingdemise_p68);
         res["Damage"].percent = pct;
         if (res["Spirit Damage"]) {
           res["Spirit Damage"].percent = pct;
@@ -756,7 +756,7 @@ DiabloCalc.skills.witchdoctor = {
     },
     info: function(rune, stats) {
       if (!stats.leg_starmetalkukri) {
-        return {"Uptime": {duration: (rune == "b" ? 30 : 20), cooldown: 120 * (stats.passives.tribalrites ? 0.75 : 1)}};
+        return {"Uptime": {duration: (rune == "b" ? 30 : 20) * (stats.set_mundunugu_2pc ? 2 : 1), cooldown: 120 * (stats.passives.tribalrites ? 0.75 : 1)}};
       }
     },
     active: false,

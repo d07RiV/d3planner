@@ -497,4 +497,31 @@ DiabloCalc.addItems([
     preset: ["mainstat", "vit"],
   },
 
+  {
+    id: "P68_Unique_Boots_Set_05",
+    name: "Heel of Savages",
+    type: "boots",
+    quality: "set",
+    set: "savages",
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "P68_Unique_Boots_Set_04",
+    name: "Mundunugu's Dance",
+    type: "boots",
+    quality: "set",
+    set: "mundunugu",
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "P68_Unique_Boots_Set_03",
+    name: "Typhon's Tarsus",
+    type: "boots",
+    quality: "set",
+    set: "typhon",
+    preset: ["mainstat", "vit"],
+  },
+
 ]);

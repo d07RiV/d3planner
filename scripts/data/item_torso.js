@@ -542,4 +542,31 @@ DiabloCalc.addItems([
     preset: ["mainstat", "sockets"],
   },
 
+  {
+    id: "P68_Unique_Chest_Set_05",
+    name: "Markings of Savages",
+    type: "chestarmor",
+    quality: "set",
+    set: "savages",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P68_Unique_Chest_Set_04",
+    name: "Mundunugu's Robe",
+    type: "chestarmor",
+    quality: "set",
+    set: "mundunugu",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P68_Unique_Chest_Set_03",
+    name: "Typhon's Thorax",
+    type: "chestarmor",
+    quality: "set",
+    set: "typhon",
+    preset: ["mainstat", "sockets"],
+  },
+
 ]);

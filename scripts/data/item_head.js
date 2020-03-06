@@ -357,6 +357,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_WizardHat_103_x1",
     name: "The Magistrate",
+    suffix: _L("Legacy"),
     type: "wizardhat",
     quality: "legendary",
     required: {
@@ -900,6 +901,44 @@ DiabloCalc.addItems([
     type: "helm",
     quality: "set",
     set: "justice",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P68_Unique_Helm_Set_04",
+    name: "Mundunugu's Headdress",
+    type: "voodoomask",
+    quality: "set",
+    set: "mundunugu",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P68_Unique_Helm_Set_05",
+    name: "Skull of Savages",
+    type: "helm",
+    quality: "set",
+    set: "savages",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P68_Unique_WizardHat_103",
+    name: "The Magistrate",
+    type: "wizardhat",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_themagistrate_p68", name: "Hydra Bonus Damage", format: "Your Hydras now periodically cast Frost Nova and deal %d%% increased damage.", min: 250, max: 300},
+    },
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P68_Unique_Helm_Set_03",
+    name: "Typhon's Frons",
+    type: "helm",
+    quality: "set",
+    set: "typhon",
     preset: ["mainstat", "sockets"],
   },
 

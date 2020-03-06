@@ -834,4 +834,55 @@ DiabloCalc.itemSets = {
       ],
     },
   },
+
+  savages: {
+    name: "Horde of the Ninety Savages",
+    class: "barbarian",
+    order: [],
+    bonuses: {
+      "2": [
+        {format: "Double the effectiveness of shouts. You deal double damage to Feared, Frozen, or Stunned enemies."},
+      ],
+      "4": [
+        {format: "Each Frenzy stack reduces damage taken by 6%%. Frenzy lasts twice as long."},
+      ],
+      "6": [
+        {format: "Frenzy deals 1000%% increased damage per stack."},
+      ],
+    },
+  },
+
+  mundunugu: {
+    name: "Mundunugu's Regalia",
+    class: "witchdoctor",
+    order: [],
+    bonuses: {
+      "2": [
+        {format: "Big Bad Voodoo now follows you and lasts twice as long."},
+      ],
+      "4": [
+        {format: "Gain 60%% damage reduction for 30 seconds when you enter the spirit realm."},
+      ],
+      "6": [
+        {format: "Spirit Barrage deals 20,000%% increased damage plus an additional %% equal to 5 times your Mana Regeneration/Second."},
+      ],
+    },
+  },
+
+  typhon: {
+    name: "The Typhon's Veil",
+    class: "wizard",
+    order: [],
+    bonuses: {
+      "2": [
+        {format: "Double the duration of Hydras and increase the number of heads on multi-headed Hydras by two."},
+      ],
+      "4": [
+        {format: "Damage taken is reduced by 8%% for each Hydra head alive. Each time you take damage, a head dies. A head cannot die more than once every 2 seconds."},
+      ],
+      "6": [
+        {format: "Hydras deal 1300%% increased damage for each Hydra head alive."},
+      ],
+    },
+  },
 };

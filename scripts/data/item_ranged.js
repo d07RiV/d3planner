@@ -358,6 +358,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Wand_102_x1",
     name: "Serpent's Sparker",
+    suffix: _L("Legacy"),
     type: "wand",
     quality: "legendary",
     required: {
@@ -684,6 +685,17 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       custom: {id: "leg_wojahnniassaulter_p65", name: "Rapid Fire Ramp-Up", format: "Rapid Fire increasingly deals %d%% increased damage while channeling. Stacks up to 30 times.", min: 75, max: 100},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P68_Unique_Wand_102",
+    name: "Serpent's Sparker",
+    type: "wand",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_serpentssparker_p68", name: "Hydra Bonus Damage", format: "You may have one extra Hydra active at a time and they deal %d%% increased damage.", min: 250, max: 300},
     },
     preset: ["mainstat"],
   },

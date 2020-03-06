@@ -16,7 +16,7 @@ DiabloCalc = {
   options: {},
   optionPerProfile: {},
   pageTitle: document.title,
-  ptr: (location.hostname.toLowerCase().indexOf("ptr") >= 0),
+  ptr: false,// (location.hostname.toLowerCase().indexOf("ptr") >= 0),
   addOption: function(name, get, set, profile) {
     Object.defineProperty(this.options, name, {get: get, set: set, enumerable: true});
     if (profile) this.optionPerProfile[name] = true;
@@ -61,7 +61,7 @@ DiabloCalc = {
     });
   },
 };
-DiabloCalc.season = DiabloCalc.ptr ? 20 : 19;
+DiabloCalc.season = 20;//DiabloCalc.ptr ? 20 : 19;
 //setInterval(function() {
 //  DiabloCalc.report();
 //}, 180000);
@@ -275,17 +275,17 @@ $(function() {
 
   DiabloCalc.spinStart();
 
-  if (DiabloCalc.ptr) {
-    $("#ptr-link").append("<a href=\"http://" + location.hostname.replace(/^[^.]*/, "www") + "\">" + _L("Switch to live version") + "</a>");
-    $("#ptr-link").find("a").click(function() {
-      $(this).attr("href", "http://" + location.hostname.replace(/^[^.]*/, "www") + location.pathname);
-    });
-  } else {
-    $("#ptr-link").append("<a href=\"http://" + location.hostname.replace(/^[^.]*/, "ptr") + "\">" + _L("PTR version is available!") + "</a>");
-    $("#ptr-link").find("a").click(function() {
-      $(this).attr("href", "http://" + location.hostname.replace(/^[^.]*/, "ptr") + location.pathname);
-    });
-  }
+  //if (DiabloCalc.ptr) {
+  //  $("#ptr-link").append("<a href=\"http://" + location.hostname.replace(/^[^.]*/, "www") + "\">" + _L("Switch to live version") + "</a>");
+  //  $("#ptr-link").find("a").click(function() {
+  //    $(this).attr("href", "http://" + location.hostname.replace(/^[^.]*/, "www") + location.pathname);
+  //  });
+  //} else {
+  //  $("#ptr-link").append("<a href=\"http://" + location.hostname.replace(/^[^.]*/, "ptr") + "\">" + _L("PTR version is available!") + "</a>");
+  //  $("#ptr-link").find("a").click(function() {
+  //    $(this).attr("href", "http://" + location.hostname.replace(/^[^.]*/, "ptr") + location.pathname);
+  //  });
+  //}
 
   DC_getScript("scripts/data.js", function() {
     DiabloCalc.loadData(function() {

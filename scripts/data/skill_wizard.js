@@ -424,7 +424,11 @@ DiabloCalc.skills.wizard = {
       a: "Frost Hydra",
       d: "Mammoth Hydra",
     },
-    params: [{min: 1, max: "leg_serpentssparker?2:1", name: "Hydras", buffs: false},
+    params: [{min: 1, max: function(stats) {
+               return (stats.skills.hydra === "d" ? 1 : (stats.set_typhon_2pc ? 5 : 3)) * (stats.leg_serpentssparker || stats.leg_serpentssparker_p68 ? 2 : 1);
+             }, step: function(stats) {
+               return stats.set_typhon_4pc ? 1 : (stats.skills.hydra === "d" ? 1 : (stats.set_typhon_2pc ? 5 : 3));
+             }, name: "Hydras", buffs: false},
              {min: 0, max: 50, val: 5, name: "Distance", buffs: false, show: function(rune, stats) {
                return rune === "d" || (stats.gems.zei !== undefined) || (rune === "b" && stats.leg_starfire);
              }}],
@@ -454,7 +458,7 @@ DiabloCalc.skills.wizard = {
           res[key].percent[DiabloCalc.itemById.P42_Unique_Wand_003_x1.name] = this.params[1].val * stats.leg_starfire / 10;
         }
         res["DPS"] = {sum: true};
-        res["DPS"][key] = {pet: (rune === "a" ? 86 : 76.300583), area: false, speed: 1, count: 3 * this.params[0].val};
+        res["DPS"][key] = {pet: (rune === "a" ? 86 : 76.300583), area: false, speed: 1, count: this.params[0].val};
       } else {
         if (stats.gems.zei !== undefined) {
           res["Tick Damage"].exclude = ["zei"];

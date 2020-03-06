@@ -667,6 +667,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Mighty_2H_004_p1",
     name: "Bastion's Revered",
+    suffix: _L("Legacy"),
     type: "mightyweapon2h",
     quality: "legendary",
     required: {
@@ -1194,6 +1195,17 @@ DiabloCalc.addItems([
     },
     preset: ["wpnphy", "mainstat", "expadd"],
     secondary: 3,
+  },
+
+  {
+    id: "P68_Unique_Mighty_2H_004",
+    name: "Bastion's Revered",
+    type: "mightyweapon2h",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_bastionsrevered_p68", name: "Extra Frenzy Stacks", format: "Frenzy now stacks up to 10 times and hits an additional time per stack. Each additional hit will chain to any enemies within 15 yards, and the damage is split between all of the affected enemies.", args: 0},
+    },
+    preset: ["wpncol", "mainstat", "sockets"],
   },
 
 ]);

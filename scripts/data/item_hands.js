@@ -466,4 +466,31 @@ DiabloCalc.addItems([
     preset: ["mainstat", "chc"],
   },
 
+  {
+    id: "P68_Unique_Gloves_Set_05",
+    name: "Claws of Savages",
+    type: "gloves",
+    quality: "set",
+    set: "savages",
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P68_Unique_Gloves_Set_04",
+    name: "Mundunugu's Rhythm",
+    type: "gloves",
+    quality: "set",
+    set: "mundunugu",
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P68_Unique_Gloves_Set_03",
+    name: "Typhon's Claws",
+    type: "gloves",
+    quality: "set",
+    set: "typhon",
+    preset: ["mainstat", "chc"],
+  },
+
 ]);

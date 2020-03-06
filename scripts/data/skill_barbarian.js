@@ -137,12 +137,12 @@ DiabloCalc.skills.barbarian = {
       a: "Maniac",
     },
     range: 5,
-    params: [{min: 0, max: "leg_bastionsrevered?10:5", name: "Stacks", buffs: false}],
+    params: [{min: 0, max: "(leg_bastionsrevered_p68||leg_bastionsrevered)?10:5", name: "Stacks", buffs: false}],
     info: function(rune, stats) {
       var fpa = DiabloCalc.barbarian.varSpeed(stats);
       var stacks = this.params[0].val;
       var res;
-      if (stats.leg_theundisputedchampion) {
+      if (stats.leg_theundisputedchampion || stats.leg_theundisputedchampion_p68) {
         res = {"Damage": {elem: "max", coeff: 2.2}, "Sidearm Damage": {elem: "max", coeff: 3}};
       } else {
         switch (rune) {
@@ -154,19 +154,25 @@ DiabloCalc.skills.barbarian = {
         case "a": res = {"Damage": {elem: "fir", coeff: 2.2}}; break;
         }
       }
-      var dps = {"DPS": {sum: true, "Damage": {speed: (stats.leg_oathkeeper ? 1.5 : 1), ias: stacks * 15, fpa: fpa, round: "up"}}};
-      if (rune === "b" || stats.leg_theundisputedchampion) {
-        dps["DPS"]["Sidearm Damage"] = $.extend({nobp: true, count: 0.25}, dps["DPS"]["Damage"]);
+      var tdmg = "Damage";
+      if (stats.leg_bastionsrevered_p68) {
+        tdmg = "Total Damage";
+        res[tdmg] = {sum: true, "Damage": {count: this.params[0].val}};
+      }
+      var dps = {"DPS": {sum: true}};
+      dps["DPS"][tdmg] = {speed: (stats.leg_oathkeeper ? 1.5 : 1), ias: stacks * 15, fpa: fpa, round: "up"};
+      if (rune === "b" || stats.leg_theundisputedchampion || stats.leg_theundisputedchampion_p68) {
+        dps["DPS"]["Sidearm Damage"] = $.extend({nobp: true, count: 0.25}, dps["DPS"][tdmg]);
       }
       return $.extend(dps, res);
     },
     active: true,
     buffs: function(rune, stats) {
       var res = {};
-      if (rune === "a" || stats.leg_theundisputedchampion) {
+      if (rune === "a" || stats.leg_theundisputedchampion || stats.leg_theundisputedchampion_p68) {
         res.damage = this.params[0].val * 2.5;
       }
-      if (rune === "c" || stats.leg_theundisputedchampion) {
+      if (rune === "c" || stats.leg_theundisputedchampion || stats.leg_theundisputedchampion_p68) {
         res.extrams = this.params[0].val * 5;
       }
       return res;
@@ -639,8 +645,8 @@ DiabloCalc.skills.barbarian = {
       "*": {"Cooldown": {cooldown: 10}},
     },
     active: true,
-    buffs: {
-      d: {dmgtaken: 25},
+    buffs: function(rune, stats) {
+      if (rune === "d") return {dmgtaken: (stats.set_savages_2pc ? 2 : 1) * 25};
     },
   },
   battlerage: {
@@ -665,10 +671,11 @@ DiabloCalc.skills.barbarian = {
       "*": {"Cost": {cost: 20}},
     },
     buffs: function(rune, stats) {
-      var res = {damage: 10, chc: 3};
-      if (rune === "a") res.damage = 15;
-      if (rune === "b") res.extrams = 15;
-      if (rune === "d") res.chc += this.params[0].val;
+      var mult = (stats.set_savages_2pc ? 2 : 1);
+      var res = {damage: mult * 10, chc: mult * 3};
+      if (rune === "a") res.damage = mult * 15;
+      if (rune === "b") res.extrams = mult * 15;
+      if (rune === "d") res.chc += mult * this.params[0].val;
       return res;
     },
   },
@@ -689,13 +696,16 @@ DiabloCalc.skills.barbarian = {
       "*": {"Cooldown": {cooldown: 20}},
     },
     active: true,
-    buffs: {
-      x: {armor_percent: 20},
-      a: {armor_percent: 80},
-      d: {armor_percent: 20},
-      e: {armor_percent: 20, life: 10, regen: 13411},
-      b: {armor_percent: 20, dodge: 30},
-      c: {armor_percent: 20, resist_percent: 20},
+    buffs: function(rune, stats) {
+      var mult = (stats.set_savages_2pc ? 2 : 1);
+      switch (rune) {
+      case "x": return {armor_percent: mult * 20};
+      case "a": return {armor_percent: mult * 80};
+      case "d": return {armor_percent: mult * 20};
+      case "e": return {armor_percent: mult * 20, life: mult * 10, regen: mult * 13411};
+      case "b": return {armor_percent: mult * 20, dodge: mult * 30};
+      case "c": return {armor_percent: mult * 20, resist_percent: mult * 20};
+      }
     },
   },
   earthquake: {

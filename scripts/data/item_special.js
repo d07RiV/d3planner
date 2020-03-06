@@ -1856,4 +1856,56 @@ DiabloCalc.itemaffixes = {
       return {dmgmul: {percent: 15000}};
     },
   },
+  leg_serpentssparker_p68: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["hydra"], percent: value[0]}};
+    },
+  },
+  leg_themagistrate_p68: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["hydra"], percent: value[0]}};
+    },
+  },
+  leg_theundisputedchampion_p68: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["frenzy"], percent: value[0]}};
+    },
+  },
+
+  set_typhon_4pc: {
+    buffs: function(value, stats) {
+      return {dmgred: 8 * DiabloCalc.skills.wizard.hydra.params[0].val};
+    },
+  },
+  set_typhon_6pc: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["hydra"], percent: 1300 * DiabloCalc.skills.wizard.hydra.params[0].val}};
+    },
+  },
+
+  set_mundunugu_4pc: {
+    active: true,
+    buffs: {dmgred: 60},
+  },
+  set_mundunugu_6pc: {
+    last: true,
+    buffs: function(value, stats) {
+      return {dmgmul: 20000 + 5 * (stats.manaregen + (stats.manaregen_percent || 0) * stats.maxmana * 0.01) * (1 + 0.01 * (stats.resourcegen || 0))};
+    },
+  },
+
+  set_savages_2pc: {
+    active: false,
+    buffs: {dmgmul: 100},
+  },
+  set_savages_4pc: {
+    buffs: function(value, stats) {
+      return {dmgred: 6 * DiabloCalc.skills.barbarian.frenzy.params[0].val};
+    },
+  },
+  set_savages_6pc: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["frenzy"], percent: 1000 * DiabloCalc.skills.barbarian.frenzy.params[0].val}};
+    },
+  },
 };

@@ -807,6 +807,7 @@ DiabloCalc.addItems([
   {
     id: "P42_Unique_Mojo_003_x1",
     name: "Gazing Demise",
+    suffix: _L("Legacy"),
     type: "mojo",
     quality: "legendary",
     required: {
@@ -1019,7 +1020,7 @@ DiabloCalc.addItems([
     type: "source",
     quality: "legendary",
     required: {
-      custom: {id: "leg_etchedsigil_p6", name: "Spender Damage Bonus", format: "While channeling Arcane Torrent, Disintegrate, or Ray of Frost, the damage of your Arcane Power Spenders is increased by %d%% and you also cast one of your other damaging Arcane Power Spenders every second.", min: 125, max: 150},
+      custom: {id: "leg_etchedsigil_p6", name: "Spender Damage Bonus", format: "While channeling Arcane Torrent, Disintegrate, or Ray of Frost for at least 1 second, the damage of your Arcane Power Spenders is increased by %d%%, and you also cast one of your other damaging Arcane Power Spenders every second.", min: 125, max: 150},
     },
     preset: ["mainstat", "chc"],
   },
@@ -1066,6 +1067,18 @@ DiabloCalc.addItems([
       custom: {id: "leg_spite", name: "Gargantuan Cleaves", format: "Non-cleaving Gargantuans gain the cleave and chilling effects of the Humongoid rune.", args: 0},
     },
     preset: ["maxmana", "chc"],
+  },
+
+  {
+    id: "P68_Unique_Mojo_003",
+    name: "Gazing Demise",
+    type: "mojo",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_gazingdemise_p68", name: "Spirit Barrage Phantasm Bonus", format: "Spirit Barrage gains the Phantasm rune. Each active Phantasm lasts twice as long, increases the damage of Spirit Barrage by %d%%, and also increases the attack rate from Manitou spectres.", min: 100, max: 150},
+    },
+    preset: ["mainstat", "regen", "manaregen"],
+    primary: 6,
   },
 
 ]);
