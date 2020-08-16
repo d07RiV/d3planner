@@ -859,13 +859,76 @@ _L.patch.add({
       flavor: "The Igani Bawe, the Harvest of Souls, had come.",
     },
     P68_Unique_Shoulder_Set_05: {
-      flavor: "Tales recount of a great war where one barbarian took down four enemies in a single battle that led the tribe's final victory.",
+      flavor: "Tales recount of a great war where one barbarian took down four enemies in a single battle that led to the tribe's final victory.",
     },
     P68_Unique_Wand_102: {
       flavor: "Legend says this wand was fashioned from a fang of the original Hydra, defeated centuries ago by the hero Bul-Kathos. The great serpent was said to spawn two heads for every one that was severed. In order to defeat it, the mighty nephalem supposedly pitched the beast into a roaring bonfire, wresting the fang loose in the process.",
     },
     P68_Unique_WizardHat_103: {
       flavor: "The most powerful of wizards will find themselves richly rewarded by their studies. This hat is for those who like to display their power in a more elegant fashion.",
+    },
+    P69_Necro_Set_5_Boots: {
+      flavor: "Fashion is just as important as form.",
+    },
+    P69_Necro_Set_5_Chest: {
+      flavor: "Styled to be elegant and androgynous, its fabric can release heat and moisture to keep the wearer comfortable.",
+    },
+    P69_Necro_Set_5_Gloves: {
+      flavor: "Etiquette considers that gloves are a mandatory accessory for both protection and formal wear.",
+    },
+    P69_Necro_Set_5_Helm: {
+      flavor: "Initial designs of this mask showed that it was to be held from the hand with a stick.",
+    },
+    P69_Necro_Set_5_Pants: {
+      flavor: "Stretchable and form-fitting, these breathable pants are light, comfortable, soft, and can easily be worn in and out of combat.",
+    },
+    P69_Necro_Set_5_Shoulders: {
+      flavor: "The wider these are, the more attention you get, and the more powerful you feel.",
+    },
+    P69_Necro_Unique_Gloves_22: {
+      flavor: "You feel attuned to the life force in all beings.",
+    },
+    P69_Necro_Unique_Shoulders_22: {
+      flavor: "If one did not fear Razeth, one feared the dark powers of his minions.",
+    },
+    P69_Unique_Amulet_02: {
+      flavor: "The spirits of the dead are never far. Search for them only a little, and they shall appear.",
+    },
+    P69_Unique_Belt_005: {
+      flavor: "Your hatred knows no bounds.",
+    },
+    P69_Unique_Boots_Set_06: {
+      flavor: "These have armored soles for increased kicking power!",
+    },
+    P69_Unique_Bow_102: {
+      flavor: "After her many travels, the heroine Aphaena returned home bearing the mightiest bow in all of Skovos. Only the strongest warriors may string it, and in modern times, the greatest of Skovos's champions compete for that honor.",
+    },
+    P69_Unique_Bow_103: {
+      flavor: "Hashir was a gifted blacksmith who often spoke passionately about the need for mankind to live in peace and harmony with all things. Until his family was killed. Then he turned his talents towards creating the most effective ways to inflict massive amounts of pain and suffering on those responsible.",
+    },
+    P69_Unique_Chest_Set_06: {
+      flavor: "There's an interesting seal signed in blood on the metal inside of the armor. It probably shouldn't be tampered with.",
+    },
+    P69_Unique_Gloves_Set_06: {
+      flavor: "These can augment the wearer's fighting strength by providing greater power and motion with their arms. However, this may ache the joints whenever it gets cold.",
+    },
+    P69_Unique_Helm_Set_06: {
+      flavor: "These goggles supposedly allow the wearer to see far into the future, but honestly the goggles do nothing.",
+    },
+    P69_Unique_Pants_Set_06: {
+      flavor: "These trousers were originally created to handle vertical maneuvering in the air. However the equipment to accommodate this never came to fruition.",
+    },
+    P69_Unique_Quiver_101: {
+      flavor: "\"This satchel is cleverly designed so that the heads of arrows placed within fit into slots that serve as whetstones, sharpening the edges whenever an arrow is inserted or removed. Cirri's artistry remained unrecognized in his lifetime, so that only this quiver, numbered nine on the interior, survived to the present.\" -The Craft of War by Diadra the Scholar",
+    },
+    P69_Unique_Quiver_103: {
+      flavor: "\"Emimei was rumored to be the offspring of the famed fletcher Cirri. Possibly even more talented than her father, she discovered a way to integrate a superior ignition system into demon hunter bola weapons. Exert enough pressure on a bola's spike and the explosive charge within triggers, causing the bola to detonate upon impact with a target.\" -The Craft of War by Diadra the Scholar",
+    },
+    P69_Unique_Ring_019: {
+      flavor: "The Stone of Jordan is far more valuable than its appearance would suggest. Men have given much to possess it.",
+    },
+    P69_Unique_Shoulder_Set_06: {
+      flavor: "These feel much heavier than normal, as if it were deliberately weighted for training purposes.",
     },
     P6_Necro_Set_1_Boots: {
       flavor: "Each fragment of this armor came from a corpse that died at a different age. Fully assembled, they represent a thousand years of death.",

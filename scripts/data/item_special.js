@@ -133,6 +133,15 @@ DiabloCalc.itemaffixes = {
       }
     },
   },
+  leg_odysseysend_p69: {
+    check: true,
+    active: true,
+    buffs: function(value, stats) {
+      if (stats.skills.entanglingshot) {
+        return {dmgtaken: value[0]};
+      }
+    },
+  },
   leg_cluckeye: {
     info: {"Damage": {elem: "phy", coeff: 5}},
   },
@@ -799,6 +808,11 @@ DiabloCalc.itemaffixes = {
       return {dmgmul: {skills: ["hungeringarrow", "entanglingshot", "bolas", "evasivefire", "grenade"], percent: value[0]}};
     },
   },
+  leg_hunterswrath_p69: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["hungeringarrow", "entanglingshot", "bolas", "evasivefire", "grenade"], percent: value[0]}};
+    },
+  },
   leg_bracersofthefirstmen: {
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["hammeroftheancients"], percent: value[0]}};
@@ -1132,7 +1146,7 @@ DiabloCalc.itemaffixes = {
     buffs: function(value, stats) {
       if (stats.skills.whirlwind || stats.skills.rapidfire || stats.skills.strafe ||
           stats.skills.tempestrush || stats.skills.firebats || stats.skills.arcanetorrent ||
-          stats.skills.disintegrate || stats.skills.rayoffrost) {
+          stats.skills.disintegrate || stats.skills.rayoffrost || stats.skills.siphonblood) {
         return {dmgred: 25, dmgmul: value[0]};
       }
     },
@@ -1168,13 +1182,13 @@ DiabloCalc.itemaffixes = {
     },
   },
   leg_shieldoffury: {
-    params: [{min: 0, max: 20, name: "Stacks"}],
+    params: [{min: 0, max: 10, name: "Stacks"}],
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["heavensfury"], percent: this.params[0].val * value[0]}};
     },
   },
   leg_shieldoffury_p6: {
-    params: [{min: 0, max: 20, name: "Stacks"}],
+    params: [{min: 0, max: 10, name: "Stacks"}],
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["heavensfury"], percent: this.params[0].val * value[0]}};
     },
@@ -1388,6 +1402,12 @@ DiabloCalc.itemaffixes = {
       return {dmgmul: {skills: ["corpseexplosion"], percent: value[0] * this.params[0].val}};
     },
   },
+  leg_graspsofessence_p69: {
+    params: [{min: 0, max: 5, name: "Stacks"}],
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["corpseexplosion"], percent: value[0] * this.params[0].val}};
+    },
+  },
   leg_golemskinbreeches: {
     buffs: function(value, stats) {
       return {dmgmul: {skills: ["commandgolem"], percent: value[0]}};
@@ -1555,7 +1575,7 @@ DiabloCalc.itemaffixes = {
       {skills: ["bonespear"], percent: 3300},
       {skills: ["corpselance", "corpseexplosion"], percent: 1650},
     ]}},
-    inactive: {dmgmul: {skills: ["corpselance", "corpseexplosion"], percent: 1650}},
+    inactive: {dmgmul: {skills: ["corpselance", "corpseexplosion"], percent: 3300}},
   },
 
   leg_bloodtideblade: {
@@ -1908,4 +1928,67 @@ DiabloCalc.itemaffixes = {
       return {dmgmul: {skills: ["frenzy"], percent: 1000 * DiabloCalc.skills.barbarian.frenzy.params[0].val}};
     },
   },
+
+  leg_emimeisduffel_p69: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["bolas"], percent: value[0]}};
+    },
+  },
+  leg_holypointshot_p69: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["impale"], percent: value[0]}};
+    },
+  },
+  leg_leoninebowofhashir_p69: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["bolas"], percent: value[0]}};
+    },
+  },
+  leg_razethsvolition_p69: {
+    active: true,
+    activetip: "Full Essence",
+    buffs: {},
+    inactive: function(value, stats) {
+      return {dmgmul: -value[0]};
+    },
+  },
+  leg_theninthcirrisatchel_p69: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["hungeringarrow"], percent: value[0]}};
+    },
+  },
+  leg_stoneofjordan: {
+    last: true,
+    buffs: function(value, stats) {
+      var elements = DiabloCalc.statGroups.elemental.filter(function(stat) {
+        return DiabloCalc.stats[stat].classes.indexOf(DiabloCalc.charClass) !== -1;
+      });
+      var highest = 0;
+      for (var i = 0; i < elements.length; ++i) {
+        if (stats[elements[i]] && stats[elements[i]] > highest) {
+          highest = stats[elements[i]];
+        }
+      }
+      var result = {};
+      for (var i = 0; i < elements.length; ++i) {
+        if (!stats[elements[i]] || stats[elements[i]] < highest) {
+          result[elements[i]] = (highest - (stats[elements[i]] || 0));
+        }
+      }
+      return result;
+    },
+  },
+
+  set_dreadlands_2pc: {
+    params: [{min: 0, max: 20, name: "Momentum"}],
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["hungeringarrow", "entanglingshot", "bolas", "evasivefire", "grenade"], percent: this.params[0].val * 10}};
+    },
+  },
+  set_dreadlands_6pc: {
+    buffs: function(value, stats) {
+      return {dmgmul: {skills: ["hungeringarrow", "entanglingshot", "bolas", "evasivefire", "grenade"], percent: 10000}};
+    },
+  },
+
 };

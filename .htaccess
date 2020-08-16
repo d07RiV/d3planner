@@ -29,3 +29,6 @@ RewriteRule ^locale$ scripts/locale.js [L]
 RewriteRule ^locale/[a-z][a-z][A-Z][A-Z]$ php/locale.php [L]
 RewriteRule ^(core|data|script)$ $1.js [L]
 RewriteRule ^(proxy|save|load|search|report|savestash|loadstash|delete|changes|errors|account|priority|activity)$ php/$1.php [L]
+
+RewriteCond %{HTTP_HOST} ^ptr\.d3local\.com$
+RewriteRule ^data\.js$ data_ptr.js [L]

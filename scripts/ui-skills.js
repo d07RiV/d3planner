@@ -464,19 +464,19 @@
 //    tab.animate({scrollTop: (slotData.elems.div.offset().top - tab.offset().top + tab.scrollTop() - 20)+ "px"}, "fast");
 //  }
   DiabloCalc.register("editSkill", function(index) {
-    $(".editframe").tabs("option", "active", 2);
+    $(".editframe").tabs("option", "active", DiabloCalc.TAB_SKILLS);
     skills[index].line.get(0).scrollIntoView();
     setTimeout(function() {skillPopup.show(skills[index]);}, 0);
   });
   DiabloCalc.register("editPassive", function(index) {
-    $(".editframe").tabs("option", "active", 2);
+    $(".editframe").tabs("option", "active", DiabloCalc.TAB_SKILLS);
     passives[index].line.get(0).scrollIntoView();
     setTimeout(function() {passivePopup.show(passives[index]);}, 0);
   });
   DiabloCalc.register("editKanai", function(type) {
     var index = $(".editframe").tabs("option", "active");
     if (index !== 0 && index !== 2) {
-      $(".editframe").tabs("option", "active", 2);
+      $(".editframe").tabs("option", "active", DiabloCalc.TAB_SKILLS);
     }
     kanai[type].line.get(0).scrollIntoView();
     setTimeout(function() {kanai[type].namebox.trigger("chosen:open");}, 0);
@@ -738,6 +738,7 @@
       }
     }
     var kanaiFx = [];
+    var postList = [];
     for (var type in kanai) {
       var affix = kanai[type].getItemAffix();
       if (!affix) continue;
@@ -750,21 +751,27 @@
         func = "inactive";
       }
       if (func) {
-        var list;
         if (typeof info[func] == "function") {
-          var values = [];
-          if (value !== undefined) values.push(value);
-          list = info[func](values, stats);
+          var cbk = (function(value, info, func, source) {
+            return function() {
+              var values = [];
+              if (value !== undefined) values.push(value);
+              var list = func.call(info, values, stats);
+              applySkill(list, stats, source);
+            };
+          })(value, info, info[func], kanai[type].getItemPair());
+          if (info.last) {
+            postList.push(cbk);
+          } else {
+            cbk();
+          }
         } else {
-          list = info[func];
+          applySkill(info[func], stats, kanai[type].getItemPair());
         }
-        applySkill(list, stats, kanai[type].getItemPair());
         kanaiFx.push(affix);
       }
     }
 
-    // hack to make sets like Crimson's work
-    var postList = [];
     for (var affix in stats.affixes) {
       if (kanaiFx.indexOf(affix) >= 0) continue;
       var info = DiabloCalc.itemaffixes[affix];

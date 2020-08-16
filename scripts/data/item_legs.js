@@ -535,4 +535,22 @@ DiabloCalc.addItems([
     preset: ["mainstat", "sockets"],
   },
 
+  {
+    id: "P69_Unique_Pants_Set_06",
+    name: "Cold Cathode Trousers",
+    type: "pants",
+    quality: "set",
+    set: "dreadlands",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P69_Necro_Set_5_Pants",
+    name: "Elegant Pants",
+    type: "pants",
+    quality: "set",
+    set: "masquerade",
+    preset: ["mainstat", "sockets"],
+  },
+
 ]);

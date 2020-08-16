@@ -90,6 +90,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Bow_103_x1",
     name: "Leonine Bow of Hashir",
+    suffix: _L("Legacy"),
     type: "bow",
     quality: "legendary",
     required: {
@@ -474,6 +475,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Bow_102_x1",
     name: "Odyssey's End",
+    suffix: _L("Legacy"),
     type: "bow",
     quality: "legendary",
     required: {
@@ -696,6 +698,28 @@ DiabloCalc.addItems([
     quality: "legendary",
     required: {
       custom: {id: "leg_serpentssparker_p68", name: "Hydra Bonus Damage", format: "You may have one extra Hydra active at a time and they deal %d%% increased damage.", min: 250, max: 300},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P69_Unique_Bow_103",
+    name: "Leonine Bow of Hashir",
+    type: "bow",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_leoninebowofhashir_p69", name: "Bolas Damage Bonus", format: "Bolas have a 100%% chance on explosion to pull in all enemies within 24 yards, and also deals %d%% increased damage.", min: 100, max: 150},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P69_Unique_Bow_102",
+    name: "Odyssey's End",
+    type: "bow",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_odysseysend_p69", name: "Snared Damage Bonus", format: "Enemies snared by your Entangling Shot take %d%% increased damage from all sources.", min: 100, max: 150},
     },
     preset: ["mainstat"],
   },

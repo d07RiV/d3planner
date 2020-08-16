@@ -530,8 +530,8 @@ DiabloCalc.addItems([
 
   {
     id: "P3_Unique_Belt_005",
-    local: true,
     name: "Hunter's Wrath",
+    suffix: _L("Legacy"),
     type: "belt",
     quality: "legendary",
     required: {
@@ -542,7 +542,6 @@ DiabloCalc.addItems([
 
   {
     id: "P3_Unique_Belt_01",
-    local: true,
     name: "Sacred Harness",
     type: "belt",
     quality: "legendary",
@@ -815,6 +814,17 @@ DiabloCalc.addItems([
       custom: {id: "leg_theundisputedchampion_p68", name: "Frenzy Gains All Runes", format: "Frenzy gains the effect of every rune and deals %d%% increased damage.", min: 300, max: 400},
     },
     preset: ["mainstat", "resall"],
+  },
+
+  {
+    id: "P69_Unique_Belt_005",
+    name: "Hunter's Wrath",
+    type: "belt",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_hunterswrath_p69", name: "Generator Damage Bonus", format: "Your primary skills attack 30%% faster and deal %d%% increased damage.", min: 150, max: 200},
+    },
+    preset: ["mainstat", "vit"],
   },
 
 ]);

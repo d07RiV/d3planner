@@ -343,6 +343,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Ring_019_x1",
     name: "Stone of Jordan",
+    suffix: _L("Legacy"),
     type: "ring",
     quality: "legendary",
     affixes: {
@@ -473,7 +474,7 @@ DiabloCalc.addItems([
     type: "ring",
     quality: "legendary",
     required: {
-      custom: {id: "leg_conventionofelements", name: "Elemental Damage", format: "Gain %d%% increased damage to a single element for 4 seconds. This effect rotates through the elements available to your class in the following order: Arcane, Cold, Fire, Holy, Lightning, Physical, Poison.", min: 150, max: 200},
+      custom: {id: "leg_conventionofelements", name: "Elemental Damage", format: "Gain %d%% increased damage to a single element for 4 seconds. This non-static effect rotates through the elements available to your class in the following order: Arcane, Cold, Fire, Holy, Lightning, Physical, Poison.", min: 150, max: 200},
     },
     preset: ["mainstat", "chc", "sockets"],
   },
@@ -701,6 +702,29 @@ DiabloCalc.addItems([
       custom: {id: "leg_bandofmight_p6", name: "Damage Reduction on Movement Skills", format: "After casting Furious Charge, Ground Stomp, or Leap, take %d%% reduced damage for 8 seconds.", min: 60, max: 80},
     },
     preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P69_Unique_Ring_019",
+    name: "Stone of Jordan",
+    type: "ring",
+    quality: "legendary",
+    affixes: {
+      elemental: "elementalDamage",
+      maxdisc: {min: 8, max: 10},
+      maxfury: {min: 7, max: 8},
+      maxap: {min: 7, max: 9},
+      maxmana: {min: 120, max: 150},
+      maxspirit: {min: 13, max: 14},
+      maxwrath: {min: 7, max: 8},
+      maxessence: {min: 15, max: 18},
+    },
+    required: {
+      edmg: {min: 25, max: 30},
+      custom: {id: "leg_stoneofjordan", name: "Shared Elemental Damage Bonus", format: "Each of your elemental's damage bonus is equal to your highest static elemental bonus to skill.", args: 0},
+    },
+    preset: ["mainstat", "elemental", "resource"],
+    secondary: 3,
   },
 
 ]);

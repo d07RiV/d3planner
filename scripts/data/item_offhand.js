@@ -584,6 +584,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Quiver_103_x1",
     name: "Emimei's Duffel",
+    suffix: _L("Legacy"),
     type: "quiver",
     quality: "legendary",
     required: {
@@ -595,6 +596,7 @@ DiabloCalc.addItems([
   {
     id: "Unique_Quiver_101_x1",
     name: "The Ninth Cirri Satchel",
+    suffix: _L("Legacy"),
     type: "quiver",
     quality: "legendary",
     required: {
@@ -776,7 +778,7 @@ DiabloCalc.addItems([
     type: "crusadershield",
     quality: "legendary",
     required: {
-      custom: {id: "leg_shieldoffury", name: "Heaven's Fury Ramp Up", format: "Each time an enemy takes damage from your Heaven's Fury, it increases the damage they take from your Heaven's Fury by %d%%. This effect stacks up to 20 times.", min: 15, max: 20},
+      custom: {id: "leg_shieldoffury", name: "Heaven's Fury Ramp Up", format: "Each time an enemy takes damage from your Heaven's Fury, it increases the damage they take from your Heaven's Fury by %d%%. This effect stacks up to 10 times.", min: 15, max: 20},
     },
     preset: ["mainstat"],
   },
@@ -845,6 +847,7 @@ DiabloCalc.addItems([
   {
     id: "P5_Unique_Quiver_004_x1",
     name: "Holy Point Shot",
+    suffix: _L("Legacy"),
     type: "quiver",
     quality: "legendary",
     affixes: {
@@ -1009,7 +1012,7 @@ DiabloCalc.addItems([
     type: "crusadershield",
     quality: "legendary",
     required: {
-      custom: {id: "leg_shieldoffury_p6", name: "Heaven's Fury Ramp Up", format: "Each time an enemy takes damage from your Heaven's Fury, it increases the damage they take from your Heaven's Fury by %d%%. This effect stacks up to 20 times.", min: 25, max: 30},
+      custom: {id: "leg_shieldoffury_p6", name: "Heaven's Fury Ramp Up", format: "Each time an enemy takes damage from your Heaven's Fury, it increases the damage they take from your Heaven's Fury by %d%%. This effect stacks up to 10 times.", min: 25, max: 30},
     },
     preset: ["mainstat"],
   },
@@ -1079,6 +1082,42 @@ DiabloCalc.addItems([
     },
     preset: ["mainstat", "regen", "manaregen"],
     primary: 6,
+  },
+
+  {
+    id: "P69_Unique_Quiver_103",
+    name: "Emimei's Duffel",
+    type: "quiver",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_emimeisduffel_p69", name: "Bolas Damage Bonus", format: "Bolas now explode instantly and deal %d%% increased damage.", min: 150, max: 175},
+    },
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P69_Unique_Quiver_004",
+    name: "Holy Point Shot",
+    type: "quiver",
+    quality: "legendary",
+    affixes: {
+      elemental: "elementalDamage",
+    },
+    required: {
+      custom: {id: "leg_holypointshot_p69", name: "Extra Impale Knives", format: "Impale throws two additional knives and deals %d%% increased damage.", min: 75, max: 100},
+    },
+    preset: ["mainstat", "elemental"],
+  },
+
+  {
+    id: "P69_Unique_Quiver_101",
+    name: "The Ninth Cirri Satchel",
+    type: "quiver",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_theninthcirrisatchel_p69", name: "Hungering Arrow Damage Bonus", format: "Hungering Arrow is guaranteed to pierce and also deals %d%% increased damage.", min: 450, max: 600},
+    },
+    preset: ["mainstat"],
   },
 
 ]);

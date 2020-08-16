@@ -719,7 +719,7 @@ DiabloCalc.itemSets = {
         {format: "Bone Armor damage is increased by 1000%%."},
       ],
       "4": [
-        {format: "Bone Armor grants an additional 2%% damage reduction per enemy hit."},
+        {format: "Bone Armor grants an additional 3%% damage reduction per enemy hit."},
       ],
       "6": [
         {format: "Bone Armor also activates a swirling tornado of bone, damaging nearby enemies for 1000%% weapon damage and increasing the damage they take from the Necromancer by 10000%%."},
@@ -739,7 +739,7 @@ DiabloCalc.itemSets = {
         {format: "Each enemy you hit with Bone Spear, Corpse Lance and Corpse Explosion reduces your damage taken by 2%%, up to a maximum of 50%%. Lasts 15 seconds."},
       ],
       "6": [
-        {format: "Each corpse you consume grants you an Empowered Bone Spear charge that increases the damage of your next Bone Spear by 3300%%. In addition, Corpse Lance and Corpse Explosion damage is increased by 1650%%."},
+        {format: "Each corpse you consume grants you an Empowered Bone Spear charge that increases the damage of your next Bone Spear by 3300%%. In addition, Corpse Lance and Corpse Explosion damage is increased by 3300%%."},
       ],
     },
   },
@@ -751,7 +751,7 @@ DiabloCalc.itemSets = {
     bonuses: {
       "2": [
         {format: "When the target of your Command Skeletons dies, your skeletons are automatically commanded to attack a nearby target."},
-        {format: "While your skeletons are commanded to attack a target, all of your minions deal 400%% increased damage."},
+        {format: "While your skeletons are commanded to attack a target, you deal 400%% increased damage."},
       ],
     },
   },
@@ -885,4 +885,39 @@ DiabloCalc.itemSets = {
       ],
     },
   },
+
+  dreadlands: {
+    name: "Gears of Dreadlands",
+    class: "demonhunter",
+    order: [],
+    bonuses: {
+      "2": [
+        {format: "Gain 4 seconds of Momentum when attacking with a Primary skill, at a maximum duration of 20 seconds. Your Primary skills deal 10%% increased damage per second of Momentum."},
+      ],
+      "4": [
+        {format: "Strafing against enemies will automatically shoot your last used primary skill, and also give 60%% damage reduction while strafing and for 5 seconds after. While Strafing, you gain 8%% increased movement speed for each second of Momentum."},
+      ],
+      "6": [
+        {format: "Your primary skills deal 10000%% increased damage."},
+      ],
+    },
+  },
+
+  masquerade: {
+    name: "Masquerade of the Burning Carnival",
+    class: "necromancer",
+    order: [],
+    bonuses: {
+      "2": [
+        {format: "Simulacrums no longer take damage, gains all runes, and its cooldown is refreshed when you die."},
+      ],
+      "4": [
+        {format: "While you have a Simulacrum, damage is reduced by 50%%. Damage you take is split with your Simulacrums as well."},
+      ],
+      "6": [
+        {format: "Your Bone Spear deals 10000%% increased damage. Simulacrums gain triple this bonus."},
+      ],
+    },
+  },
+
 };

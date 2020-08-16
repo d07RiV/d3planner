@@ -153,7 +153,7 @@ DiabloCalc.addItems([
     type: "bracers",
     quality: "legendary",
     required: {
-      custom: {id: "leg_reaperswraps", name: "Health Globes Resource Recovery", format: "Health globes restore %d%% of your primary resource.", min: 25, max: 30},
+      custom: {id: "leg_reaperswraps", name: "Health Globes Resource Recovery", format: "Health globes restore %d%% of your primary resource. This effect cannot occur more than once every 2 seconds.", min: 25, max: 30},
     },
   },
 

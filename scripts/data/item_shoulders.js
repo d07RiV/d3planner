@@ -322,7 +322,7 @@ DiabloCalc.addItems([
     type: "shoulders",
     quality: "legendary",
     required: {
-      custom: {id: "leg_mantleofchanneling", name: "Bonus Damage While Channeling", format: "While channeling Whirlwind, Rapid Fire, Strafe, Tempest Rush, Firebats, Arcane Torrent, Disintegrate, or Ray of Frost for at least 1 second, you deal %d%% increased damage and take 25%% reduced damage.", min: 20, max: 25},
+      custom: {id: "leg_mantleofchanneling", name: "Bonus Damage While Channeling", format: "While channeling Siphon Blood, Whirlwind, Rapid Fire, Strafe, Tempest Rush, Firebats, Arcane Torrent, Disintegrate, or Ray of Frost for at least 1 second, you deal %d%% increased damage and take 25%% reduced damage.", min: 20, max: 25},
     },
     preset: ["mainstat", "vit"],
   },
@@ -386,6 +386,7 @@ DiabloCalc.addItems([
   {
     id: "P6_Necro_Unique_Shoulders_22",
     name: "Razeth's Volition",
+    suffix: _L("Legacy"),
     type: "shoulders",
     quality: "legendary",
     required: {
@@ -457,6 +458,35 @@ DiabloCalc.addItems([
     quality: "set",
     set: "typhon",
     preset: ["mainstat", "resall"],
+  },
+
+  {
+    id: "P69_Necro_Set_5_Shoulders",
+    name: "Glamorous Gigot",
+    type: "shoulders",
+    quality: "set",
+    set: "masquerade",
+    preset: ["mainstat"],
+  },
+
+  {
+    id: "P69_Unique_Shoulder_Set_06",
+    name: "Mechanical Pauldrons",
+    type: "shoulders",
+    quality: "set",
+    set: "dreadlands",
+    preset: ["mainstat", "resall"],
+  },
+  
+  {
+    id: "P69_Necro_Unique_Shoulders_22",
+    name: "Razeth's Volition",
+    type: "shoulders",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_razethsvolition_p69", name: "Skeletal Mage Gains Gift of Death", format: "Skeletal Mage gains the effect of the Gift of Death and Singularity runes. You gain %d%% damage reduction if your Essence is not full.", min: 35, max: 50, best: "min"},
+    },
+    preset: ["mainstat", "rcr"],
   },
 
 ]);

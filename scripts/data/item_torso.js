@@ -569,4 +569,22 @@ DiabloCalc.addItems([
     preset: ["mainstat", "sockets"],
   },
 
+  {
+    id: "P69_Unique_Chest_Set_06",
+    name: "Galvanized Vest",
+    type: "cloak",
+    quality: "set",
+    set: "dreadlands",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P69_Necro_Set_5_Chest",
+    name: "Sophisticated Vest",
+    type: "chestarmor",
+    quality: "set",
+    set: "masquerade",
+    preset: ["mainstat", "sockets"],
+  },
+
 ]);

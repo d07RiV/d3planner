@@ -154,7 +154,7 @@ DiabloCalc.itemIcons = {
   ],
   Art_Test_Boots_1: [
     0,
-    3988078438,
+    1220082456,
   ],
   Art_Test_Boots_10: [
     0,
@@ -182,7 +182,7 @@ DiabloCalc.itemIcons = {
   ],
   Art_Test_Boots_2: [
     0,
-    2785075717,
+    1488243175,
   ],
   Art_Test_Boots_3: [
     0,
@@ -219,20 +219,20 @@ DiabloCalc.itemIcons = {
   Art_Test_Chest_1: [
     0,
     {
-      "0": 931316311,
-      "1": 2725281200,
-      "10": 931316311,
-      "11": 2725281200,
-      "12": 931316311,
-      "13": 2725281200,
-      "2": 931316311,
-      "3": 2725281200,
-      "4": 931316311,
-      "5": 2725281200,
-      "6": 931316311,
-      "7": 2725281200,
-      "8": 931316311,
-      "9": 2725281200,
+      "0": 925231785,
+      "1": 2719196674,
+      "10": 925231785,
+      "11": 2719196674,
+      "12": 925231785,
+      "13": 2719196674,
+      "2": 925231785,
+      "3": 2719196674,
+      "4": 925231785,
+      "5": 2719196674,
+      "6": 925231785,
+      "7": 2719196674,
+      "8": 925231785,
+      "9": 2719196674,
     },
   ],
   Art_Test_Chest_10: [
@@ -283,22 +283,7 @@ DiabloCalc.itemIcons = {
   ],
   Art_Test_Chest_2: [
     0,
-    {
-      "0": 696173334,
-      "1": 2490138223,
-      "10": 696173334,
-      "11": 2490138223,
-      "12": 696173334,
-      "13": 2490138223,
-      "2": 696173334,
-      "3": 2490138223,
-      "4": 696173334,
-      "5": 2490138223,
-      "6": 696173334,
-      "7": 2490138223,
-      "8": 696173334,
-      "9": 2490138223,
-    },
+    1193392504,
   ],
   Art_Test_Chest_3: [
     0,
@@ -434,11 +419,11 @@ DiabloCalc.itemIcons = {
   ],
   Art_Test_Gloves_2: [
     0,
-    2114300559,
+    204790369,
   ],
   Art_Test_Gloves_3: [
     0,
-    1079947854,
+    472951088,
   ],
   Art_Test_Gloves_4: [
     0,
@@ -478,7 +463,7 @@ DiabloCalc.itemIcons = {
   ],
   Art_Test_Helm_1: [
     0,
-    94848325,
+    2637009111,
   ],
   Art_Test_Helm_10: [
     0,
@@ -536,7 +521,7 @@ DiabloCalc.itemIcons = {
   ],
   Art_Test_Helm_2: [
     0,
-    3157500868,
+    2905169830,
   ],
   Art_Test_Helm_20: [
     0,
@@ -628,7 +613,7 @@ DiabloCalc.itemIcons = {
   ],
   Art_Test_Pants_1: [
     0,
-    3531292165,
+    763296183,
   ],
   Art_Test_Pants_10: [
     0,
@@ -685,22 +670,7 @@ DiabloCalc.itemIcons = {
   ],
   Art_Test_Pants_2: [
     0,
-    {
-      "0": 596030596,
-      "1": 2389995485,
-      "10": 596030596,
-      "11": 2389995485,
-      "12": 596030596,
-      "13": 2389995485,
-      "2": 596030596,
-      "3": 2389995485,
-      "4": 596030596,
-      "5": 2389995485,
-      "6": 596030596,
-      "7": 2389995485,
-      "8": 596030596,
-      "9": 2389995485,
-    },
+    1031456902,
   ],
   Art_Test_Pants_3: [
     0,
@@ -736,7 +706,7 @@ DiabloCalc.itemIcons = {
   ],
   Art_Test_Shoulder_1: [
     0,
-    1858262317,
+    3753447871,
   ],
   Art_Test_Shoulder_10: [
     0,
@@ -798,7 +768,7 @@ DiabloCalc.itemIcons = {
   ],
   Art_Test_Shoulder_2: [
     0,
-    1220620460,
+    4021608590,
   ],
   Art_Test_Shoulder_3: [
     0,
@@ -1385,7 +1355,7 @@ DiabloCalc.itemIcons = {
     1593282436,
   ],
   Boots_001: [
-    48,
+    50,
     {
       "0": 2374110053,
       "1": 3861334000,
@@ -1398,7 +1368,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Boots_002: [
-    49,
+    51,
     {
       "0": 33455206,
       "10": 784568731,
@@ -1410,7 +1380,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Boots_003: [
-    50,
+    52,
     {
       "0": 1987767655,
       "10": 3523936092,
@@ -1422,7 +1392,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Boots_004: [
-    51,
+    53,
     {
       "0": 3942080104,
       "10": 1968336157,
@@ -1434,7 +1404,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Boots_005: [
-    52,
+    54,
     {
       "0": 1601425257,
       "10": 412736222,
@@ -1446,7 +1416,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Boots_006: [
-    53,
+    55,
     {
       "0": 3555737706,
       "1": 2163659317,
@@ -1459,7 +1429,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Boots_101: [
-    54,
+    56,
     {
       "0": 106184040,
       "10": 3193879773,
@@ -1471,7 +1441,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Boots_102: [
-    55,
+    57,
     {
       "0": 2060496489,
       "10": 1638279838,
@@ -1483,7 +1453,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Boots_103: [
-    56,
+    58,
     {
       "0": 4014808938,
       "10": 82679903,
@@ -1495,7 +1465,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Boots_104: [
-    57,
+    59,
     {
       "0": 1674154091,
       "10": 82679903,
@@ -1507,7 +1477,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Boots_105: [
-    58,
+    60,
     {
       "0": 3628466540,
       "10": 1266447329,
@@ -1520,7 +1490,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Boots_201: [
-    59,
+    61,
     {
       "0": 3031451598,
       "10": 269784771,
@@ -1532,7 +1502,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Boots_202: [
-    60,
+    62,
     {
       "0": 690796751,
       "10": 3009152132,
@@ -1544,7 +1514,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Boots_203: [
-    61,
+    63,
     {
       "0": 2645109200,
       "10": 1453552197,
@@ -1556,7 +1526,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Boots_204: [
-    62,
+    64,
     {
       "0": 304454353,
       "10": 4192919558,
@@ -1568,7 +1538,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Boots_205: [
-    63,
+    65,
     {
       "0": 2258766802,
       "10": 2637319623,
@@ -1580,7 +1550,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Boots_206: [
-    64,
+    66,
     {
       "0": 4213079251,
       "10": 1081719688,
@@ -1592,7 +1562,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Boots_207: [
-    65,
+    67,
     {
       "0": 413749436,
       "10": 3821087049,
@@ -1604,7 +1574,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Boots_208: [
-    66,
+    68,
     {
       "0": 2368061885,
       "10": 2265487114,
@@ -1860,7 +1830,7 @@ DiabloCalc.itemIcons = {
     3757233959,
   ],
   ChestArmor_001: [
-    47,
+    48,
     {
       "0": 4152146966,
       "1": 3113281761,
@@ -1878,7 +1848,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   ChestArmor_002: [
-    48,
+    49,
     {
       "0": 1811492119,
       "1": 1055759906,
@@ -1916,7 +1886,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   ChestArmor_003: [
-    49,
+    50,
     {
       "0": 3765804568,
       "1": 3293205347,
@@ -1935,7 +1905,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   ChestArmor_004: [
-    50,
+    51,
     {
       "0": 1425149721,
       "10": 227710862,
@@ -1951,7 +1921,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   ChestArmor_005: [
-    51,
+    52,
     {
       "0": 3379462170,
       "1": 3473128933,
@@ -1981,7 +1951,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   ChestArmor_006: [
-    52,
+    53,
     {
       "0": 1038807323,
       "10": 1411478288,
@@ -1997,7 +1967,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   ChestArmor_101: [
-    53,
+    54,
     {
       "0": 3848144057,
       "1": 2766595652,
@@ -2015,7 +1985,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   ChestArmor_102: [
-    54,
+    55,
     {
       "0": 1507489210,
       "1": 709073797,
@@ -2034,7 +2004,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   ChestArmor_103: [
-    55,
+    56,
     {
       "0": 3461801659,
       "1": 2946519238,
@@ -2050,7 +2020,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   ChestArmor_104: [
-    56,
+    57,
     {
       "0": 1121146812,
       "10": 586131313,
@@ -2063,7 +2033,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   ChestArmor_105: [
-    57,
+    58,
     {
       "0": 3075459261,
       "10": 3325498674,
@@ -2079,7 +2049,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   ChestArmor_201: [
-    58,
+    59,
     {
       "0": 514521215,
       "1": 1698685834,
@@ -2096,7 +2066,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   ChestArmor_202: [
-    59,
+    60,
     {
       "0": 2468833664,
       "1": 3936131275,
@@ -2112,7 +2082,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   ChestArmor_203: [
-    60,
+    61,
     {
       "0": 128178817,
       "1": 1878609420,
@@ -2128,7 +2098,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   ChestArmor_204: [
-    61,
+    62,
     {
       "0": 2082491266,
       "1": 4116054861,
@@ -2144,7 +2114,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   ChestArmor_205: [
-    62,
+    63,
     {
       "0": 4036803715,
       "1": 2058533006,
@@ -2162,7 +2132,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   ChestArmor_206: [
-    63,
+    64,
     {
       "0": 1696148868,
       "1": 1011151,
@@ -2180,7 +2150,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   ChestArmor_207: [
-    64,
+    65,
     {
       "0": 742046317,
       "1": 365418744,
@@ -2196,7 +2166,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   ChestArmor_208: [
-    65,
+    66,
     {
       "0": 2696358766,
       "10": 524861819,
@@ -2211,7 +2181,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Cloak_001: [
-    7,
+    8,
     {
       "0": 1110652428,
       "1": 3875293045,
@@ -2226,7 +2196,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Cloak_002: [
-    8,
+    9,
     {
       "0": 1110652429,
       "1": 3544063062,
@@ -2241,7 +2211,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Cloak_003: [
-    9,
+    10,
     {
       "0": 1110652430,
       "1": 3212833079,
@@ -2256,7 +2226,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Cloak_004: [
-    10,
+    11,
     1110652431,
   ],
   Cloak_004a: [
@@ -2362,7 +2332,7 @@ DiabloCalc.itemIcons = {
     1110652431,
   ],
   Cloak_205: [
-    11,
+    12,
     {
       "0": 4085956018,
       "1": 4045783421,
@@ -2379,7 +2349,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Cloak_206: [
-    12,
+    13,
     {
       "0": 4125091411,
       "1": 3714553438,
@@ -3476,7 +3446,7 @@ DiabloCalc.itemIcons = {
     2680506722,
   ],
   Gloves_001: [
-    46,
+    48,
     {
       "0": 2634470574,
       "10": 2359534819,
@@ -3488,7 +3458,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Gloves_002: [
-    47,
+    49,
     {
       "0": 293815727,
       "10": 803934884,
@@ -3500,7 +3470,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Gloves_003: [
-    48,
+    50,
     {
       "0": 2248128176,
       "10": 3543302245,
@@ -3512,7 +3482,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Gloves_004: [
-    49,
+    51,
     {
       "0": 4202440625,
       "10": 1987702310,
@@ -3536,7 +3506,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Gloves_005: [
-    50,
+    52,
     {
       "0": 1861785778,
       "10": 432102375,
@@ -3548,7 +3518,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Gloves_006: [
-    51,
+    53,
     {
       "0": 3816098227,
       "10": 3171469736,
@@ -3560,7 +3530,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Gloves_101: [
-    52,
+    54,
     {
       "0": 4018617425,
       "10": 2388478854,
@@ -3572,7 +3542,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Gloves_102: [
-    53,
+    55,
     {
       "0": 1677962578,
       "10": 832878919,
@@ -3584,7 +3554,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Gloves_103: [
-    54,
+    56,
     {
       "0": 3632275027,
       "10": 3572246280,
@@ -3596,7 +3566,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Gloves_104: [
-    55,
+    57,
     {
       "0": 1291620180,
       "10": 845995273,
@@ -3608,7 +3578,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Gloves_105: [
-    56,
+    58,
     {
       "0": 3245932629,
       "10": 461046410,
@@ -3621,7 +3591,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Gloves_201: [
-    57,
+    59,
     {
       "0": 3291812119,
       "10": 289150924,
@@ -3633,7 +3603,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Gloves_202: [
-    58,
+    60,
     {
       "0": 951157272,
       "10": 3028518285,
@@ -3645,7 +3615,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Gloves_203: [
-    59,
+    61,
     {
       "0": 2905469721,
       "10": 1472918350,
@@ -3657,7 +3627,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Gloves_204: [
-    60,
+    62,
     {
       "0": 564814874,
       "10": 4212285711,
@@ -3669,7 +3639,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Gloves_205: [
-    61,
+    63,
     {
       "0": 2519127323,
       "10": 2656685776,
@@ -3681,7 +3651,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Gloves_206: [
-    62,
+    64,
     {
       "0": 178472476,
       "10": 1101085841,
@@ -3693,7 +3663,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Gloves_207: [
-    63,
+    65,
     {
       "0": 2829705755,
       "10": 3840453202,
@@ -3705,7 +3675,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Gloves_208: [
-    64,
+    66,
     {
       "0": 2028433414,
       "10": 2284853267,
@@ -3845,7 +3815,7 @@ DiabloCalc.itemIcons = {
     1728315514,
   ],
   Helm_002: [
-    51,
+    52,
     {
       "0": 2625785381,
       "10": 180318618,
@@ -3857,7 +3827,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Helm_003: [
-    52,
+    53,
     {
       "0": 285130534,
       "10": 2919685979,
@@ -3869,7 +3839,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Helm_004: [
-    53,
+    54,
     {
       "0": 2239442983,
       "10": 1364086044,
@@ -3893,7 +3863,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Helm_005: [
-    54,
+    55,
     {
       "0": 4193755432,
       "10": 4103453405,
@@ -3905,7 +3875,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Helm_006: [
-    55,
+    56,
     {
       "0": 1853100585,
       "10": 2547853470,
@@ -3918,7 +3888,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Helm_101: [
-    56,
+    57,
     {
       "0": 4000054919,
       "10": 3497096252,
@@ -3930,7 +3900,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Helm_102: [
-    57,
+    58,
     {
       "0": 1659400072,
       "10": 1941496317,
@@ -3942,7 +3912,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Helm_103: [
-    58,
+    59,
     {
       "0": 3613712521,
       "10": 3510212606,
@@ -3954,7 +3924,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Helm_104: [
-    59,
+    60,
     {
       "0": 1273057674,
       "10": 1954612671,
@@ -3966,7 +3936,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Helm_105: [
-    60,
+    61,
     {
       "0": 3227370123,
       "10": 399012736,
@@ -3979,7 +3949,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Helm_201: [
-    61,
+    62,
     {
       "0": 1328814477,
       "10": 3960501954,
@@ -3991,7 +3961,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Helm_202: [
-    62,
+    63,
     {
       "0": 3283126926,
       "10": 2404902019,
@@ -4003,7 +3973,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Helm_203: [
-    63,
+    64,
     {
       "0": 942472079,
       "10": 849302084,
@@ -4015,7 +3985,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Helm_204: [
-    64,
+    65,
     {
       "0": 2896784528,
       "10": 3588669445,
@@ -4027,7 +3997,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Helm_205: [
-    65,
+    66,
     {
       "0": 556129681,
       "1": 4060632348,
@@ -4040,7 +4010,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Helm_206: [
-    66,
+    67,
     {
       "0": 2510442130,
       "10": 477469575,
@@ -4052,7 +4022,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Helm_207: [
-    67,
+    68,
     {
       "0": 2373508475,
       "10": 3216836936,
@@ -4064,7 +4034,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Helm_208: [
-    68,
+    69,
     {
       "0": 32853628,
       "10": 1661237001,
@@ -4076,7 +4046,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Helm_console_promo: [
-    69,
+    70,
     364063986,
   ],
   Helm_norm_promo_01: [
@@ -6795,11 +6765,11 @@ DiabloCalc.itemIcons = {
     3157500868,
   ],
   P68_Unique_Helm_Set_04: [
-    9,
+    2,
     94848325,
   ],
   P68_Unique_Helm_Set_05: [
-    10,
+    9,
     1094953249,
   ],
   P68_Unique_Mighty_2H_004: [
@@ -6857,100 +6827,203 @@ DiabloCalc.itemIcons = {
     1,
     2751804662,
   ],
-  P6_Necro_Set_1_Boots: [
+  P69_Necro_Set_5_Boots: [
     12,
+    1488243175,
+  ],
+  P69_Necro_Set_5_Chest: [
+    8,
+    1193392504,
+  ],
+  P69_Necro_Set_5_Gloves: [
+    13,
+    472951088,
+  ],
+  P69_Necro_Set_5_Helm: [
+    10,
+    2905169830,
+  ],
+  P69_Necro_Set_5_Pants: [
+    15,
+    1031456902,
+  ],
+  P69_Necro_Set_5_Shoulders: [
+    9,
+    4021608590,
+  ],
+  P69_Necro_Unique_Gloves_22: [
+    14,
+    3216583232,
+  ],
+  P69_Necro_Unique_Shoulders_22: [
+    10,
+    1457672918,
+  ],
+  P69_Unique_Amulet_02: [
+    3,
+    2726315753,
+  ],
+  P69_Unique_Belt_005: [
+    7,
+    342963128,
+  ],
+  P69_Unique_Boots_Set_06: [
+    13,
+    1220082456,
+  ],
+  P69_Unique_Bow_102: [
+    1,
+    3462096873,
+  ],
+  P69_Unique_Bow_103: [
+    2,
+    3501232266,
+  ],
+  P69_Unique_Chest_Set_06: [
+    0,
+    {
+      "0": 925231785,
+      "1": 2719196674,
+      "10": 925231785,
+      "11": 2719196674,
+      "12": 925231785,
+      "13": 2719196674,
+      "2": 925231785,
+      "3": 2719196674,
+      "4": 925231785,
+      "5": 2719196674,
+      "6": 925231785,
+      "7": 2719196674,
+      "8": 925231785,
+      "9": 2719196674,
+    },
+  ],
+  P69_Unique_Gloves_Set_06: [
+    15,
+    204790369,
+  ],
+  P69_Unique_Helm_Set_06: [
+    11,
+    2637009111,
+  ],
+  P69_Unique_Pants_Set_06: [
+    16,
+    763296183,
+  ],
+  P69_Unique_Quiver_004: [
+    3,
+    2516219341,
+  ],
+  P69_Unique_Quiver_101: [
+    4,
+    1745115580,
+  ],
+  P69_Unique_Quiver_103: [
+    5,
+    1745115605,
+  ],
+  P69_Unique_Ring_019: [
+    11,
+    1895734392,
+  ],
+  P69_Unique_Shoulder_Set_06: [
+    11,
+    3753447871,
+  ],
+  P6_Necro_Set_1_Boots: [
+    14,
     4051987739,
   ],
   P6_Necro_Set_1_Chest: [
-    8,
+    9,
     1046139564,
   ],
   P6_Necro_Set_1_Gloves: [
-    13,
+    16,
     405807588,
   ],
   P6_Necro_Set_1_Helm: [
-    11,
+    12,
     2947655258,
   ],
   P6_Necro_Set_1_Pants: [
-    15,
+    17,
     1105123354,
   ],
   P6_Necro_Set_1_Shoulders: [
-    9,
+    12,
     3149170498,
   ],
   P6_Necro_Set_2_Boots: [
-    13,
+    15,
     1340967516,
   ],
   P6_Necro_Set_2_Chest: [
-    9,
+    10,
     2630086637,
   ],
   P6_Necro_Set_2_Gloves: [
-    14,
+    17,
     1989754661,
   ],
   P6_Necro_Set_2_Helm: [
-    12,
+    13,
     607000411,
   ],
   P6_Necro_Set_2_Pants: [
-    16,
+    18,
     2689070427,
   ],
   P6_Necro_Set_2_Shoulders: [
-    10,
+    13,
     438150275,
   ],
   P6_Necro_Set_3_Boots: [
-    14,
+    16,
     3295279965,
   ],
   P6_Necro_Set_3_Chest: [
-    10,
+    11,
     289431790,
   ],
   P6_Necro_Set_3_Gloves: [
-    15,
+    18,
     3944067110,
   ],
   P6_Necro_Set_3_Helm: [
-    13,
+    14,
     2561312860,
   ],
   P6_Necro_Set_3_Pants: [
-    17,
+    19,
     348415580,
   ],
   P6_Necro_Set_3_Shoulders: [
-    11,
+    14,
     2392462724,
   ],
   P6_Necro_Set_4_Boots: [
-    15,
+    17,
     2954138485,
   ],
   P6_Necro_Set_4_Chest: [
-    11,
+    12,
     4243257606,
   ],
   P6_Necro_Set_4_Gloves: [
-    16,
+    19,
     3602925630,
   ],
   P6_Necro_Set_4_Helm: [
-    14,
+    15,
     2220171380,
   ],
   P6_Necro_Set_4_Pants: [
-    18,
+    20,
     7274100,
   ],
   P6_Necro_Set_4_Shoulders: [
-    12,
+    15,
     2051321244,
   ],
   P6_Necro_Unique_Boots_21: [
@@ -6958,27 +7031,27 @@ DiabloCalc.itemIcons = {
     613483638,
   ],
   P6_Necro_Unique_Boots_22: [
-    16,
+    18,
     2567796087,
   ],
   P6_Necro_Unique_Chest_21: [
-    12,
+    13,
     1902602759,
   ],
   P6_Necro_Unique_Chest_22: [
-    13,
+    14,
     3856915208,
   ],
   P6_Necro_Unique_Gloves_21: [
-    17,
+    20,
     1262270783,
   ],
   P6_Necro_Unique_Gloves_22: [
-    18,
+    14,
     3216583232,
   ],
   P6_Necro_Unique_Helm_21: [
-    15,
+    16,
     3534375104,
   ],
   P6_Necro_Unique_Helm_22: [
@@ -6994,11 +7067,11 @@ DiabloCalc.itemIcons = {
     3915898998,
   ],
   P6_Necro_Unique_Shoulders_21: [
-    13,
+    16,
     3798327765,
   ],
   P6_Necro_Unique_Shoulders_22: [
-    14,
+    10,
     1457672918,
   ],
   P6_PTR_Vendor_RandomNecroLegendary: [
@@ -7006,11 +7079,11 @@ DiabloCalc.itemIcons = {
     1474992582,
   ],
   P6_Unique_Amulet_01: [
-    3,
+    4,
     2765451146,
   ],
   P6_Unique_Amulet_02: [
-    4,
+    3,
     2726315753,
   ],
   P6_Unique_Amulet_03: [
@@ -7038,19 +7111,19 @@ DiabloCalc.itemIcons = {
     2804401626,
   ],
   P6_Unique_Ring_01: [
-    11,
+    12,
     1497729941,
   ],
   P6_Unique_Ring_02: [
-    12,
+    13,
     1419459155,
   ],
   P6_Unique_Ring_03: [
-    13,
+    14,
     1536865334,
   ],
   P6_Unique_Ring_04: [
-    14,
+    15,
     1458594548,
   ],
   P6_Unique_Scythe1H_01: [
@@ -7162,7 +7235,7 @@ DiabloCalc.itemIcons = {
     1467684725,
   ],
   Pants_001: [
-    47,
+    49,
     {
       "0": 3911833156,
       "10": 1246648825,
@@ -7176,7 +7249,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Pants_002: [
-    48,
+    50,
     {
       "0": 1571178309,
       "10": 3986016186,
@@ -7204,7 +7277,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Pants_003: [
-    49,
+    51,
     {
       "0": 3525490758,
       "10": 2430416251,
@@ -7217,7 +7290,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Pants_004: [
-    50,
+    52,
     {
       "0": 1184835911,
       "10": 874816316,
@@ -7230,7 +7303,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Pants_005: [
-    51,
+    53,
     {
       "0": 3139148360,
       "10": 3614183677,
@@ -7242,7 +7315,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Pants_006: [
-    52,
+    54,
     {
       "0": 798493513,
       "10": 2058583742,
@@ -7255,7 +7328,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Pants_101: [
-    53,
+    55,
     {
       "0": 4237863847,
       "10": 3478298204,
@@ -7267,7 +7340,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Pants_102: [
-    54,
+    56,
     {
       "0": 1897209000,
       "10": 1922698269,
@@ -7280,7 +7353,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Pants_103: [
-    55,
+    57,
     {
       "0": 3851521449,
       "10": 3491414558,
@@ -7293,7 +7366,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Pants_104: [
-    56,
+    58,
     {
       "0": 1510866602,
       "10": 1935814623,
@@ -7305,7 +7378,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Pants_105: [
-    57,
+    59,
     {
       "0": 3465179051,
       "10": 380214688,
@@ -7317,7 +7390,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Pants_201: [
-    58,
+    60,
     {
       "0": 274207405,
       "10": 3471232226,
@@ -7329,7 +7402,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Pants_202: [
-    59,
+    61,
     {
       "0": 2228519854,
       "10": 1915632291,
@@ -7341,7 +7414,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Pants_203: [
-    60,
+    62,
     {
       "0": 4182832303,
       "10": 360032356,
@@ -7354,7 +7427,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Pants_204: [
-    61,
+    63,
     {
       "0": 1842177456,
       "10": 3099399717,
@@ -7366,7 +7439,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Pants_205: [
-    62,
+    64,
     {
       "0": 3796489905,
       "10": 1543799782,
@@ -7378,7 +7451,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Pants_206: [
-    63,
+    65,
     {
       "0": 1455835058,
       "10": 4283167143,
@@ -7390,7 +7463,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Pants_207: [
-    64,
+    66,
     {
       "0": 1951472539,
       "10": 2727567208,
@@ -7402,7 +7475,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Pants_208: [
-    65,
+    67,
     {
       "0": 3905784988,
       "10": 1171967273,
@@ -8066,7 +8139,7 @@ DiabloCalc.itemIcons = {
     1827013631,
   ],
   Shoulders_002: [
-    43,
+    45,
     {
       "0": 1750804911,
       "10": 3871317508,
@@ -8078,7 +8151,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Shoulders_003: [
-    44,
+    46,
     {
       "0": 1750840848,
       "10": 3939118885,
@@ -8090,7 +8163,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Shoulders_004: [
-    45,
+    47,
     {
       "0": 1750876785,
       "10": 4006920262,
@@ -8102,7 +8175,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Shoulders_005: [
-    46,
+    48,
     {
       "0": 1750912722,
       "10": 4074721639,
@@ -8114,7 +8187,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Shoulders_006: [
-    47,
+    49,
     {
       "0": 1750948659,
       "10": 4142523016,
@@ -8127,7 +8200,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Shoulders_101: [
-    48,
+    50,
     {
       "0": 1395022289,
       "10": 1873451174,
@@ -8139,7 +8212,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Shoulders_102: [
-    49,
+    51,
     {
       "0": 1395058226,
       "10": 1941252551,
@@ -8151,7 +8224,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Shoulders_103: [
-    50,
+    52,
     {
       "0": 1395094163,
       "10": 2009053928,
@@ -8163,7 +8236,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Shoulders_104: [
-    51,
+    53,
     {
       "0": 1395130100,
       "10": 2076855305,
@@ -8175,7 +8248,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Shoulders_105: [
-    52,
+    54,
     {
       "0": 1395166037,
       "10": 2144656682,
@@ -8188,7 +8261,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Shoulders_201: [
-    53,
+    55,
     {
       "0": 922629143,
       "10": 4020950636,
@@ -8200,7 +8273,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Shoulders_202: [
-    54,
+    56,
     {
       "0": 922665080,
       "10": 4088752013,
@@ -8212,7 +8285,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Shoulders_203: [
-    55,
+    57,
     {
       "0": 922701017,
       "10": 4156553390,
@@ -8224,7 +8297,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Shoulders_204: [
-    56,
+    58,
     {
       "0": 922736954,
       "10": 4224354767,
@@ -8236,7 +8309,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Shoulders_205: [
-    57,
+    59,
     {
       "0": 922772891,
       "10": 4292156144,
@@ -8248,7 +8321,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Shoulders_206: [
-    58,
+    60,
     {
       "0": 922808828,
       "10": 64990225,
@@ -8260,7 +8333,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Shoulders_207: [
-    59,
+    61,
     {
       "0": 234475397,
       "10": 132791602,
@@ -8272,7 +8345,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Shoulders_208: [
-    60,
+    62,
     {
       "0": 234511334,
       "10": 200592979,
@@ -9026,15 +9099,15 @@ DiabloCalc.itemIcons = {
     1882870779,
   ],
   TransmogHelm_001: [
-    70,
+    71,
     1466354848,
   ],
   TransmogHelm_002: [
-    71,
+    72,
     3047961314,
   ],
   TransmogHelm_Illidan: [
-    72,
+    73,
     3172867544,
   ],
   TransmogMace_241_001: [
@@ -9050,7 +9123,7 @@ DiabloCalc.itemIcons = {
     395383893,
   ],
   TransmogShoulders_001: [
-    61,
+    63,
     476202408,
   ],
   TransmogSpear_241_001: [
@@ -10098,7 +10171,7 @@ DiabloCalc.itemIcons = {
     2042317220,
   ],
   Unique_Boots_005_x1: [
-    17,
+    19,
     2042317220,
   ],
   Unique_Boots_007: [
@@ -10114,11 +10187,11 @@ DiabloCalc.itemIcons = {
     675874258,
   ],
   Unique_Boots_007_p2: [
-    18,
+    20,
     675874258,
   ],
   Unique_Boots_007_x1: [
-    18,
+    20,
     675874258,
   ],
   Unique_Boots_008: [
@@ -10134,7 +10207,7 @@ DiabloCalc.itemIcons = {
     3731127326,
   ],
   Unique_Boots_008_x1: [
-    19,
+    21,
     3731127326,
   ],
   Unique_Boots_009: [
@@ -10150,7 +10223,7 @@ DiabloCalc.itemIcons = {
     1275115435,
   ],
   Unique_Boots_009_x1: [
-    20,
+    22,
     1275115435,
   ],
   Unique_Boots_010: [
@@ -10182,7 +10255,7 @@ DiabloCalc.itemIcons = {
     2165395441,
   ],
   Unique_Boots_011_x1: [
-    21,
+    23,
     2165395441,
   ],
   Unique_Boots_012: [
@@ -10198,7 +10271,7 @@ DiabloCalc.itemIcons = {
     2871604435,
   ],
   Unique_Boots_012_x1: [
-    22,
+    24,
     2871604435,
   ],
   Unique_Boots_013: [
@@ -10214,7 +10287,7 @@ DiabloCalc.itemIcons = {
     906761285,
   ],
   Unique_Boots_013_x1: [
-    23,
+    25,
     906761285,
   ],
   Unique_Boots_014: [
@@ -10230,7 +10303,7 @@ DiabloCalc.itemIcons = {
     3784418801,
   ],
   Unique_Boots_014_x1: [
-    24,
+    26,
     3784418801,
   ],
   Unique_Boots_015: [
@@ -10278,7 +10351,7 @@ DiabloCalc.itemIcons = {
     1235813666,
   ],
   Unique_Boots_018_x1: [
-    25,
+    27,
     1235813666,
   ],
   Unique_Boots_019: [
@@ -10294,67 +10367,67 @@ DiabloCalc.itemIcons = {
     3893122416,
   ],
   Unique_Boots_019_x1: [
-    26,
+    28,
     3893122416,
   ],
   Unique_Boots_102_x1: [
-    27,
+    29,
     1659014945,
   ],
   Unique_Boots_103_x1: [
-    28,
+    30,
     1659014946,
   ],
   Unique_Boots_104_x1: [
-    29,
+    31,
     1659014947,
   ],
   Unique_Boots_Set_01_p1: [
-    30,
+    32,
     203870299,
   ],
   Unique_Boots_Set_01_p2: [
-    31,
+    33,
     1718873334,
   ],
   Unique_Boots_Set_01_p3: [
-    32,
+    34,
     1797300900,
   ],
   Unique_Boots_Set_02_p2: [
-    33,
+    35,
     3284178572,
   ],
   Unique_Boots_Set_02_p3: [
-    34,
+    36,
     1945299276,
   ],
   Unique_Boots_Set_03_p2: [
-    35,
+    37,
     526977159,
   ],
   Unique_Boots_Set_03_p3: [
-    36,
+    38,
     1325046016,
   ],
   Unique_Boots_Set_05_x1: [
-    37,
+    39,
     2542195321,
   ],
   Unique_Boots_Set_06_x1: [
-    38,
+    40,
     2255066826,
   ],
   Unique_Boots_Set_07_x1: [
-    39,
+    41,
     1844978428,
   ],
   Unique_Boots_Set_08_x1: [
-    40,
+    42,
     3721133819,
   ],
   Unique_Boots_Set_09_x1: [
-    41,
+    43,
     {
       "0": 1584101601,
       "10": 133862798,
@@ -10365,15 +10438,15 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Boots_Set_10_x1: [
-    42,
+    44,
     1635652934,
   ],
   Unique_Boots_Set_12_x1: [
-    43,
+    45,
     1402355738,
   ],
   Unique_Boots_Set_13_x1: [
-    44,
+    46,
     {
       "0": 3619599583,
       "10": 1876836620,
@@ -10384,15 +10457,15 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Boots_Set_14_x1: [
-    45,
+    47,
     3276497094,
   ],
   Unique_Boots_Set_15_x1: [
-    46,
+    48,
     3223969335,
   ],
   Unique_Boots_Set_16_x1: [
-    47,
+    49,
     1202643658,
   ],
   Unique_Bow_001: [
@@ -10408,11 +10481,11 @@ DiabloCalc.itemIcons = {
     3028059202,
   ],
   Unique_Bow_001_p1: [
-    1,
+    3,
     3028059202,
   ],
   Unique_Bow_001_x1: [
-    1,
+    3,
     3028059202,
   ],
   Unique_Bow_005: [
@@ -10428,11 +10501,11 @@ DiabloCalc.itemIcons = {
     2988923809,
   ],
   Unique_Bow_005_p1: [
-    2,
+    4,
     2988923809,
   ],
   Unique_Bow_005_x1: [
-    2,
+    4,
     2988923809,
   ],
   Unique_Bow_007: [
@@ -10448,7 +10521,7 @@ DiabloCalc.itemIcons = {
     3145465381,
   ],
   Unique_Bow_007_x1: [
-    3,
+    5,
     3145465381,
   ],
   Unique_Bow_008: [
@@ -10464,7 +10537,7 @@ DiabloCalc.itemIcons = {
     3223736167,
   ],
   Unique_Bow_008_x1: [
-    4,
+    6,
     3223736167,
   ],
   Unique_Bow_009: [
@@ -10480,7 +10553,7 @@ DiabloCalc.itemIcons = {
     3106329988,
   ],
   Unique_Bow_009_x1: [
-    5,
+    7,
     3106329988,
   ],
   Unique_Bow_010: [
@@ -10496,7 +10569,7 @@ DiabloCalc.itemIcons = {
     3184600774,
   ],
   Unique_Bow_010_x1: [
-    6,
+    8,
     3184600774,
   ],
   Unique_Bow_015: [
@@ -10512,19 +10585,19 @@ DiabloCalc.itemIcons = {
     3067194595,
   ],
   Unique_Bow_015_x1: [
-    7,
+    9,
     3067194595,
   ],
   Unique_Bow_101_x1: [
-    8,
+    10,
     2522847441,
   ],
   Unique_Bow_102_x1: [
-    9,
+    1,
     3462096873,
   ],
   Unique_Bow_103_x1: [
-    10,
+    2,
     3501232266,
   ],
   Unique_Bow_104_x1: [
@@ -10884,7 +10957,7 @@ DiabloCalc.itemIcons = {
     3077370674,
   ],
   Unique_ChestArmor_028_x1: [
-    14,
+    15,
     3077370674,
   ],
   Unique_Chest_001: [
@@ -10900,7 +10973,7 @@ DiabloCalc.itemIcons = {
     2153555792,
   ],
   Unique_Chest_001_x1: [
-    15,
+    16,
     2153555792,
   ],
   Unique_Chest_002: [
@@ -10916,7 +10989,7 @@ DiabloCalc.itemIcons = {
     1478967385,
   ],
   Unique_Chest_002_x1: [
-    16,
+    17,
     1478967385,
   ],
   Unique_Chest_006: [
@@ -10932,7 +11005,7 @@ DiabloCalc.itemIcons = {
     4168359473,
   ],
   Unique_Chest_006_x1: [
-    17,
+    18,
     4168359473,
   ],
   Unique_Chest_010: [
@@ -10948,7 +11021,7 @@ DiabloCalc.itemIcons = {
     2461237602,
   ],
   Unique_Chest_010_x1: [
-    18,
+    19,
     2461237602,
   ],
   Unique_Chest_012: [
@@ -10980,7 +11053,7 @@ DiabloCalc.itemIcons = {
     3607464624,
   ],
   Unique_Chest_013_x1: [
-    19,
+    20,
     3607464624,
   ],
   Unique_Chest_014: [
@@ -10996,7 +11069,7 @@ DiabloCalc.itemIcons = {
     1021765857,
   ],
   Unique_Chest_014_x1: [
-    20,
+    21,
     1021765857,
   ],
   Unique_Chest_015: [
@@ -11012,7 +11085,7 @@ DiabloCalc.itemIcons = {
     3022954451,
   ],
   Unique_Chest_015_x1: [
-    21,
+    22,
     3022954451,
   ],
   Unique_Chest_016: [
@@ -11028,7 +11101,7 @@ DiabloCalc.itemIcons = {
     3387527343,
   ],
   Unique_Chest_016_x1: [
-    22,
+    23,
     3387527343,
   ],
   Unique_Chest_018: [
@@ -11060,7 +11133,7 @@ DiabloCalc.itemIcons = {
     2715607709,
   ],
   Unique_Chest_019_x1: [
-    23,
+    24,
     2715607709,
   ],
   Unique_Chest_025: [
@@ -11076,7 +11149,7 @@ DiabloCalc.itemIcons = {
     2603830128,
   ],
   Unique_Chest_025_x1: [
-    24,
+    25,
     2603830128,
   ],
   Unique_Chest_026: [
@@ -11108,19 +11181,19 @@ DiabloCalc.itemIcons = {
     220094416,
   ],
   Unique_Chest_027_x1: [
-    25,
+    26,
     220094416,
   ],
   Unique_Chest_101_x1: [
-    26,
+    27,
     1251395601,
   ],
   Unique_Chest_102_x1: [
-    27,
+    28,
     1251395602,
   ],
   Unique_Chest_Set_01_p1: [
-    28,
+    29,
     {
       "0": 1773232983,
       "1": 1190877424,
@@ -11137,7 +11210,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Chest_Set_01_p2: [
-    29,
+    30,
     {
       "0": 1371210151,
       "1": 3925543010,
@@ -11154,7 +11227,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Chest_Set_01_p3: [
-    30,
+    31,
     {
       "0": 1150146817,
       "1": 1150146810,
@@ -11171,7 +11244,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Chest_Set_02_p2: [
-    31,
+    32,
     {
       "0": 2156563337,
       "1": 2156563330,
@@ -11188,7 +11261,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Chest_Set_02_p3: [
-    32,
+    33,
     {
       "0": 785121833,
       "1": 785121826,
@@ -11205,15 +11278,15 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Chest_Set_03_p2: [
-    0,
+    1,
     1782806244,
   ],
   Unique_Chest_Set_03_p3: [
-    33,
+    34,
     4045326160,
   ],
   Unique_Chest_Set_05_x1: [
-    34,
+    35,
     {
       "0": 721368488,
       "10": 721368488,
@@ -11225,7 +11298,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Chest_Set_06_x1: [
-    35,
+    36,
     {
       "0": 251547449,
       "10": 251547449,
@@ -11237,11 +11310,11 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Chest_Set_07_x1: [
-    36,
+    37,
     3362095693,
   ],
   Unique_Chest_Set_08_x1: [
-    37,
+    38,
     {
       "0": 4108087146,
       "1": 692889973,
@@ -11258,7 +11331,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Chest_Set_09_x1: [
-    38,
+    39,
     {
       "0": 352265712,
       "10": 1974436701,
@@ -11271,11 +11344,11 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Chest_Set_10_x1: [
-    39,
+    40,
     3879515415,
   ],
   Unique_Chest_Set_11_x1: [
-    40,
+    41,
     {
       "0": 3551202623,
       "1": 3551202623,
@@ -11292,7 +11365,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Chest_Set_13_x1: [
-    41,
+    42,
     {
       "0": 2725029870,
       "1": 1763861945,
@@ -11308,7 +11381,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Chest_Set_14_x1: [
-    42,
+    43,
     {
       "0": 2470700488,
       "1": 2549111699,
@@ -11322,7 +11395,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Chest_Set_15_x1: [
-    43,
+    44,
     {
       "0": 1730208377,
       "1": 1730208377,
@@ -11339,7 +11412,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Chest_Set_16_x1: [
-    44,
+    45,
     {
       "0": 2382713625,
       "10": 2382713625,
@@ -11363,7 +11436,7 @@ DiabloCalc.itemIcons = {
     2279290962,
   ],
   Unique_Cloak_001_x1: [
-    1,
+    2,
     2279290962,
   ],
   Unique_Cloak_002: [
@@ -11379,7 +11452,7 @@ DiabloCalc.itemIcons = {
     3738622407,
   ],
   Unique_Cloak_002_p1: [
-    2,
+    3,
     3738622407,
   ],
   Unique_Cloak_002_x1: [
@@ -11399,7 +11472,7 @@ DiabloCalc.itemIcons = {
     30586246,
   ],
   Unique_Cloak_005_x1: [
-    3,
+    4,
     30586246,
   ],
   Unique_Cloak_006: [
@@ -11448,7 +11521,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Cloak_006_x1: [
-    4,
+    5,
     {
       "0": 3676331411,
       "1": 346217886,
@@ -11463,11 +11536,11 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Cloak_101_x1: [
-    5,
+    6,
     1389857187,
   ],
   Unique_Cloak_102_x1: [
-    6,
+    7,
     1389857188,
   ],
   Unique_CombatStaff_2H_001: [
@@ -12107,7 +12180,7 @@ DiabloCalc.itemIcons = {
     3880550163,
   ],
   Unique_Gloves_001_x1: [
-    19,
+    21,
     3880550163,
   ],
   Unique_Gloves_002: [
@@ -12139,7 +12212,7 @@ DiabloCalc.itemIcons = {
     4080816174,
   ],
   Unique_Gloves_003_x1: [
-    20,
+    22,
     4080816174,
   ],
   Unique_Gloves_007: [
@@ -12171,7 +12244,7 @@ DiabloCalc.itemIcons = {
     796977515,
   ],
   Unique_Gloves_008_x1: [
-    21,
+    23,
     796977515,
   ],
   Unique_Gloves_009: [
@@ -12187,7 +12260,7 @@ DiabloCalc.itemIcons = {
     3727179162,
   ],
   Unique_Gloves_009_x1: [
-    22,
+    24,
     3727179162,
   ],
   Unique_Gloves_011: [
@@ -12203,7 +12276,7 @@ DiabloCalc.itemIcons = {
     2450462453,
   ],
   Unique_Gloves_011_x1: [
-    23,
+    25,
     2450462453,
   ],
   Unique_Gloves_014: [
@@ -12251,15 +12324,15 @@ DiabloCalc.itemIcons = {
     3447431637,
   ],
   Unique_Gloves_017_x1: [
-    24,
+    26,
     3447431637,
   ],
   Unique_Gloves_101_p2: [
-    25,
+    27,
     1662307017,
   ],
   Unique_Gloves_101_x1: [
-    25,
+    27,
     1662307017,
   ],
   Unique_Gloves_102_x1: [
@@ -12267,55 +12340,55 @@ DiabloCalc.itemIcons = {
     1662307018,
   ],
   Unique_Gloves_103_x1: [
-    26,
+    28,
     1662307019,
   ],
   Unique_Gloves_Set_01_p1: [
-    27,
+    29,
     3690790308,
   ],
   Unique_Gloves_Set_01_p2: [
-    28,
+    30,
     2876653023,
   ],
   Unique_Gloves_Set_01_p3: [
-    29,
+    31,
     2682440697,
   ],
   Unique_Gloves_Set_02_p2: [
-    30,
+    32,
     2004881857,
   ],
   Unique_Gloves_Set_02_p3: [
-    31,
+    33,
     1585685985,
   ],
   Unique_Gloves_Set_03_p2: [
-    32,
+    34,
     406691868,
   ],
   Unique_Gloves_Set_03_p3: [
-    33,
+    35,
     871495666,
   ],
   Unique_Gloves_Set_05_x1: [
-    34,
+    36,
     2202566850,
   ],
   Unique_Gloves_Set_06_x1: [
-    35,
+    37,
     1915438355,
   ],
   Unique_Gloves_Set_07_x1: [
-    36,
+    38,
     477253093,
   ],
   Unique_Gloves_Set_08_x1: [
-    37,
+    39,
     3160337028,
   ],
   Unique_Gloves_Set_09_x1: [
-    38,
+    40,
     {
       "0": 656054090,
       "10": 1372188311,
@@ -12326,27 +12399,27 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Gloves_Set_10_x1: [
-    39,
+    41,
     3312815279,
   ],
   Unique_Gloves_Set_11_x1: [
-    40,
+    42,
     1545826751,
   ],
   Unique_Gloves_Set_12_x1: [
-    41,
+    43,
     1545826752,
   ],
   Unique_Gloves_Set_13_x1: [
-    42,
+    44,
     4009602846,
   ],
   Unique_Gloves_Set_14_x1: [
-    43,
+    45,
     1950072175,
   ],
   Unique_Gloves_Set_15_x1: [
-    44,
+    46,
     {
       "0": 1086478622,
       "10": 1409034219,
@@ -12357,7 +12430,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Gloves_Set_16_x1: [
-    45,
+    47,
     4129885619,
   ],
   Unique_HandXBow_001: [
@@ -12549,7 +12622,7 @@ DiabloCalc.itemIcons = {
     3265926263,
   ],
   Unique_Helm_002_p1: [
-    16,
+    17,
     3265926263,
   ],
   Unique_Helm_002_p3: [
@@ -12557,7 +12630,7 @@ DiabloCalc.itemIcons = {
     3265926263,
   ],
   Unique_Helm_002_x1: [
-    16,
+    17,
     3265926263,
   ],
   Unique_Helm_003: [
@@ -12573,11 +12646,11 @@ DiabloCalc.itemIcons = {
     3265926265,
   ],
   Unique_Helm_003_p2: [
-    17,
+    18,
     3265926265,
   ],
   Unique_Helm_003_x1: [
-    17,
+    18,
     3265926265,
   ],
   Unique_Helm_004: [
@@ -12593,7 +12666,7 @@ DiabloCalc.itemIcons = {
     3265926266,
   ],
   Unique_Helm_004_x1: [
-    18,
+    19,
     3265926266,
   ],
   Unique_Helm_006: [
@@ -12609,7 +12682,7 @@ DiabloCalc.itemIcons = {
     3265926297,
   ],
   Unique_Helm_006_x1: [
-    19,
+    20,
     3265926297,
   ],
   Unique_Helm_007: [
@@ -12625,7 +12698,7 @@ DiabloCalc.itemIcons = {
     3265926269,
   ],
   Unique_Helm_007_x1: [
-    20,
+    21,
     3265926269,
   ],
   Unique_Helm_008: [
@@ -12641,7 +12714,7 @@ DiabloCalc.itemIcons = {
     3265926270,
   ],
   Unique_Helm_008_x1: [
-    21,
+    22,
     3265926270,
   ],
   Unique_Helm_009: [
@@ -12657,7 +12730,7 @@ DiabloCalc.itemIcons = {
     3265926271,
   ],
   Unique_Helm_009_x1: [
-    22,
+    23,
     3265926271,
   ],
   Unique_Helm_010: [
@@ -12673,7 +12746,7 @@ DiabloCalc.itemIcons = {
     3265926295,
   ],
   Unique_Helm_010_x1: [
-    23,
+    24,
     3265926295,
   ],
   Unique_Helm_011: [
@@ -12689,7 +12762,7 @@ DiabloCalc.itemIcons = {
     3265926296,
   ],
   Unique_Helm_011_x1: [
-    24,
+    25,
     3265926296,
   ],
   Unique_Helm_012: [
@@ -12737,7 +12810,7 @@ DiabloCalc.itemIcons = {
     310505748,
   ],
   Unique_Helm_015_x1: [
-    25,
+    26,
     310505748,
   ],
   Unique_Helm_016: [
@@ -12753,91 +12826,91 @@ DiabloCalc.itemIcons = {
     2636700425,
   ],
   Unique_Helm_016_x1: [
-    26,
+    27,
     2636700425,
   ],
   Unique_Helm_102_x1: [
-    27,
+    28,
     4113917515,
   ],
   Unique_Helm_103_x1: [
-    28,
+    29,
     4153052908,
   ],
   Unique_Helm_Promo_01_x1: [
-    73,
+    74,
     949917181,
   ],
   Unique_Helm_Promo_02_x1: [
-    74,
+    75,
     989052574,
   ],
   Unique_Helm_Set_01_p1: [
-    29,
+    30,
     3398872194,
   ],
   Unique_Helm_Set_01_p2: [
-    30,
+    31,
     606842456,
   ],
   Unique_Helm_Set_01_p3: [
-    31,
+    32,
     2697107041,
   ],
   Unique_Helm_Set_02_p2: [
-    32,
+    33,
     3507046268,
   ],
   Unique_Helm_Set_02_p3: [
-    33,
+    34,
     2203655753,
   ],
   Unique_Helm_Set_03_p2: [
-    34,
+    35,
     2317968791,
   ],
   Unique_Helm_Set_03_p3: [
-    35,
+    36,
     2831372768,
   ],
   Unique_Helm_Set_05_x1: [
-    36,
+    37,
     206987064,
   ],
   Unique_Helm_Set_06_x1: [
-    37,
+    38,
     4214825865,
   ],
   Unique_Helm_Set_07_x1: [
-    38,
+    39,
     1736036379,
   ],
   Unique_Helm_Set_08_x1: [
-    39,
+    40,
     1146923130,
   ],
   Unique_Helm_Set_09_x1: [
-    40,
+    41,
     3231233165,
   ],
   Unique_Helm_Set_10_x1: [
-    41,
+    42,
     1883191781,
   ],
   Unique_Helm_Set_11_x1: [
-    42,
+    43,
     2004581237,
   ],
   Unique_Helm_Set_12_x1: [
-    43,
+    44,
     1064576158,
   ],
   Unique_Helm_Set_13_x1: [
-    44,
+    45,
     155469238,
   ],
   Unique_Helm_Set_14_x1: [
-    45,
+    46,
     {
       "0": 1192422203,
       "1": 1192422203,
@@ -12855,11 +12928,11 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Helm_Set_15_x1: [
-    46,
+    47,
     1746071201,
   ],
   Unique_Helm_Set_16_x1: [
-    47,
+    48,
     2098972970,
   ],
   Unique_Mace_1H_001: [
@@ -13663,7 +13736,7 @@ DiabloCalc.itemIcons = {
     4050315392,
   ],
   Unique_Pants_005_x1: [
-    19,
+    21,
     4050315392,
   ],
   Unique_Pants_006: [
@@ -13679,11 +13752,11 @@ DiabloCalc.itemIcons = {
     3456592884,
   ],
   Unique_Pants_006_p1: [
-    20,
+    22,
     3456592884,
   ],
   Unique_Pants_006_x1: [
-    20,
+    22,
     3456592884,
   ],
   Unique_Pants_007: [
@@ -13699,11 +13772,11 @@ DiabloCalc.itemIcons = {
     2463824009,
   ],
   Unique_Pants_007_p2: [
-    21,
+    23,
     2463824009,
   ],
   Unique_Pants_007_x1: [
-    21,
+    23,
     2463824009,
   ],
   Unique_Pants_008: [
@@ -13719,7 +13792,7 @@ DiabloCalc.itemIcons = {
     2333460584,
   ],
   Unique_Pants_008_x1: [
-    22,
+    24,
     2333460584,
   ],
   Unique_Pants_009: [
@@ -13735,7 +13808,7 @@ DiabloCalc.itemIcons = {
     2531768720,
   ],
   Unique_Pants_009_x1: [
-    23,
+    25,
     2531768720,
   ],
   Unique_Pants_010: [
@@ -13783,7 +13856,7 @@ DiabloCalc.itemIcons = {
     334934971,
   ],
   Unique_Pants_013_x1: [
-    24,
+    26,
     334934971,
   ],
   Unique_Pants_014: [
@@ -13799,63 +13872,63 @@ DiabloCalc.itemIcons = {
     1085858959,
   ],
   Unique_Pants_014_x1: [
-    25,
+    27,
     1085858959,
   ],
   Unique_Pants_101_x1: [
-    26,
+    28,
     2011507423,
   ],
   Unique_Pants_102_x1: [
-    27,
+    29,
     2011507424,
   ],
   Unique_Pants_Set_01_p1: [
-    28,
+    30,
     1741593402,
   ],
   Unique_Pants_Set_01_p2: [
-    29,
+    31,
     1896030293,
   ],
   Unique_Pants_Set_01_p3: [
-    30,
+    32,
     2700963695,
   ],
   Unique_Pants_Set_02_p2: [
-    31,
+    33,
     2600891575,
   ],
   Unique_Pants_Set_02_p3: [
-    32,
+    34,
     1189194807,
   ],
   Unique_Pants_Set_03_p2: [
-    33,
+    35,
     1258626226,
   ],
   Unique_Pants_Set_03_p3: [
-    34,
+    36,
     194687102,
   ],
   Unique_Pants_Set_05_x1: [
-    35,
+    37,
     4079918424,
   ],
   Unique_Pants_Set_06_x1: [
-    36,
+    38,
     3792789929,
   ],
   Unique_Pants_Set_07_x1: [
-    37,
+    39,
     3396190779,
   ],
   Unique_Pants_Set_08_x1: [
-    38,
+    40,
     1776172409,
   ],
   Unique_Pants_Set_09_x1: [
-    39,
+    41,
     {
       "0": 1917669536,
       "10": 1819529325,
@@ -13866,11 +13939,11 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Pants_Set_10_x1: [
-    40,
+    42,
     840907781,
   ],
   Unique_Pants_Set_11_x1: [
-    41,
+    43,
     {
       "0": 1352108205,
       "1": 1352108205,
@@ -13887,11 +13960,11 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Pants_Set_12_x1: [
-    42,
+    44,
     1579512697,
   ],
   Unique_Pants_Set_13_x1: [
-    43,
+    45,
     {
       "0": 3117346248,
       "10": 4181381717,
@@ -13902,7 +13975,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Pants_Set_14_x1: [
-    44,
+    46,
     {
       "0": 945543478,
       "10": 2624613347,
@@ -13913,7 +13986,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Pants_Set_15_x1: [
-    45,
+    47,
     {
       "0": 635898546,
       "10": 3190740543,
@@ -13924,7 +13997,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Pants_Set_16_x1: [
-    46,
+    48,
     2753856009,
   ],
   Unique_Polearm_001: [
@@ -14052,7 +14125,7 @@ DiabloCalc.itemIcons = {
     2398813162,
   ],
   Unique_Quiver_003_x1: [
-    4,
+    6,
     2398813162,
   ],
   Unique_Quiver_004: [
@@ -14084,11 +14157,11 @@ DiabloCalc.itemIcons = {
     2594490127,
   ],
   Unique_Quiver_005_p1: [
-    5,
+    7,
     2594490127,
   ],
   Unique_Quiver_005_x1: [
-    5,
+    7,
     2594490127,
   ],
   Unique_Quiver_006: [
@@ -14104,7 +14177,7 @@ DiabloCalc.itemIcons = {
     2633625520,
   ],
   Unique_Quiver_006_x1: [
-    6,
+    8,
     2633625520,
   ],
   Unique_Quiver_007: [
@@ -14124,15 +14197,15 @@ DiabloCalc.itemIcons = {
     2477083948,
   ],
   Unique_Quiver_101_x1: [
-    7,
+    4,
     1745115580,
   ],
   Unique_Quiver_102_x1: [
-    8,
+    9,
     1745115581,
   ],
   Unique_Quiver_103_x1: [
-    9,
+    5,
     1745115605,
   ],
   Unique_Quiver_104_x1: [
@@ -14152,7 +14225,7 @@ DiabloCalc.itemIcons = {
     3629246208,
   ],
   Unique_Ring_001_x1: [
-    15,
+    16,
     3629246208,
   ],
   Unique_Ring_002: [
@@ -14168,7 +14241,7 @@ DiabloCalc.itemIcons = {
     2978938288,
   ],
   Unique_Ring_002_x1: [
-    16,
+    17,
     2978938288,
   ],
   Unique_Ring_003: [
@@ -14184,7 +14257,7 @@ DiabloCalc.itemIcons = {
     1274725944,
   ],
   Unique_Ring_003_x1: [
-    17,
+    18,
     1274725944,
   ],
   Unique_Ring_004: [
@@ -14200,7 +14273,7 @@ DiabloCalc.itemIcons = {
     2098444968,
   ],
   Unique_Ring_004_x1: [
-    18,
+    19,
     2098444968,
   ],
   Unique_Ring_005: [
@@ -14232,11 +14305,11 @@ DiabloCalc.itemIcons = {
     2002527361,
   ],
   Unique_Ring_006_p2: [
-    19,
+    20,
     2002527361,
   ],
   Unique_Ring_006_x1: [
-    19,
+    20,
     2002527361,
   ],
   Unique_Ring_007: [
@@ -14252,11 +14325,11 @@ DiabloCalc.itemIcons = {
     843302757,
   ],
   Unique_Ring_007_p1: [
-    20,
+    21,
     843302757,
   ],
   Unique_Ring_007_x1: [
-    20,
+    21,
     843302757,
   ],
   Unique_Ring_008: [
@@ -14288,7 +14361,7 @@ DiabloCalc.itemIcons = {
     1491051746,
   ],
   Unique_Ring_009_x1: [
-    21,
+    22,
     1491051746,
   ],
   Unique_Ring_010: [
@@ -14304,7 +14377,7 @@ DiabloCalc.itemIcons = {
     855042039,
   ],
   Unique_Ring_010_x1: [
-    22,
+    23,
     855042039,
   ],
   Unique_Ring_011: [
@@ -14320,7 +14393,7 @@ DiabloCalc.itemIcons = {
     3930942744,
   ],
   Unique_Ring_011_x1: [
-    23,
+    24,
     3930942744,
   ],
   Unique_Ring_012: [
@@ -14336,7 +14409,7 @@ DiabloCalc.itemIcons = {
     1125823025,
   ],
   Unique_Ring_012_x1: [
-    24,
+    25,
     1125823025,
   ],
   Unique_Ring_013: [
@@ -14352,7 +14425,7 @@ DiabloCalc.itemIcons = {
     1125823025,
   ],
   Unique_Ring_013_x1: [
-    24,
+    25,
     1125823025,
   ],
   Unique_Ring_014: [
@@ -14368,7 +14441,7 @@ DiabloCalc.itemIcons = {
     2665157960,
   ],
   Unique_Ring_014_x1: [
-    25,
+    26,
     2665157960,
   ],
   Unique_Ring_015: [
@@ -14384,7 +14457,7 @@ DiabloCalc.itemIcons = {
     2665157960,
   ],
   Unique_Ring_015_x1: [
-    25,
+    26,
     2665157960,
   ],
   Unique_Ring_017: [
@@ -14400,15 +14473,15 @@ DiabloCalc.itemIcons = {
     386514790,
   ],
   Unique_Ring_017_p2: [
-    26,
+    27,
     386514790,
   ],
   Unique_Ring_017_p4: [
-    26,
+    27,
     386514790,
   ],
   Unique_Ring_017_x1: [
-    26,
+    27,
     386514790,
   ],
   Unique_Ring_018: [
@@ -14424,11 +14497,11 @@ DiabloCalc.itemIcons = {
     3711879989,
   ],
   Unique_Ring_018_p2: [
-    27,
+    28,
     3711879989,
   ],
   Unique_Ring_018_x1: [
-    27,
+    28,
     3711879989,
   ],
   Unique_Ring_019: [
@@ -14444,7 +14517,7 @@ DiabloCalc.itemIcons = {
     1895734392,
   ],
   Unique_Ring_019_x1: [
-    28,
+    11,
     1895734392,
   ],
   Unique_Ring_020: [
@@ -16760,7 +16833,7 @@ DiabloCalc.itemIcons = {
     2110764927,
   ],
   Unique_Shoulder_001_x1: [
-    15,
+    17,
     2110764927,
   ],
   Unique_Shoulder_002: [
@@ -16776,11 +16849,11 @@ DiabloCalc.itemIcons = {
     2110764928,
   ],
   Unique_Shoulder_002_p2: [
-    16,
+    18,
     2110764928,
   ],
   Unique_Shoulder_002_x1: [
-    16,
+    18,
     2110764928,
   ],
   Unique_Shoulder_003: [
@@ -16796,11 +16869,11 @@ DiabloCalc.itemIcons = {
     2110764929,
   ],
   Unique_Shoulder_003_p1: [
-    17,
+    19,
     2110764929,
   ],
   Unique_Shoulder_003_x1: [
-    17,
+    19,
     2110764929,
   ],
   Unique_Shoulder_006: [
@@ -16816,7 +16889,7 @@ DiabloCalc.itemIcons = {
     1711843860,
   ],
   Unique_Shoulder_006_x1: [
-    18,
+    20,
     1711843860,
   ],
   Unique_Shoulder_007: [
@@ -16832,7 +16905,7 @@ DiabloCalc.itemIcons = {
     2110764930,
   ],
   Unique_Shoulder_007_x1: [
-    19,
+    21,
     2110764930,
   ],
   Unique_Shoulder_008: [
@@ -16864,7 +16937,7 @@ DiabloCalc.itemIcons = {
     2110764932,
   ],
   Unique_Shoulder_009_x1: [
-    20,
+    22,
     2110764932,
   ],
   Unique_Shoulder_017: [
@@ -16880,7 +16953,7 @@ DiabloCalc.itemIcons = {
     2110764933,
   ],
   Unique_Shoulder_017_x1: [
-    21,
+    23,
     2110764933,
   ],
   Unique_Shoulder_101_x1: [
@@ -16888,75 +16961,75 @@ DiabloCalc.itemIcons = {
     4042163118,
   ],
   Unique_Shoulder_102_x1: [
-    22,
+    24,
     4042163119,
   ],
   Unique_Shoulder_103_x1: [
-    23,
+    25,
     586317904,
   ],
   Unique_Shoulder_Set_01_p1: [
-    24,
+    26,
     858028682,
   ],
   Unique_Shoulder_Set_01_p2: [
-    25,
+    27,
     1302653536,
   ],
   Unique_Shoulder_Set_01_p3: [
-    26,
+    28,
     2457891177,
   ],
   Unique_Shoulder_Set_02_p2: [
-    27,
+    29,
     699008132,
   ],
   Unique_Shoulder_Set_02_p3: [
-    28,
+    30,
     781255793,
   ],
   Unique_Shoulder_Set_03_p2: [
-    29,
+    31,
     946964383,
   ],
   Unique_Shoulder_Set_03_p3: [
-    30,
+    32,
     4006445461,
   ],
   Unique_Shoulder_Set_05_x1: [
-    31,
+    33,
     1538248768,
   ],
   Unique_Shoulder_Set_06_x1: [
-    32,
+    34,
     1251120273,
   ],
   Unique_Shoulder_Set_07_x1: [
-    33,
+    35,
     3392773667,
   ],
   Unique_Shoulder_Set_08_x1: [
-    34,
+    36,
     1809314690,
   ],
   Unique_Shoulder_Set_09_x1: [
-    35,
+    37,
     3893624725,
   ],
   Unique_Shoulder_Set_10_x1: [
-    36,
+    38,
     2865155053,
   ],
   Unique_Shoulder_Set_11_x1: [
-    37,
+    39,
     1769383773,
   ],
   Unique_Shoulder_Set_12_x1: [
-    38,
+    40,
     854479270,
   ],
   Unique_Shoulder_Set_13_x1: [
-    39,
+    41,
     {
       "0": 1379028158,
       "10": 1379028158,
@@ -16968,7 +17041,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Shoulder_Set_14_x1: [
-    40,
+    42,
     {
       "0": 1928385315,
       "1": 1928385315,
@@ -16986,11 +17059,11 @@ DiabloCalc.itemIcons = {
     },
   ],
   Unique_Shoulder_Set_15_x1: [
-    41,
+    43,
     971885449,
   ],
   Unique_Shoulder_Set_16_x1: [
-    42,
+    44,
     2750438897,
   ],
   Unique_Spear_001: [
@@ -17830,7 +17903,7 @@ DiabloCalc.itemIcons = {
     35667136,
   ],
   Unique_VoodooMask_001_x1: [
-    2,
+    3,
     35667136,
   ],
   Unique_VoodooMask_002: [
@@ -17846,7 +17919,7 @@ DiabloCalc.itemIcons = {
     3733652154,
   ],
   Unique_VoodooMask_002_x1: [
-    3,
+    4,
     3733652154,
   ],
   Unique_VoodooMask_005: [
@@ -17862,7 +17935,7 @@ DiabloCalc.itemIcons = {
     3421834531,
   ],
   Unique_VoodooMask_005_x1: [
-    4,
+    5,
     3421834531,
   ],
   Unique_VoodooMask_006: [
@@ -17878,7 +17951,7 @@ DiabloCalc.itemIcons = {
     3811922940,
   ],
   Unique_VoodooMask_006_x1: [
-    5,
+    6,
     3811922940,
   ],
   Unique_VoodooMask_007: [
@@ -17894,7 +17967,7 @@ DiabloCalc.itemIcons = {
     3851058333,
   ],
   Unique_VoodooMask_007_x1: [
-    6,
+    7,
     3851058333,
   ],
   Unique_VoodooMask_008: [
@@ -17910,7 +17983,7 @@ DiabloCalc.itemIcons = {
     4291499039,
   ],
   Unique_VoodooMask_008_x1: [
-    7,
+    8,
     4291499039,
   ],
   Unique_VoodooMask_101_x1: [
@@ -18242,19 +18315,19 @@ DiabloCalc.itemIcons = {
     3900668713,
   ],
   VoodooMask_001: [
-    8,
+    9,
     3265292959,
   ],
   VoodooMask_002: [
-    9,
+    10,
     3304428352,
   ],
   VoodooMask_003: [
-    10,
+    11,
     3343563745,
   ],
   VoodooMask_004: [
-    11,
+    12,
     3382699138,
   ],
   VoodooMask_004a: [
@@ -18294,11 +18367,11 @@ DiabloCalc.itemIcons = {
     3382699138,
   ],
   VoodooMask_205: [
-    12,
+    13,
     2576923591,
   ],
   VoodooMask_206: [
-    13,
+    14,
     2616058984,
   ],
   Wand_000: [
@@ -18466,7 +18539,7 @@ DiabloCalc.itemIcons = {
     3532588308,
   ],
   X1_Boots_norm_season_01: [
-    67,
+    69,
     {
       "0": 2890525029,
       "10": 1305913074,
@@ -18477,7 +18550,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   X1_Gloves_norm_season_01: [
-    65,
+    67,
     {
       "0": 2431495738,
       "10": 2178442695,
@@ -18488,11 +18561,11 @@ DiabloCalc.itemIcons = {
     },
   ],
   X1_Helm_norm_season_01: [
-    75,
+    76,
     3819108505,
   ],
   X1_Pants_norm_season_01: [
-    66,
+    68,
     {
       "0": 3516099152,
       "10": 1281120861,
@@ -18503,7 +18576,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   X1_chestArmor_norm_season_01: [
-    66,
+    67,
     {
       "0": 572967810,
       "1": 572967803,
@@ -18520,7 +18593,7 @@ DiabloCalc.itemIcons = {
     },
   ],
   X1_shoulderPads_norm_season_01: [
-    62,
+    64,
     408915073,
   ],
   p1_Mace_norm_promo_01: [
@@ -18548,7 +18621,7 @@ DiabloCalc.itemIcons = {
     3722110386,
   ],
   p2_Unique_Ring_Wizard_001: [
-    21,
+    22,
     1491051746,
   ],
   p43_RetroAmulet_001: [
@@ -18556,11 +18629,11 @@ DiabloCalc.itemIcons = {
     1470144098,
   ],
   p43_RetroArmor_001: [
-    45,
+    46,
     1870269339,
   ],
   p43_RetroArmor_002: [
-    46,
+    47,
     1909404732,
   ],
   p43_RetroAxe_001: [
@@ -18568,15 +18641,15 @@ DiabloCalc.itemIcons = {
     526793144,
   ],
   p43_RetroHelm_001: [
-    48,
+    49,
     498270688,
   ],
   p43_RetroHelm_002: [
-    49,
+    50,
     537406081,
   ],
   p43_RetroHelm_003: [
-    50,
+    51,
     576541474,
   ],
   p43_RetroRing_001: [
@@ -18604,7 +18677,7 @@ DiabloCalc.itemIcons = {
     289652531,
   ],
   p4_Helm_norm_anniversary_01: [
-    76,
+    77,
     72535229,
   ],
   p7_Gloves_promo_01: [

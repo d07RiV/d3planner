@@ -79,7 +79,7 @@
       }
     }
     DiabloCalc.setProfile(pData, "import");
-    $(".editframe").tabs("option", "active", 1);
+    $(".editframe").tabs("option", "active", DiabloCalc.TAB_PARAGON);
   }
   function doLoadCharacter(region, battletag, id, dead) {
     var data = {region: region, tag: battletag, id: id};
@@ -272,9 +272,9 @@
         } else {
           document.title = DiabloCalc.pageTitle;
         }
-        validateObject(data, "", /profiles\.[0-9]+\.name/);
+        validateObject(data, "", /$(profiles\.[0-9]+\.name|profiles\.[0-9]+\.buildinfo|buildinfo)/);
         DiabloCalc.setAllProfiles(data, "load");
-        $(".editframe").tabs("option", "active", 0);
+        $(".editframe").tabs("option", "active", DiabloCalc.buildinfo ? DiabloCalc.TAB_BUILDINFO : DiabloCalc.TAB_EQUIPMENT);
       },
       error: function(e) {
         signalError(_L("Unknown error"));

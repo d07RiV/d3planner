@@ -417,6 +417,7 @@ DiabloCalc.addItems([
   {
     id: "P6_Necro_Unique_Gloves_22",
     name: "Grasps of Essence",
+    suffix: _L("Legacy"),
     type: "gloves",
     quality: "legendary",
     required: {
@@ -490,6 +491,35 @@ DiabloCalc.addItems([
     type: "gloves",
     quality: "set",
     set: "typhon",
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P69_Unique_Gloves_Set_06",
+    name: "Gas Powered Automail Forearm",
+    type: "gloves",
+    quality: "set",
+    set: "dreadlands",
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P69_Necro_Unique_Gloves_22",
+    name: "Grasps of Essence",
+    type: "gloves",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_graspsofessence_p69", name: "Corpse Explosion Damage Bonus", format: "When an exploded corpse damages at least one enemy, your Corpse Explosion deals %d%% increased damage for 6 seconds, stacking up to 5 times.", min: 150, max: 200},
+    },
+    preset: ["mainstat", "chc"],
+  },
+
+  {
+    id: "P69_Necro_Set_5_Gloves",
+    name: "Lavishing Gloves",
+    type: "gloves",
+    quality: "set",
+    set: "masquerade",
     preset: ["mainstat", "chc"],
   },
 

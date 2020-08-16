@@ -63,6 +63,9 @@ DiabloCalc.skills.necromancer = {
         pct[DiabloCalc.itemById.P6_Unique_Phylactery_03.name] = (stats.leg_legersdisdain || stats.leg_legersdisdain_p6) * Math.min(stats.maxessence, this.params[1].val * 12 * (1 + 0.01 * (stats.resourcegen || 0)));
         res["Damage"].percent = pct;
       }
+      if (stats.skills.simulacrum && DiabloCalc.skills.necromancer.simulacrum.active && stats.leg_hauntedvisions_p69) {
+        res["DPS"]["Damage"].count = ((stats.skills.simulacrum === "d" || stats.set_masquerade_2pc) ? 3 : 2);
+      }
       return res;
     },
     active: true,
@@ -113,14 +116,26 @@ DiabloCalc.skills.necromancer = {
     params: [{rune: "c", min: 0, max: 10, inf: true, val: 0, name: "Enemies Hit", buffs: false},
              {rune: "a", min: 0, max: 10, val: 0, name: "Enemies Hit"}],
     info: function(rune, stats) {
-      var res = {"Damage": {elem: "phy", coeff: 5.0}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58.0645, round: "up"}}, "Cost": {cost: 20}};
+      var res = {"Cost": {cost: 20}, "Damage": {elem: "phy", coeff: 5.0}, "DPS": {sum: true, "Damage": {speed: 1, fpa: 58.0645, round: "up"}}};
       if (stats.leg_maltoriuspetrifiedspike) res["Cost"].cost = 40;
       if (rune === "c") { res["Damage"].elem = "psn"; res["Damage"].percent = {"Bonus": 15 * this.params[0].val}; }
       if (rune === "e") res["Damage"].coeff = 3.0;
       if (rune === "a") res["Damage"].elem = "col";
       if (rune === "d") res["Damage"].coeff = 6.5;
       if (stats.skills.simulacrum && DiabloCalc.skills.necromancer.simulacrum.active) {
-        res["DPS"]["Damage"].count = (stats.skills.simulacrum === "d" ? 3 : 2);
+        res["DPS"]["Damage"].count = ((stats.skills.simulacrum === "d" || stats.set_masquerade_2pc) ? 3 : 2);
+      }
+      if (stats.set_masquerade_6pc) {
+        res["Damage"].percent = (res["Damage"].percent || {});
+        res["Damage"].percent[DiabloCalc.itemSets.masquerade.name] = 10000;
+        if (stats.skills.simulacrum && DiabloCalc.skills.necromancer.simulacrum.active) {
+          res["Simulacrum Damage"] = $.extend(true, {}, res["Damage"]);
+          res["Simulacrum Damage"].percent[DiabloCalc.itemSets.masquerade.name] = 30000;
+          res["DPS"]["Simulacrum Damage"] = $.extend({}, res["DPS"]["Damage"]);
+          res["DPS"]["Simulacrum Damage"].count -= 1;
+          res["DPS"]["Simulacrum Damage"].nobp = true;
+          delete res["DPS"]["Damage"].count;
+        }
       }
       return res;
     },
@@ -147,13 +162,28 @@ DiabloCalc.skills.necromancer = {
     params: [{min: 0, max: 10, val: 1, name: "Count", buffs: false},
              {rune: "e", min: 0, max: 10, name: "Stacks"},
              {rune: "b", min: 0, max: "maxessence", name: "Essence", buffs: false}],
-    info: {
-      "*": {"Cost": {cost: 40}, "Duration": {duration: "(6+leg_circleofnailujsevol)*(passives.extendedservitude?1.25:1)"}, "Damage": {elem: "phy", pet: true, aps: true, coeff: 2.0}, "DPS": {sum: true, "Damage": {pet: 30, nobp: true}}, "Total DPS": {sum: true, "DPS": {count: "$1"}}},
-      a: {"Damage": {elem: "phy", pet: true, aps: true, coeff: 2.0}},
-      d: {"Damage": {elem: "psn", pet: true, aps: true, coeff: 2.0}, "Aura DPS": {elem: "psn", total: true, aps: true, coeff: 1.0}, "DPS": {sum: true, "Damage": {pet: 30}, "Aura DPS": {}}},
-      e: {"Damage": {elem: "col", pet: true, aps: true, coeff: 4.0}, "DPS": {sum: true, "Damage": {pet: 60}}},
-      b: {"Damage": {elem: "phy", pet: true, aps: true, coeff: 2.0, percent: {"Essence Consumed": "$3*3"}}},
-      c: {"Duration": {duration: "(8+leg_circleofnailujsevol)*(passives.extendedservitude?1.25:1)"}, "Damage": {elem: "phy", pet: true, aps: true, coeff: 2.0}},
+    info: function(rune, stats) {
+      var res = {
+        "Cost": {cost: 40},
+        "Duration": {duration: ((rune === "c" ? 8 : 6) + (stats.leg_circleofnailujsevol || 0)) * (stats.passives.extendedservitude ? 1.25 : 1)},
+        "Damage": {elem: "phy", pet: true, aps: true, coeff: 2.0},
+        "DPS": {sum: true, "Damage": {pet: 30, nobp: true}},
+        "Total DPS": {sum: true, "DPS": {count: this.params[0].val}},
+      };
+      if (rune === "d") {
+        res["Damage"].elem = "psn";
+        res["Aura DPS"] = {elem: "psn", total: true, aps: true, coeff: 1.0};
+        res["DPS"]["Aura DPS"] = {};
+      }
+      if (rune === "e") {
+        res["Damage"].elem = "col";
+        res["Damage"].coeff = 4.0;
+        res["DPS"]["Damage"].pet = 60;
+      }
+      if (rune === "b" || stats.leg_razethsvolition_p69) {
+        res["Damage"].percent = {"Essence Consumed": 3 * this.params[2].val};
+      }
+      return res;
     },
     active: true,
     buffs: function(rune, stats) {
@@ -182,7 +212,7 @@ DiabloCalc.skills.necromancer = {
       if (rune === "b") res["Damage"] = {elem: "phy", coeff: 4.75};
       if (rune === "c") res["Damage"] = {elem: "phy", coeff: 4.5};
       if (stats.skills.simulacrum && DiabloCalc.skills.necromancer.simulacrum.active) {
-        res["DPS"]["Damage"].count = (stats.skills.simulacrum === "d" ? 3 : 2);
+        res["DPS"]["Damage"].count = ((stats.skills.simulacrum === "d" || stats.set_masquerade_2pc) ? 3 : 2);
       }
       return res;
     },
@@ -202,12 +232,12 @@ DiabloCalc.skills.necromancer = {
     },
     range: 0,
     info: {
-      "*": {"Damage": {elem: "phy", coeff: 3.5}},
-      d: {"Damage": {elem: "phy", coeff: 3.5}},
-      c: {"Damage": {elem: "psn", coeff: 5.25}},
-      a: {"Damage": {elem: "psn", coeff: 3.5}},
-      e: {"Damage": {elem: "col", coeff: 3.5}},
-      b: {"Damage": {elem: "phy", coeff: 3.5}},
+      "*": {"Damage": {elem: "phy", coeff: 10.5}},
+      d: {"Damage": {elem: "phy", coeff: 10.5}},
+      c: {"Damage": {elem: "psn", coeff: 15.75}},
+      a: {"Damage": {elem: "psn", coeff: 10.5}},
+      e: {"Damage": {elem: "col", coeff: 10.5}},
+      b: {"Damage": {elem: "phy", coeff: 10.5}},
     },
   },
   corpselance: {
@@ -339,7 +369,7 @@ DiabloCalc.skills.necromancer = {
     buffs: function(rune, stats) {
       var res = {dmgmul: {list: [{skills: ["commandskeletons"], percent: 50}]}};
       if (stats.set_jesseth_2pc) {
-        res.dmgmul.list.push({source: "set_jesseth_2pc", value: {pet: true, percent: 400}});
+        res.dmgmul.list.push({source: "set_jesseth_2pc", value: {percent: 400}});
       }
       return res;
     },
@@ -535,7 +565,7 @@ DiabloCalc.skills.necromancer = {
     params: [{min: 1, max: "10+(leg_wisdomofkalan?5:0)", val: 0, name: "Stacks"}],
     buffs: function(rune, stats) {
       if (!this.params[0].val) return;
-      var res = {dmgred: (stats.set_inarius_4pc ? 5 : 3) * this.params[0].val};
+      var res = {dmgred: (stats.set_inarius_4pc ? 6 : 3) * this.params[0].val};
       if (rune === "e") res.extrams = this.params[0].val;
       if (rune === "d") res.regen_bonus = 10 * this.params[0].val;
       res.dmgmul = {list: []};
@@ -625,8 +655,11 @@ DiabloCalc.skills.necromancer = {
     activeshow: function(rune, stats) {
       return true;
     },
-    buffs: {
-      a: {maxessence_percent: 100},
+    buffs: function(rune, stats) {
+      var res = {};
+      if (rune === "a" || stats.set_masquerade_2pc) res.maxessence_percent = 100;
+      if (stats.set_masquerade_4pc) res.dmgred = 100 * (1 - 0.5 / 3); // 83%
+      return res;
     },
   },
 };

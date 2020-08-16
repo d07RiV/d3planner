@@ -266,14 +266,22 @@
   function updateStatus() {
     $("body").toggleClass("logged-in", !!$.cookie("user_name"));
     if ($.cookie("user_name")) {
+      console.log('signed in');
       DiabloCalc.session.signedin = true;
+      DiabloCalc.session.user_level = $.cookie("user_level") || 0;
       //$(".left-banner").remove();
       //$(".right-banner").remove();
+    } else {
+      DiabloCalc.session.signedin = false;
+      DiabloCalc.session.user_level = 0;
     }
     for (var i = 0; i < lineList.length; ++i) {
       fillLine(lineList[i]);
     }
+    DiabloCalc.trigger("login", DiabloCalc.session.user_level);
   };
+
+  updateStatus();
 
   DiabloCalc.account = {
     makeLine: makeLine,

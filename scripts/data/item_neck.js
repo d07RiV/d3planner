@@ -296,6 +296,7 @@ DiabloCalc.addItems([
   {
     id: "P6_Unique_Amulet_02",
     name: "Haunted Visions",
+    suffix: _L("Legacy"),
     type: "amulet",
     quality: "legendary",
     required: {
@@ -341,6 +342,17 @@ DiabloCalc.addItems([
     preset: ["cdr", "ms"],
     primary: 5,
     secondary: 2,
+  },
+
+  {
+    id: "P69_Unique_Amulet_02",
+    name: "Haunted Visions",
+    type: "amulet",
+    quality: "legendary",
+    required: {
+      custom: {id: "leg_hauntedvisions_p69", name: "Infinite Simulacrum", format: "Simulacrum now drains 1%% of your maximum life every second and lasts forever. They can now duplicate Grim Scythe instead of Skeletal Mage.", args: 0},
+    },
+    preset: ["mainstat", "sockets"],
   },
 
 ]);

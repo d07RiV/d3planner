@@ -16,7 +16,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "psn",
     },
     icon: 2280883641,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/2280883641'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">175</span> Mana</p><p>Cause acid to rain down, dealing an initial <span class=\"d3-color-green\">300%</span> weapon damage as Poison, followed by <span class=\"d3-color-green\">360%</span> weapon damage as Poison over <span class=\"d3-color-green\">3</span> seconds to enemies who remain in the area.</p> <p class=\"special\">Decay</p> <p class=\"subtle\">Unlocked at level <em>22</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/2280883641'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">175</span> Mana</p><p>Cause acid to rain down, dealing an initial <span class=\"d3-color-green\">300%</span> weapon damage as Poison, followed by <span class=\"d3-color-green\">360%</span> weapon damage as Poison over <span class=\"d3-color-green\">3</span> seconds to enemies who remain in the area.</p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Decay</p> <p class=\"subtle\">Unlocked at level <em>22</em>.</p> </div> </div>",
   },
   bigbadvoodoo: {
     a: "<p>The Fetish increases the damage of all nearby allies by <span class=\"d3-color-green\">15%</span>.</p> <p class=\"subtle\">Unlocked at level <em>44</em>.</p>",
@@ -33,7 +33,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "phy",
     },
     icon: 1757376672,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/1757376672'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">120</span> seconds</p><p>Conjure a Fetish that begins a ritual dance that increases the attack speed and movement speed of all nearby allies by <span class=\"d3-color-green\">15%</span> for <span class=\"d3-color-green\">20</span> seconds.</p> <p class=\"special\">Voodoo</p> <p class=\"subtle\">Unlocked at level <em>25</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/1757376672'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">120</span> seconds</p><p>Conjure a Fetish that begins a ritual dance that increases the attack speed and movement speed of all nearby allies by <span class=\"d3-color-green\">15%</span> for <span class=\"d3-color-green\">20</span> seconds.</p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Voodoo</p> <p class=\"subtle\">Unlocked at level <em>25</em>.</p> </div> </div>",
   },
   corpsespiders: {
     a: "<p>Throw a jar with fire spiders that return <span class=\"d3-color-green\">3</span> Mana to you per hit.</p> <p class=\"subtle\">Unlocked at level <em>55</em>.</p>",
@@ -50,7 +50,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "phy",
     },
     icon: 2157718487,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/2157718487'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">This is a Signature spell. Signature spells are free to cast.</span></p><p>Throw a jar with <span class=\"d3-color-green\">4</span> spiders that attack nearby enemies for a total of <span class=\"d3-color-green\">576%</span> weapon damage as Physical before dying.</p> <p class=\"special\">Primary</p> <p class=\"subtle\">Unlocked at level <em>3</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/2157718487'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">This is a Signature spell. Signature spells are free to cast.</span></p><p>Throw a jar with <span class=\"d3-color-green\">4</span> spiders that attack nearby enemies for a total of <span class=\"d3-color-green\">576%</span> weapon damage as Physical before dying.</p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Primary</p> <p class=\"subtle\">Unlocked at level <em>3</em>.</p> </div> </div>",
   },
   fetisharmy: {
     a: "<p>Each Fetish deals <span class=\"d3-color-green\">680%</span> weapon damage as Cold to any nearby enemy as it is summoned.</p> <p class=\"subtle\">Unlocked at level <em>34</em>.</p>",
@@ -67,7 +67,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "phy",
     },
     icon: 2870927885,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/2870927885'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">120</span> seconds</p><p>Summon an army of <span class=\"d3-color-green\">5</span> dagger-wielding Fetishes to fight by your side for <span class=\"d3-color-green\">20</span> seconds. The Fetishes attack for <span class=\"d3-color-green\">180%</span> of your weapon damage as Physical.</p> <p class=\"special\">Voodoo</p> <p class=\"subtle\">Unlocked at level <em>30</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/2870927885'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">120</span> seconds</p><p>Summon an army of <span class=\"d3-color-green\">5</span> dagger-wielding Fetishes to fight by your side for <span class=\"d3-color-green\">20</span> seconds. The Fetishes attack for <span class=\"d3-color-green\">180%</span> of your weapon damage as Physical.</p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Voodoo</p> <p class=\"subtle\">Unlocked at level <em>30</em>.</p> </div> </div>",
   },
   firebats: {
     a: "<p>Summon fewer but larger bats that travel a long distance and deal <span class=\"d3-color-green\">500%</span> weapon damage as Fire.</p> <p class=\"subtle\">Unlocked at level <em>11</em>.</p>",
@@ -84,7 +84,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "fir",
     },
     icon: 886583105,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/886583105'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">125</span> Mana</p><p>Call forth a swarm of fiery bats to burn enemies in front of you for <span class=\"d3-color-green\">475%</span> weapon damage as Fire.</p> <p class=\"special\">Secondary</p> <p class=\"subtle\">Unlocked at level <em>5</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/886583105'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">125</span> Mana</p><p>Call forth a swarm of fiery bats to burn enemies in front of you for <span class=\"d3-color-green\">475%</span> weapon damage as Fire.</p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Secondary</p> <p class=\"subtle\">Unlocked at level <em>5</em>.</p> </div> </div>",
   },
   firebomb: {
     a: "<p>In addition to the base explosion, the skull creates a larger blast that deals an additional <span class=\"d3-color-green\">30%</span> weapon damage as Cold to all other enemies within <span class=\"d3-color-green\">28</span> yards.</p> <p class=\"subtle\">Unlocked at level <em>60</em>.</p>",
@@ -101,7 +101,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "fir",
     },
     icon: 2376459543,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/2376459543'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">This is a Signature spell. Signature spells are free to cast.</span></p><p>Lob an explosive skull that deals <span class=\"d3-color-green\">155%</span> weapon damage as Fire to all enemies within <span class=\"d3-color-green\">8</span> yards.</p> <p class=\"special\">Primary</p> <p class=\"subtle\">Unlocked at level <em>21</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/2376459543'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">This is a Signature spell. Signature spells are free to cast.</span></p><p>Lob an explosive skull that deals <span class=\"d3-color-green\">155%</span> weapon damage as Fire to all enemies within <span class=\"d3-color-green\">8</span> yards.</p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Primary</p> <p class=\"subtle\">Unlocked at level <em>21</em>.</p> </div> </div>",
   },
   gargantuan: {
     a: "<p>When the Gargantuan encounters an elite enemy or is near <span class=\"d3-color-green\">5</span> enemies, it enrages for <span class=\"d3-color-green\">15</span> seconds gaining:<br/> <span class=\"tooltip-icon-bullet\"></span> <span class=\"d3-color-green\">20%</span> movement speed<br/> <span class=\"tooltip-icon-bullet\"></span> <span class=\"d3-color-green\">35%</span> attack speed<br/> <span class=\"tooltip-icon-bullet\"></span> <span class=\"d3-color-green\">200%</span> Physical damage</p><p>This effect cannot occur more than once every <span class=\"d3-color-green\">45</span> seconds. Elite enemies include champions, rares, bosses, and other players.</p> <p class=\"subtle\">Unlocked at level <em>29</em>.</p>",
@@ -118,7 +118,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "phy",
     },
     icon: 3792224409,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/3792224409'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">60</span> seconds</p><p>Summon a Gargantuan zombie to fight for you. The Gargantuan attacks for <span class=\"d3-color-green\">450%</span> of your weapon damage as Physical.</p> <p class=\"special\">Voodoo</p> <p class=\"subtle\">Unlocked at level <em>19</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/3792224409'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">60</span> seconds</p><p>Summon a Gargantuan zombie to fight for you. The Gargantuan attacks for <span class=\"d3-color-green\">450%</span> of your weapon damage as Physical.</p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Voodoo</p> <p class=\"subtle\">Unlocked at level <em>19</em>.</p> </div> </div>",
   },
   graspofthedead: {
     a: "<p>Increase the damage done to <span class=\"d3-color-green\">1360%</span> weapon damage as Physical.</p> <p class=\"subtle\">Unlocked at level <em>15</em>.</p>",
@@ -135,7 +135,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "phy",
     },
     icon: 3737512178,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/3737512178'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">150</span> Mana<br/><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">8</span> seconds</p><p>Ghoulish hands reach out from the ground, slowing enemy movement by <span class=\"d3-color-green\">60%</span> and dealing <span class=\"d3-color-green\">760%</span> weapon damage as Physical over <span class=\"d3-color-green\">8</span> seconds.</p> <p class=\"special\">Secondary</p> <p class=\"subtle\">Unlocked at level <em>2</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/3737512178'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">150</span> Mana<br/><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">8</span> seconds</p><p>Ghoulish hands reach out from the ground, slowing enemy movement by <span class=\"d3-color-green\">60%</span> and dealing <span class=\"d3-color-green\">760%</span> weapon damage as Physical over <span class=\"d3-color-green\">8</span> seconds.</p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Secondary</p> <p class=\"subtle\">Unlocked at level <em>2</em>.</p> </div> </div>",
   },
   haunt: {
     a: "<p>The spirit returns <span class=\"d3-color-green\">4291</span> Life per second.</p><p>Haunt's damage turns into Fire.</p> <p class=\"subtle\">Unlocked at level <em>18</em>.</p>",
@@ -152,7 +152,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "col",
     },
     icon: 2198492913,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/2198492913'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">50</span> Mana</p><p>Haunt an enemy with a spirit, dealing <span class=\"d3-color-green\">4000%</span> weapon damage as Cold over <span class=\"d3-color-green\">12</span> seconds. If the enemy dies, the spirit will haunt another nearby enemy.</p><p><span class=\"d3-color-yellow\">An enemy can only be affected by one Haunt at a time.</span></p> <p class=\"special\">Secondary</p> <p class=\"subtle\">Unlocked at level <em>12</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/2198492913'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">50</span> Mana</p><p>Haunt an enemy with a spirit, dealing <span class=\"d3-color-green\">4000%</span> weapon damage as Cold over <span class=\"d3-color-green\">12</span> seconds. If the enemy dies, the spirit will haunt another nearby enemy.</p><p><span class=\"d3-color-yellow\">An enemy can only be affected by one Haunt at a time.</span></p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Secondary</p> <p class=\"subtle\">Unlocked at level <em>12</em>.</p> </div> </div>",
   },
   hex: {
     a: "<p>Summon a giant toad that pulls in enemies, briefly swallows them whole, then spits them back out with a layer of goo that deals <span class=\"d3-color-green\">750%</span> weapon damage as Poison over <span class=\"d3-color-green\">5</span> seconds, Slows them, and increases their damage taken by <span class=\"d3-color-green\">15%</span>.</p> <p class=\"subtle\">Unlocked at level <em>43</em>.</p>",
@@ -169,7 +169,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "phy",
     },
     icon: 1439096694,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/1439096694'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">15</span> seconds</p><p>Summon a Fetish Shaman for <span class=\"d3-color-green\">12</span> seconds that will hex groups of enemies into chickens. Hexed enemies are unable to perform offensive actions.</p> <p class=\"special\">Defensive</p> <p class=\"subtle\">Unlocked at level <em>22</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/1439096694'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">15</span> seconds</p><p>Summon a Fetish Shaman for <span class=\"d3-color-green\">12</span> seconds that will hex groups of enemies into chickens. Hexed enemies are unable to perform offensive actions.</p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Defensive</p> <p class=\"subtle\">Unlocked at level <em>22</em>.</p> </div> </div>",
   },
   horrify: {
     a: "<p>Gain <span class=\"d3-color-green\">50%</span> additional Armor for <span class=\"d3-color-green\">8</span> seconds after casting Horrify.</p> <p class=\"subtle\">Unlocked at level <em>44</em>.</p>",
@@ -186,7 +186,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "phy",
     },
     icon: 3612919668,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/3612919668'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">10</span> seconds</p><p>Don a spectral mask that horrifies all enemies within <span class=\"d3-color-green\">18</span> yards, causing them to tremor in Fear and be Immobilized for <span class=\"d3-color-green\">3</span> seconds.</p> <p class=\"special\">Defensive</p> <p class=\"subtle\">Unlocked at level <em>8</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/3612919668'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">10</span> seconds</p><p>Don a spectral mask that horrifies all enemies within <span class=\"d3-color-green\">18</span> yards, causing them to tremor in Fear and be Immobilized for <span class=\"d3-color-green\">3</span> seconds.</p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Defensive</p> <p class=\"subtle\">Unlocked at level <em>8</em>.</p> </div> </div>",
   },
   locustswarm: {
     a: "<p>Engulf the enemy with burning locusts that deal <span class=\"d3-color-green\">1480%</span> weapon damage as Fire over <span class=\"d3-color-green\">8</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>59</em>.</p>",
@@ -203,7 +203,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "psn",
     },
     icon: 1465459957,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/1465459957'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">300</span> Mana</p><p>Unleash a plague of locusts that swarms an enemy, dealing <span class=\"d3-color-green\">1040%</span> weapon damage as Poison over <span class=\"d3-color-green\">8</span> seconds.</p><p>The locusts will jump to additional nearby enemies.</p> <p class=\"special\">Secondary</p> <p class=\"subtle\">Unlocked at level <em>21</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/1465459957'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">300</span> Mana</p><p>Unleash a plague of locusts that swarms an enemy, dealing <span class=\"d3-color-green\">1040%</span> weapon damage as Poison over <span class=\"d3-color-green\">8</span> seconds.</p><p>The locusts will jump to additional nearby enemies.</p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Secondary</p> <p class=\"subtle\">Unlocked at level <em>21</em>.</p> </div> </div>",
   },
   massconfusion: {
     a: "<p>All enemies in the area of Mass Confusion deal <span class=\"d3-color-green\">30%</span> less damage for <span class=\"d3-color-green\">12</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>46</em>.</p>",
@@ -220,7 +220,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "phy",
     },
     icon: 3808155897,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/3808155897'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">60</span> seconds</p><p>Incite paranoia in enemies, confusing them and causing some to be <span class=\"d3-color-green\">Charmed</span> and fight for you for <span class=\"d3-color-green\">12</span> seconds.</p> <p class=\"special\">Terror</p> <p class=\"subtle\">Unlocked at level <em>22</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/3808155897'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">60</span> seconds</p><p>Incite paranoia in enemies, confusing them and causing some to be <span class=\"d3-color-green\">Charmed</span> and fight for you for <span class=\"d3-color-green\">12</span> seconds.</p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Terror</p> <p class=\"subtle\">Unlocked at level <em>22</em>.</p> </div> </div>",
   },
   piranhas: {
     a: "<p>A giant bogadile emerges from the pool of water, <span class=\"d3-color-green\">Stuns</span>, and bites a monster dealing <span class=\"d3-color-green\">1100%</span> weapon damage as Physical.</p> <p class=\"subtle\">Unlocked at level <em>62</em>.</p>",
@@ -237,7 +237,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "psn",
     },
     icon: 886161223,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/886161223'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">250</span> Mana<br/><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">8</span> seconds</p><p>Summons a pool of deadly piranhas that deals <span class=\"d3-color-green\">400%</span> weapon damage as Poison over <span class=\"d3-color-green\">8</span> seconds.  Affected enemies will also take <span class=\"d3-color-green\">15%</span> increased damage.</p> <p class=\"special\">Decay</p> <p class=\"subtle\">Unlocked at level <em>61</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/886161223'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">250</span> Mana<br/><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">8</span> seconds</p><p>Summons a pool of deadly piranhas that deals <span class=\"d3-color-green\">400%</span> weapon damage as Poison over <span class=\"d3-color-green\">8</span> seconds.  Affected enemies will also take <span class=\"d3-color-green\">15%</span> increased damage.</p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Decay</p> <p class=\"subtle\">Unlocked at level <em>61</em>.</p> </div> </div>",
   },
   plagueoftoads: {
     a: "<p>Mutate to fire bullfrogs that explode for <span class=\"d3-color-green\">245%</span> weapon damage as Fire.</p> <p class=\"subtle\">Unlocked at level <em>17</em>.</p>",
@@ -254,7 +254,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "psn",
     },
     icon: 749261375,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/749261375'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">This is a Signature spell. Signature spells are free to cast.</span></p><p>Release a handful of toads that deal <span class=\"d3-color-green\">190%</span> weapon damage as Poison to enemies they come in contact with.</p> <p class=\"special\">Primary</p> <p class=\"subtle\">Unlocked at level <em>11</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/749261375'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">This is a Signature spell. Signature spells are free to cast.</span></p><p>Release a handful of toads that deal <span class=\"d3-color-green\">190%</span> weapon damage as Poison to enemies they come in contact with.</p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Primary</p> <p class=\"subtle\">Unlocked at level <em>11</em>.</p> </div> </div>",
   },
   poisondart: {
     a: "<p>Ignite the dart, dealing <span class=\"d3-color-green\">565%</span> weapon damage as Fire over <span class=\"d3-color-green\">4</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>43</em>.</p>",
@@ -271,7 +271,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "psn",
     },
     icon: 182799700,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/182799700'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">This is a Signature spell. Signature spells are free to cast.</span></p><p>Shoot a deadly Poison Dart that deals <span class=\"d3-color-green\">185%</span> weapon damage as Poison and an additional <span class=\"d3-color-green\">40%</span> weapon damage as Poison over <span class=\"d3-color-green\">2</span> seconds.</p> <p class=\"special\">Primary</p> <p class=\"subtle\">Unlocked at level <em>1</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/182799700'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">This is a Signature spell. Signature spells are free to cast.</span></p><p>Shoot a deadly Poison Dart that deals <span class=\"d3-color-green\">185%</span> weapon damage as Poison and an additional <span class=\"d3-color-green\">40%</span> weapon damage as Poison over <span class=\"d3-color-green\">2</span> seconds.</p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Primary</p> <p class=\"subtle\">Unlocked at level <em>1</em>.</p> </div> </div>",
   },
   sacrifice: {
     a: "<p>Gain <span class=\"d3-color-green\">20%</span> increased damage done for <span class=\"d3-color-green\">5</span> seconds after using Sacrifice.</p> <p class=\"subtle\">Unlocked at level <em>51</em>.</p>",
@@ -288,7 +288,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "phy",
     },
     icon: 3624441914,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/3624441914'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p>Banish one of your active Zombie Dogs causing it to explode, dealing <span class=\"d3-color-green\">1090%</span> of your weapon damage as Physical to all enemies within <span class=\"d3-color-green\">12</span> yards.</p> <p class=\"special\">Terror</p> <p class=\"subtle\">Unlocked at level <em>13</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/3624441914'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p>Banish one of your active Zombie Dogs causing it to explode, dealing <span class=\"d3-color-green\">1090%</span> of your weapon damage as Physical to all enemies within <span class=\"d3-color-green\">12</span> yards.</p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Terror</p> <p class=\"subtle\">Unlocked at level <em>13</em>.</p> </div> </div>",
   },
   soulharvest: {
     a: "<p>Gain <span class=\"d3-color-green\">32185</span> Life for every harvested enemy.</p> <p class=\"subtle\">Unlocked at level <em>21</em>.</p>",
@@ -305,7 +305,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "phy",
     },
     icon: 2196086897,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/2196086897'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">12</span> seconds</p><p>Feed on the life force of enemies within <span class=\"d3-color-green\">18</span> yards. Gain <span class=\"d3-color-green\">3%</span> Intelligence for <span class=\"d3-color-green\">30</span> seconds for each affected enemy. This effect stacks up to <span class=\"d3-color-green\">5</span> times.</p> <p class=\"special\">Terror</p> <p class=\"subtle\">Unlocked at level <em>9</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/2196086897'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">12</span> seconds</p><p>Feed on the life force of enemies within <span class=\"d3-color-green\">18</span> yards. Gain <span class=\"d3-color-green\">3%</span> Intelligence for <span class=\"d3-color-green\">30</span> seconds for each affected enemy. This effect stacks up to <span class=\"d3-color-green\">5</span> times.</p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Terror</p> <p class=\"subtle\">Unlocked at level <em>9</em>.</p> </div> </div>",
   },
   spiritbarrage: {
     a: "<p>Gain <span class=\"d3-color-green\">6437</span> Life each time Spirit Barrage hits.</p> <p class=\"subtle\">Unlocked at level <em>44</em>.</p>",
@@ -322,7 +322,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "col",
     },
     icon: 1117784160,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/1117784160'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">100</span> Mana</p><p>Bombard an enemy with <span class=\"d3-color-green\">4</span> spirit bolts that deal a total of <span class=\"d3-color-green\">600%</span> weapon damage as Cold.</p> <p class=\"special\">Decay</p> <p class=\"subtle\">Unlocked at level <em>17</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/1117784160'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">100</span> Mana</p><p>Bombard an enemy with <span class=\"d3-color-green\">4</span> spirit bolts that deal a total of <span class=\"d3-color-green\">600%</span> weapon damage as Cold.</p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Decay</p> <p class=\"subtle\">Unlocked at level <em>17</em>.</p> </div> </div>",
   },
   spiritwalk: {
     a: "<p>Increase your movement speed by an additional <span class=\"d3-color-green\">100%</span> while in the spirit realm.</p> <p class=\"subtle\">Unlocked at level <em>47</em>.</p>",
@@ -339,7 +339,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "phy",
     },
     icon: 3129485499,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/3129485499'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">10</span> seconds</p><p>Leave your physical body and enter the spirit realm for <span class=\"d3-color-green\">2</span> seconds. While in the spirit realm, your movement is unhindered.</p><p><span class=\"d3-color-yellow\">This ability does not start its cooldown until after its effects expire.</span></p> <p class=\"special\">Defensive</p> <p class=\"subtle\">Unlocked at level <em>16</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/3129485499'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">10</span> seconds</p><p>Leave your physical body and enter the spirit realm for <span class=\"d3-color-green\">2</span> seconds. While in the spirit realm, your movement is unhindered.</p><p><span class=\"d3-color-yellow\">This ability does not start its cooldown until after its effects expire.</span></p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Defensive</p> <p class=\"subtle\">Unlocked at level <em>16</em>.</p> </div> </div>",
   },
   summonzombiedogs: {
     a: "<p>Your Zombie Dogs burst into flames, burning nearby enemies for <span class=\"d3-color-green\">80%</span> of your weapon damage as Fire every second.</p> <p class=\"subtle\">Unlocked at level <em>40</em>.</p>",
@@ -356,7 +356,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "phy",
     },
     icon: 46288016,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/46288016'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">45</span> seconds</p><p>Summon <span class=\"d3-color-green\">3</span> Zombie Dogs from the depths to fight by your side. Each dog deals <span class=\"d3-color-green\">120%</span> of your weapon damage as Physical per hit.</p> <p class=\"special\">Defensive</p> <p class=\"subtle\">Unlocked at level <em>4</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/46288016'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">45</span> seconds</p><p>Summon <span class=\"d3-color-green\">3</span> Zombie Dogs from the depths to fight by your side. Each dog deals <span class=\"d3-color-green\">120%</span> of your weapon damage as Physical per hit.</p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Defensive</p> <p class=\"subtle\">Unlocked at level <em>4</em>.</p> </div> </div>",
   },
   wallofdeath: {
     a: "<p>Raise a circle of zombies from the ground that traps and attacks nearby enemies for <span class=\"d3-color-green\">1250%</span> weapon damage as Physical over <span class=\"d3-color-green\">5</span> seconds.</p> <p class=\"subtle\">Unlocked at level <em>41</em>.</p>",
@@ -373,7 +373,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "phy",
     },
     icon: 32183695,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/32183695'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">8</span> seconds</p><p>Raise a wall of zombies <span class=\"d3-color-green\">28</span> yards wide from the ground that blocks enemies and attacks them for <span class=\"d3-color-green\">1200%</span> weapon damage as Physical over <span class=\"d3-color-green\">6</span> seconds.</p> <p class=\"special\">Decay</p> <p class=\"subtle\">Unlocked at level <em>28</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/32183695'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cooldown:</span> <span class=\"d3-color-green\">8</span> seconds</p><p>Raise a wall of zombies <span class=\"d3-color-green\">28</span> yards wide from the ground that blocks enemies and attacks them for <span class=\"d3-color-green\">1200%</span> weapon damage as Physical over <span class=\"d3-color-green\">6</span> seconds.</p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Decay</p> <p class=\"subtle\">Unlocked at level <em>28</em>.</p> </div> </div>",
   },
   zombiecharger: {
     a: "<p>Summon zombie bears that stampede towards your enemy. Each bear deals <span class=\"d3-color-green\">520%</span> weapon damage as Poison to enemies in the area.</p> <p class=\"subtle\">Unlocked at level <em>54</em>.</p>",
@@ -390,7 +390,7 @@ DiabloCalc.skilltips.witchdoctor = {
       x: "psn",
     },
     icon: 1974566355,
-    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/1974566355'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">150</span> Mana</p><p>Call forth a reckless, suicidal zombie that deals <span class=\"d3-color-green\">560%</span> weapon damage as Poison to all enemies in its path before decomposing.</p> <p class=\"special\">Decay</p> <p class=\"subtle\">Unlocked at level <em>14</em>.</p> </div> </div>",
+    x: "<div class=\"tooltip-body \"> <span class=\"d3-icon d3-icon-skill d3-icon-skill-64 \" style=\"background-image: url('/webgl/icons/1974566355'); width: 64px; height: 64px;\"> <span class=\"frame\"></span> </span> <div class=\"description\"> <p><span class=\"d3-color-gold\">Cost:</span> <span class=\"d3-color-green\">150</span> Mana</p><p>Call forth a reckless, suicidal zombie that deals <span class=\"d3-color-green\">560%</span> weapon damage as Poison to all enemies in its path before decomposing.</p> <p>Requires <span class=\"value\"></span></p> <p class=\"special\">Decay</p> <p class=\"subtle\">Unlocked at level <em>14</em>.</p> </div> </div>",
   },
 };
 DiabloCalc.passivetips.witchdoctor = {

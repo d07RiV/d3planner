@@ -81,13 +81,17 @@ function mklink($path, $src = NULL) {
 
     <div class="col editframe">
       <ul>
+       <li class="main-tab" id="tab-buildinfo-header" style="display: none"><a href="#tab-buildinfo">Build Info</a></li>
        <li class="main-tab"><a href="#tab-equipment">Equipment</a></li>
        <li class="main-tab"><a href="#tab-paragon">Paragon</a></li>
        <li class="main-tab"><a href="#tab-skills">Skills/Effects</a></li>
 <!--       <li class="main-tab"><a href="#tab-stash">Stash</a></li>-->
        <li class="main-tab"><a href="#tab-import">Import/Save</a></li>
-       <li class="main-tab"><a href="#tab-simulator">Simulate</a></li>
+<!--       <li class="main-tab"><a href="#tab-simulator">Simulate</a></li>-->
       </ul>
+
+      <div id="tab-buildinfo" class="scroll-y">
+      </div>
 
       <div id="tab-equipment" class="scroll-y">
       </div>

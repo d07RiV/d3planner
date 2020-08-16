@@ -172,7 +172,7 @@
       //cursorAt: {},
       helper: helper,
       start: function(event, ui) {
-        if (!self.slotData.item || $(".editframe").tabs("option", "active") != 0) {
+        if (!self.slotData.item || $(".editframe").tabs("option", "active") !== DiabloCalc.TAB_EQUIPMENT) {
           setTimeout(function() {
             $("body").css("cursor", "");
           });
@@ -279,12 +279,12 @@
       },
     });
     self.slotData.dollFrame.click(function() {
-      $(".editframe").tabs("option", "active", 0);
+      $(".editframe").tabs("option", "active", DiabloCalc.TAB_EQUIPMENT);
       tab.animate({scrollTop: 0}, "fast");
       setCurSlot(slot);
     });
     self.slotData.dollFrame.contextmenu(function(evt) {
-      if ($(".editframe").tabs("option", "active") == 0) {
+      if ($(".editframe").tabs("option", "active") === DiabloCalc.TAB_EQUIPMENT) {
         if (self.slotData.item) {
           var options = {};
           if (getEmptySlot()) {
@@ -626,7 +626,7 @@
 
     $(".editframe").on("tabsactivate", function() {
       if (self.slot) {
-        if ($(".editframe").tabs("option", "active") != 0) {
+        if ($(".editframe").tabs("option", "active") !== DiabloCalc.TAB_EQUIPMENT) {
           DiabloCalc.itemSlots[self.slot].dollFrame.removeClass("editing");
         } else {
           DiabloCalc.itemSlots[self.slot].dollFrame.addClass("editing");
@@ -652,7 +652,7 @@
         DiabloCalc.itemSlots[this.slot].dollFrame.removeClass("editing");
       }
       this.slot = slot;
-      if (this.slot && $(".editframe").tabs("option", "active") == 0) {
+      if (this.slot && $(".editframe").tabs("option", "active") === DiabloCalc.TAB_EQUIPMENT) {
         DiabloCalc.itemSlots[this.slot].dollFrame.addClass("editing");
       }
       this.slotBox.dollSlot = slot;
@@ -683,7 +683,7 @@
 
   var currentSlot = new CurrentSlot();
   DiabloCalc.onHighlight = function(on) {
-    if (currentSlot.slot && $(".editframe").tabs("option", "active") == 0) {
+    if (currentSlot.slot && $(".editframe").tabs("option", "active") === DiabloCalc.TAB_EQUIPMENT) {
       DiabloCalc.itemSlots[currentSlot.slot].dollFrame.toggleClass("editing", !on);
     }
   };

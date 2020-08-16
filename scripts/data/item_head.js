@@ -942,4 +942,22 @@ DiabloCalc.addItems([
     preset: ["mainstat", "sockets"],
   },
 
+  {
+    id: "P69_Unique_Helm_Set_06",
+    name: "Dystopian Goggles",
+    type: "helm",
+    quality: "set",
+    set: "dreadlands",
+    preset: ["mainstat", "sockets"],
+  },
+
+  {
+    id: "P69_Necro_Set_5_Helm",
+    name: "Luxurious Bauta",
+    type: "helm",
+    quality: "set",
+    set: "masquerade",
+    preset: ["mainstat", "sockets"],
+  },
+
 ]);

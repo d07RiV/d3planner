@@ -45,6 +45,7 @@ var jobs = {
       "external/mwheelIntent.js",
       "external/md5.js",
       "external/canvasjs.js",
+      "external/showdown.min.js",
       "external/jquery.ui.touch-punch.js",
       "external/gl-matrix.js",
       "scripts/main.js",
@@ -70,7 +71,8 @@ var jobs = {
       "scripts/ui-stats.js",
       "scripts/ui-skills.js",
       "scripts/ui-timeline.js",
-      "scripts/ui-simulator.js",
+      "scripts/ui-buildinfo.js",
+//      "scripts/ui-simulator.js",
       "scripts/d3gl_physics.js",
       "scripts/d3gl.js",
     ],
@@ -108,7 +110,7 @@ var jobs = {
     processor: "uglifyjs",
     localjs: true,
   },
-  "data_ptr.js": {
+/*  "data_ptr.js": {
     files: [
       ...fs.readdirSync("scripts/data_ptr").map(fn => "scripts/data_ptr/" + fn),
       "scripts/d3gl_data.js",
@@ -116,8 +118,8 @@ var jobs = {
     suffix: "DiabloCalc.onDataLoaded();",
     processor: "uglifyjs",
     localjs: true,
-  },
-  "sim.js": {
+  },*/
+/*  "sim.js": {
     files: [
       "simulator/seedrandom.js",
       "simulator/heap.js",
@@ -177,7 +179,7 @@ var jobs = {
     ],
     processor: "uglifyjs",
     localjs: "worker",
-  },
+  },*/
 };
 
 //////////////////////////////////

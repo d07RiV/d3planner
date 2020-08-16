@@ -524,4 +524,22 @@ DiabloCalc.addItems([
     preset: ["mainstat", "vit"],
   },
 
+  {
+    id: "P69_Unique_Boots_Set_06",
+    name: "Antique Vintage Boots",
+    type: "boots",
+    quality: "set",
+    set: "dreadlands",
+    preset: ["mainstat", "vit"],
+  },
+
+  {
+    id: "P69_Necro_Set_5_Boots",
+    name: "Extravagant Shoes",
+    type: "boots",
+    quality: "set",
+    set: "masquerade",
+    preset: ["mainstat", "vit"],
+  },
+
 ]);

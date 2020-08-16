@@ -49,17 +49,17 @@ DiabloCalc.skills.demonhunter = {
     },
     info: function(rune, stats) {
       var fpa = DiabloCalc.demonhunter.varSpeed(stats);
-      var pierce = 35 + (stats.leg_theninthcirrisatchel || 0);
+      var pierce = (stats.leg_theninthcirrisatchel_p69 ? 100 : 35 + (stats.leg_theninthcirrisatchel || 0));
       var res;
       switch (rune) {
       case "x": res = {"Damage": {elem: "phy", coeff: 1.55}}; break;
-      case "d": res = {"Damage": {elem: "phy", coeff: 1.55}, "Pierce Chance": (pierce + 15) + "%"}; break;
+      case "d": res = {"Damage": {elem: "phy", coeff: 1.55}, "Pierce Chance": Math.min(100, pierce + 15) + "%"}; break;
       case "a": res = {"Damage": {elem: "fir", coeff: 1.55}}; break;
       case "b": res = {"Damage": {elem: "lit", coeff: 1.55}}; break;
       case "c": res = {"Damage": {elem: "col", coeff: 1.55}, "Damage Increase per Pierce": {sum: true, "Damage": {factor: 0.7}}}; break;
       case "e": res = {"Damage": {elem: "phy", coeff: 1.55}}; break;
       }
-      return $.extend({"DPS": {sum: true, "Damage": {speed: 1, ias: (stats.leg_hunterswrath ? 30 : 0), fpa: fpa, round: "up"}}, "Damage": {}, "Pierce Chance": pierce + "%"}, res);
+      return $.extend({"DPS": {sum: true, "Damage": {speed: 1, ias: ((stats.leg_hunterswrath || stats.leg_hunterswrath_p69) ? 30 : 0), fpa: fpa, round: "up"}}, "Damage": {}, "Pierce Chance": pierce + "%"}, res);
     },
   },
   entanglingshot: {
@@ -86,7 +86,7 @@ DiabloCalc.skills.demonhunter = {
       case "d": res = {"Damage": {elem: "fir", coeff: 2}}; break;
       case "e": res = {"Damage": {elem: "phy", coeff: 2}}; break;
       }
-      return $.extend({"DPS": {sum: true, "Damage": {speed: 1, ias: (stats.leg_hunterswrath ? 30 : 0), fpa: fpa, round: "up"}}}, res);
+      return $.extend({"DPS": {sum: true, "Damage": {speed: 1, ias: ((stats.leg_hunterswrath || stats.leg_hunterswrath_p69) ? 30 : 0), fpa: fpa, round: "up"}}}, res);
     },
   },
   bolas: {
@@ -103,7 +103,7 @@ DiabloCalc.skills.demonhunter = {
       e: "Imminent Doom",
     },
     info: {
-      "*": {"DPS": {sum: true, "Damage": {speed: 1, ias: "leg_hunterswrath?30:0", fpa: 56.666666, round: "up"}}},
+      "*": {"DPS": {sum: true, "Damage": {speed: 1, ias: "(leg_hunterswrath||leg_hunterswrath_p69)?30:0", fpa: 56.666666, round: "up"}}},
       x: {"Damage": {elem: "fir", coeff: 1.6}, "Secondary Damage": {elem: "fir", coeff: 1.1}},
       a: {"Damage": {elem: "fir", coeff: 1.6}, "Secondary Damage": {elem: "fir", coeff: 1.1}},
       c: {"Damage": {elem: "lit", coeff: 1.6}, "Secondary Damage": {elem: "lit", coeff: 1.1}},
@@ -136,7 +136,7 @@ DiabloCalc.skills.demonhunter = {
       case "e": res = {"Damage": {elem: "col", coeff: 2}, "Secondary Damage": {elem: "col", coeff: 1}}; break;
       case "d": res = {"Damage": {elem: "lit", coeff: 2}, "Secondary Damage": {elem: "lit", coeff: 1}}; break;
       }
-      return $.extend({"DPS": {sum: true, "Damage": {speed: 1, ias: (stats.leg_hunterswrath ? 30 : 0), fpa: fpa, round: "up"}}}, res);
+      return $.extend({"DPS": {sum: true, "Damage": {speed: 1, ias: ((stats.leg_hunterswrath || stats.leg_hunterswrath_p69) ? 30 : 0), fpa: fpa, round: "up"}}}, res);
     },
     active: false,
     buffs: {
@@ -158,7 +158,7 @@ DiabloCalc.skills.demonhunter = {
     },
     params: [hellcat_param()],
     info: function(rune, stats) {
-      var res = {"DPS": {sum: true, "Damage": {speed: 1, ias: "leg_hunterswrath?30:0", fpa: 56.470554}},
+      var res = {"DPS": {sum: true, "Damage": {speed: 1, ias: "(leg_hunterswrath||leg_hunterswrath_p69)?30:0", fpa: 56.470554}},
                  "Damage": {elem: "fir", coeff: 1.6, passives: {grenadier: 10}}};
       if (rune === "b") {
         res["Damage"].coeff = 2;
@@ -211,9 +211,9 @@ DiabloCalc.skills.demonhunter = {
       if (res["Sentry Damage"]) total["Sentry Damage"] = {count: sentries};
       if (res["Burn Damage"]) total["Burn Damage"] = {};
       if (res["Sentry Burn Damage"]) total["Sentry Burn Damage"] = {count: sentries};
-      if (!$.isEmptyObject(total) || stats.leg_holypointshot) {
+      if (!$.isEmptyObject(total) || stats.leg_holypointshot || stats.leg_holypointshot_p69) {
         total["Damage"] = {};
-        if (stats.leg_holypointshot) {
+        if (stats.leg_holypointshot || stats.leg_holypointshot_p69) {
           for (var k in total) {
             total[k].count = (total[k].count || 1) * 3;
           }
@@ -782,6 +782,10 @@ DiabloCalc.skills.demonhunter = {
       if (res["Rocket Damage"]) res["DPS"]["Rocket Damage"] = {speed: 1, slowest: true, fpa: 30};
       if (res["Grenade Damage"]) res["DPS"]["Grenade Damage"] = {speed: 1, slowest: true, fpa: 30};
       return res;
+    },
+    active: true,
+    buffs: function(rune, stats) {
+      if (stats.set_dreadlands_4pc) return {extrams: DiabloCalc.itemaffixes.set_dreadlands_2pc.params[0].val * 8, dmgred: 60};
     },
   },
   multishot: {

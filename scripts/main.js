@@ -12,11 +12,17 @@ if (!String.prototype.format) {
 }
 
 DiabloCalc = {
+  TAB_BUILDINFO: 0,
+  TAB_EQUIPMENT: 1,
+  TAB_PARAGON: 2,
+  TAB_SKILLS: 3,
+  TAB_IMPORT: 4,
+
   relPath: "/",
   options: {},
   optionPerProfile: {},
   pageTitle: document.title,
-  ptr: false,// (location.hostname.toLowerCase().indexOf("ptr") >= 0),
+  ptr: false,//(location.hostname.toLowerCase().indexOf("ptr") >= 0),
   addOption: function(name, get, set, profile) {
     Object.defineProperty(this.options, name, {get: get, set: set, enumerable: true});
     if (profile) this.optionPerProfile[name] = true;
@@ -61,7 +67,7 @@ DiabloCalc = {
     });
   },
 };
-DiabloCalc.season = 20;//DiabloCalc.ptr ? 20 : 19;
+DiabloCalc.season = 21;
 //setInterval(function() {
 //  DiabloCalc.report();
 //}, 180000);
@@ -149,9 +155,9 @@ DiabloCalc.translateMainPage = function() {
   $("a[href=\"#tab-paragon\"]").text(_L("Paragon"));
   $("a[href=\"#tab-skills\"]").text(_L("Skills/Effects"));
   $("a[href=\"#tab-import\"]").text(_L("Import/Save"));
-  $("a[href=\"#tab-simulator\"]").text(_L("Simulate"));
-  $(".theme-select option[value=\"light\"]").text(_L("Light Theme"));
-  $(".theme-select option[value=\"dark\"]").text(_L("Dark Theme"));
+  $("a[href=\"#tab-buildinfo\"]").text(_L("Build Info"));
+  //$(".theme-select option[value=\"light\"]").text(_L("Light Theme"));
+  //$(".theme-select option[value=\"dark\"]").text(_L("Dark Theme"));
 };
 
 DiabloCalc.showPrivacy = function() {
@@ -246,12 +252,13 @@ $(function() {
   });
 
 
-  var themeSelect = $(".theme-select");
+  /*var themeSelect = $(".theme-select");
   var themeBox;
-  var theme = ($.cookie("theme") || "dark");
+  var theme = ($.cookie("theme") || "dark");*/
+  var theme = "dark";
   ajaxSpinner.opts.color = (theme === "light" ? "#000" : "#ccc");
   $("body").removeClass().addClass("theme-" + theme);
-  themeSelect.val(theme).css("margin-left", 12);
+  /*themeSelect.val(theme).css("margin-left", 12);
   themeSelect.change(function() {
     var theme = $(this).val();
     $("body").removeClass().addClass("theme-" + theme);
@@ -262,7 +269,7 @@ $(function() {
       themeBox = undefined;
     }
     if (DiabloCalc.trigger) DiabloCalc.trigger("changeTheme");
-  });
+  });*/
 
   var localeSelect = $(".locale-select");
   var curLocale = ($.cookie("locale") || "enUS");
@@ -407,7 +414,7 @@ $(function() {
           }
         }
 
-        if (!$.cookie("theme")) {
+        /*if (!$.cookie("theme")) {
           themeBox = $("<div class=\"themetip\"><p>" + _L("Select your theme:") + "</p><p class=\"small\">(" + _L("Click to dismiss") + ")</p></div>").css("visibility", "hidden");
           $("body").append(themeBox);
           var pos = themeSelect.offset();
@@ -444,7 +451,7 @@ $(function() {
               }
             },
           });
-        } 
+        }*/
       }
 
       DiabloCalc.onLoaded = onLoaded;

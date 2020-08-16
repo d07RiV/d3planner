@@ -278,6 +278,7 @@
         data.mainset = id;
       }
     }
+    data.buildinfo = DiabloCalc.buildinfo;
     return data;
   };
   DiabloCalc.getAllProfiles = DiabloCalc.getProfile;
@@ -313,6 +314,7 @@
       DiabloCalc.Optimizer.priority = data.statPriority;
       DiabloCalc.Optimizer.updatePriority();
     }
+    DiabloCalc.buildinfo = data.buildinfo;
     DiabloCalc.importEnd(evt, data.values);
   };
   DiabloCalc.setAllProfiles = DiabloCalc.setProfile;
@@ -730,10 +732,11 @@
       DiabloCalc.itemById[DiabloCalc.items[i].id] = DiabloCalc.items[i];
     }
 
-    /*
+    //*
     var exportRes = {};
     var exportList = [
-    "itemById.*.required.custom.id",
+    "webglItems.*.name",
+    "webglItems.*.promo",
     ];
     for (var i = 0; i < exportList.length; ++i) {
       $.extend(true, exportRes, DiabloCalc.exportData(exportList[i]));

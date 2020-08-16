@@ -2,7 +2,7 @@ if (!DiabloCalc.partybuffs) DiabloCalc.partybuffs = {};
 DiabloCalc.partybuffs.items = {
   leg_overwhelmingdesire: {
   },
-  leg_odysseysend: {
+  leg_odysseysend_p69: {
     stat: "dmgtaken",
     classes: ["demonhunter"],
   },
